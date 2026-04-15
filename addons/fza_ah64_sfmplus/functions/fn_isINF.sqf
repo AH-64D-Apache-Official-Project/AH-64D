@@ -18,5 +18,5 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_val"];
 
-if (not finite _val) exitwith { true };
+if (not finite _val) exitWith { true };
 false;

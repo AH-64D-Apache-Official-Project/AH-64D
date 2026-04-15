@@ -21,10 +21,10 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
 
-if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
+if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
 
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
-private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode     = _heli getVariable "fza_ah64_fcrMode";
 private _fcrTracks   = getSensorTargets _heli;
 private _fcrTargets  = [];
 private _displayLife = 1;
@@ -33,9 +33,9 @@ private _displayLife = 1;
     _x params ["_target", "_type", "_relationship", "_sensor"];
 
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
-    private _range       = _heli distance2d _target;
-    private _heliPos     = getposasl _heli;
-    private _targetpos   = getposasl _target;
+    private _range       = _heli distance2D _target;
+    private _heliPos     = getPosASL _heli;
+    private _targetpos   = getPosASL _target;
     private _targetSpeed = vectorMagnitude velocity _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
@@ -43,7 +43,7 @@ private _displayLife = 1;
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
     _targetspeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
-    if (count _fcrTargets > 256) exitwith {};
+    if (count _fcrTargets > 256) exitWith {};
 
     _targDir = _heliPos vectorFromTo _targetpos;
     _zdist = _targDir vectorDotProduct vectorDir _heli;
@@ -60,7 +60,7 @@ private _displayLife = 1;
 
     // Find type
     private _type = FCR_TYPE_UNKNOWN;
-    if (_target iskindof "tank")       then { _type = FCR_TYPE_TRACKED; };
+    if (_target isKindOf "tank")       then { _type = FCR_TYPE_TRACKED; };
     if (_target isKindOf "car")        then { _type = FCR_TYPE_WHEELED; };
     if (_target isKindOf "helicopter") then { _type = FCR_TYPE_HELICOPTER; };
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
@@ -70,7 +70,7 @@ private _displayLife = 1;
     
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
     _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range, _displayLife];
-} foreach _fcrTracks;
+} forEach _fcrTracks;
  
 
 //process order
@@ -86,7 +86,7 @@ if (count _fcrTargets == 0) then {
 };
 
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
-[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrLastScan", [direction _heli, getPosASL _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
 
 private _nts = _heli getVariable "fza_ah64_fcrNts";
 if (_nts#0 isEqualTo objNull) then {

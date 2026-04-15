@@ -1,9 +1,6 @@
-#include "\fza_ah64_controls\headers\systemConstants.h"
-#include "\fza_ah64_ase\headers\ase.h"
-
 class ase_draw {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //ASE footprint circle
@@ -66,18 +63,18 @@ class ase_draw {
             {{0.080, 0.870}, 1}, 
             {{0.002, 0.870}, 1}, {},
             //Heading box top
-            MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
+            MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
             //Heading box bottom
-            MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
+            MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
             //Chaff box
-            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_TB_1_X-(2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y-(3*MPD_TEXT_HEIGHT), 5*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT*2), {},
+            MPD_POINTS_BOX("Null", MPD_POS_BUTTON_TB_1_X-(2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y-(3*MPD_TEXT_HEIGHT), 5*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT*2), {},
         };
     };
 
     class occluders {
         color[] = {0,0,0,1};
         class Polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 { //Autopage occluder
                     {{0.075,                0.600-3.5*MPD_TEXT_HEIGHT}, 1},
@@ -98,7 +95,7 @@ class ase_draw {
     #define IRJamX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define IRJamY MPD_POS_BUTTON_LR_1_Y - 0.05*MPD_TEXT_HEIGHT
     class lines_msnEquipOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -123,7 +120,7 @@ class ase_draw {
             class MWSDraw {
                 class polys_MWSOnOff {
                     class Polygons {
-                        type = polygon;
+                        type = "polygon";
                         points[] = {
                             { //Top left
                                 {{IRJamX - 0.010, IRJamY + 0.000}, 1},
@@ -152,10 +149,10 @@ class ase_draw {
                         };
                     };
                     class lines_IRJam {
-                        type = line;
+                        type = "line";
                         width = 3;
                         points[] = {
-                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                            MPD_POINTS_BOX("Null", MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
                         };
                     };
                     class text_IRJamWarm {
@@ -182,7 +179,7 @@ class ase_draw {
             class IRJamDraw {
                 class polys_IRJamOnOff {
                     class Polygons {
-                        type = polygon;
+                        type = "polygon";
                         points[] = {
                             { //Top left
                                 {{IRJamX - 0.010, IRJamY + 0.000}, 1},
@@ -211,10 +208,10 @@ class ase_draw {
                         };
                     };
                     class lines_IRJam {
-                        type = line;
+                        type = "line";
                         width = 3;
                         points[] = {
-                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                            MPD_POINTS_BOX("Null", MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
                         };
                     };
                     class text_IRJamWarm {
@@ -238,7 +235,7 @@ class ase_draw {
     
     class RLWR_Off {
         class lines_RLWROnOff {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //Power Indicator
@@ -259,7 +256,7 @@ class ase_draw {
         class RLWR_draw {
             class polys_RLWROnOff {
                 class Polygons {
-                    type = polygon;
+                    type = "polygon";
                     points[] = {
                         { //Top left
                             {{RLWRX - 0.010, RLWRY + 0.000}, 1},
@@ -289,11 +286,11 @@ class ase_draw {
                 };
             };
             class lines_RLWR {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     //RLWR box
-                    MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(2*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_6_Y + 0.6*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                    MPD_POINTS_BOX("Null", MPD_POS_BUTTON_R_X-(2*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_6_Y + 0.6*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
                 };
             };
             MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
@@ -305,7 +302,7 @@ class ase_draw {
                 class line##name {\
                 condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
                     class trackLine {\
-                        type     = line;\
+                        type     = "line";\
                         width    = 3;\
                         points[] = {\
                             {ase_az_##name, { 0.000, 0.018}, 1},\
@@ -341,7 +338,7 @@ class ase_draw {
     class lines_ownshipIcon {
         color[] = {0,1,1,1};
         class Lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //Ownship rotor
@@ -463,7 +460,7 @@ class ase_draw {
         MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
 
         // Hdg info
-        MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)
+        MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = "heading"; sourceScale = 1;)
         MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
     };
 };

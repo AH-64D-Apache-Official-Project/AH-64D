@@ -1,5 +1,3 @@
-#include "\fza_ah64_mpd\headers\mfdConstants.h"
-
 MPD_TEXT_C(RPT, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("RPT"))
 //MPD_ARROW_C(RPT, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 3)
 MPD_BOX_BAR_T(RPT, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y)
@@ -35,10 +33,10 @@ MPD_TEXT_C(TSD, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"
 MPD_TEXT_C(ABBREVIATIONS, 0.5, 0.09, MPD_TEXT_STATIC("ABBREVIATIONS"))
 
 class lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 6.5), 0.09, (13 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),//Title Box
+        MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 6.5), 0.09, (13 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),//Title Box
         {},
         {{0.495, 0.15}, 1},//left Vert line
         {{0.495, 0.90}, 1},
@@ -78,12 +76,12 @@ class lines {
 #define START_Y(lineId) (MPD_TEXT_HEIGHT * (lineId mod NUM_ROWS))
 
 #define TEXT_DEF(lineId,lText,rText,classId) \
-    MPD_TEXT_BONE_R(CONCAT_2(classId,L), ABR_Paging, (0.05+START_X(lineId))                      , (0.15+START_Y(lineId)), MPD_TEXT_STATIC(lText)) \
-    MPD_TEXT_BONE_L(CONCAT_2(classId,R), ABR_Paging, (0.05+START_X(lineId)) + MPD_TEXT_WIDTH * 20, (0.15+START_Y(lineId)), MPD_TEXT_STATIC(rText))
+    MPD_TEXT_BONE_R(CONCAT_2(classId,L), "ABR_Paging", (0.05+START_X(lineId))                      , (0.15+START_Y(lineId)), MPD_TEXT_STATIC(lText)) \
+    MPD_TEXT_BONE_L(CONCAT_2(classId,R), "ABR_Paging", (0.05+START_X(lineId)) + MPD_TEXT_WIDTH * 20, (0.15+START_Y(lineId)), MPD_TEXT_STATIC(rText))
 
 #define HEADING_DEF(lineId, sectionName) \
     TEXT_DEF(lineId, sectionName, "",ABR_HEADING) \
-    class Lines { type=line; width=3; points[] = \
+    class Lines { type="line"; width=3; points[] = \
         { {ABR_Paging,{0.05+START_X(lineId),0.15+START_Y(lineId)+MPD_TEXT_HEIGHT}, 1} \
         , {ABR_Paging,{0.05+START_X(lineId)+20*MPD_TEXT_WIDTH,0.15+START_Y(lineId)+MPD_TEXT_HEIGHT}, 1} \
         };};

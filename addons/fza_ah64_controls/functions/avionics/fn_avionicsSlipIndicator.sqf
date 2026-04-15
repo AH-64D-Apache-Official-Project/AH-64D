@@ -24,7 +24,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-if (!(player in _heli)) exitwith {};
+if (!(player in _heli)) exitWith {};
 
 private _beta_deg = _heli getVariable 'fza_sfmplus_aero_beta_deg';
 

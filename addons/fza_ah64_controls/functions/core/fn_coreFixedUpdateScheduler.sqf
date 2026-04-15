@@ -17,11 +17,11 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-if (!(isNil "fza_ah64_nopfsched")) exitwith {};
+if (!(isNil "fza_ah64_nopfsched")) exitWith {};
 params["", "_heli"];
 _heli = (vehicle player);
 
-if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitWith {};
 
 fza_ah64_fixedTimeStep  = 0.02;
 

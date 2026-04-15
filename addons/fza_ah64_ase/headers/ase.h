@@ -1,3 +1,6 @@
+#ifndef FZA_AH64_ASE_HEADERS_ASE_H
+#define FZA_AH64_ASE_HEADERS_ASE_H
+
 #define ASE_LSR 5   //Designating
 #define ASE_MSL 4   //Missile
 #define ASE_LNC 3   //Launch
@@ -30,3 +33,5 @@
 //--Chaff dispenser
 #define ASE_CHAFF_STATE_SAFE 0
 #define ASE_CHAFF_STATE_ARM  1
+
+#endif

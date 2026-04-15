@@ -21,7 +21,7 @@ Author:
 #include "\fza_ah64_systems\headers\systems.hpp"
 params["_heli"];
 
-if (player != driver _heli && (_heli animationPhase "plt_nvsmode" == 0 && (_heli animationPhase "cpg_nvsmode" != 0))) exitwith {};
+if (player != driver _heli && (_heli animationPhase "plt_nvsmode" == 0 && (_heli animationPhase "cpg_nvsmode" != 0))) exitWith {};
 
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
@@ -30,11 +30,11 @@ private _monocle        = _heli getVariable "fza_ah64_monocleinbox";
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
 //Pnvs Stowed
-if ((_pnvsControl == 0) || !_acBusOn || !_dcBusOn || _monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitwith {
+if ((_pnvsControl == 0) || !_acBusOn || !_dcBusOn || _monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitWith {
     [_heli, "pnvs", -120] call fza_fnc_updateAnimations;
     [_heli, "pnvs_vert", 0] call fza_fnc_updateAnimations;
 };
-if (_pnvsControl == 1) exitwith {
+if (_pnvsControl == 1) exitWith {
     [_heli, "pnvs", 0] call fza_fnc_updateAnimations;
     [_heli, "pnvs_vert", 0] call fza_fnc_updateAnimations;
 };

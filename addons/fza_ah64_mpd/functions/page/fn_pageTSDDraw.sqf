@@ -11,14 +11,14 @@ private _tsdScale     = 0.125 * 5 / (_persistState get "tsdScale");
 private _ctrX         = 0.5;  
 private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
 
 //Show options
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SCALE_BOXES), _rangesetting];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI),  BOOLTONUM(_heli getVariable "fza_mpd_tsdShowHsi" select _phase)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowWind" select _phase)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI),  BOOLTONUM(_heli getVariable "fza_mpd_tsdShowHsi" select _phase)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowWind" select _phase)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)];
 
 // Wind Data
 _heli call fza_sfmplus_fnc_getWindDirVel
@@ -28,16 +28,16 @@ if (_windvel < 5) then {_wind_text = "  CALM  ";};
 
 //ASE footprint
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];
 
 //TSD Centering
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CTR), _persistState get "ctr"];
 
 //TSD phase
 if (_persistState get "mode" == "atk") then {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute")];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute")];
 } else {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
 };
 switch (_state get "subPageVarPage" select 0) do {
     case 0: { //Root
@@ -109,16 +109,16 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
 //Shot At UnderLay
-private _shotATList = _heli getvariable "fza_dms_shotAt";
+private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
-    if !_showAtkShot exitwith {};
+    if !_showAtkShot exitWith {};
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 0) then {continue;};
     if (_rangesetting >= 25000) then {continue;};
     if !_showAtkShot then {continue;};
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} foreach _shotATList;
+} forEach _shotATList;
 
 //FCR Points
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
@@ -135,7 +135,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2d _pos;
+    private _distance_m          = _scanPos distance2D _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
@@ -186,7 +186,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
         if (_forEachIndex == _antsIndex) then {
             _unitSelAndWpnStatus = ["ANTS"];
         };
-        if (_unitType == "" || _unitStatus == "") exitwith {continue;};
+        if (_unitType == "" || _unitStatus == "") exitWith {continue;};
         _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     } else {
         _ident= "FCR_TSD_SC25_50_YELLOW";
@@ -196,7 +196,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 } forEach _displayTargets;
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";
-private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
+private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
@@ -214,24 +214,24 @@ private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _
 {
     _x params ["_Object"];
     if (_object isEqualTo _heli) then {continue;};
-    if !(_Object iskindof "car" || _Object iskindof "tank" || _Object iskindof "air" || _Object iskindof "ship") then {continue;};
+    if !(_Object isKindOf "car" || _Object isKindOf "tank" || _Object isKindOf "air" || _Object isKindOf "ship") then {continue;};
     if (!_showFriendly) then {continue;};
     _icon = "TSD_BLUEFORCE_TRACKER";
     if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_BLUE";};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, getpos _Object, "", POINT_TYPE_BFT, _forEachIndex, _icon];
-} foreach _reportingUnits;
+    _pointsArray pushBack [MPD_POSMODE_WORLD, getPos _Object, "", POINT_TYPE_BFT, _forEachIndex, _icon];
+} forEach _reportingUnits;
 
 //Shot At Overlay
-private _shotATList = _heli getvariable "fza_dms_shotAt";
+private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
-    if !_showAtkShot exitwith {};
+    if !_showAtkShot exitWith {};
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     _icon = "FCR_TSD_SHOTAT";
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 1) then {continue;};
     if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_GREEN";};
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, _icon];
-} foreach _shotATList;
+} forEach _shotATList;
 
 //ASE Points
 private _ctrX       = 0.5;  
@@ -252,7 +252,7 @@ private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariable;
 _posTadsTgt = _heli getVariable ["fza_ah64_tadsTarget", [-1,-1,-1]];
 
-if (_posTadsTgt isnotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
+if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
     _pointsArray pushBack [MPD_POSMODE_WORLD, _posTadsTgt, "", POINT_TYPE_SYSTEM, 0, "TSD_TADS_CROSSHAIR"];
 };
 

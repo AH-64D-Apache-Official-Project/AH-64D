@@ -24,12 +24,12 @@ params ["_heli"];
 
 nearestObjects [_heli, ["lasertarget"], 15, false, true] apply {
     private _modelPos = vectorDir _x vectorMultiply -99999999; 
-    private _Worldpos = (getpos _heli) vectoradd _modelPos;
+    private _Worldpos = (getPos _heli) vectorAdd _modelPos;
     private _vHeli = _heli modelToWorldVisual _modelPos;
     _vHeli call CBA_fnc_vect2Polar params ["_magnitude", "_azimuth", "_elevation"]; 
     if (abs(_elevation) < 45) then {
         _lwrObjects pushBack [ASE_LSR, _Worldpos, "RLWR_LSR_DES"];
-        _LwrAudio pushback [_x, "designating", "laser", _Worldpos];
+        _LwrAudio pushBack [_x, "designating", "laser", _Worldpos];
     };
 };
 

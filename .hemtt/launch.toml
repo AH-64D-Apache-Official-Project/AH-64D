@@ -1,0 +1,28 @@
+# HEMTT Launch Profiles
+# Usage: hemtt launch <profile>
+# e.g.  hemtt launch minimal
+#        hemtt launch normal
+#        hemtt launch profiling
+#
+# All profiles load CBA_A3, ACE3 and Hatchet as required dependencies.
+
+[minimal]
+workshop = [
+    "450814997", # CBA_A3
+    "463939057", # ACE3
+    "2941986336", # Hatchet Interaction Framework - Stable Version
+]
+
+[normal]
+extends = "minimal"
+workshop = [
+    "2041057379", # A3 Thermal Improvement (by hateandcaffeine)
+    "1779063631", # Zeus Enhanced
+]
+
+[profiling]
+extends = "minimal"
+workshop = [
+    "1652506957", # Arma Script Profiler (by Dedmen Miller)
+    "1645973522", # Intercept Minimal Dev (by Dedmen Miller)
+]

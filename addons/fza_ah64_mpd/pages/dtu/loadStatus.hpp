@@ -17,11 +17,11 @@ class loadStatus_draw {
     };
 
     class outlines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Curved box
-            MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 5.5), 0.1, (11.2 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT), {},
+            MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 5.5), 0.1, (11.2 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT), {},
             {{0.12, 0.19 + MPD_TEXT_HEIGHT}, 1}, 
             {{0.12 + MPD_TEXT_WIDTH * 12, 0.19 + MPD_TEXT_HEIGHT}, 1}, {},
         };

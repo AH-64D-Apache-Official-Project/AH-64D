@@ -22,7 +22,7 @@ Author:
 params ["_heli","_eng"];
 
 _rand = floor random 100;
-if (_rand > 1) exitwith {};
+if (_rand > 1) exitWith {};
 
 private _componentId = "";
 switch _eng do {
@@ -37,7 +37,7 @@ switch _eng do {
     };
 };
 
-if (_heli getVariable _componentId) exitwith {};
+if (_heli getVariable _componentId) exitWith {};
 
 _heli setVariable[_componentId, true, true];
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
@@ -58,13 +58,13 @@ do {
     private _engState  = _heli getVariable "fza_sfmplus_engState";
     private _heliDamage = damage _heli;
     if (_primaryFBAvailable == _primaryFBState) then {
-        if (floor random 11 > 7) exitwith {
+        if (floor random 11 > 7) exitWith {
             _primaryFBAvailable = false; //extinguisher Fail
         };
         _primaryFBActioned = true;
     };
     if (_reserveFBAvailable == _reserveFBState) then {
-        if (floor random 11 > 7) exitwith {
+        if (floor random 11 > 7) exitWith {
             _reserveFBAvailable = false; //extinguisher Fail
         };
         _reserveFBActioned = true;  

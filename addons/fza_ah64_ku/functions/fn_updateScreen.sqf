@@ -2,10 +2,10 @@ params ["_heli"];
 #include "\fza_ah64_ku\headers\constants.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-_heli setUserMfdValue [MFD_IND_KU_STATE, [0,1] select (_heli getVariable "fza_ku_state" == KU_STATE_ERROR)];
+_heli setUserMFDValue [MFD_IND_KU_STATE, BOOLTONUM(_heli getVariable "fza_ku_state" == KU_STATE_ERROR)];
 
 if (_heli getVariable "fza_ku_state" == KU_STATE_OFF) exitWith {
-    _heli setUserMfdText [MFD_TEXT_IND_KU, ""];
+    _heli setUserMFDText [MFD_TEXT_IND_KU, ""];
 };
 
 private _out = format["%1: %2", _heli getVariable "fza_ku_prompt", _heli getVariable "fza_ku_input"];
@@ -15,4 +15,4 @@ private _out = format["%1: %2", _heli getVariable "fza_ku_prompt", _heli getVari
 if (count _out > MAX_DISPLAY_CHARS) then {
     _out = _out select [count _out - MAX_DISPLAY_CHARS, MAX_DISPLAY_CHARS];
 };
-_heli setUserMfdText [MFD_TEXT_IND_KU, _out];
+_heli setUserMFDText [MFD_TEXT_IND_KU, _out];

@@ -1,8 +1,8 @@
 class CfgVehicles {
     class B_Helipilot_F;
     
-    #define REPEAT_2(a) a, a
-    #define REPEAT_6(a) a, a, a, a, a, a
+    #define REPEAT_2(a) #a, #a
+    #define REPEAT_6(a) #a, #a, #a, #a, #a, #a
     class fza_ah64_pilot: B_Helipilot_F
     {
         author                  = "Snow(Dryden)";

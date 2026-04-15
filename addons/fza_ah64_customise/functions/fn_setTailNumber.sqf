@@ -1,6 +1,6 @@
 params ["_heli", "_tailNumber"];
 
-private _validChars = createHashmapFromArray [
+private _validChars = createHashMapFromArray [
     ["0", "\fza_ah64_customise\data\texture\0_ca.paa"],
     ["1", "\fza_ah64_customise\data\texture\1_ca.paa"],
     ["2", "\fza_ah64_customise\data\texture\2_ca.paa"],

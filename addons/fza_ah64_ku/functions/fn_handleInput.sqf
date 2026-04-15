@@ -4,7 +4,7 @@ params ["_displayOrControl", "_key", "_shift", "_ctrl", "_alt"];
 
 disableSerialization;
 
-if !(vehicle player isKindOf "fza_ah64base") exitwith {
+if !(vehicle player isKindOf "fza_ah64base") exitWith {
     if (!isNil "fza_ku_keyDownEvent") then {
         ["KeyDown",fza_ku_keyDownEvent] call CBA_fnc_removeDisplayHandler;
         fza_ku_keyDownEvent = nil;
@@ -27,21 +27,21 @@ private _addChar = {
     };
 };
 
-if (_key == DIK_ESCAPE) exitwith {
+if (_key == DIK_ESCAPE) exitWith {
     if (!isNil "fza_ku_keyDownEvent") then {
         ["KeyDown",fza_ku_keyDownEvent] call CBA_fnc_removeDisplayHandler;
         fza_ku_keyDownEvent = nil;
     };
 };
 
-if (_key == DIK_RETURN || _key == DIK_NUMPADENTER) exitwith {
+if (_key == DIK_RETURN || _key == DIK_NUMPADENTER) exitWith {
     [_heli] call fza_ku_fnc_enter;
     true;
 };
 
 private _keyCode = _key call BIS_fnc_keyCode;
 
-if (count _keyCode == 1) exitwith { // Is 0-9 A-Z
+if (count _keyCode == 1) exitWith { // Is 0-9 A-Z
     [_heli, _keyCode] call _addChar;
     true;
 };
@@ -73,13 +73,13 @@ private _otherKeys = createHashMapFromArray [
     [DIK_NUMPADSLASH, "/"],
     [DIK_DIVIDE, "/"]];
 
-if (_otherKeys getOrDefault [_key, -1] isNotEqualTo -1) exitwith {
+if (_otherKeys getOrDefault [_key, -1] isNotEqualTo -1) exitWith {
     private _keyCode = _otherKeys getOrDefault [_key, -1];
     [_heli, _keyCode] call _addChar;
     true;
 };
 
-if (_key == DIK_BACK || _key == DIK_BACKSPACE) exitwith {
+if (_key == DIK_BACK || _key == DIK_BACKSPACE) exitWith {
     private _currentInput = _heli getVariable "fza_ku_input";
     private _newInput = _currentInput select [0, (count _currentInput - 1) max 0];
     _heli setVariable ["fza_ku_input", _newInput];

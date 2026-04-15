@@ -19,9 +19,9 @@ params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 
-if (!(isNil "fza_ah64_noufd")) exitwith {};
+if (!(isNil "fza_ah64_noufd")) exitWith {};
 if (cba_missiontime <= 0) exitWith {};
-if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli iskindof "fza_ah64base")) exitwith {};
+if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
 ///end gunner weapon damage//
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
@@ -57,8 +57,8 @@ if (_battBusOn || _dcBusOn) then {
     _heli setVariable ["fza_ah64_engineAutoPageCheck", _autoPageList];
 
     if _autoPageEngine then {
-        if (_mpdLeft == "eng" || _mpdRight == "eng") exitwith {};
-        if (_mpdLeft == "flt") exitwith {
+        if (_mpdLeft == "eng" || _mpdRight == "eng") exitWith {};
+        if (_mpdLeft == "flt") exitWith {
             [_heli, 1, "eng"] call fza_mpd_fnc_setCurrentPage;
         };
         [_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;

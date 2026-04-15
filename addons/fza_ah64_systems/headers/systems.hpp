@@ -1,3 +1,6 @@
+#ifndef FZA_AH64_SYSTEMS_HEADERS_SYSTEMS_HPP
+#define FZA_AH64_SYSTEMS_HEADERS_SYSTEMS_HPP
+
 #define SYS_APU_DMG_THRESH   0.85
 #define SYS_BATT_DMG_THRESH  0.85
 #define SYS_GEN_DMG_THRESH   0.85
@@ -31,3 +34,5 @@
 
 //Damage timers
 #define DMG_PER_SEC       0.003 //5 minutes total time
+
+#endif

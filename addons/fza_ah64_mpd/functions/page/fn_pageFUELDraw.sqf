@@ -33,10 +33,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_ENDR_INT), _mainEnduran
 
 //Is the IAFS installed?
 private _IAFSInstalled = BOOLTONUM(_heli getVariable "fza_ah64_IAFSInstalled" == true);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_INSTALLED), _IAFSInstalled];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_INSTALLED), _IAFSInstalled];
 //Is the IAFS on?
 private _IAFSOn = BOOLTONUM(_heli getVariable "fza_ah64_IAFSOn" == true);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_ON), _IAFSOn];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_ON), _IAFSOn];
 //IAFS values
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_IAFS),     _ctrFuelWeight toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_TOT),      _totalFuelCellWeight toFixed 0];

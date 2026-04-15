@@ -24,7 +24,7 @@ if (_ammoTemperature < _barrelTemperature) then {
 
 // cookoff if too hot
 if (_ammoTemperature > GUNPOWDER_IGNITION_TEMP) then {
-    _heli sethitpointdamage ["hit_msnEquip_gun_turret", 1];
+    _heli setHitPointDamage ["hit_msnEquip_gun_turret", 1];
 
     // since a cookoff happened then the next round should start at the ambient temperature.
     _ammoTemperature = ambientTemperature select 0;

@@ -446,8 +446,8 @@ class AnimationSources
     };
     class mpd_scale
     {
-        source = user;
+        source = "user";
         initPhase = 1;
         animPeriod = 0.01;
-    }
+    };
 };

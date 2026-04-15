@@ -27,7 +27,7 @@ if (_tq >= 0.98) then {
     [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
     [_pidRadAlt] call fza_fnc_pidReset;
     [_pidBarAlt] call fza_fnc_pidReset;
-    //playsound "fza_ah64_flt_control";
+    //playSound "fza_ah64_flt_control";
 };
 
 if ( _heli getVariable "fza_ah64_altHoldActive") then {

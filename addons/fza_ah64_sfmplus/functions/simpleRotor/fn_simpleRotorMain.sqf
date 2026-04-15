@@ -176,9 +176,9 @@ if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
-private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
+private _rtrOmega                  = (2.0 * pi) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
-private _rtrArea                   = PI * _bladeRadius^2;
+private _rtrArea                   = pi * _bladeRadius^2;
 
 //Calculate the required rotor power
 private _profile_min = 0.180;

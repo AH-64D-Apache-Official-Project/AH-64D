@@ -1,5 +1,3 @@
-#include "\fza_ah64_mpd\headers\mfdConstants.h"
-
 //MPD_BOX_BAR_T(FAULT, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y)
 
 //T1
@@ -33,17 +31,17 @@ MPD_TEXT_R(PBORight, 0.52, 0.15, MPD_TEXT_STATIC("PBO"))
 //Title Box
 MPD_TEXT_C(SOFTWAREVERSIONS, 0.5, 0.09, MPD_TEXT_STATIC("SOFTWARE VERSIONS"))
 class lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.5), 0.09, (17.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+        MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 8.5), 0.09, (17.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
     };
 };
 
 class pageScroll {
     condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_VER_PAGENUM), 1));
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.278, 0.966}, 1},//left scroll arrow

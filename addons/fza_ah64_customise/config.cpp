@@ -5,8 +5,8 @@ class CfgPatches
         units[] = {"fza_ah64_FireControlRadar", "fza_ah64_IAFS", "fza_ah64_1200Magazine"};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
-        requiredVersion = 1.0;
-        requiredAddons[] = {"fza_ah64_controls"};
+        requiredVersion = 2.10;
+        requiredAddons[] = {"fza_ah64_controls", "ace_interact_menu"};
         #include "version.hpp"
     };
 };

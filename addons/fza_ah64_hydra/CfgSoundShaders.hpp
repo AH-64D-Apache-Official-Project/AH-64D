@@ -83,7 +83,7 @@ class CfgSoundShaders {
     
     class fza_soundshader_hydra_shot_close 
     {
-        samples[] = {{"fza_ah64_hydra\data\audio\M261_1", 0.5}, {"fza_ah64_hydra\data\audio\M261_2", 0.5}};
+        samples[] = {{"fza_ah64_hydra\data\audio\M261_1.wss", 0.5}, {"fza_ah64_hydra\data\audio\M261_2.wss", 0.5}};
         volume = "4*(1-interior/1.4)";
         range = 20;
         //rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};

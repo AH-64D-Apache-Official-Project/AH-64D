@@ -5,7 +5,7 @@ class CfgPatches
         units[] = {};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
-        requiredVersion = 1.0;
+        requiredVersion = 2.10;
         requiredAddons[] = {"fza_ah64_controls"};
         #include "version.hpp"
     };
@@ -90,3 +90,4 @@ class CfgVehicles {
         ace_dragging_canCarry = 1;
     }; // pylon_base
 };
+*/

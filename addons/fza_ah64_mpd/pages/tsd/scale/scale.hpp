@@ -2,7 +2,7 @@ class ScaleShow {
     class occluder {
         color[] = {0,0,0,1};
         class polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.90, 0.278}, 1},
@@ -14,7 +14,7 @@ class ScaleShow {
         };
     };
     class lines {
-        type  = line;
+        type  = "line";
         width = 3;
         points[] = {
             {{0.985, 0.65},1},

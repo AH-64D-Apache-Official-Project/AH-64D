@@ -222,3 +222,4 @@ class CfgVehicles {
         fza_aseClass = "GUN";
         fza_aseIcon = "GU";
     };
+*/

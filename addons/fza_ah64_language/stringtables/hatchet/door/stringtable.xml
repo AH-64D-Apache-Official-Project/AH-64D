@@ -2,72 +2,72 @@
 <Project name="FZA">
     <Package name="AH64">
         <Key ID="STR_FZA_AH64_DOOR">
-            <English>OPEN/CLOSE DOOR</English>
             <Original>OPEN/CLOSE DOOR</Original>
+            <English>OPEN/CLOSE DOOR</English>
+            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
             <French>OUVRIR/FERMER PORTE</French>
-            <Dutch>DEUR OPENEN/SLUITEN</Dutch>
             <Spanish>ABRIR/CERRAR PUERTA</Spanish>
             <Italian>APRI/CHIUDI PORTA</Italian>
-            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
-            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
             <Polish>OTWÓRZ/ZAMKNIJ DRZWI</Polish>
-            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
             <Portuguese>ABRIR/FECHAR PORTA</Portuguese>
+            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
+            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
             <Korean>문 열기/닫기</Korean>
             <Japanese>ドアを開く/閉じる</Japanese>
             <Chinesesimp>打开/关闭门</Chinesesimp>
             <Turkish>KAPIYI AÇ/KAPA</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_DOOR_OPEN_CLOSE">
-            <English>OPEN/CLOSE DOOR</English>
-            <Original>OPEN/CLOSE DOOR</Original>
-            <French>OUVRIR/FERMER PORTE</French>
             <Dutch>DEUR OPENEN/SLUITEN</Dutch>
-            <Spanish>ABRIR/CERRAR PUERTA</Spanish>
-            <Italian>APRI/CHIUDI PORTA</Italian>
-            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
-            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
-            <Polish>OTWÓRZ/ZAMKNIJ DRZWI</Polish>
-            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
-            <Portuguese>ABRIR/FECHAR PORTA</Portuguese>
-            <Korean>문 열기/닫기</Korean>
-            <Japanese>ドアを開く/閉じる</Japanese>
-            <Chinesesimp>打开/关闭门</Chinesesimp>
-            <Turkish>KAPIYI AÇ/KAPA</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_DOOR_OPEN">
-            <English>OPEN</English>
-            <Original>OPEN</Original>
-            <French>OUVRIR</French>
-            <Dutch>OPENEN</Dutch>
-            <Spanish>ABRIR</Spanish>
-            <Italian>APRI</Italian>
-            <German>ÖFFNEN</German>
-            <Czech>OTEVŘÍT</Czech>
-            <Polish>OTWÓRZ</Polish>
-            <Russian>ОТКРЫТЬ</Russian>
-            <Portuguese>ABRIR</Portuguese>
-            <Korean>열기</Korean>
-            <Japanese>開く</Japanese>
-            <Chinesesimp>打开</Chinesesimp>
-            <Turkish>AÇ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_DOOR_CLOSE">
-            <English>CLOSE</English>
             <Original>CLOSE</Original>
+            <English>CLOSE</English>
+            <Czech>ZAVŘÍT</Czech>
             <French>FERMER</French>
-            <Dutch>SLUITEN</Dutch>
             <Spanish>CERRAR</Spanish>
             <Italian>CHIUDI</Italian>
-            <German>SCHLIESSEN</German>
-            <Czech>ZAVŘÍT</Czech>
             <Polish>ZAMKNIJ</Polish>
-            <Russian>ЗАКРЫТЬ</Russian>
             <Portuguese>FECHAR</Portuguese>
+            <Russian>ЗАКРЫТЬ</Russian>
+            <German>SCHLIESSEN</German>
             <Korean>닫기</Korean>
             <Japanese>閉じる</Japanese>
             <Chinesesimp>关闭</Chinesesimp>
             <Turkish>KAPA</Turkish>
+            <Dutch>SLUITEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_DOOR_OPEN">
+            <Original>OPEN</Original>
+            <English>OPEN</English>
+            <Czech>OTEVŘÍT</Czech>
+            <French>OUVRIR</French>
+            <Spanish>ABRIR</Spanish>
+            <Italian>APRI</Italian>
+            <Polish>OTWÓRZ</Polish>
+            <Portuguese>ABRIR</Portuguese>
+            <Russian>ОТКРЫТЬ</Russian>
+            <German>ÖFFNEN</German>
+            <Korean>열기</Korean>
+            <Japanese>開く</Japanese>
+            <Chinesesimp>打开</Chinesesimp>
+            <Turkish>AÇ</Turkish>
+            <Dutch>OPENEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_DOOR_OPEN_CLOSE">
+            <Original>OPEN/CLOSE DOOR</Original>
+            <English>OPEN/CLOSE DOOR</English>
+            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
+            <French>OUVRIR/FERMER PORTE</French>
+            <Spanish>ABRIR/CERRAR PUERTA</Spanish>
+            <Italian>APRI/CHIUDI PORTA</Italian>
+            <Polish>OTWÓRZ/ZAMKNIJ DRZWI</Polish>
+            <Portuguese>ABRIR/FECHAR PORTA</Portuguese>
+            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
+            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
+            <Korean>문 열기/닫기</Korean>
+            <Japanese>ドアを開く/閉じる</Japanese>
+            <Chinesesimp>打开/关闭门</Chinesesimp>
+            <Turkish>KAPIYI AÇ/KAPA</Turkish>
+            <Dutch>DEUR OPENEN/SLUITEN</Dutch>
         </Key>
     </Package>
 </Project>

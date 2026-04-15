@@ -17,11 +17,11 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-#include "\fza_ah64_sfmplus\headers\core.hpp";
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _config         = configOf _heli >> "Fza_SfmPlus";
+private _configVehicles = configOf _heli;
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 private _onGnd     = [_heli] call fza_sfmplus_fnc_onGround;

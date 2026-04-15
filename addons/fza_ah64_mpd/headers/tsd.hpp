@@ -1,4 +1,5 @@
-#include "\fza_ah64_dms\headers\constants.h"
+#ifndef FZA_AH64_MPD_HEADERS_TSD_HPP
+#define FZA_AH64_MPD_HEADERS_TSD_HPP
 
 //TSD Pages
 #define TSD_ROOT                [0, 0]
@@ -49,3 +50,5 @@
 //DTU Pages
 #define DTU_ROOT                0
 #define DTU_LOAD_STATUS         1
+
+#endif

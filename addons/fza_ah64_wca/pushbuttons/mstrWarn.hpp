@@ -17,11 +17,26 @@ class material
 class Bones {};
 // HUD-Elements definitions
 class Draw {
+    #ifdef START_X
+    #undef START_X
+    #endif
     #define START_X     0.50
+    #ifdef TOP_START_Y
+    #undef TOP_START_Y
+    #endif
     #define TOP_START_Y 0.28
+    #ifdef BOT_START_Y
+    #undef BOT_START_Y
+    #endif
     #define BOT_START_Y 0.72
     
+    #ifdef CHAR_WIDTH_VEC
+    #undef CHAR_WIDTH_VEC
+    #endif
     #define CHAR_WIDTH_VEC 0.32
+    #ifdef CHAR_HEIGHT
+    #undef CHAR_HEIGHT
+    #endif
     #define CHAR_HEIGHT 0.5
 
     class battOff {

@@ -20,7 +20,6 @@ Examples:
 Author:
     Unknown, mattysmith22, BradMick
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params ["_heli", "_system", "_control"];
 
@@ -34,9 +33,9 @@ switch(_control) do {
     case "apu": {
         if (!_apuBtnOn && _battBusOn) then {
             [_heli] call fza_systems_fnc_interactAPUButton;
-            playsound "fza_ah64_apubutton";
+            playSound "fza_ah64_apubutton";
             [_heli] spawn fza_fnc_fxLoops;
-            [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
+            [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3D"];
         } else {
             if (_apuBtnOn) then {
                 [_heli] call fza_systems_fnc_interactAPUButton;
@@ -50,7 +49,7 @@ switch(_control) do {
                 if (_e2state in ENGINE_STATE_USING_STARTER) then {
                     [_heli, 1, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
                 };
-                [_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
+                [_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3D"];
             };
         };
     };
@@ -58,11 +57,11 @@ switch(_control) do {
         if (_battSwitchOn) then {
             [_heli] call fza_systems_fnc_interactBattSwitch;
             [_heli] spawn fza_fnc_fxLoops;
-            playsound "fza_ah64_battery";
+            playSound "fza_ah64_battery";
         } else {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
-            playsound "fza_ah64_battery";
+            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3D"];
+            playSound "fza_ah64_battery";
         };
     };
     
@@ -81,7 +80,7 @@ switch(_control) do {
     case (localize "STR_FZA_AH64_ENGINE_ONE_START"): {
         [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_ORDIE"): {
+    case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE"): {
         [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e1startertoggle": {
@@ -120,7 +119,7 @@ switch(_control) do {
     case (localize "STR_FZA_AH64_ENGINE_TWO_START"): {
         [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_ORDIE"): {
+    case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE"): {
         [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e2startertoggle": {

@@ -18,5 +18,5 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_val"];
 
-if (_val isEqualType "SCALAR" || _val isEqualType "NAN") exitwith { true };
+if (_val isEqualType "SCALAR" || _val isEqualType "NAN") exitWith { true };
 false;

@@ -30,11 +30,11 @@
         };
     };
 
-    private _smokefx = "#particlesource" createVehicleLocal getpos _heli;
-    _smokefx attachto[_heli, [0, 0, 0]];
+    private _smokefx = "#particlesource" createVehicleLocal getPos _heli;
+    _smokefx attachTo[_heli, [0, 0, 0]];
 
-    private _firefx = "#particlesource" createVehicleLocal getpos _heli;
-    _firefx attachto[_heli, [0, 0, 0]];
+    private _firefx = "#particlesource" createVehicleLocal getPos _heli;
+    _firefx attachTo[_heli, [0, 0, 0]];
 
     _smokefx setParticleCircle[0, [0, 0, 0]];
     _smokefx setParticleRandom[0, [0.25, 0.25, 0], [0.2, 0.2, 0], 0, 0.25, [0, 0, 0, 0.1], 0, 0];
@@ -66,8 +66,8 @@
     detach (_fx # 0);
     detach (_fx # 1);
 
-    deletevehicle (_fx # 0);
-    deletevehicle (_fx # 1);
+    deleteVehicle (_fx # 0);
+    deleteVehicle (_fx # 1);
 
     _heli setVariable [format ["fza_ah64_fire_%1_fx", _location], []];
 }] call CBA_fnc_addEventHandler;

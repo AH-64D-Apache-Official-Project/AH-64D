@@ -18,9 +18,9 @@ private ["_ctr", "_dir", "_length"];
 _canvas params ["_canvasCtrl", "_canvasCenter", "_canvasVect"];
 private _ctr = (_from vectorAdd _to) vectorMultiply 0.5;
 
-if (_posMode == MPD_POSMODE_WORLD) then {
+if (_posMode) then {
     private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _ctr # 0, _ctr # 1, _heading] call fza_fnc_relativeDirection;
-    private _r = _heli distance2d _ctr;
+    private _r = _heli distance2D _ctr;
     _ctr =
         [ _heliCtr # 0 + sin _theta * (_r * _scale)
         , _heliCtr # 1 + -cos _theta * (_r * _scale)];

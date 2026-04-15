@@ -4,7 +4,7 @@ class SoundsExt
     {
         class EngineExt
         {
-            sound[] = {"\fza_ah64_controls\data\audio\Engine", 1, 1.000000, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Engine.wss", 1, 1.000000, 1200};
             frequency = "rotorSpeed";
             volume = "camPos*((rotorSpeed-0.72)*4)";
         };
@@ -28,7 +28,7 @@ class SoundsExt
         };
         class RotorSwist
         {
-            sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist", 0.500000, 1, 300};
+            sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist.wss", 0.500000, 1, 300};
             frequency = 1;
             volume = "camPos * (rotorThrust factor [0.7, 0.9])";
         };
@@ -65,25 +65,25 @@ class SoundsExt
         };
         class TransmissionDamageExt_phase1
         {
-            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 200};
+            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1.wss", 1.000000, 1.000000, 200};
             frequency = "0.66 + rotorSpeed / 3";
             volume = "camPos * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
         };
         class TransmissionDamageExt_phase2
         {
-            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2", 1.000000, 1.000000, 200};
+            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2.wss", 1.000000, 1.000000, 200};
             frequency = "0.66 + rotorSpeed / 3";
             volume = "camPos * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
         };
         class TransmissionDamageInt_phase1
         {
-            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1", 1.000000, 1.000000, 200};
+            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1.wss", 1.000000, 1.000000, 200};
             frequency = "0.66 + rotorSpeed / 3";
             volume = "(1 - camPos) * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
         };
         class TransmissionDamageInt_phase2
         {
-            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2", 1.000000, 1.000000, 200};
+            sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2.wss", 1.000000, 1.000000, 200};
             frequency = "0.66 + rotorSpeed / 3";
             volume = "(1 - camPos) * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
         };

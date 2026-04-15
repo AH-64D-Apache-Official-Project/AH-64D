@@ -1,6 +1,6 @@
 params ["_heli"];
 
-if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+if (currentPilot _heli != player || !local _heli) exitWith {};
 
 private _mainRotorGearRatio = 72.29;
 private _mainRotorMoi       = _heli getVariable "fza_sfmplus_rtrMoi" select 0;

@@ -32,13 +32,13 @@ if _remoteEngagement then {
     _shotPos = _lastShotATFile # 4;
 };
 
-if (_shotPos isnotequalto [0,0,0]) then {
-    private _fcrTargets = _heli getvariable "fza_ah64_fcrTargets";
-    if (_fcrTargets isequalto []) exitwith {};
-    if (isNull laserTarget _heli) exitwith {};
+if (_shotPos isNotEqualTo [0,0,0]) then {
+    private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
+    if (_fcrTargets isEqualTo []) exitWith {};
+    if (isNull laserTarget _heli) exitWith {};
     _closestTarget = ([_fcrTargets, [], {_x#0 distance laserTarget _heli}, "ASCEND"] call BIS_fnc_sortBy)#0;
     _closestTarget params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    if ((_pos distance laserTarget _heli) > 200) exitwith {};
+    if ((_pos distance laserTarget _heli) > 200) exitWith {};
     private _unitType   = "UNK";
     private _unitStatus = "LOAL"; 
 

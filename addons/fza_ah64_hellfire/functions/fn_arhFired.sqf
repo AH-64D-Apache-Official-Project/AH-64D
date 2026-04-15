@@ -32,8 +32,8 @@ private _heli = vehicle _shooter;
 #define SCALE_KM_TOF 4
 
 _heli getVariable "fza_ah64_fcrNts" params ["_targObj","_targPos","_fcrData"];
-private _loblCheckLima = [_heli, [getpos _targObj, speed _targObj, _targObj], true] call fza_hellfire_fnc_limaLoblCheck;
-private _loblCheckAircraft = [_heli, [getpos _targObj, speed _targObj, _targObj]] call fza_hellfire_fnc_limaLoblCheck;
+private _loblCheckLima = [_heli, [getPos _targObj, speed _targObj, _targObj], true] call fza_hellfire_fnc_limaLoblCheck;
+private _loblCheckAircraft = [_heli, [getPos _targObj, speed _targObj, _targObj]] call fza_hellfire_fnc_limaLoblCheck;
 private _targetType = (_targObj call BIS_fnc_objectType)#1;
 
 private _attackProfile = "hellfire_hi";
@@ -45,10 +45,10 @@ private _targetVel = [0,0,0];
 private _isActive = false;
 
 if (!(isNull _targObj) && _loblCheckAircraft #1) then {
-    _targPos = getposasl _targObj;
+    _targPos = getPosASL _targObj;
     _targetVel = velocity _targObj;
 } else {
-    _targObj = Objnull;
+    _targObj = objNull;
 };
 
 if (!isNil "_targObj") then {
@@ -60,7 +60,7 @@ if (!isNil "_targObj") then {
     _calulatedImpactPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToimpact);
     private _currentTof = _heli getVariable "fza_ah64_tofCountDown";
     _currentTof pushBack (_timeUntilImpact + CBA_missionTime);
-    _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
+    _heli setVariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
 if (!(isNull _targObj) && _loblCheckLima #1) then {
@@ -81,7 +81,7 @@ _seekerStateParams set [6, 0];
 _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
 _launchParams set [3, _attackProfile];
-_launchParams set [0, objnull];
+_launchParams set [0, objNull];
 
 
 //SHOT AT FILE UPDATE
@@ -89,7 +89,7 @@ _fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle
 private _unitType   = "UNK";
 private _unitStatus = "LOAL"; 
 
-if (_fcrData isnotEqualTo []) then {
+if (_fcrData isNotEqualTo []) then {
     switch (_type) do {
         case FCR_TYPE_UNKNOWN:    {_unitType = "UNK";};
         case FCR_TYPE_WHEELED:    {_unitType = "WHEEL";};
@@ -112,4 +112,4 @@ if (_fcrData isnotEqualTo []) then {
 };
 _ident = ["FCR",_unitType,_unitStatus] joinString "_";
 
-[_heli, _ident, "RF", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_dms_fnc_addShotRF;
+[_heli, _ident, [dayTime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_dms_fnc_addShotRF;

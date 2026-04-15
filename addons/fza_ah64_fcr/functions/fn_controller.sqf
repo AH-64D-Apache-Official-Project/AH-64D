@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
+if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
 
 if (_heli animationPhase "fcr_enable" == 0) then {
     _heli enableVehicleSensor ["ActiveRadarSensorComponent", false];
@@ -26,6 +26,6 @@ if (_heli animationPhase "fcr_enable" == 0) then {
     _heli enableVehicleSensor ["ActiveRadarSensorComponent", true];
 };
 
-if (_heli animationPhase "fcr_enable" != 1) exitwith {};
+if (_heli animationPhase "fcr_enable" != 1) exitWith {};
 
 [_heli] call fza_fcr_fnc_stateControl;

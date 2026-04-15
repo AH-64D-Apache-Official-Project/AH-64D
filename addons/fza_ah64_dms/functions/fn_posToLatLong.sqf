@@ -1,6 +1,6 @@
 convert={params ["_pos", ["_world", worldName]];
 
-private _mapLatLong = getArray (configfile >> "CfgWorlds" >> "Altis" >> "mapArea");
+private _mapLatLong = getArray (configFile >> "CfgWorlds" >> "Altis" >> "mapArea");
 
 private _config = configFile >> "CfgWorlds" >> _world;
 

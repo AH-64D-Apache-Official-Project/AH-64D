@@ -63,7 +63,7 @@ _heli setVariable ["fza_sfmplus_fmcAttHoldCycRollOut",         _attHoldCycRollOu
 _heli setVariable ["fza_sfmplus_fmcSasRollOut",                _SASRollOutput];
 
 _heli setVariable ["fza_sfmplus_fmcCollectiveToYaw",           _collToYawOut];
-_heli setVariable ["fza_sfmplus_fmcCollectiveAirspeedToYaw",   _collAirspeedToYaw];
+_heli setVariable ["fza_sfmplus_fmcCollectiveAirspeedToYaw",   _collAirspeedToYawOut];
 _heli setVariable ["fza_sfmplus_fmcHdgHoldPedalYawOut",        _hdgHoldPedalYawOut];
 _heli setVariable ["fza_sfmplus_fmcSasYawOut",                 _SASYawOutput];
 

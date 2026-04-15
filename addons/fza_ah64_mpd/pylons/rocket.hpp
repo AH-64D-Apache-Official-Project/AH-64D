@@ -7,7 +7,7 @@ class fza_ah64_rocket {
             color[] = { 0.0, 0.0, 0.0, 1.0 };
             class Background
             {
-                type = polygon;
+                type = "polygon";
                 points[] =
                 {
                     {
@@ -15,12 +15,12 @@ class fza_ah64_rocket {
                         { {0.0375, -0.0975}, 1 },
                         { {0.0375,  0.0975}, 1 },
                         { {-0.0375, 0.0975}, 1 }
-                    };
+                    },
                 };
             };
         };
         class Lines {
-            type = line;
+            type = "line";
             width=3;
             #define MFD_PYLON_ROCKET_CAP(posX, posY) \
                 { {posX-0.00375, posY}, 1 }, \
@@ -78,7 +78,7 @@ class fza_ah64_rocket_inverse {
         class Bones {};
         class Draw{
             class Background {
-                type = polygon;
+                type = "polygon";
                 points[] =
                 {
                     {

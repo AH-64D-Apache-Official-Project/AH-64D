@@ -1,6 +1,5 @@
 class cfgVehicles {
 
-    class Box_NATO_Equip_F;
     class Land_WoodenCrate_01_F;
     class fza_ah64_ObjectBase: Land_WoodenCrate_01_F {
         author                              = "Snow(Dryden)";

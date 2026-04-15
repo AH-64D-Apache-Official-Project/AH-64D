@@ -27,15 +27,14 @@ Examples:
 Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_side", "_page", ["_stateOverride", createHashMap]];
 
 private _mpdState = _heli getVariable "fza_mpd_mpdState";
 
-private _config = configFile >> "CfgVehicles" >> typeof _heli >> "FzaMpdPages" >> _page;
+private _config = configOf _heli >> "FzaMpdPages" >> _page;
 
 if (!isClass _config) exitWith {
-    ["Invalid MPD page for %1 : %2", typeof _heli, _page] call BIS_fnc_error;
+    ["Invalid MPD page for %1 : %2", typeOf _heli, _page] call BIS_fnc_error;
 };
 
 private _mfdIndex = 0;
@@ -79,6 +78,6 @@ _state set ["side", _side];
 _state set ["page", _page];
 private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons];
 
-_heli setUserMfdValue [_side + 1, _mfdIndex];
+_heli setUserMFDValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];
 [_heli] call fza_mpd_fnc_propagatePage;

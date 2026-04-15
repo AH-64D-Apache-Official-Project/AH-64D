@@ -1,14 +1,11 @@
 #include "BIS_AddonInfo.hpp"
 class CfgPatches {
     class fza_ah64_controls {
-        units[] = {"fza_ah64base","fza_ah64d_b1","fza_ah64d_b2e","fza_ah64_pilot"};
+        units[] = {"fza_ah64base","fza_ah64d_b1"};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
         requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh"};
-        version = 2.2.91;
-        versionStr = "2.2.91";
-        versionAr[] = {2, 2, 91};
         #include "version.hpp"
     };
 };

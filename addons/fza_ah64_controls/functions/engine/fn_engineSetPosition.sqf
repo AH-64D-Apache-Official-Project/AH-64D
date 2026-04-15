@@ -29,12 +29,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 [_heli, 0] call fza_fnc_engineUpdate;
 [_heli, 1] call fza_fnc_engineUpdate;
 
-private _otherEngineNum =
-    if (_engNum == 0) then {
-        1
-    } else {
-        0
-    };
+private _otherEngineNum = 1 - _engNum;
 private _heliData = _heli getVariable "fza_ah64_engineStates";
 (_heliData# _engNum) params["_state", "_stateParams"];
 (_heliData# _otherEngineNum) params["_otherState", "_otherStateParams"];

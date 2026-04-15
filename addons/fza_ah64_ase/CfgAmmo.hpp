@@ -21,7 +21,7 @@ class CfgAmmo {
         effectsSmoke                = "fza_AC130_Flares";
         weaponLockSystem            = 2;
 
-    }
+    };
     class fza_IR_JAMMING_shot: FlareCore 
     {
         hit                         = 0;

@@ -1,14 +1,14 @@
 class dms_draw {
     class outlines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Center lines
             {{0.496, 0.174}, 1}, {{0.496, 0.832}, 1}, {},
             {{0.504, 0.174}, 1}, {{0.504, 0.832}, 1}, {},
             //Curved box
-            MPD_POINTS_BOX(Null, (0.25 - MPD_TEXT_WIDTH * 10.5), 0.105, (21 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT), {},
-            MPD_POINTS_BOX(Null, (0.75 - MPD_TEXT_WIDTH * 10.5), 0.105, (21 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)  
+            MPD_POINTS_BOX("Null", (0.25 - MPD_TEXT_WIDTH * 10.5), 0.105, (21 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT), {},
+            MPD_POINTS_BOX("Null", (0.75 - MPD_TEXT_WIDTH * 10.5), 0.105, (21 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)  
         };
     };
 

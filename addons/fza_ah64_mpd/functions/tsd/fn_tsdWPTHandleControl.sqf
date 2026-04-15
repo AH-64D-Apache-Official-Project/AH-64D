@@ -1,5 +1,6 @@
-params ["_heli", "_mpdIndex", "_control", "_state", "_persistStage"];
+params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 #ifdef POINTMODE_THREAT

@@ -1,7 +1,7 @@
 private["_heli"];
 _heli = _this select 0;
 
-if (!(player in _heli)) exitwith {};
+if (!(player in _heli)) exitWith {};
 
 _vertvect = ((velocity _heli select 2) atan2 sqrt(((velocity _heli select 0) * (velocity _heli select 0)) + ((velocity _heli select 1) * (velocity _heli select 1))));
 _helipb = _heli call fza_fnc_getPitchBank;

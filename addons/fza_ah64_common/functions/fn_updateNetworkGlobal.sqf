@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_function", "_value"];
 
-private _functionValue = _heli getvariable _function;
+private _functionValue = _heli getVariable _function;
 
 if (_functionValue isNotEqualTo _value) then {
     _heli setVariable [_function, _value, true];

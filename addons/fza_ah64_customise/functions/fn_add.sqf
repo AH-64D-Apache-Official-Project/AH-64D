@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_target","_player","_targetComp"];
 
-if (_targetComp == "FCR") exitwith {
+if (_targetComp == "FCR") exitWith {
     [
         300,
         [_target, _player],
@@ -41,7 +41,7 @@ if (_targetComp == "FCR") exitwith {
         ["isNotInside"]
     ] call ace_common_fnc_progressBar;
 };
-if (_targetComp == "IAFS") exitwith {
+if (_targetComp == "IAFS") exitWith {
     [
         300,
         [_target, _player],
@@ -69,7 +69,7 @@ if (_targetComp == "IAFS") exitwith {
         ["isNotInside"]
     ] call ace_common_fnc_progressBar;
 };
-if (_targetComp == "MAG") exitwith {
+if (_targetComp == "MAG") exitWith {
     [
         300,
         [_target, _player],

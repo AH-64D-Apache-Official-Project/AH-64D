@@ -20,7 +20,7 @@ class flt_draw {
 
     ///////////////// R ///////////////
     //R6
-    MPD_ACQ_SRC(Acq, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC, Flt_Acq)
+    MPD_ACQ_SRC(Acq, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC, "Flt_Acq")
     MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
     ///////////////// B ///////////////
@@ -41,8 +41,8 @@ class flt_draw {
     #include "common\headingtape.hpp"
 
     #define MPD_FLT_HORIZON_LINE_TEXT(angle, startX, startY, alignment) class text_##alignment {\
-            type = text; \
-            align = alignment; \
+            type = "text"; \
+            align = "alignment"; \
             scale = 1; \
             pos[] = {"Flt_Horizon", {startX, startY-(MPD_TEXT_HEIGHT/2*0.9)}, 1}; \
             right[] = {"Flt_Horizon", {(startX)+MPD_TEXT_WIDTH_VEC, startY-(MPD_TEXT_HEIGHT/2)}, 1}; \
@@ -57,7 +57,7 @@ class flt_draw {
         MPD_FLT_HORIZON_LINE_TEXT(angle, (0.7 * (-(0.2 + angle * 0.002))), (0.7 * (- directionNum * angle * 0.014)),left)\
         MPD_FLT_HORIZON_LINE_TEXT(angle, (0.7 * (0.2 + angle * 0.002)), (0.7 * (- directionNum * angle * 0.014)),right)\
         class horizontal { \
-            type = line; \
+            type = "line"; \
             lineType = horizonLineType; \
             width = 3; \
             points[] = { \
@@ -68,7 +68,7 @@ class flt_draw {
                 {"Flt_Horizon", {0.7 * (0.18 + angle * 0.002), 0.7 * (- directionNum * angle * 0.014)}, 1}}; \
         }; \
         class vertical { \
-            type = line; \
+            type = "line"; \
             width = 3; \
             points[] = { \
                 {"Flt_Horizon", {0.7 * (-(0.18 + angle * 0.002)), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
@@ -81,7 +81,7 @@ class flt_draw {
     #define MPD_FLT_HORIZON_LINE_SEC(angle, directionNum, directionName, lineColour) class HorizonLine_##angle##_##directionName { \
         color[] = lineColour; \
         class horizontal { \
-            type = line; \
+            type = "line"; \
             lineType = 0; \
             width = 3; \
             points[] = { \
@@ -174,7 +174,7 @@ class flt_draw {
         class Horizon_0 { \
             color[] = MPD_COLOUR_GROUND; \
             class Line { \
-                type = line; \
+                type = "line"; \
                 width = 3; \
                 points[] = { \
                     {"Flt_Horizon", {-0.36, 0}, 1}, \
@@ -187,7 +187,7 @@ class flt_draw {
     class Obscurants {
         color[] = {0,0,0,1};
         class HeadingTape {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.15 - MPD_TEXT_HEIGHT}, 1},
@@ -200,10 +200,10 @@ class flt_draw {
     };
 
     ///////////////// Heading ///////////////
-    MPD_TEXT_C(Heading, 0.5, 0.1, source = heading; sourceScale = 1;)
+    MPD_TEXT_C(Heading, 0.5, 0.1, source = "heading"; sourceScale = 1;)
 
     class HorizonMiddle {
-        type = line;
+        type = "line";
         width = 8;
         points[] = {
             {{0.4, 0.5}, 1},
@@ -217,7 +217,7 @@ class flt_draw {
     };
 
     class VSIStatic {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             // Main markers
@@ -241,7 +241,7 @@ class flt_draw {
     class RadarAltimeter {
         condition = (altitudeAGL * MPD_SCALE_METERS_FEET) < 200;
         class RadarAltTape {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {"Flt_RadarAlt", {0.965, 0.75}, 1},
@@ -252,7 +252,7 @@ class flt_draw {
             };
         };
         class RadarAltStatic {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 // Main markers
@@ -272,7 +272,7 @@ class flt_draw {
     }
 
     class VerticalSpeedIndicator {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {"Flt_VerticalSpeed", {0.945, 0.5}, 1},
@@ -285,7 +285,7 @@ class flt_draw {
     //Todo: Make go white when bank angle ,  20 degrees
     #define MPD_BANK_ANGLE_STATIC_RADIAL(angle, y1, y2) {{__EVAL(0.5 + y1 * sin(angle)), __EVAL(0.5 - y1 * cos(angle))}, 1}, {{__EVAL(0.5 + y2 * sin(angle)), __EVAL(0.5 - y2 * cos(angle))}, 1}, {},
     class BankAngleStatic {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             MPD_BANK_ANGLE_STATIC_RADIAL(5, 0.3, 0.31) MPD_BANK_ANGLE_STATIC_RADIAL(-5, 0.3, 0.31)
@@ -298,7 +298,7 @@ class flt_draw {
     }
 
     class BankAngleStaticThick {
-        type = line;
+        type = "line";
         width = 9;
         points[] = {
             {{0.5, 0.165}, 1},{{0.5, 0.205}, 1}, {},
@@ -310,7 +310,7 @@ class flt_draw {
     class BankAngleExtension {
         condition = (horizonBank >  rad 20) + (horizonBank < rad -20);
         class BankAngleStaticThick {
-            type = line;
+            type = "line";
             width = 9;
             points[] = {
                 MPD_BANK_ANGLE_STATIC_RADIAL(45, 0.29, 0.31)
@@ -320,7 +320,7 @@ class flt_draw {
     };
 
     class BankAngleTriangle {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {"Flt_BankAngle", { 0.0, 0.315}, 1},
@@ -331,7 +331,7 @@ class flt_draw {
     };
 
     class TurnRateSkidSlipLines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Horizontal slip line
@@ -352,7 +352,7 @@ class flt_draw {
     };
 
     class TurnRateTriangles {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {{0.40, 0.90}, 1},
@@ -372,10 +372,10 @@ class flt_draw {
         };
     };
 
-    MPD_CIRCLE(SlipIndicator, Flt_SlipIndicator, 0.018)
+    MPD_CIRCLE(SlipIndicator, "Flt_SlipIndicator", 0.018)
 
     class TurnIndicatorBox {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {"Flt_TurnIndicator", {-0.0125, -0.0125}, 1},
@@ -387,13 +387,13 @@ class flt_draw {
     };
 
     class WaypointBoxStatic {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-            MPD_POINTS_CURVED_CORNER(Null, 0.0725, 0.8530 - 2 * MPD_TEXT_HEIGHT, -0.015, -0.015), {}, // Top Left corner
-            MPD_POINTS_CURVED_CORNER(Null, 0.3425, 0.8530 - 2 * MPD_TEXT_HEIGHT, 0.015, -0.015), {}, // Top Right corner
-            MPD_POINTS_CURVED_CORNER(Null, 0.3425, 0.8515, 0.015, 0.015), {}, // Bottom Right corner
-            MPD_POINTS_CURVED_CORNER(Null, 0.0725, 0.8515, -0.015, 0.015), {}, // Bottom Left corner
+            MPD_POINTS_CURVED_CORNER("Null", 0.0725, 0.8530 - 2 * MPD_TEXT_HEIGHT, -0.015, -0.015), {}, // Top Left corner
+            MPD_POINTS_CURVED_CORNER("Null", 0.3425, 0.8530 - 2 * MPD_TEXT_HEIGHT, 0.015, -0.015), {}, // Top Right corner
+            MPD_POINTS_CURVED_CORNER("Null", 0.3425, 0.8515, 0.015, 0.015), {}, // Bottom Right corner
+            MPD_POINTS_CURVED_CORNER("Null", 0.0725, 0.8515, -0.015, 0.015), {}, // Bottom Left corner
             {{0.0725, 0.838 - 2 * MPD_TEXT_HEIGHT}, 1}, {{0.3425, 0.838 - 2 * MPD_TEXT_HEIGHT}, 1}, {}, //Top line
             {{0.0725, 0.8665}, 1}, {{0.3425, 0.8665}, 1}, {}, // Bottom Line
             {{0.0575, 0.85 - 2 * MPD_TEXT_HEIGHT}, 1}, {{0.0575, 0.85}, 1}, {}, // Left Line
@@ -414,7 +414,7 @@ class flt_draw {
         class FlyToCue {
             condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FLT_FLY_TO_CUE_X), -20));
             class FlyToCueLines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1},
@@ -430,19 +430,19 @@ class flt_draw {
             };
             
             class FlyToCueTriangle {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     {
                         {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0, -0.005}, 1},
                         {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.0075, 0.005}, 1},
                         {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.0075, 0.005}, 1}
-                    };
+                    },
                 };
             };
         };
 
         class FlightPathVector {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                     MPD_POINTS_CURVED_CORNER("Flt_FlightPathVectorY" COMMA 1 COMMA "Flt_FlightPathVectorX", 0, 0, 0.02, 0.02), {},
@@ -459,7 +459,7 @@ class flt_draw {
     class CommandHeading {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FLT_COMMAND_HEADING), -180));
         class CommandHeading {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {"Flt_CommandHeading", {-0.0075, 0.015}, 1},
@@ -470,7 +470,7 @@ class flt_draw {
     };
 
     class AltSensorBearing {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {"Flt_AltSensorBearing", {-0.0075, 0.015}, 1},
@@ -483,7 +483,7 @@ class flt_draw {
     class Flt_FCRCenterline {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FLT_FCR_CENTERLINE), -180));
         class Flt_FCRCenterline {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     //Main rectangles

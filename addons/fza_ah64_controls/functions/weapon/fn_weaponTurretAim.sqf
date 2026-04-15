@@ -29,7 +29,7 @@ params["_heli"];
 private _currentTurret = _heli call fza_fnc_currentTurret;
 private _gunnnerUnit = _heli turretUnit [0];
 
-if (_currentTurret isnotEqualTo [0] && (isplayer _gunnnerUnit)) exitwith {};
+if (_currentTurret isNotEqualTo [0] && (isPlayer _gunnnerUnit)) exitWith {};
 
 private _azimuth = -deg(_heli animationPhase "tads_tur");
 private _elevation = deg(_heli animationPhase "tads");
@@ -78,7 +78,7 @@ if !_acBusOn then {
 switch (_sight) do {
     case SIGHT_FCR:{
         _targpos = _heli modelToWorldVisual [0,1000,0];
-        if (!isNull _nts) exitwith {
+        if (!isNull _nts) exitWith {
             _targPos = _ntspos;
             if (isVehicleRadarOn _heli) then {
                 _targPos = aimPos _nts;
@@ -90,8 +90,8 @@ switch (_sight) do {
         _inhibit = "NO TARGET";
     };
     case SIGHT_HMD:{
-        _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
-        if (cameraView == "GUNNER") exitwith {};
+        _targPos = AGLToASL (positionCameraToWorld [0, 0, 1000]);
+        if (cameraView == "GUNNER") exitWith {};
         _cameraTarget = _targPos;
     };
     case SIGHT_TADS:{
@@ -104,12 +104,12 @@ switch (_sight) do {
     };
 };
 
-if ((_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) && !(_heli getVariable "fza_ah64_LmcActive")) then {
+if ((_currentTurret isEqualTo [0] || !(isPlayer _gunnnerUnit)) && !(_heli getVariable "fza_ah64_LmcActive")) then {
     _heli lockCameraTo [_cameraTarget, [0], false];
 };
 
 private _targDistance = _heli distance _targPos;
-if (_targPos isequalto [0,0,0] && _sight == SIGHT_TADS) then {
+if (_targPos isEqualTo [0,0,0] && _sight == SIGHT_TADS) then {
     _targDistance = 1000;
     _targPos = _worldTargetpos;
 };
@@ -119,13 +119,13 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     private _elevationComp = ([_rocketTable, _targDistance] call fza_fnc_linearInterp) # 1;
     private _tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
     private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];    
-    _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
+    _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel ASLToAGL _aimLocation)) call CBA_fnc_vect2Polar)# 2;
     
     if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
         _inhibit = "PYLON LIMIT";
         _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
     };
-    if (_utilHydFailed || _utilLevelMin) exitwith {
+    if (_utilHydFailed || _utilLevelMin) exitWith {
         _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
     };
 };
@@ -133,21 +133,21 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
 if (_was == WAS_WEAPON_MSL && _sight != SIGHT_FXD) then {
     private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
     private _hellfiretable = [[33, 4],[1000, -15]];
-    private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
+    private _hellfireZero = ([_hellfiretable, ((getPos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
     private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
 
-if (Currentweapon _heli == "fza_pylon_inhibit" && _inhibit == "") then {
+if (currentWeapon _heli == "fza_pylon_inhibit" && _inhibit == "") then {
     [_heli] call fza_fnc_weaponUpdateSelected;
 };
 
 for "_i" from 0 to 3 do {
-    if ((_utilHydFailed || _utilLevelMin)) exitwith {};
+    if ((_utilHydFailed || _utilLevelMin)) exitWith {};
     private _pylon = "pylon" + str(_i + 1);
-    private _pylonD = if _onGnd then {0;} else {4;};
+    private _pylonD = [4, 0] select _onGnd;
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-        if (_was == WAS_WEAPON_RKT) exitwith {
+        if (_was == WAS_WEAPON_RKT) exitWith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
             [_heli, "fza_ah64_rocketPylonElev", _pylonAdjustment] call fza_fnc_updateNetworkGlobal;
             
@@ -156,7 +156,7 @@ for "_i" from 0 to 3 do {
         
     };
     if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
-        if (_was == WAS_WEAPON_MSL) exitwith {
+        if (_was == WAS_WEAPON_MSL) exitWith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
         };
         [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
@@ -164,7 +164,7 @@ for "_i" from 0 to 3 do {
 };
 
 if (_was == WAS_WEAPON_GUN) then {
-    if (_gunFailed) exitwith {
+    if (_gunFailed) exitWith {
         _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     };
     private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
@@ -179,11 +179,11 @@ if (_was == WAS_WEAPON_GUN) then {
         _safemessage = "_inhibit";
         _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     } else {
-        if (Currentweapon _heli == "fza_gun_inhibit") then {
+        if (currentWeapon _heli == "fza_gun_inhibit") then {
             _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
-    if (_sight == SIGHT_FXD) exitwith {
+    if (_sight == SIGHT_FXD) exitWith {
         _mainturret = 0;
         _maingun = 0;
         _inhibit = "GUN FIXED";
@@ -192,7 +192,7 @@ if (_was == WAS_WEAPON_GUN) then {
     _maingun = rad ([_tadsElevation, -60, 11] call BIS_fnc_clamp);
 };
 if (_gunFailed) then {
-    _mainturret = _heli animationphase "mainTurret";
+    _mainturret = _heli animationPhase "mainTurret";
     _maingun = 0.298;
 };
 
@@ -209,6 +209,6 @@ for "_i" from 0 to 3 do {
 [_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;
 
 #ifdef __A3_DEBUG__
-drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], asltoagl _targPos, 0.5, 0.5, 0, "Target pos ATL"];
+drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], ASLToAGL _targPos, 0.5, 0.5, 0, "Target pos ATL"];
 drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], _worldTargetpos, 0.5, 0.5, 0, "Target vector"];
 #endif

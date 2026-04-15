@@ -28,15 +28,15 @@ class CfgNonAIVehicles {
     };
     
     class Proxyfza_pod_zoneA: ProxyWeapon {
-        model = \fza_ah64_hydra\data\pylon\fza_pod_zoneA.p3d;
+        model = "\fza_ah64_hydra\data\pylon\fza_pod_zoneA.p3d";
         simulation = "pylonpod";
     };
     class Proxyfza_pod_zoneB: ProxyWeapon {
-        model = \fza_ah64_hydra\data\pylon\fza_pod_zoneB.p3d;
+        model = "\fza_ah64_hydra\data\pylon\fza_pod_zoneB.p3d";
         simulation = "pylonpod";
     };
     class Proxyfza_pod_zoneE: ProxyWeapon {
-        model = \fza_ah64_hydra\data\pylon\fza_pod_zoneE.p3d;
+        model = "\fza_ah64_hydra\data\pylon\fza_pod_zoneE.p3d";
         simulation = "pylonpod";
     };
 };

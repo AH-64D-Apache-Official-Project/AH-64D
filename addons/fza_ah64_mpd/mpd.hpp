@@ -16,7 +16,7 @@ class material
 };
 class Bones {
     class Null {
-        type = fixed;
+        type = "fixed";
         pos[] = {0, 0};
     };
     #include "pages\flt_bones.hpp"

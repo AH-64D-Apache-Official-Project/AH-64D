@@ -27,19 +27,19 @@ class CfgNonAIVehicles {
         simulation = "maverickweapon";
     };
     class Proxyfza_rail_ll: ProxyWeapon {
-        model = \fza_ah64_hellfire\data\pylon\fza_rail_ll.p3d;
+        model = "\fza_ah64_hellfire\data\pylon\fza_rail_ll.p3d";
         simulation = "pylonpod";
     };
     class Proxyfza_rail_lr: ProxyWeapon {
-        model = \fza_ah64_hellfire\data\pylon\fza_rail_lr.p3d;
+        model = "\fza_ah64_hellfire\data\pylon\fza_rail_lr.p3d";
         simulation = "pylonpod";
     };
     class Proxyfza_rail_ul: ProxyWeapon {
-        model = \fza_ah64_hellfire\data\pylon\fza_rail_ul.p3d;
+        model = "\fza_ah64_hellfire\data\pylon\fza_rail_ul.p3d";
         simulation = "pylonpod";
     };
     class Proxyfza_rail_ur: ProxyWeapon {
-        model = \fza_ah64_hellfire\data\pylon\fza_rail_ur.p3d;
+        model = "\fza_ah64_hellfire\data\pylon\fza_rail_ur.p3d";
         simulation = "pylonpod";
     };
 };

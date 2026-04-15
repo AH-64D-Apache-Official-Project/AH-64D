@@ -92,7 +92,8 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
 
     _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOutput, _trnOutput, true];
 } else {
-    [_pid] call fza_fnc_pidReset;
+    [_pidHdg] call fza_fnc_pidReset;
+    [_pidTrn] call fza_fnc_pidReset;
 };
 
 _output = [_output,  -0.1, 0.1] call BIS_fnc_clamp;

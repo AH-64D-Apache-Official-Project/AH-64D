@@ -1,7 +1,7 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-if (_this call fza_mpd_fnc_WpnTrajHandleControl) exitwith {};
+if (_this call fza_mpd_fnc_WpnTrajHandleControl) exitWith {};
 
 switch (_control) do {
     case "l1": {
@@ -61,7 +61,7 @@ switch (_state get "variant") do {
                 private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
                 if (_chanSelected == _pri) then {
                     private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
-                    private _newPri = [0,1] select (_chanSelected == 0);
+                    private _newPri = BOOLTONUM(_chanSelected == 0);
                     [_heli, "fza_ah64_laserMissilePrimaryCode", _newPri] call fza_fnc_updateNetworkGlobal;
                 };
                 [_heli, "fza_ah64_laserMissileAlternateCode", _chanSelected] call fza_fnc_updateNetworkGlobal;

@@ -26,7 +26,7 @@ class CfgAmmo {
         soundfly[]                  = {"fza_ah64_controls\data\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_soundset_hydra_explosion_stereo", "fza_shell_explosion_reverb_soundset"};
         soundsetsoniccrack[]        = {"fza_soundset_hydra_flyby"};
-        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep";
+        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep.p3d";
         explosionEffects            = "GrenadeExplosion";
         effectsmissile              = "fza_hydraEffect";
         effectsMissileInit          = "";
@@ -76,8 +76,8 @@ class CfgAmmo {
         ace_frag_skip               = 0;
         fza_shortCode               = "6PD";
         fza_weaponName              = "fza_275_m151_wep";
-        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep";
-        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m151";
+        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep.p3d";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m151.p3d";
         hit                         = 60;
         indirectHit                 = 40;
         indirectHitRange            = 13;
@@ -87,8 +87,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6FL";
         fza_weaponName              = "fza_275_m255a1_wep";
-        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep.p3d";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261.p3d";
         CraterEffects               = "ATMissileCrater";
 
         submunitionDirectionType    ="SubmunitionModelDirection";
@@ -100,7 +100,7 @@ class CfgAmmo {
         deleteParentWhenTriggered   = 1;
         submunitionInitialOffset[]  = {0,0,2};
 
-        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
+        soundHit1[]                 = {"A3\sounds_f\dummysound.wss",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
         //AI uasge
@@ -111,8 +111,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6IL";
         fza_weaponName              = "fza_275_m257_wep";
-        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep.p3d";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261.p3d";
         CraterEffects               = "ATMissileCrater";
 
         submunitionAmmo             = "fza_m257_flare";
@@ -121,7 +121,7 @@ class CfgAmmo {
         deleteParentWhenTriggered   = 1;
 
         triggerTime                 = 5.6;
-        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
+        soundHit1[]                 = {"A3\sounds_f\dummysound.wss",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
         //AI uasge
@@ -132,8 +132,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6MP";
         fza_weaponName              = "fza_275_m261_wep";
-        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep.p3d";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261.p3d";
 
         submunitionDirectionType    = "SubmunitionModelDirection";
         submunitionAmmo             = "fza_m73mpsm";
@@ -151,8 +151,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6IR";
         fza_weaponName              = "fza_275_m278_wep";
-        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep.p3d";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261.p3d";
         CraterEffects               = "ATMissileCrater";
 
         submunitionAmmo             = "fza_m278_flare";
@@ -161,7 +161,7 @@ class CfgAmmo {
         deleteParentWhenTriggered   = 1;
 
         triggerTime                 = 5.4;
-        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
+        soundHit1[]                 = {"A3\sounds_f\dummysound.wss",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
         //AI uasge
@@ -199,10 +199,10 @@ class CfgAmmo {
         whistleDist                 = 16;
         typicalSpeed                = 300;
         caliber                     = 3.7;
-        soundHit1[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_01",1.7782794,1,1600};
-        soundHit2[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_02",1.7782794,1,1600};
-        soundHit3[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_03",1.7782794,1,1600};
-        soundHit4[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_04",1.7782794,1,1600};
+        soundHit1[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_01.wss",1.7782794,1,1600};
+        soundHit2[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_02.wss",1.7782794,1,1600};
+        soundHit3[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_03.wss",1.7782794,1,1600};
+        soundHit4[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_04.wss",1.7782794,1,1600};
         multiSoundHit[] = {"soundHit1",0.25,"soundHit2",0.25,"soundHit3",0.25,"soundHit4",0.25};
     };
     class fza_m257_flare: FlareCore

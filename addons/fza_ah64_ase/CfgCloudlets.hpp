@@ -1,8 +1,6 @@
 class CfgCloudlets
 {
     class Default;
-    class Missile4;
-    class ObjectDestructionRefract;
     class fza_FlareSmokeLong_LOW: Default
     {
         interval=0.02;

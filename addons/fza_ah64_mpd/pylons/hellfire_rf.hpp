@@ -1,7 +1,7 @@
 class fza_ah64_hellfire {
     class Bones {
         class Null {
-            type = fixed;
+            type = "fixed";
             pos[] = {0, 0};
         };
     };
@@ -14,7 +14,7 @@ class fza_ah64_hellfire {
                 color[] = { 0.0, 0.0, 0.0, 1.0 };
                 class Background
                 {
-                    type = polygon;
+                    type = "polygon";
                     points[] =
                     {
                         {
@@ -22,12 +22,12 @@ class fza_ah64_hellfire {
                             { {0.02,-0.062}, 1 },
                             { {0.02,0.062}, 1 },
                             { {-0.02,0.062}, 1 }
-                        };
+                        },
                     };
                 };
             };
             class Lines {
-                type = line;
+                type = "line";
                 width=3;
                 points[] = 
                 {
@@ -53,7 +53,7 @@ class fza_ah64_hellfire {
 class fza_ah64_hellfire_selected {
     class Bones {
         class Null {
-            type = fixed;
+            type = "fixed";
             pos[] = {0, 0};
         };
     };
@@ -67,7 +67,7 @@ class fza_ah64_hellfire_selected {
                 color[] = { 0.0, 0.0, 0.0, 1.0 };
                 class Background
                 {
-                    type = polygon;
+                    type = "polygon";
                     points[] =
                     {
                         {
@@ -75,12 +75,12 @@ class fza_ah64_hellfire_selected {
                             { {0.02,-0.062}, 1 },
                             { {0.02,0.062}, 1 },
                             { {-0.02,0.062}, 1 }
-                        };
+                        },
                     };
                 };
             };
             class Lines {
-                type = line;
+                type = "line";
                 width=3;
                 points[] = 
                 {
@@ -106,7 +106,7 @@ class fza_ah64_hellfire_selected {
 class fza_ah64_hellfire_inverse {
     class Bones {
         class Null {
-            type = fixed;
+            type = "fixed";
             pos[] = {0, 0};
         };
     };
@@ -116,7 +116,7 @@ class fza_ah64_hellfire_inverse {
             condition = "1-pylonMagazineEmpty";
             class Background
             {
-                type = polygon;
+                type = "polygon";
                 points[] =
                 {
                     {
@@ -158,7 +158,7 @@ class fza_ah64_hellfire_inverse {
                 color[] = { 0.0, 0.0, 0.0, 1.0 };
 
                 class Lines {
-                    type = line;
+                    type = "line";
                     width=5;
                     points[] = 
                     {
@@ -175,7 +175,7 @@ class fza_ah64_hellfire_inverse {
 class fza_ah64_M299 {
     class Bones {
         class Null {
-            type = fixed;
+            type = "fixed";
             pos[] = {0, 0};
         };
     };
@@ -186,7 +186,7 @@ class fza_ah64_M299 {
             color[] = { 0.0, 0.0, 0.0, 1.0 };
             class Background
             {
-                type = polygon;
+                type = "polygon";
                 points[] =
                 {
                     {
@@ -194,12 +194,12 @@ class fza_ah64_M299 {
                         { { 0.0075,-0.062}, 1 },
                         { { 0.0075,0.062}, 1 },
                         { {-0.0075,0.062}, 1 }
-                    };
+                    },
                 };
             };
         };
         class Lines {
-            type = line;
+            type = "line";
             width=3;
             points[] = 
             {
@@ -216,7 +216,7 @@ class fza_ah64_M299 {
 class fza_ah64_M299_inverse {
     class Bones {
         class Null {
-            type = fixed;
+            type = "fixed";
             pos[] = {0, 0};
         };
     };
@@ -224,7 +224,7 @@ class fza_ah64_M299_inverse {
     {
         class Background
         {
-            type = polygon;
+            type = "polygon";
             points[] =
             {
                 {

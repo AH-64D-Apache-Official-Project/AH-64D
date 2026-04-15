@@ -41,7 +41,7 @@ private _chordLinePos    = 0.25;
 
 private _stabOutputTable = [[]];
 private _desiredTheta    = 0.0;
-private _theta           = _heli getvariable "fza_ah64_stabilatorPosition";
+private _theta           = _heli getVariable "fza_ah64_stabilatorPosition";
 
 private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), (_heli getVariable "fza_sfmplus_collectiveOutput")] call fza_fnc_linearInterp;
 /*

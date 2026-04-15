@@ -1,3 +1,6 @@
+#ifndef FZA_AH64_CONTROLS_HEADERS_SYSTEM_CONSTANTS_H
+#define FZA_AH64_CONTROLS_HEADERS_SYSTEM_CONSTANTS_H
+
 #define SIGHT_FCR  0
 #define SIGHT_HMD  1
 #define SIGHT_TADS 2
@@ -27,3 +30,5 @@
 #define FCR_TYPE_TRACKED    3
 #define FCR_TYPE_WHEELED    4
 #define FCR_TYPE_ADU        5
+
+#endif

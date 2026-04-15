@@ -1,5 +1,3 @@
-#include "\fza_ah64_mpd\headers\mfdConstants.h"
-
 MPD_TEXT_C(TSD, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"))
 
 MPD_TEXT_C(SRCHTEXT, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT + 0.01, MPD_TEXT_STATIC("SRCH>"))
@@ -33,7 +31,7 @@ MPD_TEXT_C(SHOT,  MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("SH
 
 
 class lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
         {{0.278, 0.966}, 1},//left scroll arrow
@@ -90,10 +88,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("WAYPOINTS AND HAZARDS"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 10.75), 0.09, (21.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 10.75), 0.09, (21.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
         
@@ -104,10 +102,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("CONTROL MEASURES"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -117,10 +115,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("BOUNDARY AND PHASE LINES"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 12.25), 0.09, (24.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 12.25), 0.09, (24.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -130,10 +128,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("ENGAGEMENT AREAS"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -143,10 +141,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("TARGETS AND THREATS"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.75), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 9.75), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -156,10 +154,10 @@ class PageSelect {
 
         MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("SHOT AT"))
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 3.75), 0.09, (7.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 3.75), 0.09, (7.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
 
@@ -171,7 +169,7 @@ class PageSelect {
             
             
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.010, 0.250},1},
@@ -202,60 +200,60 @@ class pointSelect {
     class point1 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 1));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_1_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_1_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
     class point2 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 2));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_2_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_2_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
     class point3 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 3));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_3_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_3_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
     class point4 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 4));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_4_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_4_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
     class point5 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 5));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_5_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_5_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
     class point6 {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_POINT), 6));
             class box {
-            type=line;
+            type="line";
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_6_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX("Null", (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_6_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };

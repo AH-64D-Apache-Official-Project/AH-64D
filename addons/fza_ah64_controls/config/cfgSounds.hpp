@@ -35,7 +35,7 @@ class CfgSounds
     class fza_ah64_fake_3D
     {
         name = "fza_ah64_fake_3D";
-        sound[] = {"A3\Sounds_F\dummysound",1,1,10};
+        sound[] = {"A3\Sounds_F\dummysound.wss",1,1,10};
         titles[]={};
     };
 

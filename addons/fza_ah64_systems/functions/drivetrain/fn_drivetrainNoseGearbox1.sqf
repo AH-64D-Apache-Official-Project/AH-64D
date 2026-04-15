@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _engPctTq         = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
@@ -34,7 +34,7 @@ private _dynamicDmgStage2 = 0.0;
 private _dynamicDmgStage3 = 0.0;
 
 if (isEngineOn _heli) then {
-    if (_isSingleEng == true) then {
+    if (_isSingleEng) then {
         if (_engPctTQ <= 1.10) then {
             _dmgTimerCont  = 0;
             _dmgTimerTrans = 0;
@@ -72,7 +72,7 @@ if (isEngineOn _heli) then {
     };
 };
  
-if (_isSingleEng == true) then {
+if (_isSingleEng) then {
     if (_applyDamage) then {
         //--Dynamic damage
         if (_engPctTq > 1.10) then {

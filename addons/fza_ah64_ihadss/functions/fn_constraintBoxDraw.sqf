@@ -22,7 +22,7 @@ Author:
 #include "\fza_ah64_ihadss\headers\dimensions.h"
 params ["_heli"];
 
-private _constraintBoxCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131;
+private _constraintBoxCtrl = (uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 131;
 private _conW = 0;
 private _conH = 0;
 private _indicateLobl = false;
@@ -30,22 +30,22 @@ private _vector = [];
 private _allowableAngle = 20;
 private _constraintBoxUseTads = false;
 
-if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitwith {};
+if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitWith {};
 
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
 	if !isNull _ntsObj then {
 		_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_limaLoblCheck) # 1;
-		_vector = _heli worldToModelVisual (aslToAgl _ntsPos);
+		_vector = _heli worldToModelVisual (ASLToAGL _ntsPos);
 		if _indicateLobl then {
-			_vector = _heli worldToModelVisual (aslToAgl getPosASL _ntsObj);
+			_vector = _heli worldToModelVisual (ASLToAGL getPosASL _ntsObj);
 			_allowableAngle = 5;
 		};
 	};
 } else {
 	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
 	if !isNil "_lasePos" then {
-		_vector = _heli worldToModelVisual (aslToAgl _lasePos);
+		_vector = _heli worldToModelVisual (ASLToAGL _lasePos);
 		_indicateLobl = true;
 	} else {
 		if (_heli getVariable "fza_ah64_hellfireTrajectory" == "DIR") then {

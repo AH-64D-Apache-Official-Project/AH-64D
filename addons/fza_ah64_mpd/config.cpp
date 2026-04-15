@@ -5,11 +5,13 @@ class CfgPatches
         units[] = {};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
-        requiredVersion = 1.0;
+        requiredVersion = 2.10;
         requiredAddons[] = {"fza_ah64_controls", "ace_laser"};
         #include "version.hpp"
     };
 };
+
+#include "\x\cba\addons\main\script_macros_common.hpp"
 
 #include "ui\baseControls.hpp"
 #include "ui\ctrls.hpp"
@@ -22,6 +24,7 @@ class CfgPatches
 
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"

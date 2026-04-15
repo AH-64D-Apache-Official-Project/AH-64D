@@ -5,17 +5,17 @@ class InfoBoxes {
         class Occluder {
             color[] = {0,0,0,1};
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     MPD_POINTS_BOX_POLY(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
                 };
             };
         };
         class Box {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
+                MPD_POINTS_BOX("Null", 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
             };
         };
         class wind_text {
@@ -28,17 +28,17 @@ class InfoBoxes {
         class Occluder {
             color[] = {0,0,0,1};
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     MPD_POINTS_BOX_POLY(Null, 0.7+MPD_TEXT_WIDTH, 0.73+0.005, 6*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01) //Endurance
                 };
             };
         };
         class Box {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, 0.7+MPD_TEXT_WIDTH, 0.73+0.005, 6*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01) //Endurance
+                MPD_POINTS_BOX("Null", 0.7+MPD_TEXT_WIDTH, 0.73+0.005, 6*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01) //Endurance
             };
         };
 
@@ -53,7 +53,7 @@ class InfoBoxes {
         class Occluders {
             color[] = {0,0,0,1};
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     MPD_POINTS_BOX_POLY(Null, 0.15, 0.7, 0.25, 2*MPD_TEXT_HEIGHT) //Waypoint info
                 };
@@ -61,10 +61,10 @@ class InfoBoxes {
         };
 
         class Boxes {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, 0.15, 0.7, 0.25, 2*MPD_TEXT_HEIGHT) //Waypoint info
+                MPD_POINTS_BOX("Null", 0.15, 0.7, 0.25, 2*MPD_TEXT_HEIGHT) //Waypoint info
             };
         };
 

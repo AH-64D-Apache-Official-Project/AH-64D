@@ -33,29 +33,28 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     _x params ["_object", "_state","_soundclass","_objectpos"];
     switch (_state) do {
         case "searching": {
-            _searching pushback _object;
+            _searching pushBack _object;
             if (_object in (_designatinglist+_tracklist+_acquireList+_Searchlist)) then {continue;};
             _priority = ASE_SRH;
         };
         case "acquisition": {
-            _acquisition pushback _object;
+            _acquisition pushBack _object;
             if (_object in (_designatinglist+_tracklist+_acquireList)) then {continue;};
             _priority = ASE_ACQ;
         };
         case "tracking": {
-            _tracking pushback _object;
+            _tracking pushBack _object;
             if (_object in (_designatinglist+_tracklist)) then {continue;};
             _object confirmSensorTarget [playerSide, true];
             _priority = ASE_TRK;
         };
         case "designating": {
-            _designating pushback _object;
+            _designating pushBack _object;
             if (_object in _designatinglist) then {continue;};
             _priority = ASE_LSR;
-            _theta = _bearing;
         };
     };
-    if !(isnil "_objectpos") then {_object = _objectpos;};
+    if !(isNil "_objectpos") then {_object = _objectpos;};
     private _theta = _heli getRelDir _object;
     private _clock = [_theta] call fza_ase_fnc_bearingClock;
     
@@ -88,6 +87,6 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
             };
         };
     };
-} foreach _audioList;
+} forEach _audioList;
 
 _heli setVariable ["fza_ah64_ase_data", [_searching,_acquisition,_tracking,_designating]];

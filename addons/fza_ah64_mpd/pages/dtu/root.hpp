@@ -1,10 +1,10 @@
 class dtu_draw {
     class outlines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Curved box
-            MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 4), 0.12, (8 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 4), 0.12, (8 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
         };
     };
 

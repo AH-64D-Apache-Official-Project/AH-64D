@@ -15,7 +15,6 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli"];
 
 if ((_heli getHit "hitengine1" == 0) && (_heli getVariable "fza_ah64_firepdisch" == true)) then {

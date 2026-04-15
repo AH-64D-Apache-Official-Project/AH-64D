@@ -7,11 +7,11 @@ private _waypointId = _waypointIndex call fza_dms_fnc_pointToString;
 private _groundSpeed = vectorMagnitude velocity _heli;
 private _groundSpeedStr = (_groundSpeed * SCALE_MPS_KNOTS) toFixed 0;
 
-if (isNil "_waypoint") exitwith {
+if (isNil "_waypoint") exitWith {
     [_waypointId, _groundSpeedStr, "", ""];
 };
 
-private _distance = (_waypoint distance2D getposasl _heli);
+private _distance = (_waypoint distance2D getPosASL _heli);
 private _distanceStr = (_distance/1000) toFixed 1;
 
 private _etaStr = "";

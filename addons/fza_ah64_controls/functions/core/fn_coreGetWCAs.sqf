@@ -33,6 +33,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_ase\headers\ase.h"
 
 params ["_heli"];
 
@@ -43,7 +44,7 @@ params ["_heli"];
 #define ENG_OUT_PRIORITY           3
 #define FIRE_PRIORITY              4
 
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _configVehicles = configOf _heli;
 
 private _mags = _heli weaponsTurret [-1];
 
@@ -111,10 +112,10 @@ private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
 private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
 private _pylonMagazines = getPylonMagazines _heli;
-private _auxTank1FuelMass = _heli getvariable "fza_sfmplus_stn1FuelMass";
-private _auxTank2FuelMass = _heli getvariable "fza_sfmplus_stn2FuelMass";
-private _auxTank3FuelMass = _heli getvariable "fza_sfmplus_stn3FuelMass";
-private _auxTank4FuelMass = _heli getvariable "fza_sfmplus_stn4FuelMass";
+private _auxTank1FuelMass = _heli getVariable "fza_sfmplus_stn1FuelMass";
+private _auxTank2FuelMass = _heli getVariable "fza_sfmplus_stn2FuelMass";
+private _auxTank3FuelMass = _heli getVariable "fza_sfmplus_stn3FuelMass";
+private _auxTank4FuelMass = _heli getVariable "fza_sfmplus_stn4FuelMass";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -473,7 +474,7 @@ if  (_heli getVariable "fza_mpd_verMisMatch") then {
     _wcas pushBack [WCA_ADVISORY, "VERSION MISMATCH", "VERS MISM"];
 };
 
-if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
+if (_heli animationPhase "gdoor" > 0 || _heli animationPhase "pdoor" > 0) then {
     _wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY"];
 };
 //--Battery
@@ -549,8 +550,8 @@ if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4F
 };
 
 
-private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
-private _wptPassed = _heli getvariable "fza_ah64_wptpassed";
+private _wptAprch = _heli getVariable "fza_ah64_wptAprch";
+private _wptPassed = _heli getVariable "fza_ah64_wptpassed";
 private _pltMpd = _heli getVariable "fza_mpd_page_plt";
 private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptAprch#1) then {

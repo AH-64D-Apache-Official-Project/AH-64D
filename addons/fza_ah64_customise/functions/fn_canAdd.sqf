@@ -30,7 +30,7 @@ if (_targetComp == "FCR") then {
 };
 if (_targetComp == "IAFS") then {
     if (!("ToolKit" in (items _player))) exitWith {};
-    if (_heli animationPhase "magazine_set_1200" == 0) exitwith {};
+    if (_heli animationPhase "magazine_set_1200" == 0) exitWith {};
     private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
     if (isNull _nearestObject || (_player distance _nearestObject > 10)) exitWith {};
     _return = true;

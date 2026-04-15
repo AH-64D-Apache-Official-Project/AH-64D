@@ -29,18 +29,18 @@ private _cScopeCount    = 0;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 
 {
-    if (_cScopeCount > 15) exitwith {};
-    if !(_heli getVariable "fza_ah64_fcrcscope") exitwith {
+    if (_cScopeCount > 15) exitWith {};
+    if !(_heli getVariable "fza_ah64_fcrcscope") exitWith {
         _guiPos = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition _guiPos;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition _guiPos;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
     };
 
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2d _pos;
+    private _distance_m          = _scanPos distance2D _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
-    private _guiPos              = worldtoscreen asltoagl _pos;
+    private _guiPos              = worldToScreen ASLToAGL _pos;
 
     //Unit type
     switch (_type) do {
@@ -64,7 +64,7 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
         };
     };
     //Unit status
-    if !(_unitType == "FLYER") then {
+    if (_unitType != "FLYER") then {
         if (_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
             _unitStatus = "MOVE";
         } else {
@@ -80,17 +80,17 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
         };
     };
 
-    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
+    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitWith {};
 
     private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa", _unitType, _unitStatus];
     
     if (count _guiPos < 1) then {
         _guiPos = [-100, -100];
     };
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetText _tex;
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetText _tex;
     private _position = [(_GuiPos select 0)-0.03,(_GuiPos select 1)-0.05] call fza_fnc_compensateSafezone;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
 
     _cScopeCount = _cScopeCount + 1;
 } forEach _fcrTargets;
@@ -98,8 +98,8 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 for "_i" from _cScopeCount to 15 do
 {
     _guiPos = [-100, -100];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlCommit 0;
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlCommit 0;
 };
 
 
@@ -115,37 +115,37 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
     if (_ntsIndex != -1) then {
         private _guiPos = [-100, -100];
         private _ntsPos = _fcrTargets # _ntsIndex # 0;
-        if (!isNil "_ntsPos") then {_guiPos = worldtoscreen asltoagl _ntsPos;};
+        if (!isNil "_ntsPos") then {_guiPos = worldToScreen ASLToAGL _ntsPos;};
         if (count _guiPos < 1) then {_guiPos = [-100, -100];};
         private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\nts%1_ca.paa", (["", "_noMsl"] select ((_heli getVariable "fza_ah64_was") == WAS_WEAPON_NONE))];
         private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
 
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
     } else {
         private _guiPos = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
     };
 
     if (_antsIndex != -1) then {
         private _guiPos = [-100, -100];
         private _antsPos = _fcrTargets # _antsIndex # 0;
-        if (!isNil "_antsPos") then {_guiPos = worldtoscreen asltoagl _antsPos;};
+        if (!isNil "_antsPos") then {_guiPos = worldToScreen ASLToAGL _antsPos;};
         if (count _guiPos < 1) then {_guiPos = [-100, -100];};
         private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
     } else {
         private _guiPos = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+        ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
     };
 } else {
     private _guiPos = [-100, -100];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+    ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
 };

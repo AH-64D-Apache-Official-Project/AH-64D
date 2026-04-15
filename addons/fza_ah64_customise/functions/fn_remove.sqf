@@ -19,7 +19,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_target","_player","_targetComp"];
 
-if (_targetComp == "FCR") exitwith {
+if (_targetComp == "FCR") exitWith {
     [
         300,
         [_target, _player],

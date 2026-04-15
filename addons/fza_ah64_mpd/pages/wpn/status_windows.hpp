@@ -1,18 +1,18 @@
 class StatusWindows {
     class Static {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Sight Box
-            MPD_POINTS_BOX_PAD(Null, 0.27, 0.13, 0.09, 0.06, 0.02), {},
+            MPD_POINTS_BOX_PAD("Null", 0.27, 0.13, 0.09, 0.06, 0.02), {},
             //ACQ
-            MPD_POINTS_BOX_PAD(Null, 0.64, 0.13, 0.09, 0.06, 0.02), {},
+            MPD_POINTS_BOX_PAD("Null", 0.64, 0.13, 0.09, 0.06, 0.02), {},
             //LST
-            MPD_POINTS_BOX_PAD(Null, 0.27, 0.26, 0.07, 0.05, 0.02), {},
+            MPD_POINTS_BOX_PAD("Null", 0.27, 0.26, 0.07, 0.05, 0.02), {},
             //LRFD
-            MPD_POINTS_BOX_PAD(Null, 0.66, 0.26, 0.07, 0.05, 0.02), {},
+            MPD_POINTS_BOX_PAD("Null", 0.66, 0.26, 0.07, 0.05, 0.02), {},
             //Chaff
-            MPD_POINTS_BOX_PAD(Null, 0.46, 0.601, 0.08, 0.12, 0.02), {},
+            MPD_POINTS_BOX_PAD("Null", 0.46, 0.601, 0.08, 0.12, 0.02), {},
         };
     };
 
@@ -47,7 +47,7 @@ class StatusWindows {
             class Yellow {
                 color[] = {1,1,0,1};
                 class Polygon {
-                    type = polygon;
+                    type = "polygon";
                     points[] = {
                         {
                             {{0.5-1.5*MPD_TEXT_WIDTH, 0.60+2*MPD_TEXT_HEIGHT}, 1},

@@ -5,7 +5,7 @@
 
 params ["_heli", "_mpdIndex"];
 
-private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _config  = configOf _heli >> "Fza_SfmPlus";
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];

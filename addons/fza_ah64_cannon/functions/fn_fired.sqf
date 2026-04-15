@@ -16,7 +16,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
-if !(["fza_m230", _weapon] call BIS_fnc_inString) exitwith {};
+if !(["fza_m230", _weapon] call BIS_fnc_inString) exitWith {};
 private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
 private _CannonFired = (_heli getVariable "fza_ah64_burst_fired") + 1;
 
@@ -28,7 +28,7 @@ if (_burstLimit != -1) then {
                 _heli selectWeaponTurret ["fza_cannon_limit", [0], "fza_cannon_limit"]; // Select weapon Must use the first 3 inputs
                 inputAction "defaultAction" < 0.5
             };
-            if (currentweapon _heli != "fza_cannon_limit") exitwith {};
+            if (currentWeapon _heli != "fza_cannon_limit") exitWith {};
             _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };

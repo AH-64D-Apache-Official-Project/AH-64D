@@ -2,7 +2,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
-if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitwith {};
+if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitWith {};
 
 private _subPage = _state get "subPageVarPage" select 0;
 

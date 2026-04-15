@@ -1,7 +1,6 @@
 class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {
-        class MFD;
         class Turrets;
         class NewTurret;
     };

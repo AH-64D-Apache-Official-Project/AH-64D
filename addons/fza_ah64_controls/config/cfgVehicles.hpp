@@ -1,10 +1,7 @@
 class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {
-        class CargoTurret;
         class Components;
-        class EventHandlers;
-        class HeadLimits;
         class NewTurret;
         class Turrets;
         delete PilotCamera;
@@ -20,7 +17,7 @@ class CfgVehicles {
         A3TI_ThermalSelections[] = {"skin"};
 
         //MFD values
-        mfdMaxUserValues = 90
+        mfdMaxUserValues = 90;
 
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\animationSources.hpp"
@@ -41,9 +38,9 @@ class CfgVehicles {
 
         class UVAnimations {
             class mpd_pl {
-                type     = scale;
-                source   = mpd_scale;
-                section  = plt_pl_mpd_back;
+                type     = "scale";
+                source   = "mpd_scale";
+                section  = "plt_pl_mpd_back";
                 minValue = 1;
                 maxValue = 1;
                 center[] = {0,0};
@@ -52,13 +49,13 @@ class CfgVehicles {
             };
             class mpd_pr: mpd_pl {
                 center[] = {1,0};
-                section = plt_pr_mpd_back;
+                section = "plt_pr_mpd_back";
             };
             class mpd_cl: mpd_pl {
-                section = cpg_cl_mpd_back;
+                section = "cpg_cl_mpd_back";
             };
             class mpd_cr: mpd_pr {
-                section = cpg_cr_mpd_back;
+                section = "cpg_cr_mpd_back";
             };
         };
 
@@ -130,11 +127,11 @@ class CfgVehicles {
         incomingMissileDetectionSystem = 16;
         insideSoundCoef          = 0.5;
         irTargetSize             = 0.800000;
-        landingSoundInt0[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
-        landingSoundInt1[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
+        landingSoundInt0[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open.wss", 1.000000, 1.000000};
+        landingSoundInt1[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open.wss", 1.000000, 1.000000};
         landingSoundInt[]        = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};
-        landingSoundOut0[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
-        landingSoundOut1[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
+        landingSoundOut0[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1.wss", 1.778279, 1.000000, 10};
+        landingSoundOut1[]       = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1.wss", 1.778279, 1.000000, 10};
         landingSoundOut[]        = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
         laserScanner             = 1;
         laserTarget              = 0;
@@ -160,12 +157,12 @@ class CfgVehicles {
         selectionVRotorStill     = "tr_blades";
         sensorPosition           = "sensorPos";
         side                     = 1;
-        simulation               = helicopterRTD;
+        simulation               = "helicopterRTD";
         soundArmorCrash[]        = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
         soundBuildingCrash[]     = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
-        soundBushCollision1[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_1", 1.000000, 1, 10};
-        soundBushCollision2[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2", 1.000000, 1, 10};
-        soundBushCollision3[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3", 1.000000, 1, 10};
+        soundBushCollision1[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_1.wss", 1.000000, 1, 10};
+        soundBushCollision2[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2.wss", 1.000000, 1, 10};
+        soundBushCollision3[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3.wss", 1.000000, 1, 10};
         soundBushCrash[]         = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
         soundDammage[]           = {"\fza_ah64_controls\data\audio\Crash.ogg", 3.162278, 1, 100};
         soundCrashes[]           = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
@@ -174,14 +171,14 @@ class CfgVehicles {
         soundEngineOnExt[]       = {"fza_ah64_controls\data\audio\Ext_Start.ogg",1,0.6,300};
         soundEngineOnInt[]       = {"fza_ah64_controls\data\audio\Int_Start.ogg",1,0.6};
         soundenviron[]           = {"", 1, 1};
-        soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
-        soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
-        soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 10};
-        soundgetin[]             = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
-        soundgetout[]            = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
+        soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1.wss", 1.000000, 1, 10};
+        soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2.wss", 1.000000, 1, 10};
+        soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3.wss", 1.000000, 1, 10};
+        soundgetin[]             = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2.wss",1,1,1};
+        soundgetout[]            = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2.wss",1,1,1};
         soundLandCrashes[]       = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
-        soundWaterCollision1[]   = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 10};
-        soundWaterCollision2[]   = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 10};
+        soundWaterCollision1[]   = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1.wss", 1.000000, 1, 10};
+        soundWaterCollision2[]   = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2.wss", 1.000000, 1, 10};
         soundWaterCrashes[]      = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
         soundWoodCrash[]         = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
         tailDamage[]             = {"tailDamageInt", "tailDamageOut"};
@@ -200,7 +197,7 @@ class CfgVehicles {
         vehicleclass             = "fza_helicopters";
         weapons[]                = {"fza_CMChaffLauncher","fza_AseIRjammer"};
         class Library {
-            libTextDesc = "$STR_FZA_AH64_OFFICIAL_PROJECT_LIBRARY_DESCRIPTION";
+            libTextDesc = "$STR_FZA_AH64_PROJECT_LIBRARY_DESCRIPTION";
         };
         class HeadLimits {
             initanglex = 0;

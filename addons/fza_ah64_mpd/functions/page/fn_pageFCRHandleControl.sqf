@@ -1,4 +1,3 @@
-#include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 

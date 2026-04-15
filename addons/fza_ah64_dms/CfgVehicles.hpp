@@ -11,12 +11,11 @@ class CfgVehicles {
 
     class All;
     class Logic : All {
-        class EventHandlers;
     };
 
     class fza_dms_point_base : Logic {
         scope = private;
-        vehicleClass = fza_dms;
+        vehicleClass = "fza_dms";
         class Attributes {
             class fza_dms_point_index {
                 displayName = "$STR_FZA_AH64_DMS_POINT_INDEX";
@@ -26,20 +25,20 @@ class CfgVehicles {
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "";
                 unique = 0;
-                validate = number;
-                typeName = NUMBER;
+                validate = "number";
+                typeName = "NUMBER";
                 condition = "1";
             };
             class fza_dms_point_ident {
                 displayName = "$STR_FZA_AH64_DMS_POINT_IDENT";
                 tooltip = "$STR_FZA_AH64_DMS_POINT_IDENT_INFO";
-                control = fza_dms_ident;
+                control = "fza_dms_ident";
                 property = "fza_dms_point_ident";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "";
                 unique = 0;
-                validate = none;
-                typeName = STRING;
+                validate = "none";
+                typeName = "STRING";
                 condition = "1";
             };
             class fza_dms_point_free {
@@ -50,8 +49,8 @@ class CfgVehicles {
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "''";
                 unique = 0;
-                validate = none;
-                typeName = STRING;
+                validate = "none";
+                typeName = "STRING";
                 condition = "1";
             };
         };

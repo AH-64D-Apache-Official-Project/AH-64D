@@ -28,8 +28,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-while {player != vehicle player && alive player && alive _heli} do {
-    waituntil {isGamePaused == false};   
+while {!isNull objectParent player && alive player && alive _heli} do {
+    waitUntil {isGamePaused == false};   
     
     private _aseMsg     = _heli getVariable "fza_audio_ase_message";
     private _wrnMsg     = _heli getVariable "fza_audio_warning_message";
@@ -40,7 +40,7 @@ while {player != vehicle player && alive player && alive _heli} do {
     if (_aseMsg isNotEqualTo "") then {
         _done = _aseMsg spawn fza_audio_fnc_playaudio;
         sleep 1;
-        _heli setvariable ["fza_audio_ase_message", ""];
+        _heli setVariable ["fza_audio_ase_message", ""];
         waitUntil {scriptDone _done};
         continue;
     };

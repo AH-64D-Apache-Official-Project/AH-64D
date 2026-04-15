@@ -1,5 +1,5 @@
 class CodeLines {
-    type = line;
+    type = "line";
     width = 3;
     points[] =
         { {{0.015, 0.15}, 1} //Left box

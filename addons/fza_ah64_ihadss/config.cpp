@@ -6,8 +6,8 @@ class CfgPatches
         units[] = {};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
-        requiredVersion = 1.0;
-        requiredAddons[] = {"fza_ah64_controls"};
+        requiredVersion = 2.10;
+        requiredAddons[] = {"fza_ah64_controls", "fza_ah64_common"};
         #include "version.hpp"
     };
 };

@@ -16,7 +16,6 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli","_engine","_value"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
@@ -25,7 +24,7 @@ private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 1;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 1;
 private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
 
-if !_battBusOn exitwith {};
+if !_battBusOn exitWith {};
 
 switch(_engine) do {
     case "eng1": {

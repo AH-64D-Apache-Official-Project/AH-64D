@@ -17,7 +17,7 @@ MPD_ARROW_R(FCR, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 3)
 MPD_TEXT_R(FCR,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("FCR"))
 
 class Mission_Lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
         {{0.02, 0.38}, 1},
@@ -62,7 +62,7 @@ MPD_ARROW_L(COM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, 3)
 MPD_TEXT_L(COM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("COM"))
 
 class Comunication_Lines {
-type = line;
+type = "line";
 width = 3;
 points[] = {
     {{0.98, 0.15}, 1},
@@ -123,7 +123,7 @@ MPD_ARROW_C(AIR_UTIL,   MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, 4)
 MPD_TEXT_C(AIR_UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("UTIL"))
 
 class Aircraft_Lines {
-type = line;
+type = "line";
 width = 3;
 points[] = {
     {{0.28, 0.98}, 1},

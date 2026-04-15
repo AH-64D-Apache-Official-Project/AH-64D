@@ -7,28 +7,28 @@ _id params ["_type", "_index"];
 if (_type == POINT_TYPE_WP || _type == POINT_TYPE_HZ) exitWith {
     private _arrIndex = _index - 1;
 
-    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_WP_HZ) exitwith {-1};
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_WP_HZ) exitWith {-1};
     ["fza_dms_waypointsHazards", _arrIndex]
 };
 
 if (_type == POINT_TYPE_CM) exitWith {
     private _arrIndex = _index - 51;
 
-    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_CM) exitwith {-1};
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_CM) exitWith {-1};
     ["fza_dms_controlMeasures", _arrIndex];
 };
 
 if (_type == POINT_TYPE_TG) exitWith {
     private _arrIndex = _index - 1;
 
-    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_TG_TH) exitwith {-1};
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_TG_TH) exitWith {-1};
     ["fza_dms_targetsThreats", _arrIndex];
 };
 
 if (_type == POINT_TYPE_SHOT) exitWith {
     private _arrIndex = _index - 1;
 
-    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_SHOT) exitwith {-1};
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_SHOT) exitWith {-1};
     ["fza_dms_shotAt", _arrIndex];
 };
 

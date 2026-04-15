@@ -3,7 +3,6 @@ class CfgAmmo {
     class M_Scalpel_AT;
 
     class ACE_Hellfire_AGM114K: M_Scalpel_AT {
-        class Components;
         class ace_missileguidance;
     };
     class Fza_Penetrator_9KG_Tandem: ammo_Penetrator_Base
@@ -66,7 +65,7 @@ class CfgAmmo {
         effectsMissileInit          = "";
         explosionEffects            = "ATMissileExplosion"; 
         soundsetsoniccrack[]        = {"fza_sc_wire_flyby_soundset"};
-        soundfly[]                  = {"fza_ah64_hellfire\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+        soundfly[]                  = {"fza_ah64_controls\data\audio\Flyby\SoundFly1.ogg", 1, 1.500000, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_soundset_hellfire_explosion", "fza_shell_explosion_reverb_soundset"};
         whistledist                 = 300;
 
@@ -98,8 +97,8 @@ class CfgAmmo {
     class fza_agm114fa : fza_agm114base
     {
         fza_salType                 = "sal1";
-        model                       = "\fza_ah64_hellfire\fza_agm114fa";
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114fa";
+        model                       = "\fza_ah64_hellfire\fza_agm114fa.p3d";
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114fa.p3d";
         submunitionAmmo             = "Fza_Penetrator_8KG";
 
         hit                         = 260;
@@ -125,8 +124,8 @@ class CfgAmmo {
     };
     class fza_agm114k : fza_agm114base
     {
-        model                       = "\fza_ah64_hellfire\fza_agm114k"; 
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114k";
+        model                       = "\fza_ah64_hellfire\fza_agm114k.p3d"; 
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114k.p3d";
 
         //AI usage
         aiAmmoUsageFlags            = "64+128+512";
@@ -142,8 +141,8 @@ class CfgAmmo {
     };
     class fza_agm114k2a : fza_agm114base
     {
-        model                       = "\fza_ah64_hellfire\fza_agm114k2a"; 
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114k2a";
+        model                       = "\fza_ah64_hellfire\fza_agm114k2a.p3d"; 
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114k2a.p3d";
 
         //AI usage
         aiAmmoUsageFlags            = "64+128+512";
@@ -172,8 +171,8 @@ class CfgAmmo {
     class fza_agm114l : fza_agm114base
     {
         fza_salType                 = "rf";
-        model                       = "\fza_ah64_hellfire\fza_agm114l";
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114l";
+        model                       = "\fza_ah64_hellfire\fza_agm114l.p3d";
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114l.p3d";
         simulation                  = "shotMissile";
 
         //AI usage
@@ -196,8 +195,8 @@ class CfgAmmo {
     };
     class fza_agm114n : fza_agm114base
     {
-        model                       = "\fza_ah64_hellfire\fza_agm114n";
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114n";
+        model                       = "\fza_ah64_hellfire\fza_agm114n.p3d";
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114n.p3d";
         hit                         = 300;
         indirecthit                 = 300;
         indirecthitrange            = 20;

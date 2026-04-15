@@ -5,12 +5,13 @@ class CfgPatches
         units[] = {};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
-        requiredVersion = 1.0;
-        requiredAddons[] = {"fza_ah64_controls"};
+        requiredVersion = 2.10;
+        requiredAddons[] = {"fza_ah64_controls", "ace_hellfire", "ace_missileguidance"};
         #include "version.hpp"
     };
 };
 
+#include "\x\cba\addons\main\script_macros_common.hpp"
 #include "\fza_ah64_controls\config\defines.hpp"
 
 #include "ACE_GuidanceConfig.hpp"

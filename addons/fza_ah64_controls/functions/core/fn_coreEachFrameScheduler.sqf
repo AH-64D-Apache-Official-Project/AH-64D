@@ -13,13 +13,13 @@ Examples:
 Author:
     mattysmith22, Snow(Dryden), BradMick
 ---------------------------------------------------------------------------- */
-if (!(isNil "fza_ah64_nopfsched")) exitwith {};
+if (!(isNil "fza_ah64_nopfsched")) exitWith {};
 params["", "_heli"];
 _heli = (vehicle player);
 
-if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitWith {};
 
 {
     [_heli] call _x;
 }
-foreach fza_ah64_eachFrameArray;
+forEach fza_ah64_eachFrameArray;

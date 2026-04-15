@@ -19,14 +19,14 @@ params ["_heli", "_deltaTime"];
 
 #define INPUT_MAX 10.0
 
-if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
+if !(_heli getVariable "fza_ah64_LmcActive") exitWith {
     _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
     _heli setVariable ["fza_ah64_lmcRange", 3000];
     _heli setVariable ["fza_ah64_lmcPosition", []];
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-if (_sight != SIGHT_tads || (player != gunner _heli)) exitwith {};
+if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
 
 (_heli getVariable "fza_ah64_lmcPrevInputs") params ["_prevInputX", "_prevInputY"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
@@ -43,16 +43,16 @@ private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpa
 private _tadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
 private _tadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
 private _tadsDirection = (_tadsPosition vectorFromTo _tadsAimPos) vectorMultiply 50000;
-_tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
+_tadsDirection call CBA_fnc_vect2Polar params ["","","_elevation"];
 private _elevation = _elevation min -EPSILON;
-private _autorange = [(asltoagl _tadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
+private _autorange = [(ASLToAGL _tadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
 
 private _range = -1;
 private _laserPos = getPosASL laserTarget _heli;
 if (_elevation < -1 && ([_heli] call fza_sfmplus_fnc_getAltitude)#1 < 1428) then {
     _range = _autorange;
 };
-if (_laserPos isnotEqualTo [0,0,0]) then {
+if (_laserPos isNotEqualTo [0,0,0]) then {
     _range = _tadsPosition distance _laserPos;
 };
 

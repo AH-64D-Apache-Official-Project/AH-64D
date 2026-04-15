@@ -35,7 +35,7 @@ for "_i" from 0 to 15 step 4 do {
 
     switch (true) do {
         case (_primaryMagType == ""): {
-            if (ANY(_otherMags, {_x != ""})) then {
+            if (ANY(_otherMags,{_x != ""})) then {
                 systemChat "Apache Pylon Issue: In order to load items onto a pylon, the top pylon at a minimum must be populated";
                 for "_indexToClear" from 1 to 4 do {
                     _heli setPylonLoadout[_i + _indexToClear, "", false, [0]];
@@ -43,7 +43,7 @@ for "_i" from 0 to 15 step 4 do {
             };
         };
         case (_primaryMagType == "hellfire"): {
-            if (ANY(_otherMags, {_x == "rocket"})) then {
+            if (ANY(_otherMags,{_x == "rocket"})) then {
                 systemChat "Apache Pylon Issue: Your first pylon magazine was a hellfire, all subsequent pylons must be empty or hellfires";
                 for "_j" from 1 to 3 do {
                     if (_magTypes # (_i+_j) == "rocket") then {
@@ -53,7 +53,7 @@ for "_i" from 0 to 15 step 4 do {
             };
         };
         case (_primaryMagType == "rocket"): {
-            if (ANY(_otherMags, {_x == "hellfire"})) then {
+            if (ANY(_otherMags,{_x == "hellfire"})) then {
                 systemChat "Apache Pylon Issue: Your first pylon magazine was a rocket, all subsequent pylons must be empty or rockets";
                 for "_j" from 1 to 3 do {
                     if (_magTypes # (_i+_j) == "hellfire") then {
@@ -63,7 +63,7 @@ for "_i" from 0 to 15 step 4 do {
             };
         };
         case (_primaryMagType == "auxTank"): {
-            if (ANY(_otherMags, {_x != ""})) then {
+            if (ANY(_otherMags,{_x != ""})) then {
                 systemChat "Apache Pylon Issue: Your first pylon magazine is an Aux Tank, all subsequent pylons must be empty";
                 for "_indexToClear" from 2 to 4 do {
                     _heli setPylonLoadout[_i + _indexToClear, "", false, [0]];
@@ -93,7 +93,7 @@ _rocketZones = [_zoneA, _zoneB, _zoneC, _zoneD, _zoneE];
             if (_zoneAmmoType isEqualTo -1) then {
                 _zoneAmmoType = _ammo;
             } else {
-                if !(_ammo isEqualTo _zoneAmmoType) then {
+                if (_ammo isNotEqualTo _zoneAmmoType) then {
                     systemChat "Cannot mix rocket types within zones.";
                     _heli setPylonLoadout [_x+1, _zoneAmmoType + _suffix, false, [0]];
                 };

@@ -1,3 +1,6 @@
+#ifndef FZA_AH64_MPD_MPD_DEFINES_HPP
+#define FZA_AH64_MPD_MPD_DEFINES_HPP
+
 #define MPD_COLOUR_GREEN  {0.2, 1, 0, 1}
 #define MPD_COLOUR_CYAN   {0,1,1,1}
 #define MPD_COLOUR_RED    {1,0,0,1}
@@ -182,7 +185,7 @@ Parameters:
 Parameters:
     str - Static text to display. e.g: "test"
 */
-#define MPD_TEXT_STATIC(str)  source = static; text = str; sourceScale = 1;
+#define MPD_TEXT_STATIC(str)  source = "static"; text = str; sourceScale = 1;
 
 /* Macro: MPD_TEXT_USER_SCALE
     Sets user source in type="text", with a scaling factor
@@ -191,7 +194,7 @@ Parameters:
     num - MPD user string source
     scale - Scaling to apply to input.
 */
-#define MPD_TEXT_USER_SCALE(num, scale) source = userText; sourceIndex = MFD_USER_NUM(num); sourceScale = 1;
+#define MPD_TEXT_USER_SCALE(num, scale) source = "userText"; sourceIndex = MFD_USER_NUM(num); sourceScale = 1;
 
 /* Macro: MPD_TEXT_USER
     Version of <MPD_TEXT_USER_SCALE> with no scaling factor
@@ -286,10 +289,10 @@ Parameters:
     width,height - Box dimensions (internal)
 */
 #define MPD_POINTS_BOX_POLY(bone, posX, posY, width, height) {\
-    {Null, {posX-CURVED_BOX_PAD,posY-CURVED_BOX_PAD}, 1},\
-    {Null, {posX+width+CURVED_BOX_PAD, posY-CURVED_BOX_PAD}, 1},\
-    {Null, {posX+width+CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
-    {Null, {posX-CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
+    {"Null", {posX-CURVED_BOX_PAD,posY-CURVED_BOX_PAD}, 1},\
+    {"Null", {posX+width+CURVED_BOX_PAD, posY-CURVED_BOX_PAD}, 1},\
+    {"Null", {posX+width+CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
+    {"Null", {posX-CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
 }
 
 /* Macro: MPD_CIRCLE
@@ -301,7 +304,7 @@ Parameters:
     width,height - Box dimensions (internal)
 */
 #define MPD_CIRCLE(name, bone, radius) class name##Circle { \
-    type = polygon; \
+    type = "polygon"; \
     points[] = { \
         { \
             {bone, {__EVAL(radius * sin -30), __EVAL(radius * (0 - cos -30))}, 1}, \
@@ -364,14 +367,14 @@ Parameters:
     numChars - Number of characters in the text to draw an arrow over, defines the length of the arrow.
 */
 #define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
-    type = line; \
+    type = "line"; \
     points[] = { \
         {{startX, startY - MPD_ARROW_PAD}, 1}, \
         {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}}; \
     width = 3; \
 }; \
 class Mpd_Arrow_##name##_Triangle { \
-    type = polygon; \
+    type = "polygon"; \
     points[] = { \
         { \
             {{startX + numChars * MPD_TEXT_WIDTH - 0.001, startY - MPD_ARROW_PAD}, 1},\
@@ -390,7 +393,7 @@ Parameters:
     numChars - Number of characters in the text to draw a box around, defines the size of the box
 */
 #define MPD_BOX_R(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
-    type = line; \
+    type = "line"; \
     width = 2; \
     points[] = { \
         {{startX - MPD_BOX_PAD_X,                             startY - MPD_BOX_PAD_Y}, 1}, \
@@ -401,7 +404,7 @@ Parameters:
 };
 
 #define MPD_BOX_V(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
-    type = line; \
+    type = "line"; \
     width = 2; \
     points[] = { \
         {{startX - MPD_BOX_PAD_X,                  (startY) - 0.85*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
@@ -422,7 +425,7 @@ Parameters:
     numChars - Number of characters in the text to draw a box around, defines the size of the box
 */
 #define MPD_BOX_TALL_R(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
-    type = line; \
+    type = "line"; \
     width = 2; \
     points[] = { \
         {{startX - MPD_BOX_PAD_X, startY - 0.005 - MPD_BOX_PAD_Y - MPD_ARROW_HEIGHT - MPD_ARROW_PAD}, 1}, \
@@ -433,7 +436,7 @@ Parameters:
 };
 
 #define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
-    type = text; \
+    type = "text"; \
     scale = 1; \
     pos[] = {bone, {startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
@@ -442,7 +445,7 @@ Parameters:
 };
 
 #define MPD_TEXT_SMALL(name, startX, startY, config) class Mpd_Text_##name { \
-    type = text; \
+    type = "text"; \
     scale = 1; \
     pos[] = {{startX, startY}, 1}; \
     right[] = {{startX+MPD_TEXT_SMALL_WIDTH_VEC, startY}, 1}; \
@@ -460,9 +463,9 @@ Parameters:
     startX, startY - Position of the text
     config - Configuration describing the content, like <MPD_TEXT_STATIC>, <MPD_TEXT_USER> and <MPD_TEXT_USER_SCALE>
 */
-#define MPD_TEXT_BONE_R(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = right; config)
-#define MPD_TEXT_BONE_C(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = center; config)
-#define MPD_TEXT_BONE_L(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = left; config)
+#define MPD_TEXT_BONE_R(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = "right"; config)
+#define MPD_TEXT_BONE_C(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = "center"; config)
+#define MPD_TEXT_BONE_L(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = "left"; config)
 
 /* Macro: MPD_TEXT_SMALL_x
     Draws small text, with the text content defined by config.
@@ -473,9 +476,9 @@ Parameters:
     startX, startY - Position of the text
     config - Configuration describing the content, like <MPD_TEXT_STATIC>, <MPD_TEXT_USER> and <MPD_TEXT_USER_SCALE>
 */
-#define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = right; config)
-#define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = center; config)
-#define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = left; config)
+#define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "right"; config)
+#define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "center"; config)
+#define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "left"; config)
 
 /* Macro: MPD_TEXT_x
     Draws text, with the text content defined by config.
@@ -486,9 +489,9 @@ Parameters:
     startX, startY - Position of the text
     config - Configuration describing the content, like <MPD_TEXT_STATIC>, <MPD_TEXT_USER> and <MPD_TEXT_USER_SCALE>
 */
-#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = right; config)
-#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = center; config)
-#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = left; config)
+#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "right"; config)
+#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "center"; config)
+#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "left"; config)
 
 #define MPD_ARROW_C(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_ARROW_L(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
@@ -533,7 +536,7 @@ Parameters:
 #define MPD_BOX_BAR_B(name, startX, startY) class Mpd_Box_##name##_Barrier { \
     color[] = {0.05,0.25,0,0.5};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT}, 1 },\
@@ -548,7 +551,7 @@ Parameters:
 #define MPD_BOX_BAR_T(name, startX, startY) class Mpd_Box_##name##_Barrier { \
     color[] = {0.05,0.25,0,0.5};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY}, 1 },\
@@ -563,7 +566,7 @@ Parameters:
 #define MPD_BOX_BAR_L(name, startX, startY) class Mpd_Box_##name##_Barrier { \
     color[] = {0.05,0.25,0,0.5};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
@@ -578,7 +581,7 @@ Parameters:
 #define MPD_BOX_BAR_R(name, startX, startY) class Mpd_Box_##name##_Barrier { \
     color[] = {0.05,0.25,0,0.5};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX - 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
@@ -604,7 +607,7 @@ Parameters:
 #define MPD_BOX_INV_C(name, startX, startY, numChars) class Mpd_Box_##name##_Barrier { \
     color[] = {0.2, 1, 0, 1};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX-numChars / 2 * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD_Y}, 1 },\
@@ -619,7 +622,7 @@ Parameters:
 #define MPD_BOX_INV_R(name, startX, startY, numChars) class Mpd_Box_##name##_Barrier { \
     color[] = {0.2, 1, 0, 1};\
     class Polygons {\
-        type = polygon;\
+        type = "polygon";\
         points[] = {\
             {\
                 { {startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1 },\
@@ -639,8 +642,8 @@ Parameters:
     floatIndex - index of the float source
 */
 #define MPD_BONE_ACQ_SRC_BOX(name,floatIndex) class name { \
-    type = linear; \
-    source=user; \
+    type = "linear"; \
+    source = "user"; \
     sourceIndex = MFD_USER_NUM(floatIndex); \
     min=0; \
     max=4; \
@@ -662,7 +665,7 @@ Parameters:
     MPD_TEXT_L(ACQ_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ACQ")) \
     MPD_TEXT_L(ACQ,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(stringIndex)) \
     class Box  { \
-        type = line; \
+        type = "line"; \
         width = 2; \
         points[] = { \
             {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}, \
@@ -672,3 +675,5 @@ Parameters:
             {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}}; \
     }; \
 };
+
+#endif

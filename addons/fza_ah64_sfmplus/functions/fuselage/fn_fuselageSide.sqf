@@ -84,7 +84,7 @@ for "_i" from 0 to (_count - 1) do {
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
     //Drag coefficient
-    private _CD          =  [_dragCoefTable, _pa] call fza_fnc_linearInterp select 1;
+    private _CD          =  [_dragCoefTable, _aoa] call fza_fnc_linearInterp select 1;
     private _drag         = _CD * 0.5 * _rho * _area * (_relWindX * _relWindX);
 
     private _liftVector = _up vectorMultiply (_lift * _deltaTime);

@@ -1,6 +1,6 @@
 class root {
     class lines_HAD {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Top
@@ -16,14 +16,14 @@ class root {
             {{0.38, 0.984}, 1}, 
             {{0.38, 0.894}, 1}, {},
             //Left HAD box
-            MPD_POINTS_BOX(Null, 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
+            MPD_POINTS_BOX("Null", 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
             //Right HAD box
-            MPD_POINTS_BOX(Null, 0.78-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
+            MPD_POINTS_BOX("Null", 0.78-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
         };
     };
 
     class lines_HAD_CPGFormat {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Top center index
@@ -54,7 +54,7 @@ class root {
     };
 
     class lines_HAD_PLTFormat {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Top center index
@@ -74,7 +74,7 @@ class root {
 
     class polys_CuedLOS {
         class Polygon {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {"FCR_CuedLOS_X", 1, "FCR_CuedLOS_Y", {-0.005, 0.000}, 1 },
@@ -87,7 +87,7 @@ class root {
     };
 
     class lines_FOVBox {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Top
@@ -109,7 +109,7 @@ class root {
     class Obscurants {
         color[] = {0,0,0,1};
         class HeadingTape {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.06 - MPD_TEXT_HEIGHT}, 1},
@@ -120,12 +120,12 @@ class root {
             };
         };
     };
-    MPD_TEXT_C(Heading, 0.5, 0.015, source = heading; sourceScale = 1;)
+    MPD_TEXT_C(Heading, 0.5, 0.015, source = "heading"; sourceScale = 1;)
 
     class CommandHeading {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_COMMAND_HEADING), -180));
         class CommandHeading {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {"FCR_CommandHeading", {-0.0075, 0.015}, 1},
@@ -136,7 +136,7 @@ class root {
     };
 
     class AltSensorBearing {
-        type = polygon;
+        type = "polygon";
         points[] = {
             {
                 {"FCR_AltSensorBearing", {-0.0075, 0.015}, 1},
@@ -149,7 +149,7 @@ class root {
     class FCRCenterline {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_CENTERLINE), -180));
         class FCRCenterline {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     //Main rectangles
@@ -200,7 +200,7 @@ class root {
             };
         };
         class lines_CurScanLine {
-            type = line;
+            type = "line";
             width = 3;
             sourceScale = 0.5;
             points[] = {
@@ -209,7 +209,7 @@ class root {
             };
         };
         class lines_PrevScanLine {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //1
@@ -232,7 +232,7 @@ class root {
     };
     
     class headingTapeNotch {
-        type = line;
+        type = "line";
         width = 8;
         points[] = {
             {{0.5, 0.09}, 1},
@@ -241,7 +241,7 @@ class root {
     };
 
     class acq {
-        MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, Fcr_Acq)
+        MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, "Fcr_Acq")
         MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
     };
 
@@ -271,7 +271,7 @@ class root {
     class fcrInstalled {
         condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 0)));
         class polys_elev {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     { {0.060, 0.860}, 1 },
@@ -281,7 +281,7 @@ class root {
             };
         };
         class lines_elev {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //25 deg
@@ -312,7 +312,7 @@ class root {
                 {{0.030, 0.920}, 1}, 
                 {{0.060, 0.920}, 1}, {},
                 //Target count box
-                MPD_POINTS_BOX(Null, 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
             };
         };        
         class installedFCRText {
@@ -348,7 +348,7 @@ class root {
             class leftArrowHollow {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));
                 class lines {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {{0.025, 0.335}, 1},
@@ -367,7 +367,7 @@ class root {
             class leftArrowsolid {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 2));
                 class poly {
-                    type = polygon;
+                    type = "polygon";
                     points[] = {
                         {
                             {{0.025, 0.335}, 1},
@@ -394,7 +394,7 @@ class root {
             class rightArrowHollow {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 1));
                 class lines {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {{0.975, 0.335}, 1},
@@ -413,7 +413,7 @@ class root {
             class rightArrowSolid {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 2));
                 class poly {
-                    type = polygon;
+                    type = "polygon";
                     points[] = {
                         {
                             {{0.975, 0.335}, 1},

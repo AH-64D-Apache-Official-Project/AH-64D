@@ -55,7 +55,7 @@ class VABs_Mode_Msl_SAL {
             class Selected { \
                 condition = C_COND(C_EQ(C_MPD_USER(selectIndex), chanNum)); \
                 class Box { \
-                    type = line; \
+                    type = "line"; \
                     width = 3; \
                     points[] = { \
                         {{MPD_POS_BUTTON_L_X - 0.01, posY - 0.5 * MPD_TEXT_HEIGHT}, 1},\
@@ -92,7 +92,7 @@ class VABs_Mode_Msl_SAL {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MENU), 1));
         
         class Box {
-            type = line;
+            type = "line";
             width = 3;
             points[] =
                 { {{0.02, 0.15}, 1}
@@ -124,7 +124,7 @@ class VABs_Mode_Msl_SAL {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MENU), 2));
         
         class Box {
-            type = line;
+            type = "line";
             width = 3;
             points[] =
                 { {{0.02, 0.15}, 1}
@@ -158,13 +158,13 @@ class VABs_Mode_Msl_SAL {
     MPD_BOX_BAR_R(MSL_CCM, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y)
 
     class MSL_CCM_Circle {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-            MPD_POINTS_CURVED_CORNER(Null, MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 0.35*MPD_TEXT_WIDTH, 0.35*MPD_TEXT_WIDTH), {},
-            MPD_POINTS_CURVED_CORNER(Null, MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 0.35*MPD_TEXT_WIDTH, -0.35*MPD_TEXT_WIDTH), {},
-            MPD_POINTS_CURVED_CORNER(Null, MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, -0.35*MPD_TEXT_WIDTH, 0.35*MPD_TEXT_WIDTH), {},
-            MPD_POINTS_CURVED_CORNER(Null, MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, -0.35*MPD_TEXT_WIDTH, -0.35*MPD_TEXT_WIDTH), {},
+            MPD_POINTS_CURVED_CORNER("Null", MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 0.35*MPD_TEXT_WIDTH, 0.35*MPD_TEXT_WIDTH), {},
+            MPD_POINTS_CURVED_CORNER("Null", MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 0.35*MPD_TEXT_WIDTH, -0.35*MPD_TEXT_WIDTH), {},
+            MPD_POINTS_CURVED_CORNER("Null", MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, -0.35*MPD_TEXT_WIDTH, 0.35*MPD_TEXT_WIDTH), {},
+            MPD_POINTS_CURVED_CORNER("Null", MPD_POS_BUTTON_L_X + 0.35*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, -0.35*MPD_TEXT_WIDTH, -0.35*MPD_TEXT_WIDTH), {},
         };
     };
 
@@ -193,7 +193,7 @@ class VABs_Mode_Msl_SAL {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 1));
         class Box {
             color[] = {1,1,1,1};
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {{0.98, (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y)/2 + (MPD_TEXT_HEIGHT / 2)} , 1},
@@ -233,10 +233,10 @@ class VABs_Mode_Msl_SAL {
 
     // Missile Channels
     class Static {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-            MPD_POINTS_BOX_PAD_EXTERNAL(Null, 0.275, 0.76, 0.45, 0.15, 0.02)
+            MPD_POINTS_BOX_PAD_EXTERNAL("Null", 0.275, 0.76, 0.45, 0.15, 0.02)
         };
     };
 
@@ -250,7 +250,7 @@ class VABs_Mode_Msl_SAL {
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PRI"))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
             class Box {\
-                type = line;\
+                type = "line";\
                 width = 3;\
                 points[] = {\
                     {{posX - 1.5 * MPD_TEXT_WIDTH - 0.01, 0.77+MPD_TEXT_HEIGHT}, 1},\
@@ -266,7 +266,7 @@ class VABs_Mode_Msl_SAL {
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ALT"))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
             class Box {\
-            type = line;\
+            type = "line";\
             width = 3;\
             points[] = {\
                     {{posX - 1.5 * MPD_TEXT_WIDTH - 0.01, 0.77+MPD_TEXT_HEIGHT}, 1},\
@@ -305,7 +305,7 @@ class VABs_Mode_Msl_Rf {
     MPD_TEXT_R(Msl_Pwr_Label_6, 0.11, MPD_POS_BUTTON_LR_2_Y + 3 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("R"))
 
     class Static {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.02,MPD_POS_BUTTON_LR_1_Y - MPD_TEXT_HEIGHT}, 1},

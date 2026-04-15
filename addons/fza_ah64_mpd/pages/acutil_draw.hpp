@@ -1,7 +1,5 @@
-#include "\fza_ah64_controls\headers\systemConstants.h"
-
 class fmc_lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] =
         { {{0.015, 0.15}, 1} //Top 
@@ -15,7 +13,7 @@ class fmc_lines {
 };
 
 class aice_lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] =
         { {{0.985, 0.150}, 1} //Top 
@@ -29,7 +27,7 @@ class aice_lines {
 };
 
 class bleedAir_lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] =
         { {{0.27, 0.985}, 1} //Left 
@@ -61,7 +59,7 @@ class bleedAir_lines {
 //FMC Pitch
 class pitch_Off {
     class lines_pitchOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -82,7 +80,7 @@ class pitch_On {
     class pitch_draw {
         class polys_pitchOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{FMC_X - 0.010, PITCH_Y + 0.000}, 1},
@@ -117,7 +115,7 @@ class pitch_On {
 //FMC Roll
 class roll_Off {
     class lines_rollOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -138,7 +136,7 @@ class roll_On {
     class roll_draw {
         class polys_rollOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{FMC_X - 0.010, ROLL_Y + 0.000}, 1},
@@ -173,7 +171,7 @@ class roll_On {
 //FMC Yaw
 class yaw_Off {
     class lines_yawOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -194,7 +192,7 @@ class yaw_On {
     class yaw_draw {
         class polys_yawOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{FMC_X - 0.010, YAW_Y + 0.000}, 1},
@@ -229,7 +227,7 @@ class yaw_On {
 //FMC Coll
 class coll_Off {
     class lines_collOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -250,7 +248,7 @@ class coll_On {
     class coll_draw {
         class polys_collOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{FMC_X - 0.010, COLL_Y + 0.000}, 1},
@@ -285,7 +283,7 @@ class coll_On {
 //FMC Trim
 class trim_Off {
     class lines_trimOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -306,7 +304,7 @@ class trim_On {
     class trim_draw {
         class polys_trimOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{FMC_X - 0.010, TRIM_Y + 0.000}, 1},
@@ -341,7 +339,7 @@ class trim_On {
 //FMC NOE/A
 class noea_Off {
     class lines_noeaOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -361,7 +359,7 @@ class noea_Off {
 //Anti-Ice Pitot
 class pitot_Off {
     class lines_pitotOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -381,7 +379,7 @@ class pitot_Off {
 //Anti-Ice Inlet
 class inlet_Off {
     class lines_inletOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -401,7 +399,7 @@ class inlet_Off {
 //Anti-Ice Canopy
 class canopy_Off {
     class lines_inletOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -421,7 +419,7 @@ class canopy_Off {
 //Anti-Ice Sensor
 class sensor_Off {
     class lines_sensorOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -445,7 +443,7 @@ class bleedAir1_On {
     class bleedAir1_draw {
         class polys_bleedAir1OnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{BLEED1_X - 0.010, BUBBLE_Y + 0.000}, 1},
@@ -483,7 +481,7 @@ class bleedAir2_On {
     class bleedAir2_draw {
         class polys_bleedAir2OnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{BLEED2_X - 0.010, BUBBLE_Y + 0.000}, 1},
@@ -521,7 +519,7 @@ class ecs_On {
     class ecs_draw {
         class polys_ecsOnOff {
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     { //Top left
                         {{ECS_X - 0.010, BUBBLE_Y + 0.000}, 1},
@@ -557,7 +555,7 @@ class ecs_On {
 #define GROUND_X  MPD_POS_BUTTON_TB_6_X - 1.1 * MPD_TEXT_WIDTH
 class ground_Off {
     class lines_groundOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -575,26 +573,26 @@ class ground_Off {
 };//End ground override
 
 class fat_box_outline {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, 0.5 - 0.5*(5*MPD_TEXT_WIDTH), 0.25 - 0.5*MPD_TEXT_HEIGHT, 5.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+        MPD_POINTS_BOX("Null", 0.5 - 0.5*(5*MPD_TEXT_WIDTH), 0.25 - 0.5*MPD_TEXT_HEIGHT, 5.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
     };
 };
 
 class ice_box_outline {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, 0.5 - 0.5*(6*MPD_TEXT_WIDTH), 0.425 - 0.5*MPD_TEXT_HEIGHT, 6.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+        MPD_POINTS_BOX("Null", 0.5 - 0.5*(6*MPD_TEXT_WIDTH), 0.425 - 0.5*MPD_TEXT_HEIGHT, 6.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
     };
 };
 
 class cpt_box_outline {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, 0.5 - 0.5*(13*MPD_TEXT_WIDTH), 0.60 - 0.5*MPD_TEXT_HEIGHT, 13.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+        MPD_POINTS_BOX("Null", 0.5 - 0.5*(13*MPD_TEXT_WIDTH), 0.60 - 0.5*MPD_TEXT_HEIGHT, 13.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
     };
 };
 
@@ -642,7 +640,7 @@ class vabs {
     //B4
     MPD_BOX_BAR_B(TEMP, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(TEMP1, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TEMP>"))
-    MPD_TEXT_C(TEMP2, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("69°C"))
+    MPD_TEXT_C(TEMP2, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("69Â°C"))
     //B5
     MPD_BOX_BAR_B(ECS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(ECS, MPD_POS_BUTTON_TB_5_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ECS"))
@@ -685,7 +683,7 @@ class vabs {
     //FAT box
     MPD_TEXT_C(FAT1, 0.5, 0.25 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FAT"))
     //This needs to be populated by the environment simulation
-    MPD_TEXT_C(FAT2, 0.5, 0.25 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15°C"))
+    MPD_TEXT_C(FAT2, 0.5, 0.25 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15Â°C"))
 
     //ICE box
     MPD_TEXT_C(ICE1, 0.5, 0.425 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ICE"))
@@ -695,5 +693,5 @@ class vabs {
 
     //Cockpit Temp Box
     MPD_TEXT_C(CPT1, 0.5, 0.60 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT CKPT TEMP"))
-    MPD_TEXT_C(CPT2, 0.5, 0.60 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("69°F"))
+    MPD_TEXT_C(CPT2, 0.5, 0.60 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("69Â°F"))
 };

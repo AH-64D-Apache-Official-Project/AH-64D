@@ -23,11 +23,11 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli","_hostile","_missile"];
 
-if (player != driver _heli && player != gunner _heli) exitwith {};
+if (player != driver _heli && player != gunner _heli) exitWith {};
 
 _Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
 _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
-if (_counter % 2 == 1) exitwith {};
+if (_counter % 2 == 1) exitWith {};
 waitUntil {(_heli distance _missile <= ASE_DETECT_RANGE_M);};
 
 private _rlwrPwr  = _heli getVariable "fza_ah64_ase_rlwrPwr";
@@ -46,7 +46,7 @@ if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_Briti
 
 [_heli, _hostile] call fza_ase_fnc_classification params ["_soundclass"];
 private _identity = format ["fza_ah64_bt_%1", _soundclass];
-private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
+private _seekerhead = getNumber (configOf _missile >> "weaponLockSystem");
 if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == ASE_RLWR_STATE_ON) exitWith {
     [_heli, ASE_LNC, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {

@@ -5,13 +5,13 @@ private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 
-if !(_battBusOn) exitwith {};
+if !(_battBusOn) exitWith {};
 
 switch (_control) do {
     case "armSafe": {
         if (!_gndOrideOn && _onGnd) exitWith {};
         _heli setVariable  ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
-        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], Driver _heli]];
+        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], driver _heli]];
     };
     case "gndOride": {
         _heli setVariable ["fza_ah64_gndOrideOn", !(_heli getVariable "fza_ah64_gndOrideOn"), true];

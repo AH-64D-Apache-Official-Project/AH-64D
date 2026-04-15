@@ -32,7 +32,7 @@ private _currentTof    = _heli getVariable "fza_ah64_tofCountDown";
 if !isNil "_lasePos" then {
     _attackProfile = "hellfire";
     _currentTof pushBack (cba_missiontime + (_lasePos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
-    _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
+    _heli setVariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
 _launchParams set [3, _attackProfile];
@@ -40,7 +40,7 @@ _launchParams set [3, _attackProfile];
 //Grab and set laser code for hellfire
 _index = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
 
-if !(_index == -1) then {
+if (_index != -1) then {
     private _channels = _heli getVariable "fza_ah64_laserChannelCodes";
     private _hash = _heli getVariable "fza_ah64_laserChannelIndex";
     private _laserCode = _hash get _channels # _index;
@@ -56,4 +56,4 @@ if !(_index == -1) then {
 private _targetpos= [0,0,0];
 private _remoteEngagement = true;
 if (!isNil "_lasePos" && !isNull laserTarget _heli) then {_targetpos = _lasePos; _remoteEngagement = false;};
-[_heli, [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_dms_fnc_addShotSAL;
+[_heli, [dayTime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_dms_fnc_addShotSAL;

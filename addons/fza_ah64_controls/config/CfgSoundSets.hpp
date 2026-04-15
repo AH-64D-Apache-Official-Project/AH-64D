@@ -1,7 +1,27 @@
 class CfgSoundSets {
 
-    class fza_basic_soundset; 
-    class fza_basic_soniccrack_soundset;
+    class fza_basic_soundset {
+        soundShaders[] = {};
+        volumefactor = 1;
+        volumecurve = "fza_weapons_basic_volumecurve";
+        sound3dprocessingtype = "fza_weapons_3dprocessor";
+        distancefilter = "fza_weapons_lowpass_filter";
+        spatial = 1;
+        doppler = 0;
+        loop = 0;
+        soundshaderslimit = 1;
+    };
+    class fza_basic_soniccrack_soundset {
+        soundShaders[] = {};
+        volumefactor = 1;
+        volumecurve = "fza_weapons_basic_volumecurve";
+        sound3dprocessingtype = "fza_snaps_3dprocessor";
+        distancefilter = "fza_weapons_lowpass_filter";
+        spatial = 1;
+        doppler = 0;
+        loop = 0;
+        soundshaderslimit = 2;
+    };
     class fza_sc_wire_flyby_soundset: fza_basic_soniccrack_soundset {
         soundShaders[] = {"fza_sc_wire_flyby_soundshader"};
         volumefactor = 1;

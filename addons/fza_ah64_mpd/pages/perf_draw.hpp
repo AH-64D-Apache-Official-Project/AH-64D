@@ -1,7 +1,7 @@
     class perf_draw {
 
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Left side, vertical
@@ -23,11 +23,11 @@
 
     class hover_q_box {
         class hover_q_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (10*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 6.2*MPD_TEXT_HEIGHT), {},
-                MPD_POINTS_BOX(Null, (21*MPD_TEXT_WIDTH) - 0.005, (7.72*MPD_TEXT_HEIGHT), 2.95*MPD_TEXT_WIDTH, 0.78*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (10*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 6.2*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (21*MPD_TEXT_WIDTH) - 0.005, (7.72*MPD_TEXT_HEIGHT), 2.95*MPD_TEXT_WIDTH, 0.78*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -42,10 +42,10 @@
 
     class cruise_box {
         class cruise_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (32*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 12.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (32*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 12.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -59,10 +59,10 @@
 
     class max_gwt_box {
         class max_gwt_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (10*MPD_TEXT_WIDTH) - 0.005, (9.7*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (10*MPD_TEXT_WIDTH) - 0.005, (9.7*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -84,10 +84,10 @@
 
     class tas_box {
         class tas_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (35*MPD_TEXT_WIDTH) - 0.005, (8.4*MPD_TEXT_HEIGHT), 8.2*MPD_TEXT_WIDTH, 6.1*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (35*MPD_TEXT_WIDTH) - 0.005, (8.4*MPD_TEXT_HEIGHT), 8.2*MPD_TEXT_WIDTH, 6.1*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -102,10 +102,10 @@
 
     class wind_box {
         class wind_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (33.5*MPD_TEXT_WIDTH) - 0.005, (15.6*MPD_TEXT_HEIGHT), 11.2*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (33.5*MPD_TEXT_WIDTH) - 0.005, (15.6*MPD_TEXT_HEIGHT), 11.2*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -116,10 +116,10 @@
 
     class max_q_box {
         class max_q_box_outline {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (6.5*MPD_TEXT_WIDTH) - 0.005, (16.1*MPD_TEXT_HEIGHT), 6.2*MPD_TEXT_WIDTH, 3.4*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX("Null", (6.5*MPD_TEXT_WIDTH) - 0.005, (16.1*MPD_TEXT_HEIGHT), 6.2*MPD_TEXT_WIDTH, 3.4*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -133,10 +133,10 @@
             color[] = {1,1,0,1};
             class max_q_de_caut_box_outline {
                 
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
-                    MPD_POINTS_BOX(Null, (9.6*MPD_TEXT_WIDTH) - 0.005, (17.5*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
+                    MPD_POINTS_BOX("Null", (9.6*MPD_TEXT_WIDTH) - 0.005, (17.5*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
                 };
             };
 
@@ -148,10 +148,10 @@
         class max_q_se_caut_ind {
             color[] = {1,1,0,1};
             class max_q_se_caut_box_outline {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
-                    MPD_POINTS_BOX(Null, (9.6*MPD_TEXT_WIDTH) - 0.005, (18.7*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
+                    MPD_POINTS_BOX("Null", (9.6*MPD_TEXT_WIDTH) - 0.005, (18.7*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
                 };
             };
 
@@ -163,7 +163,7 @@
 
     class cg_display {
         class cg_lines {
-            type = line;
+            type = "line";
             width = 6;
             points[] = {
                 //Horizontal line

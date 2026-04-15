@@ -42,7 +42,7 @@ if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
 };
 
 //Fire test switch
-if ((_heli getvariable "fza_ah64_firetest") >= 1) then {
+if ((_heli getVariable "fza_ah64_firetest") >= 1) then {
     [_heli, "fza_ah64_mstrWarnLightOn", true] call fza_fnc_updateNetworkGlobal;
     _engineOneArm  = true;
     _engineTwoArm  = true;
@@ -53,7 +53,7 @@ if ((_heli getvariable "fza_ah64_firetest") >= 1) then {
     _engineTwoFire = true;
     _apuFire       = true;
 };
-if ((_heli getvariable "fza_ah64_firetest") == 2) then {
+if ((_heli getVariable "fza_ah64_firetest") == 2) then {
     _primaryFB     = true;
     _reserveFB     = true;
 };

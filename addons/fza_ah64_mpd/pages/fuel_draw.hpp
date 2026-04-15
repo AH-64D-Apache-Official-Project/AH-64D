@@ -69,7 +69,7 @@ MPD_TEXT_L(CFEED_AFT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC
 
 #define PAGE_MPD_CROSSFEED_X MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 6)
 class Crossfeed_Lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
         {{0.98, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT}, 1},
@@ -96,7 +96,7 @@ MPD_TEXT_SMALL_C(CrossfeedChar9, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 4
 #define FUEL_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
 class fuel_Off {
     class lines_fuelOnOff {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Power Indicator
@@ -121,7 +121,7 @@ MPD_TEXT_SMALL_C(ENG_1_INDICATOR, 0.395, 0.475, MPD_TEXT_STATIC("1"))
 MPD_TEXT_SMALL_C(ENG_2_INDICATOR, 0.605, 0.475, MPD_TEXT_STATIC("2"))
 
 class Static {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
         {{0.355,0.449},1}, {{0.186,0.432},1}, {{0.186,0.336},1}, {{0.418,0.317},1}, {{0.417,0.166},1}, {{0.421,0.150},1}, {{0.432,0.134},1}, {{0.448,0.123},1}, {{0.466,0.119},1}, {},
@@ -150,18 +150,18 @@ class Static {
         {{0.576,0.636}, 1}, {{0.417,0.636}, 1}, {},
         //M 576,636.00001 H 417.99999"
         // Fuel quantity
-        MPD_POINTS_BOX(Null, 0.09, 0.80, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4) + (MPD_TEXT_SMALL_WIDTH * 2), 2 * MPD_TEXT_HEIGHT), {},
+        MPD_POINTS_BOX("Null", 0.09, 0.80, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4) + (MPD_TEXT_SMALL_WIDTH * 2), 2 * MPD_TEXT_HEIGHT), {},
         // Fuel flow
-        MPD_POINTS_BOX(Null, PAGE_MPD_FUELFLOW_X, 0.96 - (MPD_TEXT_HEIGHT * 4), (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5), 4 * MPD_TEXT_HEIGHT), {},
+        MPD_POINTS_BOX("Null", PAGE_MPD_FUELFLOW_X, 0.96 - (MPD_TEXT_HEIGHT * 4), (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5), 4 * MPD_TEXT_HEIGHT), {},
         // SFR
-        MPD_POINTS_BOX(Null, 0.5 - (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_SMALL_WIDTH * 7, MPD_TEXT_SMALL_HEIGHT), {},
+        MPD_POINTS_BOX("Null", 0.5 - (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_SMALL_WIDTH * 7, MPD_TEXT_SMALL_HEIGHT), {},
         // Fuel endurance
-        MPD_POINTS_BOX(Null, 0.69, 0.77, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), (MPD_TEXT_SMALL_HEIGHT) + (MPD_TEXT_HEIGHT * 2)), {}
+        MPD_POINTS_BOX("Null", 0.69, 0.77, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), (MPD_TEXT_SMALL_HEIGHT) + (MPD_TEXT_HEIGHT * 2)), {}
     };
 };
 
 class FuelLines {
-    type = line;
+    type = "line";
     width = 9;
     points[] = {
         {{0.360, 0.390}, 1}, {{0.360,0.220}, 1}, {{0.430,0.220}, 1}, {},
@@ -170,7 +170,7 @@ class FuelLines {
 };
 
 class TextBoxes {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
         MPD_POINTS_BOX("Null", 0.4425,0.18, 0.1075, 0.070), {},
@@ -202,17 +202,17 @@ class ShowIAFS {
     MPD_TEXT_L(FENDR_TOT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.82 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_TOT))
 
     class box_IAFS {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-        MPD_POINTS_BOX(Null, IAFS_QTY_X-(1.5*MPD_TEXT_WIDTH), IAFS_QTY_Y, 3*MPD_TEXT_WIDTH, 0.98*MPD_TEXT_HEIGHT),
+        MPD_POINTS_BOX("Null", IAFS_QTY_X-(1.5*MPD_TEXT_WIDTH), IAFS_QTY_Y, 3*MPD_TEXT_WIDTH, 0.98*MPD_TEXT_HEIGHT),
         };
     };
 
 
     class iafs_Off {
         class lines_iafsOnOff {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //Power Indicator
@@ -233,7 +233,7 @@ class ShowIAFS {
         class iafs_draw {
             class polys_iafsOnOff {
                 class Polygons {
-                    type = polygon;
+                    type = "polygon";
                     points[] = {
                         { //Top left
                             {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
@@ -266,7 +266,7 @@ class ShowIAFS {
     };
 
     class fuelLines_IAFS {
-        type = line;
+        type = "line";
         width = 9;
         points[] = {
             {{0.48, 0.256}, 1},

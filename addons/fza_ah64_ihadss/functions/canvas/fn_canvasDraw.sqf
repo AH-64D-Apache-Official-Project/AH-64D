@@ -2,7 +2,7 @@ params ["_ctrl"];
 
 private _heli = vehicle player;
 
-if ((driver _heli != player && gunner _heli != player) || !(_heli iskindof "fza_ah64base")) exitwith {};
+if ((driver _heli != player && gunner _heli != player) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
 private _ctrlPos = ctrlPosition _ctrl;
 private _ctrlPosCenter = _ctrl ctrlMapScreenToWorld [_ctrlPos#0+(_ctrlPos#2)*0.5, _ctrlPos#1+(_ctrlPos#3)*0.5];

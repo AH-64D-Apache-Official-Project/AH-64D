@@ -16,7 +16,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
-if !(["fza_275_", _weapon] call BIS_fnc_inString) exitwith {};
+if !(["fza_275_", _weapon] call BIS_fnc_inString) exitWith {};
 private _salvofired = (_heli getVariable "fza_ah64_salvofired") + 1;
 private _rocketsalvo = _heli getVariable "fza_ah64_rocketsalvo";
 
@@ -28,7 +28,7 @@ if (_rocketsalvo != 99) then {
                 _heli selectWeaponTurret ["fza_hydra_limit", [0], "fza_hydra_limit"];
                 inputAction "defaultAction" < 0.5
             };
-            if (currentweapon _heli != "fza_hydra_limit") exitwith {};
+            if (currentWeapon _heli != "fza_hydra_limit") exitWith {};
             _heli selectWeaponTurret [_weapon, [0], _weapon];;
         };
     };

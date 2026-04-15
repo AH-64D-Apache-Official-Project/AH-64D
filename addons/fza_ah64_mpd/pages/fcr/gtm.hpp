@@ -6,7 +6,7 @@ class fcr_draw {
     MPD_TEXT_L(ZOOM_4,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
     MPD_BOX_BAR_L(ZOOM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
     class lines_GTM {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Left side
@@ -137,7 +137,7 @@ class fcr_draw {
             class nearBar {
                 condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM),1.6)));
                 class line {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {"FCR_NearBar", {0, 0.05}, 1},
@@ -148,7 +148,7 @@ class fcr_draw {
             class farBar {
                 condition = C_COND(C_AND(C_LESS(1.6,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 3.2)));
                 class line {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {"FCR_FarBar", {0, 0.325}, 1},
@@ -163,7 +163,7 @@ class fcr_draw {
             class nearBar {
                 condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1.6)));
                 class line {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {"FCR_NearBar", {0, 0.050}, 1},
@@ -174,7 +174,7 @@ class fcr_draw {
             class farBar {
                 condition = C_COND(C_AND(C_LESS(1.6,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 3.2)));
                 class line {
-                    type = line;
+                    type = "line";
                     width = 3;
                     points[] = {
                         {"FCR_FarBar", {0, 0.325}, 1},

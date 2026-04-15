@@ -61,7 +61,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusSpringlessPedals",
     "CHECKBOX",
-    ["Springless Pedals", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
+    [(localize "STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS"), (localize "STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -211,7 +211,7 @@ fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRe
 fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes, fza_sfmplus_fnc_coreUpdate, fza_sfmplus_fnc_coreUpdateFlightModel];
 
 //Draw3d handler
-fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
+fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3D", {
     [0] call fza_fnc_coreDraw3Dscheduler;
 }];
 

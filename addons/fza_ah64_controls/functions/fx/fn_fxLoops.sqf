@@ -34,7 +34,7 @@ if (_apuOn) then {
     do {
         if (cba_missiontime > _timed_apu) then {
             _timed_apu = cba_missiontime + 60;
-            [_apu, ["fza_ah64_apu_loop_3D", 100]] remoteExec["say3d"];
+            [_apu, ["fza_ah64_apu_loop_3D", 100]] remoteExec["say3D"];
         };
         sleep 1;
     };
@@ -52,7 +52,7 @@ if (_battBusOn) then {
     do {
         if (cba_missiontime > _timed_bat) then {
             _timed_bat = cba_missiontime + 13;
-            [_bat, ["fza_ah64_bat_loop_3D", 10]] remoteExec["say3d"];
+            [_bat, ["fza_ah64_bat_loop_3D", 10]] remoteExec["say3D"];
         };
         sleep 1;
     };

@@ -20,7 +20,6 @@ Examples:
 Author:
     Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_system", "_control"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
@@ -67,13 +66,13 @@ switch(_control) do {
         if _battBusOn then {
             [_heli] spawn {
                 params ["_heli"];
-                private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
+                private _audioPlaying = _heli getVariable "fza_ah64_firetestAudioPlaying";
                 if (!_audioPlaying) then {
                     _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
-                    player say3d "fza_ah64_engine_1_fire";
-                    player say3d "fza_ah64_APU_fire";
-                    player say3d "fza_ah64_engine_2_fire";
-                    player say3d "fza_ah64_aft_deck_fire";
+                    player say3D "fza_ah64_engine_1_fire";
+                    player say3D "fza_ah64_APU_fire";
+                    player say3D "fza_ah64_engine_2_fire";
+                    player say3D "fza_ah64_aft_deck_fire";
                     sleep 5;
                     _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
                 };
@@ -86,13 +85,13 @@ switch(_control) do {
         if _battBusOn then {
             [_heli] spawn {
                 params ["_heli"];
-                private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
+                private _audioPlaying = _heli getVariable "fza_ah64_firetestAudioPlaying";
                 if (!_audioPlaying) then {
                     _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
-                    player say3d "fza_ah64_engine_1_fire";
-                    player say3d "fza_ah64_APU_fire";
-                    player say3d "fza_ah64_engine_2_fire";
-                    player say3d "fza_ah64_aft_deck_fire";
+                    player say3D "fza_ah64_engine_1_fire";
+                    player say3D "fza_ah64_APU_fire";
+                    player say3D "fza_ah64_engine_2_fire";
+                    player say3D "fza_ah64_aft_deck_fire";
                     sleep 5;
                     _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
                 };

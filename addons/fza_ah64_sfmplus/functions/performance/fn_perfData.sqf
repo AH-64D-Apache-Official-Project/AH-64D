@@ -20,15 +20,15 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _config    = configOf _heli >> "fza_sfmplus";
 private _curGWT_kg = _heli getVariable "fza_sfmplus_GWT";
 private _pa        = _heli getVariable "fza_sfmplus_PA";
 private _fat       = _heli getVariable "fza_sfmplus_FAT";
 
 private _perfDataUpdatestr  = str  round _curGWT_kg + str _pa + str _fat + str fza_ah64_sfmplusEnvironment;
 private _perfDatacompareStr = _heli getVariable ["fza_sfmplus_perfDataChange", ""];
-if (_perfDataUpdatestr == _perfDatacompareStr) exitwith {};
-_heli setvariable ["fza_sfmplus_perfDataChange", _perfDataUpdatestr];
+if (_perfDataUpdatestr == _perfDatacompareStr) exitWith {};
+_heli setVariable ["fza_sfmplus_perfDataChange", _perfDataUpdatestr];
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Base Data        /////////////////////////////////////////////////////////////////////////

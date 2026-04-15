@@ -18,12 +18,12 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _shotAtArray = _heli getvariable "fza_dms_shotAt";
+private _shotAtArray = _heli getVariable "fza_dms_shotAt";
 {
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay == 0) then {continue;};
     _x set [6, 0];
-} foreach _shotAtArray;
+} forEach _shotAtArray;
 
 [_heli, "fza_dms_shotAt", _shotAtArray] call fza_fnc_updateNetworkGlobal;

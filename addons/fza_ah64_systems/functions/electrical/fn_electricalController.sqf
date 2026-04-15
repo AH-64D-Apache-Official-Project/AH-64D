@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _configVehicles = configOf _heli;
 
 private _apuOn  = _heli getVariable "fza_systems_apuOn";
 private _rtrRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;

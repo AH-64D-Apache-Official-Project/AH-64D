@@ -11,7 +11,7 @@
 		3) Manage symlinks for file patching use
 	
 	.EXAMPLE
-	.\build.ps1
+	.\tools\build.ps1
 
 	.LINK
 	https://github.com/AH-64D-Apache-Official-Project/AH-64D
@@ -118,12 +118,12 @@ function Start-AddonBuild {
 		$count++
 		$percentComplete = (($count / $ModsToPack.Count) * 100) - 15
 
-		Write-Progress -Activity "Packing PBOs" -Status "@AH-64D Apache Longbow\Addons\${Mod}" -PercentComplete $percentComplete
+		Write-Progress -Activity "Packing PBOs" -Status "addons\${Mod}" -PercentComplete $percentComplete
 
 
 		Start-Process -FilePath $addonBuilderExe -ArgumentList @(
-			"""${gitPath}\@AH-64D Apache Longbow\Addons\${Mod}"" ",
-			"""${gitPath}\@AH-64D Apache Longbow\Addons"" " +
+			"""${gitPath}\addons\${Mod}"" ",
+			"""${a3Root}\@AH-64D Apache Longbow\Addons"" " +
 			"""-clear"" " + 
 			"""-include=${gitpath}\buildExtIncludes.txt"""
 		) -Wait -RedirectStandardOutput ".\buildLog.log"
@@ -181,7 +181,7 @@ function Start-A3Diag {
 				"-maxvram=3384",
 				"-world=empty",
 				"-debug",
-				"-mod=${a3Root}\!Workshop\@CBA_A3;C:\Users\Matt Desktop\Documents\AH64D-Project\@AH-64D Apache Longbow;${a3Root}\!Workshop\@Zeus Enhanced;${a3Root}\!Workshop\@ace;${a3Root}\!Workshop\@ACRE2",
+				"-mod=${a3Root}\!Workshop\@CBA_A3;${gitPath}\@AH-64D Apache Longbow;${a3Root}\!Workshop\@Zeus Enhanced;${a3Root}\!Workshop\@ace;${a3Root}\!Workshop\@ACRE2",
 				"-beservice",
 				"-filePatching", "-debug", "-showScriptErrors"
 			)
@@ -214,7 +214,7 @@ function Set-SymLinks {
 	)
 
 	if ($PSBoundParameters.ContainsKey("Create")) {
-		New-Item -Path $a3Root -Name "fza_ah64_controls" -Type SymbolicLink -Value "${gitPath}\@AH-64D Apache Longbow\Addons\fza_ah64_controls"
+		New-Item -Path $a3Root -Name "fza_ah64_controls" -Type SymbolicLink -Value "${gitPath}\addons\fza_ah64_controls"
 	}
 
 	if ($PSBoundParameters.ContainsKey("Remove")) {
@@ -231,7 +231,7 @@ $gitPath = (Get-Location).Path
 
 
 
-# $ModsToPack = Get-ChildItem "${gitPath}\@AH-64D Apache Longbow\Addons" -Directory | % Name
+# $ModsToPack = Get-ChildItem "${gitPath}\addons" -Directory | ForEach-Object Name
 $ModsToPack = @("fza_ah64_controls", "fza_ah64_model")
 
 $Choice = $host.ui.PromptForChoice(

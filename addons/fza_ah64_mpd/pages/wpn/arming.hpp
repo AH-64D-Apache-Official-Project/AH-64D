@@ -24,17 +24,17 @@ class ArmSafe {
         MPD_TEXT_C(Safe, 0.5, 0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
         //Safe Box
         class Static {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
-                MPD_POINTS_BOX_PAD(Null, 0.45, 0.1, 0.10, 0.06, 0.02)
+                MPD_POINTS_BOX_PAD("Null", 0.45, 0.1, 0.10, 0.06, 0.02)
             };
         };
     };
     class Safe_WAS {
         condition = C_COND(C_AND(C_NOT(C_MPD_USER(MFD_IND_WPN_MASTER_ARM)), C_MPD_USER(MFD_IND_WPN_WAS)));
         class Polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 WPN_CHECKERS
             };
@@ -44,7 +44,7 @@ class ArmSafe {
         condition = C_COND(C_MPD_USER(MFD_IND_WPN_MASTER_ARM));
         color[] = {1,1,0,1};
         class Polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.4300, 0.1000}, 1},  //upper left corner
@@ -131,7 +131,7 @@ class ArmSafe {
         condition = C_COND(C_AND(C_MPD_USER(MFD_IND_WPN_MASTER_ARM), C_MPD_USER(MFD_IND_WPN_WAS)));
         color[] = {0,0,0,1};
         class Polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 WPN_CHECKERS
             };

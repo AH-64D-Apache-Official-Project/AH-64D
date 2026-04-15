@@ -51,17 +51,17 @@ class CfgWeapons {
         ace_overpressure_damage = 0.7;
         ace_overpressure_offset = 1;
     };
-    #define HELLFIRE_MAGAZINES(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
+    #define HELLFIRE_MAGAZINES(ammoName) QUOTE(ammoName##_ll), QUOTE(ammoName##_lr), QUOTE(ammoName##_ul), QUOTE(ammoName##_ur)
     #define HELLFIRE_WEAPON_CONFIG(ammoName, prettyName) \
         class ammoName##_wep : fza_hellfire {\
             scope = protected;\
             displayName = prettyName;\
             magazines[] = {HELLFIRE_MAGAZINES(ammoName)};\
-            fza_ammoType = ammoName;\
+            fza_ammoType = QUOTE(ammoName);\
         };
-    HELLFIRE_WEAPON_CONFIG(fza_agm114fa,  "$STR_FZA_AH64_HELLFIRE_AGM_114FA")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114k,   "$STR_FZA_AH64_HELLFIRE_AGM_114K")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114k2a, "$STR_FZA_AH64_HELLFIRE_AGM_114K2A")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114l,   "$STR_FZA_AH64_HELLFIRE_AGM_114L")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114n,   "$STR_FZA_AH64_HELLFIRE_AGM_114N")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114fa,"$STR_FZA_AH64_HELLFIRE_AGM_114FA")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k,"$STR_FZA_AH64_HELLFIRE_AGM_114K")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k2a,"$STR_FZA_AH64_HELLFIRE_AGM_114K2A")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114l,"$STR_FZA_AH64_HELLFIRE_AGM_114L")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114n,"$STR_FZA_AH64_HELLFIRE_AGM_114N")
 };

@@ -18,23 +18,23 @@ Examples:
 Author:
     mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
-if (!(isNil "fza_ah64_nopfsched")) exitwith {};
+if (!(isNil "fza_ah64_nopfsched")) exitWith {};
 params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 2;
 
-if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitWith {};
 
 {
     [_heli] call _x;
 }
-foreach fza_ah64_draw3Darray;
+forEach fza_ah64_draw3Darray;
 
-if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
-    fza_ah64_overallticker = diag_ticktime; 
+if ((diag_tickTime - fza_ah64_overallticker) > _ticker) then {
+    fza_ah64_overallticker = diag_tickTime; 
     {
         [_heli] call _x;
     }
-    foreach fza_ah64_draw3DarraySlow;
+    forEach fza_ah64_draw3DarraySlow;
     [_heli] spawn fza_fnc_targetingSensorUpdate;
 };

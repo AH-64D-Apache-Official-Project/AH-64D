@@ -3,9 +3,9 @@ private _grid = _this;
 if !(_grid regexMatch "^(\d{2})+$") exitWith {-1};
 
 // Get world information
-private _cfgGrid = configfile >> "CfgWorlds" >> worldname >> "Grid";
-private _offsetX = getnumber (_cfgGrid >> "offsetX");
-private _offsetY = getnumber (_cfgGrid >> "offsetY");
+private _cfgGrid = configFile >> "CfgWorlds" >> worldName >> "Grid";
+private _offsetX = getNumber (_cfgGrid >> "offsetX");
+private _offsetY = getNumber (_cfgGrid >> "offsetY");
 private _zoomMax = 1e99;
 private _format = "";
 private _formatX = "";
@@ -13,16 +13,16 @@ private _formatY = "";
 private _stepX = 1e10;
 private _stepY = 1e10;
 {
-	_zoom = getnumber (_x >> "zoomMax");
+	_zoom = getNumber (_x >> "zoomMax");
 	if (_zoom < _zoomMax) then {
 		_zoomMax = _zoom;
-		_format = gettext (_x >> "format");
-		_formatX = gettext (_x >> "formatX");
-		_formatY = gettext (_x >> "formatY");
-		_stepX = getnumber (_x >> "stepX");
-		_stepY = getnumber (_x >> "stepY");
+		_format = getText (_x >> "format");
+		_formatX = getText (_x >> "formatX");
+		_formatY = getText (_x >> "formatY");
+		_stepX = getNumber (_x >> "stepX");
+		_stepY = getNumber (_x >> "stepY");
 	};
-} foreach configproperties [_cfgGrid,"isclass _x",false];
+} forEach configProperties [_cfgGrid,"isclass _x",false];
 if (_stepY > 0) then {_offsetY = _offsetY + _stepY;};
 
 private _converter = "0123456789";

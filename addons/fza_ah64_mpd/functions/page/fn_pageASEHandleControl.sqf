@@ -1,4 +1,3 @@
-#include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_mpdIndex", "_control"];
@@ -18,8 +17,8 @@ switch(_control) do {
     };
     //RLWR
     case "r6": {
-        if !(_dcBusOn) exitwith {};
         private _newState = [ASE_RLWR_STATE_OFF, ASE_RLWR_STATE_ON] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
+        if !(_dcBusOn) exitWith {};
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
         if (_newstate == ASE_RLWR_STATE_ON) then {
             [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] call fza_audio_fnc_addASEMessage;

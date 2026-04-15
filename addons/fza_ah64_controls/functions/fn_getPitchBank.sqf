@@ -25,7 +25,7 @@ private["_obj", "_pitch", "_bank", "_yaw", "_vdir", "_vup", "_sign", "_rotate"];
 
 _obj = _this;
 
-_yaw = getdir _obj;
+_yaw = getDir _obj;
 
 
 _rotate = {
@@ -46,7 +46,7 @@ _rotate = {
 };
 
 
-_vdir = vectordir _obj;
+_vdir = vectorDir _obj;
 
 _vdir = [_vdir, _yaw] call _rotate;
 
@@ -61,7 +61,7 @@ else {
     };
 };
 
-_vup = vectorup _obj;
+_vup = vectorUp _obj;
 
 
 _vup = [_vup, _yaw] call _rotate;

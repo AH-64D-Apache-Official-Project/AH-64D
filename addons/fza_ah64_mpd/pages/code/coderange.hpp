@@ -1,9 +1,9 @@
 class CodeRange {
     class Lines {
-        type=line;
+        type="line";
         width=3;
         points[] = {
-            MPD_POINTS_BOX_PAD(Null,(0.5-11*MPD_TEXT_WIDTH),0.27,22*MPD_TEXT_WIDTH,2*MPD_TEXT_HEIGHT-0.02,0.01)
+            MPD_POINTS_BOX_PAD("Null",(0.5-11*MPD_TEXT_WIDTH),0.27,22*MPD_TEXT_WIDTH,2*MPD_TEXT_HEIGHT-0.02,0.01)
         };
     };
 

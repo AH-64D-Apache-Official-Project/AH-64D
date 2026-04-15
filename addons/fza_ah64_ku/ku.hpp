@@ -19,14 +19,14 @@ class Bones {};
 class Draw
 {
     class KU {
-        condition = user0;
+        condition = "user0";
         class Solid {
             condition = "1-user3";
             class Text {
-                type = text;
-                align = right;
+                type = "text";
+                align = "right";
                 scale = 1;
-                source = userText;
+                source = "userText";
                 sourceIndex = 9;
                 sourceScale = 1;
                 pos[] = {{0.05,0.05},1};
@@ -39,10 +39,10 @@ class Draw
             blinkingPattern[] = {1,1};
             blinkingStartsOn = 1;
             class Text {
-                type = text;
-                align = right;
+                type = "text";
+                align = "right";
                 scale = 1;
-                source = userText;
+                source = "userText";
                 sourceIndex = 9;
                 sourceScale = 1;
                 pos[] = {{0.05,0.05},1};

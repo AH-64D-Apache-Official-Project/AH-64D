@@ -23,7 +23,7 @@ params ["_heli", "_priority", "_audio", "_audiolength"];
 private _wrnMsg = _heli getVariable "fza_audio_warning_message";
 
 if (_wrnMsg isEqualTo "" || {_priority > _wrnMsg # 1}) then {
-    _heli setvariable ["fza_audio_warning_message", _this];
+    _heli setVariable ["fza_audio_warning_message", _this];
 };
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];

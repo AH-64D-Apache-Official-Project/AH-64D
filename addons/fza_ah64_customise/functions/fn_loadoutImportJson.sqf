@@ -17,8 +17,8 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli","_json"];
-if (_json == "") exitwith {};
-if (_json == "true") exitwith {};
+if (_json == "") exitWith {};
+if (_json == "true") exitWith {};
 
 private _settings = [_json] call CBA_fnc_parseJSON;
 private _nameCheck = ["M151","M255","M257","M261","M278","AGM114FA","AGM114k","AGM114K2A","AGM114L","AGM114N"];
@@ -38,7 +38,7 @@ private _iafsState = [1, 0] select (_settings getVariable "iafsInstalled");
 [_heli] call fza_sfmplus_fnc_coreConfig;
 private _fuelKg = _settings getVariable "fuel";
 private _iafsState = [0, 1] select (_settings getVariable "iafsInstalled");
-private _sfmPlusCfg = configFile >> "CfgVehicles" >> typeOf _heli >> "Fza_SfmPlus";
+private _sfmPlusCfg = configOf _heli >> "Fza_SfmPlus";
 private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumber (_sfmPlusCfg >> "maxAftFuelMass") + _iafsState * getNumber (_sfmPlusCfg >> "maxCtrFuelMass");
 _heli setFuel (_fuelKg / _tankCapacityKg);
 
@@ -71,7 +71,7 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
                     _heli setPylonLoadout [_magazineIndex, "", true, [0]];
                     _magazineIndex = _magazineIndex - 1;
                 };
-            } foreach _pylonRktCheck;
+            } forEach _pylonRktCheck;
         };
         case "hellfire": {
             {
@@ -85,10 +85,10 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
                     _heli setPylonLoadout [_magazineIndex, "", true, [0]];
                     _magazineIndex = _magazineIndex - 1;
                 };
-            } foreach _pylonMslCheck;
+            } forEach _pylonMslCheck;
         };
         default {
             ["Unknown pylon type %1", _pylonType] call BIS_fnc_error;
         };
     };
-} foreach _pylonArraycheck;
+} forEach _pylonArraycheck;

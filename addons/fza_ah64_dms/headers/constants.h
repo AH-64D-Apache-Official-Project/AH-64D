@@ -1,3 +1,6 @@
+#ifndef FZA_AH64_DMS_CONSTANTS_H
+#define FZA_AH64_DMS_CONSTANTS_H
+
 #define MPD_ICON_TYPE_A 0
 #define MPD_ICON_TYPE_B 1
 #define MPD_ICON_TYPE_C 2
@@ -47,3 +50,5 @@
 
 #define MPD_POSMODE_WORLD true
 #define MPD_POSMODE_SCREEN false
+
+#endif // FZA_AH64_DMS_CONSTANTS_H

@@ -5,7 +5,7 @@ class GTM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 1));
             class lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.764, -0.704}, 1},
@@ -48,7 +48,7 @@ class GTM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 1));
             class lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.382, -0.352}, 1},
@@ -91,7 +91,7 @@ class GTM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 1));
             class lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.153, -0.141}, 1},
@@ -134,7 +134,7 @@ class GTM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 1));
             class lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.076, -0.070}, 1},
@@ -179,7 +179,7 @@ class ATM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 2));
             class Lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {1.020, 0.000}, 1},
@@ -276,7 +276,7 @@ class ATM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 2));
             class Lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.510, 0.000}, 1},
@@ -373,7 +373,7 @@ class ATM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 2));
             class Lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.204, 0.000}, 1},
@@ -470,7 +470,7 @@ class ATM {
         class continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_FCR), 2));
             class Lines {
-                type = line;
+                type = "line";
                 width = 3;
                 points[] = {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.102, 0.000}, 1},

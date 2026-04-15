@@ -40,7 +40,7 @@ params["_heli"];
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
 
-if (!(isNil "fza_ah64_noinit")) exitwith {};
+if (!(isNil "fza_ah64_noinit")) exitWith {};
 _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
 
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
@@ -66,7 +66,7 @@ _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
-if (player in _heli && !is3den && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
+if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
         waitUntil {cba_missiontime != 0;};
         createDialog "RscFzaDisplayWelcome";
@@ -89,5 +89,5 @@ if (local _heli) then {
             _heli setPylonLoadout [_pylId, _pylMag, true, [0]]; 
             _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
         }; 
-    } foreach getAllPylonsInfo _heli; 
+    } forEach getAllPylonsInfo _heli; 
 };

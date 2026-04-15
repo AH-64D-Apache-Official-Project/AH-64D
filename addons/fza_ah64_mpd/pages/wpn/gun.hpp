@@ -30,7 +30,7 @@ class VABs_Mode_Gun {
     MPD_TEXT_R(Burst_Limit_Label_10, 0.11, MPD_POS_BUTTON_LR_3_Y + 5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
 
     class Static {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             // Burst limit box

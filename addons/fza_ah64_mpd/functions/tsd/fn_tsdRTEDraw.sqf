@@ -17,16 +17,16 @@ private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {
 private _scrollV = [_routeScroll, 0, _upper] call BIS_fnc_clamp;
 _state set ["routeScroll", _scrollV];
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_VARIANT), _variant];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_TEXT_POINTS), -1];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_END_INDEX), (count _routeInfo - _routeScroll)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_POINTEDIT), BOOLTONUM(_variant == 0)];
-if (_rvwIndex isEqualTo -1) then {_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_RVW_INDEX), -1];};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_VARIANT), _variant];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_TEXT_POINTS), -1];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_END_INDEX), (count _routeInfo - _routeScroll)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_POINTEDIT), BOOLTONUM(_variant == 0)];
+if (_rvwIndex isEqualTo -1) then {_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_RVW_INDEX), -1];};
 
 private _drawRtePoint = {
     params ["_heli", "_routeInfo", "_routeScroll", "_positionIndex"];
     private _index = _routeScroll + _positionIndex;
-    if (count _routeInfo <= _index) exitwith {" ";};
+    if (count _routeInfo <= _index) exitWith {" ";};
     private _point = _routeInfo#_index;
     private _pointData = [_heli, _point, POINT_GET_ID] call fza_dms_fnc_pointGetValue;
     private _pointStr  = _pointData call fza_dms_fnc_pointToString;
@@ -36,29 +36,29 @@ private _drawRtePoint = {
 
 ([_heli, _routeInfo, _routeScroll, 0] call _drawRtePoint)
     params ["_pointStr", "_currentPoint"];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R5), _pointStr];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R5), _pointStr];
 
 ([_heli, _routeInfo, _routeScroll, 1] call _drawRtePoint)
     params ["_pointStr", "_currentPoint"];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R4), _pointStr];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R4), _pointStr];
 
 ([_heli, _routeInfo, _routeScroll, 2] call _drawRtePoint)
     params ["_pointStr", "_currentPoint"];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R3), _pointStr];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R3), _pointStr];
 
 ([_heli, _routeInfo, _routeScroll, 3] call _drawRtePoint)
     params ["_pointStr", "_currentPoint"];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R2), _pointStr];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_POINT_R2), _pointStr];
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_POINT), _currentPoint];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_POINT), _currentPoint];
 
 switch (_variant) do {
     case 1;
     case 2: {
         private _curPoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
             _curPoint call fza_dms_fnc_pointToString];
-        if (_curPoint isequalto [] && _variant != 1) then {
+        if (_curPoint isEqualTo [] && _variant != 1) then {
             _state set ["subPageVarPage", TSD_RTE_ADD_NOPOINTSEL];
         };
         if (_curPoint isNotEqualTo [] && _variant != 2) then {
@@ -66,14 +66,14 @@ switch (_variant) do {
         };
     };
     case 3: {
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
             _directTo call fza_dms_fnc_pointToString];
     };
     case 4;
     case 5: {
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
             _directTo call fza_dms_fnc_pointToString];
-        if (_directTo isequalto [] && _variant != 4) then {
+        if (_directTo isEqualTo [] && _variant != 4) then {
             _state set ["subPageVarPage", TSD_RTE_DIR_NOPOINTSEL];
         };
         if (_directTo isNotEqualTo [] && _variant != 5) then {
@@ -81,7 +81,7 @@ switch (_variant) do {
         };
     };
     case 6: {
-        if (_rvwIndex isEqualTo -1) exitwith {};
+        if (_rvwIndex isEqualTo -1) exitWith {};
         private _pointDetails = [_heli, (_routeInfo#_rvwIndex), POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
         private _currentPointStr = (_routeInfo#_rvwIndex) call fza_dms_fnc_pointToString;
         //Line 1
@@ -102,9 +102,9 @@ switch (_variant) do {
         private _dstToWpt_nm  = ((_pointDetails # POINT_GET_ARMA_POS) distance2D (getPos _heli)) * 0.000539957;
         private _wptDetails_3 = format["                              %1 NM",[_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
 
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_1), _wptDetails_1];
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_2), _wptDetails_2];
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_3), _wptDetails_3];
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_RVW_INDEX), (_rvwIndex - _routeScroll)];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_1), _wptDetails_1];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_2), _wptDetails_2];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_3), _wptDetails_3];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_RVW_INDEX), (_rvwIndex - _routeScroll)];
     };
 };

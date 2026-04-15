@@ -18,7 +18,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "", "_unit"];
 
-if (player != _unit) exitwith {};
+if (player != _unit) exitWith {};
 if (fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
     createDialog "RscFzaDisplayWelcome";
 };

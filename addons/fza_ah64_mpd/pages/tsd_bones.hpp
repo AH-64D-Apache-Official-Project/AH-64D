@@ -1,6 +1,6 @@
 class Tsd_Ownship {
-    type = linear;
-    source = user;
+    type = "linear";
+    source = "user";
     sourceIndex = MFD_USER_NUM(MFD_IND_TSD_CTR);
     min = 0;
     max = 1;
@@ -9,13 +9,13 @@ class Tsd_Ownship {
 };
 
 class Tsd_Ownship_Offset {
-    type = fixed;
+    type = "fixed";
     pos[] = {0.5, 0.5};
 };
 
 class Tsd_Hsi_360 {
-    type = rotational;
-    source = heading;
+    type = "rotational";
+    source = "heading";
     min = 0;
     max = 360;
     sourceScale = 1;
@@ -25,8 +25,8 @@ class Tsd_Hsi_360 {
 };
 
 class Tsd_Hsi_Static_360 {
-    type = rotational;
-    source = heading;
+    type = "rotational";
+    source = "heading";
     min = 0;
     max = 0;
     sourceScale = 1;
@@ -66,7 +66,7 @@ TSD_HSI_STATIC(270)
 TSD_HSI_STATIC(315)
 
 class Tsd_DigitSize1 {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_TSD_SCALE_BOXES)
     min = 9000;
     max = 10000;

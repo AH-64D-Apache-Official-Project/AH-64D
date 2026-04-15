@@ -59,6 +59,6 @@ class CfgDefaultKeysPresets {
     class Arma3: Arma2 {
         class Mappings: Mappings {
             fza_ah64_countermeasure[] = {0x2E}; //C
-        }
-    }
+        };
+    };
 };

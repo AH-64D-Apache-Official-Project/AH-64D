@@ -79,17 +79,18 @@ class CfgWeapons {
             textureType = "semi";
         };
     };
-    #define ROCKET_MAGAZINES(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE
-    #define ROCKET_WEAPON_CONFIG(ammoName, prettyName) \
-        class ammoName##_wep : fza_hydra70 {\
-            scope = protected;\
-            displayName = prettyName;\
-            magazines[] = {ROCKET_MAGAZINES(ammoName)};\
-            fza_ammoType = ammoName;\
-        };
-    ROCKET_WEAPON_CONFIG(fza_275_m151, "$STR_FZA_AH64_HYDRA_M151")
-    ROCKET_WEAPON_CONFIG(fza_275_m255a1, "$STR_FZA_AH64_HYDRA_M255A1")
-    ROCKET_WEAPON_CONFIG(fza_275_m257, "$STR_FZA_AH64_HYDRA_M257_IL")
-    ROCKET_WEAPON_CONFIG(fza_275_m261, "$STR_FZA_AH64_HYDRA_M278_IR_IL")
-    ROCKET_WEAPON_CONFIG(fza_275_m278, "$STR_FZA_AH64_HYDRA_M275")
+    #define ROCKET_MAGAZINES(AMMO_CLASS) QUOTE(AMMO_CLASS##_zoneA), QUOTE(AMMO_CLASS##_zoneB), QUOTE(AMMO_CLASS##_zoneE)
+    #define ROCKET_WEAPON_CONFIG(AMMO_CLASS,PRETTY_NAME) \
+        class AMMO_CLASS##_WEP: fza_hydra70 { \
+            scope = protected; \
+            displayName = PRETTY_NAME; \
+            magazines[] = {ROCKET_MAGAZINES(AMMO_CLASS)}; \
+            fza_ammoType = QUOTE(AMMO_CLASS); \
+        }
+
+    ROCKET_WEAPON_CONFIG(fza_275_m151,"$STR_FZA_AH64_HYDRA_M151");
+    ROCKET_WEAPON_CONFIG(fza_275_m255a1,"$STR_FZA_AH64_HYDRA_M255A1");
+    ROCKET_WEAPON_CONFIG(fza_275_m257,"$STR_FZA_AH64_HYDRA_M257_IL");
+    ROCKET_WEAPON_CONFIG(fza_275_m261,"$STR_FZA_AH64_HYDRA_M278_IR_IL");
+    ROCKET_WEAPON_CONFIG(fza_275_m278,"$STR_FZA_AH64_HYDRA_M275");
 };

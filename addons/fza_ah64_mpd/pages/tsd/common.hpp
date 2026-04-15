@@ -10,7 +10,7 @@ class tsdCommon {
     class occluders {
         color[] = {0,0,0,1};
         class Polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.0, 0.0}, 1},
@@ -48,7 +48,7 @@ class tsdCommon {
         {"Tsd_Ownship", 1, {posX, posY}, 1}
 
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.9}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}, {}, //outside box
@@ -75,14 +75,14 @@ class tsdCommon {
             {{0.75, 0.905}, 1}, {{0.75, 0.89}, 1}, {},   //Bottom 4km indicator
             {{0.875, 0.905}, 1}, {{0.875, 0.89}, 1}, {}, //Bottom 6km indicator
 
-            MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
-            MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01),     //Heading
+            MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
+            MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01),     //Heading
         };
     };
     class ase_footPrint {
         condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_ASE_FOOTPRINT)));
         class ase_footprint_lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {{0.18, 0.18}, 1}, {{0.82, 0.18}, 1}, {{0.82, 0.82}, 1}, {{0.18, 0.82}, 1}, {{0.18, 0.18}, 1}, {}, //inside box
@@ -93,45 +93,45 @@ class tsdCommon {
 
     class Scale_Boxes_5km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 5000));
-        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
-        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
-        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox1, "Tsd_Ownship", 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox2, "Tsd_Ownship", 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_BONE_R(ScaleBox3, "Tsd_Ownship", 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_BONE_R(ScaleBox4, "Tsd_Ownship", 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
     };
     
     class Scale_Boxes_10km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 10000));
-        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
-        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
-        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
-        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
-        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox1, "Tsd_Ownship", 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox2, "Tsd_Ownship", 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_BONE_R(ScaleBox3, "Tsd_Ownship", 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_BONE_R(ScaleBox4, "Tsd_Ownship", 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
+        MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
     };
 
     class Scale_Boxes_25km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 25000));
-        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
-        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
-        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
-        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
-        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("25"))
+        MPD_TEXT_BONE_R(ScaleBox1, "Tsd_Ownship", 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_BONE_R(ScaleBox2, "Tsd_Ownship", 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox3, "Tsd_Ownship", 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox4, "Tsd_Ownship", 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("25"))
     };
 
     class Scale_Boxes_50km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 50000));
-        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
-        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
-        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
-        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
-        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("50"))
+        MPD_TEXT_BONE_R(ScaleBox1, "Tsd_Ownship", 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_BONE_R(ScaleBox2, "Tsd_Ownship", 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox3, "Tsd_Ownship", 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox4, "Tsd_Ownship", 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("50"))
     };
 
     //Ownship Icon
     class Ownship {
         color[] = {0,1,1,1};
         class Lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 //Ownship rotor
@@ -182,7 +182,7 @@ class tsdCommon {
     };
 
     // Hdg info
-    MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)
+    MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = "heading"; sourceScale = 1;)
     MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
 
 #define HSI_OUTER_RADIUS 0.263
@@ -252,7 +252,7 @@ class tsdCommon {
         class HSI {
             condition = C_COND(C_MPD_USER(MFD_IND_TSD_HSI));
             class lines {
-                type = line;
+                type = "line";
                 points[] = {
                     HSI_LINES_30_SEGMENT(360),
                     HSI_LINES_30_SEGMENT(30),
@@ -271,7 +271,7 @@ class tsdCommon {
             };
 
             class BarBells {
-                type=polygon;
+                type="polygon";
                 points[] = {
                     HSI_POLY_BARBELL(360),
                     HSI_POLY_BARBELL(45),

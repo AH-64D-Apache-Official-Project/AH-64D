@@ -26,10 +26,10 @@ class SetCondLRFD {
 
     MPD_TEXT_C(SetBox,0.5,0.19,MPD_TEXT_STATIC("LRFD"))
     class SetBox {
-        type=line;
+        type="line";
         width=3;
         points[] = {
-            MPD_POINTS_BOX_PAD(Null,(0.5-2*MPD_TEXT_WIDTH),0.2,4*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
+            MPD_POINTS_BOX_PAD("Null",(0.5-2*MPD_TEXT_WIDTH),0.2,4*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
         };
     };
 };
@@ -42,10 +42,10 @@ class SetCondLST {
 
     MPD_TEXT_C(SetBox,0.5,0.19,MPD_TEXT_STATIC("LST"))
     class SetBox {
-        type=line;
+        type="line";
         width=3;
         points[] = {
-            MPD_POINTS_BOX_PAD(Null,(0.5-1.5*MPD_TEXT_WIDTH),0.2,3*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
+            MPD_POINTS_BOX_PAD("Null",(0.5-1.5*MPD_TEXT_WIDTH),0.2,3*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
         };
     };
 };

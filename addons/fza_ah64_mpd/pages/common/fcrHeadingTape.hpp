@@ -1,11 +1,11 @@
 #ifdef FZA_HEADING_TAPE_FIXED
 class HeadingTape {
     //Source info
-    source = heading;
+    source = "heading";
     sourceScale = 1;
 
     //Tape setup
-    type = scale;
+    type = "scale";
     horizontal = 1;
     neverEatSeaWeed = 1;
     step = 10;
@@ -22,7 +22,7 @@ class HeadingTape {
     width = 3;
 
     //Text config
-    align = center;
+    align = "center";
     scale = 1;
     pos[] = {0.25, 0.15-MPD_TEXT_HEIGHT};
     right[] = {0.25 + MPD_TEXT_WIDTH_VEC, 0.15-MPD_TEXT_HEIGHT};
@@ -33,7 +33,7 @@ class HeadingTape {
     #define MINOR_LINE(id, bearing) class id { \
         condition = C_COND(C_AND(C_LESS(bearing-103,"heading"), C_LESS("heading",bearing+103))); \
         class Line { \
-            type = line; \
+            type = "line"; \
             width = 3; \
             points[] = \
                 { {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0.005 }, 1} \
@@ -44,14 +44,14 @@ class HeadingTape {
     #define MAJOR_LINE(id, bearing, txt) class id { \
         condition = C_COND(C_AND(C_LESS(bearing-103,"heading"), C_LESS("heading",bearing+103))); \
         class Line { \
-            type = line; \
+            type = "line"; \
             width = 3; \
             points[] = \
                 { {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0}, 1} \
                 , {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0.025}, 1} \
                 }; \
         }; \
-        MPD_TEXT_BONE_C(Text, FCR_HeadingTape, (bearing)*0.4/180+0.1, -MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(txt)) \
+        MPD_TEXT_BONE_C(Text, "FCR_HeadingTape", (bearing)*0.4/180+0.1, -MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(txt)) \
     };
 
     MAJOR_LINE(N180, -180, "S")

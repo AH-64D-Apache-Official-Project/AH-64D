@@ -12,11 +12,11 @@ private _fzalogic = allMissionObjects _type;
     if !(_type in _logictype) then {continue;};
     private _logicPointIndex = (_logic get3DENAttribute "fza_dms_point_index")#0;
     if (_type isEqualTo "fza_dms_point_cm") then {_logicPointIndex = _logicPointIndex - 50;};
-    _usedIndex pushback _logicPointIndex;
-} foreach _fzalogic;
+    _usedIndex pushBack _logicPointIndex;
+} forEach _fzalogic;
 
 for "_i" from 1 to 50 do { 
-    if !(_i in _usedIndex) exitwith {   
+    if !(_i in _usedIndex) exitWith {   
         _index = _i;
     };
 };

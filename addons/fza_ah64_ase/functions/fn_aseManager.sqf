@@ -20,7 +20,7 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli"];
 
-if (!(player == driver _heli) && !(player == gunner _heli)) exitwith {};
+if (player != driver _heli && player != gunner _heli) exitWith {};
 
 private _deltaTime = ["ase_deltaTime"] call BIS_fnc_deltaTime;
 private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";

@@ -40,7 +40,7 @@ private _selRvwPoint = {
     private _rvwIndex = _heli getVariable "fza_mpd_tsdRteCurrentRvw";
     private _index = ((_state get "routeScroll") + _btnIndex);
     if ((count _routeInfo) <= _index) exitWith {};
-    if (_rvwIndex == _index) exitwith {
+    if (_rvwIndex == _index) exitWith {
         _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1, true];
     };
     _heli setVariable ["fza_mpd_tsdRteCurrentRvw", _index, true];

@@ -3,7 +3,7 @@ _p params ["_ctrl"];
 
 private _heli = vehicle player;
 
-if ((driver _heli != player && gunner _heli != player) || !(_heli iskindof "fza_ah64base")) exitwith {};
+if ((driver _heli != player && gunner _heli != player) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
 private _xOffset = [0,0.5] select (_side == "right");
 
@@ -18,7 +18,7 @@ private _ctrlPosBottomRight = _ctrl ctrlMapScreenToWorld [_ctrlPos#0+_ctrlPos#2,
 
 private _ctrlVect = _ctrlPosBottomRight vectorDiff _ctrlPosTopLeft;
 
-private _idx = [0,1] select (_side == "right");
+private _idx = parseNumber (_side == "right");
 
 (_heli getVariable "fza_mpd_mpdState") # _idx params ["_page", "", "", "_drawCanvas", "_state", "_persistState"];
 

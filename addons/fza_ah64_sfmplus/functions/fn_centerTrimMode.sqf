@@ -2,7 +2,7 @@
 
 params ["_heli"];
 
-if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+if (currentPilot _heli != player || !local _heli) exitWith {};
 
 private _cyclicFwdAft    = _heli getVariable "fza_sfmplus_cyclicFwdAft";
 private _cyclicLeftRight = _heli getVariable "fza_sfmplus_cyclicLeftRight";

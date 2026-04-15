@@ -10,27 +10,27 @@ private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 
 //ATM Rear block
-If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
+if (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
     if (_fcrScanStartTime + 3.2 >= CBA_missionTime) then {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
     };
 };
 
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     if (_fcrScanDeltaTime >= 2.93) then {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
     };
     if ((_fcrScanDeltaTime % 6.4) < 2.96 || (_fcrScanDeltaTime % 6.4) > 3.44 ) then {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
     };
 } else {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
 };
 
 //FCR page draw
@@ -46,23 +46,23 @@ private _scale = (0.040625 * 8 / 8000);
 private _heliCtr = [0.5, 0.5];
 
 //Shot At UnderLay
-private _shotATList = _heli getvariable "fza_dms_shotAt";
+private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 0) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} foreach _shotATList;
+} forEach _shotATList;
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2d _pos;
+    private _distance_m          = _scanPos distance2D _pos;
     private _unitType            = "unk";
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
     //FCR max show
-    if (count _pointsArray > 15) exitwith {};
+    if (count _pointsArray > 15) exitWith {};
     
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue;};
 
@@ -113,16 +113,16 @@ private _shotATList = _heli getvariable "fza_dms_shotAt";
 } forEach _displayTargets;
 
 //Shot At Overlay
-private _shotATList = _heli getvariable "fza_dms_shotAt";
+private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 1) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} foreach _shotATList;
+} forEach _shotATList;
 
 //Total target count
 private _fcrTgtCount  = count _displayTargets;
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

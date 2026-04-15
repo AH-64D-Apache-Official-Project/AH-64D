@@ -1,10 +1,10 @@
 class ase_ownship {
-    type = fixed;
+    type = "fixed";
     pos[] = {0.5, 0.5};
 };
 
 class ase_az_01 {
-    type        = rotational;
+    type        = "rotational";
     MPD_NUM_USER(MFD_IND_ASE_01_AZ)
     min         = 0;
     max         = 360;

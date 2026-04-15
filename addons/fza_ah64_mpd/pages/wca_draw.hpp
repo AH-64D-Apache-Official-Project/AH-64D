@@ -1,13 +1,13 @@
 class wcaDraw {
     class outlines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Center lines
             {{0.496, 0.174}, 1}, {{0.496, 0.832}, 1}, {},
             {{0.504, 0.174}, 1}, {{0.504, 0.832}, 1}, {},
             //Curved box
-            MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 6.5), 0.105, (13 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT) 
+            MPD_POINTS_BOX("Null", (0.5 - MPD_TEXT_WIDTH * 6.5), 0.105, (13 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT) 
         };
     };
 

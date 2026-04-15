@@ -2,7 +2,7 @@
 
 #define TGT_SCALING(num, sourceNum) \
     class Eng_##num##_Zone_1 {\
-        type = linear;\
+        type = "linear";\
         MPD_NUM_USER(sourceNum)\
         min=0;\
         max=400;\
@@ -24,7 +24,7 @@
 
 #define TORQUE_SCALING(num, sourceNum) \
     class Eng_##num##_Zone_1 {\
-        type = linear;\
+        type = "linear";\
         MPD_NUM_USER(sourceNum)\
         min=0;\
         max=100;\
@@ -46,7 +46,7 @@
 
 #define NP_SCALING(num, sourceNum) \
     class Eng_##num##_Zone_1 {\
-        type = linear;\
+        type = "linear";\
         MPD_NUM_USER(sourceNum)\
         min=0;\
         max=95;\
@@ -73,7 +73,7 @@
     };
 
 class Eng_Hyd_Box {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_ENG_MODE)
     min=1;
     max=2;
@@ -83,7 +83,7 @@ class Eng_Hyd_Box {
 
 #define NR_SCALING(num, sourceNum) \
     class Eng_##num##_Zone_1 {\
-        type = linear;\
+        type = "linear";\
         MPD_NUM_USER(sourceNum)\
         min=0;\
         max=95;\

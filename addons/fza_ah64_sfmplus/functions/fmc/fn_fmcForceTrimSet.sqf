@@ -1,7 +1,7 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+if (currentPilot _heli != player || !local _heli) exitWith {};
 
 //Cyclic pitch trim
 private _curCyclicFwdAft  = (_heli getVariable "fza_sfmplus_cyclicFwdAft");

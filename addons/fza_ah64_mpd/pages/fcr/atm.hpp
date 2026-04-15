@@ -4,7 +4,7 @@ class lines_show {
     class lines_continuous {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
         class line {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {"Fcr_ATMBar", {0, 0.0203}, 1},
@@ -16,7 +16,7 @@ class lines_show {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
         color[] = {1,1,1,1};
         class line {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {"Fcr_ATMBar", {0, 0.0203}, 1},
@@ -29,7 +29,7 @@ class ScanningBlockedOut {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ATM_BLOCK), 1));
     class blockoutbox {
         class lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {{0.4937, 0.5193}, 1},
@@ -49,7 +49,7 @@ class ScanningBlockedOut {
 };
 class ATM_Circle_8KM {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.175, 0.500}, 1},
@@ -114,7 +114,7 @@ class ATM_Circle_8KM {
 };
 class ATM_Circle_6KM {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.2562, 0.5000}, 1},
@@ -171,7 +171,7 @@ class ATM_Circle_6KM {
 };
 class ATM_Circle_4KM {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.3375, 0.5000}, 1},
@@ -210,7 +210,7 @@ class ATM_Circle_4KM {
 };
 class ATM_Circle_2KM {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.4188, 0.5000}, 1},
@@ -249,7 +249,7 @@ class ATM_Circle_2KM {
 };
 class ATM_Circle_500M {
     class lines {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.4797, 0.5000}, 1},

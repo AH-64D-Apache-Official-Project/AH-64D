@@ -22,10 +22,9 @@ Examples:
 Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_system", "_control"];
 
-private _mpdIndex = [0,1] select (_system == "rmpd");
+private _mpdIndex = parseNumber (_system == "rmpd");
 [_heli] call fza_ku_fnc_clear;
 
 switch (_control) do {

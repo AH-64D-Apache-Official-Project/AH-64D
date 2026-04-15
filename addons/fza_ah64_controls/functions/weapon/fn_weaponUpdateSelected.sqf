@@ -43,7 +43,7 @@ switch (_heli getVariable "fza_ah64_was") do {
                 _heli selectWeaponTurret [_selectedRocket, [0], _selectedRocket];
             } else {
                 private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
-                if (count _rockets > 0) then {
+                if (_rockets isNotEqualTo []) then {
                     _heli setVariable ["fza_ah64_selectedRocket", _rockets # 0, true];
                     _heli selectWeaponTurret [_rockets # 0, [0], _rockets # 0];
                 } else {
@@ -61,7 +61,7 @@ switch (_heli getVariable "fza_ah64_was") do {
                 _heli selectWeaponTurret [_selectedMissile, [0],_selectedMissile];
             } else {
                 private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
-                if (count _missiles > 0) then {
+                if (_missiles isNotEqualTo []) then {
                     _heli setVariable ["fza_ah64_selectedMissile", _missiles # 0, true];
                     _heli selectWeaponTurret [_missiles # 0, [0],_missiles # 0];
                 } else {

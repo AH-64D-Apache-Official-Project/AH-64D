@@ -11,11 +11,11 @@ Description:
     Bank is 0 when level; 90 when the object is rolled to the right,
     -90 when rolled to the left, and 180 when rolled upside down.
 
-    Note that the object's yaw can be set with the setdir command,
+    Note that the object's yaw can be set with the setDir command,
     which should be issued before using this function, if required.
 
     The pitch/bank can be leveled out (set to 0) by using the
-    setdir command.
+    setDir command.
 
 Parameters:
     _obj - The object to rotate
@@ -40,7 +40,7 @@ private["_yaw", "_vdir", "_vup", "_sign", "_rotate"];
 //find the yaw (direction) of the object
 //map compass directions go CW, while coordinate (vector) directions go CCW, so we need to flip this
 //if we don't flip this, the object will face backwards
-_yaw = 360 - (getdir _obj);
+_yaw = 360 - (getDir _obj);
 
 
 //----------------------------
@@ -91,8 +91,8 @@ if (abs _pitch == 90) then {
 //(pitching beyond 90 degrees means that the object's eyes will point in the 2d compass direction that its back used to point)
 if (abs _pitch > 90) then {
     //we are rolling upside down; flip our direction (yaw)
-    _obj setdir(getdir _obj) - 180;
-    _yaw = 360 - (getdir _obj);
+    _obj setDir(getDir _obj) - 180;
+    _yaw = 360 - (getDir _obj);
 
     //use bank to flip upside down
     _bank = _bank + 180;

@@ -1,5 +1,5 @@
 class Fcr_NearBar {
-    type = rotational;
+    type = "rotational";
     MPD_NUM_USER(MFD_IND_FCR_ANIM)
     min=0;
     max=1.6;
@@ -14,7 +14,7 @@ class Fcr_FarBar : Fcr_NearBar {
     maxAngle=-45;
 };
 class Fcr_ATMBar {
-    type = rotational;
+    type = "rotational";
     MPD_NUM_USER(MFD_IND_FCR_ANIM)
     min=0;
     max=6.4;
@@ -24,7 +24,7 @@ class Fcr_ATMBar {
 };
 
 class FCR_CommandHeading {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FCR_COMMAND_HEADING)
     min = -90;
     max = 90;
@@ -48,7 +48,7 @@ class FCR_Fov_PrevCenter : FCR_Fov_Centerline {
 };
 
 class FCR_FOV_X {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FCR_FOV_X)
     min = -120;
     max = 120;
@@ -64,7 +64,7 @@ class FCR_FOV_Y : FCR_FOV_X {
 };
 
 class FCR_CuedLOS_X {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FCR_CUEDLOS_X)
     min = -120;
     max = 120;
@@ -81,8 +81,8 @@ class FCR_CuedLOS_Y : FCR_CuedLOS_X {
 };
 
 class FCR_HeadingTape {
-    type = linear;
-    source = heading;
+    type = "linear";
+    source = "heading";
     min = 0;
     max = 360;
     sourceScale = 1;

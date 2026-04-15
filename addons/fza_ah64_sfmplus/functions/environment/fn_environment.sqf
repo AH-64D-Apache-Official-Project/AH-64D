@@ -44,7 +44,7 @@ private _temperature       = _baseFAT - round((_baroAlt / 1000) * 2); //FAT deg 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
 private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
-private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
+private _pressure          = ((_referencePressure / 0.01) * (exp _exp)) * 0.01;
 
 private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));

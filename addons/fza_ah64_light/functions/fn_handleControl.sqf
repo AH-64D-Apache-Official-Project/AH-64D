@@ -20,7 +20,6 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_system", "_control"];
 
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
@@ -32,7 +31,7 @@ switch (_control) do {
     case "FLOODLIGHTING": {
         private _turret   = ((_heli call fza_fnc_currentTurret) isEqualTo [-1]);
         private _variable  = ["fza_ah64_lightCpgFlood", "fza_ah64_lightPltFlood"] select _turret;
-        private _value = !(_heli getvariable _variable);
+        private _value = !(_heli getVariable _variable);
         _heli setVariable [_variable, _value];
         [_heli, (_heli call fza_fnc_currentTurret), _value] call fza_light_fnc_setFloodLight;
     };

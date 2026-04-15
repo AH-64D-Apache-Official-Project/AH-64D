@@ -35,7 +35,7 @@ if (_rteIndex == _index) then {
 if (_index < _rteIndex && _rteIndex != -1) then {
     _heli setVariable ["fza_ah64_routeCurPoint", (_rteIndex - 1), true];
 };
-private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
+private _wptAprch = _heli getVariable "fza_ah64_wptAprch";
 if (_routePoint isEqualTo _wptAprch#0) then {
     [_heli, "fza_ah64_wptAprch", [-1, false]] call fza_fnc_updateNetworkGlobal;
 };

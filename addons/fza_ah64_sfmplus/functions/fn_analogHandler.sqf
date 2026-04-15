@@ -21,7 +21,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_cyclicForward";
 
-        _heliCyclicForwardOut = if ((count _heliCyclicForwardDevices) == 0) then { 1.0; } else {1.0 / (count _heliCyclicForwardDevices); };
+        _heliCyclicForwardOut = if (_heliCyclicForwardDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliCyclicForwardDevices); };
         _heliCyclicForwardOut = linearConversion [0.0, _heliCyclicForwardOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliCyclicForwardOut", _heliCyclicForwardOut];
     };
@@ -33,7 +33,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_cyclicBackward";
 
-        _heliCyclicBackOut = if ((count _heliCyclicBackDevices) == 0) then { 1.0; } else {1.0 / (count _heliCyclicBackDevices); };
+        _heliCyclicBackOut = if (_heliCyclicBackDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliCyclicBackDevices); };
         _heliCyclicBackOut = linearConversion [0.0, _heliCyclicBackOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliCyclicBackwardOut", _heliCyclicBackOut];
     };
@@ -45,7 +45,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_cyclicLeft";
 
-        _heliCyclicLeftOut = if ((count _heliCyclicLeftDevices) == 0)  then { 1.0; } else {1.0 / (count _heliCyclicLeftDevices); };
+        _heliCyclicLeftOut = if (_heliCyclicLeftDevices isEqualTo [])  then { 1.0; } else {1.0 / (count _heliCyclicLeftDevices); };
         _heliCyclicLeftOut = linearConversion [0.0, _heliCyclicLeftOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliCyclicLeftOut",  _heliCyclicLeftOut];        
     };
@@ -57,7 +57,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_cyclicRight";
 
-        private _heliCyclicRightOut = if ((count _heliCyclicRightDevices) == 0) then { 1.0; } else {1.0 / (count _heliCyclicRightDevices); };
+        private _heliCyclicRightOut = if (_heliCyclicRightDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliCyclicRightDevices); };
         _heliCyclicRightOut         = linearConversion [0.0, _heliCyclicRightOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliCyclicRightOut", _heliCyclicRightOut];
     };
@@ -69,7 +69,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_pedalLeft";
 
-        _heliRudderLeftOut = if ((count _heliRudderLeftDevices) == 0) then { 1.0; } else {1.0 / (count _heliRudderLeftDevices); };
+        _heliRudderLeftOut = if (_heliRudderLeftDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliRudderLeftDevices); };
         _heliRudderLeftOut = linearConversion [0.0, _heliRudderLeftOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliRudderLeftOut",  _heliRudderLeftOut];
     };
@@ -81,7 +81,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_pedalRight";
 
-        _heliRudderRightOut = if ((count _heliRudderRightDevices) == 0)  then { 1.0; } else {1.0 / (count _heliRudderRightDevices); };
+        _heliRudderRightOut = if (_heliRudderRightDevices isEqualTo [])  then { 1.0; } else {1.0 / (count _heliRudderRightDevices); };
         _heliRudderRightOut = linearConversion [0.0, _heliRudderRightOut, _value, 0.0, 1.0, true];
         _heli setVariable ["fza_sfmplus_heliRudderRightOut", _heliRudderRightOut];
     };
@@ -95,7 +95,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_collectiveUp";
 
-        _heliCollectiveRaiseOut = if ((count _heliCollectiveRaiseDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveRaiseDevices); };
+        _heliCollectiveRaiseOut = if (_heliCollectiveRaiseDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliCollectiveRaiseDevices); };
         _heliCollectiveRaiseOut = linearConversion [0.0, _heliCollectiveRaiseOut, _value, 0.0, 1.0, true];
         
         _heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
@@ -110,7 +110,7 @@ switch (_name) do {
             };
         } forEach actionKeysEx "fza_ah64_collectiveDn";
     
-        _heliCollectiveLowerOut = if ((count _heliCollectiveLowerDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveLowerDevices); };
+        _heliCollectiveLowerOut = if (_heliCollectiveLowerDevices isEqualTo []) then { 1.0; } else {1.0 / (count _heliCollectiveLowerDevices); };
         _heliCollectiveLowerOut = linearConversion [0.0, _heliCollectiveLowerOut, _value, 0.0, 1.0, true];
 
         _heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", _heliCollectiveLowerOut];

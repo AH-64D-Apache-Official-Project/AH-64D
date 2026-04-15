@@ -388,10 +388,10 @@ class RscTitles
             class fza_ah64_raddisp_nobounds: RscControlsGroup //Cscope Container
             {
                 idc = -1;
-                x = safeZoneX;
-                y = safeZoneY;
-                w = safeZoneW;
-                h = safeZoneH;
+                x = __EVAL(safeZoneX);
+                y = __EVAL(safeZoneY);
+                w = __EVAL(safeZoneW);
+                h = __EVAL(safeZoneH);
                 class ScrollBar
                 {
                     color[] = {1,1,1,0.6};
@@ -873,8 +873,8 @@ class RscTitles
                 idc = 20052;
                 x = 0;
                 y = 0;
-                w = ICE_HUD_Monocle_Size * 4;
-                h = ICE_HUD_Monocle_Size * 4;
+                w = __EVAL(ICE_HUD_Monocle_Size * 4);
+                h = __EVAL(ICE_HUD_Monocle_Size * 4);
                 class ScrollBar {
                     width = 0;
                     height = 0;
@@ -886,7 +886,7 @@ class RscTitles
                     {
                         type = 13;
                         idc = 121;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = -0.075;
                         y = 0.73; 
@@ -901,14 +901,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_targrange //SIGHT
                     {
                         type = 13;
                         idc = 122;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = -0.155;
                         y = 0.73; 
@@ -924,14 +924,14 @@ class RscTitles
                             font = "EtelkaMonospaceProBold";
                             //color = "1EFF00";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_collective // TADS FLIR OR DTV
                     {
                         type = 13;
                         idc = 123;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.31;
                         y = 0.356;
@@ -946,14 +946,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_speed // IHADSS SPEED
                     {
                         type = 13;
                         idc = 124;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.31;
                         y = 0.5;
@@ -968,14 +968,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_radaralt // IHADSS RADAR ALTITUDE
                     {
                         type = 13;
                         idc = 125;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.18;
                         y = 0.5;
@@ -990,14 +990,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_weptype // WEAPON TYPE, _weapon, MSL RKT GUN
                     {
                         type = 13;
                         idc = 126;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.58; 
                         y = 0.73; 
@@ -1012,14 +1012,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_wepstate // SELECTED WEAPON, _weaponstate, LOBL LOAL 6PD ROUNDS
                     {
                         type = 13;
                         idc = 127;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.58; 
                         y = 0.75; 
@@ -1034,7 +1034,7 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_safemessage
@@ -1042,7 +1042,7 @@ class RscTitles
 
                         type = 13;
                         idc = 128;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.25;
                         y = 0.65;
@@ -1057,14 +1057,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "center";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_waypoint
                     {
                         type = 13;
                         idc = 129;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.29;
                         y = 0.6;
@@ -1079,7 +1079,7 @@ class RscTitles
                         {
                         font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     //JHCMS
@@ -1495,7 +1495,7 @@ class RscTitles
 
                         type = 13;
                         idc = 184;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.29;
                         y = 0.62;
@@ -1510,7 +1510,7 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_velvect
@@ -1579,7 +1579,7 @@ class RscTitles
 
                         type = 13;
                         idc = 188;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.18;
                         y = 0.35;
@@ -1594,7 +1594,7 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_fov
@@ -1607,10 +1607,10 @@ class RscTitles
                         text = "\fza_ah64_model\tex\HDU\FOV-W.paa";
                         style = 48;
                         sizeEx = 1024;
-                        x = (safezoneX + safezoneW * 0.4);
-                        y = (safezoneY + safezoneH * 0.4);
-                        w = (safezoneW * 0.2);
-                        h = (safezoneH * 0.2);
+                        x = __EVAL(safezoneX + safezoneW * 0.4);
+                        y = __EVAL(safezoneY + safezoneH * 0.4);
+                        w = __EVAL(safezoneW * 0.2);
+                        h = __EVAL(safezoneH * 0.2);
                     };
                     class fza_ah64_alternatesensor
                     {
@@ -1631,7 +1631,7 @@ class RscTitles
                     {
                         type = 13;
                         idc = 802;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = -0.076;
                         y = 0.75;
@@ -1646,14 +1646,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_lsrcode // LASER CODE
                     {
                         type = 13;
                         idc = 803;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = -0.138; 
                         y = 0.71; 
@@ -1668,14 +1668,14 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "right";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class fza_ah64_raddisp_acq // TADS ACQ, FCR TADS
                     {
                         type = 13;
                         idc = 804;
-                        style = 2 + 16;
+                        style = 18;
                         lineSpacing = 1;
                         x = 0.64;
                         y = 0.73;
@@ -1690,7 +1690,7 @@ class RscTitles
                         {
                             font = "EtelkaMonospaceProBold";
                             align = "left";
-                            shadow = false;
+                            shadow = 0;
                         };
                     };
                     class canvas : fza_ah64_mapControl {
@@ -1743,9 +1743,9 @@ class RscTitles
                 text = "\fza_ah64_model\tex\HDU\monocle_solid.paa";
                 style = 48;
                 sizeEx = 1;
-                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
-                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
-                w = ICE_HUD_Monocle_Size*0.707;
+                x = __EVAL((ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15);
+                y = __EVAL((ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2);
+                w = __EVAL(ICE_HUD_Monocle_Size*0.707);
                 h = ICE_HUD_Monocle_Size;
             };
         };

@@ -15,28 +15,28 @@ class CfgSoundShaders {
 
     class fza_rocket_explosion_close_distance_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Rockets\close_distance_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\close_distance_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\close_distance_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\close_distance_4.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\close_distance_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\close_distance_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\close_distance_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\close_distance_4.ogg", 1}};
         volume = 1.500000;
         range = 100;
         rangeCurve[] = {{0, 1}, {50, 0}};
     };
     class fza_rocket_explosion_medium_distance_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Rockets\medium_distance_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\medium_distance_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\medium_distance_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\medium_distance_4.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\medium_distance_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\medium_distance_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\medium_distance_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\medium_distance_4.ogg", 1}};
         volume = 1;
         range = 400;
         rangeCurve[] = {{0, 0}, {100, 1}, {400, 0}};
     };
     class fza_rocket_explosion_far_distance_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Rockets\far_distance_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\far_distance_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\far_distance_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\far_distance_4.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\far_distance_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\far_distance_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\far_distance_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\far_distance_4.ogg", 1}};
         volume = 1;
         range = 800;
         rangeCurve[] = {{0, 0}, {50, 0}, {400, 1}, {800, 0}};
     };
     class fza_rocket_explosion_very_far_distance_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Rockets\very_far_distance_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\very_far_distance_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\very_far_distance_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Rockets\very_far_distance_4.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\very_far_distance_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\very_far_distance_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\very_far_distance_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Rockets\very_far_distance_4.ogg", 1}};
         volume = 1;
         range = 3000;
         rangeCurve[] = {{0, 0}, {400, 0}, {800, 1}, {3000, 0}};
@@ -44,7 +44,7 @@ class CfgSoundShaders {
     
     class fza_explosion_big_shockwave_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_4.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_5.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_6.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_7.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Shockwave\big_explosion_shockwave_8.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_4.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_5.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_6.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_7.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Shockwave\big_explosion_shockwave_8.ogg", 1}};
         volume = 1.500000;
         range = 65;
         limitation = 1;
@@ -52,7 +52,7 @@ class CfgSoundShaders {
     
     class fza_small_explosion_close_distance_soundshader 
     {
-        samples[] = {{"fza_ah64_controls\data\audio\Explosions\Small\close_distance_1.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Small\close_distance_2.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Small\close_distance_3.ogg", 1}, {"fza_ah64_controls\data\audio\Explosions\Small\close_distance_4.ogg", 1}};
+        samples[] = {{"fza_ah64_hydra\data\audio\explosion\Explosions\Small\close_distance_1.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Small\close_distance_2.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Small\close_distance_3.ogg", 1}, {"fza_ah64_hydra\data\audio\explosion\Explosions\Small\close_distance_4.ogg", 1}};
         volume = 1;
         range = 100;
         rangeCurve[] = {{0, 1}, {50, 0}};

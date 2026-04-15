@@ -3,7 +3,7 @@ class Gun {
         condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
         //Here
         class Polygon {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     { {0.4775, 0.3220}, 1 },
@@ -69,7 +69,7 @@ class Gun {
         condition = C_COND(C_AND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1)), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
         MPD_TEXT_C(Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         class Lines {
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                  //Gun Tip
@@ -78,8 +78,8 @@ class Gun {
                 {{0.505, 0.254}, 1}, {{0.495, 0.254}, 1}, {{0.495, 0.312}, 1}, {{0.505, 0.312}, 1}, {{0.505, 0.254}, 1}, {},
                 
                 //Gun Base
-                MPD_POINTS_CURVED_CORNER(Null, 0.5125, 0.322, 0.01, -0.01), {},
-                MPD_POINTS_CURVED_CORNER(Null, 0.4875, 0.322, -0.01, -0.01), {},
+                MPD_POINTS_CURVED_CORNER("Null", 0.5125, 0.322, 0.01, -0.01), {},
+                MPD_POINTS_CURVED_CORNER("Null", 0.4875, 0.322, -0.01, -0.01), {},
                 {{0.4875, 0.312}, 1}, {{0.5125, 0.312}, 1}, {},
                 {{0.5225,0.322}, 1}, {{0.5225,0.372}, 1}, {{0.4775,0.372}, 1}, {{0.4775,0.322}, 1}, {},
                 //Gun Ammo Box
@@ -92,7 +92,7 @@ class Gun {
         color[] = {1,1,0,1};
         class Yellow_Box
         {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     { {0.4775, 0.3220}, 1 },
@@ -158,7 +158,7 @@ class Gun {
 
 #define HF_PYLON_RAIL(num, pylonnum, posY, posZ) \
     class Rail_##num {\
-        type = pylonicon;\
+        type = "pylonicon";\
         pos[] = {{posY, posZ}, 1};\
         pylon = pylonnum;\
         name = fza_ah64_M299;\
@@ -166,7 +166,7 @@ class Gun {
     
 #define HF_PYLON_RAIL_READY(num, pylonnum, posY, posZ) \
     class Rail_##num {\
-        type = pylonicon;\
+        type = "pylonicon";\
         pos[] = {{posY, posZ}, 1};\
         pylon = pylonnum;\
         name = fza_ah64_M299_inverse;\
@@ -200,7 +200,7 @@ MFD_WPN_HF_PYLON_RAIL(13, 0.565)
         class Deselected {\
             condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3)));\
             class Pylon {\
-                type = pylonicon;\
+                type = "pylonicon";\
                 pos[] = {{posX, posY}, 1};\
                 pylon = num;\
                 name = fza_ah64_hellfire;\
@@ -253,7 +253,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
             class Deselected {\
                 condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),2)));\
                 class Pylon {\
-                    type = pylonicon;\
+                    type = "pylonicon";\
                     pos[] = {{posX, posY}, 1};\
                     pylon = num;\
                     name = fza_ah64_rocket;\
@@ -263,7 +263,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
             class Selected {\
                 condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),2));\
                 class Pylon {\
-                    type = pylonicon;\
+                    type = "pylonicon";\
                     pos[] = {{posX, posY}, 1};\
                     pylon = num;\
                     name = fza_ah64_rocket_inverse;\
@@ -285,7 +285,7 @@ MFD_WPN_ROCKET_PYLON(13, 0.733, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 2, 
         condition = C_COND(C_OR(C_EQ(C_MPD_USER(presentIndex),presentState1), C_EQ(C_MPD_USER(presentIndex),presentState2)));\
         color[] = {1,1,0,1};\
         class outline {\
-            type = line;\
+            type = "line";\
             width = 2;\
             points[] = {\
                 {{-0.045 + posX, 0.14 + posY}, 1},\
@@ -296,7 +296,7 @@ MFD_WPN_ROCKET_PYLON(13, 0.733, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 2, 
             };\
         };\
         class box {\
-            type = polygon;\
+            type = "polygon";\
             points[] = {{\
                 {{-0.045 + posX, 0.14 + posY}, 1},\
                 {{0.045 + posX, 0.14 + posY}, 1},\

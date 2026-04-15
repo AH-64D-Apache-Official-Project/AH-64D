@@ -1,6 +1,6 @@
 params ["_heli"];
 
-//playsound "fza_ah64_flt_control";
+//playSound "fza_ah64_flt_control";
 if (_heli getVariable "fza_ah64_altHoldActive" || _heli getVariable "fza_ah64_attHoldActive") then {
     [_heli] spawn fza_audio_fnc_flightTone;
 };

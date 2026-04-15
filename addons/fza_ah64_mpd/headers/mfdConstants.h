@@ -1,4 +1,7 @@
 
+#ifndef FZA_AH64_MPD_MFD_CONSTANTS_H
+#define FZA_AH64_MPD_MFD_CONSTANTS_H
+
 #define MFD_IND_BATT 0
 #define MFD_IND_PAGE_LEFT 1
 #define MFD_IND_PAGE_RIGHT 2
@@ -181,7 +184,8 @@
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
 #define MFD_TEXT_IND_TSD_ROOT_WIND 5
-#define MFD_TEXT_IND_TSD_ROOT_FCR 11 //deconflict with show page
+//deconflict with show page
+#define MFD_TEXT_IND_TSD_ROOT_FCR 11
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -313,10 +317,13 @@
 #define MFD_TEXT_IND_FREQ_R 15
 
 #define MFD_IND_CODE_SELECTED 0
-#define MFD_IND_CODE_SET 1 //0 - LRFD, 1 - LST
+//0 - LRFD, 1 - LST
+#define MFD_IND_CODE_SET 1
 
-#define MFD_IND_CHAN_SELECTED 0 // Must be same as MFD_IND_CODE_SELECTED
-#define MFD_IND_CHAN 1 //0-1, 1-2, 2-3, 3-4
+// Must be same as MFD_IND_CODE_SELECTED
+#define MFD_IND_CHAN_SELECTED 0
+//0-1, 1-2, 2-3, 3-4
+#define MFD_IND_CHAN 1
 //Perf page
 //--Conditions & Weight
 #define MFD_TEXT_IND_PERF_PA  0
@@ -423,3 +430,5 @@
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
+
+#endif

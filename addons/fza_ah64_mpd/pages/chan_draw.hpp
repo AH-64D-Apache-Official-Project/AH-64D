@@ -15,7 +15,7 @@ MPD_BOX_BAR_L(Util, MPD_POS_BUTTON_TB_6_X+0.02, MPD_POS_BUTTON_T_Y)
 MPD_TEXT_C(WPN,MPD_POS_BUTTON_TB_1_X,MPD_POS_BUTTON_B_Y,MPD_TEXT_STATIC("WPN"))
 
 class Lines {
-    type = line;
+    type = "line";
     width = 3;
     points[] =
         { {{0.24,0.02}, 1}
@@ -23,7 +23,7 @@ class Lines {
         , {{0.76,0.1}, 1}
         , {{0.76,0.02}, 1}
         , {}
-        , MPD_POINTS_BOX_PAD(Null,(0.5-3*MPD_TEXT_WIDTH),0.2,6*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
+        , MPD_POINTS_BOX_PAD("Null",(0.5-3*MPD_TEXT_WIDTH),0.2,6*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
         };
 };
 

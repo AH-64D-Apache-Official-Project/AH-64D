@@ -31,8 +31,8 @@ nearestObjects [_heli, ["missilebase", "rocketbase"], 3000] apply {
     _mwsObjects pushBack [ASE_MSL, _x, "RLWR_MSL_LNC"];
     private _missilelog = _heli getVariable ["fza_ah64_missilelog", []];
     if !(_x in _missilelog) then {
-        _heli setvariable ["fza_ah64_missilelog", (_missilelog + [_x])];
-        [_heli, objnull, _x] spawn fza_ase_fnc_missileWarning;
+        _heli setVariable ["fza_ah64_missilelog", (_missilelog + [_x])];
+        [_heli, objNull, _x] spawn fza_ase_fnc_missileWarning;
     };
 };
 

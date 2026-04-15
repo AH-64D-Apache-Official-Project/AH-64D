@@ -1,1027 +1,1027 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <!-- RIGHT MPD -->
-        <Key ID="STR_FZA_AH64_RMPD">
-            <English>RIGHT MPD</English>
-            <Original>RIGHT MPD</Original>
-            <French>MPD DROIT</French>
-            <Dutch>RECHTER MPD</Dutch>
-            <Spanish>MPD DERECHO</Spanish>
-            <Italian>MPD DESTRA</Italian>
-            <German>RECHTES MPD</German>
-            <Czech>PRAVÉ MPD</Czech>
-            <Polish>PRAWE MPD</Polish>
-            <Russian>ПРАВЫЙ МПД</Russian>
-            <Portuguese>MPD DIREITO</Portuguese>
-            <Korean>우측 MPD</Korean>
-            <Japanese>右MPD</Japanese>
-            <Chinesesimp>右侧MPD</Chinesesimp>
-            <Turkish>SAĞ MPD</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L1">
-            <English>RIGHT MPD L1</English>
-            <Original>RIGHT MPD L1</Original>
-            <French>MPD DROIT L1</French>
-            <Dutch>RECHTER MPD L1</Dutch>
-            <Spanish>MPD DERECHO L1</Spanish>
-            <Italian>MPD DESTRA L1</Italian>
-            <German>RECHTES MPD L1</German>
-            <Czech>PRAVÉ MPD L1</Czech>
-            <Polish>PRAWE MPD L1</Polish>
-            <Russian>ПРАВЫЙ МПД L1</Russian>
-            <Portuguese>MPD DIREITO L1</Portuguese>
-            <Korean>우측 MPD L1</Korean>
-            <Japanese>右MPD L1</Japanese>
-            <Chinesesimp>右侧MPD L1</Chinesesimp>
-            <Turkish>SAĞ MPD L1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L2">
-            <English>RIGHT MPD L2</English>
-            <Original>RIGHT MPD L2</Original>
-            <French>MPD DROIT L2</French>
-            <Dutch>RECHTER MPD L2</Dutch>
-            <Spanish>MPD DERECHO L2</Spanish>
-            <Italian>MPD DESTRA L2</Italian>
-            <German>RECHTES MPD L2</German>
-            <Czech>PRAVÉ MPD L2</Czech>
-            <Polish>PRAWE MPD L2</Polish>
-            <Russian>ПРАВЫЙ МПД L2</Russian>
-            <Portuguese>MPD DIREITO L2</Portuguese>
-            <Korean>우측 MPD L2</Korean>
-            <Japanese>右MPD L2</Japanese>
-            <Chinesesimp>右侧MPD L2</Chinesesimp>
-            <Turkish>SAĞ MPD L2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L3">
-            <English>RIGHT MPD L3</English>
-            <Original>RIGHT MPD L3</Original>
-            <French>MPD DROIT L3</French>
-            <Dutch>RECHTER MPD L3</Dutch>
-            <Spanish>MPD DERECHO L3</Spanish>
-            <Italian>MPD DESTRA L3</Italian>
-            <German>RECHTES MPD L3</German>
-            <Czech>PRAVÉ MPD L3</Czech>
-            <Polish>PRAWE MPD L3</Polish>
-            <Russian>ПРАВЫЙ МПД L3</Russian>
-            <Portuguese>MPD DIREITO L3</Portuguese>
-            <Korean>우측 MPD L3</Korean>
-            <Japanese>右MPD L3</Japanese>
-            <Chinesesimp>右侧MPD L3</Chinesesimp>
-            <Turkish>SAĞ MPD L3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L4">
-            <English>RIGHT MPD L4</English>
-            <Original>RIGHT MPD L4</Original>
-            <French>MPD DROIT L4</French>
-            <Dutch>RECHTER MPD L4</Dutch>
-            <Spanish>MPD DERECHO L4</Spanish>
-            <Italian>MPD DESTRA L4</Italian>
-            <German>RECHTES MPD L4</German>
-            <Czech>PRAVÉ MPD L4</Czech>
-            <Polish>PRAWE MPD L4</Polish>
-            <Russian>ПРАВЫЙ МПД L4</Russian>
-            <Portuguese>MPD DIREITO L4</Portuguese>
-            <Korean>우측 MPD L4</Korean>
-            <Japanese>右MPD L4</Japanese>
-            <Chinesesimp>右侧MPD L4</Chinesesimp>
-            <Turkish>SAĞ MPD L4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L5">
-            <English>RIGHT MPD L5</English>
-            <Original>RIGHT MPD L5</Original>
-            <French>MPD DROIT L5</French>
-            <Dutch>RECHTER MPD L5</Dutch>
-            <Spanish>MPD DERECHO L5</Spanish>
-            <Italian>MPD DESTRA L5</Italian>
-            <German>RECHTES MPD L5</German>
-            <Czech>PRAVÉ MPD L5</Czech>
-            <Polish>PRAWE MPD L5</Polish>
-            <Russian>ПРАВЫЙ МПД L5</Russian>
-            <Portuguese>MPD DIREITO L5</Portuguese>
-            <Korean>우측 MPD L5</Korean>
-            <Japanese>右MPD L5</Japanese>
-            <Chinesesimp>右侧MPD L5</Chinesesimp>
-            <Turkish>SAĞ MPD L5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L6">
-            <English>RIGHT MPD L6</English>
-            <Original>RIGHT MPD L6</Original>
-            <French>MPD DROIT L6</French>
-            <Dutch>RECHTER MPD L6</Dutch>
-            <Spanish>MPD DERECHO L6</Spanish>
-            <Italian>MPD DESTRA L6</Italian>
-            <German>RECHTES MPD L6</German>
-            <Czech>PRAVÉ MPD L6</Czech>
-            <Polish>PRAWE MPD L6</Polish>
-            <Russian>ПРАВЫЙ МПД L6</Russian>
-            <Portuguese>MPD DIREITO L6</Portuguese>
-            <Korean>우측 MPD L6</Korean>
-            <Japanese>右MPD L6</Japanese>
-            <Chinesesimp>右侧MPD L6</Chinesesimp>
-            <Turkish>SAĞ MPD L6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
-            <English>RIGHT MPD B1/MENU</English>
-            <Original>RIGHT MPD B1/MENU</Original>
-            <French>MPD DROIT B1/MENU</French>
-            <Dutch>RECHTER MPD B1/MENU</Dutch>
-            <Spanish>MPD DERECHO B1/MENU</Spanish>
-            <Italian>MPD DESTRA B1/MENU</Italian>
-            <German>RECHTES MPD B1/MENÜ</German>
-            <Czech>PRAVÉ MPD B1/NABÍDKA</Czech>
-            <Polish>PRAWE MPD B1/MENU</Polish>
-            <Russian>ПРАВЫЙ МПД B1/МЕНЮ</Russian>
-            <Portuguese>MPD DIREITO B1/MENU</Portuguese>
-            <Korean>우측 MPD B1/메뉴</Korean>
-            <Japanese>右MPD B1/メニュー</Japanese>
-            <Chinesesimp>右侧MPD B1/菜单</Chinesesimp>
-            <Turkish>SAĞ MPD B1/MENÜ</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B2">
-            <English>RIGHT MPD B2</English>
-            <Original>RIGHT MPD B2</Original>
-            <French>MPD DROIT B2</French>
-            <Dutch>RECHTER MPD B2</Dutch>
-            <Spanish>MPD DERECHO B2</Spanish>
-            <Italian>MPD DESTRA B2</Italian>
-            <German>RECHTES MPD B2</German>
-            <Czech>PRAVÉ MPD B2</Czech>
-            <Polish>PRAWE MPD B2</Polish>
-            <Russian>ПРАВЫЙ МПД B2</Russian>
-            <Portuguese>MPD DIREITO B2</Portuguese>
-            <Korean>우측 MPD B2</Korean>
-            <Japanese>右MPD B2</Japanese>
-            <Chinesesimp>右侧MPD B2</Chinesesimp>
-            <Turkish>SAĞ MPD B2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B3">
-            <English>RIGHT MPD B3</English>
-            <Original>RIGHT MPD B3</Original>
-            <French>MPD DROIT B3</French>
-            <Dutch>RECHTER MPD B3</Dutch>
-            <Spanish>MPD DERECHO B3</Spanish>
-            <Italian>MPD DESTRA B3</Italian>
-            <German>RECHTES MPD B3</German>
-            <Czech>PRAVÉ MPD B3</Czech>
-            <Polish>PRAWE MPD B3</Polish>
-            <Russian>ПРАВЫЙ МПД B3</Russian>
-            <Portuguese>MPD DIREITO B3</Portuguese>
-            <Korean>우측 MPD B3</Korean>
-            <Japanese>右MPD B3</Japanese>
-            <Chinesesimp>右侧MPD B3</Chinesesimp>
-            <Turkish>SAĞ MPD B3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B4">
-            <English>RIGHT MPD B4</English>
-            <Original>RIGHT MPD B4</Original>
-            <French>MPD DROIT B4</French>
-            <Dutch>RECHTER MPD B4</Dutch>
-            <Spanish>MPD DERECHO B4</Spanish>
-            <Italian>MPD DESTRA B4</Italian>
-            <German>RECHTES MPD B4</German>
-            <Czech>PRAVÉ MPD B4</Czech>
-            <Polish>PRAWE MPD B4</Polish>
-            <Russian>ПРАВЫЙ МПД B4</Russian>
-            <Portuguese>MPD DIREITO B4</Portuguese>
-            <Korean>우측 MPD B4</Korean>
-            <Japanese>右MPD B4</Japanese>
-            <Chinesesimp>右侧MPD B4</Chinesesimp>
-            <Turkish>SAĞ MPD B4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B5">
-            <English>RIGHT MPD B5</English>
-            <Original>RIGHT MPD B5</Original>
-            <French>MPD DROIT B5</French>
-            <Dutch>RECHTER MPD B5</Dutch>
-            <Spanish>MPD DERECHO B5</Spanish>
-            <Italian>MPD DESTRA B5</Italian>
-            <German>RECHTES MPD B5</German>
-            <Czech>PRAVÉ MPD B5</Czech>
-            <Polish>PRAWE MPD B5</Polish>
-            <Russian>ПРАВЫЙ МПД B5</Russian>
-            <Portuguese>MPD DIREITO B5</Portuguese>
-            <Korean>우측 MPD B5</Korean>
-            <Japanese>右MPD B5</Japanese>
-            <Chinesesimp>右侧MPD B5</Chinesesimp>
-            <Turkish>SAĞ MPD B5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B6">
-            <English>RIGHT MPD B6</English>
-            <Original>RIGHT MPD B6</Original>
-            <French>MPD DROIT B6</French>
-            <Dutch>RECHTER MPD B6</Dutch>
-            <Spanish>MPD DERECHO B6</Spanish>
-            <Italian>MPD DESTRA B6</Italian>
-            <German>RECHTES MPD B6</German>
-            <Czech>PRAVÉ MPD B6</Czech>
-            <Polish>PRAWE MPD B6</Polish>
-            <Russian>ПРАВЫЙ МПД B6</Russian>
-            <Portuguese>MPD DIREITO B6</Portuguese>
-            <Korean>우측 MPD B6</Korean>
-            <Japanese>右MPD B6</Japanese>
-            <Chinesesimp>右侧MPD B6</Chinesesimp>
-            <Turkish>SAĞ MPD B6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R1">
-            <English>RIGHT MPD R1</English>
-            <Original>RIGHT MPD R1</Original>
-            <French>MPD DROIT R1</French>
-            <Dutch>RECHTER MPD R1</Dutch>
-            <Spanish>MPD DERECHO R1</Spanish>
-            <Italian>MPD DESTRA R1</Italian>
-            <German>RECHTES MPD R1</German>
-            <Czech>PRAVÉ MPD R1</Czech>
-            <Polish>PRAWE MPD R1</Polish>
-            <Russian>ПРАВЫЙ МПД R1</Russian>
-            <Portuguese>MPD DIREITO R1</Portuguese>
-            <Korean>우측 MPD R1</Korean>
-            <Japanese>右MPD R1</Japanese>
-            <Chinesesimp>右侧MPD R1</Chinesesimp>
-            <Turkish>SAĞ MPD R1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R2">
-            <English>RIGHT MPD R2</English>
-            <Original>RIGHT MPD R2</Original>
-            <French>MPD DROIT R2</French>
-            <Dutch>RECHTER MPD R2</Dutch>
-            <Spanish>MPD DERECHO R2</Spanish>
-            <Italian>MPD DESTRA R2</Italian>
-            <German>RECHTES MPD R2</German>
-            <Czech>PRAVÉ MPD R2</Czech>
-            <Polish>PRAWE MPD R2</Polish>
-            <Russian>ПРАВЫЙ МПД R2</Russian>
-            <Portuguese>MPD DIREITO R2</Portuguese>
-            <Korean>우측 MPD R2</Korean>
-            <Japanese>右MPD R2</Japanese>
-            <Chinesesimp>右侧MPD R2</Chinesesimp>
-            <Turkish>SAĞ MPD R2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R3">
-            <English>RIGHT MPD R3</English>
-            <Original>RIGHT MPD R3</Original>
-            <French>MPD DROIT R3</French>
-            <Dutch>RECHTER MPD R3</Dutch>
-            <Spanish>MPD DERECHO R3</Spanish>
-            <Italian>MPD DESTRA R3</Italian>
-            <German>RECHTES MPD R3</German>
-            <Czech>PRAVÉ MPD R3</Czech>
-            <Polish>PRAWE MPD R3</Polish>
-            <Russian>ПРАВЫЙ МПД R3</Russian>
-            <Portuguese>MPD DIREITO R3</Portuguese>
-            <Korean>우측 MPD R3</Korean>
-            <Japanese>右MPD R3</Japanese>
-            <Chinesesimp>右侧MPD R3</Chinesesimp>
-            <Turkish>SAĞ MPD R3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R4">
-            <English>RIGHT MPD R4</English>
-            <Original>RIGHT MPD R4</Original>
-            <French>MPD DROIT R4</French>
-            <Dutch>RECHTER MPD R4</Dutch>
-            <Spanish>MPD DERECHO R4</Spanish>
-            <Italian>MPD DESTRA R4</Italian>
-            <German>RECHTES MPD R4</German>
-            <Czech>PRAVÉ MPD R4</Czech>
-            <Polish>PRAWE MPD R4</Polish>
-            <Russian>ПРАВЫЙ МПД R4</Russian>
-            <Portuguese>MPD DIREITO R4</Portuguese>
-            <Korean>우측 MPD R4</Korean>
-            <Japanese>右MPD R4</Japanese>
-            <Chinesesimp>右侧MPD R4</Chinesesimp>
-            <Turkish>SAĞ MPD R4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R5">
-            <English>RIGHT MPD R5</English>
-            <Original>RIGHT MPD R5</Original>
-            <French>MPD DROIT R5</French>
-            <Dutch>RECHTER MPD R5</Dutch>
-            <Spanish>MPD DERECHO R5</Spanish>
-            <Italian>MPD DESTRA R5</Italian>
-            <German>RECHTES MPD R5</German>
-            <Czech>PRAVÉ MPD R5</Czech>
-            <Polish>PRAWE MPD R5</Polish>
-            <Russian>ПРАВЫЙ МПД R5</Russian>
-            <Portuguese>MPD DIREITO R5</Portuguese>
-            <Korean>우측 MPD R5</Korean>
-            <Japanese>右MPD R5</Japanese>
-            <Chinesesimp>右侧MPD R5</Chinesesimp>
-            <Turkish>SAĞ MPD R5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R6">
-            <English>RIGHT MPD R6</English>
-            <Original>RIGHT MPD R6</Original>
-            <French>MPD DROIT R6</French>
-            <Dutch>RECHTER MPD R6</Dutch>
-            <Spanish>MPD DERECHO R6</Spanish>
-            <Italian>MPD DESTRA R6</Italian>
-            <German>RECHTES MPD R6</German>
-            <Czech>PRAVÉ MPD R6</Czech>
-            <Polish>PRAWE MPD R6</Polish>
-            <Russian>ПРАВЫЙ МПД R6</Russian>
-            <Portuguese>MPD DIREITO R6</Portuguese>
-            <Korean>우측 MPD R6</Korean>
-            <Japanese>右MPD R6</Japanese>
-            <Chinesesimp>右侧MPD R6</Chinesesimp>
-            <Turkish>SAĞ MPD R6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T1">
-            <English>RIGHT MPD T1</English>
-            <Original>RIGHT MPD T1</Original>
-            <French>MPD DROIT T1</French>
-            <Dutch>RECHTER MPD T1</Dutch>
-            <Spanish>MPD DERECHO T1</Spanish>
-            <Italian>MPD DESTRA T1</Italian>
-            <German>RECHTES MPD T1</German>
-            <Czech>PRAVÉ MPD T1</Czech>
-            <Polish>PRAWE MPD T1</Polish>
-            <Russian>ПРАВЫЙ МПД T1</Russian>
-            <Portuguese>MPD DIREITO T1</Portuguese>
-            <Korean>우측 MPD T1</Korean>
-            <Japanese>右MPD T1</Japanese>
-            <Chinesesimp>右侧MPD T1</Chinesesimp>
-            <Turkish>SAĞ MPD T1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T2">
-            <English>RIGHT MPD T2</English>
-            <Original>RIGHT MPD T2</Original>
-            <French>MPD DROIT T2</French>
-            <Dutch>RECHTER MPD T2</Dutch>
-            <Spanish>MPD DERECHO T2</Spanish>
-            <Italian>MPD DESTRA T2</Italian>
-            <German>RECHTES MPD T2</German>
-            <Czech>PRAVÉ MPD T2</Czech>
-            <Polish>PRAWE MPD T2</Polish>
-            <Russian>ПРАВЫЙ МПД T2</Russian>
-            <Portuguese>MPD DIREITO T2</Portuguese>
-            <Korean>우측 MPD T2</Korean>
-            <Japanese>右MPD T2</Japanese>
-            <Chinesesimp>右侧MPD T2</Chinesesimp>
-            <Turkish>SAĞ MPD T2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T3">
-            <English>RIGHT MPD T3</English>
-            <Original>RIGHT MPD T3</Original>
-            <French>MPD DROIT T3</French>
-            <Dutch>RECHTER MPD T3</Dutch>
-            <Spanish>MPD DERECHO T3</Spanish>
-            <Italian>MPD DESTRA T3</Italian>
-            <German>RECHTES MPD T3</German>
-            <Czech>PRAVÉ MPD T3</Czech>
-            <Polish>PRAWE MPD T3</Polish>
-            <Russian>ПРАВЫЙ МПД T3</Russian>
-            <Portuguese>MPD DIREITO T3</Portuguese>
-            <Korean>우측 MPD T3</Korean>
-            <Japanese>右MPD T3</Japanese>
-            <Chinesesimp>右侧MPD T3</Chinesesimp>
-            <Turkish>SAĞ MPD T3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T4">
-            <English>RIGHT MPD T4</English>
-            <Original>RIGHT MPD T4</Original>
-            <French>MPD DROIT T4</French>
-            <Dutch>RECHTER MPD T4</Dutch>
-            <Spanish>MPD DERECHO T4</Spanish>
-            <Italian>MPD DESTRA T4</Italian>
-            <German>RECHTES MPD T4</German>
-            <Czech>PRAVÉ MPD T4</Czech>
-            <Polish>PRAWE MPD T4</Polish>
-            <Russian>ПРАВЫЙ МПД T4</Russian>
-            <Portuguese>MPD DIREITO T4</Portuguese>
-            <Korean>우측 MPD T4</Korean>
-            <Japanese>右MPD T4</Japanese>
-            <Chinesesimp>右侧MPD T4</Chinesesimp>
-            <Turkish>SAĞ MPD T4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T5">
-            <English>RIGHT MPD T5</English>
-            <Original>RIGHT MPD T5</Original>
-            <French>MPD DROIT T5</French>
-            <Dutch>RECHTER MPD T5</Dutch>
-            <Spanish>MPD DERECHO T5</Spanish>
-            <Italian>MPD DESTRA T5</Italian>
-            <German>RECHTES MPD T5</German>
-            <Czech>PRAVÉ MPD T5</Czech>
-            <Polish>PRAWE MPD T5</Polish>
-            <Russian>ПРАВЫЙ МПД T5</Russian>
-            <Portuguese>MPD DIREITO T5</Portuguese>
-            <Korean>우측 MPD T5</Korean>
-            <Japanese>右MPD T5</Japanese>
-            <Chinesesimp>右侧MPD T5</Chinesesimp>
-            <Turkish>SAĞ MPD T5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T6">
-            <English>RIGHT MPD T6</English>
-            <Original>RIGHT MPD T6</Original>
-            <French>MPD DROIT T6</French>
-            <Dutch>RECHTER MPD T6</Dutch>
-            <Spanish>MPD DERECHO T6</Spanish>
-            <Italian>MPD DESTRA T6</Italian>
-            <German>RECHTES MPD T6</German>
-            <Czech>PRAVÉ MPD T6</Czech>
-            <Polish>PRAWE MPD T6</Polish>
-            <Russian>ПРАВЫЙ МПД T6</Russian>
-            <Portuguese>MPD DIREITO T6</Portuguese>
-            <Korean>우측 MPD T6</Korean>
-            <Japanese>右MPD T6</Japanese>
-            <Chinesesimp>右侧MPD T6</Chinesesimp>
-            <Turkish>SAĞ MPD T6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_FCR">
-            <English>RIGHT MPD FCR</English>
-            <Original>RIGHT MPD FCR</Original>
-            <French>MPD DROIT FCR</French>
-            <Dutch>RECHTER MPD FCR</Dutch>
-            <Spanish>MPD DERECHO FCR</Spanish>
-            <Italian>MPD DESTRA FCR</Italian>
-            <German>RECHTES MPD FCR</German>
-            <Czech>PRAVÉ MPD FCR</Czech>
-            <Polish>PRAWE MPD FCR</Polish>
-            <Russian>ПРАВЫЙ МПД FCR</Russian>
-            <Portuguese>MPD DIREITO FCR</Portuguese>
-            <Korean>우측 MPD FCR</Korean>
-            <Japanese>右MPD FCR</Japanese>
-            <Chinesesimp>右侧MPD FCR</Chinesesimp>
-            <Turkish>SAĞ MPD FCR</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_WPN">
-            <English>RIGHT MPD WPN</English>
-            <Original>RIGHT MPD WPN</Original>
-            <French>MPD DROIT WPN</French>
-            <Dutch>RECHTER MPD WPN</Dutch>
-            <Spanish>MPD DERECHO WPN</Spanish>
-            <Italian>MPD DESTRA WPN</Italian>
-            <German>RECHTES MPD WPN</German>
-            <Czech>PRAVÉ MPD WPN</Czech>
-            <Polish>PRAWE MPD WPN</Polish>
-            <Russian>ПРАВЫЙ МПД WPN</Russian>
-            <Portuguese>MPD DIREITO WPN</Portuguese>
-            <Korean>우측 MPD WPN</Korean>
-            <Japanese>右MPD WPN</Japanese>
-            <Chinesesimp>右侧MPD WPN</Chinesesimp>
-            <Turkish>SAĞ MPD WPN</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_TSD">
-            <English>RIGHT MPD TSD</English>
-            <Original>RIGHT MPD TSD</Original>
-            <French>MPD DROIT TSD</French>
-            <Dutch>RECHTER MPD TSD</Dutch>
-            <Spanish>MPD DERECHO TSD</Spanish>
-            <Italian>MPD DESTRA TSD</Italian>
-            <German>RECHTES MPD TSD</German>
-            <Czech>PRAVÉ MPD TSD</Czech>
-            <Polish>PRAWE MPD TSD</Polish>
-            <Russian>ПРАВЫЙ МПД TSD</Russian>
-            <Portuguese>MPD DIREITO TSD</Portuguese>
-            <Korean>우측 MPD TSD</Korean>
-            <Japanese>右MPD TSD</Japanese>
-            <Chinesesimp>右侧MPD TSD</Chinesesimp>
-            <Turkish>SAĞ MPD TSD</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_AC">
-            <English>RIGHT MPD A/C</English>
-            <Original>RIGHT MPD A/C</Original>
-            <French>MPD DROIT A/C</French>
-            <Dutch>RECHTER MPD A/C</Dutch>
-            <Spanish>MPD DERECHO A/C</Spanish>
-            <Italian>MPD DESTRA A/C</Italian>
-            <German>RECHTES MPD A/C</German>
-            <Czech>PRAVÉ MPD A/C</Czech>
-            <Polish>PRAWE MPD A/C</Polish>
-            <Russian>ПРАВЫЙ МПД A/C</Russian>
-            <Portuguese>MPD DIREITO A/C</Portuguese>
-            <Korean>우측 MPD A/C</Korean>
-            <Japanese>右MPD A/C</Japanese>
-            <Chinesesimp>右侧MPD A/C</Chinesesimp>
-            <Turkish>SAĞ MPD A/C</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_RMPD_BRIGHTNESS">
-            <English>RIGHT MPD BRIGHTNESS</English>
-            <Original>RIGHT MPD BRIGHTNESS</Original>
-            <French>LUMINOSITÉ MPD DROIT</French>
-            <Dutch>HELDERHEID RECHTER MPD</Dutch>
-            <Spanish>BRILLO MPD DERECHO</Spanish>
-            <Italian>LUMINOSITÀ MPD DESTRA</Italian>
-            <German>HELLIGKEIT RECHTES MPD</German>
-            <Czech>JAS PRAVÉHO MPD</Czech>
-            <Polish>JASNOŚĆ PRAWEGO MPD</Polish>
-            <Russian>ЯРКОСТЬ ПРАВОГО МПД</Russian>
-            <Portuguese>BRILHO MPD DIREITO</Portuguese>
-            <Korean>우측 MPD 밝기</Korean>
-            <Japanese>右MPD 明度</Japanese>
-            <Chinesesimp>右侧MPD 亮度</Chinesesimp>
-            <Turkish>SAĞ MPD PARLAKLIGI</Turkish>
-        </Key>
         <!-- LEFT MPD -->
         <Key ID="STR_FZA_AH64_LMPD">
-            <English>LEFT MPD</English>
             <Original>LEFT MPD</Original>
+            <English>LEFT MPD</English>
+            <Czech>LEVÉ MPD</Czech>
             <French>MPD GAUCHE</French>
-            <Dutch>LINKER MPD</Dutch>
             <Spanish>MPD IZQUIERDO</Spanish>
             <Italian>MPD SINISTRA</Italian>
-            <German>LINKES MPD</German>
-            <Czech>LEVÉ MPD</Czech>
             <Polish>LEWE MPD</Polish>
-            <Russian>ЛЕВЫЙ МПД</Russian>
             <Portuguese>MPD ESQUERDO</Portuguese>
+            <Russian>ЛЕВЫЙ МПД</Russian>
+            <German>LINKES MPD</German>
             <Korean>좌측 MPD</Korean>
             <Japanese>左MPD</Japanese>
             <Chinesesimp>左侧MPD</Chinesesimp>
             <Turkish>SOL MPD</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L1">
-            <English>LEFT MPD L1</English>
-            <Original>LEFT MPD L1</Original>
-            <French>MPD GAUCHE L1</French>
-            <Dutch>LINKER MPD L1</Dutch>
-            <Spanish>MPD IZQUIERDO L1</Spanish>
-            <Italian>MPD SINISTRA L1</Italian>
-            <German>LINKES MPD L1</German>
-            <Czech>LEVÉ MPD L1</Czech>
-            <Polish>LEWE MPD L1</Polish>
-            <Russian>ЛЕВЫЙ МПД L1</Russian>
-            <Portuguese>MPD ESQUERDO L1</Portuguese>
-            <Korean>좌측 MPD L1</Korean>
-            <Japanese>左MPD L1</Japanese>
-            <Chinesesimp>左侧MPD L1</Chinesesimp>
-            <Turkish>SOL MPD L1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L2">
-            <English>LEFT MPD L2</English>
-            <Original>LEFT MPD L2</Original>
-            <French>MPD GAUCHE L2</French>
-            <Dutch>LINKER MPD L2</Dutch>
-            <Spanish>MPD IZQUIERDO L2</Spanish>
-            <Italian>MPD SINISTRA L2</Italian>
-            <German>LINKES MPD L2</German>
-            <Czech>LEVÉ MPD L2</Czech>
-            <Polish>LEWE MPD L2</Polish>
-            <Russian>ЛЕВЫЙ МПД L2</Russian>
-            <Portuguese>MPD ESQUERDO L2</Portuguese>
-            <Korean>좌측 MPD L2</Korean>
-            <Japanese>左MPD L2</Japanese>
-            <Chinesesimp>左侧MPD L2</Chinesesimp>
-            <Turkish>SOL MPD L2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L3">
-            <English>LEFT MPD L3</English>
-            <Original>LEFT MPD L3</Original>
-            <French>MPD GAUCHE L3</French>
-            <Dutch>LINKER MPD L3</Dutch>
-            <Spanish>MPD IZQUIERDO L3</Spanish>
-            <Italian>MPD SINISTRA L3</Italian>
-            <German>LINKES MPD L3</German>
-            <Czech>LEVÉ MPD L3</Czech>
-            <Polish>LEWE MPD L3</Polish>
-            <Russian>ЛЕВЫЙ МПД L3</Russian>
-            <Portuguese>MPD ESQUERDO L3</Portuguese>
-            <Korean>좌측 MPD L3</Korean>
-            <Japanese>左MPD L3</Japanese>
-            <Chinesesimp>左侧MPD L3</Chinesesimp>
-            <Turkish>SOL MPD L3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L4">
-            <English>LEFT MPD L4</English>
-            <Original>LEFT MPD L4</Original>
-            <French>MPD GAUCHE L4</French>
-            <Dutch>LINKER MPD L4</Dutch>
-            <Spanish>MPD IZQUIERDO L4</Spanish>
-            <Italian>MPD SINISTRA L4</Italian>
-            <German>LINKES MPD L4</German>
-            <Czech>LEVÉ MPD L4</Czech>
-            <Polish>LEWE MPD L4</Polish>
-            <Russian>ЛЕВЫЙ МПД L4</Russian>
-            <Portuguese>MPD ESQUERDO L4</Portuguese>
-            <Korean>좌측 MPD L4</Korean>
-            <Japanese>左MPD L4</Japanese>
-            <Chinesesimp>左侧MPD L4</Chinesesimp>
-            <Turkish>SOL MPD L4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L5">
-            <English>LEFT MPD L5</English>
-            <Original>LEFT MPD L5</Original>
-            <French>MPD GAUCHE L5</French>
-            <Dutch>LINKER MPD L5</Dutch>
-            <Spanish>MPD IZQUIERDO L5</Spanish>
-            <Italian>MPD SINISTRA L5</Italian>
-            <German>LINKES MPD L5</German>
-            <Czech>LEVÉ MPD L5</Czech>
-            <Polish>LEWE MPD L5</Polish>
-            <Russian>ЛЕВЫЙ МПД L5</Russian>
-            <Portuguese>MPD ESQUERDO L5</Portuguese>
-            <Korean>좌측 MPD L5</Korean>
-            <Japanese>左MPD L5</Japanese>
-            <Chinesesimp>左侧MPD L5</Chinesesimp>
-            <Turkish>SOL MPD L5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L6">
-            <English>LEFT MPD L6</English>
-            <Original>LEFT MPD L6</Original>
-            <French>MPD GAUCHE L6</French>
-            <Dutch>LINKER MPD L6</Dutch>
-            <Spanish>MPD IZQUIERDO L6</Spanish>
-            <Italian>MPD SINISTRA L6</Italian>
-            <German>LINKES MPD L6</German>
-            <Czech>LEVÉ MPD L6</Czech>
-            <Polish>LEWE MPD L6</Polish>
-            <Russian>ЛЕВЫЙ МПД L6</Russian>
-            <Portuguese>MPD ESQUERDO L6</Portuguese>
-            <Korean>좌측 MPD L6</Korean>
-            <Japanese>左MPD L6</Japanese>
-            <Chinesesimp>左侧MPD L6</Chinesesimp>
-            <Turkish>SOL MPD L6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
-            <English>LEFT MPD B1/MENU</English>
-            <Original>LEFT MPD B1/MENU</Original>
-            <French>MPD GAUCHE B1/MENU</French>
-            <Dutch>LINKER MPD B1/MENU</Dutch>
-            <Spanish>MPD IZQUIERDO B1/MENU</Spanish>
-            <Italian>MPD SINISTRA B1/MENU</Italian>
-            <German>LINKES MPD B1/MENÜ</German>
-            <Czech>LEVÉ MPD B1/NABÍDKA</Czech>
-            <Polish>LEWE MPD B1/MENU</Polish>
-            <Russian>ЛЕВЫЙ МПД B1/МЕНЮ</Russian>
-            <Portuguese>MPD ESQUERDO B1/MENU</Portuguese>
-            <Korean>좌측 MPD B1/메뉴</Korean>
-            <Japanese>左MPD B1/メニュー</Japanese>
-            <Chinesesimp>左侧MPD B1/菜单</Chinesesimp>
-            <Turkish>SOL MPD B1/MENÜ</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B2">
-            <English>LEFT MPD B2</English>
-            <Original>LEFT MPD B2</Original>
-            <French>MPD GAUCHE B2</French>
-            <Dutch>LINKER MPD B2</Dutch>
-            <Spanish>MPD IZQUIERDO B2</Spanish>
-            <Italian>MPD SINISTRA B2</Italian>
-            <German>LINKES MPD B2</German>
-            <Czech>LEVÉ MPD B2</Czech>
-            <Polish>LEWE MPD B2</Polish>
-            <Russian>ЛЕВЫЙ МПД B2</Russian>
-            <Portuguese>MPD ESQUERDO B2</Portuguese>
-            <Korean>좌측 MPD B2</Korean>
-            <Japanese>左MPD B2</Japanese>
-            <Chinesesimp>左侧MPD B2</Chinesesimp>
-            <Turkish>SOL MPD B2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B3">
-            <English>LEFT MPD B3</English>
-            <Original>LEFT MPD B3</Original>
-            <French>MPD GAUCHE B3</French>
-            <Dutch>LINKER MPD B3</Dutch>
-            <Spanish>MPD IZQUIERDO B3</Spanish>
-            <Italian>MPD SINISTRA B3</Italian>
-            <German>LINKES MPD B3</German>
-            <Czech>LEVÉ MPD B3</Czech>
-            <Polish>LEWE MPD B3</Polish>
-            <Russian>ЛЕВЫЙ МПД B3</Russian>
-            <Portuguese>MPD ESQUERDO B3</Portuguese>
-            <Korean>좌측 MPD B3</Korean>
-            <Japanese>左MPD B3</Japanese>
-            <Chinesesimp>左侧MPD B3</Chinesesimp>
-            <Turkish>SOL MPD B3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B4">
-            <English>LEFT MPD B4</English>
-            <Original>LEFT MPD B4</Original>
-            <French>MPD GAUCHE B4</French>
-            <Dutch>LINKER MPD B4</Dutch>
-            <Spanish>MPD IZQUIERDO B4</Spanish>
-            <Italian>MPD SINISTRA B4</Italian>
-            <German>LINKES MPD B4</German>
-            <Czech>LEVÉ MPD B4</Czech>
-            <Polish>LEWE MPD B4</Polish>
-            <Russian>ЛЕВЫЙ МПД B4</Russian>
-            <Portuguese>MPD ESQUERDO B4</Portuguese>
-            <Korean>좌측 MPD B4</Korean>
-            <Japanese>左MPD B4</Japanese>
-            <Chinesesimp>左侧MPD B4</Chinesesimp>
-            <Turkish>SOL MPD B4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B5">
-            <English>LEFT MPD B5</English>
-            <Original>LEFT MPD B5</Original>
-            <French>MPD GAUCHE B5</French>
-            <Dutch>LINKER MPD B5</Dutch>
-            <Spanish>MPD IZQUIERDO B5</Spanish>
-            <Italian>MPD SINISTRA B5</Italian>
-            <German>LINKES MPD B5</German>
-            <Czech>LEVÉ MPD B5</Czech>
-            <Polish>LEWE MPD B5</Polish>
-            <Russian>ЛЕВЫЙ МПД B5</Russian>
-            <Portuguese>MPD ESQUERDO B5</Portuguese>
-            <Korean>좌측 MPD B5</Korean>
-            <Japanese>左MPD B5</Japanese>
-            <Chinesesimp>左侧MPD B5</Chinesesimp>
-            <Turkish>SOL MPD B5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B6">
-            <English>LEFT MPD B6</English>
-            <Original>LEFT MPD B6</Original>
-            <French>MPD GAUCHE B6</French>
-            <Dutch>LINKER MPD B6</Dutch>
-            <Spanish>MPD IZQUIERDO B6</Spanish>
-            <Italian>MPD SINISTRA B6</Italian>
-            <German>LINKES MPD B6</German>
-            <Czech>LEVÉ MPD B6</Czech>
-            <Polish>LEWE MPD B6</Polish>
-            <Russian>ЛЕВЫЙ МПД B6</Russian>
-            <Portuguese>MPD ESQUERDO B6</Portuguese>
-            <Korean>좌측 MPD B6</Korean>
-            <Japanese>左MPD B6</Japanese>
-            <Chinesesimp>左侧MPD B6</Chinesesimp>
-            <Turkish>SOL MPD B6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R1">
-            <English>LEFT MPD R1</English>
-            <Original>LEFT MPD R1</Original>
-            <French>MPD GAUCHE R1</French>
-            <Dutch>LINKER MPD R1</Dutch>
-            <Spanish>MPD IZQUIERDO R1</Spanish>
-            <Italian>MPD SINISTRA R1</Italian>
-            <German>LINKES MPD R1</German>
-            <Czech>LEVÉ MPD R1</Czech>
-            <Polish>LEWE MPD R1</Polish>
-            <Russian>ЛЕВЫЙ МПД R1</Russian>
-            <Portuguese>MPD ESQUERDO R1</Portuguese>
-            <Korean>좌측 MPD R1</Korean>
-            <Japanese>左MPD R1</Japanese>
-            <Chinesesimp>左侧MPD R1</Chinesesimp>
-            <Turkish>SOL MPD R1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R2">
-            <English>LEFT MPD R2</English>
-            <Original>LEFT MPD R2</Original>
-            <French>MPD GAUCHE R2</French>
-            <Dutch>LINKER MPD R2</Dutch>
-            <Spanish>MPD IZQUIERDO R2</Spanish>
-            <Italian>MPD SINISTRA R2</Italian>
-            <German>LINKES MPD R2</German>
-            <Czech>LEVÉ MPD R2</Czech>
-            <Polish>LEWE MPD R2</Polish>
-            <Russian>ЛЕВЫЙ МПД R2</Russian>
-            <Portuguese>MPD ESQUERDO R2</Portuguese>
-            <Korean>좌측 MPD R2</Korean>
-            <Japanese>左MPD R2</Japanese>
-            <Chinesesimp>左侧MPD R2</Chinesesimp>
-            <Turkish>SOL MPD R2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R3">
-            <English>LEFT MPD R3</English>
-            <Original>LEFT MPD R3</Original>
-            <French>MPD GAUCHE R3</French>
-            <Dutch>LINKER MPD R3</Dutch>
-            <Spanish>MPD IZQUIERDO R3</Spanish>
-            <Italian>MPD SINISTRA R3</Italian>
-            <German>LINKES MPD R3</German>
-            <Czech>LEVÉ MPD R3</Czech>
-            <Polish>LEWE MPD R3</Polish>
-            <Russian>ЛЕВЫЙ МПД R3</Russian>
-            <Portuguese>MPD ESQUERDO R3</Portuguese>
-            <Korean>좌측 MPD R3</Korean>
-            <Japanese>左MPD R3</Japanese>
-            <Chinesesimp>左侧MPD R3</Chinesesimp>
-            <Turkish>SOL MPD R3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R4">
-            <English>LEFT MPD R4</English>
-            <Original>LEFT MPD R4</Original>
-            <French>MPD GAUCHE R4</French>
-            <Dutch>LINKER MPD R4</Dutch>
-            <Spanish>MPD IZQUIERDO R4</Spanish>
-            <Italian>MPD SINISTRA R4</Italian>
-            <German>LINKES MPD R4</German>
-            <Czech>LEVÉ MPD R4</Czech>
-            <Polish>LEWE MPD R4</Polish>
-            <Russian>ЛЕВЫЙ МПД R4</Russian>
-            <Portuguese>MPD ESQUERDO R4</Portuguese>
-            <Korean>좌측 MPD R4</Korean>
-            <Japanese>左MPD R4</Japanese>
-            <Chinesesimp>左侧MPD R4</Chinesesimp>
-            <Turkish>SOL MPD R4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R5">
-            <English>LEFT MPD R5</English>
-            <Original>LEFT MPD R5</Original>
-            <French>MPD GAUCHE R5</French>
-            <Dutch>LINKER MPD R5</Dutch>
-            <Spanish>MPD IZQUIERDO R5</Spanish>
-            <Italian>MPD SINISTRA R5</Italian>
-            <German>LINKES MPD R5</German>
-            <Czech>LEVÉ MPD R5</Czech>
-            <Polish>LEWE MPD R5</Polish>
-            <Russian>ЛЕВЫЙ МПД R5</Russian>
-            <Portuguese>MPD ESQUERDO R5</Portuguese>
-            <Korean>좌측 MPD R5</Korean>
-            <Japanese>左MPD R5</Japanese>
-            <Chinesesimp>左侧MPD R5</Chinesesimp>
-            <Turkish>SOL MPD R5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R6">
-            <English>LEFT MPD R6</English>
-            <Original>LEFT MPD R6</Original>
-            <French>MPD GAUCHE R6</French>
-            <Dutch>LINKER MPD R6</Dutch>
-            <Spanish>MPD IZQUIERDO R6</Spanish>
-            <Italian>MPD SINISTRA R6</Italian>
-            <German>LINKES MPD R6</German>
-            <Czech>LEVÉ MPD R6</Czech>
-            <Polish>LEWE MPD R6</Polish>
-            <Russian>ЛЕВЫЙ МПД R6</Russian>
-            <Portuguese>MPD ESQUERDO R6</Portuguese>
-            <Korean>좌측 MPD R6</Korean>
-            <Japanese>左MPD R6</Japanese>
-            <Chinesesimp>左侧MPD R6</Chinesesimp>
-            <Turkish>SOL MPD R6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T1">
-            <English>LEFT MPD T1</English>
-            <Original>LEFT MPD T1</Original>
-            <French>MPD GAUCHE T1</French>
-            <Dutch>LINKER MPD T1</Dutch>
-            <Spanish>MPD IZQUIERDO T1</Spanish>
-            <Italian>MPD SINISTRA T1</Italian>
-            <German>LINKES MPD T1</German>
-            <Czech>LEVÉ MPD T1</Czech>
-            <Polish>LEWE MPD T1</Polish>
-            <Russian>ЛЕВЫЙ МПД T1</Russian>
-            <Portuguese>MPD ESQUERDO T1</Portuguese>
-            <Korean>좌측 MPD T1</Korean>
-            <Japanese>左MPD T1</Japanese>
-            <Chinesesimp>左侧MPD T1</Chinesesimp>
-            <Turkish>SOL MPD T1</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T2">
-            <English>LEFT MPD T2</English>
-            <Original>LEFT MPD T2</Original>
-            <French>MPD GAUCHE T2</French>
-            <Dutch>LINKER MPD T2</Dutch>
-            <Spanish>MPD IZQUIERDO T2</Spanish>
-            <Italian>MPD SINISTRA T2</Italian>
-            <German>LINKES MPD T2</German>
-            <Czech>LEVÉ MPD T2</Czech>
-            <Polish>LEWE MPD T2</Polish>
-            <Russian>ЛЕВЫЙ МПД T2</Russian>
-            <Portuguese>MPD ESQUERDO T2</Portuguese>
-            <Korean>좌측 MPD T2</Korean>
-            <Japanese>左MPD T2</Japanese>
-            <Chinesesimp>左侧MPD T2</Chinesesimp>
-            <Turkish>SOL MPD T2</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T3">
-            <English>LEFT MPD T3</English>
-            <Original>LEFT MPD T3</Original>
-            <French>MPD GAUCHE T3</French>
-            <Dutch>LINKER MPD T3</Dutch>
-            <Spanish>MPD IZQUIERDO T3</Spanish>
-            <Italian>MPD SINISTRA T3</Italian>
-            <German>LINKES MPD T3</German>
-            <Czech>LEVÉ MPD T3</Czech>
-            <Polish>LEWE MPD T3</Polish>
-            <Russian>ЛЕВЫЙ МПД T3</Russian>
-            <Portuguese>MPD ESQUERDO T3</Portuguese>
-            <Korean>좌측 MPD T3</Korean>
-            <Japanese>左MPD T3</Japanese>
-            <Chinesesimp>左侧MPD T3</Chinesesimp>
-            <Turkish>SOL MPD T3</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T4">
-            <English>LEFT MPD T4</English>
-            <Original>LEFT MPD T4</Original>
-            <French>MPD GAUCHE T4</French>
-            <Dutch>LINKER MPD T4</Dutch>
-            <Spanish>MPD IZQUIERDO T4</Spanish>
-            <Italian>MPD SINISTRA T4</Italian>
-            <German>LINKES MPD T4</German>
-            <Czech>LEVÉ MPD T4</Czech>
-            <Polish>LEWE MPD T4</Polish>
-            <Russian>ЛЕВЫЙ МПД T4</Russian>
-            <Portuguese>MPD ESQUERDO T4</Portuguese>
-            <Korean>좌측 MPD T4</Korean>
-            <Japanese>左MPD T4</Japanese>
-            <Chinesesimp>左侧MPD T4</Chinesesimp>
-            <Turkish>SOL MPD T4</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T5">
-            <English>LEFT MPD T5</English>
-            <Original>LEFT MPD T5</Original>
-            <French>MPD GAUCHE T5</French>
-            <Dutch>LINKER MPD T5</Dutch>
-            <Spanish>MPD IZQUIERDO T5</Spanish>
-            <Italian>MPD SINISTRA T5</Italian>
-            <German>LINKES MPD T5</German>
-            <Czech>LEVÉ MPD T5</Czech>
-            <Polish>LEWE MPD T5</Polish>
-            <Russian>ЛЕВЫЙ МПД T5</Russian>
-            <Portuguese>MPD ESQUERDO T5</Portuguese>
-            <Korean>좌측 MPD T5</Korean>
-            <Japanese>左MPD T5</Japanese>
-            <Chinesesimp>左侧MPD T5</Chinesesimp>
-            <Turkish>SOL MPD T5</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T6">
-            <English>LEFT MPD T6</English>
-            <Original>LEFT MPD T6</Original>
-            <French>MPD GAUCHE T6</French>
-            <Dutch>LINKER MPD T6</Dutch>
-            <Spanish>MPD IZQUIERDO T6</Spanish>
-            <Italian>MPD SINISTRA T6</Italian>
-            <German>LINKES MPD T6</German>
-            <Czech>LEVÉ MPD T6</Czech>
-            <Polish>LEWE MPD T6</Polish>
-            <Russian>ЛЕВЫЙ МПД T6</Russian>
-            <Portuguese>MPD ESQUERDO T6</Portuguese>
-            <Korean>좌측 MPD T6</Korean>
-            <Japanese>左MPD T6</Japanese>
-            <Chinesesimp>左侧MPD T6</Chinesesimp>
-            <Turkish>SOL MPD T6</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_FCR">
-            <English>LEFT MPD FCR</English>
-            <Original>LEFT MPD FCR</Original>
-            <French>MPD GAUCHE FCR</French>
-            <Dutch>LINKER MPD FCR</Dutch>
-            <Spanish>MPD IZQUIERDO FCR</Spanish>
-            <Italian>MPD SINISTRA FCR</Italian>
-            <German>LINKES MPD FCR</German>
-            <Czech>LEVÉ MPD FCR</Czech>
-            <Polish>LEWE MPD FCR</Polish>
-            <Russian>ЛЕВЫЙ МПД FCR</Russian>
-            <Portuguese>MPD ESQUERDO FCR</Portuguese>
-            <Korean>좌측 MPD FCR</Korean>
-            <Japanese>左MPD FCR</Japanese>
-            <Chinesesimp>左侧MPD FCR</Chinesesimp>
-            <Turkish>SOL MPD FCR</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_WPN">
-            <English>LEFT MPD WPN</English>
-            <Original>LEFT MPD WPN</Original>
-            <French>MPD GAUCHE WPN</French>
-            <Dutch>LINKER MPD WPN</Dutch>
-            <Spanish>MPD IZQUIERDO WPN</Spanish>
-            <Italian>MPD SINISTRA WPN</Italian>
-            <German>LINKES MPD WPN</German>
-            <Czech>LEVÉ MPD WPN</Czech>
-            <Polish>LEWE MPD WPN</Polish>
-            <Russian>ЛЕВЫЙ МПД WPN</Russian>
-            <Portuguese>MPD ESQUERDO WPN</Portuguese>
-            <Korean>좌측 MPD WPN</Korean>
-            <Japanese>左MPD WPN</Japanese>
-            <Chinesesimp>左侧MPD WPN</Chinesesimp>
-            <Turkish>SOL MPD WPN</Turkish>
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_TSD">
-            <English>LEFT MPD TSD</English>
-            <Original>LEFT MPD TSD</Original>
-            <French>MPD GAUCHE TSD</French>
-            <Dutch>LINKER MPD TSD</Dutch>
-            <Spanish>MPD IZQUIERDO TSD</Spanish>
-            <Italian>MPD SINISTRA TSD</Italian>
-            <German>LINKES MPD TSD</German>
-            <Czech>LEVÉ MPD TSD</Czech>
-            <Polish>LEWE MPD TSD</Polish>
-            <Russian>ЛЕВЫЙ МПД TSD</Russian>
-            <Portuguese>MPD ESQUERDO TSD</Portuguese>
-            <Korean>좌측 MPD TSD</Korean>
-            <Japanese>左MPD TSD</Japanese>
-            <Chinesesimp>左侧MPD TSD</Chinesesimp>
-            <Turkish>SOL MPD TSD</Turkish>
+            <Dutch>LINKER MPD</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_LMPD_AC">
-            <English>LEFT MPD A/C</English>
             <Original>LEFT MPD A/C</Original>
+            <English>LEFT MPD A/C</English>
+            <Czech>LEVÉ MPD A/C</Czech>
             <French>MPD GAUCHE A/C</French>
-            <Dutch>LINKER MPD A/C</Dutch>
             <Spanish>MPD IZQUIERDO A/C</Spanish>
             <Italian>MPD SINISTRA A/C</Italian>
-            <German>LINKES MPD A/C</German>
-            <Czech>LEVÉ MPD A/C</Czech>
             <Polish>LEWE MPD A/C</Polish>
-            <Russian>ЛЕВЫЙ МПД A/C</Russian>
             <Portuguese>MPD ESQUERDO A/C</Portuguese>
+            <Russian>ЛЕВЫЙ МПД A/C</Russian>
+            <German>LINKES MPD A/C</German>
             <Korean>좌측 MPD A/C</Korean>
             <Japanese>左MPD A/C</Japanese>
             <Chinesesimp>左侧MPD A/C</Chinesesimp>
             <Turkish>SOL MPD A/C</Turkish>
+            <Dutch>LINKER MPD A/C</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
+            <Original>LEFT MPD B1/MENU</Original>
+            <English>LEFT MPD B1/MENU</English>
+            <Czech>LEVÉ MPD B1/NABÍDKA</Czech>
+            <French>MPD GAUCHE B1/MENU</French>
+            <Spanish>MPD IZQUIERDO B1/MENU</Spanish>
+            <Italian>MPD SINISTRA B1/MENU</Italian>
+            <Polish>LEWE MPD B1/MENU</Polish>
+            <Portuguese>MPD ESQUERDO B1/MENU</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B1/МЕНЮ</Russian>
+            <German>LINKES MPD B1/MENÜ</German>
+            <Korean>좌측 MPD B1/메뉴</Korean>
+            <Japanese>左MPD B1/メニュー</Japanese>
+            <Chinesesimp>左侧MPD B1/菜单</Chinesesimp>
+            <Turkish>SOL MPD B1/MENÜ</Turkish>
+            <Dutch>LINKER MPD B1/MENU</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B2">
+            <Original>LEFT MPD B2</Original>
+            <English>LEFT MPD B2</English>
+            <Czech>LEVÉ MPD B2</Czech>
+            <French>MPD GAUCHE B2</French>
+            <Spanish>MPD IZQUIERDO B2</Spanish>
+            <Italian>MPD SINISTRA B2</Italian>
+            <Polish>LEWE MPD B2</Polish>
+            <Portuguese>MPD ESQUERDO B2</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B2</Russian>
+            <German>LINKES MPD B2</German>
+            <Korean>좌측 MPD B2</Korean>
+            <Japanese>左MPD B2</Japanese>
+            <Chinesesimp>左侧MPD B2</Chinesesimp>
+            <Turkish>SOL MPD B2</Turkish>
+            <Dutch>LINKER MPD B2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B3">
+            <Original>LEFT MPD B3</Original>
+            <English>LEFT MPD B3</English>
+            <Czech>LEVÉ MPD B3</Czech>
+            <French>MPD GAUCHE B3</French>
+            <Spanish>MPD IZQUIERDO B3</Spanish>
+            <Italian>MPD SINISTRA B3</Italian>
+            <Polish>LEWE MPD B3</Polish>
+            <Portuguese>MPD ESQUERDO B3</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B3</Russian>
+            <German>LINKES MPD B3</German>
+            <Korean>좌측 MPD B3</Korean>
+            <Japanese>左MPD B3</Japanese>
+            <Chinesesimp>左侧MPD B3</Chinesesimp>
+            <Turkish>SOL MPD B3</Turkish>
+            <Dutch>LINKER MPD B3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B4">
+            <Original>LEFT MPD B4</Original>
+            <English>LEFT MPD B4</English>
+            <Czech>LEVÉ MPD B4</Czech>
+            <French>MPD GAUCHE B4</French>
+            <Spanish>MPD IZQUIERDO B4</Spanish>
+            <Italian>MPD SINISTRA B4</Italian>
+            <Polish>LEWE MPD B4</Polish>
+            <Portuguese>MPD ESQUERDO B4</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B4</Russian>
+            <German>LINKES MPD B4</German>
+            <Korean>좌측 MPD B4</Korean>
+            <Japanese>左MPD B4</Japanese>
+            <Chinesesimp>左侧MPD B4</Chinesesimp>
+            <Turkish>SOL MPD B4</Turkish>
+            <Dutch>LINKER MPD B4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B5">
+            <Original>LEFT MPD B5</Original>
+            <English>LEFT MPD B5</English>
+            <Czech>LEVÉ MPD B5</Czech>
+            <French>MPD GAUCHE B5</French>
+            <Spanish>MPD IZQUIERDO B5</Spanish>
+            <Italian>MPD SINISTRA B5</Italian>
+            <Polish>LEWE MPD B5</Polish>
+            <Portuguese>MPD ESQUERDO B5</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B5</Russian>
+            <German>LINKES MPD B5</German>
+            <Korean>좌측 MPD B5</Korean>
+            <Japanese>左MPD B5</Japanese>
+            <Chinesesimp>左侧MPD B5</Chinesesimp>
+            <Turkish>SOL MPD B5</Turkish>
+            <Dutch>LINKER MPD B5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B6">
+            <Original>LEFT MPD B6</Original>
+            <English>LEFT MPD B6</English>
+            <Czech>LEVÉ MPD B6</Czech>
+            <French>MPD GAUCHE B6</French>
+            <Spanish>MPD IZQUIERDO B6</Spanish>
+            <Italian>MPD SINISTRA B6</Italian>
+            <Polish>LEWE MPD B6</Polish>
+            <Portuguese>MPD ESQUERDO B6</Portuguese>
+            <Russian>ЛЕВЫЙ МПД B6</Russian>
+            <German>LINKES MPD B6</German>
+            <Korean>좌측 MPD B6</Korean>
+            <Japanese>左MPD B6</Japanese>
+            <Chinesesimp>左侧MPD B6</Chinesesimp>
+            <Turkish>SOL MPD B6</Turkish>
+            <Dutch>LINKER MPD B6</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_LMPD_BRIGHTNESS">
-            <English>LEFT MPD BRIGHTNESS</English>
             <Original>LEFT MPD BRIGHTNESS</Original>
+            <English>LEFT MPD BRIGHTNESS</English>
+            <Czech>JAS LEVÉHO MPD</Czech>
             <French>LUMINOSITÉ MPD GAUCHE</French>
-            <Dutch>HELDERHEID LINKER MPD</Dutch>
             <Spanish>BRILLO MPD IZQUIERDO</Spanish>
             <Italian>LUMINOSITÀ MPD SINISTRA</Italian>
-            <German>HELLIGKEIT LINKES MPD</German>
-            <Czech>JAS LEVÉHO MPD</Czech>
             <Polish>JASNOŚĆ LEWEGO MPD</Polish>
-            <Russian>ЯРКОСТЬ ЛЕВОГО МПД</Russian>
             <Portuguese>BRILHO MPD ESQUERDO</Portuguese>
+            <Russian>ЯРКОСТЬ ЛЕВОГО МПД</Russian>
+            <German>HELLIGKEIT LINKES MPD</German>
             <Korean>좌측 MPD 밝기</Korean>
             <Japanese>左MPD 明度</Japanese>
             <Chinesesimp>左侧MPD 亮度</Chinesesimp>
             <Turkish>SOL MPD PARLAKLIGI</Turkish>
+            <Dutch>HELDERHEID LINKER MPD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_FCR">
+            <Original>LEFT MPD FCR</Original>
+            <English>LEFT MPD FCR</English>
+            <Czech>LEVÉ MPD FCR</Czech>
+            <French>MPD GAUCHE FCR</French>
+            <Spanish>MPD IZQUIERDO FCR</Spanish>
+            <Italian>MPD SINISTRA FCR</Italian>
+            <Polish>LEWE MPD FCR</Polish>
+            <Portuguese>MPD ESQUERDO FCR</Portuguese>
+            <Russian>ЛЕВЫЙ МПД FCR</Russian>
+            <German>LINKES MPD FCR</German>
+            <Korean>좌측 MPD FCR</Korean>
+            <Japanese>左MPD FCR</Japanese>
+            <Chinesesimp>左侧MPD FCR</Chinesesimp>
+            <Turkish>SOL MPD FCR</Turkish>
+            <Dutch>LINKER MPD FCR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L1">
+            <Original>LEFT MPD L1</Original>
+            <English>LEFT MPD L1</English>
+            <Czech>LEVÉ MPD L1</Czech>
+            <French>MPD GAUCHE L1</French>
+            <Spanish>MPD IZQUIERDO L1</Spanish>
+            <Italian>MPD SINISTRA L1</Italian>
+            <Polish>LEWE MPD L1</Polish>
+            <Portuguese>MPD ESQUERDO L1</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L1</Russian>
+            <German>LINKES MPD L1</German>
+            <Korean>좌측 MPD L1</Korean>
+            <Japanese>左MPD L1</Japanese>
+            <Chinesesimp>左侧MPD L1</Chinesesimp>
+            <Turkish>SOL MPD L1</Turkish>
+            <Dutch>LINKER MPD L1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L2">
+            <Original>LEFT MPD L2</Original>
+            <English>LEFT MPD L2</English>
+            <Czech>LEVÉ MPD L2</Czech>
+            <French>MPD GAUCHE L2</French>
+            <Spanish>MPD IZQUIERDO L2</Spanish>
+            <Italian>MPD SINISTRA L2</Italian>
+            <Polish>LEWE MPD L2</Polish>
+            <Portuguese>MPD ESQUERDO L2</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L2</Russian>
+            <German>LINKES MPD L2</German>
+            <Korean>좌측 MPD L2</Korean>
+            <Japanese>左MPD L2</Japanese>
+            <Chinesesimp>左侧MPD L2</Chinesesimp>
+            <Turkish>SOL MPD L2</Turkish>
+            <Dutch>LINKER MPD L2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L3">
+            <Original>LEFT MPD L3</Original>
+            <English>LEFT MPD L3</English>
+            <Czech>LEVÉ MPD L3</Czech>
+            <French>MPD GAUCHE L3</French>
+            <Spanish>MPD IZQUIERDO L3</Spanish>
+            <Italian>MPD SINISTRA L3</Italian>
+            <Polish>LEWE MPD L3</Polish>
+            <Portuguese>MPD ESQUERDO L3</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L3</Russian>
+            <German>LINKES MPD L3</German>
+            <Korean>좌측 MPD L3</Korean>
+            <Japanese>左MPD L3</Japanese>
+            <Chinesesimp>左侧MPD L3</Chinesesimp>
+            <Turkish>SOL MPD L3</Turkish>
+            <Dutch>LINKER MPD L3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L4">
+            <Original>LEFT MPD L4</Original>
+            <English>LEFT MPD L4</English>
+            <Czech>LEVÉ MPD L4</Czech>
+            <French>MPD GAUCHE L4</French>
+            <Spanish>MPD IZQUIERDO L4</Spanish>
+            <Italian>MPD SINISTRA L4</Italian>
+            <Polish>LEWE MPD L4</Polish>
+            <Portuguese>MPD ESQUERDO L4</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L4</Russian>
+            <German>LINKES MPD L4</German>
+            <Korean>좌측 MPD L4</Korean>
+            <Japanese>左MPD L4</Japanese>
+            <Chinesesimp>左侧MPD L4</Chinesesimp>
+            <Turkish>SOL MPD L4</Turkish>
+            <Dutch>LINKER MPD L4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L5">
+            <Original>LEFT MPD L5</Original>
+            <English>LEFT MPD L5</English>
+            <Czech>LEVÉ MPD L5</Czech>
+            <French>MPD GAUCHE L5</French>
+            <Spanish>MPD IZQUIERDO L5</Spanish>
+            <Italian>MPD SINISTRA L5</Italian>
+            <Polish>LEWE MPD L5</Polish>
+            <Portuguese>MPD ESQUERDO L5</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L5</Russian>
+            <German>LINKES MPD L5</German>
+            <Korean>좌측 MPD L5</Korean>
+            <Japanese>左MPD L5</Japanese>
+            <Chinesesimp>左侧MPD L5</Chinesesimp>
+            <Turkish>SOL MPD L5</Turkish>
+            <Dutch>LINKER MPD L5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L6">
+            <Original>LEFT MPD L6</Original>
+            <English>LEFT MPD L6</English>
+            <Czech>LEVÉ MPD L6</Czech>
+            <French>MPD GAUCHE L6</French>
+            <Spanish>MPD IZQUIERDO L6</Spanish>
+            <Italian>MPD SINISTRA L6</Italian>
+            <Polish>LEWE MPD L6</Polish>
+            <Portuguese>MPD ESQUERDO L6</Portuguese>
+            <Russian>ЛЕВЫЙ МПД L6</Russian>
+            <German>LINKES MPD L6</German>
+            <Korean>좌측 MPD L6</Korean>
+            <Japanese>左MPD L6</Japanese>
+            <Chinesesimp>左侧MPD L6</Chinesesimp>
+            <Turkish>SOL MPD L6</Turkish>
+            <Dutch>LINKER MPD L6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R1">
+            <Original>LEFT MPD R1</Original>
+            <English>LEFT MPD R1</English>
+            <Czech>LEVÉ MPD R1</Czech>
+            <French>MPD GAUCHE R1</French>
+            <Spanish>MPD IZQUIERDO R1</Spanish>
+            <Italian>MPD SINISTRA R1</Italian>
+            <Polish>LEWE MPD R1</Polish>
+            <Portuguese>MPD ESQUERDO R1</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R1</Russian>
+            <German>LINKES MPD R1</German>
+            <Korean>좌측 MPD R1</Korean>
+            <Japanese>左MPD R1</Japanese>
+            <Chinesesimp>左侧MPD R1</Chinesesimp>
+            <Turkish>SOL MPD R1</Turkish>
+            <Dutch>LINKER MPD R1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R2">
+            <Original>LEFT MPD R2</Original>
+            <English>LEFT MPD R2</English>
+            <Czech>LEVÉ MPD R2</Czech>
+            <French>MPD GAUCHE R2</French>
+            <Spanish>MPD IZQUIERDO R2</Spanish>
+            <Italian>MPD SINISTRA R2</Italian>
+            <Polish>LEWE MPD R2</Polish>
+            <Portuguese>MPD ESQUERDO R2</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R2</Russian>
+            <German>LINKES MPD R2</German>
+            <Korean>좌측 MPD R2</Korean>
+            <Japanese>左MPD R2</Japanese>
+            <Chinesesimp>左侧MPD R2</Chinesesimp>
+            <Turkish>SOL MPD R2</Turkish>
+            <Dutch>LINKER MPD R2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R3">
+            <Original>LEFT MPD R3</Original>
+            <English>LEFT MPD R3</English>
+            <Czech>LEVÉ MPD R3</Czech>
+            <French>MPD GAUCHE R3</French>
+            <Spanish>MPD IZQUIERDO R3</Spanish>
+            <Italian>MPD SINISTRA R3</Italian>
+            <Polish>LEWE MPD R3</Polish>
+            <Portuguese>MPD ESQUERDO R3</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R3</Russian>
+            <German>LINKES MPD R3</German>
+            <Korean>좌측 MPD R3</Korean>
+            <Japanese>左MPD R3</Japanese>
+            <Chinesesimp>左侧MPD R3</Chinesesimp>
+            <Turkish>SOL MPD R3</Turkish>
+            <Dutch>LINKER MPD R3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R4">
+            <Original>LEFT MPD R4</Original>
+            <English>LEFT MPD R4</English>
+            <Czech>LEVÉ MPD R4</Czech>
+            <French>MPD GAUCHE R4</French>
+            <Spanish>MPD IZQUIERDO R4</Spanish>
+            <Italian>MPD SINISTRA R4</Italian>
+            <Polish>LEWE MPD R4</Polish>
+            <Portuguese>MPD ESQUERDO R4</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R4</Russian>
+            <German>LINKES MPD R4</German>
+            <Korean>좌측 MPD R4</Korean>
+            <Japanese>左MPD R4</Japanese>
+            <Chinesesimp>左侧MPD R4</Chinesesimp>
+            <Turkish>SOL MPD R4</Turkish>
+            <Dutch>LINKER MPD R4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R5">
+            <Original>LEFT MPD R5</Original>
+            <English>LEFT MPD R5</English>
+            <Czech>LEVÉ MPD R5</Czech>
+            <French>MPD GAUCHE R5</French>
+            <Spanish>MPD IZQUIERDO R5</Spanish>
+            <Italian>MPD SINISTRA R5</Italian>
+            <Polish>LEWE MPD R5</Polish>
+            <Portuguese>MPD ESQUERDO R5</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R5</Russian>
+            <German>LINKES MPD R5</German>
+            <Korean>좌측 MPD R5</Korean>
+            <Japanese>左MPD R5</Japanese>
+            <Chinesesimp>左侧MPD R5</Chinesesimp>
+            <Turkish>SOL MPD R5</Turkish>
+            <Dutch>LINKER MPD R5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R6">
+            <Original>LEFT MPD R6</Original>
+            <English>LEFT MPD R6</English>
+            <Czech>LEVÉ MPD R6</Czech>
+            <French>MPD GAUCHE R6</French>
+            <Spanish>MPD IZQUIERDO R6</Spanish>
+            <Italian>MPD SINISTRA R6</Italian>
+            <Polish>LEWE MPD R6</Polish>
+            <Portuguese>MPD ESQUERDO R6</Portuguese>
+            <Russian>ЛЕВЫЙ МПД R6</Russian>
+            <German>LINKES MPD R6</German>
+            <Korean>좌측 MPD R6</Korean>
+            <Japanese>左MPD R6</Japanese>
+            <Chinesesimp>左侧MPD R6</Chinesesimp>
+            <Turkish>SOL MPD R6</Turkish>
+            <Dutch>LINKER MPD R6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T1">
+            <Original>LEFT MPD T1</Original>
+            <English>LEFT MPD T1</English>
+            <Czech>LEVÉ MPD T1</Czech>
+            <French>MPD GAUCHE T1</French>
+            <Spanish>MPD IZQUIERDO T1</Spanish>
+            <Italian>MPD SINISTRA T1</Italian>
+            <Polish>LEWE MPD T1</Polish>
+            <Portuguese>MPD ESQUERDO T1</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T1</Russian>
+            <German>LINKES MPD T1</German>
+            <Korean>좌측 MPD T1</Korean>
+            <Japanese>左MPD T1</Japanese>
+            <Chinesesimp>左侧MPD T1</Chinesesimp>
+            <Turkish>SOL MPD T1</Turkish>
+            <Dutch>LINKER MPD T1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T2">
+            <Original>LEFT MPD T2</Original>
+            <English>LEFT MPD T2</English>
+            <Czech>LEVÉ MPD T2</Czech>
+            <French>MPD GAUCHE T2</French>
+            <Spanish>MPD IZQUIERDO T2</Spanish>
+            <Italian>MPD SINISTRA T2</Italian>
+            <Polish>LEWE MPD T2</Polish>
+            <Portuguese>MPD ESQUERDO T2</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T2</Russian>
+            <German>LINKES MPD T2</German>
+            <Korean>좌측 MPD T2</Korean>
+            <Japanese>左MPD T2</Japanese>
+            <Chinesesimp>左侧MPD T2</Chinesesimp>
+            <Turkish>SOL MPD T2</Turkish>
+            <Dutch>LINKER MPD T2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T3">
+            <Original>LEFT MPD T3</Original>
+            <English>LEFT MPD T3</English>
+            <Czech>LEVÉ MPD T3</Czech>
+            <French>MPD GAUCHE T3</French>
+            <Spanish>MPD IZQUIERDO T3</Spanish>
+            <Italian>MPD SINISTRA T3</Italian>
+            <Polish>LEWE MPD T3</Polish>
+            <Portuguese>MPD ESQUERDO T3</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T3</Russian>
+            <German>LINKES MPD T3</German>
+            <Korean>좌측 MPD T3</Korean>
+            <Japanese>左MPD T3</Japanese>
+            <Chinesesimp>左侧MPD T3</Chinesesimp>
+            <Turkish>SOL MPD T3</Turkish>
+            <Dutch>LINKER MPD T3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T4">
+            <Original>LEFT MPD T4</Original>
+            <English>LEFT MPD T4</English>
+            <Czech>LEVÉ MPD T4</Czech>
+            <French>MPD GAUCHE T4</French>
+            <Spanish>MPD IZQUIERDO T4</Spanish>
+            <Italian>MPD SINISTRA T4</Italian>
+            <Polish>LEWE MPD T4</Polish>
+            <Portuguese>MPD ESQUERDO T4</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T4</Russian>
+            <German>LINKES MPD T4</German>
+            <Korean>좌측 MPD T4</Korean>
+            <Japanese>左MPD T4</Japanese>
+            <Chinesesimp>左侧MPD T4</Chinesesimp>
+            <Turkish>SOL MPD T4</Turkish>
+            <Dutch>LINKER MPD T4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T5">
+            <Original>LEFT MPD T5</Original>
+            <English>LEFT MPD T5</English>
+            <Czech>LEVÉ MPD T5</Czech>
+            <French>MPD GAUCHE T5</French>
+            <Spanish>MPD IZQUIERDO T5</Spanish>
+            <Italian>MPD SINISTRA T5</Italian>
+            <Polish>LEWE MPD T5</Polish>
+            <Portuguese>MPD ESQUERDO T5</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T5</Russian>
+            <German>LINKES MPD T5</German>
+            <Korean>좌측 MPD T5</Korean>
+            <Japanese>左MPD T5</Japanese>
+            <Chinesesimp>左侧MPD T5</Chinesesimp>
+            <Turkish>SOL MPD T5</Turkish>
+            <Dutch>LINKER MPD T5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T6">
+            <Original>LEFT MPD T6</Original>
+            <English>LEFT MPD T6</English>
+            <Czech>LEVÉ MPD T6</Czech>
+            <French>MPD GAUCHE T6</French>
+            <Spanish>MPD IZQUIERDO T6</Spanish>
+            <Italian>MPD SINISTRA T6</Italian>
+            <Polish>LEWE MPD T6</Polish>
+            <Portuguese>MPD ESQUERDO T6</Portuguese>
+            <Russian>ЛЕВЫЙ МПД T6</Russian>
+            <German>LINKES MPD T6</German>
+            <Korean>좌측 MPD T6</Korean>
+            <Japanese>左MPD T6</Japanese>
+            <Chinesesimp>左侧MPD T6</Chinesesimp>
+            <Turkish>SOL MPD T6</Turkish>
+            <Dutch>LINKER MPD T6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_TSD">
+            <Original>LEFT MPD TSD</Original>
+            <English>LEFT MPD TSD</English>
+            <Czech>LEVÉ MPD TSD</Czech>
+            <French>MPD GAUCHE TSD</French>
+            <Spanish>MPD IZQUIERDO TSD</Spanish>
+            <Italian>MPD SINISTRA TSD</Italian>
+            <Polish>LEWE MPD TSD</Polish>
+            <Portuguese>MPD ESQUERDO TSD</Portuguese>
+            <Russian>ЛЕВЫЙ МПД TSD</Russian>
+            <German>LINKES MPD TSD</German>
+            <Korean>좌측 MPD TSD</Korean>
+            <Japanese>左MPD TSD</Japanese>
+            <Chinesesimp>左侧MPD TSD</Chinesesimp>
+            <Turkish>SOL MPD TSD</Turkish>
+            <Dutch>LINKER MPD TSD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_WPN">
+            <Original>LEFT MPD WPN</Original>
+            <English>LEFT MPD WPN</English>
+            <Czech>LEVÉ MPD WPN</Czech>
+            <French>MPD GAUCHE WPN</French>
+            <Spanish>MPD IZQUIERDO WPN</Spanish>
+            <Italian>MPD SINISTRA WPN</Italian>
+            <Polish>LEWE MPD WPN</Polish>
+            <Portuguese>MPD ESQUERDO WPN</Portuguese>
+            <Russian>ЛЕВЫЙ МПД WPN</Russian>
+            <German>LINKES MPD WPN</German>
+            <Korean>좌측 MPD WPN</Korean>
+            <Japanese>左MPD WPN</Japanese>
+            <Chinesesimp>左侧MPD WPN</Chinesesimp>
+            <Turkish>SOL MPD WPN</Turkish>
+            <Dutch>LINKER MPD WPN</Dutch>
+        </Key>
+        <!-- RIGHT MPD -->
+        <Key ID="STR_FZA_AH64_RMPD">
+            <Original>RIGHT MPD</Original>
+            <English>RIGHT MPD</English>
+            <Czech>PRAVÉ MPD</Czech>
+            <French>MPD DROIT</French>
+            <Spanish>MPD DERECHO</Spanish>
+            <Italian>MPD DESTRA</Italian>
+            <Polish>PRAWE MPD</Polish>
+            <Portuguese>MPD DIREITO</Portuguese>
+            <Russian>ПРАВЫЙ МПД</Russian>
+            <German>RECHTES MPD</German>
+            <Korean>우측 MPD</Korean>
+            <Japanese>右MPD</Japanese>
+            <Chinesesimp>右侧MPD</Chinesesimp>
+            <Turkish>SAĞ MPD</Turkish>
+            <Dutch>RECHTER MPD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_AC">
+            <Original>RIGHT MPD A/C</Original>
+            <English>RIGHT MPD A/C</English>
+            <Czech>PRAVÉ MPD A/C</Czech>
+            <French>MPD DROIT A/C</French>
+            <Spanish>MPD DERECHO A/C</Spanish>
+            <Italian>MPD DESTRA A/C</Italian>
+            <Polish>PRAWE MPD A/C</Polish>
+            <Portuguese>MPD DIREITO A/C</Portuguese>
+            <Russian>ПРАВЫЙ МПД A/C</Russian>
+            <German>RECHTES MPD A/C</German>
+            <Korean>우측 MPD A/C</Korean>
+            <Japanese>右MPD A/C</Japanese>
+            <Chinesesimp>右侧MPD A/C</Chinesesimp>
+            <Turkish>SAĞ MPD A/C</Turkish>
+            <Dutch>RECHTER MPD A/C</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
+            <Original>RIGHT MPD B1/MENU</Original>
+            <English>RIGHT MPD B1/MENU</English>
+            <Czech>PRAVÉ MPD B1/NABÍDKA</Czech>
+            <French>MPD DROIT B1/MENU</French>
+            <Spanish>MPD DERECHO B1/MENU</Spanish>
+            <Italian>MPD DESTRA B1/MENU</Italian>
+            <Polish>PRAWE MPD B1/MENU</Polish>
+            <Portuguese>MPD DIREITO B1/MENU</Portuguese>
+            <Russian>ПРАВЫЙ МПД B1/МЕНЮ</Russian>
+            <German>RECHTES MPD B1/MENÜ</German>
+            <Korean>우측 MPD B1/메뉴</Korean>
+            <Japanese>右MPD B1/メニュー</Japanese>
+            <Chinesesimp>右侧MPD B1/菜单</Chinesesimp>
+            <Turkish>SAĞ MPD B1/MENÜ</Turkish>
+            <Dutch>RECHTER MPD B1/MENU</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B2">
+            <Original>RIGHT MPD B2</Original>
+            <English>RIGHT MPD B2</English>
+            <Czech>PRAVÉ MPD B2</Czech>
+            <French>MPD DROIT B2</French>
+            <Spanish>MPD DERECHO B2</Spanish>
+            <Italian>MPD DESTRA B2</Italian>
+            <Polish>PRAWE MPD B2</Polish>
+            <Portuguese>MPD DIREITO B2</Portuguese>
+            <Russian>ПРАВЫЙ МПД B2</Russian>
+            <German>RECHTES MPD B2</German>
+            <Korean>우측 MPD B2</Korean>
+            <Japanese>右MPD B2</Japanese>
+            <Chinesesimp>右侧MPD B2</Chinesesimp>
+            <Turkish>SAĞ MPD B2</Turkish>
+            <Dutch>RECHTER MPD B2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B3">
+            <Original>RIGHT MPD B3</Original>
+            <English>RIGHT MPD B3</English>
+            <Czech>PRAVÉ MPD B3</Czech>
+            <French>MPD DROIT B3</French>
+            <Spanish>MPD DERECHO B3</Spanish>
+            <Italian>MPD DESTRA B3</Italian>
+            <Polish>PRAWE MPD B3</Polish>
+            <Portuguese>MPD DIREITO B3</Portuguese>
+            <Russian>ПРАВЫЙ МПД B3</Russian>
+            <German>RECHTES MPD B3</German>
+            <Korean>우측 MPD B3</Korean>
+            <Japanese>右MPD B3</Japanese>
+            <Chinesesimp>右侧MPD B3</Chinesesimp>
+            <Turkish>SAĞ MPD B3</Turkish>
+            <Dutch>RECHTER MPD B3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B4">
+            <Original>RIGHT MPD B4</Original>
+            <English>RIGHT MPD B4</English>
+            <Czech>PRAVÉ MPD B4</Czech>
+            <French>MPD DROIT B4</French>
+            <Spanish>MPD DERECHO B4</Spanish>
+            <Italian>MPD DESTRA B4</Italian>
+            <Polish>PRAWE MPD B4</Polish>
+            <Portuguese>MPD DIREITO B4</Portuguese>
+            <Russian>ПРАВЫЙ МПД B4</Russian>
+            <German>RECHTES MPD B4</German>
+            <Korean>우측 MPD B4</Korean>
+            <Japanese>右MPD B4</Japanese>
+            <Chinesesimp>右侧MPD B4</Chinesesimp>
+            <Turkish>SAĞ MPD B4</Turkish>
+            <Dutch>RECHTER MPD B4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B5">
+            <Original>RIGHT MPD B5</Original>
+            <English>RIGHT MPD B5</English>
+            <Czech>PRAVÉ MPD B5</Czech>
+            <French>MPD DROIT B5</French>
+            <Spanish>MPD DERECHO B5</Spanish>
+            <Italian>MPD DESTRA B5</Italian>
+            <Polish>PRAWE MPD B5</Polish>
+            <Portuguese>MPD DIREITO B5</Portuguese>
+            <Russian>ПРАВЫЙ МПД B5</Russian>
+            <German>RECHTES MPD B5</German>
+            <Korean>우측 MPD B5</Korean>
+            <Japanese>右MPD B5</Japanese>
+            <Chinesesimp>右侧MPD B5</Chinesesimp>
+            <Turkish>SAĞ MPD B5</Turkish>
+            <Dutch>RECHTER MPD B5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B6">
+            <Original>RIGHT MPD B6</Original>
+            <English>RIGHT MPD B6</English>
+            <Czech>PRAVÉ MPD B6</Czech>
+            <French>MPD DROIT B6</French>
+            <Spanish>MPD DERECHO B6</Spanish>
+            <Italian>MPD DESTRA B6</Italian>
+            <Polish>PRAWE MPD B6</Polish>
+            <Portuguese>MPD DIREITO B6</Portuguese>
+            <Russian>ПРАВЫЙ МПД B6</Russian>
+            <German>RECHTES MPD B6</German>
+            <Korean>우측 MPD B6</Korean>
+            <Japanese>右MPD B6</Japanese>
+            <Chinesesimp>右侧MPD B6</Chinesesimp>
+            <Turkish>SAĞ MPD B6</Turkish>
+            <Dutch>RECHTER MPD B6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_BRIGHTNESS">
+            <Original>RIGHT MPD BRIGHTNESS</Original>
+            <English>RIGHT MPD BRIGHTNESS</English>
+            <Czech>JAS PRAVÉHO MPD</Czech>
+            <French>LUMINOSITÉ MPD DROIT</French>
+            <Spanish>BRILLO MPD DERECHO</Spanish>
+            <Italian>LUMINOSITÀ MPD DESTRA</Italian>
+            <Polish>JASNOŚĆ PRAWEGO MPD</Polish>
+            <Portuguese>BRILHO MPD DIREITO</Portuguese>
+            <Russian>ЯРКОСТЬ ПРАВОГО МПД</Russian>
+            <German>HELLIGKEIT RECHTES MPD</German>
+            <Korean>우측 MPD 밝기</Korean>
+            <Japanese>右MPD 明度</Japanese>
+            <Chinesesimp>右侧MPD 亮度</Chinesesimp>
+            <Turkish>SAĞ MPD PARLAKLIGI</Turkish>
+            <Dutch>HELDERHEID RECHTER MPD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_FCR">
+            <Original>RIGHT MPD FCR</Original>
+            <English>RIGHT MPD FCR</English>
+            <Czech>PRAVÉ MPD FCR</Czech>
+            <French>MPD DROIT FCR</French>
+            <Spanish>MPD DERECHO FCR</Spanish>
+            <Italian>MPD DESTRA FCR</Italian>
+            <Polish>PRAWE MPD FCR</Polish>
+            <Portuguese>MPD DIREITO FCR</Portuguese>
+            <Russian>ПРАВЫЙ МПД FCR</Russian>
+            <German>RECHTES MPD FCR</German>
+            <Korean>우측 MPD FCR</Korean>
+            <Japanese>右MPD FCR</Japanese>
+            <Chinesesimp>右侧MPD FCR</Chinesesimp>
+            <Turkish>SAĞ MPD FCR</Turkish>
+            <Dutch>RECHTER MPD FCR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L1">
+            <Original>RIGHT MPD L1</Original>
+            <English>RIGHT MPD L1</English>
+            <Czech>PRAVÉ MPD L1</Czech>
+            <French>MPD DROIT L1</French>
+            <Spanish>MPD DERECHO L1</Spanish>
+            <Italian>MPD DESTRA L1</Italian>
+            <Polish>PRAWE MPD L1</Polish>
+            <Portuguese>MPD DIREITO L1</Portuguese>
+            <Russian>ПРАВЫЙ МПД L1</Russian>
+            <German>RECHTES MPD L1</German>
+            <Korean>우측 MPD L1</Korean>
+            <Japanese>右MPD L1</Japanese>
+            <Chinesesimp>右侧MPD L1</Chinesesimp>
+            <Turkish>SAĞ MPD L1</Turkish>
+            <Dutch>RECHTER MPD L1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L2">
+            <Original>RIGHT MPD L2</Original>
+            <English>RIGHT MPD L2</English>
+            <Czech>PRAVÉ MPD L2</Czech>
+            <French>MPD DROIT L2</French>
+            <Spanish>MPD DERECHO L2</Spanish>
+            <Italian>MPD DESTRA L2</Italian>
+            <Polish>PRAWE MPD L2</Polish>
+            <Portuguese>MPD DIREITO L2</Portuguese>
+            <Russian>ПРАВЫЙ МПД L2</Russian>
+            <German>RECHTES MPD L2</German>
+            <Korean>우측 MPD L2</Korean>
+            <Japanese>右MPD L2</Japanese>
+            <Chinesesimp>右侧MPD L2</Chinesesimp>
+            <Turkish>SAĞ MPD L2</Turkish>
+            <Dutch>RECHTER MPD L2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L3">
+            <Original>RIGHT MPD L3</Original>
+            <English>RIGHT MPD L3</English>
+            <Czech>PRAVÉ MPD L3</Czech>
+            <French>MPD DROIT L3</French>
+            <Spanish>MPD DERECHO L3</Spanish>
+            <Italian>MPD DESTRA L3</Italian>
+            <Polish>PRAWE MPD L3</Polish>
+            <Portuguese>MPD DIREITO L3</Portuguese>
+            <Russian>ПРАВЫЙ МПД L3</Russian>
+            <German>RECHTES MPD L3</German>
+            <Korean>우측 MPD L3</Korean>
+            <Japanese>右MPD L3</Japanese>
+            <Chinesesimp>右侧MPD L3</Chinesesimp>
+            <Turkish>SAĞ MPD L3</Turkish>
+            <Dutch>RECHTER MPD L3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L4">
+            <Original>RIGHT MPD L4</Original>
+            <English>RIGHT MPD L4</English>
+            <Czech>PRAVÉ MPD L4</Czech>
+            <French>MPD DROIT L4</French>
+            <Spanish>MPD DERECHO L4</Spanish>
+            <Italian>MPD DESTRA L4</Italian>
+            <Polish>PRAWE MPD L4</Polish>
+            <Portuguese>MPD DIREITO L4</Portuguese>
+            <Russian>ПРАВЫЙ МПД L4</Russian>
+            <German>RECHTES MPD L4</German>
+            <Korean>우측 MPD L4</Korean>
+            <Japanese>右MPD L4</Japanese>
+            <Chinesesimp>右侧MPD L4</Chinesesimp>
+            <Turkish>SAĞ MPD L4</Turkish>
+            <Dutch>RECHTER MPD L4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L5">
+            <Original>RIGHT MPD L5</Original>
+            <English>RIGHT MPD L5</English>
+            <Czech>PRAVÉ MPD L5</Czech>
+            <French>MPD DROIT L5</French>
+            <Spanish>MPD DERECHO L5</Spanish>
+            <Italian>MPD DESTRA L5</Italian>
+            <Polish>PRAWE MPD L5</Polish>
+            <Portuguese>MPD DIREITO L5</Portuguese>
+            <Russian>ПРАВЫЙ МПД L5</Russian>
+            <German>RECHTES MPD L5</German>
+            <Korean>우측 MPD L5</Korean>
+            <Japanese>右MPD L5</Japanese>
+            <Chinesesimp>右侧MPD L5</Chinesesimp>
+            <Turkish>SAĞ MPD L5</Turkish>
+            <Dutch>RECHTER MPD L5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L6">
+            <Original>RIGHT MPD L6</Original>
+            <English>RIGHT MPD L6</English>
+            <Czech>PRAVÉ MPD L6</Czech>
+            <French>MPD DROIT L6</French>
+            <Spanish>MPD DERECHO L6</Spanish>
+            <Italian>MPD DESTRA L6</Italian>
+            <Polish>PRAWE MPD L6</Polish>
+            <Portuguese>MPD DIREITO L6</Portuguese>
+            <Russian>ПРАВЫЙ МПД L6</Russian>
+            <German>RECHTES MPD L6</German>
+            <Korean>우측 MPD L6</Korean>
+            <Japanese>右MPD L6</Japanese>
+            <Chinesesimp>右侧MPD L6</Chinesesimp>
+            <Turkish>SAĞ MPD L6</Turkish>
+            <Dutch>RECHTER MPD L6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R1">
+            <Original>RIGHT MPD R1</Original>
+            <English>RIGHT MPD R1</English>
+            <Czech>PRAVÉ MPD R1</Czech>
+            <French>MPD DROIT R1</French>
+            <Spanish>MPD DERECHO R1</Spanish>
+            <Italian>MPD DESTRA R1</Italian>
+            <Polish>PRAWE MPD R1</Polish>
+            <Portuguese>MPD DIREITO R1</Portuguese>
+            <Russian>ПРАВЫЙ МПД R1</Russian>
+            <German>RECHTES MPD R1</German>
+            <Korean>우측 MPD R1</Korean>
+            <Japanese>右MPD R1</Japanese>
+            <Chinesesimp>右侧MPD R1</Chinesesimp>
+            <Turkish>SAĞ MPD R1</Turkish>
+            <Dutch>RECHTER MPD R1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R2">
+            <Original>RIGHT MPD R2</Original>
+            <English>RIGHT MPD R2</English>
+            <Czech>PRAVÉ MPD R2</Czech>
+            <French>MPD DROIT R2</French>
+            <Spanish>MPD DERECHO R2</Spanish>
+            <Italian>MPD DESTRA R2</Italian>
+            <Polish>PRAWE MPD R2</Polish>
+            <Portuguese>MPD DIREITO R2</Portuguese>
+            <Russian>ПРАВЫЙ МПД R2</Russian>
+            <German>RECHTES MPD R2</German>
+            <Korean>우측 MPD R2</Korean>
+            <Japanese>右MPD R2</Japanese>
+            <Chinesesimp>右侧MPD R2</Chinesesimp>
+            <Turkish>SAĞ MPD R2</Turkish>
+            <Dutch>RECHTER MPD R2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R3">
+            <Original>RIGHT MPD R3</Original>
+            <English>RIGHT MPD R3</English>
+            <Czech>PRAVÉ MPD R3</Czech>
+            <French>MPD DROIT R3</French>
+            <Spanish>MPD DERECHO R3</Spanish>
+            <Italian>MPD DESTRA R3</Italian>
+            <Polish>PRAWE MPD R3</Polish>
+            <Portuguese>MPD DIREITO R3</Portuguese>
+            <Russian>ПРАВЫЙ МПД R3</Russian>
+            <German>RECHTES MPD R3</German>
+            <Korean>우측 MPD R3</Korean>
+            <Japanese>右MPD R3</Japanese>
+            <Chinesesimp>右侧MPD R3</Chinesesimp>
+            <Turkish>SAĞ MPD R3</Turkish>
+            <Dutch>RECHTER MPD R3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R4">
+            <Original>RIGHT MPD R4</Original>
+            <English>RIGHT MPD R4</English>
+            <Czech>PRAVÉ MPD R4</Czech>
+            <French>MPD DROIT R4</French>
+            <Spanish>MPD DERECHO R4</Spanish>
+            <Italian>MPD DESTRA R4</Italian>
+            <Polish>PRAWE MPD R4</Polish>
+            <Portuguese>MPD DIREITO R4</Portuguese>
+            <Russian>ПРАВЫЙ МПД R4</Russian>
+            <German>RECHTES MPD R4</German>
+            <Korean>우측 MPD R4</Korean>
+            <Japanese>右MPD R4</Japanese>
+            <Chinesesimp>右侧MPD R4</Chinesesimp>
+            <Turkish>SAĞ MPD R4</Turkish>
+            <Dutch>RECHTER MPD R4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R5">
+            <Original>RIGHT MPD R5</Original>
+            <English>RIGHT MPD R5</English>
+            <Czech>PRAVÉ MPD R5</Czech>
+            <French>MPD DROIT R5</French>
+            <Spanish>MPD DERECHO R5</Spanish>
+            <Italian>MPD DESTRA R5</Italian>
+            <Polish>PRAWE MPD R5</Polish>
+            <Portuguese>MPD DIREITO R5</Portuguese>
+            <Russian>ПРАВЫЙ МПД R5</Russian>
+            <German>RECHTES MPD R5</German>
+            <Korean>우측 MPD R5</Korean>
+            <Japanese>右MPD R5</Japanese>
+            <Chinesesimp>右侧MPD R5</Chinesesimp>
+            <Turkish>SAĞ MPD R5</Turkish>
+            <Dutch>RECHTER MPD R5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R6">
+            <Original>RIGHT MPD R6</Original>
+            <English>RIGHT MPD R6</English>
+            <Czech>PRAVÉ MPD R6</Czech>
+            <French>MPD DROIT R6</French>
+            <Spanish>MPD DERECHO R6</Spanish>
+            <Italian>MPD DESTRA R6</Italian>
+            <Polish>PRAWE MPD R6</Polish>
+            <Portuguese>MPD DIREITO R6</Portuguese>
+            <Russian>ПРАВЫЙ МПД R6</Russian>
+            <German>RECHTES MPD R6</German>
+            <Korean>우측 MPD R6</Korean>
+            <Japanese>右MPD R6</Japanese>
+            <Chinesesimp>右侧MPD R6</Chinesesimp>
+            <Turkish>SAĞ MPD R6</Turkish>
+            <Dutch>RECHTER MPD R6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T1">
+            <Original>RIGHT MPD T1</Original>
+            <English>RIGHT MPD T1</English>
+            <Czech>PRAVÉ MPD T1</Czech>
+            <French>MPD DROIT T1</French>
+            <Spanish>MPD DERECHO T1</Spanish>
+            <Italian>MPD DESTRA T1</Italian>
+            <Polish>PRAWE MPD T1</Polish>
+            <Portuguese>MPD DIREITO T1</Portuguese>
+            <Russian>ПРАВЫЙ МПД T1</Russian>
+            <German>RECHTES MPD T1</German>
+            <Korean>우측 MPD T1</Korean>
+            <Japanese>右MPD T1</Japanese>
+            <Chinesesimp>右侧MPD T1</Chinesesimp>
+            <Turkish>SAĞ MPD T1</Turkish>
+            <Dutch>RECHTER MPD T1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T2">
+            <Original>RIGHT MPD T2</Original>
+            <English>RIGHT MPD T2</English>
+            <Czech>PRAVÉ MPD T2</Czech>
+            <French>MPD DROIT T2</French>
+            <Spanish>MPD DERECHO T2</Spanish>
+            <Italian>MPD DESTRA T2</Italian>
+            <Polish>PRAWE MPD T2</Polish>
+            <Portuguese>MPD DIREITO T2</Portuguese>
+            <Russian>ПРАВЫЙ МПД T2</Russian>
+            <German>RECHTES MPD T2</German>
+            <Korean>우측 MPD T2</Korean>
+            <Japanese>右MPD T2</Japanese>
+            <Chinesesimp>右侧MPD T2</Chinesesimp>
+            <Turkish>SAĞ MPD T2</Turkish>
+            <Dutch>RECHTER MPD T2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T3">
+            <Original>RIGHT MPD T3</Original>
+            <English>RIGHT MPD T3</English>
+            <Czech>PRAVÉ MPD T3</Czech>
+            <French>MPD DROIT T3</French>
+            <Spanish>MPD DERECHO T3</Spanish>
+            <Italian>MPD DESTRA T3</Italian>
+            <Polish>PRAWE MPD T3</Polish>
+            <Portuguese>MPD DIREITO T3</Portuguese>
+            <Russian>ПРАВЫЙ МПД T3</Russian>
+            <German>RECHTES MPD T3</German>
+            <Korean>우측 MPD T3</Korean>
+            <Japanese>右MPD T3</Japanese>
+            <Chinesesimp>右侧MPD T3</Chinesesimp>
+            <Turkish>SAĞ MPD T3</Turkish>
+            <Dutch>RECHTER MPD T3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T4">
+            <Original>RIGHT MPD T4</Original>
+            <English>RIGHT MPD T4</English>
+            <Czech>PRAVÉ MPD T4</Czech>
+            <French>MPD DROIT T4</French>
+            <Spanish>MPD DERECHO T4</Spanish>
+            <Italian>MPD DESTRA T4</Italian>
+            <Polish>PRAWE MPD T4</Polish>
+            <Portuguese>MPD DIREITO T4</Portuguese>
+            <Russian>ПРАВЫЙ МПД T4</Russian>
+            <German>RECHTES MPD T4</German>
+            <Korean>우측 MPD T4</Korean>
+            <Japanese>右MPD T4</Japanese>
+            <Chinesesimp>右侧MPD T4</Chinesesimp>
+            <Turkish>SAĞ MPD T4</Turkish>
+            <Dutch>RECHTER MPD T4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T5">
+            <Original>RIGHT MPD T5</Original>
+            <English>RIGHT MPD T5</English>
+            <Czech>PRAVÉ MPD T5</Czech>
+            <French>MPD DROIT T5</French>
+            <Spanish>MPD DERECHO T5</Spanish>
+            <Italian>MPD DESTRA T5</Italian>
+            <Polish>PRAWE MPD T5</Polish>
+            <Portuguese>MPD DIREITO T5</Portuguese>
+            <Russian>ПРАВЫЙ МПД T5</Russian>
+            <German>RECHTES MPD T5</German>
+            <Korean>우측 MPD T5</Korean>
+            <Japanese>右MPD T5</Japanese>
+            <Chinesesimp>右侧MPD T5</Chinesesimp>
+            <Turkish>SAĞ MPD T5</Turkish>
+            <Dutch>RECHTER MPD T5</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T6">
+            <Original>RIGHT MPD T6</Original>
+            <English>RIGHT MPD T6</English>
+            <Czech>PRAVÉ MPD T6</Czech>
+            <French>MPD DROIT T6</French>
+            <Spanish>MPD DERECHO T6</Spanish>
+            <Italian>MPD DESTRA T6</Italian>
+            <Polish>PRAWE MPD T6</Polish>
+            <Portuguese>MPD DIREITO T6</Portuguese>
+            <Russian>ПРАВЫЙ МПД T6</Russian>
+            <German>RECHTES MPD T6</German>
+            <Korean>우측 MPD T6</Korean>
+            <Japanese>右MPD T6</Japanese>
+            <Chinesesimp>右侧MPD T6</Chinesesimp>
+            <Turkish>SAĞ MPD T6</Turkish>
+            <Dutch>RECHTER MPD T6</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_TSD">
+            <Original>RIGHT MPD TSD</Original>
+            <English>RIGHT MPD TSD</English>
+            <Czech>PRAVÉ MPD TSD</Czech>
+            <French>MPD DROIT TSD</French>
+            <Spanish>MPD DERECHO TSD</Spanish>
+            <Italian>MPD DESTRA TSD</Italian>
+            <Polish>PRAWE MPD TSD</Polish>
+            <Portuguese>MPD DIREITO TSD</Portuguese>
+            <Russian>ПРАВЫЙ МПД TSD</Russian>
+            <German>RECHTES MPD TSD</German>
+            <Korean>우측 MPD TSD</Korean>
+            <Japanese>右MPD TSD</Japanese>
+            <Chinesesimp>右侧MPD TSD</Chinesesimp>
+            <Turkish>SAĞ MPD TSD</Turkish>
+            <Dutch>RECHTER MPD TSD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_WPN">
+            <Original>RIGHT MPD WPN</Original>
+            <English>RIGHT MPD WPN</English>
+            <Czech>PRAVÉ MPD WPN</Czech>
+            <French>MPD DROIT WPN</French>
+            <Spanish>MPD DERECHO WPN</Spanish>
+            <Italian>MPD DESTRA WPN</Italian>
+            <Polish>PRAWE MPD WPN</Polish>
+            <Portuguese>MPD DIREITO WPN</Portuguese>
+            <Russian>ПРАВЫЙ МПД WPN</Russian>
+            <German>RECHTES MPD WPN</German>
+            <Korean>우측 MPD WPN</Korean>
+            <Japanese>右MPD WPN</Japanese>
+            <Chinesesimp>右侧MPD WPN</Chinesesimp>
+            <Turkish>SAĞ MPD WPN</Turkish>
+            <Dutch>RECHTER MPD WPN</Dutch>
         </Key>
     </Package>
 </Project>

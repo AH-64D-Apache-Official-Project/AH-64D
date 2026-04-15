@@ -1,13 +1,13 @@
 class Flt_Horizon {
-    type = horizon;
+    type = "horizon";
     angle = -5;
     pos0[] = {0.5, 0.5};
     pos10[] = {0.57, 0.57};
 };
 
 class Flt_RadarAlt {
-    type = linear;
-    source = altitudeAGL;
+    type = "linear";
+    source = "altitudeAGL";
     sourceScale = MPD_SCALE_METERS_FEET;
     min = 0;
     max = 200;
@@ -16,7 +16,7 @@ class Flt_RadarAlt {
 };
 
 class Flt_VerticalSpeed {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FLT_VERT_SPEED)
     sourceScale = MPD_SCALE_METERS_PER_SECOND_FEET_PER_MINUTE;
     max = 1000;
@@ -26,8 +26,8 @@ class Flt_VerticalSpeed {
 };
 
 class Flt_BankAngle {
-    type = rotational;
-    source = horizonBank;
+    type = "rotational";
+    source = "horizonBank";
     sourceScale = MPD_SCALE_RADIANS_DEGREES;
     min = -180;
     max = 180;
@@ -37,7 +37,7 @@ class Flt_BankAngle {
 };
 
 class Flt_TurnIndicator {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FLT_TURN)
     sourceScale = 1;
     min = -1.5;
@@ -47,7 +47,7 @@ class Flt_TurnIndicator {
 };
 
 class Flt_SlipIndicator {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FLT_SLIP)
     sourceScale = 1;
     min = -1.00;
@@ -57,7 +57,7 @@ class Flt_SlipIndicator {
 };
 
 class Flt_FlyToCueX {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FLT_FLY_TO_CUE_X)
     min = -20;
     max = 20;
@@ -80,7 +80,7 @@ class Flt_FlightPathVectorY : Flt_FlyToCueY {
 };
 
 class Flt_CommandHeading {
-    type = linear;
+    type = "linear";
     MPD_NUM_USER(MFD_IND_FLT_COMMAND_HEADING)
     min = -90;
     max = 90;
@@ -97,8 +97,8 @@ class Flt_AltSensorBearing : Flt_CommandHeading {
 };
 
 class Flt_HeadingTape {
-    type = linear;
-    source = heading;
+    type = "linear";
+    source = "heading";
     min = 0;
     max = 360;
     sourceScale = 1;

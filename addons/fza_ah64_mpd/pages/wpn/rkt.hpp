@@ -7,7 +7,7 @@ class VABs_Mode_Rkt {
         class Box {\
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_RKT_SELECTED_INV), invIndex));\
             class Line { \
-                type = line;\
+                type = "line";\
                 width = 3;\
                 points[] = {\
                     {{MPD_POS_BUTTON_L_X - 0.01, posY - 0.5 * MPD_TEXT_HEIGHT}, 1},\
@@ -27,7 +27,7 @@ class VABs_Mode_Rkt {
     WPN_RKT_INVENTORY(Inv5, 4, MPD_POS_BUTTON_LR_5_Y, MFD_TEXT_IND_WPN_RKT_INV_5_NAME, MFD_TEXT_IND_WPN_RKT_INV_5_QTY)
 
     class Static {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             // Burst limit box
@@ -37,7 +37,7 @@ class VABs_Mode_Rkt {
             {{0.11,MPD_POS_BUTTON_LR_3_Y + 5*MPD_TEXT_HEIGHT}, 1},
             {{0.11,MPD_POS_BUTTON_LR_5_Y + 2*MPD_TEXT_HEIGHT}, 1},
             {{0.02,MPD_POS_BUTTON_LR_5_Y + 2*MPD_TEXT_HEIGHT}, 1}, {},
-            MPD_POINTS_BOX_PAD(Null, 0.5-6.5*MPD_TEXT_WIDTH, 0.78, 13*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT, 0.01)
+            MPD_POINTS_BOX_PAD("Null", 0.5-6.5*MPD_TEXT_WIDTH, 0.78, 13*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT, 0.01)
         };
     };
     MPD_TEXT_C(Total_Rockets_Label, 0.5, 0.78, MPD_TEXT_STATIC("TOTAL ROCKETS"))
@@ -57,7 +57,7 @@ class VABs_Mode_Rkt {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 1));
         class static {
             color[] = {1,1,1,1};
-            type = line;
+            type = "line";
             width = 3;
             points[] = {
                 {{0.98, 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1},
@@ -126,7 +126,7 @@ class VABs_Mode_Rkt {
         MPD_BOX_L(LRFD,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 5)
         MPD_TEXT_L(LRFD,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FIRST"))
         //R6
-        MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, Wpn_Acq)
+        MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, "Wpn_Acq")
         MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
         //B6
         MPD_TEXT_C(MANRNG_Label, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANRNG>"))

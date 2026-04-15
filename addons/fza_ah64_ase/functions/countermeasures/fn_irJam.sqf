@@ -26,7 +26,7 @@ private _irJamPwr   = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 private _msnEquipUs = _heli animationPhase "msn_equip_american";
 private _irJamData  = _heli getVariable "fza_ah64_ase_irJamState";
 
-if (!_dcBusOn || (_heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH && _msnEquipUs == 1)) exitwith {
+if (!_dcBusOn || (_heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH && _msnEquipUs == 1)) exitWith {
     _irJamData set [0, ASE_IRJAM_STATE_WARM];
     _heli setVariable ["fza_ah64_ase_irJamState", _irJamData];
 };

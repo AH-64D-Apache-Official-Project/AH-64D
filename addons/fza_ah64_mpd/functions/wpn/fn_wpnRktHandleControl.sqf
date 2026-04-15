@@ -1,7 +1,7 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-if (_this call fza_mpd_fnc_wpnQuantityHandleControl) exitwith {};
+if (_this call fza_mpd_fnc_wpnQuantityHandleControl) exitWith {};
 
 switch (_control) do {
     case "l1": {

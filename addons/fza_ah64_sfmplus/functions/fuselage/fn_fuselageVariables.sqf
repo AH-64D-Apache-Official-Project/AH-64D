@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _config = configOf _heli >> "fza_sfmplus";
 
 _heli setVariable ["fza_sfmplus_fuselagePosition",              getArray  (_config >> "fuselagePosition")];
 

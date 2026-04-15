@@ -18,12 +18,12 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-if !(player == currentPilot _heli) exitwith {};
+if (player != currentPilot _heli) exitWith {};
 
 private _realRPM      = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 private _inducedFlow  = [0.0, 0.0, _realRPM * (8.0 + ((_heli getVariable "fza_sfmplus_collectiveOutput") * 5.0))];
-private _gravity      = _heli worldtomodelVisual (getPosVisual _heli vectoradd [0,0,9.806]);
-private _outputvector = (_heli getVariable "fza_sfmplus_velModelSpace") vectoradd _inducedFlow vectoradd _gravity;
+private _gravity      = _heli worldToModelVisual (getPosVisual _heli vectorAdd [0,0,9.806]);
+private _outputvector = (_heli getVariable "fza_sfmplus_velModelSpace") vectorAdd _inducedFlow vectorAdd _gravity;
 private _outputvectorNormalized = vectorNormalized _outputvector;
 private _pitch = asin ([0,-1,0] vectorDotProduct _outputvectorNormalized);
 private _bank  = asin ([-1,0,0] vectorDotProduct _outputvectorNormalized);

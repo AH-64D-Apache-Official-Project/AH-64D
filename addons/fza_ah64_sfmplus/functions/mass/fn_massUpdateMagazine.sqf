@@ -27,7 +27,7 @@ private _magMass  = 0;
     if (["m230", str _magName] call BIS_fnc_inString) then {
         _curAmmo = _magAmmo;
     };
-} foreach magazinesAmmo _heli;
+} forEach magazinesAmmo _heli;
 
 _magMass = _30mmMass * _curAmmo;
 

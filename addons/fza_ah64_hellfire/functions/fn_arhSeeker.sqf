@@ -32,7 +32,7 @@ _seekerStateParams params ["_isActive", "_timeWhenActive", "_expectedTargetPos",
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 private _target = objNull;
 
-if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitwith {
+if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitWith {
     _expectedTargetPos
 };
 
@@ -40,13 +40,13 @@ if !_isActive then {
     _seekerStateParams set [0, true];
 };
 
-if (([_projectile, [getpos _lastTarget, speed _lastTarget, _lastTarget], true] call fza_hellfire_fnc_limaLoblCheck)#1) then {
+if (([_projectile, [getPos _lastTarget, speed _lastTarget, _lastTarget], true] call fza_hellfire_fnc_limaLoblCheck)#1) then {
     _target = _lastTarget;
 } else {
     if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
         _seekerStateParams set [4, CBA_missionTime];
         private _searchPos = _calulatedSearchPos;
-        if (_searchPos isEqualTo [0, 0, 0]) exitwith {};
+        if (_searchPos isEqualTo [0, 0, 0]) exitWith {};
         private _distanceToExpectedTarget = FCR_LIMIT_FORCE_LOBL_RANGE min ((getPosASL _projectile) vectorDistance _searchPos);
 
         // Simulate how much the seeker can see at the ground
@@ -63,8 +63,8 @@ if (([_projectile, [getpos _lastTarget, speed _lastTarget, _lastTarget], true] c
             _seekerBaseRadiusAdjusted = _seekerBaseRadiusAtGround;
         };
         // Look in front of seeker for any targets
-        private _nearestObjects = nearestObjects [ASLtoAGL _searchPos, ["all"], _seekerBaseRadiusAdjusted, false];
-        _nearestObjects = _nearestObjects select {([_projectile, [getpos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck)#1};
+        private _nearestObjects = nearestObjects [ASLToAGL _searchPos, ["all"], _seekerBaseRadiusAdjusted, false];
+        _nearestObjects = _nearestObjects select {([_projectile, [getPos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck)#1};
         // Select closest object to the expected position to be the current radar target
         if (_nearestObjects isEqualTo []) exitWith {
             _projectile setMissileTarget objNull;
@@ -111,7 +111,7 @@ if !(isNull _target) then {
         _targetData set [4, _acceleration];
     };
 } else {
-    _launchParams set [0, objnull];
+    _launchParams set [0, objNull];
     _seekerStateParams set [7, true];
 };
 

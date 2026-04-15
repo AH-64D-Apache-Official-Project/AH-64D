@@ -20,7 +20,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+if (currentPilot _heli != player || !local _heli) exitWith {};
 
 private _paused             = isNull findDisplay 49;
 private _chatting           = isNull findDisplay 24;
@@ -31,8 +31,8 @@ private _inInventory        = isNull findDisplay 602;
 
 private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn;
 
-private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
+private _config             = configOf _heli >> "Fza_SfmPlus";
+private _configVehicles     = configOf _heli;
 private _inputLagValue      = getNumber (_config >> "inputLagValue");
 
 private _hydFailure         = false;
@@ -293,7 +293,6 @@ if (_isZeus && (!_hydFailure || _emerHydOn)) then {
     _heli setVariable ["fza_sfmplus_cyclicFwdAft",     0.0];
     _heli setVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
     _heli setVariable ["fza_sfmplus_pedalLeftRight",   0.0];
-    _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveOutput];
 };
 
 if (fza_ah64_lastFrameGetIn) then {

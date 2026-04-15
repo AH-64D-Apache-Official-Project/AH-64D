@@ -13,7 +13,7 @@ MPD_TEXT_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTI
 
 ///////////////// R ///////////////
 //R6
-MPD_ACQ_SRC(Acq, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC, Eng_Acq)
+MPD_ACQ_SRC(Acq, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC, "Eng_Acq")
 MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
 ///////////////// B ///////////////
@@ -182,10 +182,10 @@ COLOR_R_G_Y_R(Nr,     MFD_IND_ENG_NR, 95, 105, 110, ENG_NR_TAPE)
 class StarterBox {
     condition = C_COND(C_MPD_USER(MFD_IND_ENG_START));
     class StarterBox {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-            MPD_POINTS_BOX(Null, 0.72, 0.45, 0.26, (5*MPD_TEXT_HEIGHT))
+            MPD_POINTS_BOX("Null", 0.72, 0.45, 0.26, (5*MPD_TEXT_HEIGHT))
         };
     };
     MPD_TEXT_C(NG_SIDE_START, ENG_SIDE_DATA_X, 0.45+4*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("START"))
@@ -228,7 +228,7 @@ class Limits_Red {
     color[] = {1,0,0,1};
 
     class Lines {
-        type = line;
+        type = "line";
         width = 12;
         points[] = {
             {"Eng_Torque_Limit_Zone_1", 1, "Eng_Torque_Limit_Zone_2", 1, "Eng_Torque_Limit_Zone_3", {0.115 - 0.095, ENG_TAPE_BOTTOM_Y}, 1},
@@ -242,7 +242,7 @@ class Limits_Red {
     };
 
     class Polygons {
-        type = polygon;
+        type = "polygon";
         points[] = {
             LIMITS_DIAMOND("Eng_Torque_Limit_Zone_1" COMMA 1 COMMA "Eng_Torque_Limit_Zone_2" COMMA 1 COMMA "Eng_Torque_Limit_Zone_3", 0.115, ENG_TAPE_BOTTOM_Y),
             LIMITS_DIAMOND("Eng_Tgt_Limit_Zone_1" COMMA 1 COMMA "Eng_Tgt_Limit_Zone_2" COMMA 1 COMMA "Eng_Tgt_Limit_Zone_3", 0.33, ENG_TAPE_BOTTOM_Y),
@@ -255,14 +255,14 @@ class Limits_Red {
 class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 3));
     class WCA_Box{
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             //Center lines
             {{0.496, 0.6}, 1}, {{0.496, 0.6 + 6*MPD_TEXT_HEIGHT}, 1}, {},
             {{0.504, 0.6}, 1}, {{0.504, 0.6 + 6*MPD_TEXT_HEIGHT}, 1}, {},
             //Curved box
-            MPD_POINTS_BOX(Null, (0.05), 0.60, (0.9), 6*MPD_TEXT_HEIGHT) 
+            MPD_POINTS_BOX("Null", (0.05), 0.60, (0.9), 6*MPD_TEXT_HEIGHT) 
         };
     };
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_1, 0.05, 0.6, 0)
@@ -273,29 +273,29 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
 };
 
 class Hydraulics_Box {
-    type = line;
+    type = "line";
     width = 3;
     points[] = {
          MPD_POINTS_BOX(Eng_Hyd_Box, ENG_HYDRAULICS_X - 0.015, ENG_HYDRAULICS_Y, (5*MPD_TEXT_WIDTH + 4*MPD_TEXT_WIDTH + 0.03), (4*MPD_TEXT_HEIGHT+0.01))
     };
 };
 
-MPD_TEXT_BONE_R(Hydraulics_Label,      Eng_Hyd_Box, ENG_HYDRAULICS_X, ENG_HYDRAULICS_Y, MPD_TEXT_STATIC("HYD PSI"))
-MPD_TEXT_BONE_R(Hydraulics_Pri_Label,  Eng_Hyd_Box, (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("PRI"))
-MPD_TEXT_BONE_R(Hydraulics_Util_Label, Eng_Hyd_Box, (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+2*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("UTIL"))
-MPD_TEXT_BONE_R(Hydraulics_Acc_Label,  Eng_Hyd_Box, (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("ACC"))
-MPD_TEXT_BONE_R(Hydraulics_Pri,        Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+MPD_TEXT_HEIGHT+0.01),    MPD_TEXT_USER(MFD_TEXT_IND_ENG_PRI_HYD_PSI))//MPD_TEXT_STATIC("2970"))
-MPD_TEXT_BONE_R(Hydraulics_Util,       Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+2*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_USER(MFD_TEXT_IND_ENG_UTIL_HYD_PSI))//MPD_TEXT_STATIC("2970"))
-MPD_TEXT_BONE_R(Hydraulics_Acc,        Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_USER(MFD_TEXT_IND_ENG_ACC_HYD_PSI))//MPD_TEXT_STATIC("3000"))
+MPD_TEXT_BONE_R(Hydraulics_Label,      "Eng_Hyd_Box", ENG_HYDRAULICS_X, ENG_HYDRAULICS_Y, MPD_TEXT_STATIC("HYD PSI"))
+MPD_TEXT_BONE_R(Hydraulics_Pri_Label,  "Eng_Hyd_Box", (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("PRI"))
+MPD_TEXT_BONE_R(Hydraulics_Util_Label, "Eng_Hyd_Box", (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+2*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("UTIL"))
+MPD_TEXT_BONE_R(Hydraulics_Acc_Label,  "Eng_Hyd_Box", (ENG_HYDRAULICS_X + MPD_TEXT_WIDTH/2), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("ACC"))
+MPD_TEXT_BONE_R(Hydraulics_Pri,        "Eng_Hyd_Box", (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+MPD_TEXT_HEIGHT+0.01),    MPD_TEXT_USER(MFD_TEXT_IND_ENG_PRI_HYD_PSI))//MPD_TEXT_STATIC("2970"))
+MPD_TEXT_BONE_R(Hydraulics_Util,       "Eng_Hyd_Box", (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+2*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_USER(MFD_TEXT_IND_ENG_UTIL_HYD_PSI))//MPD_TEXT_STATIC("2970"))
+MPD_TEXT_BONE_R(Hydraulics_Acc,        "Eng_Hyd_Box", (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_USER(MFD_TEXT_IND_ENG_ACC_HYD_PSI))//MPD_TEXT_STATIC("3000"))
 
 class GroundFormatOnly {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 1));
 
     class GroundFormatBoxes {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
-            MPD_POINTS_BOX(Null, ENG_OIL_PSI_X - 0.015, ENG_OIL_PSI_Y, (5*MPD_TEXT_WIDTH + 4*MPD_TEXT_WIDTH + 0.03), (4*MPD_TEXT_HEIGHT+0.01))
+            MPD_POINTS_BOX("Null", ENG_OIL_PSI_X - 0.015, ENG_OIL_PSI_Y, (5*MPD_TEXT_WIDTH + 4*MPD_TEXT_WIDTH + 0.03), (4*MPD_TEXT_HEIGHT+0.01))
         };
     };
 

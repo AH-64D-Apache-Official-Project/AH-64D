@@ -78,7 +78,7 @@ switch (_control) do {
 
     //point selection
     case "r1": {
-        if (_pageType == 6) exitwith {};
+        if (_pageType == 6) exitWith {};
         if (_pointselected == 1) then {
             _state set ["PointSelected", -1];
         } else {
@@ -86,7 +86,7 @@ switch (_control) do {
         };
     };
     case "r2": {
-        if (_pageType == 6) exitwith {};
+        if (_pageType == 6) exitWith {};
         if (_pointselected == 2) then {
             _state set ["PointSelected", -1];
         } else {
@@ -94,8 +94,8 @@ switch (_control) do {
         };
     };
     case "r3": {
-        if (_pageType == 6) exitwith {};
-        if (_pageType == 5 && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitWith {};
+        if (_pageType == 5 && _coordPage == 9) exitWith {};
         if (_pointselected == 3) then {
             _state set ["PointSelected", -1];
         } else {
@@ -103,8 +103,8 @@ switch (_control) do {
         };
     };
     case "r4": {
-        if (_pageType == 6) exitwith {};
-        if (_pageType == 5 && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitWith {};
+        if (_pageType == 5 && _coordPage == 9) exitWith {};
         if (_pointselected == 4) then {
             _state set ["PointSelected", -1];
         } else {
@@ -112,8 +112,8 @@ switch (_control) do {
         };
     };
     case "r5": {
-        if (_pageType == 6) exitwith {};
-        if (_pageType == 5 && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitWith {};
+        if (_pageType == 5 && _coordPage == 9) exitWith {};
         if (_pointselected == 5) then {
             _state set ["PointSelected", -1];
         } else {
@@ -121,8 +121,8 @@ switch (_control) do {
         };
     };
     case "r6": {
-        if (_pageType == 6) exitwith {};
-        if (_pageType == 5 && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitWith {};
+        if (_pageType == 5 && _coordPage == 9) exitWith {};
         if (_pointselected == 6) then {
             _state set ["PointSelected", -1];
         } else {

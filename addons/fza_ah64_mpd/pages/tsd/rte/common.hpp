@@ -4,7 +4,7 @@ class rteCommon {
     class occluders {
         color[] = {0,0,0,1};
         class polygons {
-            type = polygon;
+            type = "polygon";
             points[] = {
                 {
                     {{0.99, 0.27}, 1},
@@ -37,7 +37,7 @@ class rteCommon {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), -1));
             MPD_TEXT_L(SELRTE_03, 0.87, 0.5, MPD_TEXT_STATIC("?"))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -53,7 +53,7 @@ class rteCommon {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 1));
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5                       , MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -70,7 +70,7 @@ class rteCommon {
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5 - 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             MPD_TEXT_L(SELRTE_02, 0.87, 0.5 + 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T2))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -88,7 +88,7 @@ class rteCommon {
             MPD_TEXT_L(SELRTE_02, 0.87, 0.5                       , MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T2))
             MPD_TEXT_L(SELRTE_03, 0.87, 0.5 + 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T3))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -107,7 +107,7 @@ class rteCommon {
             MPD_TEXT_L(SELRTE_03, 0.87, 0.5 + 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T3))
             MPD_TEXT_L(SELRTE_04, 0.87, 0.5 + 1.515*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T4))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -127,7 +127,7 @@ class rteCommon {
             MPD_TEXT_L(SELRTE_04, 0.87, 0.5 + 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T4))
             MPD_TEXT_L(SELRTE_05, 0.87, 0.5 + 2.02*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T5))
             class lines {
-                type  = line;
+                type  = "line";
                 width = 3;
                 points[] = {
                     {{0.97, 0.270},1},
@@ -219,7 +219,7 @@ class rteCommon {
         };
     };
     class scroll_arrows {
-        type = line;
+        type = "line";
         width = 3;
         points[] = {
             {{0.966, 0.178}, 1},//left scroll arrow

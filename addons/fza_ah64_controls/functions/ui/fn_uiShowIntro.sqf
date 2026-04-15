@@ -53,8 +53,8 @@ _colorWarning = _colorWarning call BIS_fnc_colorRGBtoHTML;
 
 //Definitions of controls influenced by Spoiler button
 private _text1 = _display displayCtrl 1100;
-private _buttonSpoiler = _display displayctrl 2400;
-private _textSpoiler = _display displayctrl 1101;
+private _buttonSpoiler = _display displayCtrl 2400;
+private _textSpoiler = _display displayCtrl 1101;
 private _text2 = _display displayCtrl 1102;
 
 //Fill only the first text
@@ -65,7 +65,7 @@ private _positionText1 = ctrlPosition _text1;
 private _yText1 = _positionText1 select 1;
 private _hText1 = ctrlTextHeight _text1;
 _text1 ctrlSetPosition [_positionText1 select 0, _yText1, _positionText1 select 2, _hText1];
-_text1 ctrlcommit 0;
+_text1 ctrlCommit 0;
 
 //Hide second text, spoiler text and button
 _buttonSpoiler ctrlSetFade 1;

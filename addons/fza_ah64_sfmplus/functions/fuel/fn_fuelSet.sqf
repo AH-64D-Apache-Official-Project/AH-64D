@@ -25,10 +25,10 @@ private _pylonMagazines = getPylonMagazines _heli;
 
 private _percentFuel    = fuel _heli;
 private _IAFSInstalled  = _heli getVariable "fza_ah64_IAFSInstalled";
-private _maxFwdFuelMass = _heli getVariable "fza_sfmplus_maxFwdFuelMass";
-private _maxCtrFuelMass = _heli getVariable "fza_sfmplus_maxCtrFuelMass";
-private _maxAftFuelMass = _heli getVariable "fza_sfmplus_maxAftFuelMass";
-private _maxTnkFuelMass = _heli getVariable "fza_sfmplus_maxExtFuelMass";
+private _maxFwdFuelMass = _heli getVariable ["fza_sfmplus_maxFwdFuelMass", 0];
+private _maxCtrFuelMass = _heli getVariable ["fza_sfmplus_maxCtrFuelMass", 0];
+private _maxAftFuelMass = _heli getVariable ["fza_sfmplus_maxAftFuelMass", 0];
+private _maxTnkFuelMass = _heli getVariable ["fza_sfmplus_maxExtFuelMass", 0];
 
 private _totFuelMass    = 0.0;
 private _fwdFuelMass    = 0.0;

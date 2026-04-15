@@ -1,5 +1,5 @@
 class RouteReview {
-    MPD_BOX_R(ADD,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
+    MPD_BOX_R(Btn_Add,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
     MPD_TEXT_R(RVW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("RVW"))
     
     class visible {
@@ -9,7 +9,7 @@ class RouteReview {
             color[] = {0,0,0,1};
 
             class Polygons {
-                type = polygon;
+                type = "polygon";
                 points[] = {
                     {
                         {{0.1, 0.9-3*MPD_TEXT_HEIGHT}, 1},
@@ -22,7 +22,7 @@ class RouteReview {
         };
 
         class lines {
-            type  = line;
+            type  = "line";
             width = 3;
             points[] = {
                 {{0.1, 0.9-3*MPD_TEXT_HEIGHT},1},
