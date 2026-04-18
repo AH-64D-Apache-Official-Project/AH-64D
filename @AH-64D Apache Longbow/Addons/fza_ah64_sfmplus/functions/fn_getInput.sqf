@@ -254,7 +254,7 @@ if (!_hydFailure || _emerHydOn) then {
         _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
         //systemChat format ["KB collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     } else {
-        private _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
         _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
         //systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
