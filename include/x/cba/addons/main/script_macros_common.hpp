@@ -8,6 +8,9 @@
         Sickboy <sb_at_dev-heaven.net> and Spooner
 */
 
+#ifndef FZA_LOCAL_CBA_SCRIPT_MACROS_COMMON_HPP
+#define FZA_LOCAL_CBA_SCRIPT_MACROS_COMMON_HPP
+
 /* ****************************************************
  New - Should be exported to general addon
  Aim:
@@ -1831,3 +1834,5 @@ Author:
     commy2
 ------------------------------------------- */
 #define FILE_EXISTS(FILE) (fileExists (FILE))
+
+#endif
