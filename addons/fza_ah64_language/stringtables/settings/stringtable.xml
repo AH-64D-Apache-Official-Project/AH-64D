@@ -283,7 +283,7 @@
             <Polish>NIE DZIAŁA Z STICKY YAW! Po włączeniu pedały są automatycznie zarządzane przez AI</Polish>
             <Portuguese>NÃO FUNCIONA COM YAW PEGAJOSO! Quando ativado, os pedais são gerenciados automaticamente pela IA</Portuguese>
             <Russian>НЕ РАБОТАЕТ С ЛИПКИМ РЫСКАНИЕМ! При включении педали автоматически управляются ИИ</Russian>
-            <German>FUNKTIONIERT NICHT MIT STICKY YAW! Wenn aktiviert, werden die Pedale automatisch von der KI verwaltet</German>
+            <German>FUNKTIONIERT NICHT MIT PERSISTENTEM YAW! Wenn aktiviert, werden die Pedale automatisch von der KI verwaltet</German>
             <Korean>STICKY YAW와 함께 작동하지 않습니다! 활성화되면 페달이 AI에 의해 자동으로 관리됩니다</Korean>
             <Japanese>STICKY YAWと連動しません。 有効にすると、ペダルはAIによって自動的に管理されます</Japanese>
             <Chinesesimp>不适用于粘性偏航! 启用后，踏板由AI自动管理</Chinesesimp>
@@ -300,7 +300,7 @@
             <Polish>Klawiatura Lepkie Pochylenie</Polish>
             <Portuguese>Teclado Pitch Pegajoso</Portuguese>
             <Russian>Клавиатура Липкий Тангаж</Russian>
-            <German>Tastatur Sticky Pitch</German>
+            <German>Tastatur Persistenter Pitch</German>
             <Korean>키보드 고정 피치</Korean>
             <Japanese>キーボード粘性ピッチ</Japanese>
             <Chinesesimp>键盘粘性俯仰</Chinesesimp>
@@ -334,7 +334,7 @@
             <Polish>Klawiatura Lepkie Przechylenie</Polish>
             <Portuguese>Teclado Roll Pegajoso</Portuguese>
             <Russian>Клавиатура Липкий Крен</Russian>
-            <German>Tastatur Sticky Roll</German>
+            <German>Tastatur Persistenter Roll</German>
             <Korean>키보드 고정 롤</Korean>
             <Japanese>キーボード粘性ロール</Japanese>
             <Chinesesimp>键盘粘性横滚</Chinesesimp>
@@ -368,7 +368,7 @@
             <Polish>Klawiatura Lepkie Odchylenie</Polish>
             <Portuguese>Teclado Yaw Pegajoso</Portuguese>
             <Russian>Клавиатура Липкий Рыскание</Russian>
-            <German>Tastatur Sticky Yaw</German>
+            <German>Tastatur Persistenter Yaw</German>
             <Korean>키보드 고정 요</Korean>
             <Japanese>キーボード粘性ヨー</Japanese>
             <Chinesesimp>键盘粘性偏航</Chinesesimp>
@@ -436,7 +436,7 @@
             <Polish>Gałka Głównej Głośności</Polish>
             <Portuguese>Botão Volume Mestre</Portuguese>
             <Russian>Кнопка Основного Громкости</Russian>
-            <German>Hauptvolumen Regler</German>
+            <German>Hauptlautstärke Regler</German>
             <Korean>마스터 볼륨 노브</Korean>
             <Japanese>マスターボリュームノブ</Japanese>
             <Chinesesimp>主音量旋钮</Chinesesimp>
@@ -538,7 +538,7 @@
             <Polish>Tryb Centralnego Trimmera Pedału</Polish>
             <Portuguese>Modo Trim Centro Pedal</Portuguese>
             <Russian>Режим Центральной Подрезки Педали</Russian>
-            <German>Pedal Mittel Trim Modus</German>
+            <German>Pedal Mittelpunkt Trim Modus</German>
             <Korean>페달 중앙 트림 모드</Korean>
             <Japanese>ペダル中央トリムモード</Japanese>
             <Chinesesimp>踏板中心配平模式</Chinesesimp>
@@ -674,7 +674,7 @@
             <Polish>Cykliczne bez Sprężyny</Polish>
             <Portuguese>Cíclico sem Mola</Portuguese>
             <Russian>Циклический без Пружины</Russian>
-            <German>Federlose Zyklische</German>
+            <German>Federloses Cyclic</German>
             <Korean>스프링 없는 사이클릭</Korean>
             <Japanese>スプリングレスサイクリック</Japanese>
             <Chinesesimp>无弹簧循环</Chinesesimp>
@@ -691,7 +691,7 @@
             <Polish>Po włączeniu cykliczny trim siły jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub HOTAS bez sprężyny</Polish>
             <Portuguese>Quando ativado, o trim de força cíclico é desabilitado. Isso é para usuários com feedback de força ou HOTAS sem mola</Portuguese>
             <Russian>При включении циклический силовой триммер отключен. Это для пользователей с обратной связью силы или HOTAS без пружины</Russian>
-            <German>Wenn aktiviert, ist das zyklische Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federloser HOTAS</German>
+            <German>Wenn aktiviert, ist das Cyclic Zwangstrim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federloser HOTAS</German>
             <Korean>활성화되면 사이클릭 포스 트림이 비활성화됩니다. 이것은 포스 피드백 또는 스프링 없는 HOTAS를 가진 사용자용입니다</Korean>
             <Japanese>有効にすると、サイクリック力トリムが無効になります。これはフォースフィードバックまたはスプリングレスHOTASを備えたユーザー向けです</Japanese>
             <Chinesesimp>启用后，循环力配平被禁用。这是为具有力反馈或无弹簧HOTAS的用户设计的</Chinesesimp>
@@ -725,7 +725,7 @@
             <Polish>Po włączeniu pedał силового trimmera jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub pedałami bez sprężyny. Ta opcja również wyłącza Utrzymywanie kierunku</Polish>
             <Portuguese>Quando ativado, o trim de força do pedal é desabilitado. Isso é para usuários com feedback de força ou pedais sem mola. Esta opção também desativa Heading Hold</Portuguese>
             <Russian>При включении педальный силовой триммер отключен. Это для пользователей с обратной связью силы или педалями без пружины. Эта опция также отключает удержание курса</Russian>
-            <German>Wenn aktiviert, ist das Pedal Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federlosen Pedalen. Diese Option deaktiviert auch Heading Hold</German>
+            <German>Wenn aktiviert, ist das Pedal Zwangstrim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federlosen Pedalen. Diese Option deaktiviert auch Heading Hold</German>
             <Korean>활성화되면 페달 포스 트림이 비활성화됩니다. 이것은 포스 피드백 또는 스프링 없는 페달을 가진 사용자용입니다. 이 옵션은 Heading Hold도 비활성화합니다</Korean>
             <Japanese>有効にすると、ペダル力トリムが無効になります。これはフォースフィードバックまたはスプリングレスペダルを備えたユーザー向けです。このオプションはHeading Holdも無効にします</Japanese>
             <Chinesesimp>启用后，踏板力配平被禁用。这是为具有力反馈或无弹簧踏板的用户设计的。此选项也禁用航向保持</Chinesesimp>
@@ -810,7 +810,7 @@
             <Polish>Pokaż Informacje Vanilla Targeting (wymagany restart)</Polish>
             <Portuguese>Mostrar Informações Vanilla Targeting (reinicialização necessária)</Portuguese>
             <Russian>Показать Информацию Vanilla Targeting (требуется перезагрузка)</Russian>
-            <German>Vanilla Targeting Information Anzeigen (Neustart erforderlich)</German>
+            <German>Vanilla Zielausrichtungsinformationen Anzeigen (Neustart erforderlich)</German>
             <Korean>Vanilla 타겟팅 정보 표시 (재시작 필요)</Korean>
             <Japanese>Vanilla ターゲティング情報を表示 (再起動が必要)</Japanese>
             <Chinesesimp>显示Vanilla定向信息(需要重启)</Chinesesimp>
@@ -827,7 +827,7 @@
             <Polish>Wyłączenie tego ukryje informacje vanilla targeting (wymagany restart)</Polish>
             <Portuguese>Desabilitar isso ocultará informações vanilla targeting (reinicialização necessária)</Portuguese>
             <Russian>Отключение скроет информацию vanilla targeting (требуется перезагрузка)</Russian>
-            <German>Das Deaktivieren blendet Vanilla Targeting Information aus (Neustart erforderlich)</German>
+            <German>Das Deaktivieren blendet Vanilla Zielausrichtungsinformationen aus (Neustart erforderlich)</German>
             <Korean>비활성화하면 Vanilla 타겟팅 정보가 숨겨집니다 (재시작 필요)</Korean>
             <Japanese>これを無効にすると、Vanillaターゲティング情報が非表示になります（再起動が必要）</Japanese>
             <Chinesesimp>禁用此选项将隐藏Vanilla定向信息(需要重启)</Chinesesimp>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+
+        <!-- ////ANIMATIONS//// -->
+
+        <!-- ////TEXTURES//// -->
+
+        <!-- ////OBJECTS//// -->
         <Key ID="STR_FZA_AH64_1200MAGAZINE">
             <Original>AH-64 1200 Magazine</Original>
             <English>AH-64 1200 Magazine</English>
@@ -472,7 +478,7 @@
             <Polish>AH-64D Block I to śmigłowiec szturmowy przeciwpancerny. Charakterystyczne cechy to: czteropłatkowy wirnik główny, wirnik ogonowy w kształcie X, kwadratowa kabina z dwoma oddzielnymi przegrodami z boków, dwa krótkie skrzydła z dwoma pylonami każde, dwa koła główne i koło ogona, wieża zamontowana na brodzie i długi zaokrąglony kadłub ze stabilizatorem z tyłu. Produkcja rozpoczęła się w 1982 roku, a pierwsza jednostka została wdrożona w 1986 roku. Do 1993 roku armia USA miała ponad 800 Apache'ów w służbie. Po raz pierwszy został użyty w boju podczas operacji Just Cause, inwazji Panamy w 1989 roku. Podczas operacji Desert Storm w 1991 roku Apache wykonali pierwszy atak konfliktu, niszcząc irackie radary wczesnego ostrzegania. AH-64D wyposażony jest w dwa silniki General Electric T700-GE-701C o łącznej mocy 3392 KM, co pozwala samolotowi osiągnąć maksymalną czystą prędkość około 227 mph (365 km/h).</Polish>
             <Portuguese>O AH-64D Block I é um helicóptero de ataque anti-tanque. As características definidoras são: rotor principal de quatro pás, rotor de cauda em forma de X, cabine cúbica com dois compartimentos distintos nas laterais, duas asas curtas com dois pilones cada, duas rodas principais e uma roda de cauda, uma torre montada no queixo e um fuselagem alongado e arredondado com um estabilizador na traseira. A produção começou em 1982 e a primeira unidade foi implantada em 1986. Em 1993, o Exército dos EUA tinha mais de 800 Apache em serviço. Ele foi usado pela primeira vez em combate durante a Operação Just Cause, a invasão do Panamá em 1989. Durante a Tempestade do Deserto em 1991, os Apache realizaram o primeiro ataque do conflito destruindo os radares de alerta antecipado do Iraque. O AH-64D é equipado com dois motores General Electric T700-GE-701C com um total de 3392 hp.</Portuguese>
             <Russian>AH-64D Block I - это противотанковый ударный вертолет. Отличительные характеристики: четырехлопастной главный ротор, крестообразный рулевой ротор, прямоугольная кабина с двумя отличными отсеками по бокам, два коротких крыла с двумя пилонами каждое, два основных колеса и хвостовое колесо, пушка, установленная на подбородке, и длинный закругленный фюзеляж со стабилизатором в хвосте. Производство началось в 1982 году, первая единица была развернута в 1986 году. К 1993 году армия США имела в боевом составе более 800 Apache. Впервые был использован в бою во время операции Just Cause, вторжения в Панаму в 1989 году. Во время операции Desert Storm в 1991 году Apache провели первый удар этого конфликта, уничтожив иракские радары дальнего обнаружения. AH-64D оснащен двумя газотурбинными двигателями General Electric T700-GE-701C общей мощностью 3392 л.с.</Russian>
-            <German>Der AH-64D Block I ist ein Panzerabwehrhubschrauber. Die Kennzeichen sind: Vierbatt-Hauptrotor, X-förmiger Heckrotor, ein kastenförmiges Cockpit mit zwei unterschiedlichen Buchten an den Seiten, zwei Stummelflügel mit je zwei Pylonen, zwei Haupträder und ein Bugrad, ein am Kinn montierter Turm und ein langer abgerundeter Rumpf mit einem Stabilisator am Heck. Die Produktion begann 1982 und die erste Einheit wurde 1986 eingesetzt. Bis 1993 hatte die US-Armee über 800 Apaches im Einsatz. Sie wurde erstmals im Kampf während Operation Just Cause, der Invasion Panamas 1989, eingesetzt. Während Desert Storm 1991 führten Apaches den ersten Angriff des Konflikts durch und zerstörten irakische Frühwarnsysteme. Der AH-64D ist mit zwei General Electric T700-GE-701C-Triebwerken ausgestattet, die insgesamt 3392 PS leisten und dem Flugzeug eine maximale saubere Geschwindigkeit von etwa 227 mph (365 km/h) ermöglichen.</German>
+            <German>Der AH-64D Block I ist ein Panzerabwehr-Kampfhubschrauber. Die Kennzeichen sind: Vierbatt-Hauptrotor, X-förmiger Heckrotor, ein kastenförmiges Cockpit mit zwei unterschiedlichen Buchten an den Seiten, zwei Stummelflügel mit je zwei Pylonen, zwei Haupträder und ein Bugrad, ein am Kinn montierter Turm und ein langer abgerundeter Rumpf mit einem Stabilisator am Heck. Die Produktion begann 1982 und die erste Einheit wurde 1986 eingesetzt. Bis 1993 hatte die US-Armee über 800 Apaches im Einsatz. Sie wurde erstmals im Kampf während Operation Just Cause, der Invasion Panamas 1989, eingesetzt. Während Desert Storm 1991 führten Apaches den ersten Angriff des Konflikts durch und zerstörten irakische Frühwarnsysteme. Der AH-64D ist mit zwei General Electric T700-GE-701C-Triebwerken ausgestattet, die insgesamt 3392 PS leisten und dem Flugzeug eine maximale saubere Geschwindigkeit von etwa 227 mph (365 km/h) ermöglichen.</German>
             <Korean>AH-64D Block I는 대전차 공격 헬리콥터입니다. 특징적인 특성은 4개 날개 주로터, X자 꼬리 로터, 옆면에 두 개의 별개 베이가 있는 박스형 조종실, 각각 2개의 파일론이 있는 2개의 스텁 날개, 2개의 주바퀴 및 꼬리 바퀴, 턱에 장착된 포탑 및 뒤쪽에 안정화 장치가 있는 긴 둥근 동체입니다. 생산은 1982년에 시작되었고 첫 번째 부대는 1986년에 배치되었습니다. 1993년까지 미군은 800대 이상의 Apache를 운용했습니다. Just Cause 작전인 1989년 파나마 침공 당시 처음 사용되었습니다. 1991년 사막 폭풍 작전에서 Apache는 이라크 조기 경보 레이더를 파괴하여 분쟁의 첫 번째 공격을 수행했습니다. AH-64D는 총 3392마력의 General Electric T700-GE-701C 엔진 2개로 장비되어 있습니다.</Korean>
             <Japanese>AH-64D Block Iは対戦車攻撃ヘリコプターです。特徴的な特性は、4枚羽根のメインロータ、X字型テールロータ、側面に2つの個別のベイがある直方体コックピット、各2つのパイロンを備えた2つのスタブウィング、2つのメインホイールと尾輪、あごに取り付けられたタレット、および後部に安定装置付きの長くて丸いテール​​ブームです。生産は1982年に開始され、最初のユニットは1986年に配備されました。1993年までに、米陸軍は800以上のApacheを運用していました。ジャストコーズ作戦中に初めて使用されました。1991年の砂漠の嵐作戦中に、Apacheはイラクの早期警戒レーダーを破壊してこの紛争の最初の攻撃を実行しました。AH-64Dには、総3392馬力のGeneral Electric T700-GE-701Cエンジン2基が搭載されています。</Japanese>
             <Chinesesimp>AH-64D Block I是一种反坦克攻击直升机。其特点是：四叶片主旋翼、X形尾桨、方形座舱两侧各有一个独立的舱室、每个两个短翼各配两个挂架、两个主轮和一个尾轮、颏下机炮塔和后部配有稳定器的长圆形机身。生产始于1982年，首架直升机于1986年部署。到1993年，美军拥有800多架阿帕奇直升机。首次在1989年巴拿马正义事业行动中投入战斗。在1991年沙漠风暴行动中，阿帕奇直升机通过摧毁伊拉克预警雷达进行了第一次打击。AH-64D配备两台General Electric T700-GE-701C发动机，总功率为3392马力。</Chinesesimp>
@@ -489,7 +495,7 @@
             <Polish>Pylon</Polish>
             <Portuguese>Pilone</Portuguese>
             <Russian>Пилон</Russian>
-            <German>Pylon</German>
+            <German>Waffenstation</German>
             <Korean>파일런</Korean>
             <Japanese>パイロン</Japanese>
             <Chinesesimp>挂架</Chinesesimp>
@@ -540,7 +546,7 @@
             <Polish>Wprowadź 7-znakowy Numer Ogona. Pomiń Pozycję, Pozostawiając Spację.</Polish>
             <Portuguese>Insira um Número de Cauda de 7 Caracteres. Deixe um Espaço para Pular uma Posição.</Portuguese>
             <Russian>Введите 7-значный Номер Хвоста. Оставьте Пробел, Чтобы Пропустить Позицию.</Russian>
-            <German>Geben Sie eine 7-stellige Heckummernummer ein. Lassen Sie ein Leerzeichen, um eine Position zu Überspringen.</German>
+            <German>Geben Sie eine 7-stellige Hecknummer ein. Hinterlassen Sie ein Leerzeichen, um eine Position zu überspringen.</German>
             <Korean>7자리 꼬리 번호를 입력하세요. 위치를 건너뛰려면 공백을 남기세요.</Korean>
             <Japanese>7文字のテール番号を入力してください。位置をスキップするには、スペースを残してください。</Japanese>
             <Chinesesimp>输入7个字符的尾号。留下一个空格以跳过位置。</Chinesesimp>
@@ -762,7 +768,7 @@
             <Polish>Brytyjski Korpus Lotniczy Armii</Polish>
             <Portuguese>Corpo Aéreo do Exército Britânico</Portuguese>
             <Russian>Британский Армейский Авиационный Корпус</Russian>
-            <German>Britisches Heer Luftfahrtkorps</German>
+            <German>Britisches Heer Luftkorps</German>
             <Korean>영국 육군 항공대</Korean>
             <Japanese>イギリス陸軍航空隊</Japanese>
             <Chinesesimp>英国陆军航空队</Chinesesimp>
@@ -779,7 +785,7 @@
             <Polish>Brytyjski Korpus Lotniczy Armii Siły Specjalne</Polish>
             <Portuguese>Corpo Aéreo do Exército Britânico Forças Especiais</Portuguese>
             <Russian>Британский Армейский Авиационный Корпус Специальные Силы</Russian>
-            <German>Britisches Heer Luftfahrtkorps Spezialeinheiten</German>
+            <German>Britisches Heer Luftkorps Spezialeinheiten</German>
             <Korean>영국 육군 항공대 특수부대</Korean>
             <Japanese>イギリス陸軍航空隊特殊部隊</Japanese>
             <Chinesesimp>英国陆军航空队特种部队</Chinesesimp>
@@ -796,7 +802,7 @@
             <Polish>Brytyjski Korpus Lotniczy Armii (zużyty)</Polish>
             <Portuguese>Corpo Aéreo do Exército Britânico (desgastado)</Portuguese>
             <Russian>Британский Армейский Авиационный Корпус (выветренный)</Russian>
-            <German>Britisches Heer Luftfahrtkorps (verwittert)</German>
+            <German>Britisches Heer Luftkorps (verwittert)</German>
             <Korean>영국 육군 항공대 (풍화)</Korean>
             <Japanese>イギリス陸軍航空隊 (風化)</Japanese>
             <Chinesesimp>英国陆军航空队 (风化)</Chinesesimp>

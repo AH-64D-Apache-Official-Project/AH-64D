@@ -96,7 +96,7 @@
             <Polish>PANEL UZBROJENIA</Polish>
             <Portuguese>PAINEL DE ARMAMENTO</Portuguese>
             <Russian>ПАНЕЛЬ ВООРУЖЕНИЯ</Russian>
-            <German>BEWAFFNUNGSPANEEL</German>
+            <German>BEWAFFNUNGSFELD</German>
             <Korean>무기 패널</Korean>
             <Japanese>兵装パネル</Japanese>
             <Chinesesimp>武器面板</Chinesesimp>
@@ -130,7 +130,7 @@
             <Polish>PANEL AWARYJNY</Polish>
             <Portuguese>PAINEL DE EMERGÊNCIA</Portuguese>
             <Russian>АВАРИЙНАЯ ПАНЕЛЬ</Russian>
-            <German>NOTFALLPANEEL</German>
+            <German>NOTFALLFELD</German>
             <Korean>긴급 패널</Korean>
             <Japanese>緊急パネル</Japanese>
             <Chinesesimp>紧急面板</Chinesesimp>
@@ -198,7 +198,7 @@
             <Polish>PANEL OSTRZEŻENIE/OSTROŻNOŚĆ</Polish>
             <Portuguese>PAINEL AVISO/PRECAUÇÃO</Portuguese>
             <Russian>ПАНЕЛЬ ПРЕДУПРЕЖДЕНИЕ/ВНИМАНИЕ</Russian>
-            <German>WARNUNG-/ACHTUNGSPANEEL</German>
+            <German>WARNUNGS-/ACHTUNGSFELD</German>
             <Korean>경고/주의 패널</Korean>
             <Japanese>警告/注意パネル</Japanese>
             <Chinesesimp>警告/注意面板</Chinesesimp>

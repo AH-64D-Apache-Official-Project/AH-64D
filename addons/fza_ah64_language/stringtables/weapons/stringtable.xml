@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        
         <Key ID="STR_FZA_AH64_230GAL_AUX_TANK">
             <Original>230gal Aux Tank</Original>
             <English>230gal Aux Tank</English>
@@ -62,7 +63,7 @@
             <Polish>Limit Serii</Polish>
             <Portuguese>Limite de Rajada</Portuguese>
             <Russian>Лимит Очереди</Russian>
-            <German>Salvengrenze</German>
+            <German>Salvenbegrenzung</German>
             <Korean>버스트 제한</Korean>
             <Japanese>バースト制限</Japanese>
             <Chinesesimp>突发限制</Chinesesimp>
@@ -319,7 +320,7 @@
             <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. To jest najzaawansowany model wszystkich dostępnych pocisków Hellfire kierowanych laserem.</Polish>
             <Portuguese>Orientação SAL 2, alcance efetivo - 8 km. Este é o modelo mais avançado de todos os Hellfire guiados por laser disponíveis.</Portuguese>
             <Russian>Наведение SAL 2, эффективная дальность - 8 км. Это самая передовая модель из всех доступных лазерных ракет Hellfire.</Russian>
-            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Dies ist das fortschrittlichste Modell aller verfügbaren lasegesteuerten Hellfire-Raketen.</German>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Dies ist das fortschrittlichste Modell aller verfügbaren lasergesteuerten Hellfire-Lenkflugkörper.</German>
             <Korean>SAL 2 유도, 유효 범위 - 8km. 이것은 사용 가능한 모든 레이저 유도식 Hellfire 중 가장 고급 모델입니다.</Korean>
             <Japanese>SAL 2ガイダンス、有効範囲 - 8km。これは利用可能なすべてのレーザー誘導ヘルファイアの中で最も高度なモデルです。</Japanese>
             <Chinesesimp>SAL 2制导，有效范围 - 8公里。这是所有可用的激光制导地狱火中最先进的型号。</Chinesesimp>
@@ -558,7 +559,7 @@
             <Polish>Głowica M261 to rakieta submunisyjna z 9 amunicją opóźnioną spadochronem. Są one skuteczne zarówno przeciwko personelowi, jak i lekko opancerzonym pojazdom. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
             <Portuguese>A ogiva M261 é um foguete de submunição com 9 munições retardadas por paraquedas. Estes são eficazes contra pessoal e veículos blindados leves. É montado em um motor de foguete Mark 66 Mod 6 com alcance efetivo de 5 km.</Portuguese>
             <Russian>Боеголовка M261 - это субмунционная ракета с 9 парашютно-замедленной боеприпасов. Они эффективны как против личного состава, так и против легко бронированных транспортных средств. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
-            <German>Der M261-Gefechtskopf ist eine Submunitionsrakete mit 9 fallschirmverzögerten Munition. Diese sind wirksam gegen sowohl Personal als auch leicht gepanzerte Fahrzeuge. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <German>Der M261-Gefechtskopf ist ein Submunitions-Lenkflugkörper mit 9 fallschirmverzögerten Munition. Er ist wirksam gegen sowohl Personen als auch leicht gepanzerte Fahrzeuge. Er ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
             <Korean>M261 탄두는 9개의 낙하산 지연 탄약이 있는 서브뮤니션 로켓입니다. 이들은 인원과 경장갑 차량 모두에 효과적입니다. Mark 66 Mod 6 로켓 모터에 장착되며 유효 범위는 5km입니다.</Korean>
             <Japanese>M261弾頭は、9つのパラシュート遅延弾薬を備えた子爆弾ロケットです。これらは人員と軽装甲車両の両方に対して効果的です。Mark 66 Mod 6ロケットモーターに搭載され、有効範囲は5kmです。</Japanese>
             <Chinesesimp>M261弹头是一枚有9枚降落伞延迟弹药的子弹药火箭。这些对人员和轻装甲车辆都有效。安装在Mark 66 Mod 6火箭发动机上，有效范围为5公里。</Chinesesimp>
@@ -626,7 +627,7 @@
             <Polish>M278 to głowica oświetlająca IR zawierająca flare spadochronowy. Może oświetlić obszar o powierzchni jednego kilometra kwadratowego przez około 100 sekund. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z dystansem wyzwalania 3,5 km.</Polish>
             <Portuguese>O M278 é uma ogiva de iluminação IR contendo um flare de paraquedas. Ele pode iluminar uma área de um quilômetro quadrado por aproximadamente 100 segundos. É montado em um motor de foguete Mark 66 Mod 6 com uma distância de acionamento de 3,5 km.</Portuguese>
             <Russian>M278 - это IR-осветительная боеголовка с парашютным фаером. Она может освещать территорию в один квадратный километр в течение примерно 100 секунд. Она установлена на ракетный двигатель Mark 66 Mod 6 с расстоянием срабатывания 3,5 км.</Russian>
-            <German>Die M278 ist ein IR-Beleuchtungsgefechtskopf mit einem Fallschirmflare. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
+            <German>Die M278 ist ein IR-Beleuchtungsgefechtskopf mit einer Fallschirmverzögerten Leuchtfackel. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Sie ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
             <Korean>M278은 낙하산 플레어를 포함하는 IR 조명 탄두입니다. 약 100초 동안 1제곱킬로미터 면적을 조명할 수 있습니다. Mark 66 Mod 6 로켓 모터에 장착되며 트리거 거리는 3.5km입니다.</Korean>
             <Japanese>M278は、パラシュートフレアを含むIR照明弾頭です。約100秒間、1平方キロメートルの領域を照らすことができます。Mark 66 Mod 6ロケットモーターに搭載され、トリガー距離は3.5kmです。</Japanese>
             <Chinesesimp>M278是一个包含降落伞照明弹的IR照明弹头。它可以在大约100秒内照亮一平方公里的区域。安装在Mark 66 Mod 6火箭发动机上，触发距离为3.5公里。</Chinesesimp>
@@ -694,7 +695,7 @@
             <Polish>Inhibicja Pylonu</Polish>
             <Portuguese>Inibição de Pilone</Portuguese>
             <Russian>Блокировка Пилона</Russian>
-            <German>Pylonsperre</German>
+            <German>Waffenstationssperre</German>
             <Korean>파일론 억제</Korean>
             <Japanese>パイロン抑制</Japanese>
             <Chinesesimp>塔基抑制</Chinesesimp>
@@ -711,7 +712,7 @@
             <Polish>Limit Salwy</Polish>
             <Portuguese>Limite de Salva</Portuguese>
             <Russian>Лимит Залпа</Russian>
-            <German>Salvenlimite</German>
+            <German>Salvenbegrenzung</German>
             <Korean>일제 제한</Korean>
             <Japanese>斉射制限</Japanese>
             <Chinesesimp>齐射限制</Chinesesimp>

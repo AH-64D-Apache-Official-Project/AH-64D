@@ -45,7 +45,7 @@
             <Polish>Przycisk Zbiorowego Nadzwyczajnego Zrzucania</Polish>
             <Portuguese>Botão Coletivo de Ejeção de Emergência</Portuguese>
             <Russian>Кнопка Коллективного Аварийного Сброса</Russian>
-            <German>Collective Notfall Abwurf Taste</German>
+            <German>Kollective Notfall Abwurf Taste</German>
             <Korean>집단 긴급 투기 버튼</Korean>
             <Japanese>集団緊急投棄ボタン</Japanese>
             <Chinesesimp>集体紧急投放按钮</Chinesesimp>
@@ -79,7 +79,7 @@
             <Polish>Cykliczne Tył</Polish>
             <Portuguese>Cíclico Atrás</Portuguese>
             <Russian>Циклический Назад</Russian>
-            <German>Zyklisch Rückwärts</German>
+            <German>Cyclic Rückwärts</German>
             <Korean>사이클릭 후진</Korean>
             <Japanese>サイクリック後進</Japanese>
             <Chinesesimp>循环向后</Chinesesimp>
@@ -96,7 +96,7 @@
             <Polish>Cykliczne Przód</Polish>
             <Portuguese>Cíclico Frente</Portuguese>
             <Russian>Циклический Вперед</Russian>
-            <German>Zyklisch Vorwärts</German>
+            <German>Cyclic Vorwärts</German>
             <Korean>사이클릭 전진</Korean>
             <Japanese>サイクリック前進</Japanese>
             <Chinesesimp>循环向前</Chinesesimp>
@@ -113,7 +113,7 @@
             <Polish>Cykliczne Lewo</Polish>
             <Portuguese>Cíclico Esquerda</Portuguese>
             <Russian>Циклический Влево</Russian>
-            <German>Zyklisch Links</German>
+            <German>Cyclic Links</German>
             <Korean>사이클릭 좌측</Korean>
             <Japanese>サイクリック左</Japanese>
             <Chinesesimp>循环向左</Chinesesimp>
@@ -130,7 +130,7 @@
             <Polish>Cykliczne Prawo</Polish>
             <Portuguese>Cíclico Direita</Portuguese>
             <Russian>Циклический Вправо</Russian>
-            <German>Zyklisch Rechts</German>
+            <German>Cyclic Rechts</German>
             <Korean>사이클릭 우측</Korean>
             <Japanese>サイクリック右</Japanese>
             <Chinesesimp>循环向右</Chinesesimp>
@@ -232,7 +232,7 @@
             <Polish>Skanuje FCR jeden raz</Polish>
             <Portuguese>Digitaliza o FCR uma única vez</Portuguese>
             <Russian>Сканирует FCR один раз</Russian>
-            <German>Scannt den FCR einmal</German>
+            <German>Scannt das FCR einmal</German>
             <Korean>FCR을 한 번 스캔합니다</Korean>
             <Japanese>FCRを1回スキャンします</Japanese>
             <Chinesesimp>扫描FCR一次</Chinesesimp>
@@ -300,7 +300,7 @@
             <Polish>Dezaktywuje zarówno Attitude Hold, jak i Altitude Hold</Polish>
             <Portuguese>Desativa tanto o Attitude Hold quanto o Altitude Hold</Portuguese>
             <Russian>Деактивирует удержание как тангажа, так и высоты</Russian>
-            <German>Deaktiviert sowohl die Halteposition als auch die Höhenhaltung</German>
+            <German>Deaktiviert sowohl die Neigungshaltung als auch die Höhenhaltung</German>
             <Korean>자세 및 고도 유지 모두 비활성화</Korean>
             <Japanese>姿勢保持と高度保持の両方を無効にします</Japanese>
             <Chinesesimp>停用姿态和高度保持</Chinesesimp>
@@ -334,7 +334,7 @@
             <Polish>Aktywuje Attitude Hold</Polish>
             <Portuguese>Ativa o Attitude Hold</Portuguese>
             <Russian>Активирует удержание тангажа</Russian>
-            <German>Aktiviert die Lagekontrolle</German>
+            <German>Aktiviert die Neigungshaltung</German>
             <Korean>자세 유지 활성화</Korean>
             <Japanese>姿勢保持を有効にします</Japanese>
             <Chinesesimp>激活姿态保持</Chinesesimp>
@@ -402,7 +402,7 @@
             <Polish>Po krótkim przerwaniu aktualizuje pozycję odniesienia sterowania lotem dla Attitude Hold i dezaktywuje Heading and Attitude Hold po przytrzymaniu.</Polish>
             <Portuguese>Quando interrompido momentaneamente, atualiza a posição de referência do controle de voo para Attitude Hold e desativa Heading and Attitude Hold quando mantido.</Portuguese>
             <Russian>При кратковременном прерывании обновляет положение эталона управления полетом для режима удержания тангажа и отключает режим удержания курса и тангажа при удержании.</Russian>
-            <German>Bei kurzer Unterbrechung aktualisiert die Referenzposition der Flugsteuerung für die Halteposition und deaktiviert die Kopf- und Halteposition beim Halten.</German>
+            <German>Aktualisiert bei kurzer Unterbrechung die Referenzposition der Flugsteuerung für die Neigungshaltung und deaktiviert die Richtungs- und Neigungshaltung beim Halten.</German>
             <Korean>순간 중단될 때 비행 제어 기준 위치를 Attitude Hold로 업데이트하고 누르고 있을 때 Heading 및 Attitude Hold를 비활성화합니다.</Korean>
             <Japanese>一瞬中断された場合、Attitude Holdのフライトコントロール基準位置を更新し、保持されたときにHeading and Attitude Holdを無効にします。</Japanese>
             <Chinesesimp>当瞬间中断时，更新姿态保持的飞行控制参考位置，并在按住时停用航向和姿态保持。</Chinesesimp>
@@ -419,7 +419,7 @@
             <Polish>Przycisk Paniki Wymuszonego Trimmera</Polish>
             <Portuguese>Botão de Pânico Ajuste Forçado</Portuguese>
             <Russian>Кнопка Паники Принудительной Подрезки</Russian>
-            <German>Kraft Trim Paniktaste</German>
+            <German>Zwangstrim Paniktaste</German>
             <Korean>강제 트림 패닉 버튼</Korean>
             <Japanese>フォーストトリムパニックボタン</Japanese>
             <Chinesesimp>强制配平紧急按钮</Chinesesimp>
@@ -436,7 +436,7 @@
             <Polish>Zeruje wartości wymuszonego trimmera.</Polish>
             <Portuguese>Zera os valores de ajuste forçado.</Portuguese>
             <Russian>Обнуляет значения принудительной подрезки.</Russian>
-            <German>Setzt die Kraft Trim Werte auf Null.</German>
+            <German>Setzt die Zwangstrim Werte auf Null.</German>
             <Korean>강제 트림 값을 0으로 설정합니다.</Korean>
             <Japanese>フォーストトリムの値をリセットします。</Japanese>
             <Chinesesimp>将强制配平值重置为零。</Chinesesimp>
@@ -827,7 +827,7 @@
             <Polish>Przerwanie Lepkiej Kontroli</Polish>
             <Portuguese>Interrupção de Controle Pegajoso</Portuguese>
             <Russian>Прерывание Липкого Управления</Russian>
-            <German>Sticky Steuerung Unterbrechung</German>
+            <German>Persistente Steuerung Unterbrechung</German>
             <Korean>고정 제어 중단</Korean>
             <Japanese>スティッキーコントロール中断</Japanese>
             <Chinesesimp>粘性控制中断</Chinesesimp>
@@ -844,7 +844,7 @@
             <Polish>Przy użyciu lepkiego cyklicznego wyłącza lepkie cykliczne dla lepszej manewrowości.</Polish>
             <Portuguese>Ao usar o cíclico pegajoso, desativa o cíclico pegajoso para melhor capacidade de manobra.</Portuguese>
             <Russian>При использовании липкого циклического отключает липкое циклическое для улучшенной маневренности.</Russian>
-            <German>Bei Verwendung von Sticky Cyclic wird das Sticky Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
+            <German>Bei Verwendung von Persistentem Cyclic wird das Persistente Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
             <Korean>고정 사이클릭 사용 시 향상된 조작을 위해 고정 사이클릭을 비활성화합니다.</Korean>
             <Japanese>スティッキーサイクリックを使用する場合、スティッキーサイクリックを無効にして操縦性を向上させます。</Japanese>
             <Chinesesimp>使用粘性循环时，禁用粘性循环以增强机动性。</Chinesesimp>
@@ -912,7 +912,7 @@
             <Polish>Wyświetla stronę FLT na lewym MPD</Polish>
             <Portuguese>Abre a página FLT no MPD esquerdo</Portuguese>
             <Russian>Выводит страницу FLT на левый МПД</Russian>
-            <German>Bringt die FLT-Seite auf dem linken MPD auf</German>
+            <German>Ruft die FLT-Seite auf dem linken MPD auf</German>
             <Korean>좌측 MPD에 FLT 페이지 표시</Korean>
             <Japanese>左MPDにFLTページを表示</Japanese>
             <Chinesesimp>在左MPD上显示FLT页面</Chinesesimp>
@@ -1014,7 +1014,7 @@
             <Polish>Ustawia FOV TADS na Wąskie</Polish>
             <Portuguese>Define o FOV do TADS como Estreito</Portuguese>
             <Russian>Установить FOV TADS на Узкий</Russian>
-            <German>Setzt das TADS FOV auf Eng</German>
+            <German>Setzt das TADS FOV auf Schmal</German>
             <Korean>TADS FOV를 협각으로 설정</Korean>
             <Japanese>TADS FOVを狭角に設定</Japanese>
             <Chinesesimp>将TADS FOV设置为窄角</Chinesesimp>
@@ -1116,7 +1116,7 @@
             <Polish>Przełącza Kompensator Ruchu Liniowego TADS</Polish>
             <Portuguese>Alterna o Compensador de Movimento Linear TADS</Portuguese>
             <Russian>Переключает Компенсатор Линейного Движения TADS</Russian>
-            <German>Schaltet TADS Linear Bewegungskompensator um</German>
+            <German>Schaltet TADS Linearer Bewegungskompensator um</German>
             <Korean>TADS 선형 움직임 보상기 토글</Korean>
             <Japanese>TADS線形モーション補正機をトグル</Japanese>
             <Chinesesimp>切换TADS线性运动补偿器</Chinesesimp>
@@ -1150,7 +1150,7 @@
             <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
             <Portuguese>Armazena o alvo observado atualmente no TADS como um ponto de rota</Portuguese>
             <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
-            <German>Speichert das derzeit in TADS beobachtete Ziel als Wegpunkt</German>
+            <German>Speichert das derzeit im TADS beobachtete Ziel als Wegpunkt</German>
             <Korean>TADS에서 현재 관찰 중인 대상을 경유점으로 저장</Korean>
             <Japanese>TADSで現在見ている目標をウェイポイントとして保存します</Japanese>
             <Chinesesimp>将当前在TADS中观察的目标存储为路点</Chinesesimp>
@@ -1167,7 +1167,7 @@
             <Polish>Pistolet WAS</Polish>
             <Portuguese>Arma WAS</Portuguese>
             <Russian>Пушка WAS</Russian>
-            <German>WAS Waffe</German>
+            <German>WAS Bordkanone</German>
             <Korean>WAS 총</Korean>
             <Japanese>WAS銃</Japanese>
             <Chinesesimp>WAS枪</Chinesesimp>
@@ -1184,7 +1184,7 @@
             <Polish>Obsługuj pistolet w swojej stanowiska załogi</Polish>
             <Portuguese>Dispare a arma em sua estação de tripulação</Portuguese>
             <Russian>Активируйте пушку на своей позиции экипажа</Russian>
-            <German>Bediene die Waffe in deiner Besatzungsstation</German>
+            <German>Bediene die Bordkanone in deiner Besatzungsstation</German>
             <Korean>승무원 스테이션에서 총을 조작합니다</Korean>
             <Japanese>乗員ステーションの銃を操作します</Japanese>
             <Chinesesimp>在您的乘员舱中操作枪支</Chinesesimp>

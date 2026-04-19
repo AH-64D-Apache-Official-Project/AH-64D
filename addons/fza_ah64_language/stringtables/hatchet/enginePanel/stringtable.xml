@@ -11,7 +11,7 @@
             <Polish>WYMUSZENIE ZAPŁONU SILNIKA 1</Polish>
             <Portuguese>FORÇAR IGNIÇÃO MOTOR 1</Portuguese>
             <Russian>ДВИГАТЕЛЬ 1 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
-            <German>MOTOR 1 NOTBETRIEB ZÜNDUNG</German>
+            <German>TRIEBWERK 1 NOTBETRIEB ZÜNDUNG</German>
             <Korean>엔진1 점화 강제</Korean>
             <Japanese>エンジン1イグニッションオーバーライド</Japanese>
             <Chinesesimp>发动机1点火强制</Chinesesimp>
@@ -45,7 +45,7 @@
             <Polish>SILNIK JEDEN START</Polish>
             <Portuguese>MOTOR UM INICIADO</Portuguese>
             <Russian>ДВИГАТЕЛЬ ОДИН ЗАПУСК</Russian>
-            <German>MOTOR EINS STARTET</German>
+            <German>TRIEBWERK EINS START</German>
             <Korean>엔진 원 시작</Korean>
             <Japanese>エンジンワンスタート</Japanese>
             <Chinesesimp>发动机一启动</Chinesesimp>
@@ -62,7 +62,7 @@
             <Polish>PANEL SILNIKA</Polish>
             <Portuguese>PAINEL DE MOTOR</Portuguese>
             <Russian>ПАНЕЛЬ ДВИГАТЕЛЯ</Russian>
-            <German>MOTORENTAFEL</German>
+            <German>TRIEBWERKFELD</German>
             <Korean>엔진 패널</Korean>
             <Japanese>エンジンパネル</Japanese>
             <Chinesesimp>发动机面板</Chinesesimp>
@@ -79,7 +79,7 @@
             <Polish>WYMUSZENIE ZAPŁONU SILNIKA 2</Polish>
             <Portuguese>FORÇAR IGNIÇÃO MOTOR 2</Portuguese>
             <Russian>ДВИГАТЕЛЬ 2 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
-            <German>MOTOR 2 NOTBETRIEB ZÜNDUNG</German>
+            <German>TRIEBWERK 2 NOTBETRIEB ZÜNDUNG</German>
             <Korean>엔진2 점화 강제</Korean>
             <Japanese>エンジン2イグニッションオーバーライド</Japanese>
             <Chinesesimp>发动机2点火强制</Chinesesimp>
@@ -113,7 +113,7 @@
             <Polish>SILNIK DWA START</Polish>
             <Portuguese>MOTOR DOIS INICIADO</Portuguese>
             <Russian>ДВИГАТЕЛЬ ДВА ЗАПУСК</Russian>
-            <German>MOTOR ZWEI STARTET</German>
+            <German>TRIEBWERK ZWEI START</German>
             <Korean>엔진 투 시작</Korean>
             <Japanese>エンジンツウスタート</Japanese>
             <Chinesesimp>发动机二启动</Chinesesimp>
@@ -147,7 +147,7 @@
             <Polish>STAŁY</Polish>
             <Portuguese>FIXO</Portuguese>
             <Russian>ФИКСИРОВАННЫЙ</Russian>
-            <German>FEST</German>
+            <German>FIXIERT</German>
             <Korean>고정</Korean>
             <Japanese>固定</Japanese>
             <Chinesesimp>固定</Chinesesimp>
@@ -198,7 +198,7 @@
             <Polish>HAMULEC WIRNIKA ZABLOKOWANY</Polish>
             <Portuguese>FREIO ROTOR TRAVADO</Portuguese>
             <Russian>ТОРМОЗ РОТОРА ЗАБЛОКИРОВАН</Russian>
-            <German>ROTORBREMSE GESPERRT</German>
+            <German>ROTORBREMSE SPERRUNG</German>
             <Korean>로터 제동 잠금</Korean>
             <Japanese>ローター制動ロック</Japanese>
             <Chinesesimp>旋翼制动锁定</Chinesesimp>
@@ -232,7 +232,7 @@
             <Polish>SILNIK 1 LATANIE</Polish>
             <Portuguese>MOTOR 1 EM VOO</Portuguese>
             <Russian>ДВИГАТЕЛЬ 1 В РЕЖИМЕ ПОЛЕТА</Russian>
-            <German>MOTOR 1 FLUGMODUS</German>
+            <German>TRIEBWERK 1 FLUGMODUS</German>
             <Korean>엔진 1 비행</Korean>
             <Japanese>エンジン1フライト</Japanese>
             <Chinesesimp>发动机1飞行</Chinesesimp>
@@ -249,7 +249,7 @@
             <Polish>SILNIK 1 NA BIEGU JAŁOWYM</Polish>
             <Portuguese>MOTOR 1 EM MARCHA LENTA</Portuguese>
             <Russian>ДВИГАТЕЛЬ 1 НА ХОЛОСТОМ ХОДУ</Russian>
-            <German>MOTOR 1 LEERLAUF</German>
+            <German>TRIEBWERK 1 LEERLAUF</German>
             <Korean>엔진 1 유휴</Korean>
             <Japanese>エンジン1アイドル</Japanese>
             <Chinesesimp>发动机1空转</Chinesesimp>
@@ -266,7 +266,7 @@
             <Polish>WYŁĄCZYĆ SILNIK 1</Polish>
             <Portuguese>DESLIGAR MOTOR 1</Portuguese>
             <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 1</Russian>
-            <German>MOTOR 1 AUSSCHALTEN</German>
+            <German>TRIEBWERK 1 ABSCHALTEN</German>
             <Korean>엔진 1 끔</Korean>
             <Japanese>エンジン1オフ</Japanese>
             <Chinesesimp>关闭发动机1</Chinesesimp>
@@ -283,7 +283,7 @@
             <Polish>SILNIK 2 LATANIE</Polish>
             <Portuguese>MOTOR 2 EM VOO</Portuguese>
             <Russian>ДВИГАТЕЛЬ 2 В РЕЖИМЕ ПОЛЕТА</Russian>
-            <German>MOTOR 2 FLUGMODUS</German>
+            <German>TRIEBWERK 2 FLUGMODUS</German>
             <Korean>엔진 2 비행</Korean>
             <Japanese>エンジン2フライト</Japanese>
             <Chinesesimp>发动机2飞行</Chinesesimp>
@@ -300,7 +300,7 @@
             <Polish>SILNIK 2 NA BIEGU JAŁOWYM</Polish>
             <Portuguese>MOTOR 2 EM MARCHA LENTA</Portuguese>
             <Russian>ДВИГАТЕЛЬ 2 НА ХОЛОСТОМ ХОДУ</Russian>
-            <German>MOTOR 2 LEERLAUF</German>
+            <German>TRIEBWERK 2 LEERLAUF</German>
             <Korean>엔진 2 유휴</Korean>
             <Japanese>エンジン2アイドル</Japanese>
             <Chinesesimp>发动机2空转</Chinesesimp>
@@ -317,7 +317,7 @@
             <Polish>WYŁĄCZYĆ SILNIK 2</Polish>
             <Portuguese>DESLIGAR MOTOR 2</Portuguese>
             <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 2</Russian>
-            <German>MOTOR 2 AUSSCHALTEN</German>
+            <German>TRIEBWERK 2 ABSCHALTEN</German>
             <Korean>엔진 2 끔</Korean>
             <Japanese>エンジン2オフ</Japanese>
             <Chinesesimp>关闭发动机2</Chinesesimp>
@@ -334,7 +334,7 @@
             <Polish>START/WYMUSZENIE SILNIKA 1</Polish>
             <Portuguese>INICIAR/FORÇAR MOTOR 1</Portuguese>
             <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 1</Russian>
-            <German>START/NOTBETRIEB MOTOR 1</German>
+            <German>START/NOTBETRIEB TRIEBWERK 1</German>
             <Korean>엔진1 시작/강제</Korean>
             <Japanese>エンジン1スタート/オーバーライド</Japanese>
             <Chinesesimp>发动机1启动/强制</Chinesesimp>
@@ -351,7 +351,7 @@
             <Polish>START/WYMUSZENIE SILNIKA 2</Polish>
             <Portuguese>INICIAR/FORÇAR MOTOR 2</Portuguese>
             <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 2</Russian>
-            <German>START/NOTBETRIEB MOTOR 2</German>
+            <German>START/NOTBETRIEB TRIEBWERK 2</German>
             <Korean>엔진2 시작/강제</Korean>
             <Japanese>エンジン2スタート/オーバーライド</Japanese>
             <Chinesesimp>发动机2启动/强制</Chinesesimp>
@@ -402,7 +402,7 @@
             <Polish>PRZEŁĄCZNIK SYSTEMU NOKTOWIZJI</Polish>
             <Portuguese>ALTERNAR SISTEMA DE VISÃO NOTURNA</Portuguese>
             <Russian>ПЕРЕКЛЮЧИТЬ СИСТЕМУ НОЧНОГО ВИДЕНИЯ</Russian>
-            <German>NACHTSICHTSYSTEM UMSCHALTEN</German>
+            <German>Nachtsichtsystem Umschalten</German>
             <Korean>야간 투시 시스템 전환</Korean>
             <Japanese>ナイトビジョンシステム切替</Japanese>
             <Chinesesimp>切换夜视系统</Chinesesimp>
