@@ -1,0 +1,6 @@
+{
+    "addonsFolder": "addons",
+    "excludePboSymlinks": [
+        "fza_ah64_model"
+    ]
+}

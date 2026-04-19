@@ -83,14 +83,95 @@ Home Page: home.html
 # Source Code
 # ------------------------------------------------------------------------
 
-Source Folder: ..\@AH-64D Apache Longbow\Addons\fza_ah64_controls\functions
-   Name: fza_ah64_controls functions
+Source Folder: ..\addons\fza_ah64_ase\functions
+   Name: fza_ah64_ase functions
 
-Source Folder 3: ..\@AH-64D Apache Longbow\Addons\fza_ah64_common\functions
+Source Folder 2: ..\addons\fza_ah64_ase\headers
+   Name: fza_ah64_ase headers
+
+Source Folder 3: ..\addons\fza_ah64_audio\functions
+   Name: fza_ah64_audio functions
+
+Source Folder 4: ..\addons\fza_ah64_auxtank\functions
+   Name: fza_ah64_auxtank functions
+
+Source Folder 5: ..\addons\fza_ah64_cannon\functions
+   Name: fza_ah64_cannon functions
+
+Source Folder 6: ..\addons\fza_ah64_common\functions
    Name: fza_ah64_common functions
 
-Source Folder 2: ..\@AH-64D Apache Longbow\Addons\fza_ah64_mpd\headers
+Source Folder 7: ..\addons\fza_ah64_controls\functions
+   Name: fza_ah64_controls functions
+
+Source Folder 8: ..\addons\fza_ah64_controls\headers
+   Name: fza_ah64_controls headers
+
+Source Folder 9: ..\addons\fza_ah64_customise\functions
+   Name: fza_ah64_customise functions
+
+Source Folder 10: ..\addons\fza_ah64_dms\functions
+   Name: fza_ah64_dms functions
+
+Source Folder 11: ..\addons\fza_ah64_dms\headers
+   Name: fza_ah64_dms headers
+
+Source Folder 12: ..\addons\fza_ah64_fcr\functions
+   Name: fza_ah64_fcr functions
+
+Source Folder 13: ..\addons\fza_ah64_fire\functions
+   Name: fza_ah64_fire functions
+
+Source Folder 14: ..\addons\fza_ah64_hellfire\functions
+   Name: fza_ah64_hellfire functions
+
+Source Folder 15: ..\addons\fza_ah64_hydra\functions
+   Name: fza_ah64_hydra functions
+
+Source Folder 16: ..\addons\fza_ah64_ihadss\functions
+   Name: fza_ah64_ihadss functions
+
+Source Folder 17: ..\addons\fza_ah64_ihadss\headers
+   Name: fza_ah64_ihadss headers
+
+Source Folder 18: ..\addons\fza_ah64_ku\functions
+   Name: fza_ah64_ku functions
+
+Source Folder 19: ..\addons\fza_ah64_ku\headers
+   Name: fza_ah64_ku headers
+
+Source Folder 20: ..\addons\fza_ah64_light\functions
+   Name: fza_ah64_light functions
+
+Source Folder 21: ..\addons\fza_ah64_mpd\functions
+   Name: fza_ah64_mpd functions
+
+Source Folder 22: ..\addons\fza_ah64_mpd\headers
    Name: fza_ah64_mpd headers
+
+Source Folder 23: ..\addons\fza_ah64_sfmplus\functions
+   Name: fza_ah64_sfmplus functions
+
+Source Folder 24: ..\addons\fza_ah64_sfmplus\headers
+   Name: fza_ah64_sfmplus headers
+
+Source Folder 25: ..\addons\fza_ah64_systems\functions
+   Name: fza_ah64_systems functions
+
+Source Folder 26: ..\addons\fza_ah64_systems\headers
+   Name: fza_ah64_systems headers
+
+Source Folder 27: ..\addons\fza_ah64_ufd\functions
+   Name: fza_ah64_ufd functions
+
+Source Folder 28: ..\addons\fza_ah64_ufd\headers
+   Name: fza_ah64_ufd headers
+
+Source Folder 29: ..\addons\fza_ah64_wca\functions
+   Name: fza_ah64_wca functions
+
+Source Folder 30: ..\addons\fza_ah64_weapons\functions
+   Name: fza_ah64_weapons functions
 
 
 # This is where you tell Natural Docs which folders it should scan for source

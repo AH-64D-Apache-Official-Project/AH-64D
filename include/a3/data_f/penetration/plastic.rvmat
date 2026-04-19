@@ -1,0 +1,10 @@
+// Placeholder stub for HEMTT build validation.
+// At runtime, Arma 3 uses its own base-game version of this material.
+ambient[]={1,1,1,1};
+diffuse[]={1,1,1,1};
+forcedDiffuse[]={0,0,0,0};
+emmisive[]={0,0,0,0};
+specular[]={0,0,0,0};
+specularPower=1;
+PixelShaderID="Normal";
+VertexShaderID="Basic";

@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE">
+            <Original>ENGINE ONE IGNITION OVERRIDE</Original>
+            <English>ENGINE ONE IGNITION OVERRIDE</English>
+            <Czech>MOTOR 1 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
+            <French>FORÇAGE ALLUMAGE MOTEUR 1</French>
+            <Spanish>FORZAR IGNICIÓN MOTOR 1</Spanish>
+            <Italian>FORZAMENTO ACCENSIONE MOTORE 1</Italian>
+            <Polish>WYMUSZENIE ZAPŁONU SILNIKA 1</Polish>
+            <Portuguese>FORÇAR IGNIÇÃO MOTOR 1</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 1 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
+            <German>MOTOR 1 NOTBETRIEB ZÜNDUNG</German>
+            <Korean>엔진1 점화 강제</Korean>
+            <Japanese>エンジン1イグニッションオーバーライド</Japanese>
+            <Chinesesimp>发动机1点火强制</Chinesesimp>
+            <Turkish>MOTOR 1 ATEŞLEME ZORLAMA</Turkish>
+            <Dutch>MOTOR 1 ONTSTEKING OVERRIDE</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_ONE_OFF">
+            <Original>OFF</Original>
+            <English>OFF</English>
+            <Czech>VYPNUT</Czech>
+            <French>ARRÊT</French>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <Polish>WYŁĄCZONE</Polish>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <German>AUS</German>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
+            <Dutch>UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_ONE_START">
+            <Original>ENGINE ONE START</Original>
+            <English>ENGINE ONE START</English>
+            <Czech>MOTOR JEDNA START</Czech>
+            <French>DÉMARRAGE MOTEUR UN</French>
+            <Spanish>MOTOR UNO INICIADO</Spanish>
+            <Italian>MOTORE UNO AVVIATO</Italian>
+            <Polish>SILNIK JEDEN START</Polish>
+            <Portuguese>MOTOR UM INICIADO</Portuguese>
+            <Russian>ДВИГАТЕЛЬ ОДИН ЗАПУСК</Russian>
+            <German>MOTOR EINS STARTET</German>
+            <Korean>엔진 원 시작</Korean>
+            <Japanese>エンジンワンスタート</Japanese>
+            <Chinesesimp>发动机一启动</Chinesesimp>
+            <Turkish>MOTOR BİR BAŞLAT</Turkish>
+            <Dutch>MOTOR EEN STARTEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_PANEL">
+            <Original>ENGINE PANEL</Original>
+            <English>ENGINE PANEL</English>
+            <Czech>MOTOR PANEL</Czech>
+            <French>PANNEAU MOTEUR</French>
+            <Spanish>PANEL DE MOTORES</Spanish>
+            <Italian>PANNELLO MOTORE</Italian>
+            <Polish>PANEL SILNIKA</Polish>
+            <Portuguese>PAINEL DE MOTOR</Portuguese>
+            <Russian>ПАНЕЛЬ ДВИГАТЕЛЯ</Russian>
+            <German>MOTORENTAFEL</German>
+            <Korean>엔진 패널</Korean>
+            <Japanese>エンジンパネル</Japanese>
+            <Chinesesimp>发动机面板</Chinesesimp>
+            <Turkish>MOTOR PANELİ</Turkish>
+            <Dutch>MOTORPANEEL</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE">
+            <Original>ENGINE TWO IGNITION OVERRIDE</Original>
+            <English>ENGINE TWO IGNITION OVERRIDE</English>
+            <Czech>MOTOR 2 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
+            <French>FORÇAGE ALLUMAGE MOTEUR 2</French>
+            <Spanish>FORZAR IGNICIÓN MOTOR 2</Spanish>
+            <Italian>FORZAMENTO ACCENSIONE MOTORE 2</Italian>
+            <Polish>WYMUSZENIE ZAPŁONU SILNIKA 2</Polish>
+            <Portuguese>FORÇAR IGNIÇÃO MOTOR 2</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 2 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
+            <German>MOTOR 2 NOTBETRIEB ZÜNDUNG</German>
+            <Korean>엔진2 점화 강제</Korean>
+            <Japanese>エンジン2イグニッションオーバーライド</Japanese>
+            <Chinesesimp>发动机2点火强制</Chinesesimp>
+            <Turkish>MOTOR 2 ATEŞLEME ZORLAMA</Turkish>
+            <Dutch>MOTOR 2 ONTSTEKING OVERRIDE</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_TWO_OFF">
+            <Original>OFF</Original>
+            <English>OFF</English>
+            <Czech>VYPNUT</Czech>
+            <French>ARRÊT</French>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <Polish>WYŁĄCZONE</Polish>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <German>AUS</German>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
+            <Dutch>UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ENGINE_TWO_START">
+            <Original>ENGINE TWO START</Original>
+            <English>ENGINE TWO START</English>
+            <Czech>MOTOR DVA START</Czech>
+            <French>DÉMARRAGE MOTEUR DEUX</French>
+            <Spanish>MOTOR DOS INICIADO</Spanish>
+            <Italian>MOTORE DUE AVVIATO</Italian>
+            <Polish>SILNIK DWA START</Polish>
+            <Portuguese>MOTOR DOIS INICIADO</Portuguese>
+            <Russian>ДВИГАТЕЛЬ ДВА ЗАПУСК</Russian>
+            <German>MOTOR ZWEI STARTET</German>
+            <Korean>엔진 투 시작</Korean>
+            <Japanese>エンジンツウスタート</Japanese>
+            <Chinesesimp>发动机二启动</Chinesesimp>
+            <Turkish>MOTOR İKİ BAŞLAT</Turkish>
+            <Dutch>MOTOR TWEE STARTEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS">
+            <Original>NVS MODE</Original>
+            <English>NVS MODE</English>
+            <Czech>REŽIM NVS</Czech>
+            <French>MODE NVS</French>
+            <Spanish>MODO NVS</Spanish>
+            <Italian>MODO NVS</Italian>
+            <Polish>TRYB NVS</Polish>
+            <Portuguese>MODO NVS</Portuguese>
+            <Russian>РЕЖИМ NVS</Russian>
+            <German>NVS-MODUS</German>
+            <Korean>NVS 모드</Korean>
+            <Japanese>NVSモード</Japanese>
+            <Chinesesimp>NVS模式</Chinesesimp>
+            <Turkish>NVS MODU</Turkish>
+            <Dutch>NVS MODUS</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_FIXED">
+            <Original>FIXED</Original>
+            <English>FIXED</English>
+            <Czech>PEVNÉ</Czech>
+            <French>FIXE</French>
+            <Spanish>FIJO</Spanish>
+            <Italian>FISSO</Italian>
+            <Polish>STAŁY</Polish>
+            <Portuguese>FIXO</Portuguese>
+            <Russian>ФИКСИРОВАННЫЙ</Russian>
+            <German>FEST</German>
+            <Korean>고정</Korean>
+            <Japanese>固定</Japanese>
+            <Chinesesimp>固定</Chinesesimp>
+            <Turkish>SABİT</Turkish>
+            <Dutch>VAST</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_NORM">
+            <Original>NORM</Original>
+            <English>NORM</English>
+            <Czech>NORM</Czech>
+            <French>NORM</French>
+            <Spanish>NORM</Spanish>
+            <Italian>NORM</Italian>
+            <Polish>NORM</Polish>
+            <Portuguese>NORM</Portuguese>
+            <Russian>НОРМ</Russian>
+            <German>NORM</German>
+            <Korean>표준</Korean>
+            <Japanese>標準</Japanese>
+            <Chinesesimp>标准</Chinesesimp>
+            <Turkish>NORM</Turkish>
+            <Dutch>NORM</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_OFF">
+            <Original>OFF</Original>
+            <English>OFF</English>
+            <Czech>VYPNUT</Czech>
+            <French>ARRÊT</French>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <Polish>WYŁĄCZONE</Polish>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <German>AUS</German>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
+            <Dutch>UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ROTOR_BRAKE_LOCK">
+            <Original>ROTOR BRAKE LOCK</Original>
+            <English>ROTOR BRAKE LOCK</English>
+            <Czech>BRZDA ROTORU UZAMČENA</Czech>
+            <French>FREIN ROTOR VERROUILLÉ</French>
+            <Spanish>FRENO ROTOR BLOQUEADO</Spanish>
+            <Italian>FRENO ROTORE BLOCCATO</Italian>
+            <Polish>HAMULEC WIRNIKA ZABLOKOWANY</Polish>
+            <Portuguese>FREIO ROTOR TRAVADO</Portuguese>
+            <Russian>ТОРМОЗ РОТОРА ЗАБЛОКИРОВАН</Russian>
+            <German>ROTORBREMSE GESPERRT</German>
+            <Korean>로터 제동 잠금</Korean>
+            <Japanese>ローター制動ロック</Japanese>
+            <Chinesesimp>旋翼制动锁定</Chinesesimp>
+            <Turkish>ROTOR FRENI KİLİTLİ</Turkish>
+            <Dutch>ROTORREM GEBLOKKEERD</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ROTOR_BRAKE_OFF">
+            <Original>ROTOR BRAKE OFF</Original>
+            <English>ROTOR BRAKE OFF</English>
+            <Czech>BRZDA ROTORU VYPNUTA</Czech>
+            <French>FREIN ROTOR DÉSACTIVÉ</French>
+            <Spanish>FRENO ROTOR DESACTIVADO</Spanish>
+            <Italian>FRENO ROTORE DISATTIVO</Italian>
+            <Polish>HAMULEC WIRNIKA WYŁĄCZONY</Polish>
+            <Portuguese>FREIO ROTOR DESATIVADO</Portuguese>
+            <Russian>ТОРМОЗ РОТОРА ВЫКЛЮЧЕН</Russian>
+            <German>ROTORBREMSE AUS</German>
+            <Korean>로터 제동 해제</Korean>
+            <Japanese>ローター制動オフ</Japanese>
+            <Chinesesimp>旋翼制动关闭</Chinesesimp>
+            <Turkish>ROTOR FRENI KAPAL</Turkish>
+            <Dutch>ROTORREM UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_1_FLY">
+            <Original>SET ENGINE 1 FLY</Original>
+            <English>SET ENGINE 1 FLY</English>
+            <Czech>MOTOR 1 LÉTÁNÍ</Czech>
+            <French>MOTEUR 1 EN VOL</French>
+            <Spanish>MOTOR 1 EN VUELO</Spanish>
+            <Italian>MOTORE 1 IN VOLO</Italian>
+            <Polish>SILNIK 1 LATANIE</Polish>
+            <Portuguese>MOTOR 1 EM VOO</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 1 В РЕЖИМЕ ПОЛЕТА</Russian>
+            <German>MOTOR 1 FLUGMODUS</German>
+            <Korean>엔진 1 비행</Korean>
+            <Japanese>エンジン1フライト</Japanese>
+            <Chinesesimp>发动机1飞行</Chinesesimp>
+            <Turkish>MOTOR 1 UÇUŞ</Turkish>
+            <Dutch>MOTOR 1 VLIEGEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_1_IDLE">
+            <Original>SET ENGINE 1 IDLE</Original>
+            <English>SET ENGINE 1 IDLE</English>
+            <Czech>MOTOR 1 NEČINNÝ</Czech>
+            <French>MOTEUR 1 AU RALENTI</French>
+            <Spanish>MOTOR 1 EN RALENTÍ</Spanish>
+            <Italian>MOTORE 1 AL MINIMO</Italian>
+            <Polish>SILNIK 1 NA BIEGU JAŁOWYM</Polish>
+            <Portuguese>MOTOR 1 EM MARCHA LENTA</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 1 НА ХОЛОСТОМ ХОДУ</Russian>
+            <German>MOTOR 1 LEERLAUF</German>
+            <Korean>엔진 1 유휴</Korean>
+            <Japanese>エンジン1アイドル</Japanese>
+            <Chinesesimp>发动机1空转</Chinesesimp>
+            <Turkish>MOTOR 1 BOŞ ÇALIŞMA</Turkish>
+            <Dutch>MOTOR 1 STATIONAIR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_1_OFF">
+            <Original>SET ENGINE 1 OFF</Original>
+            <English>SET ENGINE 1 OFF</English>
+            <Czech>VYPNOUT MOTOR 1</Czech>
+            <French>COUPER MOTEUR 1</French>
+            <Spanish>APAGAR MOTOR 1</Spanish>
+            <Italian>SPEGNI MOTORE 1</Italian>
+            <Polish>WYŁĄCZYĆ SILNIK 1</Polish>
+            <Portuguese>DESLIGAR MOTOR 1</Portuguese>
+            <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 1</Russian>
+            <German>MOTOR 1 AUSSCHALTEN</German>
+            <Korean>엔진 1 끔</Korean>
+            <Japanese>エンジン1オフ</Japanese>
+            <Chinesesimp>关闭发动机1</Chinesesimp>
+            <Turkish>MOTOR 1 KAPAT</Turkish>
+            <Dutch>MOTOR 1 UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_2_FLY">
+            <Original>SET ENGINE 2 FLY</Original>
+            <English>SET ENGINE 2 FLY</English>
+            <Czech>MOTOR 2 LÉTÁNÍ</Czech>
+            <French>MOTEUR 2 EN VOL</French>
+            <Spanish>MOTOR 2 EN VUELO</Spanish>
+            <Italian>MOTORE 2 IN VOLO</Italian>
+            <Polish>SILNIK 2 LATANIE</Polish>
+            <Portuguese>MOTOR 2 EM VOO</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 2 В РЕЖИМЕ ПОЛЕТА</Russian>
+            <German>MOTOR 2 FLUGMODUS</German>
+            <Korean>엔진 2 비행</Korean>
+            <Japanese>エンジン2フライト</Japanese>
+            <Chinesesimp>发动机2飞行</Chinesesimp>
+            <Turkish>MOTOR 2 UÇUŞ</Turkish>
+            <Dutch>MOTOR 2 VLIEGEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_2_IDLE">
+            <Original>SET ENGINE 2 IDLE</Original>
+            <English>SET ENGINE 2 IDLE</English>
+            <Czech>MOTOR 2 NEČINNÝ</Czech>
+            <French>MOTEUR 2 AU RALENTI</French>
+            <Spanish>MOTOR 2 EN RALENTÍ</Spanish>
+            <Italian>MOTORE 2 AL MINIMO</Italian>
+            <Polish>SILNIK 2 NA BIEGU JAŁOWYM</Polish>
+            <Portuguese>MOTOR 2 EM MARCHA LENTA</Portuguese>
+            <Russian>ДВИГАТЕЛЬ 2 НА ХОЛОСТОМ ХОДУ</Russian>
+            <German>MOTOR 2 LEERLAUF</German>
+            <Korean>엔진 2 유휴</Korean>
+            <Japanese>エンジン2アイドル</Japanese>
+            <Chinesesimp>发动机2空转</Chinesesimp>
+            <Turkish>MOTOR 2 BOŞ ÇALIŞMA</Turkish>
+            <Dutch>MOTOR 2 STATIONAIR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_ENGINE_2_OFF">
+            <Original>SET ENGINE 2 OFF</Original>
+            <English>SET ENGINE 2 OFF</English>
+            <Czech>VYPNOUT MOTOR 2</Czech>
+            <French>COUPER MOTEUR 2</French>
+            <Spanish>APAGAR MOTOR 2</Spanish>
+            <Italian>SPEGNI MOTORE 2</Italian>
+            <Polish>WYŁĄCZYĆ SILNIK 2</Polish>
+            <Portuguese>DESLIGAR MOTOR 2</Portuguese>
+            <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 2</Russian>
+            <German>MOTOR 2 AUSSCHALTEN</German>
+            <Korean>엔진 2 끔</Korean>
+            <Japanese>エンジン2オフ</Japanese>
+            <Chinesesimp>关闭发动机2</Chinesesimp>
+            <Turkish>MOTOR 2 KAPAT</Turkish>
+            <Dutch>MOTOR 2 UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_1">
+            <Original>START/OVERRIDE ENGINE 1</Original>
+            <English>START/OVERRIDE ENGINE 1</English>
+            <Czech>START/PŘEPNUTÍ MOTOR 1</Czech>
+            <French>DÉMARRAGE/FORÇAGE MOTEUR 1</French>
+            <Spanish>INICIAR/FORZAR MOTOR 1</Spanish>
+            <Italian>AVVIA/FORZAMENTO MOTORE 1</Italian>
+            <Polish>START/WYMUSZENIE SILNIKA 1</Polish>
+            <Portuguese>INICIAR/FORÇAR MOTOR 1</Portuguese>
+            <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 1</Russian>
+            <German>START/NOTBETRIEB MOTOR 1</German>
+            <Korean>엔진1 시작/강제</Korean>
+            <Japanese>エンジン1スタート/オーバーライド</Japanese>
+            <Chinesesimp>发动机1启动/强制</Chinesesimp>
+            <Turkish>MOTOR 1 BAŞLAT/ZORLAMA</Turkish>
+            <Dutch>START/OVERRIDE MOTOR 1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_2">
+            <Original>START/OVERRIDE ENGINE 2</Original>
+            <English>START/OVERRIDE ENGINE 2</English>
+            <Czech>START/PŘEPNUTÍ MOTOR 2</Czech>
+            <French>DÉMARRAGE/FORÇAGE MOTEUR 2</French>
+            <Spanish>INICIAR/FORZAR MOTOR 2</Spanish>
+            <Italian>AVVIA/FORZAMENTO MOTORE 2</Italian>
+            <Polish>START/WYMUSZENIE SILNIKA 2</Polish>
+            <Portuguese>INICIAR/FORÇAR MOTOR 2</Portuguese>
+            <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 2</Russian>
+            <German>START/NOTBETRIEB MOTOR 2</German>
+            <Korean>엔진2 시작/강제</Korean>
+            <Japanese>エンジン2スタート/オーバーライド</Japanese>
+            <Chinesesimp>发动机2启动/强制</Chinesesimp>
+            <Turkish>MOTOR 2 BAŞLAT/ZORLAMA</Turkish>
+            <Dutch>START/OVERRIDE MOTOR 2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_APU_POWER">
+            <Original>TOGGLE APU POWER</Original>
+            <English>TOGGLE APU POWER</English>
+            <Czech>PŘEPNOUT NAPÁJENÍ APU</Czech>
+            <French>BASCULER ALIMENTATION APU</French>
+            <Spanish>ALTERNAR POTENCIA APU</Spanish>
+            <Italian>COMMUTA ALIMENTAZIONE APU</Italian>
+            <Polish>PRZEŁĄCZNIK ZASILANIA APU</Polish>
+            <Portuguese>ALTERNAR POTÊNCIA APU</Portuguese>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПИТАНИЯ АОУ</Russian>
+            <German>APU-STROMVERSORGUNG UMSCHALTEN</German>
+            <Korean>APU 전원 전환</Korean>
+            <Japanese>APU電源切替</Japanese>
+            <Chinesesimp>切换APU电源</Chinesesimp>
+            <Turkish>APU GÜCÜ AÇKAPA</Turkish>
+            <Dutch>APU STROOM AAN/UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_BATTERY_POWER">
+            <Original>TOGGLE BATTERY POWER</Original>
+            <English>TOGGLE BATTERY POWER</English>
+            <Czech>PŘEPNOUT NAPÁJENÍ BATERIE</Czech>
+            <French>BASCULER ALIMENTATION BATTERIE</French>
+            <Spanish>ALTERNAR POTENCIA DE BATERÍA</Spanish>
+            <Italian>COMMUTA ALIMENTAZIONE BATTERIA</Italian>
+            <Polish>PRZEŁĄCZNIK ZASILANIA BATERII</Polish>
+            <Portuguese>ALTERNAR POTÊNCIA DA BATERIA</Portuguese>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПИТАНИЯ БАТАРЕИ</Russian>
+            <German>BATTERIESTROM UMSCHALTEN</German>
+            <Korean>배터리 전원 전환</Korean>
+            <Japanese>バッテリー電源切替</Japanese>
+            <Chinesesimp>切换电池电源</Chinesesimp>
+            <Turkish>PİL GÜCÜ AÇKAPA</Turkish>
+            <Dutch>BATTERIJSTROOM AAN/UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
+            <Original>TOGGLE NIGHT VISION SYSTEM</Original>
+            <English>TOGGLE NIGHT VISION SYSTEM</English>
+            <Czech>PŘEPNOUT SYSTÉM NOČNÍHO VIDĚNÍ</Czech>
+            <French>BASCULER SYSTÈME VISION NOCTURNE</French>
+            <Spanish>ALTERNAR SISTEMA DE VISIÓN NOCTURNA</Spanish>
+            <Italian>COMMUTA SISTEMA VISIONE NOTTURNA</Italian>
+            <Polish>PRZEŁĄCZNIK SYSTEMU NOKTOWIZJI</Polish>
+            <Portuguese>ALTERNAR SISTEMA DE VISÃO NOTURNA</Portuguese>
+            <Russian>ПЕРЕКЛЮЧИТЬ СИСТЕМУ НОЧНОГО ВИДЕНИЯ</Russian>
+            <German>NACHTSICHTSYSTEM UMSCHALTEN</German>
+            <Korean>야간 투시 시스템 전환</Korean>
+            <Japanese>ナイトビジョンシステム切替</Japanese>
+            <Chinesesimp>切换夜视系统</Chinesesimp>
+            <Turkish>Gece Görüş Sistemi Açkapa</Turkish>
+            <Dutch>NACHTVISIONSYSTEEM AAN/UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_ROTOR_BRAKE">
+            <Original>TOGGLE ROTOR BRAKE</Original>
+            <English>TOGGLE ROTOR BRAKE</English>
+            <Czech>PŘEPNOUT BRZDU ROTORU</Czech>
+            <French>BASCULER FREIN ROTOR</French>
+            <Spanish>ALTERNAR FRENO DE ROTOR</Spanish>
+            <Italian>COMMUTA FRENO ROTORE</Italian>
+            <Polish>PRZEŁĄCZNIK HAMULCA WIRNIKA</Polish>
+            <Portuguese>ALTERNAR FREIO DE ROTOR</Portuguese>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ТОРМОЗА РОТОРА</Russian>
+            <German>ROTORBREMSE UMSCHALTEN</German>
+            <Korean>회전자 제동 전환</Korean>
+            <Japanese>ローター制動切替</Japanese>
+            <Chinesesimp>切换旋翼制动</Chinesesimp>
+            <Turkish>ROTOR FRENI AÇKAPA</Turkish>
+            <Dutch>ROTORREM AAN/UIT</Dutch>
+        </Key>
+    </Package>
+</Project>

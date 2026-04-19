@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_COLLECTIVE_DN">
+            <Original>HOTAS Collective Down</Original>
+            <English>HOTAS Collective Down</English>
+            <Czech>HOTAS Kolektivní Dolů</Czech>
+            <French>Collective HOTAS Bas</French>
+            <Spanish>Colectivo HOTAS Abajo</Spanish>
+            <Italian>Collettivo HOTAS Giù</Italian>
+            <Polish>HOTAS Zbiorowy Dół</Polish>
+            <Portuguese>Coletivo HOTAS Para Baixo</Portuguese>
+            <Russian>HOTAS Коллективный Вниз</Russian>
+            <German>HOTAS Collective Ab</German>
+            <Korean>HOTAS 집단 아래로</Korean>
+            <Japanese>HOTAS集団下降</Japanese>
+            <Chinesesimp>HOTAS集体向下</Chinesesimp>
+            <Turkish>HOTAS Toplu Aşağı</Turkish>
+            <Dutch>HOTAS Collectief Omlaag</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT">
+            <Original>Emergency Jettison</Original>
+            <English>Emergency Jettison</English>
+            <Czech>Nouzové Vyhazování</Czech>
+            <French>Largage d'Urgence</French>
+            <Spanish>Expulsión de Emergencia</Spanish>
+            <Italian>Rilascio di Emergenza</Italian>
+            <Polish>Nadzwyczajne Zrzucanie</Polish>
+            <Portuguese>Ejeção de Emergência</Portuguese>
+            <Russian>Аварийный Сброс</Russian>
+            <German>Notfall Abwurf</German>
+            <Korean>긴급 투기</Korean>
+            <Japanese>緊急投棄</Japanese>
+            <Chinesesimp>紧急投放</Chinesesimp>
+            <Turkish>Acil Durum Bırakma</Turkish>
+            <Dutch>Noodlastdrop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO">
+            <Original>Collective Emergency Jettison Button</Original>
+            <English>Collective Emergency Jettison Button</English>
+            <Czech>Tlačítko Kolektivního Nouzového Vyhazování</Czech>
+            <French>Bouton Collectif de Largage d'Urgence</French>
+            <Spanish>Botón Colectivo de Expulsión de Emergencia</Spanish>
+            <Italian>Pulsante Collettivo di Rilascio di Emergenza</Italian>
+            <Polish>Przycisk Zbiorowego Nadzwyczajnego Zrzucania</Polish>
+            <Portuguese>Botão Coletivo de Ejeção de Emergência</Portuguese>
+            <Russian>Кнопка Коллективного Аварийного Сброса</Russian>
+            <German>Collective Notfall Abwurf Taste</German>
+            <Korean>집단 긴급 투기 버튼</Korean>
+            <Japanese>集団緊急投棄ボタン</Japanese>
+            <Chinesesimp>集体紧急投放按钮</Chinesesimp>
+            <Turkish>Toplu Acil Durum Bırakma Düğmesi</Turkish>
+            <Dutch>Collectieve Noodlastdrop Knop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_UP">
+            <Original>HOTAS Collective Up</Original>
+            <English>HOTAS Collective Up</English>
+            <Czech>HOTAS Kolektivní Nahoru</Czech>
+            <French>Collective HOTAS Haut</French>
+            <Spanish>Colectivo HOTAS Arriba</Spanish>
+            <Italian>Collettivo HOTAS Su</Italian>
+            <Polish>HOTAS Zbiorowy Góra</Polish>
+            <Portuguese>Coletivo HOTAS Para Cima</Portuguese>
+            <Russian>HOTAS Коллективный Вверх</Russian>
+            <German>HOTAS Collective Auf</German>
+            <Korean>HOTAS 집단 위로</Korean>
+            <Japanese>HOTAS集団上昇</Japanese>
+            <Chinesesimp>HOTAS集体向上</Chinesesimp>
+            <Turkish>HOTAS Toplu Yukarı</Turkish>
+            <Dutch>HOTAS Collectief Omhoog</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_BACKWARD">
+            <Original>Cyclic Backward</Original>
+            <English>Cyclic Backward</English>
+            <Czech>Cyklické Dozadu</Czech>
+            <French>Cyclique Arrière</French>
+            <Spanish>Cíclico Atrás</Spanish>
+            <Italian>Ciclico Indietro</Italian>
+            <Polish>Cykliczne Tył</Polish>
+            <Portuguese>Cíclico Atrás</Portuguese>
+            <Russian>Циклический Назад</Russian>
+            <German>Zyklisch Rückwärts</German>
+            <Korean>사이클릭 후진</Korean>
+            <Japanese>サイクリック後進</Japanese>
+            <Chinesesimp>循环向后</Chinesesimp>
+            <Turkish>Döngüsel Geri</Turkish>
+            <Dutch>Cyclisch Achteruit</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_FORWARD">
+            <Original>Cyclic Forward</Original>
+            <English>Cyclic Forward</English>
+            <Czech>Cyklické Dopředu</Czech>
+            <French>Cyclique Avant</French>
+            <Spanish>Cíclico Adelante</Spanish>
+            <Italian>Ciclico Avanti</Italian>
+            <Polish>Cykliczne Przód</Polish>
+            <Portuguese>Cíclico Frente</Portuguese>
+            <Russian>Циклический Вперед</Russian>
+            <German>Zyklisch Vorwärts</German>
+            <Korean>사이클릭 전진</Korean>
+            <Japanese>サイクリック前進</Japanese>
+            <Chinesesimp>循环向前</Chinesesimp>
+            <Turkish>Döngüsel İleri</Turkish>
+            <Dutch>Cyclisch Vooruit</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_LEFT">
+            <Original>Cyclic Left</Original>
+            <English>Cyclic Left</English>
+            <Czech>Cyklické Vlevo</Czech>
+            <French>Cyclique Gauche</French>
+            <Spanish>Cíclico Izquierda</Spanish>
+            <Italian>Ciclico Sinistra</Italian>
+            <Polish>Cykliczne Lewo</Polish>
+            <Portuguese>Cíclico Esquerda</Portuguese>
+            <Russian>Циклический Влево</Russian>
+            <German>Zyklisch Links</German>
+            <Korean>사이클릭 좌측</Korean>
+            <Japanese>サイクリック左</Japanese>
+            <Chinesesimp>循环向左</Chinesesimp>
+            <Turkish>Döngüsel Sol</Turkish>
+            <Dutch>Cyclisch Links</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_RIGHT">
+            <Original>Cyclic Right</Original>
+            <English>Cyclic Right</English>
+            <Czech>Cyklické Vpravo</Czech>
+            <French>Cyclique Droite</French>
+            <Spanish>Cíclico Derecha</Spanish>
+            <Italian>Ciclico Destra</Italian>
+            <Polish>Cykliczne Prawo</Polish>
+            <Portuguese>Cíclico Direita</Portuguese>
+            <Russian>Циклический Вправо</Russian>
+            <German>Zyklisch Rechts</German>
+            <Korean>사이클릭 우측</Korean>
+            <Japanese>サイクリック右</Japanese>
+            <Chinesesimp>循环向右</Chinesesimp>
+            <Turkish>Döngüsel Sağ</Turkish>
+            <Dutch>Cyclisch Rechts</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN">
+            <Original>Air Targeting Mode (ATM)</Original>
+            <English>Air Targeting Mode (ATM)</English>
+            <Czech>Režim Cílení Vzduchu (ATM)</Czech>
+            <French>Mode de Ciblage Aérien (ATM)</French>
+            <Spanish>Modo de Orientación Aérea (ATM)</Spanish>
+            <Italian>Modalità di Puntamento Aereo (ATM)</Italian>
+            <Polish>Tryb Namierzania Powietrza (ATM)</Polish>
+            <Portuguese>Modo de Orientação Aérea (ATM)</Portuguese>
+            <Russian>Режим воздушного наведения (ATM)</Russian>
+            <German>Luftzielmodus (ATM)</German>
+            <Korean>공중 조준 모드 (ATM)</Korean>
+            <Japanese>空中ターゲティングモード（ATM）</Japanese>
+            <Chinesesimp>空中瞄准模式（ATM）</Chinesesimp>
+            <Turkish>Hava Hedefleme Modu (ATM)</Turkish>
+            <Dutch>Luchttargetering Modus (ATM)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO">
+            <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
+            <English>Sets the Fire Control Radar To Air Targeting Mode</English>
+            <Czech>Nastaví radar řízení palby na režim cílení vzduchu</Czech>
+            <French>Règle le radar de contrôle de tir en mode de ciblage aérien</French>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Aérea</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento Aereo</Italian>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Powietrza</Polish>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Aérea</Portuguese>
+            <Russian>Устанавливает радар управления огнем в режим воздушного наведения</Russian>
+            <German>Stellt das Feuerleiterradar auf Luftzielmodus ein</German>
+            <Korean>화력 통제 레이더를 공중 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを空中ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为空中瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Hava Hedefleme Moduna Ayarla</Turkish>
+            <Dutch>Stelt de vuurregel radar in op luchttargetering modus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP">
+            <Original>Ground Targeting Mode (GTM)</Original>
+            <English>Ground Targeting Mode (GTM)</English>
+            <Czech>Režim Cílení Země (GTM)</Czech>
+            <French>Mode de Ciblage Terrestre (GTM)</French>
+            <Spanish>Modo de Orientación Terrestre (GTM)</Spanish>
+            <Italian>Modalità di Puntamento a Terra (GTM)</Italian>
+            <Polish>Tryb Namierzania Gruntu (GTM)</Polish>
+            <Portuguese>Modo de Orientação Terrestre (GTM)</Portuguese>
+            <Russian>Режим наземного наведения (GTM)</Russian>
+            <German>Bodenzielmodus (GTM)</German>
+            <Korean>지상 조준 모드 (GTM)</Korean>
+            <Japanese>地上ターゲティングモード（GTM）</Japanese>
+            <Chinesesimp>地面瞄准模式（GTM）</Chinesesimp>
+            <Turkish>Yer Hedefleme Modu (GTM)</Turkish>
+            <Dutch>Grondrichtingsmodus (GTM)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO">
+            <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
+            <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
+            <Czech>Nastaví radar řízení palby na režim cílení země</Czech>
+            <French>Règle le radar de contrôle de tir en mode de ciblage terrestre</French>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Terrestre</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento a Terra</Italian>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Gruntu</Polish>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Terrestre</Portuguese>
+            <Russian>Устанавливает радар управления огнем в режим наземного наведения</Russian>
+            <German>Stellt das Feuerleiterradar auf Bodenzielmodus ein</German>
+            <Korean>화력 통제 레이더를 지상 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを地上ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为地面瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Yer Hedefleme Moduna Ayarla</Turkish>
+            <Dutch>Stelt de vuurregel radar in op grondrichtingsmodus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
+            <Original>FCR Single Scan</Original>
+            <English>FCR Single Scan</English>
+            <Czech>Jednorázové Skenování FCR</Czech>
+            <French>Balayage Unique FCR</French>
+            <Spanish>Escaneo Único FCR</Spanish>
+            <Italian>Scansione Singola FCR</Italian>
+            <Polish>Jednorazowe Skanowanie FCR</Polish>
+            <Portuguese>Digitalização Única FCR</Portuguese>
+            <Russian>Одиночное Сканирование FCR</Russian>
+            <German>FCR Einzelner Scan</German>
+            <Korean>FCR 단일 스캔</Korean>
+            <Japanese>FCR単一スキャン</Japanese>
+            <Chinesesimp>FCR单次扫描</Chinesesimp>
+            <Turkish>FCR Tek Tarama</Turkish>
+            <Dutch>FCR Enkel Scannen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN_INFO">
+            <Original>Scans the FCR a single time</Original>
+            <English>Scans the FCR a single time</English>
+            <Czech>Naskenuje FCR jednou</Czech>
+            <French>Scanne le FCR une seule fois</French>
+            <Spanish>Escanea el FCR una sola vez</Spanish>
+            <Italian>Esegue la scansione del FCR una sola volta</Italian>
+            <Polish>Skanuje FCR jeden raz</Polish>
+            <Portuguese>Digitaliza o FCR uma única vez</Portuguese>
+            <Russian>Сканирует FCR один раз</Russian>
+            <German>Scannt den FCR einmal</German>
+            <Korean>FCR을 한 번 스캔합니다</Korean>
+            <Japanese>FCRを1回スキャンします</Japanese>
+            <Chinesesimp>扫描FCR一次</Chinesesimp>
+            <Turkish>FCR'yi bir kez tarar</Turkish>
+            <Dutch>Scant de FCR eenmaal</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FLARE">
+            <Original>Deploy Flare</Original>
+            <English>Deploy Flare</English>
+            <Czech>Vypustit Záblesk</Czech>
+            <French>Déployer Leurre</French>
+            <Spanish>Lanzar Bengala</Spanish>
+            <Italian>Dispensa Bengala</Italian>
+            <Polish>Wystrzel Flary</Polish>
+            <Portuguese>Disparar Flare</Portuguese>
+            <Russian>Развернуть Ловушку</Russian>
+            <German>Täuschkörper Werfen</German>
+            <Korean>플레어 발사</Korean>
+            <Japanese>フレアを展開</Japanese>
+            <Chinesesimp>发射照明弹</Chinesesimp>
+            <Turkish>Işık Saçan Yalın Ata</Turkish>
+            <Dutch>Flare Inzetten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FLARE_INFO">
+            <Original>Deploy a single Flare countermeasure</Original>
+            <English>Deploy a single Flare countermeasure</English>
+            <Czech>Vypustí jednu záblesk-protimu</Czech>
+            <French>Déploie une seule mesure de contre-leurre</French>
+            <Spanish>Despliega una única medida de contramedida</Spanish>
+            <Italian>Dispensa una singola misura di contromisura</Italian>
+            <Polish>Wystrzeluje jedną flara jako protiśrodek</Polish>
+            <Portuguese>Dispara uma única medida de contramedida</Portuguese>
+            <Russian>Развернуть одну ловушку в качестве контрмеры</Russian>
+            <German>Setzt eine einzelne Täuschkörper-Gegenmaßnahme ein</German>
+            <Korean>단일 플레어 대응책 발사</Korean>
+            <Japanese>単一のフレア対策を展開</Japanese>
+            <Chinesesimp>部署单个照明弹对抗措施</Chinesesimp>
+            <Turkish>Tek bir karşı önlem olarak ışık saçan yalın ata</Turkish>
+            <Dutch>Zet een enkele flare tegen-maatregel in</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN">
+            <Original>Force Trim/Hold Mode Switch Down</Original>
+            <English>Force Trim/Hold Mode Switch Down</English>
+            <Czech>Přepínač Síla Trim/Režim Drž Dolů</Czech>
+            <French>Basculer Force Trim/Mode Maintien Bas</French>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Abajo</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Giù</Italian>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Dół</Polish>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Baixo</Portuguese>
+            <Russian>Переключатель Force Trim / Hold Mode Вниз</Russian>
+            <German>Force Trim/Hold Mode Schalter Unten</German>
+            <Korean>강제 트림/홀드 모드 스위치 아래</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ下</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向下</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Aşağı</Turkish>
+            <Dutch>Force Trim/Hold Mode Schakelaar Omlaag</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN_INFO">
+            <Original>De-Activates both Attitude and Altitude Hold</Original>
+            <English>De-Activates both Attitude and Altitude Hold</English>
+            <Czech>Deaktivuje držení postoje i nadmořské výšky</Czech>
+            <French>Désactive à la fois le maintien d'attitude et d'altitude</French>
+            <Spanish>Desactiva tanto el mantenimiento de actitud como el de altitud</Spanish>
+            <Italian>Disattiva sia il mantenimento dell'assetto che dell'altitudine</Italian>
+            <Polish>Dezaktywuje zarówno Attitude Hold, jak i Altitude Hold</Polish>
+            <Portuguese>Desativa tanto o Attitude Hold quanto o Altitude Hold</Portuguese>
+            <Russian>Деактивирует удержание как тангажа, так и высоты</Russian>
+            <German>Deaktiviert sowohl die Halteposition als auch die Höhenhaltung</German>
+            <Korean>자세 및 고도 유지 모두 비활성화</Korean>
+            <Japanese>姿勢保持と高度保持の両方を無効にします</Japanese>
+            <Chinesesimp>停用姿态和高度保持</Chinesesimp>
+            <Turkish>Hem Attitude Hold hem de Altitude Hold'u Devre Dışı Bırakır</Turkish>
+            <Dutch>Deactiveert zowel Attitude als Altitude Hold</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT">
+            <Original>Force Trim/Hold Mode Switch Left</Original>
+            <English>Force Trim/Hold Mode Switch Left</English>
+            <Czech>Přepínač Síla Trim/Režim Drž Vlevo</Czech>
+            <French>Basculer Force Trim/Mode Maintien Gauche</French>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Izquierda</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Sinistra</Italian>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Lewo</Polish>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Esquerda</Portuguese>
+            <Russian>Переключатель Force Trim / Hold Mode Влево</Russian>
+            <German>Force Trim/Hold Mode Schalter Links</German>
+            <Korean>강제 트림/홀드 모드 스위치 왼쪽</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ左</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向左</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Sol</Turkish>
+            <Dutch>Force Trim/Hold Mode Schakelaar Links</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT_INFO">
+            <Original>Activates Attitude Hold</Original>
+            <English>Activates Attitude Hold</English>
+            <Czech>Aktivuje drž postoje</Czech>
+            <French>Active le maintien d'attitude</French>
+            <Spanish>Activa el mantenimiento de actitud</Spanish>
+            <Italian>Attiva il mantenimento dell'assetto</Italian>
+            <Polish>Aktywuje Attitude Hold</Polish>
+            <Portuguese>Ativa o Attitude Hold</Portuguese>
+            <Russian>Активирует удержание тангажа</Russian>
+            <German>Aktiviert die Lagekontrolle</German>
+            <Korean>자세 유지 활성화</Korean>
+            <Japanese>姿勢保持を有効にします</Japanese>
+            <Chinesesimp>激活姿态保持</Chinesesimp>
+            <Turkish>Attitude Hold'u Etkinleştirir</Turkish>
+            <Dutch>Activeert Attitude Hold</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT">
+            <Original>Force Trim/Hold Mode Switch Right</Original>
+            <English>Force Trim/Hold Mode Switch Right</English>
+            <Czech>Přepínač Síla Trim/Režim Drž Vpravo</Czech>
+            <French>Basculer Force Trim/Mode Maintien Droite</French>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Derecha</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Destra</Italian>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Prawo</Polish>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Direita</Portuguese>
+            <Russian>Переключатель Force Trim / Hold Mode Вправо</Russian>
+            <German>Force Trim/Hold Mode Schalter Rechts</German>
+            <Korean>강제 트림/홀드 모드 스위치 오른쪽</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ右</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向右</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Sağ</Turkish>
+            <Dutch>Force Trim/Hold Mode Schakelaar Rechts</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT_INFO">
+            <Original>Activates Altitude Hold</Original>
+            <English>Activates Altitude Hold</English>
+            <Czech>Aktivuje drž nadmořské výšky</Czech>
+            <French>Active le maintien d'altitude</French>
+            <Spanish>Activa el mantenimiento de altitud</Spanish>
+            <Italian>Attiva il mantenimento dell'altitudine</Italian>
+            <Polish>Aktywuje Altitude Hold</Polish>
+            <Portuguese>Ativa o Altitude Hold</Portuguese>
+            <Russian>Активирует удержание высоты</Russian>
+            <German>Aktiviert die Höhenhaltung</German>
+            <Korean>고도 유지 활성화</Korean>
+            <Japanese>高度保持を有効にします</Japanese>
+            <Chinesesimp>激活高度保持</Chinesesimp>
+            <Turkish>Yükseklik Tutmayı Etkinleştirir</Turkish>
+            <Dutch>Activeert hoogtehoud</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP">
+            <Original>Force Trim/Hold Mode Switch Up</Original>
+            <English>Force Trim/Hold Mode Switch Up</English>
+            <Czech>Přepínač Síla Trim/Režim Drž Nahoru</Czech>
+            <French>Basculer Force Trim/Mode Maintien Haut</French>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Arriba</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Su</Italian>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Górę</Polish>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Cima</Portuguese>
+            <Russian>Переключатель Force Trim / Hold Mode Вверх</Russian>
+            <German>Force Trim/Hold Mode Schalter Oben</German>
+            <Korean>강제 트림/홀드 모드 스위치 위</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ上</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向上</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Yukarı</Turkish>
+            <Dutch>Force Trim/Hold Mode Schakelaar Omhoog</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP_INFO">
+            <Original>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</Original>
+            <English>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</English>
+            <Czech>Při krátkém přerušení aktualizuje polohu reference řízení letu pro Attitude Hold a deaktivuje Heading a Attitude Hold, pokud je drženo.</Czech>
+            <French>Lorsqu'interrompu brièvement, met à jour la position de référence du contrôle de vol pour le maintien d'attitude et désactive le maintien de cap et d'attitude lorsqu'il est maintenu.</French>
+            <Spanish>Cuando se interrumpe momentáneamente, actualiza la posición de referencia del control de vuelo para el mantenimiento de actitud y desactiva el mantenimiento de rumbo y actitud cuando se mantiene pulsado.</Spanish>
+            <Italian>Quando momentaneamente interrotto, aggiorna la posizione di riferimento del controllo di volo per il mantenimento dell'assetto e disattiva il mantenimento della prua e dell'assetto quando tenuto premuto.</Italian>
+            <Polish>Po krótkim przerwaniu aktualizuje pozycję odniesienia sterowania lotem dla Attitude Hold i dezaktywuje Heading and Attitude Hold po przytrzymaniu.</Polish>
+            <Portuguese>Quando interrompido momentaneamente, atualiza a posição de referência do controle de voo para Attitude Hold e desativa Heading and Attitude Hold quando mantido.</Portuguese>
+            <Russian>При кратковременном прерывании обновляет положение эталона управления полетом для режима удержания тангажа и отключает режим удержания курса и тангажа при удержании.</Russian>
+            <German>Bei kurzer Unterbrechung aktualisiert die Referenzposition der Flugsteuerung für die Halteposition und deaktiviert die Kopf- und Halteposition beim Halten.</German>
+            <Korean>순간 중단될 때 비행 제어 기준 위치를 Attitude Hold로 업데이트하고 누르고 있을 때 Heading 및 Attitude Hold를 비활성화합니다.</Korean>
+            <Japanese>一瞬中断された場合、Attitude Holdのフライトコントロール基準位置を更新し、保持されたときにHeading and Attitude Holdを無効にします。</Japanese>
+            <Chinesesimp>当瞬间中断时，更新姿态保持的飞行控制参考位置，并在按住时停用航向和姿态保持。</Chinesesimp>
+            <Turkish>Kısaca kesildiğinde, Attitude Hold için uçuş kontrolü referans konumunu güncelleştirir ve tutulduğunda Heading ve Attitude Hold'u devre dışı bırakır.</Turkish>
+            <Dutch>Wanneer kort onderbroken, werkt het referentieposition van de vliegtuigcontrole bij voor Attitude Hold en deactiveert Heading and Attitude Hold wanneer vastgehouden.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON">
+            <Original>Force Trim Panic Button</Original>
+            <English>Force Trim Panic Button</English>
+            <Czech>Tlačítko Panika Vynucené Vyrovnání</Czech>
+            <French>Bouton Panique Ajustement Forcé</French>
+            <Spanish>Botón de Pánico Trim Forzado</Spanish>
+            <Italian>Pulsante Panico Trim Forzato</Italian>
+            <Polish>Przycisk Paniki Wymuszonego Trimmera</Polish>
+            <Portuguese>Botão de Pânico Ajuste Forçado</Portuguese>
+            <Russian>Кнопка Паники Принудительной Подрезки</Russian>
+            <German>Kraft Trim Paniktaste</German>
+            <Korean>강제 트림 패닉 버튼</Korean>
+            <Japanese>フォーストトリムパニックボタン</Japanese>
+            <Chinesesimp>强制配平紧急按钮</Chinesesimp>
+            <Turkish>Kuvvet Trim Panik Düğmesi</Turkish>
+            <Dutch>Force Trim Paniekknop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON_INFO">
+            <Original>Zeroes out the force trim values.</Original>
+            <English>Zeroes out the force trim values.</English>
+            <Czech>Vynuluje hodnoty vynuceného vyrovnání.</Czech>
+            <French>Réinitialise les valeurs d'ajustement forcé.</French>
+            <Spanish>Anula los valores de ajuste forzado.</Spanish>
+            <Italian>Azzera i valori di trim forzato.</Italian>
+            <Polish>Zeruje wartości wymuszonego trimmera.</Polish>
+            <Portuguese>Zera os valores de ajuste forçado.</Portuguese>
+            <Russian>Обнуляет значения принудительной подрезки.</Russian>
+            <German>Setzt die Kraft Trim Werte auf Null.</German>
+            <Korean>강제 트림 값을 0으로 설정합니다.</Korean>
+            <Japanese>フォーストトリムの値をリセットします。</Japanese>
+            <Chinesesimp>将强制配平值重置为零。</Chinesesimp>
+            <Turkish>Kuvvet trim değerlerini sıfırlar.</Turkish>
+            <Dutch>Zet de force trim waarden op nul.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_KB_COLLECTIVE_DN">
+            <Original>Keyboard Collective Down</Original>
+            <English>Keyboard Collective Down</English>
+            <Czech>Klávesnice Kolektivní Dolů</Czech>
+            <French>Clavier Collective Bas</French>
+            <Spanish>Teclado Colectivo Abajo</Spanish>
+            <Italian>Tastiera Collettivo Giù</Italian>
+            <Polish>Klawiatura Zbiorowy Dół</Polish>
+            <Portuguese>Teclado Coletivo Para Baixo</Portuguese>
+            <Russian>Клавиатура Коллективный Вниз</Russian>
+            <German>Tastatur Collective Ab</German>
+            <Korean>키보드 집단 아래로</Korean>
+            <Japanese>キーボード集団下降</Japanese>
+            <Chinesesimp>键盘集体向下</Chinesesimp>
+            <Turkish>Klavye Toplu Aşağı</Turkish>
+            <Dutch>Toetsenbord Collectief Omlaag</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_KB_COLLECTIVE_UP">
+            <Original>Keyboard Collective Up</Original>
+            <English>Keyboard Collective Up</English>
+            <Czech>Klávesnice Kolektivní Nahoru</Czech>
+            <French>Clavier Collective Haut</French>
+            <Spanish>Teclado Colectivo Arriba</Spanish>
+            <Italian>Tastiera Collettivo Su</Italian>
+            <Polish>Klawiatura Zbiorowy Góra</Polish>
+            <Portuguese>Teclado Coletivo Para Cima</Portuguese>
+            <Russian>Клавиатура Коллективный Вверх</Russian>
+            <German>Tastatur Collective Auf</German>
+            <Korean>키보드 집단 위로</Korean>
+            <Japanese>キーボード集団上昇</Japanese>
+            <Chinesesimp>键盘集体向上</Chinesesimp>
+            <Turkish>Klavye Toplu Yukarı</Turkish>
+            <Dutch>Toetsenbord Collectief Omhoog</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LASER_DESIG">
+            <Original>LRFD Second Detent (Lase)</Original>
+            <English>LRFD Second Detent (Lase)</English>
+            <Czech>Druhá Záklopka LRFD (Laser)</Czech>
+            <French>Deuxième Cran LRFD (Laser)</French>
+            <Spanish>Segundo Detente LRFD (Láser)</Spanish>
+            <Italian>Secondo Scatto LRFD (Laser)</Italian>
+            <Polish>Drugi Zatrzask LRFD (Laser)</Polish>
+            <Portuguese>Segundo Engate LRFD (Laser)</Portuguese>
+            <Russian>Второй защелки LRFD (Лазер)</Russian>
+            <German>LRFD Zweite Rastung (Laser)</German>
+            <Korean>LRFD 두 번째 딸깍 (레이저)</Korean>
+            <Japanese>LRFD第2ディテント（レーザー）</Japanese>
+            <Chinesesimp>LRFD第二卡扣（激光）</Chinesesimp>
+            <Turkish>LRFD İkinci Pozisyon (Lazer)</Turkish>
+            <Dutch>LRFD Tweede Vastzetting (Laser)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LASER_DESIG_INFO">
+            <Original>Lases the target when held down.</Original>
+            <English>Lases the target when held down.</English>
+            <Czech>Laseruje cíl při podržení.</Czech>
+            <French>Pulse laser sur la cible lorsqu'il est maintenu.</French>
+            <Spanish>Marca el objetivo con láser cuando se mantiene pulsado.</Spanish>
+            <Italian>Laser il bersaglio quando tenuto premuto.</Italian>
+            <Polish>Laseruje cel gdy przytrzymany.</Polish>
+            <Portuguese>Laser o alvo quando mantido pressionado.</Portuguese>
+            <Russian>Лазерует цель при удержании.</Russian>
+            <German>Lasert das Ziel beim Gedrückthalten.</German>
+            <Korean>누르고 있을 때 대상에 레이저를 조사합니다.</Korean>
+            <Japanese>押し続けるとターゲットをレーザー照射します。</Japanese>
+            <Chinesesimp>按住时用激光照射目标。</Chinesesimp>
+            <Turkish>Basılı tutarken hedefi lazerle işaretler.</Turkish>
+            <Dutch>Lasermarkeert het doel als u het inhoudt.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MISSILE_ADVANCE">
+            <Original>Missile Advance</Original>
+            <English>Missile Advance</English>
+            <Czech>Pokročilá Raketa</Czech>
+            <French>Avancer Missile</French>
+            <Spanish>Avance de Misil</Spanish>
+            <Italian>Avanzamento Missile</Italian>
+            <Polish>Zaawansowany Pocisk</Polish>
+            <Portuguese>Avanço de Míssil</Portuguese>
+            <Russian>Продвижение Ракеты</Russian>
+            <German>Rakete Voraus</German>
+            <Korean>미사일 전진</Korean>
+            <Japanese>ミサイル前進</Japanese>
+            <Chinesesimp>导弹前进</Chinesesimp>
+            <Turkish>Füze İlerlemesi</Turkish>
+            <Dutch>Raket Vooruit</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MISSILE_ADVANCE_INFO">
+            <Original>Advances through all missile types</Original>
+            <English>Advances through all missile types</English>
+            <Czech>Postupuje přes všechny typy raket</Czech>
+            <French>Avance tous les types de missiles</French>
+            <Spanish>Avanza a través de todos los tipos de misiles</Spanish>
+            <Italian>Avanza attraverso tutti i tipi di missili</Italian>
+            <Polish>Przechodzi przez wszystkie typy pocisków</Polish>
+            <Portuguese>Avança através de todos os tipos de mísseis</Portuguese>
+            <Russian>Проходит через все типы ракет</Russian>
+            <German>Durchläuft alle Raketentypen</German>
+            <Korean>모든 미사일 유형을 순회합니다</Korean>
+            <Japanese>すべてのミサイルタイプを進めます</Japanese>
+            <Chinesesimp>通过所有导弹类型</Chinesesimp>
+            <Turkish>Tüm füze türlerinde ilerler</Turkish>
+            <Dutch>Gaat door alle rakeytypes</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_PEDAL_LEFT">
+            <Original>Pedal Left</Original>
+            <English>Pedal Left</English>
+            <Czech>Pedál Vlevo</Czech>
+            <French>Pédal Gauche</French>
+            <Spanish>Pedal Izquierda</Spanish>
+            <Italian>Pedale Sinistra</Italian>
+            <Polish>Pedał Lewo</Polish>
+            <Portuguese>Pedal Esquerda</Portuguese>
+            <Russian>Педаль Влево</Russian>
+            <German>Pedal Links</German>
+            <Korean>페달 좌측</Korean>
+            <Japanese>ペダル左</Japanese>
+            <Chinesesimp>踏板左</Chinesesimp>
+            <Turkish>Pedal Sol</Turkish>
+            <Dutch>Pedaal Links</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_PEDAL_RIGHT">
+            <Original>Pedal Right</Original>
+            <English>Pedal Right</English>
+            <Czech>Pedál Vpravo</Czech>
+            <French>Pédal Droite</French>
+            <Spanish>Pedal Derecha</Spanish>
+            <Italian>Pedale Destra</Italian>
+            <Polish>Pedał Prawo</Polish>
+            <Portuguese>Pedal Direita</Portuguese>
+            <Russian>Педаль Вправо</Russian>
+            <German>Pedal Rechts</German>
+            <Korean>페달 우측</Korean>
+            <Japanese>ペダル右</Japanese>
+            <Chinesesimp>踏板右</Chinesesimp>
+            <Turkish>Pedal Sağ</Turkish>
+            <Dutch>Pedaal Rechts</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV">
+            <Original>LHG Sensor Select Switch - DTV</Original>
+            <English>LHG Sensor Select Switch - DTV</English>
+            <Czech>Přepínač Výběr Senzoru LHG - DTV</Czech>
+            <French>Commutateur Sélection Capteur LHG - DTV</French>
+            <Spanish>Interruptor Selección Sensor LHG - DTV</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - DTV</Italian>
+            <Polish>Przełącznik Wyboru Czujnika LHG - DTV</Polish>
+            <Portuguese>Chave Seleção Sensor LHG - DTV</Portuguese>
+            <Russian>Переключатель Выбора Датчика LHG - DTV</Russian>
+            <German>LHG Sensor Select Schalter - DTV</German>
+            <Korean>LHG 센서 선택 스위치 - DTV</Korean>
+            <Japanese>LHG センサ選択スイッチ - DTV</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - DTV</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - DTV</Turkish>
+            <Dutch>LHG Sensor Selectie Schakelaar - DTV</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV_INFO">
+            <Original>Sets the Tads Sensor to DTV</Original>
+            <English>Sets the Tads Sensor to DTV</English>
+            <Czech>Nastavuje Senzor TADS na DTV</Czech>
+            <French>Définit le Capteur TADS sur DTV</French>
+            <Spanish>Establece el Sensor TADS en DTV</Spanish>
+            <Italian>Imposta il Sensore TADS su DTV</Italian>
+            <Polish>Ustawia Czujnik TADS na DTV</Polish>
+            <Portuguese>Define o Sensor TADS como DTV</Portuguese>
+            <Russian>Установить Датчик TADS на DTV</Russian>
+            <German>Setzt den TADS Sensor auf DTV</German>
+            <Korean>TADS 센서를 DTV로 설정</Korean>
+            <Japanese>TADSセンサをDTVに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为DTV</Chinesesimp>
+            <Turkish>TADS Sensörünü DTV Olarak Ayarla</Turkish>
+            <Dutch>Stelt de TADS Sensor in op DTV</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO">
+            <Original>LHG Sensor Select Switch - DVO</Original>
+            <English>LHG Sensor Select Switch - DVO</English>
+            <Czech>Přepínač Výběr Senzoru LHG - DVO</Czech>
+            <French>Commutateur Sélection Capteur LHG - DVO</French>
+            <Spanish>Interruptor Selección Sensor LHG - DVO</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - DVO</Italian>
+            <Polish>Przełącznik Wyboru Czujnika LHG - DVO</Polish>
+            <Portuguese>Chave Seleção Sensor LHG - DVO</Portuguese>
+            <Russian>Переключатель Выбора Датчика LHG - DVO</Russian>
+            <German>LHG Sensor Select Schalter - DVO</German>
+            <Korean>LHG 센서 선택 스위치 - DVO</Korean>
+            <Japanese>LHG センサ選択スイッチ - DVO</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - DVO</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - DVO</Turkish>
+            <Dutch>LHG Sensor Selectie Schakelaar - DVO</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO_INFO">
+            <Original>Sets the Tads Sensor to DVO</Original>
+            <English>Sets the Tads Sensor to DVO</English>
+            <Czech>Nastavuje Senzor TADS na DVO</Czech>
+            <French>Définit le Capteur TADS sur DVO</French>
+            <Spanish>Establece el Sensor TADS en DVO</Spanish>
+            <Italian>Imposta il Sensore TADS su DVO</Italian>
+            <Polish>Ustawia Czujnik TADS na DVO</Polish>
+            <Portuguese>Define o Sensor TADS como DVO</Portuguese>
+            <Russian>Установить Датчик TADS на DVO</Russian>
+            <German>Setzt den TADS Sensor auf DVO</German>
+            <Korean>TADS 센서를 DVO로 설정</Korean>
+            <Japanese>TADSセンサをDVOに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为DVO</Chinesesimp>
+            <Turkish>TADS Sensörünü DVO Olarak Ayarla</Turkish>
+            <Dutch>Stelt de TADS Sensor in op DVO</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR">
+            <Original>LHG Sensor Select Switch - FLIR</Original>
+            <English>LHG Sensor Select Switch - FLIR</English>
+            <Czech>Přepínač Výběr Senzoru LHG - FLIR</Czech>
+            <French>Commutateur Sélection Capteur LHG - FLIR</French>
+            <Spanish>Interruptor Selección Sensor LHG - FLIR</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - FLIR</Italian>
+            <Polish>Przełącznik Wyboru Czujnika LHG - FLIR</Polish>
+            <Portuguese>Chave Seleção Sensor LHG - FLIR</Portuguese>
+            <Russian>Переключатель Выбора Датчика LHG - FLIR</Russian>
+            <German>LHG Sensor Select Schalter - FLIR</German>
+            <Korean>LHG 센서 선택 스위치 - FLIR</Korean>
+            <Japanese>LHG センサ選択スイッチ - FLIR</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - FLIR</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - FLIR</Turkish>
+            <Dutch>LHG Sensor Selectie Schakelaar - FLIR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR_INFO">
+            <Original>Sets the Tads Sensor to FLIR</Original>
+            <English>Sets the Tads Sensor to FLIR</English>
+            <Czech>Nastavuje Senzor TADS na FLIR</Czech>
+            <French>Définit le Capteur TADS sur FLIR</French>
+            <Spanish>Establece el Sensor TADS en FLIR</Spanish>
+            <Italian>Imposta il Sensore TADS su FLIR</Italian>
+            <Polish>Ustawia Czujnik TADS na FLIR</Polish>
+            <Portuguese>Define o Sensor TADS como FLIR</Portuguese>
+            <Russian>Установить Датчик TADS на FLIR</Russian>
+            <German>Setzt den TADS Sensor auf FLIR</German>
+            <Korean>TADS 센서를 FLIR로 설정</Korean>
+            <Japanese>TADSセンサをFLIRに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为FLIR</Chinesesimp>
+            <Turkish>TADS Sensörünü FLIR Olarak Ayarla</Turkish>
+            <Dutch>Stelt de TADS Sensor in op FLIR</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR">
+            <Original>Sight Select FCR</Original>
+            <English>Sight Select FCR</English>
+            <Czech>Vybrat FCR</Czech>
+            <French>Sélectionner FCR</French>
+            <Spanish>Seleccionar FCR</Spanish>
+            <Italian>Seleziona FCR</Italian>
+            <Polish>Wybierz FCR</Polish>
+            <Portuguese>Selecionar FCR</Portuguese>
+            <Russian>Выберите FCR</Russian>
+            <German>FCR Wählen</German>
+            <Korean>FCR 선택</Korean>
+            <Japanese>FCR選択</Japanese>
+            <Chinesesimp>选择FCR</Chinesesimp>
+            <Turkish>FCR Seç</Turkish>
+            <Dutch>FCR Selecteren</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR_INFO">
+            <Original>Sets the current sight to FCR</Original>
+            <English>Sets the current sight to FCR</English>
+            <Czech>Nastaví aktuální pohled na FCR</Czech>
+            <French>Définit la visée actuelle à FCR</French>
+            <Spanish>Establece la vista actual a FCR</Spanish>
+            <Italian>Imposta la vista attuale su FCR</Italian>
+            <Polish>Ustawia bieżący widok na FCR</Polish>
+            <Portuguese>Define o sinal atual como FCR</Portuguese>
+            <Russian>Устанавливает текущий вид на FCR</Russian>
+            <German>Setzt das aktuelle Ziel auf FCR</German>
+            <Korean>현재 조준을 FCR로 설정</Korean>
+            <Japanese>現在のサイトをFCRに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为FCR</Chinesesimp>
+            <Turkish>Geçerli görüşü FCR olarak ayarla</Turkish>
+            <Dutch>Stelt het huidige zicht op FCR in</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD">
+            <Original>Sight Select FXD</Original>
+            <English>Sight Select FXD</English>
+            <Czech>Vybrat FXD</Czech>
+            <French>Sélectionner FXD</French>
+            <Spanish>Seleccionar FXD</Spanish>
+            <Italian>Seleziona FXD</Italian>
+            <Polish>Wybierz FXD</Polish>
+            <Portuguese>Selecionar FXD</Portuguese>
+            <Russian>Выберите FXD</Russian>
+            <German>FXD Wählen</German>
+            <Korean>FXD 선택</Korean>
+            <Japanese>FXD選択</Japanese>
+            <Chinesesimp>选择FXD</Chinesesimp>
+            <Turkish>FXD Seç</Turkish>
+            <Dutch>FXD Selecteren</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD_INFO">
+            <Original>Sets the current sight to FXD</Original>
+            <English>Sets the current sight to FXD</English>
+            <Czech>Nastaví aktuální pohled na FXD</Czech>
+            <French>Définit la visée actuelle à FXD</French>
+            <Spanish>Establece la vista actual a FXD</Spanish>
+            <Italian>Imposta la vista attuale su FXD</Italian>
+            <Polish>Ustawia bieżący widok na FXD</Polish>
+            <Portuguese>Define o sinal atual como FXD</Portuguese>
+            <Russian>Устанавливает текущий вид на FXD</Russian>
+            <German>Setzt das aktuelle Ziel auf FXD</German>
+            <Korean>현재 조준을 FXD로 설정</Korean>
+            <Japanese>現在のサイトをFXDに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为FXD</Chinesesimp>
+            <Turkish>Geçerli görüşü FXD olarak ayarla</Turkish>
+            <Dutch>Stelt het huidige zicht op FXD in</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD">
+            <Original>Sight Select HMD</Original>
+            <English>Sight Select HMD</English>
+            <Czech>Vybrat HMD</Czech>
+            <French>Sélectionner HMD</French>
+            <Spanish>Seleccionar HMD</Spanish>
+            <Italian>Seleziona HMD</Italian>
+            <Polish>Wybierz HMD</Polish>
+            <Portuguese>Selecionar HMD</Portuguese>
+            <Russian>Выберите HMD</Russian>
+            <German>HMD Wählen</German>
+            <Korean>HMD 선택</Korean>
+            <Japanese>HMD選択</Japanese>
+            <Chinesesimp>选择HMD</Chinesesimp>
+            <Turkish>HMD Seç</Turkish>
+            <Dutch>HMD Selecteren</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD_INFO">
+            <Original>Sets the current sight to HMD</Original>
+            <English>Sets the current sight to HMD</English>
+            <Czech>Nastaví aktuální pohled na HMD</Czech>
+            <French>Définit la visée actuelle à HMD</French>
+            <Spanish>Establece la vista actual a HMD</Spanish>
+            <Italian>Imposta la vista attuale su HMD</Italian>
+            <Polish>Ustawia bieżący widok na HMD</Polish>
+            <Portuguese>Define o sinal atual como HMD</Portuguese>
+            <Russian>Устанавливает текущий вид на HMD</Russian>
+            <German>Setzt das aktuelle Ziel auf HMD</German>
+            <Korean>현재 조준을 HMD로 설정</Korean>
+            <Japanese>現在のサイトをHMDに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为HMD</Chinesesimp>
+            <Turkish>Geçerli görüşü HMD olarak ayarla</Turkish>
+            <Dutch>Stelt het huidige zicht op HMD in</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS">
+            <Original>Sight Select TADS</Original>
+            <English>Sight Select TADS</English>
+            <Czech>Vybrat TADS</Czech>
+            <French>Sélectionner TADS</French>
+            <Spanish>Seleccionar TADS</Spanish>
+            <Italian>Seleziona TADS</Italian>
+            <Polish>Wybierz TADS</Polish>
+            <Portuguese>Selecionar TADS</Portuguese>
+            <Russian>Выберите TADS</Russian>
+            <German>TADS Wählen</German>
+            <Korean>TADS 선택</Korean>
+            <Japanese>TADS選択</Japanese>
+            <Chinesesimp>选择TADS</Chinesesimp>
+            <Turkish>TADS Seç</Turkish>
+            <Dutch>TADS Selecteren</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS_INFO">
+            <Original>Sets the current sight to TADS</Original>
+            <English>Sets the current sight to TADS</English>
+            <Czech>Nastaví aktuální pohled na TADS</Czech>
+            <French>Définit la visée actuelle à TADS</French>
+            <Spanish>Establece la vista actual a TADS</Spanish>
+            <Italian>Imposta la vista attuale su TADS</Italian>
+            <Polish>Ustawia bieżący widok na TADS</Polish>
+            <Portuguese>Define o sinal atual como TADS</Portuguese>
+            <Russian>Устанавливает текущий вид на TADS</Russian>
+            <German>Setzt das aktuelle Ziel auf TADS</German>
+            <Korean>현재 조준을 TADS로 설정</Korean>
+            <Japanese>現在のサイトをTADSに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为TADS</Chinesesimp>
+            <Turkish>Geçerli görüşü TADS olarak ayarla</Turkish>
+            <Dutch>Stelt het huidige zicht op TADS in</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT">
+            <Original>Sticky Control Interupt</Original>
+            <English>Sticky Control Interupt</English>
+            <Czech>Přerušení Lepkavého Ovládání</Czech>
+            <French>Interruption Commande Persistante</French>
+            <Spanish>Interrupción de Control Persistente</Spanish>
+            <Italian>Interruzione Controllo Persistente</Italian>
+            <Polish>Przerwanie Lepkiej Kontroli</Polish>
+            <Portuguese>Interrupção de Controle Pegajoso</Portuguese>
+            <Russian>Прерывание Липкого Управления</Russian>
+            <German>Sticky Steuerung Unterbrechung</German>
+            <Korean>고정 제어 중단</Korean>
+            <Japanese>スティッキーコントロール中断</Japanese>
+            <Chinesesimp>粘性控制中断</Chinesesimp>
+            <Turkish>Yapışkan Kontrol Kesintisi</Turkish>
+            <Dutch>Sticky Controle Onderbreking</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT_INFO">
+            <Original>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</Original>
+            <English>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</English>
+            <Czech>Při použití lepkavého cyklického zákazu zákazu lepkavého cyklického pro vyšší manévrovatelnost.</Czech>
+            <French>Lors de l'utilisation du cyclique persistant, désactive le cyclique persistant pour une meilleure manœuvrabilité.</French>
+            <Spanish>Cuando se usa el cíclico persistente, desactiva el cíclico persistente para mejorar la maniobrabilidad.</Spanish>
+            <Italian>Quando si utilizza il ciclico persistente, disattiva il ciclico persistente per una migliore manovrabilità.</Italian>
+            <Polish>Przy użyciu lepkiego cyklicznego wyłącza lepkie cykliczne dla lepszej manewrowości.</Polish>
+            <Portuguese>Ao usar o cíclico pegajoso, desativa o cíclico pegajoso para melhor capacidade de manobra.</Portuguese>
+            <Russian>При использовании липкого циклического отключает липкое циклическое для улучшенной маневренности.</Russian>
+            <German>Bei Verwendung von Sticky Cyclic wird das Sticky Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
+            <Korean>고정 사이클릭 사용 시 향상된 조작을 위해 고정 사이클릭을 비활성화합니다.</Korean>
+            <Japanese>スティッキーサイクリックを使用する場合、スティッキーサイクリックを無効にして操縦性を向上させます。</Japanese>
+            <Chinesesimp>使用粘性循环时，禁用粘性循环以增强机动性。</Chinesesimp>
+            <Turkish>Yapışkan döngüsel kullanımda, yapışkan döngüsel'i devre dışı bırakarak geliştirilmiş manevra kabiliyeti sağlar.</Turkish>
+            <Dutch>Wanneer sticky cyclic wordt gebruikt, schakelt het sticky cyclic uit voor verbeterde manoeuvreerbaarheid.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN">
+            <Original>Symbology Select Down</Original>
+            <English>Symbology Select Down</English>
+            <Czech>Vybrat Symboliku Dolů</Czech>
+            <French>Sélectionner Symbologie Bas</French>
+            <Spanish>Seleccionar Simbología Abajo</Spanish>
+            <Italian>Seleziona Simbologia Giù</Italian>
+            <Polish>Wybierz Symbologię Dół</Polish>
+            <Portuguese>Selecionar Simbologia Baixo</Portuguese>
+            <Russian>Выберите Символику Вниз</Russian>
+            <German>Symbologie Wählen Unten</German>
+            <Korean>기호 선택 아래</Korean>
+            <Japanese>シンボロジー選択下</Japanese>
+            <Chinesesimp>选择符号向下</Chinesesimp>
+            <Turkish>Simboloji Seç Aşağı</Turkish>
+            <Dutch>Symbologie Selecteren Omlaag</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN_INFO">
+            <Original>Cycles the HDU Symbology between Hover and Bobup modes</Original>
+            <English>Cycles the HDU Symbology between Hover and Bobup modes</English>
+            <Czech>Přepíná HDU symboliku mezi režimy Hoveru a Bobup</Czech>
+            <French>Alterne la symbologie HDU entre les modes Surplace et Remontée</French>
+            <Spanish>Alterna la simbología HDU entre modos de Flotación y Ascenso</Spanish>
+            <Italian>Commuta la simbologia HDU tra i modi Hover e Bobup</Italian>
+            <Polish>Przełącza symbologię HDU między trybami Unoszenia się i Bobup</Polish>
+            <Portuguese>Alterna a simbologia HDU entre modos de Pairação e Bobup</Portuguese>
+            <Russian>Переключает символику HDU между режимами зависания и подъема</Russian>
+            <German>Wechselt die HDU-Symbologie zwischen Hover- und Bobup-Modus</German>
+            <Korean>HDU 기호를 호버 및 밥업 모드 사이에서 전환</Korean>
+            <Japanese>HDUシンボロジーをホバーとボバップモード間で切り替える</Japanese>
+            <Chinesesimp>在悬停和翻转模式之间循环HDU符号</Chinesesimp>
+            <Turkish>HDU Sembolojisini Hover ve Bobup Modları Arasında Döngü</Turkish>
+            <Dutch>Wisselt HDU-symbologie tussen Hover- en Bobup-modi</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS">
+            <Original>Symbology Select Press</Original>
+            <English>Symbology Select Press</English>
+            <Czech>Vybrat Symboliku Stisk</Czech>
+            <French>Appuyer sur Sélection Symbologie</French>
+            <Spanish>Presionar Seleccionar Simbología</Spanish>
+            <Italian>Premere Seleziona Simbologia</Italian>
+            <Polish>Naciśnij Wybierz Symbologię</Polish>
+            <Portuguese>Pressionar Selecionar Simbologia</Portuguese>
+            <Russian>Нажмите Выбрать Символику</Russian>
+            <German>Symbologie Wählen Drücken</German>
+            <Korean>기호 선택 누르기</Korean>
+            <Japanese>シンボロジー選択押す</Japanese>
+            <Chinesesimp>按符号选择</Chinesesimp>
+            <Turkish>Simboloji Seç Basın</Turkish>
+            <Dutch>Symbologie Selecteren Indrukken</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO">
+            <Original>Brings up the FLT page on the left MPD</Original>
+            <English>Brings up the FLT page on the left MPD</English>
+            <Czech>Přivede stránku FLT na levý MPD</Czech>
+            <French>Affiche la page FLT sur le MPD gauche</French>
+            <Spanish>Abre la página FLT en el MPD izquierdo</Spanish>
+            <Italian>Porta la pagina FLT al MPD sinistro</Italian>
+            <Polish>Wyświetla stronę FLT na lewym MPD</Polish>
+            <Portuguese>Abre a página FLT no MPD esquerdo</Portuguese>
+            <Russian>Выводит страницу FLT на левый МПД</Russian>
+            <German>Bringt die FLT-Seite auf dem linken MPD auf</German>
+            <Korean>좌측 MPD에 FLT 페이지 표시</Korean>
+            <Japanese>左MPDにFLTページを表示</Japanese>
+            <Chinesesimp>在左MPD上显示FLT页面</Chinesesimp>
+            <Turkish>Sol MPD'de FLT Sayfasını Aç</Turkish>
+            <Dutch>Brengt de FLT-pagina op de linker MPD tevoorschijn</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP">
+            <Original>Symbology Select Up</Original>
+            <English>Symbology Select Up</English>
+            <Czech>Vybrat Symboliku Nahoru</Czech>
+            <French>Sélectionner Symbologie Haut</French>
+            <Spanish>Seleccionar Simbología Arriba</Spanish>
+            <Italian>Seleziona Simbologia Su</Italian>
+            <Polish>Wybierz Symbologię Górę</Polish>
+            <Portuguese>Selecionar Simbologia Cima</Portuguese>
+            <Russian>Выберите Символику Вверх</Russian>
+            <German>Symbologie Wählen Oben</German>
+            <Korean>기호 선택 위</Korean>
+            <Japanese>シンボロジー選択上</Japanese>
+            <Chinesesimp>选择符号向上</Chinesesimp>
+            <Turkish>Simboloji Seç Yukarı</Turkish>
+            <Dutch>Symbologie Selecteren Omhoog</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP_INFO">
+            <Original>Cycles the HDU Symbology between Transition and Cruise modes</Original>
+            <English>Cycles the HDU Symbology between Transition and Cruise modes</English>
+            <Czech>Přepíná HDU symboliku mezi režimy Přechod a Cestování</Czech>
+            <French>Alterne la symbologie HDU entre les modes Transition et Croisière</French>
+            <Spanish>Alterna la simbología HDU entre modos de Transición y Crucero</Spanish>
+            <Italian>Commuta la simbologia HDU tra i modi Transizione e Crociera</Italian>
+            <Polish>Przełącza symbologię HDU między trybami przejścia i marszutą</Polish>
+            <Portuguese>Alterna a simbologia HDU entre modos de Transição e Cruzeiro</Portuguese>
+            <Russian>Переключает символику HDU между режимами перехода и круиза</Russian>
+            <German>Wechselt die HDU-Symbologie zwischen Übergangs- und Reisemodus</German>
+            <Korean>HDU 기호를 전환 및 순항 모드 사이에서 전환</Korean>
+            <Japanese>HDUシンボロジーを遷移とクルーズモード間で切り替える</Japanese>
+            <Chinesesimp>在过渡和巡航模式之间循环HDU符号</Chinesesimp>
+            <Turkish>HDU Sembolojisini Geçiş ve Cruise Modları Arasında Döngü</Turkish>
+            <Dutch>Wisselt HDU-symbologie tussen Transition- en Cruise-modi</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M">
+            <Original>TADS LHG FOV Switch - M</Original>
+            <English>TADS LHG FOV Switch - M</English>
+            <Czech>Přepínač FOV LHG TADS - M</Czech>
+            <French>Commutateur FOV LHG TADS - M</French>
+            <Spanish>Interruptor FOV LHG TADS - M</Spanish>
+            <Italian>Interruttore FOV LHG TADS - M</Italian>
+            <Polish>Przełącznik FOV LHG TADS - M</Polish>
+            <Portuguese>Chave FOV LHG TADS - M</Portuguese>
+            <Russian>Переключатель FOV LHG TADS - M</Russian>
+            <German>TADS LHG FOV Schalter - M</German>
+            <Korean>TADS LHG FOV 스위치 - M</Korean>
+            <Japanese>TADS LHG FOV スイッチ - M</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - M</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - M</Turkish>
+            <Dutch>TADS LHG FOV Schakelaar - M</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M_INFO">
+            <Original>Sets the Tads FOV to Medium</Original>
+            <English>Sets the Tads FOV to Medium</English>
+            <Czech>Nastavuje FOV TADS na Střední</Czech>
+            <French>Définit le FOV du TADS sur Moyen</French>
+            <Spanish>Establece el FOV del TADS en Medio</Spanish>
+            <Italian>Imposta il FOV del TADS su Medio</Italian>
+            <Polish>Ustawia FOV TADS na Średnie</Polish>
+            <Portuguese>Define o FOV do TADS como Médio</Portuguese>
+            <Russian>Установить FOV TADS на Средний</Russian>
+            <German>Setzt das TADS FOV auf Mittel</German>
+            <Korean>TADS FOV를 중각으로 설정</Korean>
+            <Japanese>TADS FOVを中角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为中角</Chinesesimp>
+            <Turkish>TADS FOV'u Orta Olarak Ayarla</Turkish>
+            <Dutch>Stelt het TADS FOV in op Middel</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N">
+            <Original>TADS LHG FOV Switch - N</Original>
+            <English>TADS LHG FOV Switch - N</English>
+            <Czech>Přepínač FOV LHG TADS - N</Czech>
+            <French>Commutateur FOV LHG TADS - N</French>
+            <Spanish>Interruptor FOV LHG TADS - N</Spanish>
+            <Italian>Interruttore FOV LHG TADS - N</Italian>
+            <Polish>Przełącznik FOV LHG TADS - N</Polish>
+            <Portuguese>Chave FOV LHG TADS - N</Portuguese>
+            <Russian>Переключатель FOV LHG TADS - N</Russian>
+            <German>TADS LHG FOV Schalter - N</German>
+            <Korean>TADS LHG FOV 스위치 - N</Korean>
+            <Japanese>TADS LHG FOV スイッチ - N</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - N</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - N</Turkish>
+            <Dutch>TADS LHG FOV Schakelaar - N</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N_INFO">
+            <Original>Sets the Tads FOV to Narrow</Original>
+            <English>Sets the Tads FOV to Narrow</English>
+            <Czech>Nastavuje FOV TADS na Úzké</Czech>
+            <French>Définit le FOV du TADS sur Étroit</French>
+            <Spanish>Establece el FOV del TADS en Estrecho</Spanish>
+            <Italian>Imposta il FOV del TADS su Stretto</Italian>
+            <Polish>Ustawia FOV TADS na Wąskie</Polish>
+            <Portuguese>Define o FOV do TADS como Estreito</Portuguese>
+            <Russian>Установить FOV TADS на Узкий</Russian>
+            <German>Setzt das TADS FOV auf Eng</German>
+            <Korean>TADS FOV를 협각으로 설정</Korean>
+            <Japanese>TADS FOVを狭角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为窄角</Chinesesimp>
+            <Turkish>TADS FOV'u Dar Olarak Ayarla</Turkish>
+            <Dutch>Stelt het TADS FOV in op Nauw</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W">
+            <Original>TADS LHG FOV Switch - W</Original>
+            <English>TADS LHG FOV Switch - W</English>
+            <Czech>Přepínač FOV LHG TADS - W</Czech>
+            <French>Commutateur FOV LHG TADS - W</French>
+            <Spanish>Interruptor FOV LHG TADS - W</Spanish>
+            <Italian>Interruttore FOV LHG TADS - W</Italian>
+            <Polish>Przełącznik FOV LHG TADS - W</Polish>
+            <Portuguese>Chave FOV LHG TADS - W</Portuguese>
+            <Russian>Переключатель FOV LHG TADS - W</Russian>
+            <German>TADS LHG FOV Schalter - W</German>
+            <Korean>TADS LHG FOV 스위치 - W</Korean>
+            <Japanese>TADS LHG FOV スイッチ - W</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - W</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - W</Turkish>
+            <Dutch>TADS LHG FOV Schakelaar - W</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W_INFO">
+            <Original>Sets the Tads FOV to Wide</Original>
+            <English>Sets the Tads FOV to Wide</English>
+            <Czech>Nastavuje FOV TADS na Široké</Czech>
+            <French>Définit le FOV du TADS sur Large</French>
+            <Spanish>Establece el FOV del TADS en Ancho</Spanish>
+            <Italian>Imposta il FOV del TADS su Ampio</Italian>
+            <Polish>Ustawia FOV TADS na Szerokie</Polish>
+            <Portuguese>Define o FOV do TADS como Amplo</Portuguese>
+            <Russian>Установить FOV TADS на Широкий</Russian>
+            <German>Setzt das TADS FOV auf Weit</German>
+            <Korean>TADS FOV를 광각으로 설정</Korean>
+            <Japanese>TADS FOVを広角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为宽角</Chinesesimp>
+            <Turkish>TADS FOV'u Geniş Olarak Ayarla</Turkish>
+            <Dutch>Stelt het TADS FOV in op Breed</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z">
+            <Original>TADS LHG FOV Switch - Z</Original>
+            <English>TADS LHG FOV Switch - Z</English>
+            <Czech>Přepínač FOV LHG TADS - Z</Czech>
+            <French>Commutateur FOV LHG TADS - Z</French>
+            <Spanish>Interruptor FOV LHG TADS - Z</Spanish>
+            <Italian>Interruttore FOV LHG TADS - Z</Italian>
+            <Polish>Przełącznik FOV LHG TADS - Z</Polish>
+            <Portuguese>Chave FOV LHG TADS - Z</Portuguese>
+            <Russian>Переключатель FOV LHG TADS - Z</Russian>
+            <German>TADS LHG FOV Schalter - Z</German>
+            <Korean>TADS LHG FOV 스위치 - Z</Korean>
+            <Japanese>TADS LHG FOV スイッチ - Z</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - Z</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - Z</Turkish>
+            <Dutch>TADS LHG FOV Schakelaar - Z</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z_INFO">
+            <Original>Sets the Tads FOV to Zoom</Original>
+            <English>Sets the Tads FOV to Zoom</English>
+            <Czech>Nastavuje FOV TADS na Zoom</Czech>
+            <French>Définit le FOV du TADS sur Zoom</French>
+            <Spanish>Establece el FOV del TADS en Zoom</Spanish>
+            <Italian>Imposta il FOV del TADS su Zoom</Italian>
+            <Polish>Ustawia FOV TADS na Przybliżenie</Polish>
+            <Portuguese>Define o FOV do TADS como Zoom</Portuguese>
+            <Russian>Установить FOV TADS на Масштабирование</Russian>
+            <German>Setzt das TADS FOV auf Zoom</German>
+            <Korean>TADS FOV를 줌으로 설정</Korean>
+            <Japanese>TADS FOVをズームに設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为变焦</Chinesesimp>
+            <Turkish>TADS FOV'u Yakınlaştır Olarak Ayarla</Turkish>
+            <Dutch>Stelt het TADS FOV in op Zoom</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_LMC">
+            <Original>LHG LMC Button</Original>
+            <English>LHG LMC Button</English>
+            <Czech>Tlačítko LMC LHG</Czech>
+            <French>Bouton LMC LHG</French>
+            <Spanish>Botón LMC LHG</Spanish>
+            <Italian>Pulsante LMC LHG</Italian>
+            <Polish>Przycisk LMC LHG</Polish>
+            <Portuguese>Botão LMC LHG</Portuguese>
+            <Russian>Кнопка LMC LHG</Russian>
+            <German>LHG LMC Taste</German>
+            <Korean>LHG LMC 버튼</Korean>
+            <Japanese>LHG LMCボタン</Japanese>
+            <Chinesesimp>LHG LMC按钮</Chinesesimp>
+            <Turkish>LHG LMC Düğmesi</Turkish>
+            <Dutch>LHG LMC Knop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TADS_LHG_LMC_INFO">
+            <Original>Toggles Tads Linear Motion Compensator</Original>
+            <English>Toggles Tads Linear Motion Compensator</English>
+            <Czech>Přepíná TADS Kompenzátor Lineárního Pohybu</Czech>
+            <French>Bascule le Compensateur de Mouvement Linéaire TADS</French>
+            <Spanish>Alterna el Compensador de Movimiento Lineal TADS</Spanish>
+            <Italian>Attiva/Disattiva il Compensatore Movimento Lineare TADS</Italian>
+            <Polish>Przełącza Kompensator Ruchu Liniowego TADS</Polish>
+            <Portuguese>Alterna o Compensador de Movimento Linear TADS</Portuguese>
+            <Russian>Переключает Компенсатор Линейного Движения TADS</Russian>
+            <German>Schaltet TADS Linear Bewegungskompensator um</German>
+            <Korean>TADS 선형 움직임 보상기 토글</Korean>
+            <Japanese>TADS線形モーション補正機をトグル</Japanese>
+            <Chinesesimp>切换TADS线性运动补偿器</Chinesesimp>
+            <Turkish>TADS Doğrusal Hareket Telafi Cihazını Aç/Kapat</Turkish>
+            <Dutch>Schakelt TADS Lineaire Bewegingscompensator in/uit</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE">
+            <Original>Target Store</Original>
+            <English>Target Store</English>
+            <Czech>Uložit Cíl</Czech>
+            <French>Enregistrer Cible</French>
+            <Spanish>Almacenar Objetivo</Spanish>
+            <Italian>Memorizza Obiettivo</Italian>
+            <Polish>Przechowywanie Celu</Polish>
+            <Portuguese>Armazenar Alvo</Portuguese>
+            <Russian>Сохранить Цель</Russian>
+            <German>Ziel Speichern</German>
+            <Korean>대상 저장</Korean>
+            <Japanese>ターゲット保存</Japanese>
+            <Chinesesimp>目标存储</Chinesesimp>
+            <Turkish>Hedefi Kaydet</Turkish>
+            <Dutch>Doel Opslaan</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE_INFO">
+            <Original>Stores the target being currently looked at in the TADS as a waypoint</Original>
+            <English>Stores the target being currently looked at in the TADS as a waypoint</English>
+            <Czech>Uloží cíl aktuálně pozorovaný v TADS jako bod trasy</Czech>
+            <French>Enregistre la cible actuellement observée dans le TADS en tant que point de cheminement</French>
+            <Spanish>Almacena el objetivo observado actualmente en el TADS como un punto de ruta</Spanish>
+            <Italian>Memorizza l'obiettivo attualmente osservato in TADS come waypoint</Italian>
+            <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
+            <Portuguese>Armazena o alvo observado atualmente no TADS como um ponto de rota</Portuguese>
+            <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
+            <German>Speichert das derzeit in TADS beobachtete Ziel als Wegpunkt</German>
+            <Korean>TADS에서 현재 관찰 중인 대상을 경유점으로 저장</Korean>
+            <Japanese>TADSで現在見ている目標をウェイポイントとして保存します</Japanese>
+            <Chinesesimp>将当前在TADS中观察的目标存储为路点</Chinesesimp>
+            <Turkish>TADS'da şu anda bakılan hedefi bir rota noktası olarak kaydedin</Turkish>
+            <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_GUN">
+            <Original>WAS Gun</Original>
+            <English>WAS Gun</English>
+            <Czech>Pistole WAS</Czech>
+            <French>Pistolet WAS</French>
+            <Spanish>Arma WAS</Spanish>
+            <Italian>Arma WAS</Italian>
+            <Polish>Pistolet WAS</Polish>
+            <Portuguese>Arma WAS</Portuguese>
+            <Russian>Пушка WAS</Russian>
+            <German>WAS Waffe</German>
+            <Korean>WAS 총</Korean>
+            <Japanese>WAS銃</Japanese>
+            <Chinesesimp>WAS枪</Chinesesimp>
+            <Turkish>WAS Silahı</Turkish>
+            <Dutch>WAS Kanon</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_GUN_INFO">
+            <Original>Action the gun in your crew station</Original>
+            <English>Action the gun in your crew station</English>
+            <Czech>Oběhuj pistoli ve své stanici posádky</Czech>
+            <French>Activer le pistolet dans votre station d'équipage</French>
+            <Spanish>Dispara el arma en tu estación de tripulación</Spanish>
+            <Italian>Attiva l'arma nella tua stazione di equipaggio</Italian>
+            <Polish>Obsługuj pistolet w swojej stanowiska załogi</Polish>
+            <Portuguese>Dispare a arma em sua estação de tripulação</Portuguese>
+            <Russian>Активируйте пушку на своей позиции экипажа</Russian>
+            <German>Bediene die Waffe in deiner Besatzungsstation</German>
+            <Korean>승무원 스테이션에서 총을 조작합니다</Korean>
+            <Japanese>乗員ステーションの銃を操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作枪支</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Silahı İşletebilirsiniz</Turkish>
+            <Dutch>Bedien het kanon in uw crew station</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_MSL">
+            <Original>WAS Missiles</Original>
+            <English>WAS Missiles</English>
+            <Czech>Střely WAS</Czech>
+            <French>Missiles WAS</French>
+            <Spanish>Misiles WAS</Spanish>
+            <Italian>Missili WAS</Italian>
+            <Polish>Pociski WAS</Polish>
+            <Portuguese>Mísseis WAS</Portuguese>
+            <Russian>Ракеты WAS</Russian>
+            <German>WAS Lenkflugkörper</German>
+            <Korean>WAS 미사일</Korean>
+            <Japanese>WAS ミサイル</Japanese>
+            <Chinesesimp>WAS导弹</Chinesesimp>
+            <Turkish>WAS Füzeleri</Turkish>
+            <Dutch>WAS Raketten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_MSL_INFO">
+            <Original>Action the missiles in your crew station</Original>
+            <English>Action the missiles in your crew station</English>
+            <Czech>Oběhuj střely ve své stanici posádky</Czech>
+            <French>Activer les missiles dans votre station d'équipage</French>
+            <Spanish>Dispara los misiles en tu estación de tripulación</Spanish>
+            <Italian>Attiva i missili nella tua stazione di equipaggio</Italian>
+            <Polish>Obsługuj pociski w swojej stanowiska załogi</Polish>
+            <Portuguese>Dispare os mísseis em sua estação de tripulação</Portuguese>
+            <Russian>Активируйте ракеты на своей позиции экипажа</Russian>
+            <German>Bediene die Lenkflugkörper in deiner Besatzungsstation</German>
+            <Korean>승무원 스테이션에서 미사일을 조작합니다</Korean>
+            <Japanese>乗員ステーションのミサイルを操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作导弹</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Füzeleri İşletebilirsiniz</Turkish>
+            <Dutch>Bedien de raketten in uw crew station</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_RKT">
+            <Original>WAS Rockets</Original>
+            <English>WAS Rockets</English>
+            <Czech>Rakety WAS</Czech>
+            <French>Roquettes WAS</French>
+            <Spanish>Cohetes WAS</Spanish>
+            <Italian>Razzi WAS</Italian>
+            <Polish>Rakiety WAS</Polish>
+            <Portuguese>Foguetes WAS</Portuguese>
+            <Russian>Ракеты WAS</Russian>
+            <German>WAS Raketen</German>
+            <Korean>WAS 로켓</Korean>
+            <Japanese>WAS ロケット</Japanese>
+            <Chinesesimp>WAS火箭</Chinesesimp>
+            <Turkish>WAS Roketleri</Turkish>
+            <Dutch>WAS Raketten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_WAS_RKT_INFO">
+            <Original>Action the rockets in your crew station</Original>
+            <English>Action the rockets in your crew station</English>
+            <Czech>Oběhuj rakety ve své stanici posádky</Czech>
+            <French>Activer les roquettes dans votre station d'équipage</French>
+            <Spanish>Dispara los cohetes en tu estación de tripulación</Spanish>
+            <Italian>Attiva i razzi nella tua stazione di equipaggio</Italian>
+            <Polish>Obsługuj rakiety w swojej stanowiska załogi</Polish>
+            <Portuguese>Dispare os foguetes em sua estação de tripulação</Portuguese>
+            <Russian>Активируйте ракеты на своей позиции экипажа</Russian>
+            <German>Bediene die Raketen in deiner Besatzungsstation</German>
+            <Korean>승무원 스테이션에서 로켓을 조작합니다</Korean>
+            <Japanese>乗員ステーションのロケットを操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作火箭</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Roketleri İşletebilirsiniz</Turkish>
+            <Dutch>Bedien de raketten in uw crew station</Dutch>
+        </Key>
+    </Package>
+</Project>
