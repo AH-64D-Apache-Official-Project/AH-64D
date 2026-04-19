@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File13:fn_init.sqf",{});

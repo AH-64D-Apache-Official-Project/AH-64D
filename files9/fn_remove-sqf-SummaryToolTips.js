@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File9:fn_remove.sqf",{346:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Remove the component to the apache</div></div>"});

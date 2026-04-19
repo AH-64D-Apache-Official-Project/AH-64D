@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File7:event/fn_eventInit.sqf",{360:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Master init event handler</div></div>"});

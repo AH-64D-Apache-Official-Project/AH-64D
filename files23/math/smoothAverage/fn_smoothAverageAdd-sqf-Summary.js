@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:math/smoothAverage/fn_smoothAverageAdd.sqf","fn_smoothAverageAdd.sqf");NDSummary.OnSummaryLoaded("File23:math/smoothAverage/fn_smoothAverageAdd.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[91,0,1,"Functions","Functions"],[92,0,0,"fza_sfmplus_fnc_smoothAverageAdd","fza_sfmplus_fnc_smoothAverageAdd"]]);

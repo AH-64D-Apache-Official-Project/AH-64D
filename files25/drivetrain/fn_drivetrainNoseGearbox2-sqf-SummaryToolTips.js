@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File25:drivetrain/fn_drivetrainNoseGearbox2.sqf",{46:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates all of the modules core functions.</div></div>"});

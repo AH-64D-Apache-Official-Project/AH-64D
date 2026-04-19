@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File7:fn_relativeDirection.sqf","fn_relativeDirection.sqf");NDSummary.OnSummaryLoaded("File7:fn_relativeDirection.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[419,0,1,"Functions","Functions"],[420,0,0,"fza_fnc_relativeDirection","fza_fnc_relativeDirection"]]);

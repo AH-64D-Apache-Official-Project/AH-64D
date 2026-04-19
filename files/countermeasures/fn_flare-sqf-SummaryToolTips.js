@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:countermeasures/fn_flare.sqf",{504:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Action to deploy Flares</div></div>"});

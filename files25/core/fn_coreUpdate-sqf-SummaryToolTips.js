@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File25:core/fn_coreUpdate.sqf",{58:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates all of the modules core functions.</div></div>"});

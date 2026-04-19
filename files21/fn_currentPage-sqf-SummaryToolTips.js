@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File21:fn_currentPage.sqf",{238:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the displays that are being displayed on the MPDs</div></div>"});

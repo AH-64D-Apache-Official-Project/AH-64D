@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:performance/fn_perfVariables.sqf","fn_perfVariables.sqf");NDSummary.OnSummaryLoaded("File23:performance/fn_perfVariables.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[61,0,1,"Functions","Functions"],[62,0,0,"fza_sfmplus_fnc_perfVariables","fza_sfmplus_fnc_perfVariables"]]);

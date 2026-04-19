@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:fuel/fn_fuelVariables.sqf","fn_fuelVariables.sqf");NDSummary.OnSummaryLoaded("File23:fuel/fn_fuelVariables.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[63,0,1,"Functions","Functions"],[64,0,0,"fza_sfmplus_fnc_perfVariables","fza_sfmplus_fnc_perfVariables"]]);

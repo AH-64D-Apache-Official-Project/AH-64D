@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:fuel/fn_fuelVariables.sqf",{64:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines the initial performance page variables and initializes them.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File7:targeting/fn_targetingCurAcq.sqf","fn_targetingCurAcq.sqf");NDSummary.OnSummaryLoaded("File7:targeting/fn_targetingCurAcq.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[363,0,1,"Functions","Functions"],[364,0,0,"fza_fnc_targetingCurAcq","fza_fnc_targetingCurAcq"]]);

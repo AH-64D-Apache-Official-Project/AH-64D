@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File25:drivetrain/fn_drivetrainTailRotorGearboxes.sqf",{52:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">...</div></div>"});

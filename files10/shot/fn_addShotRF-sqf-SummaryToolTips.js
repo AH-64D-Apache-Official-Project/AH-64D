@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File10:shot/fn_addShotRF.sqf",{342:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Add the shot to the DMS shot list</div></div>"});

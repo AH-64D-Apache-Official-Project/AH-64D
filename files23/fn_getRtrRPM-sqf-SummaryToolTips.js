@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:fn_getRtrRPM.sqf",{140:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the rotor RPM depending on the simulation being used</div></div>"});

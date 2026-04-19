@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File25:interact/fn_interactBattSwitch.sqf","fn_interactBattSwitch.sqf");NDSummary.OnSummaryLoaded("File25:interact/fn_interactBattSwitch.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[9,0,1,"Functions","Functions"],[10,0,0,"fza_systems_fnc_interactBattSwitch","fza_systems_fnc_interactBattSwitch"]]);

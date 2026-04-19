@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:sensors/fn_mws.sqf",{488:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Proccessor function for the MISSILE WARNING SYSTEM for the british ASE equipment</div></div>"});

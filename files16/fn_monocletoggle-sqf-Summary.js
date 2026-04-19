@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File16:fn_monocletoggle.sqf","fn_monocletoggle.sqf");NDSummary.OnSummaryLoaded("File16:fn_monocletoggle.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[281,0,1,"Functions","Functions"],[282,0,0,"fza_ihadss_fnc_monocletoggle","fza_ihadss_fnc_monocletoggle"]]);

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File20:fn_init.sqf",{254:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">fire control radar event init</div></div>"});

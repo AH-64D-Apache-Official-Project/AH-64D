@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File10:route/fn_routeAddPoint.sqf",{336:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Adds a point into the currently selected route given the route info and point info preserved the current Selected route point</div></div>"});

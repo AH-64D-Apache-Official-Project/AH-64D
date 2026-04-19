@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File25:core/fn_coreVariables.sqf","fn_coreVariables.sqf");NDSummary.OnSummaryLoaded("File25:core/fn_coreVariables.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[55,0,1,"Functions","Functions"],[56,0,0,"fza_systems_fnc_variables","fza_systems_fnc_variables"]]);

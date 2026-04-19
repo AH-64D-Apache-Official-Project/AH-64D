@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:countermeasures/fn_flare.sqf","fn_flare.sqf");NDSummary.OnSummaryLoaded("File:countermeasures/fn_flare.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[503,0,1,"Functions","Functions"],[504,0,0,"fza_ase_fnc_Flare","fza_ase_fnc_Flare"]]);

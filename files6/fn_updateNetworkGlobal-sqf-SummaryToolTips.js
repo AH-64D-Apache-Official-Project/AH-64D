@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File6:fn_updateNetworkGlobal.sqf",{458:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">helps to reduce the network impact of using Public Variables by checking if there already of equal value and only sending the difference</div></div>"});

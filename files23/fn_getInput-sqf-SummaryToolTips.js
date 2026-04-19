@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:fn_getInput.sqf",{134:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles keyboard and HOTAS input for the simulation.</div></div>"});

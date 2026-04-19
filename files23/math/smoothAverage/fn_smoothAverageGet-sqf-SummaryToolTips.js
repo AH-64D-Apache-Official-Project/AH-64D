@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:math/smoothAverage/fn_smoothAverageGet.sqf",{94:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">...</div></div>"});

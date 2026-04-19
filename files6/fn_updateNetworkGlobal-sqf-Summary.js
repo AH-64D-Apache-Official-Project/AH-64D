@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File6:fn_updateNetworkGlobal.sqf","fn_updateNetworkGlobal.sqf");NDSummary.OnSummaryLoaded("File6:fn_updateNetworkGlobal.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[457,0,1,"Functions","Functions"],[458,0,0,"fza_fnc_updateNetworkGlobal","fza_fnc_updateNetworkGlobal"]]);

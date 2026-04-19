@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File25:electrical/fn_electricalController.sqf","fn_electricalController.sqf");NDSummary.OnSummaryLoaded("File25:electrical/fn_electricalController.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[31,0,1,"Functions","Functions"],[32,0,0,"fza_systems_fnc_electricalController","fza_systems_fnc_electricalController"]]);

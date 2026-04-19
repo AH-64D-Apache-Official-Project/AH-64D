@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:interact/fn_interactStartSwitch.sqf","fn_interactStartSwitch.sqf");NDSummary.OnSummaryLoaded("File23:interact/fn_interactStartSwitch.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[73,0,1,"Functions","Functions"],[74,0,0,"fza_sfmplus_fnc_interactStartSwitch","fza_sfmplus_fnc_interactStartSwitch"]]);

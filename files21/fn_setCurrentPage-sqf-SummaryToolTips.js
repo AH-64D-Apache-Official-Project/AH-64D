@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File21:fn_setCurrentPage.sqf",{242:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the display on each page.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:countermeasures/fn_irJam.sqf","fn_irJam.sqf");NDSummary.OnSummaryLoaded("File:countermeasures/fn_irJam.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[497,0,1,"Functions","Functions"],[498,0,0,"fza_ase_fnc_irJam","fza_ase_fnc_irJam"]]);

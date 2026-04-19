@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File9:fn_canAdd.sqf",{352:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Can you add the relevent component</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File16:flight/fn_flightVelocityVector.sqf",{262:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws the velocity vector on the canvas.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File6:fn_getSeatVariable.sqf","fn_getSeatVariable.sqf");NDSummary.OnSummaryLoaded("File6:fn_getSeatVariable.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[429,0,1,"Functions","Functions"],[430,0,0,"fza_fnc_getSeatVariable","fza_fnc_getSeatVariable"]]);

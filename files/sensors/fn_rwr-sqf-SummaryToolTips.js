@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:sensors/fn_rwr.sqf",{494:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Proccessor function for the RADAR WARNING RECIEVER</div></div>"});

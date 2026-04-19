@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File3:fn_audiohandler.sqf","fn_audiohandler.sqf");NDSummary.OnSummaryLoaded("File3:fn_audiohandler.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[473,0,1,"Functions","Functions"],[474,0,0,"fza_audio_fnc_audioHandler","fza_audio_fnc_audioHandler"]]);

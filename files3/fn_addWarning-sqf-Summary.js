@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File3:fn_addWarning.sqf","fn_addWarning.sqf");NDSummary.OnSummaryLoaded("File3:fn_addWarning.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[477,0,1,"Functions","Functions"],[478,0,0,"fza_audio_fnc_addWarning","fza_audio_fnc_addWarning"]]);

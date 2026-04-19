@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:countermeasures/fn_chaff.sqf","fn_chaff.sqf");NDSummary.OnSummaryLoaded("File:countermeasures/fn_chaff.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[491,0,1,"Functions","Functions"],[492,0,0,"fza_ase_fnc_chaff","fza_ase_fnc_chaff"]]);

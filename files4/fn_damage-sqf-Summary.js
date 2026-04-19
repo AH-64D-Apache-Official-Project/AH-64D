@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File4:fn_damage.sqf","fn_damage.sqf");NDSummary.OnSummaryLoaded("File4:fn_damage.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[469,0,1,"Functions","Functions"],[470,0,0,"fza_auxtank_fnc_damage","fza_auxtank_fnc_damage"]]);

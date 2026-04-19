@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:simpleRotor/fn_simpleRotorTail.sqf","fn_simpleRotorTail.sqf");NDSummary.OnSummaryLoaded("File23:simpleRotor/fn_simpleRotorTail.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[79,0,1,"Functions","Functions"],[80,0,0,"fza_sfmplus_fnc_simpleRotorTail","fza_sfmplus_fnc_simpleRotorTail"]]);

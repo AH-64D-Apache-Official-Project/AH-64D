@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File3:fn_getin.sqf","fn_getin.sqf");NDSummary.OnSummaryLoaded("File3:fn_getin.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[467,0,1,"Functions","Functions"],[468,0,0,"fza_audio_fnc_getin","fza_audio_fnc_getin"]]);

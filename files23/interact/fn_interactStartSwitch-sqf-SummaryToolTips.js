@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:interact/fn_interactStartSwitch.sqf",{74:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets start switch state for the engine sim.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File7:weapon/fn_weaponMissileCycleType.sqf",{370:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Cycles through the available hellfire types</div></div>"});

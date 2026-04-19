@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File14:fn_salLasePos.sqf","fn_salLasePos.sqf");NDSummary.OnSummaryLoaded("File14:fn_salLasePos.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[283,0,1,"Functions","Functions"],[284,0,0,"fza_hellfire_fnc_salLasePos","fza_hellfire_fnc_salLasePos"]]);

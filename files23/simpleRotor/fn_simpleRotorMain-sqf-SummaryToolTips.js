@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:simpleRotor/fn_simpleRotorMain.sqf",{88:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Simple rotor provides a simple, grounded in reality simulation of a helicopters rotor. Translational Lift, Ground Effect and Vortex Ring State are all simulated.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:core/fn_coreUpdate.sqf","fn_coreUpdate.sqf");NDSummary.OnSummaryLoaded("File23:core/fn_coreUpdate.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[95,0,1,"Functions","Functions"],[96,0,0,"fza_sfmplus_fnc_coreUpdate","fza_sfmplus_fnc_coreUpdate"]]);

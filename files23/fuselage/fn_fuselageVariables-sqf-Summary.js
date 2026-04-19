@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:fuselage/fn_fuselageVariables.sqf","fn_fuselageVariables.sqf");NDSummary.OnSummaryLoaded("File23:fuselage/fn_fuselageVariables.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[75,0,1,"Functions","Functions"],[76,0,0,"fza_sfmplus_fnc_fuselageVariables","fza_sfmplus_fnc_fuselageVariables"]]);

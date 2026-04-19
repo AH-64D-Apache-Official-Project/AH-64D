@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File12:fn_controller.sqf","fn_controller.sqf");NDSummary.OnSummaryLoaded("File12:fn_controller.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[319,0,1,"Functions","Functions"],[320,0,0,"fza_fcr_fnc_controller","fza_fcr_fnc_controller"]]);

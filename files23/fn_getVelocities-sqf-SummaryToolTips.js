@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:fn_getVelocities.sqf",{});

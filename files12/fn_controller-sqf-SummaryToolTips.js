@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File12:fn_controller.sqf",{320:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">handles the relavent Fire control radar per frame functions</div></div>"});

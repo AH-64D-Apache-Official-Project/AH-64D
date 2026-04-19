@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File10:shot/fn_addShotRF.sqf","fn_addShotRF.sqf");NDSummary.OnSummaryLoaded("File10:shot/fn_addShotRF.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[341,0,1,"Functions","Functions"],[342,0,0,"fza_dms_fnc_addShotRF","fza_dms_fnc_addShotRF"]]);

@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("bmk",["Function"],[["bmkhs_sfmplus_fnc_isINF",,[[,,,,0,"File23:fn_isINF.sqf:bmkhs_sfmplus_fnc_isINF"]]],["bmkhs_sfmplus_fnc_isNAN",,[[,,,,0,"File23:fn_isNAN.sqf:bmkhs_sfmplus_fnc_isNAN"]]]]);

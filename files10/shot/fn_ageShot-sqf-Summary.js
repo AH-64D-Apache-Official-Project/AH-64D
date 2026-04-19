@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File10:shot/fn_ageShot.sqf","fn_ageShot.sqf");NDSummary.OnSummaryLoaded("File10:shot/fn_ageShot.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[337,0,1,"Functions","Functions"],[338,0,0,"fza_dms_fnc_ageShot","fza_dms_fnc_ageShot"]]);

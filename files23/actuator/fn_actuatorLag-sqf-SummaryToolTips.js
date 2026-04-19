@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:actuator/fn_actuatorLag.sqf",{102:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sourced from JSBSim.</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:mass/fn_massUpdateStation.sqf","fn_massUpdateStation.sqf");NDSummary.OnSummaryLoaded("File23:mass/fn_massUpdateStation.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[115,0,1,"Functions","Functions"],[116,0,0,"fza_sfmplus_fnc_massUpdateStation","fza_sfmplus_fnc_massUpdateStation"]]);

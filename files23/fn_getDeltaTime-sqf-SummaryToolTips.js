@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:fn_getDeltaTime.sqf",{122:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Custom time handler</div></div>"});

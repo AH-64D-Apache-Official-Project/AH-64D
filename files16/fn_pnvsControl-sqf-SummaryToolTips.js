@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File16:fn_pnvsControl.sqf",{264:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the movement of the PNVS when the player moves their head or mouse (depending on if they are in head tracking mode.)</div></div>"});

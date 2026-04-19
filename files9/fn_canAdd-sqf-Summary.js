@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File9:fn_canAdd.sqf","fn_canAdd.sqf");NDSummary.OnSummaryLoaded("File9:fn_canAdd.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[351,0,1,"Functions","Functions"],[352,0,0,"fza_customise_fnc_canAdd","fza_customise_fnc_canAdd"]]);

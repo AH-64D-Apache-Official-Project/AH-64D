@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:performance/fn_perfData.sqf",{70:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates performance tables for the aircraft based on Pressure Altitude in feet, Temperature in deg C and aircraft gross weight in kg.</div></div>"});

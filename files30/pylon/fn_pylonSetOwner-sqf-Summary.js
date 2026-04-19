@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File30:pylon/fn_pylonSetOwner.sqf","fn_pylonSetOwner.sqf");NDSummary.OnSummaryLoaded("File30:pylon/fn_pylonSetOwner.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[1,0,1,"Functions","Functions"],[2,0,0,"fza_weapons_fnc_pylonSetOwner","fza_weapons_fnc_pylonSetOwner"]]);

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File10:shot/fn_addShotSAL.sqf","fn_addShotSAL.sqf");NDSummary.OnSummaryLoaded("File10:shot/fn_addShotSAL.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[339,0,1,"Functions","Functions"],[340,0,0,"fza_dms_fnc_addShotSAL","fza_dms_fnc_addShotSAL"]]);

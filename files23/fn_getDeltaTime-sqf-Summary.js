@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:fn_getDeltaTime.sqf","fn_getDeltaTime.sqf");NDSummary.OnSummaryLoaded("File23:fn_getDeltaTime.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[121,0,1,"Functions","Functions"],[122,0,0,"fza_sfmplus_fnc_getDeltaTime","fza_sfmplus_fnc_getDeltaTime"]]);

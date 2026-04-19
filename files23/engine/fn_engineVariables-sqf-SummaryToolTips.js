@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File23:engine/fn_engineVariables.sqf",{114:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines core engine variables.</div></div>"});

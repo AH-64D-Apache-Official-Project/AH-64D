@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File21:fn_drawIcons.sqf","fn_drawIcons.sqf");NDSummary.OnSummaryLoaded("File21:fn_drawIcons.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[243,0,1,"Functions","Functions"],[244,0,0,"fza_mpd_fnc_drawIcons","fza_mpd_fnc_drawIcons"]]);
