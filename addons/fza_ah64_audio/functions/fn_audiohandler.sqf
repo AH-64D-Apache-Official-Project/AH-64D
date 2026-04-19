@@ -1,0 +1,58 @@
+/* ----------------------------------------------------------------------------
+Function: fza_audio_fnc_audioHandler
+
+Description:
+    1 - caution
+    2 - warning
+    3 - ase search
+    4 - ase aquire
+    5 - ase track 
+    6 - ase launch
+    7 - ase power 
+
+Parameters:
+    _heli: object - the apache the player is in
+
+Returns:
+    No returns
+
+Examples: 
+    private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
+    if (scriptDone _funcHook) then {
+        _funcHook = [_heli] spawn fza_audio_fnc_audioHandler;
+        _heli setVariable ["fza_audio_funcHook", _funcHook];
+    };
+
+Author:
+    Snow(Dryden)
+---------------------------------------------------------------------------- */
+params["_heli"];
+
+while {!isNull objectParent player && alive player && alive _heli} do {
+    waitUntil {isGamePaused == false};   
+    
+    private _aseMsg     = _heli getVariable "fza_audio_ase_message";
+    private _wrnMsg     = _heli getVariable "fza_audio_warning_message";
+    //private _ComsVolume = _heli getVariable "fza_ah64_comsVolume";
+    //private _volume     = _ComsVolume get "Master";
+    private _volume     = fza_ah64_volumeMaster;
+
+    if (_aseMsg isNotEqualTo "") then {
+        _done = _aseMsg spawn fza_audio_fnc_playaudio;
+        sleep 1;
+        _heli setVariable ["fza_audio_ase_message", ""];
+        waitUntil {scriptDone _done};
+        continue;
+    };
+    if (_wrnMsg isNotEqualTo "") then {
+        playSoundUI [_wrnMsg # 2, _volume];
+        sleep (_wrnMsg # 3);
+        continue;
+    };
+    if (_heli getVariable "fza_audio_caution") then {
+        playSoundUI ["fza_ah64_Caution", _volume];
+        sleep 3.5;
+        continue;
+    };
+    break;
+};

@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
+            <Original>Cyclic Center Trim Mode</Original>
+            <English>Cyclic Center Trim Mode</English>
+            <Czech>Režim Středu Cyklických Výchylek</Czech>
+            <French>Mode Ajustement Centre Cyclique</French>
+            <Spanish>Modo Ajuste Centro Cíclico</Spanish>
+            <Italian>Modalità Trim Centro Ciclico</Italian>
+            <Polish>Tryb Centralnego Trimmera Cyklicznego</Polish>
+            <Portuguese>Modo Trim Centro Cíclico</Portuguese>
+            <Russian>Режим Центральной Подрезки Циклического</Russian>
+            <German>Zyklisches Mittel Trim Modus</German>
+            <Korean>사이클릭 중앙 트림 모드</Korean>
+            <Japanese>サイクリック中央トリムモード</Japanese>
+            <Chinesesimp>循环中心配平模式</Chinesesimp>
+            <Turkish>Döngüsel Merkez Trim Modu</Turkish>
+            <Dutch>Cyclisch Centraal Trim Modus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE_INFO">
+            <Original>When enabled, the cyclic is locked out until re-centered</Original>
+            <English>When enabled, the cyclic is locked out until re-centered</English>
+            <Czech>Pokud je povoleno, cyklické je uzamčeno, dokud není recentrováno</Czech>
+            <French>Une fois activé, le cyclique est verrouillé jusqu'à ce qu'il soit recentré</French>
+            <Spanish>Cuando se habilita, el cíclico se bloquea hasta que se recentra</Spanish>
+            <Italian>Se abilitato, il ciclico viene bloccato fino al ricentraggio</Italian>
+            <Polish>Po włączeniu cykliczne jest zablokowane do ponownego wycentrowania</Polish>
+            <Portuguese>Quando ativado, o cíclico é bloqueado até ser recentrado</Portuguese>
+            <Russian>При включении циклическое заблокировано до переоцентрирования</Russian>
+            <German>Wenn aktiviert, wird das Zyklische gesperrt, bis es neu zentriert wird</German>
+            <Korean>활성화되면 사이클릭이 재정렬될 때까지 잠깁니다</Korean>
+            <Japanese>有効にすると、サイクリックが再中心化されるまでロックされます</Japanese>
+            <Chinesesimp>启用后，循环将被锁定直到重新居中</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, döngüsel yeniden merkezlenene kadar kilitlenir</Turkish>
+            <Dutch>Wanneer ingeschakeld, wordt de cyclische grendel vergrendeld totdat deze opnieuw gecentreerd is</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT">
+            <Original>Aircraft Environmental Settings</Original>
+            <English>Aircraft Environmental Settings</English>
+            <Czech>Nastavení Prostředí Letadla</Czech>
+            <French>Paramètres Environnementaux Aéronef</French>
+            <Spanish>Configuración Ambiental de Aeronave</Spanish>
+            <Italian>Impostazioni Ambientali Aeromobile</Italian>
+            <Polish>Ustawienia Środowiska Samolotu</Polish>
+            <Portuguese>Configurações Ambientais da Aeronave</Portuguese>
+            <Russian>Параметры Окружающей Среды Летательного Аппарата</Russian>
+            <German>Flugzeug Umgebungseinstellungen</German>
+            <Korean>항공기 환경 설정</Korean>
+            <Japanese>航空機環境設定</Japanese>
+            <Chinesesimp>飞机环境设置</Chinesesimp>
+            <Turkish>Uçak Çevre Ayarları</Turkish>
+            <Dutch>Instellingen voor Luchtvaart Omgeving</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_ASIA">
+            <Original>Asia</Original>
+            <English>Asia</English>
+            <Czech>Asie</Czech>
+            <French>Asie</French>
+            <Spanish>Asia</Spanish>
+            <Italian>Asia</Italian>
+            <Polish>Azja</Polish>
+            <Portuguese>Ásia</Portuguese>
+            <Russian>Азия</Russian>
+            <German>Asien</German>
+            <Korean>아시아</Korean>
+            <Japanese>アジア</Japanese>
+            <Chinesesimp>亚洲</Chinesesimp>
+            <Turkish>Asya</Turkish>
+            <Dutch>Azië</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_CENTRAL_ASIA_SUMMER">
+            <Original>Central Asia - Summer</Original>
+            <English>Central Asia - Summer</English>
+            <Czech>Střední Asie - Léto</Czech>
+            <French>Asie Centrale - Été</French>
+            <Spanish>Asia Central - Verano</Spanish>
+            <Italian>Asia Centrale - Estate</Italian>
+            <Polish>Azja Środkowa - Lato</Polish>
+            <Portuguese>Ásia Central - Verão</Portuguese>
+            <Russian>Центральная Азия - Лето</Russian>
+            <German>Zentralasien - Sommer</German>
+            <Korean>중앙 아시아 - 여름</Korean>
+            <Japanese>中央アジア - 夏</Japanese>
+            <Chinesesimp>中亚 - 夏季</Chinesesimp>
+            <Turkish>Orta Asya - Yaz</Turkish>
+            <Dutch>Centraal-Azië - Zomer</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_CENTRAL_ASIA_WINTER">
+            <Original>Central Asia - Winter</Original>
+            <English>Central Asia - Winter</English>
+            <Czech>Střední Asie - Zima</Czech>
+            <French>Asie Centrale - Hiver</French>
+            <Spanish>Asia Central - Invierno</Spanish>
+            <Italian>Asia Centrale - Inverno</Italian>
+            <Polish>Azja Środkowa - Zima</Polish>
+            <Portuguese>Ásia Central - Inverno</Portuguese>
+            <Russian>Центральная Азия - Зима</Russian>
+            <German>Zentralasien - Winter</German>
+            <Korean>중앙 아시아 - 겨울</Korean>
+            <Japanese>中央アジア - 冬</Japanese>
+            <Chinesesimp>中亚 - 冬季</Chinesesimp>
+            <Turkish>Orta Asya - Kış</Turkish>
+            <Dutch>Centraal-Azië - Winter</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_EUROPE_SUMMER">
+            <Original>Europe - Summer</Original>
+            <English>Europe - Summer</English>
+            <Czech>Evropa - Léto</Czech>
+            <French>Europe - Été</French>
+            <Spanish>Europa - Verano</Spanish>
+            <Italian>Europa - Estate</Italian>
+            <Polish>Europa - Lato</Polish>
+            <Portuguese>Europa - Verão</Portuguese>
+            <Russian>Европа - Лето</Russian>
+            <German>Europa - Sommer</German>
+            <Korean>유럽 - 여름</Korean>
+            <Japanese>ヨーロッパ - 夏</Japanese>
+            <Chinesesimp>欧洲 - 夏季</Chinesesimp>
+            <Turkish>Avrupa - Yaz</Turkish>
+            <Dutch>Europa - Zomer</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_EUROPE_WINTER">
+            <Original>Europe - Winter</Original>
+            <English>Europe - Winter</English>
+            <Czech>Evropa - Zima</Czech>
+            <French>Europe - Hiver</French>
+            <Spanish>Europa - Invierno</Spanish>
+            <Italian>Europa - Inverno</Italian>
+            <Polish>Europa - Zima</Polish>
+            <Portuguese>Europa - Inverno</Portuguese>
+            <Russian>Европа - Зима</Russian>
+            <German>Europa - Winter</German>
+            <Korean>유럽 - 겨울</Korean>
+            <Japanese>ヨーロッパ - 冬</Japanese>
+            <Chinesesimp>欧洲 - 冬季</Chinesesimp>
+            <Turkish>Avrupa - Kış</Turkish>
+            <Dutch>Europa - Winter</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_INFO">
+            <Original>Standard day is Sea Level and 15 deg C.\nEurope is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C.\nThe Middle East is a base altitude of 1,800ft and a temperature of 30 deg C.\nCentral Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C.\nAsia is a base altitude of 3100ft and a temperature of 25 deg C.</Original>
+            <English>Standard day is Sea Level and 15 deg C.\nEurope is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C.\nThe Middle East is a base altitude of 1,800ft and a temperature of 30 deg C.\nCentral Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C.\nAsia is a base altitude of 3100ft and a temperature of 25 deg C.</English>
+            <Czech>Standardní den je na hladině moře a 15 stupňů C.\nEvropa má základní nadmořskou výšku 800 stop, s letní teplotou 20 stupňů C a zimní teplotou 0 stupňů C.\nBlízký východ má základní nadmořskou výšku 1800 stop a teplotu 30 stupňů C.\nStřední Asie má základní nadmořskou výšku 5000 stop, s letní teplotou 30 stupňů C a zimní teplotou -5 stupňů C.\nAsie má základní nadmořskou výšku 3100 stop a teplotu 25 stupňů C.</Czech>
+            <French>Le jour standard est au niveau de la mer et 15 degrés C.\nL'Europe a une altitude de base de 800 pieds, avec une température d'été de 20 degrés C et une température d'hiver de 0 degrés C.\nLe Moyen-Orient a une altitude de base de 1800 pieds et une température de 30 degrés C.\nL'Asie centrale a une altitude de base de 5000 pieds, avec une température d'été de 30 degrés C et une température d'hiver de -5 degrés C.\nL'Asie a une altitude de base de 3100 pieds et une température de 25 degrés C.</French>
+            <Spanish>El día estándar es a nivel del mar y 15 grados C.\nEuropa tiene una altitud base de 800 pies, con una temperatura de verano de 20 grados C y una temperatura de invierno de 0 grados C.\nOriente Medio tiene una altitud base de 1800 pies y una temperatura de 30 grados C.\nAsia Central tiene una altitud base de 5000 pies, con una temperatura de verano de 30 grados C y una temperatura de invierno de -5 grados C.\nAsia tiene una altitud base de 3100 pies y una temperatura de 25 grados C.</Spanish>
+            <Italian>Il giorno standard è a livello del mare e 15 gradi C.\nL'Europa ha un'altitudine di base di 800 piedi, con una temperatura estiva di 20 gradi C e una temperatura invernale di 0 gradi C.\nIl Medio Oriente ha un'altitudine di base di 1800 piedi e una temperatura di 30 gradi C.\nL'Asia centrale ha un'altitudine di base di 5000 piedi, con una temperatura estiva di 30 gradi C e una temperatura invernale di -5 gradi C.\nL'Asia ha un'altitudine di base di 3100 piedi e una temperatura di 25 gradi C.</Italian>
+            <Polish>Dzień standardowy to poziom morza i 15 stopni C.\nEuropa ma podstawową wysokość 800 stóp, z temperaturą letnią 20 stopni C i temperaturą zimową 0 stopni C.\nBliski Wschód ma podstawową wysokość 1800 stóp i temperaturę 30 stopni C.\nAzja Środkowa ma podstawową wysokość 5000 stóp, z temperaturą letnią 30 stopni C i temperaturą zimową -5 stopni C.\nAzja ma podstawową wysokość 3100 stóp i temperaturę 25 stopni C.</Polish>
+            <Portuguese>O dia padrão é ao nível do mar e 15 graus C.\nEuropa tem uma altitude base de 800 pés, com uma temperatura de verão de 20 graus C e uma temperatura de inverno de 0 graus C.\nO Oriente Médio tem uma altitude base de 1800 pés e uma temperatura de 30 graus C.\nA Ásia Central tem uma altitude base de 5000 pés, com uma temperatura de verão de 30 graus C e uma temperatura de inverno de -5 graus C.\nA Ásia tem uma altitude base de 3100 pés e uma temperatura de 25 graus C.</Portuguese>
+            <Russian>Стандартный день - это уровень моря и 15 градусов С.\nЕвропа имеет базовую высоту 800 футов, с летней температурой 20 градусов C и зимней температурой 0 градусов C.\nБлижний Восток имеет базовую высоту 1800 футов и температуру 30 градусов C.\nЦентральная Азия имеет базовую высоту 5000 футов, с летней температурой 30 градусов C и зимней температурой -5 градусов C.\nАзия имеет базовую высоту 3100 футов и температуру 25 градусов C.</Russian>
+            <German>Der Standardtag liegt auf Meereshöhe und 15 Grad C.\nEuropa hat eine Basisflughöhe von 800 Fuß, mit einer Sommertemperatur von 20 Grad C und einer Wintertemperatur von 0 Grad C.\nDer Nahe Osten hat eine Basisflughöhe von 1800 Fuß und eine Temperatur von 30 Grad C.\nZentralasien hat eine Basisflughöhe von 5000 Fuß, mit einer Sommertemperatur von 30 Grad C und einer Wintertemperatur von -5 Grad C.\nAsien hat eine Basisflughöhe von 3100 Fuß und eine Temperatur von 25 Grad C.</German>
+            <Korean>표준일은 해수면 및 15도 C입니다.\n유럽은 기본 고도 800피트, 여름 기온 20도 C 및 겨울 기온 0도 C입니다.\n중동은 기본 고도 1800피트, 기온 30도 C입니다.\n중앙 아시아는 기본 고도 5000피트, 여름 기온 30도 C 및 겨울 기온 -5도 C입니다.\n아시아는 기본 고도 3100피트, 기온 25도 C입니다.</Korean>
+            <Japanese>標準日は海面高度と15度Cです。\nヨーロッパは基本高度800フィート、夏季気温20度C、冬季気温0度Cです。\n中東は基本高度1800フィート、気温30度Cです。\n中央アジアは基本高度5000フィート、夏季気温30度C、冬季気温-5度Cです。\nアジアは基本高度3100フィート、気温25度Cです。</Japanese>
+            <Chinesesimp>标准日期是海平面和15摄氏度。\n欧洲基本高度为800英尺，夏季温度为20摄氏度，冬季温度为0摄氏度。\n中东基本高度为1800英尺，温度为30摄氏度。\n中亚基本高度为5000英尺，夏季温度为30摄氏度，冬季温度为-5摄氏度。\n亚洲基本高度为3100英尺，温度为25摄氏度。</Chinesesimp>
+            <Turkish>Standart gün deniz seviyesi ve 15 derece C'dir.\nAvrupa, temel rakımı 800 feet, yaz sıcaklığı 20 derece C ve kış sıcaklığı 0 derece C'dir.\nOrta Doğu, temel rakımı 1800 feet ve sıcaklığı 30 derece C'dir.\nOrta Asya, temel rakımı 5000 feet, yaz sıcaklığı 30 derece C ve kış sıcaklığı -5 derece C'dir.\nAsya, temel rakımı 3100 feet ve sıcaklığı 25 derece C'dir.</Turkish>
+            <Dutch>Standaarddag is zeeniveau en 15 graden C.\nEuropa heeft een basisaltitude van 800 voet, met een zomertemperatuur van 20 graden C en een wintertemperatuur van 0 graden C.\nHet Midden-Oosten heeft een basisaltitude van 1800 voet en een temperatuur van 30 graden C.\nCentraal-Azië heeft een basisaltitude van 5000 voet, met een zomertemperatuur van 30 graden C en een wintertemperatuur van -5 graden C.\nAzië heeft een basisaltitude van 3100 voet en een temperatuur van 25 graden C.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_MIDDLE_EAST">
+            <Original>Middle East</Original>
+            <English>Middle East</English>
+            <Czech>Blízký Východ</Czech>
+            <French>Moyen-Orient</French>
+            <Spanish>Oriente Medio</Spanish>
+            <Italian>Medio Oriente</Italian>
+            <Polish>Bliski Wschód</Polish>
+            <Portuguese>Oriente Médio</Portuguese>
+            <Russian>Ближний Восток</Russian>
+            <German>Naher Osten</German>
+            <Korean>중동</Korean>
+            <Japanese>中東</Japanese>
+            <Chinesesimp>中东</Chinesesimp>
+            <Turkish>Orta Doğu</Turkish>
+            <Dutch>Midden-Oosten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_STANDARD_DAY">
+            <Original>Standard Day</Original>
+            <English>Standard Day</English>
+            <Czech>Standardní Den</Czech>
+            <French>Jour Standard</French>
+            <Spanish>Día Estándar</Spanish>
+            <Italian>Giorno Standard</Italian>
+            <Polish>Dzień Standardowy</Polish>
+            <Portuguese>Dia Padrão</Portuguese>
+            <Russian>Стандартный День</Russian>
+            <German>Standardtag</German>
+            <Korean>표준 날</Korean>
+            <Japanese>標準日</Japanese>
+            <Chinesesimp>标准日期</Chinesesimp>
+            <Turkish>Standart Gün</Turkish>
+            <Dutch>Standaard Dag</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_FM_DEBUG">
+            <Original>Enable FM Debugging</Original>
+            <English>Enable FM Debugging</English>
+            <Czech>Povolit Ladění FM</Czech>
+            <French>Activer le Débogage FM</French>
+            <Spanish>Activar Depuración FM</Spanish>
+            <Italian>Abilita Debug FM</Italian>
+            <Polish>Włącz Debugowanie FM</Polish>
+            <Portuguese>Ativar Depuração FM</Portuguese>
+            <Russian>Включить Отладку FM</Russian>
+            <German>FM Debugging Aktivieren</German>
+            <Korean>FM 디버깅 활성화</Korean>
+            <Japanese>FMデバッグを有効にする</Japanese>
+            <Chinesesimp>启用FM调试</Chinesesimp>
+            <Turkish>FM Hata Ayıklamayı Etkinleştir</Turkish>
+            <Dutch>FM Debugging Inschakelen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_FM_DEBUG_INFO">
+            <Original>Displays debug output for troubleshooting FM issues</Original>
+            <English>Displays debug output for troubleshooting FM issues</English>
+            <Czech>Zobrazuje debugovací výstup pro odstraňování problémů FM</Czech>
+            <French>Affiche la sortie de débogage pour dépanner les problèmes FM</French>
+            <Spanish>Muestra la salida de depuración para solucionar problemas de FM</Spanish>
+            <Italian>Visualizza l'output di debug per la risoluzione dei problemi FM</Italian>
+            <Polish>Wyświetla dane wyjściowe debugowania w celu rozwiązania problemów FM</Polish>
+            <Portuguese>Exibe saída de depuração para solucionar problemas de FM</Portuguese>
+            <Russian>Отображает отладочный вывод для устранения неполадок FM</Russian>
+            <German>Zeigt Debug-Ausgabe zur Fehlerbehebung bei FM-Problemen an</German>
+            <Korean>FM 문제 해결을 위한 디버그 출력을 표시합니다</Korean>
+            <Japanese>FMの問題をトラブルシューティングするためのデバッグ出力を表示します</Japanese>
+            <Chinesesimp>显示调试输出以解决FM问题</Chinesesimp>
+            <Turkish>FM sorunlarını gidermek için hata ayıklama çıktısını gösterir</Turkish>
+            <Dutch>Geeft debugoutput voor het oplossen van FM-problemen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM">
+            <Original>Aircraft Realism Settings</Original>
+            <English>Aircraft Realism Settings</English>
+            <Czech>Nastavení Realismu Letadla</Czech>
+            <French>Paramètres de Réalisme Aéronef</French>
+            <Spanish>Configuración de Realismo de Aeronave</Spanish>
+            <Italian>Impostazioni Realismo Aeromobile</Italian>
+            <Polish>Ustawienia Realizmu Samolotu</Polish>
+            <Portuguese>Configurações de Realismo da Aeronave</Portuguese>
+            <Russian>Параметры Реализма Летательного Аппарата</Russian>
+            <German>Flugzeug Realismus Einstellungen</German>
+            <Korean>항공기 현실감 설정</Korean>
+            <Japanese>航空機リアリズム設定</Japanese>
+            <Chinesesimp>飞机真实感设置</Chinesesimp>
+            <Turkish>Uçak Gerçekçilik Ayarları</Turkish>
+            <Dutch>Instellingen voor Realistisch Vliegtuig</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM_INFO">
+            <Original>Switch helisim between different realism levels, Casual recomneded for keyboard</Original>
+            <English>Switch helisim between different realism levels, Casual recomneded for keyboard</English>
+            <Czech>Přepínat helisim mezi různými úrovněmi realismu, Casual doporučeno pro klávesnici</Czech>
+            <French>Basculer helisim entre différents niveaux de réalisme, Casual recommandé pour le clavier</French>
+            <Spanish>Cambiar helisim entre diferentes niveles de realismo, Casual recomendado para teclado</Spanish>
+            <Italian>Cambia helisim tra diversi livelli di realismo, Casual consigliato per tastiera</Italian>
+            <Polish>Przełączaj helisim między różnymi poziomami realizmu, Casual rekomendowany dla klawiatury</Polish>
+            <Portuguese>Alterne helisim entre diferentes níveis de realismo, Casual recomendado para teclado</Portuguese>
+            <Russian>Переключайте helisim между различными уровнями реалистичности, Casual рекомендуется для клавиатуры</Russian>
+            <German>Wechseln Sie helisim zwischen verschiedenen Realismusstufen, Casual für Tastatur empfohlen</German>
+            <Korean>다양한 현실감 수준 사이에서 helisim 전환, 키보드의 경우 Casual 권장</Korean>
+            <Japanese>helisimを異なるリアリズムレベル間で切り替え、キーボードの場合はCasual推奨</Japanese>
+            <Chinesesimp>在不同的真实感级别之间切换helisim，键盘推荐使用Casual</Chinesesimp>
+            <Turkish>helisim'i farklı gerçekçilik seviyeleri arasında değiştirin, Klavye için Casual önerilir</Turkish>
+            <Dutch>Wissel helisim tussen verschillende realisme niveaus, Casual aanbevolen voor toetsenbord</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL">
+            <Original>Keyboard Auto Pedal</Original>
+            <English>Keyboard Auto Pedal</English>
+            <Czech>Klávesnice Auto Pedál</Czech>
+            <French>Clavier Pédal Automatique</French>
+            <Spanish>Teclado Pedal Automático</Spanish>
+            <Italian>Tastiera Pedale Automatico</Italian>
+            <Polish>Klawiatura Pedał Automatyczny</Polish>
+            <Portuguese>Teclado Pedal Automático</Portuguese>
+            <Russian>Клавиатура Автоматическая Педаль</Russian>
+            <German>Tastatur Auto Pedal</German>
+            <Korean>키보드 자동 페달</Korean>
+            <Japanese>キーボード自動ペダル</Japanese>
+            <Chinesesimp>键盘自动踏板</Chinesesimp>
+            <Turkish>Klavye Otomatik Pedal</Turkish>
+            <Dutch>Toetsenbord Auto Pedaal</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL_INFO">
+            <Original>DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI</Original>
+            <English>DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI</English>
+            <Czech>NEFUNGUJE SE STICKY YAW! Pokud je povoleno, pedály jsou automaticky spravovány AI</Czech>
+            <French>NE FONCTIONNE PAS AVEC LE LACET PERSISTANT ! Une fois activé, les pédales sont gérées automatiquement par l'IA</French>
+            <Spanish>¡NO FUNCIONA CON YAW PERSISTENTE! Cuando se habilita, los pedales se gestionan automáticamente mediante IA</Spanish>
+            <Italian>NON FUNZIONA CON IMBARDATA PERSISTENTE! Quando abilitato, i pedali vengono gestiti automaticamente dall'IA</Italian>
+            <Polish>NIE DZIAŁA Z STICKY YAW! Po włączeniu pedały są automatycznie zarządzane przez AI</Polish>
+            <Portuguese>NÃO FUNCIONA COM YAW PEGAJOSO! Quando ativado, os pedais são gerenciados automaticamente pela IA</Portuguese>
+            <Russian>НЕ РАБОТАЕТ С ЛИПКИМ РЫСКАНИЕМ! При включении педали автоматически управляются ИИ</Russian>
+            <German>FUNKTIONIERT NICHT MIT STICKY YAW! Wenn aktiviert, werden die Pedale automatisch von der KI verwaltet</German>
+            <Korean>STICKY YAW와 함께 작동하지 않습니다! 활성화되면 페달이 AI에 의해 자동으로 관리됩니다</Korean>
+            <Japanese>STICKY YAWと連動しません。 有効にすると、ペダルはAIによって自動的に管理されます</Japanese>
+            <Chinesesimp>不适用于粘性偏航! 启用后，踏板由AI自动管理</Chinesesimp>
+            <Turkish>YAPIŞKAN SAPMA İLE ÇALIŞMAz! Etkinleştirildiğinde, pedallar AI tarafından otomatik olarak yönetilir</Turkish>
+            <Dutch>WERKT NIET MET STICKY YAW! Wanneer ingeschakeld, worden de pedalen automatisch beheerd door AI</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH">
+            <Original>Keyboard Sticky Pitch</Original>
+            <English>Keyboard Sticky Pitch</English>
+            <Czech>Klávesnice Lepkavý Sklon</Czech>
+            <French>Clavier Tangage Persistant</French>
+            <Spanish>Teclado Cabeceo Persistente</Spanish>
+            <Italian>Tastiera Beccheggio Persistente</Italian>
+            <Polish>Klawiatura Lepkie Pochylenie</Polish>
+            <Portuguese>Teclado Pitch Pegajoso</Portuguese>
+            <Russian>Клавиатура Липкий Тангаж</Russian>
+            <German>Tastatur Sticky Pitch</German>
+            <Korean>키보드 고정 피치</Korean>
+            <Japanese>キーボード粘性ピッチ</Japanese>
+            <Chinesesimp>键盘粘性俯仰</Chinesesimp>
+            <Turkish>Klavye Yapışkan Eğimi</Turkish>
+            <Dutch>Toetsenbord Sticky Pitch</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH_INFO">
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Czech>NEPOUŽÍVEJTE POKUD POUŽÍVÁTE HOTAS NEBO GAMEPAD! Pokud je povoleno, vstup klávesnice je nepřetržitě aktualizován, dokud je klíč vstupu stisknutý</Czech>
+            <French>N'UTILISEZ PAS SI VOUS UTILISEZ HOTAS OU MANETTE ! Une fois activé, l'entrée clavier est continuellement mise à jour pendant que la touche d'entrée est enfoncée</French>
+            <Spanish>¡NO USES ESTO SI USAS HOTAS O GAMEPAD! Cuando se habilita, la entrada del teclado se actualiza continuamente mientras se mantiene presionada la tecla de entrada</Spanish>
+            <Italian>NON UTILIZZARE QUESTO SE STAI UTILIZZANDO HOTAS O GAMEPAD! Quando abilitato, l'input della tastiera viene aggiornato continuamente mentre il tasto di input è mantenuto premuto</Italian>
+            <Polish>NIE UŻYWAJ JEŚLI UŻYWASZ HOTAS LUB GAMEPADA! Po włączeniu wejście klawiatury jest stale aktualizowane, gdy klawisz wejścia jest wciśnięty</Polish>
+            <Portuguese>NÃO USE ISSO SE ESTIVER USANDO HOTAS OU GAMEPAD! Quando ativado, a entrada do teclado é continuamente atualizada enquanto a tecla de entrada é mantida pressionada</Portuguese>
+            <Russian>НЕ ИСПОЛЬЗУЙТЕ ЭТО, ЕСЛИ ИСПОЛЬЗУЕТЕ HOTAS ИЛИ GAMEPAD! При включении вход с клавиатуры непрерывно обновляется при нажатии клавиши ввода</Russian>
+            <German>VERWENDEN SIE DIES NICHT, WENN SIE HOTAS ODER GAMEPAD VERWENDEN! Wenn aktiviert, wird die Tastatureingabe kontinuierlich aktualisiert, während die Eingabetaste gedrückt wird</German>
+            <Korean>HOTAS 또는 GAMEPAD를 사용 중이면 이를 사용하지 마십시오! 활성화되면 입력 키를 누르는 동안 키보드 입력이 지속적으로 업데이트됩니다</Korean>
+            <Japanese>HOTAS またはゲームパッドを使用している場合は、これを使用しないでください。 有効にすると、入力キーが押下されている間、キーボード入力が継続的に更新されます</Japanese>
+            <Chinesesimp>如果使用HOTAS或游戏手柄，请勿使用! 启用后，当按下输入键时键盘输入会持续更新</Chinesesimp>
+            <Turkish>HOTAS VEYA OYUN KOL KULLANIYORSANIZ BUNU KULLANMAYIN! Etkinleştirildiğinde, giriş tuşu basılıyken klavye girişi sürekli olarak güncellenir</Turkish>
+            <Dutch>GEBRUIK DIT NIET ALS U HOTAS OF GAMEPAD GEBRUIKT! Wanneer ingeschakeld, wordt toetsenbordinvoer continu bijgewerkt terwijl de invoertoets ingedrukt wordt gehouden</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL">
+            <Original>Keyboard Sticky Roll</Original>
+            <English>Keyboard Sticky Roll</English>
+            <Czech>Klávesnice Lepkavý Skluz</Czech>
+            <French>Clavier Roulis Persistant</French>
+            <Spanish>Teclado Balanceo Persistente</Spanish>
+            <Italian>Tastiera Rollio Persistente</Italian>
+            <Polish>Klawiatura Lepkie Przechylenie</Polish>
+            <Portuguese>Teclado Roll Pegajoso</Portuguese>
+            <Russian>Клавиатура Липкий Крен</Russian>
+            <German>Tastatur Sticky Roll</German>
+            <Korean>키보드 고정 롤</Korean>
+            <Japanese>キーボード粘性ロール</Japanese>
+            <Chinesesimp>键盘粘性横滚</Chinesesimp>
+            <Turkish>Klavye Yapışkan Yuvarlanma</Turkish>
+            <Dutch>Toetsenbord Sticky Roll</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL_INFO">
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Czech>NEPOUŽÍVEJTE POKUD POUŽÍVÁTE HOTAS NEBO GAMEPAD! Pokud je povoleno, vstup klávesnice je nepřetržitě aktualizován, dokud je klíč vstupu stisknutý</Czech>
+            <French>N'UTILISEZ PAS SI VOUS UTILISEZ HOTAS OU MANETTE ! Une fois activé, l'entrée clavier est continuellement mise à jour pendant que la touche d'entrée est enfoncée</French>
+            <Spanish>¡NO USES ESTO SI USAS HOTAS O GAMEPAD! Cuando se habilita, la entrada del teclado se actualiza continuamente mientras se mantiene presionada la tecla de entrada</Spanish>
+            <Italian>NON UTILIZZARE QUESTO SE STAI UTILIZZANDO HOTAS O GAMEPAD! Quando abilitato, l'input della tastiera viene aggiornato continuamente mentre il tasto di input è mantenuto premuto</Italian>
+            <Polish>NIE UŻYWAJ JEŚLI UŻYWASZ HOTAS LUB GAMEPADA! Po włączeniu wejście klawiatury jest stale aktualizowane, gdy klawisz wejścia jest wciśnięty</Polish>
+            <Portuguese>NÃO USE ISSO SE ESTIVER USANDO HOTAS OU GAMEPAD! Quando ativado, a entrada do teclado é continuamente atualizada enquanto a tecla de entrada é mantida pressionada</Portuguese>
+            <Russian>НЕ ИСПОЛЬЗУЙТЕ ЭТО, ЕСЛИ ИСПОЛЬЗУЕТЕ HOTAS ИЛИ GAMEPAD! При включении вход с клавиатуры непрерывно обновляется при нажатии клавиши ввода</Russian>
+            <German>VERWENDEN SIE DIES NICHT, WENN SIE HOTAS ODER GAMEPAD VERWENDEN! Wenn aktiviert, wird die Tastatureingabe kontinuierlich aktualisiert, während die Eingabetaste gedrückt wird</German>
+            <Korean>HOTAS 또는 GAMEPAD를 사용 중이면 이를 사용하지 마십시오! 활성화되면 입력 키를 누르는 동안 키보드 입력이 지속적으로 업데이트됩니다</Korean>
+            <Japanese>HOTAS またはゲームパッドを使用している場合は、これを使用しないでください。 有効にすると、入力キーが押下されている間、キーボード入力が継続的に更新されます</Japanese>
+            <Chinesesimp>如果使用HOTAS或游戏手柄，请勿使用! 启用后，当按下输入键时键盘输入会持续更新</Chinesesimp>
+            <Turkish>HOTAS VEYA OYUN KOL KULLANIYORSANIZ BUNU KULLANMAYIN! Etkinleştirildiğinde, giriş tuşu basılıyken klavye girişi sürekli olarak güncellenir</Turkish>
+            <Dutch>GEBRUIK DIT NIET ALS U HOTAS OF GAMEPAD GEBRUIKT! Wanneer ingeschakeld, wordt toetsenbordinvoer continu bijgewerkt terwijl de invoertoets ingedrukt wordt gehouden</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW">
+            <Original>Keyboard Sticky Yaw</Original>
+            <English>Keyboard Sticky Yaw</English>
+            <Czech>Klávesnice Lepkavý Kurs</Czech>
+            <French>Clavier Lacet Persistant</French>
+            <Spanish>Teclado Guiñada Persistente</Spanish>
+            <Italian>Tastiera Imbardata Persistente</Italian>
+            <Polish>Klawiatura Lepkie Odchylenie</Polish>
+            <Portuguese>Teclado Yaw Pegajoso</Portuguese>
+            <Russian>Клавиатура Липкий Рыскание</Russian>
+            <German>Tastatur Sticky Yaw</German>
+            <Korean>키보드 고정 요</Korean>
+            <Japanese>キーボード粘性ヨー</Japanese>
+            <Chinesesimp>键盘粘性偏航</Chinesesimp>
+            <Turkish>Klavye Yapışkan Sapma</Turkish>
+            <Dutch>Toetsenbord Sticky Yaw</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW_INFO">
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Czech>NEPOUŽÍVEJTE POKUD POUŽÍVÁTE HOTAS NEBO GAMEPAD! Pokud je povoleno, vstup klávesnice je nepřetržitě aktualizován, dokud je klíč vstupu stisknutý</Czech>
+            <French>N'UTILISEZ PAS SI VOUS UTILISEZ HOTAS OU MANETTE ! Une fois activé, l'entrée clavier est continuellement mise à jour pendant que la touche d'entrée est enfoncée</French>
+            <Spanish>¡NO USES ESTO SI USAS HOTAS O GAMEPAD! Cuando se habilita, la entrada del teclado se actualiza continuamente mientras se mantiene presionada la tecla de entrada</Spanish>
+            <Italian>NON UTILIZZARE QUESTO SE STAI UTILIZZANDO HOTAS O GAMEPAD! Quando abilitato, l'input della tastiera viene aggiornato continuamente mentre il tasto di input è mantenuto premuto</Italian>
+            <Polish>NIE UŻYWAJ JEŚLI UŻYWASZ HOTAS LUB GAMEPADA! Po włączeniu wejście klawiatury jest stale aktualizowane, gdy klawisz wejścia jest wciśnięty</Polish>
+            <Portuguese>NÃO USE ISSO SE ESTIVER USANDO HOTAS OU GAMEPAD! Quando ativado, a entrada do teclado é continuamente atualizada enquanto a tecla de entrada é mantida pressionada</Portuguese>
+            <Russian>НЕ ИСПОЛЬЗУЙТЕ ЭТО, ЕСЛИ ИСПОЛЬЗУЕТЕ HOTAS ИЛИ GAMEPAD! При включении вход с клавиатуры непрерывно обновляется при нажатии клавиши ввода</Russian>
+            <German>VERWENDEN SIE DIES NICHT, WENN SIE HOTAS ODER GAMEPAD VERWENDEN! Wenn aktiviert, wird die Tastatureingabe kontinuierlich aktualisiert, während die Eingabetaste gedrückt wird</German>
+            <Korean>HOTAS 또는 GAMEPAD를 사용 중이면 이를 사용하지 마십시오! 활성화되면 입력 키를 누르는 동안 키보드 입력이 지속적으로 업데이트됩니다</Korean>
+            <Japanese>HOTAS またはゲームパッドを使用している場合は、これを使用しないでください。 有効にすると、入력キーが押下されている間、キーボード入力が継続的に更新されます</Japanese>
+            <Chinesesimp>如果使用HOTAS或游戏手柄，请勿使用! 启用后，当按下输入键时键盘输入会持续更新</Chinesesimp>
+            <Turkish>HOTAS VEYA OYUN KOL KULLANIYORSANIZ BUNU KULLANMAYIN! Etkinleştirildiğinde, giriş tuşu basılıyken klavye girişi sürekli olarak güncellenir</Turkish>
+            <Dutch>GEBRUIK DIT NIET ALS U HOTAS OF GAMEPAD GEBRUIKT! Wanneer ingeschakeld, wordt toetsenbordinvoer continu bijgewerkt terwijl de invoertoets ingedrukt wordt gehouden</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY">
+            <Original>LMC Sensitivity</Original>
+            <English>LMC Sensitivity</English>
+            <Czech>Citlivost LMC</Czech>
+            <French>Sensibilité LMC</French>
+            <Spanish>Sensibilidad LMC</Spanish>
+            <Italian>Sensibilità LMC</Italian>
+            <Polish>Czułość LMC</Polish>
+            <Portuguese>Sensibilidade LMC</Portuguese>
+            <Russian>Чувствительность LMC</Russian>
+            <German>LMC Empfindlichkeit</German>
+            <Korean>LMC 감도</Korean>
+            <Japanese>LMC感度</Japanese>
+            <Chinesesimp>LMC灵敏度</Chinesesimp>
+            <Turkish>LMC Duyarlılığı</Turkish>
+            <Dutch>LMC Gevoeligheid</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO">
+            <Original>TADS (LMC) Linear motion compensator input sensitivity control</Original>
+            <English>TADS (LMC) Linear motion compensator input sensitivity control</English>
+            <Czech>TADS (LMC) Řízení citlivosti vstupu kompenzátoru lineárního pohybu</Czech>
+            <French>TADS (LMC) Contrôle de sensibilité d'entrée du compensateur de mouvement linéaire</French>
+            <Spanish>TADS (LMC) Control de sensibilidad de entrada del compensador de movimiento lineal</Spanish>
+            <Italian>TADS (LMC) Controllo della sensibilità di ingresso del compensatore di movimento lineare</Italian>
+            <Polish>TADS (LMC) Kontrola czułości wejścia kompensatora ruchu liniowego</Polish>
+            <Portuguese>TADS (LMC) Controle de sensibilidade de entrada do compensador de movimento linear</Portuguese>
+            <Russian>TADS (LMC) Управление чувствительностью входного сигнала компенсатора линейного движения</Russian>
+            <German>TADS (LMC) Eingabeempfindlichkeitskontrolle des linearen Bewegungskompensators</German>
+            <Korean>TADS (LMC) 선형 모션 보정기 입력 민감도 제어</Korean>
+            <Japanese>TADS（LMC）直線運動補償機のスケーリング感度制御</Japanese>
+            <Chinesesimp>TADS（LMC）线性运动补偿器输入灵敏度控制</Chinesesimp>
+            <Turkish>TADS (LMC) Doğrusal Hareket Telafisi Giriş Duyarlılığı Kontrol</Turkish>
+            <Dutch>TADS (LMC) Invoergevoeligheidscontrole van lineaire bewegingscompensator</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MASTER_VOLUME">
+            <Original>Master volume Knob</Original>
+            <English>Master volume Knob</English>
+            <Czech>Tlačítko Hlavního Hlasitosti</Czech>
+            <French>Bouton Volume Principal</French>
+            <Spanish>Botón Volumen Maestro</Spanish>
+            <Italian>Pulsante Volume Principale</Italian>
+            <Polish>Gałka Głównej Głośności</Polish>
+            <Portuguese>Botão Volume Mestre</Portuguese>
+            <Russian>Кнопка Основного Громкости</Russian>
+            <German>Hauptvolumen Regler</German>
+            <Korean>마스터 볼륨 노브</Korean>
+            <Japanese>マスターボリュームノブ</Japanese>
+            <Chinesesimp>主音量旋钮</Chinesesimp>
+            <Turkish>Ana Ses Düğmesi</Turkish>
+            <Dutch>Hoofdvolume Knop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MASTER_VOLUME_INFO">
+            <Original>Temporary Master volume control</Original>
+            <English>Temporary Master volume control</English>
+            <Czech>Dočasné Řízení Hlavního Hlasitosti</Czech>
+            <French>Contrôle Volume Principal Temporaire</French>
+            <Spanish>Control de Volumen Maestro Temporal</Spanish>
+            <Italian>Controllo Volume Principale Temporaneo</Italian>
+            <Polish>Tymczasowa Kontrola Głównej Głośności</Polish>
+            <Portuguese>Controle Temporário Volume Mestre</Portuguese>
+            <Russian>Временное Управление Основной Громкостью</Russian>
+            <German>Temporäre Hauptlautstärkeregelung</German>
+            <Korean>임시 마스터 볼륨 제어</Korean>
+            <Japanese>一時的なマスターボリューム制御</Japanese>
+            <Chinesesimp>临时主音量控制</Chinesesimp>
+            <Turkish>Geçici Ana Ses Kontrolü</Turkish>
+            <Dutch>Tijdelijk Hoofdvolume Besturing</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK">
+            <Original>Mouse as Joystick</Original>
+            <English>Mouse as Joystick</English>
+            <Czech>Myš jako Joystick</Czech>
+            <French>Souris comme Joystick</French>
+            <Spanish>Ratón como Joystick</Spanish>
+            <Italian>Mouse come Joystick</Italian>
+            <Polish>Mysz jako Joystick</Polish>
+            <Portuguese>Mouse como Joystick</Portuguese>
+            <Russian>Мышь как Джойстик</Russian>
+            <German>Maus als Joystick</German>
+            <Korean>마우스를 조이스틱으로</Korean>
+            <Japanese>マウスをジョイスティックとして</Japanese>
+            <Chinesesimp>鼠标作为操纵杆</Chinesesimp>
+            <Turkish>Fareve Joystick olarak</Turkish>
+            <Dutch>Muis als Joystick</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK_INFO">
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option and stops input in freelook</Original>
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option and stops input in freelook</English>
+            <Czech>NEPOUŽÍVEJTE POKUD POUŽÍVÁTE HOTAS NEBO GAMEPAD! Umožňuje možnost citlivosti myši a zastaví vstup v režimu volné kamery</Czech>
+            <French>N'UTILISEZ PAS SI VOUS UTILISEZ HOTAS OU MANETTE ! Active l'option de sensibilité de la souris et arrête l'entrée en vue libre</French>
+            <Spanish>¡NO USES ESTO SI USAS HOTAS O GAMEPAD! Activa la opción de sensibilidad del ratón y detiene la entrada en vista libre</Spanish>
+            <Italian>NON UTILIZZARE QUESTO SE STAI UTILIZZANDO HOTAS O GAMEPAD! Abilita l'opzione di sensibilità del mouse e arresta l'input in freelook</Italian>
+            <Polish>NIE UŻYWAJ JEŚLI UŻYWASZ HOTAS LUB GAMEPADA! Włącza opcję czułości myszy i zatrzymuje wejście w widoku wolnym</Polish>
+            <Portuguese>NÃO USE ISSO SE ESTIVER USANDO HOTAS OU GAMEPAD! Ativa a opção de sensibilidade do mouse e interrompe a entrada em visualização livre</Portuguese>
+            <Russian>НЕ ИСПОЛЬЗУЙТЕ ЭТО, ЕСЛИ ИСПОЛЬЗУЕТЕ HOTAS ИЛИ GAMEPAD! Включает опцию чувствительности мыши и останавливает ввод в режиме свободного обзора</Russian>
+            <German>VERWENDEN SIE DIES NICHT, WENN SIE HOTAS ODER GAMEPAD VERWENDEN! Aktiviert die Mausempfindlichkeitsoption und stoppt die Eingabe im Freelook</German>
+            <Korean>HOTAS 또는 GAMEPAD를 사용 중이면 이를 사용하지 마십시오! 마우스 감도 옵션을 활성화하고 자유 관찰 모드에서 입력을 중지합니다</Korean>
+            <Japanese>HOTAS またはゲームパッドを使用している場合は、これを使用しないでください。 マウス感度オプションを有効にし、フリーロック入力を停止します</Japanese>
+            <Chinesesimp>如果使用HOTAS或游戏手柄，请勿使用! 启用鼠标灵敏度选项并停止自由观看中的输入</Chinesesimp>
+            <Turkish>HOTAS VEYA OYUN KOL KULLANIYORSANIZ BUNU KULLANMAYIN! Fare duyarlılığı seçeneğini etkinleştirir ve serbest bakış modunda girişi durdurur</Turkish>
+            <Dutch>GEBRUIK DIT NIET ALS U HOTAS OF GAMEPAD GEBRUIKT! Schakelt de muisgevoeligheidsoptie in en stopt invoer in vrije kijkstand</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY">
+            <Original>Mouse Sensitivity</Original>
+            <English>Mouse Sensitivity</English>
+            <Czech>Citlivost Myši</Czech>
+            <French>Sensibilité de la Souris</French>
+            <Spanish>Sensibilidad del Ratón</Spanish>
+            <Italian>Sensibilità del Mouse</Italian>
+            <Polish>Czułość Myszy</Polish>
+            <Portuguese>Sensibilidade do Mouse</Portuguese>
+            <Russian>Чувствительность Мыши</Russian>
+            <German>Mausempfindlichkeit</German>
+            <Korean>마우스 감도</Korean>
+            <Japanese>マウス感度</Japanese>
+            <Chinesesimp>鼠标灵敏度</Chinesesimp>
+            <Turkish>Fare Duyarlılığı</Turkish>
+            <Dutch>Muisgevoeligheid</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY_INFO">
+            <Original>Controls the sensitivity of the Mouse when used as a Joystick</Original>
+            <English>Controls the sensitivity of the Mouse when used as a Joystick</English>
+            <Czech>Řídí citlivost myši, když se používá jako joystick</Czech>
+            <French>Contrôle la sensibilité de la souris lorsqu'elle est utilisée comme joystick</French>
+            <Spanish>Controla la sensibilidad del ratón cuando se usa como joystick</Spanish>
+            <Italian>Controlla la sensibilità del mouse quando viene utilizzato come joystick</Italian>
+            <Polish>Kontroluje czułość myszy, gdy jest używana jako joystick</Polish>
+            <Portuguese>Controla a sensibilidade do mouse quando usado como joystick</Portuguese>
+            <Russian>Управляет чувствительностью мыши при использовании в качестве джойстика</Russian>
+            <German>Steuert die Mausempfindlichkeit bei der Verwendung als Joystick</German>
+            <Korean>마우스를 조이스틱으로 사용할 때의 감도를 제어합니다</Korean>
+            <Japanese>マウスをジョイスティックとして使用する場合の感度を制御します</Japanese>
+            <Chinesesimp>控制鼠标用作操纵杆时的灵敏度</Chinesesimp>
+            <Turkish>Faresi joystick olarak kullanırken duyarlılığını kontrol eder</Turkish>
+            <Dutch>Controleert de gevoeligheid van de muis wanneer deze als joystick wordt gebruikt</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE">
+            <Original>Pedal Center Trim Mode</Original>
+            <English>Pedal Center Trim Mode</English>
+            <Czech>Režim Středu Pedálových Výchylek</Czech>
+            <French>Mode Ajustement Centre Pédale</French>
+            <Spanish>Modo Ajuste Centro Pedal</Spanish>
+            <Italian>Modalità Trim Centro Pedale</Italian>
+            <Polish>Tryb Centralnego Trimmera Pedału</Polish>
+            <Portuguese>Modo Trim Centro Pedal</Portuguese>
+            <Russian>Режим Центральной Подрезки Педали</Russian>
+            <German>Pedal Mittel Trim Modus</German>
+            <Korean>페달 중앙 트림 모드</Korean>
+            <Japanese>ペダル中央トリムモード</Japanese>
+            <Chinesesimp>踏板中心配平模式</Chinesesimp>
+            <Turkish>Pedal Merkez Trim Modu</Turkish>
+            <Dutch>Pedaal Centraal Trim Modus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE_INFO">
+            <Original>When enabled, the pedals are locked out until re-centered</Original>
+            <English>When enabled, the pedals are locked out until re-centered</English>
+            <Czech>Pokud je povoleno, pedály jsou uzamčeny, dokud nejsou recentrovány</Czech>
+            <French>Une fois activé, les pédales sont verrouillées jusqu'à ce qu'elles soient recentrées</French>
+            <Spanish>Cuando se habilita, los pedales se bloquean hasta que se recentran</Spanish>
+            <Italian>Se abilitato, i pedali vengono bloccati fino al ricentraggio</Italian>
+            <Polish>Po włączeniu pedały są blokowane do ponownego wycentrowania</Polish>
+            <Portuguese>Quando ativado, os pedais são bloqueados até serem recentrados</Portuguese>
+            <Russian>При включении педали заблокированы до переоцентрирования</Russian>
+            <German>Wenn aktiviert, werden die Pedale gesperrt, bis sie neu zentriert werden</German>
+            <Korean>활성화되면 페달이 재정렬될 때까지 잠깁니다</Korean>
+            <Japanese>有効にすると、ペダルが再中心化されるまでロックされます</Japanese>
+            <Chinesesimp>启用后，踏板将被锁定直到重新居中</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, pedallar yeniden merkezlenene kadar kilitlenir</Turkish>
+            <Dutch>Wanneer ingeschakeld, worden de pedalen vergrendeld totdat deze opnieuw gecentreerd zijn</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_REALISM_CASUAL">
+            <Original>Casual</Original>
+            <English>Casual</English>
+            <Czech>Příležitostný</Czech>
+            <French>Décontracté</French>
+            <Spanish>Casual</Spanish>
+            <Italian>Casual</Italian>
+            <Polish>Casual</Polish>
+            <Portuguese>Casual</Portuguese>
+            <Russian>Непринужденный</Russian>
+            <German>Locker</German>
+            <Korean>캐주얼</Korean>
+            <Japanese>カジュアル</Japanese>
+            <Chinesesimp>休闲</Chinesesimp>
+            <Turkish>Rahat</Turkish>
+            <Dutch>Ontspannen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_REALISM_REALISTIC">
+            <Original>Realistic</Original>
+            <English>Realistic</English>
+            <Czech>Realistický</Czech>
+            <French>Réaliste</French>
+            <Spanish>Realista</Spanish>
+            <Italian>Realistico</Italian>
+            <Polish>Realistyczny</Polish>
+            <Portuguese>Realista</Portuguese>
+            <Russian>Реалистичный</Russian>
+            <German>Realistisch</German>
+            <Korean>현실적</Korean>
+            <Japanese>リアル</Japanese>
+            <Chinesesimp>现实的</Chinesesimp>
+            <Turkish>Gerçekçi</Turkish>
+            <Dutch>Realistisch</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_RLWR_VOLUME">
+            <Original>RLWR volume Knob</Original>
+            <English>RLWR volume Knob</English>
+            <Czech>Tlačítko Hlasitosti RLWR</Czech>
+            <French>Bouton Volume RLWR</French>
+            <Spanish>Botón Volumen RLWR</Spanish>
+            <Italian>Pulsante Volume RLWR</Italian>
+            <Polish>Gałka Głośności RLWR</Polish>
+            <Portuguese>Botão Volume RLWR</Portuguese>
+            <Russian>Кнопка Громкости RLWR</Russian>
+            <German>RLWR Lautstärkeregler</German>
+            <Korean>RLWR 음량 노브</Korean>
+            <Japanese>RLWRボリュームノブ</Japanese>
+            <Chinesesimp>RLWR音量旋钮</Chinesesimp>
+            <Turkish>RLWR Ses Düğmesi</Turkish>
+            <Dutch>RLWR Volume Knop</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_RLWR_VOLUME_INFO">
+            <Original>Temporary RLWR volume control</Original>
+            <English>Temporary RLWR volume control</English>
+            <Czech>Dočasné Řízení Hlasitosti RLWR</Czech>
+            <French>Contrôle Volume RLWR Temporaire</French>
+            <Spanish>Control de Volumen RLWR Temporal</Spanish>
+            <Italian>Controllo Volume RLWR Temporaneo</Italian>
+            <Polish>Tymczasowa Kontrola Głośności RLWR</Polish>
+            <Portuguese>Controle Temporário Volume RLWR</Portuguese>
+            <Russian>Временное Управление Громкостью RLWR</Russian>
+            <German>Temporäre RLWR Lautstärkeregelung</German>
+            <Korean>임시 RLWR 음량 제어</Korean>
+            <Japanese>一時的なRLWRボリューム制御</Japanese>
+            <Chinesesimp>临时RLWR音量控制</Chinesesimp>
+            <Turkish>Geçici RLWR Ses Kontrolü</Turkish>
+            <Dutch>Tijdelijk RLWR Volume Besturing</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SHOW_POPUP">
+            <Original>Show Popup Intro</Original>
+            <English>Show Popup Intro</English>
+            <Czech>Zobrazit Úvod Popup</Czech>
+            <French>Afficher l'Introduction Popup</French>
+            <Spanish>Mostrar Intro Popup</Spanish>
+            <Italian>Mostra Introduzione Popup</Italian>
+            <Polish>Pokaż Intro Popup</Polish>
+            <Portuguese>Mostrar Introdução Popup</Portuguese>
+            <Russian>Показать Всплывающее Введение</Russian>
+            <German>Popup Intro Anzeigen</German>
+            <Korean>팝업 소개 표시</Korean>
+            <Japanese>ポップアップ紹介を表示</Japanese>
+            <Chinesesimp>显示弹出窗口介绍</Chinesesimp>
+            <Turkish>Popup Tanıtımını Göster</Turkish>
+            <Dutch>Pop-up Intro Weergeven</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SHOW_POPUP_INFO">
+            <Original>Show popup when the player gets into an Apache</Original>
+            <English>Show popup when the player gets into an Apache</English>
+            <Czech>Zobrazit popup, když se hráč nastoupí do Apache</Czech>
+            <French>Afficher popup lorsque le joueur monte dans un Apache</French>
+            <Spanish>Mostrar popup cuando el jugador entra en un Apache</Spanish>
+            <Italian>Mostra popup quando il giocatore sale su un Apache</Italian>
+            <Polish>Pokaż popup gdy gracz wejdzie do Apache</Polish>
+            <Portuguese>Mostrar popup quando o jogador entra em um Apache</Portuguese>
+            <Russian>Показать всплывающее окно, когда игрок входит в Apache</Russian>
+            <German>Popup anzeigen, wenn der Spieler in einen Apache einsteigt</German>
+            <Korean>플레이어가 Apache에 탑승할 때 팝업 표시</Korean>
+            <Japanese>プレイヤーがApacheに乗るときポップアップを表示</Japanese>
+            <Chinesesimp>玩家进入Apache时显示弹出窗口</Chinesesimp>
+            <Turkish>Oyuncu Apache'ye bindiğinde popup göster</Turkish>
+            <Dutch>Toon popup wanneer de speler in een Apache stapt</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC">
+            <Original>Springless Cyclic</Original>
+            <English>Springless Cyclic</English>
+            <Czech>Cyklické bez Pružiny</Czech>
+            <French>Cyclique sans Ressort</French>
+            <Spanish>Cíclico sin Resorte</Spanish>
+            <Italian>Ciclico Senza Molla</Italian>
+            <Polish>Cykliczne bez Sprężyny</Polish>
+            <Portuguese>Cíclico sem Mola</Portuguese>
+            <Russian>Циклический без Пружины</Russian>
+            <German>Federlose Zyklische</German>
+            <Korean>스프링 없는 사이클릭</Korean>
+            <Japanese>スプリングレスサイクリック</Japanese>
+            <Chinesesimp>无弹簧循环</Chinesesimp>
+            <Turkish>Yaysız Döngüsel</Turkish>
+            <Dutch>Veerloze Cyclisch</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC_INFO">
+            <Original>When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS</Original>
+            <English>When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS</English>
+            <Czech>Pokud je povoleno, je cyklické silové vyrovnání zakázáno. Toto je pro uživatele se zpětnou vazbou sil nebo HOTAS bez pružiny</Czech>
+            <French>Une fois activé, l'ajustement de force cyclique est désactivé. Ceci est pour les utilisateurs avec retour de force ou HOTAS sans ressort</French>
+            <Spanish>Cuando se habilita, el trim de fuerza cíclica está deshabilitado. Esto es para usuarios con retroalimentación de fuerza o HOTAS sin resorte</Spanish>
+            <Italian>Se abilitato, il trim di forza ciclico è disabilitato. Questo è per gli utenti con retroazione di forza o HOTAS senza molla</Italian>
+            <Polish>Po włączeniu cykliczny trim siły jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub HOTAS bez sprężyny</Polish>
+            <Portuguese>Quando ativado, o trim de força cíclico é desabilitado. Isso é para usuários com feedback de força ou HOTAS sem mola</Portuguese>
+            <Russian>При включении циклический силовой триммер отключен. Это для пользователей с обратной связью силы или HOTAS без пружины</Russian>
+            <German>Wenn aktiviert, ist das zyklische Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federloser HOTAS</German>
+            <Korean>활성화되면 사이클릭 포스 트림이 비활성화됩니다. 이것은 포스 피드백 또는 스프링 없는 HOTAS를 가진 사용자용입니다</Korean>
+            <Japanese>有効にすると、サイクリック力トリムが無効になります。これはフォースフィードバックまたはスプリングレスHOTASを備えたユーザー向けです</Japanese>
+            <Chinesesimp>启用后，循环力配平被禁用。这是为具有力反馈或无弹簧HOTAS的用户设计的</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, döngüsel kuvvet trimı devre dışı bırakılır. Bu, kuvvet geri bildirimi veya yaysız HOTAS'a sahip kullanıcılar içindir</Turkish>
+            <Dutch>Wanneer ingeschakeld, is cyclische krachttrim uitgeschakeld. Dit is voor gebruikers met force feedback of veerloze HOTAS</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS">
+            <Original>Springless Pedals</Original>
+            <English>Springless Pedals</English>
+            <Czech>Pedály bez Pružiny</Czech>
+            <French>Pédales sans Ressort</French>
+            <Spanish>Pedales sin Resorte</Spanish>
+            <Italian>Pedali Senza Molla</Italian>
+            <Polish>Pedały bez Sprężyny</Polish>
+            <Portuguese>Pedais sem Mola</Portuguese>
+            <Russian>Педали без Пружины</Russian>
+            <German>Federlose Pedale</German>
+            <Korean>스프링 없는 페달</Korean>
+            <Japanese>スプリングレスペダル</Japanese>
+            <Chinesesimp>无弹簧踏板</Chinesesimp>
+            <Turkish>Yaysız Pedallar</Turkish>
+            <Dutch>Veerloze Pedalen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS_INFO">
+            <Original>When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold</Original>
+            <English>When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold</English>
+            <Czech>Pokud je povoleno, je silové vyrovnání pedálu zakázáno. Toto je pro uživatele se zpětnou vazbou sil nebo pedály bez pružiny. Tato možnost také deaktivuje udržování nadpisu</Czech>
+            <French>Une fois activé, l'ajustement de force pédal est désactivé. Ceci est pour les utilisateurs avec retour de force ou pédales sans ressort. Cette option désactive également le maintien de cap</French>
+            <Spanish>Cuando se habilita, el trim de fuerza del pedal está deshabilitado. Esto es para usuarios con retroalimentación de fuerza o pedales sin resorte. Esta opción también desactiva Heading Hold</Spanish>
+            <Italian>Se abilitato, il trim di forza del pedale è disabilitato. Questo è per gli utenti con retroazione di forza o pedali senza molla. Questa opzione disabilita anche Heading Hold</Italian>
+            <Polish>Po włączeniu pedał силового trimmera jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub pedałami bez sprężyny. Ta opcja również wyłącza Utrzymywanie kierunku</Polish>
+            <Portuguese>Quando ativado, o trim de força do pedal é desabilitado. Isso é para usuários com feedback de força ou pedais sem mola. Esta opção também desativa Heading Hold</Portuguese>
+            <Russian>При включении педальный силовой триммер отключен. Это для пользователей с обратной связью силы или педалями без пружины. Эта опция также отключает удержание курса</Russian>
+            <German>Wenn aktiviert, ist das Pedal Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federlosen Pedalen. Diese Option deaktiviert auch Heading Hold</German>
+            <Korean>활성화되면 페달 포스 트림이 비활성화됩니다. 이것은 포스 피드백 또는 스프링 없는 페달을 가진 사용자용입니다. 이 옵션은 Heading Hold도 비활성화합니다</Korean>
+            <Japanese>有効にすると、ペダル力トリムが無効になります。これはフォースフィードバックまたはスプリングレスペダルを備えたユーザー向けです。このオプションはHeading Holdも無効にします</Japanese>
+            <Chinesesimp>启用后，踏板力配平被禁用。这是为具有力反馈或无弹簧踏板的用户设计的。此选项也禁用航向保持</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, pedal kuvvet trimı devre dışı bırakılır. Bu, kuvvet geri bildirimi veya yaysız pedallar için kullanıcılar içindir. Bu seçenek ayrıca Heading Hold'u devre dışı bırakır</Turkish>
+            <Dutch>Wanneer ingeschakeld, is het pedaalforcetrimminguitgeschakeld. Dit is voor gebruikers met force feedback of veerloze pedalen. Deze optie schakelt ook Heading Hold uit</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV">
+            <Original>NV Cycle Include DTV</Original>
+            <English>NV Cycle Include DTV</English>
+            <Czech>Cyklus NV Zahrnout DTV</Czech>
+            <French>Cycle NV Inclure DTV</French>
+            <Spanish>Ciclo NV Incluir DTV</Spanish>
+            <Italian>Ciclo NV Includi DTV</Italian>
+            <Polish>Cykl NV Włącz DTV</Polish>
+            <Portuguese>Ciclo NV Incluir DTV</Portuguese>
+            <Russian>Цикл NV Включить DTV</Russian>
+            <German>NV Zyklus Include DTV</German>
+            <Korean>NV 사이클 DTV 포함</Korean>
+            <Japanese>NVサイクルDTVを含める</Japanese>
+            <Chinesesimp>NV循环包括DTV</Chinesesimp>
+            <Turkish>NV Döngüsü DTV'yi İçer</Turkish>
+            <Dutch>NV Cyclus Inclusief DTV</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV_INFO">
+            <Original>When enabled, the Night Vision button will also cycle through DTV and not just BHOT and WHOT</Original>
+            <English>When enabled, the Night Vision button will also cycle through DTV and not just BHOT and WHOT</English>
+            <Czech>Pokud je povoleno, tlačítko Night Vision bude také cyklovat DTV a ne jen BHOT a WHOT</Czech>
+            <French>Une fois activé, le bouton Vision Nocturne cyclera également à travers DTV et pas seulement BHOT et WHOT</French>
+            <Spanish>Cuando se habilita, el botón Night Vision también ciclará a través de DTV y no solo BHOT y WHOT</Spanish>
+            <Italian>Se abilitato, il pulsante Night Vision cicla anche attraverso DTV e non solo BHOT e WHOT</Italian>
+            <Polish>Po włączeniu przycisk Night Vision będzie również przechodzić przez DTV, a nie tylko BHOT i WHOT</Polish>
+            <Portuguese>Quando ativado, o botão Night Vision também ciclará através de DTV e não apenas BHOT e WHOT</Portuguese>
+            <Russian>При включении кнопка Night Vision также будет переключаться через DTV, а не только BHOT и WHOT</Russian>
+            <German>Wenn aktiviert, wird die Night Vision Taste auch durch DTV wechseln und nicht nur BHOT und WHOT</German>
+            <Korean>활성화되면 Night Vision 버튼도 BHOT 및 WHOT뿐만 아니라 DTV를 순환합니다</Korean>
+            <Japanese>有効にすると、ナイトビジョンボタンはBHOTとWHOTだけでなくDTVもサイクルします</Japanese>
+            <Chinesesimp>启用后，夜视按钮也会循环DTV，而不仅仅是BHOT和WHOT</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, Night Vision düğmesi sadece BHOT ve WHOT değil aynı zamanda DTV'yi de döngü yapacaktır</Turkish>
+            <Dutch>Wanneer ingeschakeld, zal de Night Vision knop ook DTV doorlopen en niet alleen BHOT en WHOT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO">
+            <Original>NV Cycle Include DVO</Original>
+            <English>NV Cycle Include DVO</English>
+            <Czech>Cyklus NV Zahrnout DVO</Czech>
+            <French>Cycle NV Inclure DVO</French>
+            <Spanish>Ciclo NV Incluir DVO</Spanish>
+            <Italian>Ciclo NV Includi DVO</Italian>
+            <Polish>Cykl NV Włącz DVO</Polish>
+            <Portuguese>Ciclo NV Incluir DVO</Portuguese>
+            <Russian>Цикл NV Включить DVO</Russian>
+            <German>NV Zyklus Include DVO</German>
+            <Korean>NV 사이클 DVO 포함</Korean>
+            <Japanese>NVサイクルDVOを含める</Japanese>
+            <Chinesesimp>NV循环包括DVO</Chinesesimp>
+            <Turkish>NV Döngüsü DVO'yu İçer</Turkish>
+            <Dutch>NV Cyclus Inclusief DVO</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO_INFO">
+            <Original>When enabled, the Night Vision button will also cycle through DVO and not just BHOT and WHOT</Original>
+            <English>When enabled, the Night Vision button will also cycle through DVO and not just BHOT and WHOT</English>
+            <Czech>Pokud je povoleno, tlačítko Night Vision bude také cyklovat DVO a ne jen BHOT a WHOT</Czech>
+            <French>Une fois activé, le bouton Vision Nocturne cyclera également à travers DVO et pas seulement BHOT et WHOT</French>
+            <Spanish>Cuando se habilita, el botón Night Vision también ciclará a través de DVO y no solo BHOT y WHOT</Spanish>
+            <Italian>Se abilitato, il pulsante Night Vision cicla anche attraverso DVO e non solo BHOT e WHOT</Italian>
+            <Polish>Po włączeniu przycisk Night Vision będzie również przechodzić przez DVO, a nie tylko BHOT i WHOT</Polish>
+            <Portuguese>Quando ativado, o botão Night Vision também ciclará através de DVO e não apenas BHOT e WHOT</Portuguese>
+            <Russian>При включении кнопка Night Vision также будет переключаться через DVO, а не только BHOT и WHOT</Russian>
+            <German>Wenn aktiviert, wird die Night Vision Taste auch durch DVO wechseln und nicht nur BHOT und WHOT</German>
+            <Korean>활성화되면 Night Vision 버튼도 BHOT 및 WHOT뿐만 아니라 DVO를 순환합니다</Korean>
+            <Japanese>有効にすると、ナイトビジョンボタンはBHOTとWHOTだけでなくDVOもサイクルします</Japanese>
+            <Chinesesimp>启用后，夜视按钮也会循环DVO，而不仅仅是BHOT和WHOT</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, Night Vision düğmesi sadece BHOT ve WHOT değil aynı zamanda DVO'yu da döngü yapacaktır</Turkish>
+            <Dutch>Wanneer ingeschakeld, zal de Night Vision knop ook DVO doorlopen en niet alleen BHOT en WHOT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_VANILLA_TARGETING">
+            <Original>Show Vanilla Targeting Information (restart required)</Original>
+            <English>Show Vanilla Targeting Information (restart required)</English>
+            <Czech>Zobrazit Informace o Vanilla Targeting (vyžaduje restart)</Czech>
+            <French>Afficher les Informations de Ciblage Vanilla (redémarrage requis)</French>
+            <Spanish>Mostrar Información de Targeting Vanilla (se requiere reinicio)</Spanish>
+            <Italian>Mostra Informazioni Targeting Vanilla (riavvio richiesto)</Italian>
+            <Polish>Pokaż Informacje Vanilla Targeting (wymagany restart)</Polish>
+            <Portuguese>Mostrar Informações Vanilla Targeting (reinicialização necessária)</Portuguese>
+            <Russian>Показать Информацию Vanilla Targeting (требуется перезагрузка)</Russian>
+            <German>Vanilla Targeting Information Anzeigen (Neustart erforderlich)</German>
+            <Korean>Vanilla 타겟팅 정보 표시 (재시작 필요)</Korean>
+            <Japanese>Vanilla ターゲティング情報を表示 (再起動が必要)</Japanese>
+            <Chinesesimp>显示Vanilla定向信息(需要重启)</Chinesesimp>
+            <Turkish>Vanilla Hedefleme Bilgilerini Göster (yeniden başlatma gerekli)</Turkish>
+            <Dutch>Vanilla Targeting Informatie Weergeven (herstart vereist)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_VANILLA_TARGETING_INFO">
+            <Original>Disabling this will hide vanilla targeting information (restart needed)</Original>
+            <English>Disabling this will hide vanilla targeting information (restart needed)</English>
+            <Czech>Zakázání skryje informace vanilla targeting (je třeba restartovat)</Czech>
+            <French>La désactivation masquera les informations de ciblage vanilla (redémarrage requis)</French>
+            <Spanish>Desactivar esto ocultará la información de targeting vanilla (se necesita reinicio)</Spanish>
+            <Italian>La disabilitazione nasconderà le informazioni di targeting vanilla (è necessario riavviare)</Italian>
+            <Polish>Wyłączenie tego ukryje informacje vanilla targeting (wymagany restart)</Polish>
+            <Portuguese>Desabilitar isso ocultará informações vanilla targeting (reinicialização necessária)</Portuguese>
+            <Russian>Отключение скроет информацию vanilla targeting (требуется перезагрузка)</Russian>
+            <German>Das Deaktivieren blendet Vanilla Targeting Information aus (Neustart erforderlich)</German>
+            <Korean>비활성화하면 Vanilla 타겟팅 정보가 숨겨집니다 (재시작 필요)</Korean>
+            <Japanese>これを無効にすると、Vanillaターゲティング情報が非表示になります（再起動が必要）</Japanese>
+            <Chinesesimp>禁用此选项将隐藏Vanilla定向信息(需要重启)</Chinesesimp>
+            <Turkish>Bunu devre dışı bırakmak Vanilla hedefleme bilgilerini gizleyecektir (yeniden başlatma gerekli)</Turkish>
+            <Dutch>Het uitschakelen hiervan verbergt vanilla targeting informatie (herstart nodig)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_VRS_WARNING">
+            <Original>Enable VRS Warning</Original>
+            <English>Enable VRS Warning</English>
+            <Czech>Povolit Varování VRS</Czech>
+            <French>Activer l'Avertissement VRS</French>
+            <Spanish>Activar Advertencia VRS</Spanish>
+            <Italian>Abilita Avviso VRS</Italian>
+            <Polish>Włącz Ostrzeżenie VRS</Polish>
+            <Portuguese>Ativar Aviso VRS</Portuguese>
+            <Russian>Включить Предупреждение VRS</Russian>
+            <German>VRS Warnung Aktivieren</German>
+            <Korean>VRS 경고 활성화</Korean>
+            <Japanese>VRS警告を有効にする</Japanese>
+            <Chinesesimp>启用VRS警告</Chinesesimp>
+            <Turkish>VRS Uyarısını Etkinleştir</Turkish>
+            <Dutch>VRS Waarschuwing Inschakelen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_VRS_WARNING_INFO">
+            <Original>When enabled, will alert the pilot to the onset of VRS</Original>
+            <English>When enabled, will alert the pilot to the onset of VRS</English>
+            <Czech>Pokud je povoleno, upozorní pilota na začátek VRS</Czech>
+            <French>Une fois activé, alertera le pilote du début du VRS</French>
+            <Spanish>Cuando se habilita, alertará al piloto del inicio de VRS</Spanish>
+            <Italian>Se abilitato, avviserà il pilota dell'inizio del VRS</Italian>
+            <Polish>Po włączeniu ostrzeże pilota przed rozpoczęciem VRS</Polish>
+            <Portuguese>Quando ativado, alertará o piloto sobre o início do VRS</Portuguese>
+            <Russian>При включении предупредит пилота о начале VRS</Russian>
+            <German>Wenn aktiviert, wird der Pilot vor Beginn des VRS gewarnt</German>
+            <Korean>활성화되면 파일럿에게 VRS 시작을 알립니다</Korean>
+            <Japanese>有効にすると、VRS の発生をパイロットに警告します</Japanese>
+            <Chinesesimp>启用后，将提醒飞行员VRS的开始</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, pilotu VRS'nin başlaması konusunda uyaracaktır</Turkish>
+            <Dutch>Wanneer ingeschakeld, waarschuwt de piloot voor het begin van VRS</Dutch>
+        </Key>
+    </Package>
+</Project>
