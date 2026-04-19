@@ -30,7 +30,7 @@ if (fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario && _unit == playe
 
 //reset values
 [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
-_heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0];
+_heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 
 fza_ah64_previousTime   = diag_tickTime;
