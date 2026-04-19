@@ -40,38 +40,95 @@ Use of these versions is at your own risk - these versions can be half-complete 
 
 ## Development Guide
 
-### SConstruct(SCONS) Build environment
-The AH-64D is built with SConstcut, or for short, SCONS.
+### Environment Setup
 
-#### Prerequisite: python > 3
-To install scons, you require python 3.
-To check what python version you have installed, you can use the `python --version` command
+A setup script is provided that automatically installs and configures all required tools:
 
-#### Scons installation
-Once you confirmed you have python installed, you can use the command
-`python -m pip install scons`
-To install scons
+**Requirements:** Windows 10 1709+ and an administrator PowerShell session.
 
-#### Pre-Commit
-This is a tool that checks any new file names or paths that do not match our standard
-`python -m pip install pre-commit`
-To install Pre Commit
+Run once after cloning the repository by double-clicking:
 
-#### Troubleshooting
-**PATH Warning**
-Important: when installing scons, you might find the following error:
 ```
-WARNING: The scripts scons-configure-cache.exe, scons.exe and sconsign.exe are installed in 'C:\Users\<user>\AppData\Local\Programs\Python\Python39\Scripts' which is not on PATH.
-Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+tools\Setup Development ENV.bat
 ```
-If you find this, you will have to add the python folder to your PATH.
-If you don't know how to add variables to your PATH, you can find more information here https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/
 
-**Other errors**
+The script installs the following tools, trying multiple methods for each before falling back to manual instructions:
+
+| Tool | Purpose |
+|---|---|
+| Git | Version control |
+| Python 3 | Runtime and pip package manager |
+| SCons | Build system |
+| pre-commit | Git hooks for code quality checks |
+| PyYAML | Config file parsing |
+| HEMTT | Mod builder and PBO packager |
+| Arma 3 Tools | Config binarizer (via Steam, App ID 233800) |
+
+Any tool that cannot be installed automatically will be listed at the end of the script output with a direct download URL.
+
+After setup completes, open a new terminal so that PATH changes take effect, then verify with:
+
+```powershell
+git --version; python --version; scons --version; hemtt --version
+```
+
+### Building
+
+From the project root, run:
+
+```
+scons
+```
+
+This pre-binarizes configs (where needed), runs `hemtt build`, and places output in `.hemttout/build/`.
+
+### SCons Targets
+
+| Target | Description |
+|---|---|
+| `scons` | Build all PBOs via HEMTT (default) |
+| `scons release` | Release build — signs PBOs, creates release archives, renames mod folder to `@fza_ah64_apache_longbow` |
+| `scons docs` | Generate NaturalDocs documentation + MFD index reference (`docs/other/mfdindices.html`) |
+| `scons symlinks` | Create NTFS junctions from the Arma 3 install into addon source folders (enables file patching) |
+| `scons rmsymlinks` | Remove the above junctions |
+| `scons -c` | Clean all build outputs (`.hemttout`, `releases`, `docs`, `buildTools`) |
+| `scons -c release` | Clean release outputs only (`.hemttout`, `releases`) |
+
+### Build Pipeline
+
+SCons is the top-level build orchestrator; PBO compilation is delegated to HEMTT.
+
+#### `scons` / `scons release`
+
+```
+scons [release]
+│
+├─ CfgConvert pre-binarization  (addons with [rapify] enabled = false in addon.toml)
+│   ├─ Creates a temporary P: drive (subst) mapping each addon and include/ folder
+│   ├─ Runs CfgConvert.exe -bin to produce config.bin alongside config.cpp
+│   └─ Tears down the P: drive after binarization
+│
+├─ hemtt build / hemtt release
+│   ├─ Pre-build hook: version_files.rhai writes version.hpp into each addon
+│   ├─ Preprocessing: resolves #include, #define, __EVAL() macros
+│   ├─ Linting: static analysis on SQF and configs
+│   ├─ Rapify: binarizes config.cpp → config.bin (skipped where disabled)
+│   ├─ PBO packing → .hemttout/
+│   └─ (release only) Signing + zip archives in releases/
+│
+├─ (release only) Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
+├─ (release only) SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbow
+│
+└─ Cleanup: stale config.bin files removed
+```
+
+### Troubleshooting
+
+If `scons` can't find `hemtt`, ensure HEMTT is on your PATH and that you opened a new terminal after running setup.
+
+If the release build fails with a CfgConvert error, ensure Arma 3 Tools is fully installed via Steam (App ID 233800) and that AddonBuilder has been launched at least once.
+
 If you find any other errors, please ask the dev team in the AH-64D Official Project discord server.
-
-Once installed, you should be able to open the project's root folder in your terminal, and run `scons`.
-This should generate fully built PBOs in your addons folder.
 
 ## Support
 

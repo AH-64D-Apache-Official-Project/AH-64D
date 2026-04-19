@@ -1,8 +1,0 @@
-//PILOT FIRE PANEL
-CfgButtonDown(FirePanelEngineOne,     "ctrlref_p_fe1",  "$STR_FZA_AH64_SELECT_ENGINE_1",       0.025, [ARR_3(_this#0, QUOTE(fire), QUOTE(fe1))] call fza_fnc_coreCockpitInteract,  "fza_ah64_button_click2");
-CfgButtonDown(FirePanelAPU,           "ctrlref_p_fapu", "$STR_FZA_AH64_SELECT_APU",            0.025, [ARR_3(_this#0, QUOTE(fire), QUOTE(fapu))] call fza_fnc_coreCockpitInteract, "fza_ah64_button_click2");
-CfgButtonDown(FirePanelEngineTwo,     "ctrlref_p_fe2",  "$STR_FZA_AH64_SELECT_ENGINE_2",       0.025, [ARR_3(_this#0, QUOTE(fire), QUOTE(fe2))] call fza_fnc_coreCockpitInteract,  "fza_ah64_button_click2");
-CfgButtonDown(FirePanelBottlePrimary, "ctrlref_p_fbp",  "$STR_FZA_AH64_DISCHARGE_PRIMARY_FIRE_BOTTLE", 0.025, [ARR_3(_this#0, QUOTE(fire), QUOTE(fbp))] call fza_fnc_coreCockpitInteract,  "fza_ah64_button_click2");
-CfgButtonDown(FirePanelBottleReserve, "ctrlref_p_fbr",  "$STR_FZA_AH64_DISCHARGE_RESERVE_FIRE_BOTTLE", 0.025, [ARR_3(_this#0, QUOTE(fire), QUOTE(fbr))] call fza_fnc_coreCockpitInteract,  "fza_ah64_button_click2");
-
-CfgSwitch(FirePanelTestSwitch, "ctrlref_p_swfiretst", "$STR_FZA_AH64_TEST_FIRE_SYSTEM", "plt_firesw", 0.025, ARR_3(1, 0.5, 0), ARR_3("$STR_FZA_AH64_FIRE_TEST_1", "$STR_FZA_AH64_FIRE_TEST_OFF", "$STR_FZA_AH64_FIRE_TEST_2"), [ARR_3(_this#0, QUOTE(fire), _this#2)] call fza_fnc_coreCockpitInteract, [ARR_3(_this#0, QUOTE(fire), QUOTE(fireTestToggle))] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");

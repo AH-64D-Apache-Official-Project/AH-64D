@@ -1,0 +1,114 @@
+================================================================================
+  AH-64D BUILD COMMAND REFERENCE
+================================================================================
+
+--------------------------------------------------------------------------------
+  SCONS TARGETS
+--------------------------------------------------------------------------------
+
+  scons                   Default — same as "scons all"
+  scons all               CfgConvert pre-binarize -> hemtt build -> cleanup
+  scons release           CfgConvert pre-binarize -> hemtt release (signs,
+                            archives) -> rename zips -> cleanup
+  scons docs              Generate NaturalDocs + MFD documentation into docs/
+  scons symlinks          Create Arma 3 junction links for each addon
+                            (enables file patching in-game)
+  scons rmsymlinks        Remove the Arma 3 junction links
+  scons -c                Clean: remove .hemttout/, releases/, docs/, buildTools/
+  scons -c release        Clean: remove releases/ and .hemttout/ only
+  scons -h                Show all target descriptions
+
+  NOTE: scons all / scons release include CfgConvert pre-binarization for
+  addons with [rapify] enabled = false (currently: fza_ah64_mpd).
+  Running hemtt directly bypasses this step.
+
+--------------------------------------------------------------------------------
+  HEMTT CHECK
+--------------------------------------------------------------------------------
+
+  Validates the project without writing any files.
+  Fastest way to catch errors; ideal for CI.
+
+  hemtt check
+  hemtt check --pedantic              Enable stricter lints
+  hemtt check --error-on-all          Treat warnings as errors
+  hemtt check -L s01-invalid-command  Enable a specific lint by name
+
+--------------------------------------------------------------------------------
+  HEMTT DEV
+--------------------------------------------------------------------------------
+
+  Builds into .hemttout/dev with symlinks back to source folders.
+  Use for file patching during active development.
+
+  hemtt dev
+  hemtt dev --just fza_ah64_mpd       Only refresh one addon (safe — all others
+                                        remain accessible via their symlinks)
+  hemtt dev -o <folder>               Include an optionals/ addon
+  hemtt dev -O                        Include all optionals
+  hemtt dev --no-rap                  Skip rapification (raw .cpp in PBO)
+  hemtt dev -b                        Enable BI binarization (off by default)
+
+--------------------------------------------------------------------------------
+  HEMTT BUILD
+--------------------------------------------------------------------------------
+
+  Full build into .hemttout/build with binarization.
+  No signing or archiving.
+
+  hemtt build
+  hemtt build --just fza_ah64_mpd     Only rebuild one addon
+  hemtt build --no-bin                Skip binarization (rapify still runs)
+  hemtt build --no-rap                Skip rapification entirely
+
+  WARNING: "hemtt build --just <addon>" clears ALL other addon outputs before
+  building only the specified one — the resulting build directory is incomplete.
+  Use "hemtt dev --just <addon>" for safe single-addon iteration instead.
+
+--------------------------------------------------------------------------------
+  HEMTT RELEASE
+--------------------------------------------------------------------------------
+
+  Full release build — signs PBOs, creates bikey, produces zips in releases/.
+  The post_release hook renames fza_ah64-*.zip -> ah64-*.zip automatically.
+
+  NOTE: Prefer "scons release" over "hemtt release" — SCons pre-binarizes the
+  fza_ah64_mpd config.cpp with CfgConvert before packing, producing a proper
+  config.bin in the PBO. Running hemtt release directly skips this step.
+
+  hemtt release
+  hemtt release --no-archive          Skip zip creation
+                                        (output stays in .hemttout/release)
+  hemtt release --no-sign             Skip signing
+  hemtt release --no-bin              Skip binarization
+  hemtt release --no-rap              Skip rapification
+
+--------------------------------------------------------------------------------
+  HEMTT LAUNCH
+--------------------------------------------------------------------------------
+
+  Builds with hemtt dev then launches Arma 3 with configured mods/presets.
+  Profiles are configured in .hemtt/launch.toml.
+
+  PROFILES:
+  hemtt launch minimal        CBA + ACE + Hatchet Interaction Framework
+  hemtt launch normal         minimal + A3 Thermal Improvement + Zeus Enhanced
+  hemtt launch profiling      minimal + Arma Script Profiler + Intercept Minimal Dev
+
+  OPTIONS:
+  hemtt launch -Q <profile>           Quick: skip rebuild, use last dev build
+  hemtt launch -F <profile>           Disable file patching
+  hemtt launch -i 2 <profile>         Launch 2 instances
+  hemtt launch +ws <profile>          Add Western Sahara CDLC
+  hemtt launch -- -world=empty        Pass extra args directly to Arma 3
+
+--------------------------------------------------------------------------------
+  GLOBAL HEMTT FLAGS  (all commands)
+--------------------------------------------------------------------------------
+
+  -t 4        Limit to 4 threads
+  -v          Debug verbosity
+  -vv         Trace verbosity (very verbose)
+              Full log always available at .hemttout/latest.log
+
+================================================================================

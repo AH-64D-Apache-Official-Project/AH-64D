@@ -1,0 +1,21 @@
+#ifdef __A3_DEBUG__
+#define R recompile = 1
+#else
+#define R recompile = 0
+#endif
+class CfgFunctions
+{
+    class fza_ah64_wca {
+        tag="fza_wca";
+        class functions {
+            file = "\fza_ah64_wca\functions";
+            class init {R;};
+            class update {R;};
+            class wcaAddCaution {R;};
+            class wcaAddWarning {R;};
+            class wcaBtnHandleControl {R;};
+            class wcaDelCaution {R;};
+            class wcaDelWarning {R;};
+        };
+    };
+};
