@@ -1,0 +1,8 @@
+ignore_pboprefix = true
+
+# Disable rapify: HEMTT's config parser cannot handle __EVAL() with cos/sin
+# functions used in MPD_POINTS_CURVED_CORNER and related macros.
+# These are Arma engine runtime math functions, not preprocessor features.
+[rapify]
+enabled = false
+

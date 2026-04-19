@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_ANTI_COLLISION_OFF">
+            <Original>ANTI-COLLISION OFF</Original>
+            <English>ANTI-COLLISION OFF</English>
+            <Czech>ANTICOLLIZNÍ REŽIM VYPNUT</Czech>
+            <French>ANTI-COLLISION DÉSACTIVÉ</French>
+            <Spanish>ANTI-COLISIÓN DESACTIVADO</Spanish>
+            <Italian>ANTI-COLLISIONE DISATTIVO</Italian>
+            <Polish>ANTI-KOLIZJA WYŁĄCZONE</Polish>
+            <Portuguese>ANTI-COLISÃO DESATIVADO</Portuguese>
+            <Russian>ПРОТИВОСТОЛКНОВЕНИЕ ОТКЛЮЧЕНО</Russian>
+            <German>ANTI-KOLLISION AUS</German>
+            <Korean>충돌방지 비활성화</Korean>
+            <Japanese>衝突回避オフ</Japanese>
+            <Chinesesimp>防碰撞禁用</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA KAPAL</Turkish>
+            <Dutch>ANTICOLLISIE UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ANTI_COLLISION_ON">
+            <Original>ANTI-COLLISION ON</Original>
+            <English>ANTI-COLLISION ON</English>
+            <Czech>ANTICOLLIZNÍ REŽIM ZAPNUT</Czech>
+            <French>ANTI-COLLISION ACTIVÉ</French>
+            <Spanish>ANTI-COLISIÓN ACTIVADO</Spanish>
+            <Italian>ANTI-COLLISIONE ATTIVO</Italian>
+            <Polish>ANTI-KOLIZJA WŁĄCZONE</Polish>
+            <Portuguese>ANTI-COLISÃO ATIVADO</Portuguese>
+            <Russian>ПРОТИВОСТОЛКНОВЕНИЕ ВКЛЮЧЕНО</Russian>
+            <German>ANTI-KOLLISION AN</German>
+            <Korean>충돌방지 활성화</Korean>
+            <Japanese>衝突回避オン</Japanese>
+            <Chinesesimp>防碰撞启用</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA AÇIK</Turkish>
+            <Dutch>ANTICOLLISIE AAN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_LIGHTING">
+            <Original>LIGHTING</Original>
+            <English>LIGHTING</English>
+            <Czech>OSVĚTLENÍ</Czech>
+            <French>ÉCLAIRAGE</French>
+            <Spanish>ILUMINACIÓN</Spanish>
+            <Italian>ILLUMINAZIONE</Italian>
+            <Polish>OŚWIETLENIE</Polish>
+            <Portuguese>ILUMINAÇÃO</Portuguese>
+            <Russian>ОСВЕЩЕНИЕ</Russian>
+            <German>BELEUCHTUNG</German>
+            <Korean>조명</Korean>
+            <Japanese>ライティング</Japanese>
+            <Chinesesimp>照明</Chinesesimp>
+            <Turkish>AYDINLATMA</Turkish>
+            <Dutch>VERLICHTING</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_ANTI_COLLISION_LIGHT">
+            <Original>TOGGLE ANTI-COLLISION LIGHT</Original>
+            <English>TOGGLE ANTI-COLLISION LIGHT</English>
+            <Czech>PŘEPNOUT ANTICOLLIZNÍ SVĚTLO</Czech>
+            <French>BASCULER FEU ANTI-COLLISION</French>
+            <Spanish>ALTERNAR LUZ ANTI-COLISIÓN</Spanish>
+            <Italian>COMMUTA LUCE ANTI-COLLISIONE</Italian>
+            <Polish>PRZEŁĄCZNIK ŚWIATŁA ANTI-KOLIZJI</Polish>
+            <Portuguese>ALTERNAR LUZ ANTI-COLISÃO</Portuguese>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПРОТИВОСТОЛКНОВИТЕЛЬНОГО ОГНЯ</Russian>
+            <German>ANTI-KOLLISIONS-LICHT UMSCHALTEN</German>
+            <Korean>충돌방지등 전환</Korean>
+            <Japanese>衝突回避灯切替</Japanese>
+            <Chinesesimp>切换防碰撞灯</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA IŞIK AÇKAPA</Turkish>
+            <Dutch>ANTICOLLISIELAMP AAN/UIT</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_FLOOD_LIGHT">
+            <Original>TOGGLE FLOOD LIGHT</Original>
+            <English>TOGGLE FLOOD LIGHT</English>
+            <Czech>PŘEPNOUT REFLEKTOR</Czech>
+            <French>BASCULER PROJECTEUR</French>
+            <Spanish>ALTERNAR LUZ DE INUNDACIÓN</Spanish>
+            <Italian>COMMUTA FARO</Italian>
+            <Polish>PRZEŁĄCZNIK OŚWIETLENIA</Polish>
+            <Portuguese>ALTERNAR LUZ DE INUNDAÇÃO</Portuguese>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПРОЖЕКТОРА</Russian>
+            <German>FLUTLICHT UMSCHALTEN</German>
+            <Korean>범람광 전환</Korean>
+            <Japanese>フラッドライト切替</Japanese>
+            <Chinesesimp>切换泛光灯</Chinesesimp>
+            <Turkish>SEL IŞIK AÇKAPA</Turkish>
+            <Dutch>ZOEKMACHT AAN/UIT</Dutch>
+        </Key>
+    </Package>
+</Project>

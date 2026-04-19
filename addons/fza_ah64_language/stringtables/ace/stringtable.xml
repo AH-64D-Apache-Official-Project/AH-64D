@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_1200_30MM_MAGAZINE">
+            <Original>Attach 1200 30mm Magazine</Original>
+            <English>Attach 1200 30mm Magazine</English>
+            <Czech>Připojit 1200 30mm zásobník</Czech>
+            <French>Installer le chargeur 30 mm de 1200 cartouches</French>
+            <Spanish>Adjuntar revista de 30mm de 1200</Spanish>
+            <Italian>Montare caricatore 30mm da 1200</Italian>
+            <Polish>Zamocuj magazynek 30mm na 1200 sztuk</Polish>
+            <Portuguese>Anexar revista de 30mm de 1200</Portuguese>
+            <Russian>Установить магазин 30 мм на 1200 патронов</Russian>
+            <German>1200er 30-mm-Magazin installieren</German>
+            <Korean>1200 30mm 탄창 장착</Korean>
+            <Japanese>1200 30mm マガジンを装着</Japanese>
+            <Chinesesimp>安装1200 30毫米弹匣</Chinesesimp>
+            <Turkish>1200 30mm Şarjörü Tak</Turkish>
+            <Dutch>1200 30mm magazijn bevestigen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_FIRE_CONTROL_RADAR">
+            <Original>Attach Fire Control Radar</Original>
+            <English>Attach Fire Control Radar</English>
+            <Czech>Připojit radar řízení palby</Czech>
+            <French>Installer le radar de contrôle de tir</French>
+            <Spanish>Adjuntar radar de control de fuego</Spanish>
+            <Italian>Montare radar di controllo fuoco</Italian>
+            <Polish>Zamocuj radar kontroli ognia</Polish>
+            <Portuguese>Anexar radar de controle de fogo</Portuguese>
+            <Russian>Установить радар управления огнем</Russian>
+            <German>Feuerleitleitradar installieren</German>
+            <Korean>화력통제 레이더 장착</Korean>
+            <Japanese>火力管制レーダーを装着</Japanese>
+            <Chinesesimp>安装火力控制雷达</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Tak</Turkish>
+            <Dutch>Vuurleidingsradar bevestigen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_INTERNAL_AUXILIARY_FUEL_SYSTEM">
+            <Original>Attach Internal Auxiliary Fuel System</Original>
+            <English>Attach Internal Auxiliary Fuel System</English>
+            <Czech>Připojit interní pomocný systém paliva</Czech>
+            <French>Installer le système de carburant auxiliaire interne</French>
+            <Spanish>Adjuntar sistema auxiliar de combustible interno</Spanish>
+            <Italian>Montare sistema ausiliario di carburante interno</Italian>
+            <Polish>Zamocuj wewnętrzny system paliwa pomocniczego</Polish>
+            <Portuguese>Anexar sistema auxiliar de combustível interno</Portuguese>
+            <Russian>Установить внутреннюю вспомогательную систему топлива</Russian>
+            <German>Internes Hilfstreibstoffsystem installieren</German>
+            <Korean>내부 보조 연료 시스템 장착</Korean>
+            <Japanese>内部補助燃料システムを装着</Japanese>
+            <Chinesesimp>安装内部辅助燃料系统</Chinesesimp>
+            <Turkish>İç Yardımcı Yakıt Sistemini Tak</Turkish>
+            <Dutch>Intern secundair brandstofysteem bevestigen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_CLOSE_GUNNER_DOOR">
+            <Original>Close Gunner Door</Original>
+            <English>Close Gunner Door</English>
+            <Czech>Zavřít dveře střelce</Czech>
+            <French>Fermer la porte du canonnier</French>
+            <Spanish>Cerrar puerta del artillero</Spanish>
+            <Italian>Chiudere portello cannoniere</Italian>
+            <Polish>Zamknij drzwi strzelca</Polish>
+            <Portuguese>Fechar porta do artilheiro</Portuguese>
+            <Russian>Закрыть дверь стрелка</Russian>
+            <German>Schützentür schließen</German>
+            <Korean>사수 문 닫기</Korean>
+            <Japanese>ガンナードアを閉じる</Japanese>
+            <Chinesesimp>关闭枪手门</Chinesesimp>
+            <Turkish>Silahçı Kapısını Kapat</Turkish>
+            <Dutch>Schutterdeur sluiten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_CLOSE_PILOT_DOOR">
+            <Original>Close Pilot Door</Original>
+            <English>Close Pilot Door</English>
+            <Czech>Zavřít dveře pilota</Czech>
+            <French>Fermer la porte du pilote</French>
+            <Spanish>Cerrar puerta del piloto</Spanish>
+            <Italian>Chiudere portello pilota</Italian>
+            <Polish>Zamknij drzwi pilota</Polish>
+            <Portuguese>Fechar porta do piloto</Portuguese>
+            <Russian>Закрыть дверь пилота</Russian>
+            <German>Pilotentür schließen</German>
+            <Korean>조종사 문 닫기</Korean>
+            <Japanese>パイロットドアを閉じる</Japanese>
+            <Chinesesimp>关闭驾驶舱门</Chinesesimp>
+            <Turkish>Pilot Kapısını Kapat</Turkish>
+            <Dutch>Pilootdeur sluiten</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_DETACH_FIRE_CONTROL_RADAR">
+            <Original>Detach Fire Control Radar</Original>
+            <English>Detach Fire Control Radar</English>
+            <Czech>Odpojit radar řízení palby</Czech>
+            <French>Retirer le radar de contrôle de tir</French>
+            <Spanish>Desacoplar radar de control de fuego</Spanish>
+            <Italian>Smontare radar di controllo fuoco</Italian>
+            <Polish>Odłącz radar kontroli ognia</Polish>
+            <Portuguese>Desacoplar radar de controle de fogo</Portuguese>
+            <Russian>Снять радар управления огнем</Russian>
+            <German>Feuerleitleitradar entfernen</German>
+            <Korean>화력통제 레이더 분리</Korean>
+            <Japanese>火力管制レーダーを取り外す</Japanese>
+            <Chinesesimp>卸载火力控制雷达</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Çıkar</Turkish>
+            <Dutch>Vuurleidingsradar verwijderen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACE_OPEN_GUNNER_DOOR">
+            <Original>Open Gunner Door</Original>
+            <English>Open Gunner Door</English>
+            <Czech>Otevřít dveře střelce</Czech>
+            <French>Ouvrir la porte du canonnier</French>
+            <Spanish>Abrir puerta del artillero</Spanish>
+            <Italian>Aprire portello cannoniere</Italian>
+            <Polish>Otwórz drzwi strzelca</Polish>
+            <Portuguese>Abrir porta do artilheiro</Portuguese>
+            <Russian>Открыть дверь стрелка</Russian>
+            <German>Schützentür öffnen</German>
+            <Korean>사수 문 열기</Korean>
+            <Japanese>ガンナードアを開く</Japanese>
+            <Chinesesimp>打开枪手门</Chinesesimp>
+            <Turkish>Silahçı Kapısını Aç</Turkish>
+            <Dutch>Schutterdeur openen</Dutch>
+        </Key>
+        <!-- ////INTERCTIONS//// -->
+        <Key ID="STR_FZA_AH64_ACE_OPEN_PILOT_DOOR">
+            <Original>Open Pilot Door</Original>
+            <English>Open Pilot Door</English>
+            <Czech>Otevřít dveře pilota</Czech>
+            <French>Ouvrir la porte du pilote</French>
+            <Spanish>Abrir puerta del piloto</Spanish>
+            <Italian>Aprire portello pilota</Italian>
+            <Polish>Otwórz drzwi pilota</Polish>
+            <Portuguese>Abrir porta do piloto</Portuguese>
+            <Russian>Открыть дверь пилота</Russian>
+            <German>Pilotentür öffnen</German>
+            <Korean>조종사 문 열기</Korean>
+            <Japanese>パイロットドアを開く</Japanese>
+            <Chinesesimp>打开驾驶舱门</Chinesesimp>
+            <Turkish>Pilot Kapısını Aç</Turkish>
+            <Dutch>Pilootdeur openen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CLEAR_TAIL_NUMBERS">
+            <Original>CLEAR</Original>
+            <English>CLEAR</English>
+            <Czech>VYMAZAT</Czech>
+            <French>EFFACER</French>
+            <Spanish>BORRAR</Spanish>
+            <Italian>CANCELLA</Italian>
+            <Polish>WYCZYŚĆ</Polish>
+            <Portuguese>LIMPAR</Portuguese>
+            <Russian>ОЧИСТИТЬ</Russian>
+            <German>LÖSCHEN</German>
+            <Korean>지우기</Korean>
+            <Japanese>クリア</Japanese>
+            <Chinesesimp>清空</Chinesesimp>
+            <Turkish>TEMİZLE</Turkish>
+            <Dutch>WISSEN</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_EIGHT">
+            <Original>Eight</Original>
+            <English>Eight</English>
+            <Czech>Osm</Czech>
+            <French>Huit</French>
+            <Spanish>Ocho</Spanish>
+            <Italian>Otto</Italian>
+            <Polish>Osiem</Polish>
+            <Portuguese>Oito</Portuguese>
+            <Russian>Восемь</Russian>
+            <German>Acht</German>
+            <Korean>팔</Korean>
+            <Japanese>エイト</Japanese>
+            <Chinesesimp>八</Chinesesimp>
+            <Turkish>Sekiz</Turkish>
+            <Dutch>Acht</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_FIVE">
+            <Original>Five</Original>
+            <English>Five</English>
+            <Czech>Pět</Czech>
+            <French>Cinq</French>
+            <Spanish>Cinco</Spanish>
+            <Italian>Cinque</Italian>
+            <Polish>Pięć</Polish>
+            <Portuguese>Cinco</Portuguese>
+            <Russian>Пять</Russian>
+            <German>Fünf</German>
+            <Korean>오</Korean>
+            <Japanese>ファイブ</Japanese>
+            <Chinesesimp>五</Chinesesimp>
+            <Turkish>Beş</Turkish>
+            <Dutch>Vijf</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_FOUR">
+            <Original>Four</Original>
+            <English>Four</English>
+            <Czech>Čtyři</Czech>
+            <French>Quatre</French>
+            <Spanish>Cuatro</Spanish>
+            <Italian>Quattro</Italian>
+            <Polish>Cztery</Polish>
+            <Portuguese>Quatro</Portuguese>
+            <Russian>Четыре</Russian>
+            <German>Vier</German>
+            <Korean>사</Korean>
+            <Japanese>フォー</Japanese>
+            <Chinesesimp>四</Chinesesimp>
+            <Turkish>Dört</Turkish>
+            <Dutch>Vier</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_NINE">
+            <Original>Nine</Original>
+            <English>Nine</English>
+            <Czech>Devět</Czech>
+            <French>Neuf</French>
+            <Spanish>Nueve</Spanish>
+            <Italian>Nove</Italian>
+            <Polish>Dziewięć</Polish>
+            <Portuguese>Nove</Portuguese>
+            <Russian>Девять</Russian>
+            <German>Neun</German>
+            <Korean>구</Korean>
+            <Japanese>ナイン</Japanese>
+            <Chinesesimp>九</Chinesesimp>
+            <Turkish>Dokuz</Turkish>
+            <Dutch>Negen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_ONE">
+            <Original>One</Original>
+            <English>One</English>
+            <Czech>Jeden</Czech>
+            <French>Un</French>
+            <Spanish>Uno</Spanish>
+            <Italian>Uno</Italian>
+            <Polish>Jeden</Polish>
+            <Portuguese>Um</Portuguese>
+            <Russian>Один</Russian>
+            <German>Eins</German>
+            <Korean>일</Korean>
+            <Japanese>ワン</Japanese>
+            <Chinesesimp>一</Chinesesimp>
+            <Turkish>Bir</Turkish>
+            <Dutch>Een</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_SEVEN">
+            <Original>Seven</Original>
+            <English>Seven</English>
+            <Czech>Sedm</Czech>
+            <French>Sept</French>
+            <Spanish>Siete</Spanish>
+            <Italian>Sette</Italian>
+            <Polish>Siedem</Polish>
+            <Portuguese>Sete</Portuguese>
+            <Russian>Семь</Russian>
+            <German>Sieben</German>
+            <Korean>칠</Korean>
+            <Japanese>セブン</Japanese>
+            <Chinesesimp>七</Chinesesimp>
+            <Turkish>Yedi</Turkish>
+            <Dutch>Zeven</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_SIX">
+            <Original>Six</Original>
+            <English>Six</English>
+            <Czech>Šest</Czech>
+            <French>Six</French>
+            <Spanish>Seis</Spanish>
+            <Italian>Sei</Italian>
+            <Polish>Sześć</Polish>
+            <Portuguese>Seis</Portuguese>
+            <Russian>Шесть</Russian>
+            <German>Sechs</German>
+            <Korean>육</Korean>
+            <Japanese>シックス</Japanese>
+            <Chinesesimp>六</Chinesesimp>
+            <Turkish>Altı</Turkish>
+            <Dutch>Zes</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_THREE">
+            <Original>Three</Original>
+            <English>Three</English>
+            <Czech>Tři</Czech>
+            <French>Trois</French>
+            <Spanish>Tres</Spanish>
+            <Italian>Tre</Italian>
+            <Polish>Trzy</Polish>
+            <Portuguese>Três</Portuguese>
+            <Russian>Три</Russian>
+            <German>Drei</German>
+            <Korean>삼</Korean>
+            <Japanese>スリー</Japanese>
+            <Chinesesimp>三</Chinesesimp>
+            <Turkish>Üç</Turkish>
+            <Dutch>Drie</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_NUMBER_TWO">
+            <Original>Two</Original>
+            <English>Two</English>
+            <Czech>Dva</Czech>
+            <French>Deux</French>
+            <Spanish>Dos</Spanish>
+            <Italian>Due</Italian>
+            <Polish>Dwa</Polish>
+            <Portuguese>Dois</Portuguese>
+            <Russian>Два</Russian>
+            <German>Zwei</German>
+            <Korean>이</Korean>
+            <Japanese>ツー</Japanese>
+            <Chinesesimp>二</Chinesesimp>
+            <Turkish>İki</Turkish>
+            <Dutch>Twee</Dutch>
+        </Key>
+        <!-- ////NUMBERS//// -->
+        <Key ID="STR_FZA_AH64_NUMBER_ZERO">
+            <Original>Zero</Original>
+            <English>Zero</English>
+            <Czech>Nula</Czech>
+            <French>Zéro</French>
+            <Spanish>Cero</Spanish>
+            <Italian>Zero</Italian>
+            <Polish>Zero</Polish>
+            <Portuguese>Zero</Portuguese>
+            <Russian>Ноль</Russian>
+            <German>Null</German>
+            <Korean>영</Korean>
+            <Japanese>ゼロ</Japanese>
+            <Chinesesimp>零</Chinesesimp>
+            <Turkish>Sıfır</Turkish>
+            <Dutch>Nul</Dutch>
+        </Key>
+        <!-- ////TAIL NUMBER//// -->
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS">
+            <Original>Set Tail Numbers</Original>
+            <English>Set Tail Numbers</English>
+            <Czech>Nastavit čísla ocasů</Czech>
+            <French>Définir les numéros de queue</French>
+            <Spanish>Establecer números de cola</Spanish>
+            <Italian>Imposta numeri di coda</Italian>
+            <Polish>Ustaw numery ogonów</Polish>
+            <Portuguese>Definir números de cauda</Portuguese>
+            <Russian>Установить номера хвостов</Russian>
+            <German>Heckummern setzen</German>
+            <Korean>꼬리 번호 설정</Korean>
+            <Japanese>テール番号を設定</Japanese>
+            <Chinesesimp>设置尾号</Chinesesimp>
+            <Turkish>Kuyruk Numaralarını Ayarla</Turkish>
+            <Dutch>Staartummers instellen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_1">
+            <Original>Position 1</Original>
+            <English>Position 1</English>
+            <Czech>Pozice 1</Czech>
+            <French>Position 1</French>
+            <Spanish>Posición 1</Spanish>
+            <Italian>Posizione 1</Italian>
+            <Polish>Pozycja 1</Polish>
+            <Portuguese>Posição 1</Portuguese>
+            <Russian>Позиция 1</Russian>
+            <German>Position 1</German>
+            <Korean>위치 1</Korean>
+            <Japanese>位置 1</Japanese>
+            <Chinesesimp>位置 1</Chinesesimp>
+            <Turkish>Konum 1</Turkish>
+            <Dutch>Positie 1</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_2">
+            <Original>Position 2</Original>
+            <English>Position 2</English>
+            <Czech>Pozice 2</Czech>
+            <French>Position 2</French>
+            <Spanish>Posición 2</Spanish>
+            <Italian>Posizione 2</Italian>
+            <Polish>Pozycja 2</Polish>
+            <Portuguese>Posição 2</Portuguese>
+            <Russian>Позиция 2</Russian>
+            <German>Position 2</German>
+            <Korean>위치 2</Korean>
+            <Japanese>位置 2</Japanese>
+            <Chinesesimp>位置 2</Chinesesimp>
+            <Turkish>Konum 2</Turkish>
+            <Dutch>Positie 2</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_3">
+            <Original>Position 3</Original>
+            <English>Position 3</English>
+            <Czech>Pozice 3</Czech>
+            <French>Position 3</French>
+            <Spanish>Posición 3</Spanish>
+            <Italian>Posizione 3</Italian>
+            <Polish>Pozycja 3</Polish>
+            <Portuguese>Posição 3</Portuguese>
+            <Russian>Позиция 3</Russian>
+            <German>Position 3</German>
+            <Korean>위치 3</Korean>
+            <Japanese>位置 3</Japanese>
+            <Chinesesimp>位置 3</Chinesesimp>
+            <Turkish>Konum 3</Turkish>
+            <Dutch>Positie 3</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_4">
+            <Original>Position 4</Original>
+            <English>Position 4</English>
+            <Czech>Pozice 4</Czech>
+            <French>Position 4</French>
+            <Spanish>Posición 4</Spanish>
+            <Italian>Posizione 4</Italian>
+            <Polish>Pozycja 4</Polish>
+            <Portuguese>Posição 4</Portuguese>
+            <Russian>Позиция 4</Russian>
+            <German>Position 4</German>
+            <Korean>위치 4</Korean>
+            <Japanese>位置 4</Japanese>
+            <Chinesesimp>位置 4</Chinesesimp>
+            <Turkish>Konum 4</Turkish>
+            <Dutch>Positie 4</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_5">
+            <Original>Position 5</Original>
+            <English>Position 5</English>
+            <Czech>Pozice 5</Czech>
+            <French>Position 5</French>
+            <Spanish>Posición 5</Spanish>
+            <Italian>Posizione 5</Italian>
+            <Polish>Pozycja 5</Polish>
+            <Portuguese>Posição 5</Portuguese>
+            <Russian>Позиция 5</Russian>
+            <German>Position 5</German>
+            <Korean>위치 5</Korean>
+            <Japanese>位置 5</Japanese>
+            <Chinesesimp>位置 5</Chinesesimp>
+            <Turkish>Konum 5</Turkish>
+            <Dutch>Positie 5</Dutch>
+        </Key>
+    </Package>
+</Project>

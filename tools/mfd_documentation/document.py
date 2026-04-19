@@ -76,6 +76,10 @@ def init_page_defs():
         , PageDef("DTU")
         , PageDef("ACUTIL")
         , PageDef("ABR")
+        , PageDef("COORD",
+            [ PageDef("PAGE")
+            ])
+        , PageDef("VER")
         ])
 
 def check_nested_identifiers(page_def):
@@ -178,7 +182,7 @@ def run(args):
         css_str = file.read()
     
     if args.filepath is None:
-        args.filepath = os.path.join('@AH-64D Apache Longbow', 'Addons', 'fza_ah64_mpd', 'headers', 'mfdConstants.h')
+        args.filepath = os.path.join('addons', 'fza_ah64_mpd', 'headers', 'mfdConstants.h')
 
     with open(args.filepath, "r", encoding="utf-8") as file:
         input_str = file.read()
@@ -204,7 +208,7 @@ def run(args):
     mpd_sources_header = ET.Element("h1")
     mpd_sources_header.text = "MPD Sources"
     body.append(mpd_sources_header)
-    body.append(export_table_defs(sources, range(20)))
+    body.append(export_table_defs(sources, range(40)))
 
     html = ET.Element("html")
     html.append(head)
