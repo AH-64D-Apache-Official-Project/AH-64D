@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fn_isINF.sqf",{138:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false if a value is infinite</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:fn_isINF.sqf",{136:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false if a value is infinite</div></div>"});

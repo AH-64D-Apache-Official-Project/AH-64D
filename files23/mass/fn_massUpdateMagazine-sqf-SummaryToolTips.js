@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:mass/fn_massUpdateMagazine.sqf",{112:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates the mass and moment of a wing station</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:mass/fn_massUpdateMagazine.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates the mass and moment of a wing station</div></div>"});

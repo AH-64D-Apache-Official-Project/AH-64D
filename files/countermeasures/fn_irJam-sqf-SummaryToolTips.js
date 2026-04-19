@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:countermeasures/fn_irJam.sqf",{498:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the AN/ALQ-144 IR Jammer</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:countermeasures/fn_irJam.sqf",{500:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the AN/ALQ-144 IR Jammer</div></div>"});

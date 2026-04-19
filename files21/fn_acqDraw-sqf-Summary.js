@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File21:fn_acqDraw.sqf","fn_acqDraw.sqf");NDSummary.OnSummaryLoaded("File21:fn_acqDraw.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[245,0,1,"Functions","Functions"],[246,0,0,"fza_mpd_fnc_acqDraw","fza_mpd_fnc_acqDraw"]]);
+﻿NDFramePage.OnPageTitleLoaded("File21:fn_acqDraw.sqf","fn_acqDraw.sqf");NDSummary.OnSummaryLoaded("File21:fn_acqDraw.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[243,0,1,"Functions","Functions"],[244,0,0,"fza_mpd_fnc_acqDraw","fza_mpd_fnc_acqDraw"]]);

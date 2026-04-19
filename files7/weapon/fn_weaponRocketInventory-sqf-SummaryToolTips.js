@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:weapon/fn_weaponRocketInventory.sqf",{382:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gathers rocket inventory information, using given turret to work out whether it is selected or not.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:weapon/fn_weaponRocketInventory.sqf",{380:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gathers rocket inventory information, using given turret to work out whether it is selected or not.</div></div>"});

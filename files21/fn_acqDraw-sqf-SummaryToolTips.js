@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File21:fn_acqDraw.sqf",{246:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draw the acquisition source details</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File21:fn_acqDraw.sqf",{244:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draw the acquisition source details</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File23:fn_getInput.sqf","fn_getInput.sqf");NDSummary.OnSummaryLoaded("File23:fn_getInput.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[133,0,1,"Functions","Functions"],[134,0,0,"fza_sfmplus_fnc_getInput","fza_sfmplus_fnc_getInput"]]);
+﻿NDFramePage.OnPageTitleLoaded("File23:fn_getInput.sqf","fn_getInput.sqf");NDSummary.OnSummaryLoaded("File23:fn_getInput.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[137,0,1,"Functions","Functions"],[138,0,0,"fza_sfmplus_fnc_getInput","fza_sfmplus_fnc_getInput"]]);

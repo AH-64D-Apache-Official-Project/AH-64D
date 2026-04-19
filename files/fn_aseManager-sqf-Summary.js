@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fn_aseManager.sqf","fn_aseManager.sqf");NDSummary.OnSummaryLoaded("File:fn_aseManager.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[505,0,1,"Functions","Functions"],[506,0,0,"fza_ase_fnc_aseManager","fza_ase_fnc_aseManager"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fn_aseManager.sqf","fn_aseManager.sqf");NDSummary.OnSummaryLoaded("File:fn_aseManager.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[507,0,1,"Functions","Functions"],[508,0,0,"fza_ase_fnc_aseManager","fza_ase_fnc_aseManager"]]);

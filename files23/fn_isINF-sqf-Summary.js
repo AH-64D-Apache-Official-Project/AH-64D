@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File23:fn_isINF.sqf","fn_isINF.sqf");NDSummary.OnSummaryLoaded("File23:fn_isINF.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[137,0,1,"Functions","Functions"],[138,0,0,"bmkhs_sfmplus_fnc_isINF","bmkhs_sfmplus_fnc_isINF"]]);
+﻿NDFramePage.OnPageTitleLoaded("File23:fn_isINF.sqf","fn_isINF.sqf");NDSummary.OnSummaryLoaded("File23:fn_isINF.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[135,0,1,"Functions","Functions"],[136,0,0,"bmkhs_sfmplus_fnc_isINF","bmkhs_sfmplus_fnc_isINF"]]);

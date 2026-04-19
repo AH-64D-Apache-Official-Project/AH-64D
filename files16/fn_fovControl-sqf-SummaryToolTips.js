@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File16:fn_fovControl.sqf",{276:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Controlls the zoom of the tads camera</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File16:fn_fovControl.sqf",{272:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Controlls the zoom of the tads camera</div></div>"});
