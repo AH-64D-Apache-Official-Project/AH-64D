@@ -96,6 +96,9 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     [_pidTrn] call fza_fnc_pidReset;
 };
 
-_output = [_output,  -0.1, 0.1] call BIS_fnc_clamp;
+// Normalize clamp by deltaTime so angular impulse stays constant regardless of step size.
+// Prevents Euler instability during large time steps. At normal 0.033s dt = ±0.1 (unchanged).
+private _hdgClamp = 0.1 * ([0.033 / (_deltaTime max 0.001), 0.0, 1.0] call BIS_fnc_clamp);
+_output = [_output, -_hdgClamp, _hdgClamp] call BIS_fnc_clamp;
 
 _output;

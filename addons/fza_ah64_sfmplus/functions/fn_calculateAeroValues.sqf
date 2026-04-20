@@ -56,8 +56,7 @@ private _beta_g    = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 //private _beta_degAccel = (-9.806 * (tan _beta_deg)) / 9.8
 //systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
 //Gamma, or flight path angle, is the angle between
-private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_totVelZ / _modelVelY); };
-if ([_gamma] call fza_sfmplus_fnc_isNAN || [_gamma] call fza_sfmplus_fnc_isINF) then { _gamma = 0.0; };
+private _gamma    = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin ([_totVelZ / (vectorMagnitude _totVel), -1.0, 1.0] call BIS_fnc_clamp); };
 /*
 private _vx    = (_heli getVariable "fza_sfmplus_velModelSpace") # 0;
 private _vy    = (_heli getVariable "fza_sfmplus_velModelSpace") # 1;

@@ -10,9 +10,9 @@ private _pidSASRoll  = _heli getVariable "fza_sfmplus_pid_sas_roll";
 //_pidSASRoll set ["ki", R_KI];
 //_pidSASRoll set ["kd", R_KD];
 private _pidSASYaw   = _heli getVariable "fza_sfmplus_pid_sas_yaw";
-//_pidSASRoll set ["kp", Y_KP];
-//_pidSASRoll set ["ki", Y_KI];
-//_pidSASRoll set ["kd", Y_KD];
+//_pidSASYaw set ["kp", Y_KP];
+//_pidSASYaw set ["ki", Y_KI];
+//_pidSASYaw set ["kd", Y_KD];
 
 ((_heli getVariable "fza_sfmplus_angVelModelSpace"))
     params [
@@ -27,17 +27,21 @@ private _sasRollOutput  = 0.0;
 private _sasYawOutput   = 0.0;
 
 if (!(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
+    // Normalize clamp by deltaTime so corrective torque impulse (output * deltaTime)
+    // stays constant regardless of step size. Prevents Euler instability at higher step sizes.
+    private _sasClamp = 0.1 * ([0.033 / (_deltaTime max 0.001), 0.0, 1.0] call BIS_fnc_clamp);
+
     //Pitch & Roll SAS
-    private _roll  = [_pidSASRoll, _deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
-    _roll          = [_roll,  -0.1, 0.1] call BIS_fnc_clamp;
+    private _roll  = [_pidSASRoll,  _deltaTime, 0.0, _angVelY] call fza_fnc_pidRun;
+    _roll          = [_roll,  -_sasClamp, _sasClamp] call BIS_fnc_clamp;
     private _pitch = [_pidSASPitch, _deltaTime, 0.0, _angVelX] call fza_fnc_pidRun;
-    _pitch         = [_pitch, -0.1, 0.1] call BIS_fnc_clamp;
-    private _yaw   = [_pidSASYaw,  _deltaTime,  0.0, _angVelZ] call fza_fnc_pidRun;
-    _yaw           = [_yaw, -0.1, 0.1] call BIS_fnc_clamp;
+    _pitch         = [_pitch, -_sasClamp, _sasClamp] call BIS_fnc_clamp;
+    private _yaw   = [_pidSASYaw,   _deltaTime, 0.0, _angVelZ] call fza_fnc_pidRun;
+    _yaw           = [_yaw,   -_sasClamp, _sasClamp] call BIS_fnc_clamp;
 
     _sasPitchOutput = _pitch;
     _sasRollOutput  = _roll;
-    _sasYawOutput   = 0.0;//_yaw;
+    _sasYawOutput   = _yaw;
  } else {
     [_pidSASRoll]  call fza_fnc_pidReset;
     [_pidSASPitch] call fza_fnc_pidReset;

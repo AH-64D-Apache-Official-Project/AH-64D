@@ -44,7 +44,7 @@ private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
 private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
 
-private _kbYawSwitchVel     = 5.14444 * 2.4;  //10kts = 5.1444 m/s
+private _kbYawSwitchVel     = 5.14444 * 2.4;  //24kts = 12.35 m/s
 private _yawBreakout        = false;
 private _kbPedalLeftRight   = _heli getVariable "fza_sfmplus_kbPedalLeftRight";
 
@@ -195,11 +195,15 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
-    _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
+    // Normalize clamp by deltaTime so angular impulse (position * thrust * deltaTime) stays
+    // constant regardless of step size. Prevents Euler instability during large time steps.
+    private _apClamp = [0.033 / (_deltaTime max 0.001), 0.0, 1.0] call BIS_fnc_clamp;
+    _yawOutput      = [_yawOutput, -_apClamp, _apClamp] call BIS_fnc_clamp;
 
     if (_yawBreakout) then {
         [_pidAutoPedalHdg]  call fza_fnc_pidReset;
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
+        _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
     } else {
         _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
     };

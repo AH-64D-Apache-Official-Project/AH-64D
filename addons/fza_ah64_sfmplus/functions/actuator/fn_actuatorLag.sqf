@@ -34,27 +34,27 @@ switch (_inputAxis) do {
     };
     case "roll" : {
         private _prevLagInput  = _heli getVariable "fza_sfmplus_prevLagInputRoll";
-        private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagInputRoll";
+        private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagOutputRoll";
 
         private _ca = [_heli, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
         private _cb = [_heli, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
 
         _output     = _ca * (_input + _prevLagInput) + _prevLagOutput * _cb;
 
-        _heli setVariable ["fza_sfmplus_prevLagInputRoll", _input];
-        _heli setVariable ["fza_sfmplus_prevLagInputRoll", _output];
+        _heli setVariable ["fza_sfmplus_prevLagInputRoll",  _input];
+        _heli setVariable ["fza_sfmplus_prevLagOutputRoll", _output];
     };
     case "yaw" : {
         private _prevLagInput  = _heli getVariable "fza_sfmplus_prevLagInputYaw";
-        private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagInputYaw";
+        private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagOutputYaw";
 
         private _ca = [_heli, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
         private _cb = [_heli, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
 
         _output     = _ca * (_input + _prevLagInput) + _prevLagOutput * _cb;
 
-        _heli setVariable ["fza_sfmplus_prevLagInputYaw", _input];
-        _heli setVariable ["fza_sfmplus_prevLagInputYaw", _output];
+        _heli setVariable ["fza_sfmplus_prevLagInputYaw",  _input];
+        _heli setVariable ["fza_sfmplus_prevLagOutputYaw", _output];
     };
 };
 

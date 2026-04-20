@@ -138,7 +138,7 @@ for "_j" from 0 to (_numElements - 1) do {
     _heli addForce[_heli vectorModelToWorld _liftVector, _e];
     _heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
-    private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
+    private _deltaPos  = _e vectorDiff _heliCOM;
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
     private _torque = [0.0, 0.0, 0.0];

@@ -169,6 +169,7 @@ if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
 
     private _denom = linearConversion[-7.62, -19.30, _velZ, _vrsVel, 3.81, true];
     _inducedVelocityScalar = if(_vrsVel == 0.0) then { 1.0; } else { 1 - (_velZ / _denom); };
+    _inducedVelocityScalar = [_inducedVelocityScalar, 0.0, 2.0] call BIS_fnc_clamp;
     
     //systemChat format ["_denom = %1", _denom];
 };

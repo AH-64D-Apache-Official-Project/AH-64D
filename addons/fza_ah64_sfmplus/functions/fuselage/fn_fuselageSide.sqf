@@ -65,7 +65,9 @@ for "_i" from 0 to (_count - 1) do {
 
 	private _relWindX    	  = _velModelSpace select 0;
 	private _relWindY    	  = _velModelSpace select 1;
-	private _locRelWindX      = (_angVelModelSpace select 2) * (vectorMagnitude _deltaPos);
+	// Rotation-induced local wind: correct term is -(omega x deltaPos)_x = omega_z * deltaPos_y.
+	// _angVelModelSpace is already negated (*-1), so: -(_angVelModelSpace_z) * deltaPos_y  
+	private _locRelWindX      = -(_angVelModelSpace select 2) * (_deltaPos select 1);
 
 	private _relWind		  = [_relWindX + _locRelWindX, _relWindY, 0.0];
 

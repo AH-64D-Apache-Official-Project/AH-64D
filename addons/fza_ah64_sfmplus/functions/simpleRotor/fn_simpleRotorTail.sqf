@@ -113,6 +113,7 @@ if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then {
 } else { 
     _inducedVelocityScalar = 1 - (_velX / VEL_VRS);
 };
+_inducedVelocityScalar = [_inducedVelocityScalar, 0.0, 2.0] call BIS_fnc_clamp;
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar   = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust         = _baseThrust * _rtrThrustScalar;
