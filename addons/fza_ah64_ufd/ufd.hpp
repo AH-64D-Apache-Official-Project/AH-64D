@@ -28,6 +28,7 @@ class Draw
             source = "userText";
             sourceIndex = 0;
             scale=1;
+            sourceScale = 1;
             align="right";
             pos[] = {{0, 0}, 1};
             right[] = {{UFD_CHAR_WIDTH_VEC, 0}, 1};
