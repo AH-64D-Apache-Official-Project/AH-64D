@@ -26,16 +26,7 @@ Author:
 params["_heli"];
 
 if (!(player in _heli)) exitWith {};
-
-// Slip ball = lateral specific force = (a_lateral_inertial - g_lateral) / g
-//
-// Using body-frame accelX (d(V_body_x)/dt) is incorrect here because it contains
-// a rotation-frame term (ω_z × V_y) that produces false readings in coordinated turns.
-// Differentiating world-space velocity and projecting onto the body right axis avoids this.
-//
-// Result is zero in coordinated flight and deflects proportionally to uncoordinated
-// lateral forces, matching a real inclinometer/slip ball instrument.
-
+ 
 private _velWorld   = _heli getVariable "fza_sfmplus_velWorldSpace";
 private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
 private _velPrev    = _heli getVariable "fza_avionics_slipBall_velPrev";
