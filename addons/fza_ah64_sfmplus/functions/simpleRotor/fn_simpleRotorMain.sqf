@@ -149,6 +149,7 @@ if (_velWindY < 0.0) then {
 };
 private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
 if ([_velXY] call fza_sfmplus_fnc_isNAN) then { _velXY = 0.0; };
+_velXY = _velXY min VEL_VNE;
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
 //systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
