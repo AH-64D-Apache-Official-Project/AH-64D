@@ -27,57 +27,30 @@ params ["_heli"];
 
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-//Gravity in model space
-private _curAtt   = _heli call BIS_fnc_getPitchBank;
-private _curPitch = _curAtt # 0;
-private _curRoll  = _curAtt # 1;
+//Helicopter velocity in model space (no wind)
+private _vx = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 0;
+private _vy = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 1;
+private _vz = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 2;
 
-private _grav     = [[0.0, 0.0, -9.806], _curRoll, 1] call BIS_fnc_rotateVector3D;//_heli vectorWorldToModel ([0.0, 0.0,-1.0] vectorMultiply 9.806);
-private _gravX    = _grav # 0;
-private _gravY    = _grav # 1;
-private _gravZ    = _grav # 2;
-//Helicopter velocity in model space
-private _modelVelX = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 0;
-private _modelVelY = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 1;
-private _modelVelZ = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 2;//(_heliVel # 2) * -1.0;
+private _totSpeed   = vectorMagnitude [_vx, _vy, _vz];
+private _horizSpeed = vectorMagnitude [_vx, _vy];
 
-//The total velocity of the helicopter in model space
-private _totVel   = [_modelVelX, _modelVelY, _modelVelZ] vectorAdd [_gravX, _gravY, _gravZ];
-private _totVelX  = _totVel # 0;
-private _totVelY  = _totVel # 1;
-private _totVelZ  = _totVel # 2;
+//Alpha: angle between forward (Y) and vertical (Z) velocity in the pitch plane.
+//atan2 handles zero denominator and all quadrants correctly.
+private _alpha_deg = _vz atan2 _vy;
 
-//Alpha is the angle between the helicopters forward velocity and vertical velocity
-private _alpha_deg = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
-//Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
-private _beta_deg  = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
-private _beta_g    = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
+//Beta: aerodynamic sideslip angle — angle between total horizontal velocity and body Y axis.
+// asin(vx / horizSpeed) gives correct sign (solely determined by vx) and correct magnitude.
+// Below ~1 m/s (~2 kts) the velocity is noise-dominated (hover drift ~0.02-0.05 m/s means
+// 0.01 m/s noise → ~20° error), so fade to zero over 0-1 m/s to prevent ball oscillation.
+private _betaRaw  = if (_horizSpeed < 0.001) then { 0.0 } else { asin ([_vx / _horizSpeed, -1.0, 1.0] call BIS_fnc_clamp); };
+private _betaScale = [_horizSpeed, 0.0, 1.0] call BIS_fnc_clamp;
+private _beta_deg  = _betaRaw * _betaScale;
+// beta_g: lateral velocity in g's. Equivalent to V * sin(asin(vx/V)) / g which simplifies to vx/g.
+private _beta_g     = _vx / GRAVITY;
 
-//private _beta_degAccel = (-9.806 * (tan _beta_deg)) / 9.8
-//systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
-//Gamma, or flight path angle, is the angle between
-private _gamma    = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin ([_totVelZ / (vectorMagnitude _totVel), -1.0, 1.0] call BIS_fnc_clamp); };
-/*
-private _vx    = (_heli getVariable "fza_sfmplus_velModelSpace") # 0;
-private _vy    = (_heli getVariable "fza_sfmplus_velModelSpace") # 1;
-private _vz    = (_heli getVariable "fza_sfmplus_velModelSpace") # 2;
-//Angle-of-attack (alpha)
-private _alpha = _vz atan2 _vy;
-
-private _v     = sqrt (_vx * _vx + _vy * _vy + _vz * _vz);
-private _ay    = if (_v == 0) then { 0.0; } else { (_vy * GRAVITY) / _v; };
-//Angle-of-sideslip (beta)
-private _beta  = _vx  atan2 sqrt(_ay * _ay + _vz * _vz);
-
-systemChat format ["_oldAlpha = %1 -- _oldBeta = %2", _alpha_deg toFixed 2, _beta_deg toFixed 2];
-systemChat format ["_alpha = %1 -- _beta = %2", _alpha toFixed 2, _beta toFixed 2];
-
-private _ax   = _heli getVariable "fza_sfmplus_accelX";
-private _ay   = _heli getVariable "fza_sfmplus_accelY";
-private _beta = _ax / GRAVITY;//_ax atan2 (_ay - GRAVITY);
-
-systemChat format ["_beta = %1", _beta];
-*/
+//Gamma: flight path angle (velocity vector above/below horizontal).
+private _gamma     = if (_totSpeed == 0.0) then { 0.0; } else { asin ([_vz / _totSpeed, -1.0, 1.0] call BIS_fnc_clamp); };
 
 _heli setVariable ["fza_sfmplus_aero_alpha_deg", _alpha_deg, true];
 _heli setVariable ["fza_sfmplus_aero_beta_deg",  _beta_deg,  true];

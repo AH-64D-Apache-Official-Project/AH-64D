@@ -148,7 +148,7 @@ if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
 private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
-if ([_velXY] call fza_sfmplus_fnc_isNAN || [_velXY] call fza_sfmplus_fnc_isINF) then { _velXY = 0.0; };
+if ([_velXY] call fza_sfmplus_fnc_isNAN) then { _velXY = 0.0; };
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
 //systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
@@ -316,11 +316,11 @@ private _RoCScalar       = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp se
 private _climbThrust     = _baseThrust * _RoCScalar;
 private _tipLossScalar   = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
 private _totThrust       = (_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar;
-if ([_totThrust] call fza_sfmplus_fnc_isNAN || [_totThrust] call fza_sfmplus_fnc_isINF) then { _totThrust = 0.0; };
+if ([_totThrust] call fza_sfmplus_fnc_isNAN) then { _totThrust = 0.0; };
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ         = _axisZ vectorMultiply (_totThrust * _deltaTime);
 private _inducedVelocity = sqrt(_totThrust / (2 * _dryAirDensity * _rtrArea));
-if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza_sfmplus_fnc_isINF) then { _inducedVelocity = 0.0; };
+if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN) then { _inducedVelocity = 0.0; };
 _heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
 _heli setVariable ["fza_sfmplus_vrsVelocityMax", _inducedVelocity * 1.25];
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -359,7 +359,7 @@ if (currentPilot _heli == player) then {
 
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
-        if ([vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isINF) then { _thrustZ = [0.0, 0.0, 0.0]; };
+        if ([vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isNAN) then { _thrustZ = [0.0, 0.0, 0.0]; };
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
 
         //Main rotor torque
@@ -370,7 +370,7 @@ if (currentPilot _heli == player) then {
             _torque = [_torqueX, _torqueY, 0.0];   
         };
 
-        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
+        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN) then { _torque = [0.0, 0.0, 0.0]; };
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };

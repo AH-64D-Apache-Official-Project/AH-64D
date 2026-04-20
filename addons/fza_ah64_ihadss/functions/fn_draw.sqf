@@ -615,7 +615,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition _fpv;
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
-_slip = [fza_ah64_sideslip * 0.1 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
+_slip = [fza_ah64_sideslip * 0.05 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlCommit 0;
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 187) ctrlSetPosition _bobcoords;

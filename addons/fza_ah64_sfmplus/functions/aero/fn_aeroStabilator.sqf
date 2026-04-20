@@ -185,7 +185,9 @@ for "_j" from 0 to (_numElements - 1) do {
     #endif
 
     private _relWindNormalized = vectorNormalized _relWind;
-    private _aoa                    = _chordLine vectorDotProduct _relWindNormalized;
+    // Negate relWindNormalized: _relWind = velModelSpace * -1 (wind direction), so
+    // we need the velocity direction for dot product with chord. Matches fn_aeroWing.
+    private _aoa                    = _chordLine vectorDotProduct (_relWindNormalized vectorMultiply -1.0);
     _aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
     _aoa = acos _aoa;
 
@@ -230,7 +232,7 @@ for "_j" from 0 to (_numElements - 1) do {
     //_heli addForce[_heli vectorModelToWorld _liftVector, _e];
     //_heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
-    private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
+    private _deltaPos  = _e vectorDiff _heliCOM;
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
     //private _torque = [0.0, 0.0, 0.0];

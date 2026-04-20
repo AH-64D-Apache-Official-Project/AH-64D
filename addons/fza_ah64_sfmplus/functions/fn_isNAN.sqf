@@ -18,5 +18,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_val"];
 
-if (_val isEqualType "SCALAR" || _val isEqualType "NAN") exitWith { true };
+// NaN is non-finite, so `not finite` catches both NaN and infinity.
+if (not finite _val) exitWith { true };
 false;
