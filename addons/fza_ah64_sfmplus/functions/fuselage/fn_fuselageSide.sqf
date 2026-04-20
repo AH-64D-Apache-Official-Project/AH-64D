@@ -82,16 +82,19 @@ for "_i" from 0 to (_count - 1) do {
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
     private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
-    private _v            = vectorMagnitude _relWind;
+    // Cap airspeed at 120 m/s to prevent V^2 force divergence above VNE. Matches fn_aeroWing.sqf.
+    private _relWindMag    = vectorMagnitude _relWind;
+    private _relWindCapped = if (_relWindMag > 120.0) then { _relWind vectorMultiply (120.0 / _relWindMag) } else { _relWind };
+    private _v             = _relWindMag min 120.0;
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
     //Drag coefficient
     private _CD          =  [_dragCoefTable, _aoa] call fza_fnc_linearInterp select 1;
-    private _drag         = _CD * 0.5 * _rho * _area * (_relWindX * _relWindX);
+    private _drag         = _CD * 0.5 * _rho * _area * ((_relWindCapped select 0) * (_relWindCapped select 0));
 
     private _liftVector = _up vectorMultiply (_lift * _deltaTime);
 
-    private _dragVector = _relWind;
+    private _dragVector = _relWindCapped;
     _dragVector = (vectorNormalized _dragVector) vectorMultiply -1.0;
     _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
 
