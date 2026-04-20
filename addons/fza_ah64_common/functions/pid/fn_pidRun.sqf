@@ -8,6 +8,9 @@ private _integral  = _pid get "integral";
 
 private _error      = _desiredVal - _actualVal;
 _integral           = _integral + (_error * _deltaTime);
+// Anti-windup: clamp integral to prevent runaway during sustained large errors.
+private _iClamp     = _pid get "integralClamp";
+_integral           = [_integral, -_iClamp, _iClamp] call BIS_fnc_clamp;
 private _derivative = if (_deltaTime == 0) then { 0.0; } else { (_error - _prevError) / _deltaTime; };
 private _output     = _kp * _error + _ki * _integral + _kd * _derivative;
 _prevError          = _error;

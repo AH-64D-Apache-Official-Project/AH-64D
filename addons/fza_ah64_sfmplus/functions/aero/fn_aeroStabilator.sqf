@@ -207,7 +207,8 @@ for "_j" from 0 to (_numElements - 1) do {
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
     private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
-    private _v           = vectorMagnitude _relWind;
+    // Cap velocity to prevent V^2 force divergence above VNE (~165kts). Cap at 120 m/s (~233kts).
+    private _v           = vectorMagnitude _relWind min 120.0;
     private _lift        = _CL * 0.5 * _rho * _area * (_v * _v);
     //Drag coefficient
     private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;

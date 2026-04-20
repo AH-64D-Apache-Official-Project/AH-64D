@@ -126,22 +126,32 @@ _heli setVariable ["fza_sfmplus_fmcAltHoldCollOut",     0.0];
 //Position Hold
 _heli setVariable ["fza_sfmplus_pid_roll",           [0.0550, 0.0070, 0.0900] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch",          [0.1500, 0.0070, 0.1200] call fza_fnc_pidCreate];
+(_heli getVariable "fza_sfmplus_pid_roll")  set ["integralClamp", 142.9]; // 1.0 / ki(0.007)
+(_heli getVariable "fza_sfmplus_pid_pitch") set ["integralClamp", 142.9]; // 1.0 / ki(0.007)
 //Attitude Hold
 _heli setVariable ["fza_sfmplus_pid_roll_att",       [0.0400, 0.0015, 0.0180] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.0925, 0.0025, 0.0450] call fza_fnc_pidCreate];
+(_heli getVariable "fza_sfmplus_pid_roll_att")  set ["integralClamp", 666.7]; // 1.0 / ki(0.0015)
+(_heli getVariable "fza_sfmplus_pid_pitch_att") set ["integralClamp", 400.0]; // 1.0 / ki(0.0025)
 //Altitude Hold
 _heli setVariable ["fza_sfmplus_pid_radHold",        [0.0500, 0.0001, 0.0050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0010, 0.0000, 0.0008] call fza_fnc_pidCreate];
+(_heli getVariable "fza_sfmplus_pid_radHold") set ["integralClamp", 10000]; // 1.0 / ki(0.0001)
+// pid_barHold: ki=0, no integral accumulation
 //Heading Hold
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.5500, 0.0400, 0.2000] call fza_fnc_pidCreate];
-//SAS Functions
+(_heli getVariable "fza_sfmplus_pid_hdgHold")  set ["integralClamp", 5.0];   // 0.1 / ki(0.02)
+(_heli getVariable "fza_sfmplus_pid_trnCoord") set ["integralClamp", 2.5];   // 0.1 / ki(0.04)
+//SAS Functions — ki=0 on all three, no integral accumulation
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.1000, 0.0000, 0.0020] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.0080, 0.0000, 0.0020] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0000, 0.0250] call fza_fnc_pidCreate];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.1000, 0.1500, 0.3500] call fza_fnc_pidCreate];
+(_heli getVariable "fza_sfmplus_pid_autoPedalHdg")  set ["integralClamp", 1000]; // 1.0 / ki(0.001)
+(_heli getVariable "fza_sfmplus_pid_autoPedalSlip") set ["integralClamp",  6.7]; // 1.0 / ki(0.15)
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 
 //Aerodynamic State Variables
