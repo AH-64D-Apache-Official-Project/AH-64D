@@ -72,9 +72,10 @@ if (_aoaCorrection > 0.0) then {
 //Lift coefficient
 private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
 private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
-// Cap airspeed at 120 m/s to prevent V^2 force divergence above VNE. Matches fn_aeroWing.sqf.
-private _v            = vectorMagnitude _relWind min 120.0;
+private _v            = vectorMagnitude _relWind;
 private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
+
+systemChat format ["%1 - %2 - %3 - %4", _area, _CL, _v, _lift];
 
 //Drag coefficient
 private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
