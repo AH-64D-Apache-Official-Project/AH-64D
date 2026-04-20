@@ -62,8 +62,6 @@ The script installs the following tools, trying multiple methods for each before
 | pre-commit | Git hooks for code quality checks |
 | PyYAML | Config file parsing |
 | HEMTT | Mod builder and PBO packager |
-| Arma 3 Tools | Config binarizer (via Steam, App ID 233800) |
-
 Any tool that cannot be installed automatically will be listed at the end of the script output with a direct download URL.
 
 After setup completes, open a new terminal so that PATH changes take effect, then verify with:
@@ -80,8 +78,8 @@ From the project root, run:
 scons
 ```
 
-This pre-binarizes configs (where needed), runs `hemtt build`, and places output in `.hemttout/build/`.
-
+This runs `hemtt build` and places output in `.hemttout/build/`.
+runs `hemtt build`
 ### SCons Targets
 
 | Target | Description |
@@ -94,6 +92,9 @@ This pre-binarizes configs (where needed), runs `hemtt build`, and places output
 | `scons -c` | Clean all build outputs (`.hemttout`, `releases`, `docs`, `buildTools`) |
 | `scons -c release` | Clean release outputs only (`.hemttout`, `releases`) |
 
+
+`scons` and `scons release` are equivalent to running `hemtt build` / `hemtt release` directly. SCons is used for the additional targets above (docs, symlinks, release repackaging).
+
 ### Build Pipeline
 
 SCons is the top-level build orchestrator; PBO compilation is delegated to HEMTT.
@@ -102,33 +103,15 @@ SCons is the top-level build orchestrator; PBO compilation is delegated to HEMTT
 
 ```
 scons [release]
-│
-├─ CfgConvert pre-binarization  (addons with [rapify] enabled = false in addon.toml)
-│   ├─ Creates a temporary P: drive (subst) mapping each addon and include/ folder
-│   ├─ Runs CfgConvert.exe -bin to produce config.bin alongside config.cpp
-│   └─ Tears down the P: drive after binarization
-│
-├─ hemtt build / hemtt release
-│   ├─ Pre-build hook: version_files.rhai writes version.hpp into each addon
-│   ├─ Preprocessing: resolves #include, #define, __EVAL() macros
-│   ├─ Linting: static analysis on SQF and configs
-│   ├─ Rapify: binarizes config.cpp → config.bin (skipped where disabled)
-│   ├─ PBO packing → .hemttout/
-│   └─ (release only) Signing + zip archives in releases/
-│
-├─ (release only) Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
-├─ (release only) SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbow
-│
-└─ Cleanup: stale config.bin files removed
-```
-
-### Troubleshooting
-
-If `scons` can't find `hemtt`, ensure HEMTT is on your PATH and that you opened a new terminal after running setup.
-
-If the release build fails with a CfgConvert error, ensure Arma 3 Tools is fully installed via Steam (App ID 233800) and that AddonBuilder has been launched at least once.
-
-If you find any other errors, please ask the dev team in the AH-64D Official Project discord server.
+└─ hemtt build / hemtt release
+    ├─ Pre-build hook: version_files.rhai writes version.hpp into each addon
+    ├─ Preprocessing: resolves #include, #define, __EVAL() macros
+    ├─ Linting: static analysis on SQF and configs
+    ├─ Rapify: binarizes config.cpp → config.bin (skipped where [rapify] disabled)
+    ├─ PBO packing → .hemttout/
+    └─ (release only) Signing + zip archives in releases/
+        ├─ Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
+        └─ SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbowhe dev team in the AH-64D Official Project discord server.
 
 ## Support
 

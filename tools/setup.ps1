@@ -12,7 +12,6 @@
       - pre-commit   (git hooks,        via pip / Chocolatey)
       - PyYAML       (config lib,       via pip)
       - HEMTT        (mod builder,      via winget / GitHub release)
-      - Arma 3 Tools (config binarizer, via Steam App ID 233800)
 
     Each tool tries multiple install methods before giving up.
     Any tool that cannot be installed automatically is listed at the
@@ -129,10 +128,6 @@ $script:manualInstalls = [System.Collections.Generic.List[string]]::new()
 # Explorer cache — the common cause of scons/hemtt not being found in VS Code
 # terminals even after setup has correctly written the registry.
 $script:inheritedPath = $env:PATH
-
-# Set to $true when Steam was opened to install Arma 3 Tools, so we can
-# prompt the user to re-run the script once the Steam install completes.
-$script:arma3ToolsInstalling = $false
 
 # Set to $true if the user opts in to checking for updates on an already-configured machine.
 $script:checkUpdates = $false
@@ -526,157 +521,6 @@ if (Test-Command "hemtt") {
 }
 
 # ---------------------------------------------------------------------------
-# Arma 3 Tools (optional, needed for config binarization)
-# ---------------------------------------------------------------------------
-Write-Step "Checking Arma 3 Tools (required for config binarization)..."
-
-function Get-SteamLibraryRoots {
-    # Read all Steam library paths from libraryfolders.vdf
-    $steamConfigPaths = @(
-        "$env:ProgramFiles(x86)\Steam\steamapps\libraryfolders.vdf",
-        "$env:ProgramFiles\Steam\steamapps\libraryfolders.vdf"
-    )
-    # Also check registry for the Steam install path
-    try {
-        $reg = [Microsoft.Win32.Registry]::CurrentUser
-        $key = $reg.OpenSubKey("SOFTWARE\Valve\Steam")
-        if ($key) {
-            $steamPath = $key.GetValue("SteamPath")
-            $key.Close()
-            if ($steamPath) {
-                $steamConfigPaths += (Join-Path $steamPath "steamapps\libraryfolders.vdf")
-            }
-        }
-    } catch { }
-
-    $roots = [System.Collections.Generic.List[string]]::new()
-    foreach ($vdf in $steamConfigPaths) {
-        if (-not (Test-Path $vdf)) { continue }
-        # Parse "path" entries from the VDF - format: "path"  "D:\SteamLibrary"
-        Get-Content $vdf | Where-Object { $_ -match '"path"\s+"([^"]+)"' } | ForEach-Object {
-            $libPath = $Matches[1] -replace '\\\\', '\'
-            $steamapps = Join-Path $libPath "steamapps\common"
-            if (Test-Path $steamapps) { $roots.Add($steamapps) }
-        }
-    }
-    return $roots
-}
-
-function Get-Arma3ToolsStatus {
-    # Mirror exactly what SConstruct's arma3ToolsPath() does:
-    # Read the 'path' value from the registry, derive the tools root via dirname,
-    # and check it's a valid directory. SConstruct does not require CfgConvert.exe
-    # to exist — it only checks os.path.isdir(tools). Match that behaviour.
-    try {
-        $reg = [Microsoft.Win32.Registry]::LocalMachine
-        foreach ($keyPath in @(
-            "SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder",
-            "SOFTWARE\Bohemia Interactive\AddonBuilder"
-        )) {
-            $key = $reg.OpenSubKey($keyPath)
-            if ($key) {
-                $addonBuilderDirOrExe = $key.GetValue("path")
-                $key.Close()
-                if ($addonBuilderDirOrExe) {
-                    # SConstruct: tools = os.path.dirname(addon_builder_path)
-                    # dirname of a directory path returns its parent.
-                    $toolsRoot = Split-Path $addonBuilderDirOrExe -Parent
-                    if (Test-Path $toolsRoot -PathType Container) { return "Registered" }
-                }
-                # Key exists but 'path' value not yet written = AddonBuilder has never been run
-                break
-            }
-        }
-    } catch { }
-
-    # Check Steam library for AddonBuilder executable on disk
-    # (handles fresh install where AddonBuilder has never been run)
-    foreach ($root in (Get-SteamLibraryRoots)) {
-        $addonBuilderExe = Join-Path $root "Arma 3 Tools\AddonBuilder\AddonBuilder.exe"
-        if (Test-Path $addonBuilderExe) { return "Installed" }
-    }
-
-    return "NotFound"
-}
-
-$a3tStatus = Get-Arma3ToolsStatus
-
-if ($a3tStatus -eq "Registered") {
-    Write-OK "Arma 3 Tools found and registered."
-} elseif ($a3tStatus -eq "Installed") {
-    Write-Warn "Arma 3 Tools is installed but not yet registered."
-    Write-Host ""
-    Write-Host "    The registry entry that tells the build where CfgConvert is has not been written yet." -ForegroundColor Yellow
-    Write-Host "    This script can write it directly - no need to launch any tools manually." -ForegroundColor Yellow
-    Write-Host ""
-    $response = Read-Host "    Would you like to register Arma 3 Tools now? [Y/n]"
-    if ($response -eq '' -or $response -match '^[Yy]') {
-        $toolsFolder = Get-SteamLibraryRoots | ForEach-Object { Join-Path $_ "Arma 3 Tools" } | Where-Object { Test-Path (Join-Path $_ "AddonBuilder\AddonBuilder.exe") } | Select-Object -First 1
-        $addonBuilderDir = if ($toolsFolder) { Join-Path $toolsFolder "AddonBuilder" } else { $null }
-        if ($addonBuilderDir -and (Test-Path $addonBuilderDir)) {
-            # Write the registry values directly.
-            # HKLM\AddonBuilder is used by SConstruct (CfgConvert check).
-            # HKCU\binarize is used by HEMTT (binarize_x64.exe check).
-            try {
-                $reg = [Microsoft.Win32.Registry]::LocalMachine
-                $key = $reg.OpenSubKey("SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder", $true)
-                if (-not $key) {
-                    $key = $reg.CreateSubKey("SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder")
-                }
-                $key.SetValue("path", $addonBuilderDir)
-                $key.Close()
-
-                # HEMTT reads HKCU\Software\Bohemia Interactive\binarize -> path
-                # and checks for binarize_x64.exe in that folder.
-                $binarizeDir = Join-Path $toolsFolder "Binarize"
-                $hkcu = [Microsoft.Win32.Registry]::CurrentUser
-                $bKey = $hkcu.OpenSubKey("Software\Bohemia Interactive\binarize", $true)
-                if (-not $bKey) {
-                    $bKey = $hkcu.CreateSubKey("Software\Bohemia Interactive\binarize")
-                }
-                $bKey.SetValue("path", $binarizeDir)
-                $bKey.Close()
-
-                Write-Host "    Registry entries written (SConstruct + HEMTT)." -ForegroundColor DarkGray
-            } catch {
-                Write-Warn "Could not write registry: $_"
-            }
-            if ((Get-Arma3ToolsStatus) -eq "Registered") {
-                Write-OK "Arma 3 Tools registered successfully."
-            } else {
-                Write-Warn "Registration check failed - CfgConvert.exe may be missing from the Arma 3 Tools installation."
-                $script:arma3ToolsInstalling = $true
-                $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-            }
-        } else {
-            Write-Host "    Could not locate AddonBuilder folder in Steam libraries." -ForegroundColor Yellow
-            $script:arma3ToolsInstalling = $true
-            $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-        }
-    } else {
-        Write-Host "    Skipping. Open Arma 3 Tools from Steam before building." -ForegroundColor DarkGray
-        $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-    }
-} else {
-    Write-Warn "Arma 3 Tools not found. This is required to binarize configs during the build."
-    Write-Host ""
-    Write-Host "    Arma 3 Tools is a free Steam application (App ID 233800)." -ForegroundColor Yellow
-    Write-Host "    Install it via Steam, then re-run this script." -ForegroundColor Yellow
-    Write-Host ""
-    $response = Read-Host "    Would you like to open the Steam install page now? [Y/n]"
-    if ($response -eq '' -or $response -match '^[Yy]') {
-        Write-Host "    Opening Steam install page for Arma 3 Tools..." -ForegroundColor DarkGray
-        Start-Process "steam://install/233800"
-        $script:arma3ToolsInstalling = $true
-        Write-Host "    Once Steam finishes installing, open Arma 3 Tools once, then re-run this script." -ForegroundColor Yellow
-    } else {
-        Write-Host "    Skipping. Install manually from:" -ForegroundColor DarkGray
-        Write-Host "    https://store.steampowered.com/app/233800/Arma_3_Tools/" -ForegroundColor Cyan
-        $script:manualInstalls.Add("Arma 3 Tools -> https://store.steampowered.com/app/233800/Arma_3_Tools/")
-    }
-}
-
-# ---------------------------------------------------------------------------
 # pre-commit git hooks
 # ---------------------------------------------------------------------------
 Write-Step "Installing pre-commit git hooks..."
@@ -889,8 +733,7 @@ $checks = @(
     @{ Name = "python";        Ver = { & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1 } },
     @{ Name = "scons";         Ver = { & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1 } },
     @{ Name = "hemtt";         Ver = { & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1 } },
-    @{ Name = "pre-commit";    Ver = { & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1 } },
-    @{ Name = "Arma 3 Tools";  Ver = { "Steam App ID 233800 (registered)" }; Check = { (Get-Arma3ToolsStatus) -eq "Registered" } }
+    @{ Name = "pre-commit";    Ver = { & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1 } }
 )
 
 foreach ($check in $checks) {
@@ -898,12 +741,6 @@ foreach ($check in $checks) {
     if ($found) {
         $ver = & $check.Ver
         Write-Host ("  [OK]   {0,-14} {1}" -f $check.Name, $ver) -ForegroundColor Green
-    } elseif ($check.Name -eq "Arma 3 Tools" -and $script:arma3ToolsInstalling) {
-        Write-Host ("  [WAIT] {0,-14} Registration pending - re-run this script to confirm" -f $check.Name) -ForegroundColor Cyan
-        $allOk = $false
-    } elseif ($check.Name -eq "Arma 3 Tools" -and (Get-Arma3ToolsStatus) -eq "Installed") {
-        Write-Host ("  [WARN] {0,-14} Installed but never launched - run AddonBuilder.exe once" -f $check.Name) -ForegroundColor Yellow
-        $allOk = $false
     } else {
         Write-Host ("  [FAIL] {0,-14} NOT FOUND" -f $check.Name) -ForegroundColor Red
         $allOk = $false
@@ -932,12 +769,6 @@ if ($allOk -and $script:manualInstalls.Count -eq 0) {
     Write-Host ""
     Write-Host "  If a tool shows [FAIL] but you just installed it, close" -ForegroundColor Yellow
     Write-Host "  this window, open a new terminal, and re-run the script." -ForegroundColor Yellow
-    if ($script:arma3ToolsInstalling) {
-        Write-Host ""
-        Write-Host "  NOTE: Steam was opened to install Arma 3 Tools." -ForegroundColor Cyan
-        Write-Host "  Once Steam finishes the download, run the setup again to verify:" -ForegroundColor Cyan
-        Write-Host "  tools\Setup Development ENV.bat" -ForegroundColor Cyan
-    }
     Write-Host "================================================================" -ForegroundColor Yellow
 }
 
@@ -960,23 +791,4 @@ if ($script:needsRestart) {
         Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -NoExit -File `"$PSCommandPath`" -SkipUpdateCheck" -Verb RunAs
         Stop-Process -Id $PID
     }
-}
-
-if ($script:arma3ToolsInstalling) {
-    Write-Host ""
-    Write-Host "  Waiting for Arma 3 Tools to be installed..." -ForegroundColor Cyan
-    Write-Host "  Install it via Steam, then press Enter to re-verify." -ForegroundColor Cyan
-
-    $a3tFound = $false
-    while (-not $a3tFound) {
-        Read-Host "  Press Enter once Arma 3 Tools is installed"
-        $a3tFound = (Get-Arma3ToolsStatus) -ne "NotFound"
-        if (-not $a3tFound) {
-            Write-Host "  Still not detected. Make sure Steam has finished installing." -ForegroundColor Yellow
-        }
-    }
-
-    Write-Host "  Arma 3 Tools detected! Relaunching setup to complete registration..." -ForegroundColor Green
-    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -NoExit -File `"$PSCommandPath`" -SkipUpdateCheck" -Verb RunAs
-    Stop-Process -Id $PID
 }
