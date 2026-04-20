@@ -44,7 +44,6 @@ private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
 private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
 
-private _kbYawSwitchVel     = 5.14444 * 2.4;  //10kts = 5.1444 m/s
 private _yawBreakout        = false;
 private _kbPedalLeftRight   = _heli getVariable "fza_sfmplus_kbPedalLeftRight";
 
@@ -159,14 +158,8 @@ if (fza_ah64_sfmPlusAutoPedal) then {
         _yawBreakout = true;
     };
 
-    private _pidAutoPedalHdg = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
-    //_pidAutoPedalHdg set ["kp", APH_KP];
-    //_pidAutoPedalHdg set ["ki", APH_KI];
-    //_pidAutoPedalHdg set ["kd", APH_KD];
+    private _pidAutoPedalHdg  = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
     private _pidAutoPedalSlip = _heli getVariable "fza_sfmplus_pid_autoPedalSlip";
-    //_pidAutoPedalSlip set ["kp", APS_KP];
-    //_pidAutoPedalSlip set ["ki", APS_KI];
-    //_pidAutoPedalSlip set ["kd", APS_KD];
 
     private _hdgOut        = 0.0;
     private _sideslipOut   = 0.0;
@@ -176,6 +169,21 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     private _hdgError      = 0.0;
     private _desiredSlip   = 0.0;
     private _sideslipError = 0.0;
+
+    // Sub-mode tracking with hysteresis — mirrors fn_fmcHeadingHold sub-mode pattern.
+    // "hdg": heading hold (low speed).  Enter slip above ACCEL (40 kts).
+    // "slip": turn coordination (cruise). Return to hdg below DECEL (30 kts).
+    private _subMode = _heli getVariable "fza_sfmplus_autoPedal_subMode";
+    if (_subMode == "hdg"  && _gndSpeed >= HDG_HOLD_SPEED_SWITCH_ACCEL) then {
+        _subMode = "slip";
+        [_pidAutoPedalHdg] call fza_fnc_pidReset;
+        _heli setVariable ["fza_sfmplus_autoPedal_subMode", "slip"];
+    };
+    if (_subMode == "slip" && _gndSpeed <  HDG_HOLD_SPEED_SWITCH_DECEL) then {
+        _subMode = "hdg";
+        [_pidAutoPedalSlip] call fza_fnc_pidReset;
+        _heli setVariable ["fza_sfmplus_autoPedal_subMode", "hdg"];
+    };
 
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
         _desiredHdg       = getDir _heli;
@@ -189,13 +197,26 @@ if (fza_ah64_sfmPlusAutoPedal) then {
         _heli setVariable ["fza_sfmplus_kbPedalLeftRight", 0.0];
     };
 
-    //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
-    _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
-    _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-    _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
-    _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
-    _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
-    _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
+    _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
+    _sideslipError = _desiredSlip - fza_ah64_sideslip;
+
+    // Only run the active sub-mode PID — prevents integral windup in the idle mode.
+    if (_subMode == "hdg") then {
+        _hdgOut = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError]      call fza_fnc_pidRun;
+        _hdgOut = [_hdgOut, -1.0, 1.0] call BIS_fnc_clamp;
+    } else {
+        _sideslipOut = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+        _sideslipOut = [_sideslipOut, -1.0, 1.0] call BIS_fnc_clamp;
+    };
+
+    // Blend across the DECEL→ACCEL transition band (30–40 kts).
+    // Since only the active PID contributes, the inactive output is 0, so authority
+    // naturally fades at the mode boundary before the hysteresis switch fires.
+    _yawOutput = linearConversion[HDG_HOLD_SPEED_SWITCH_DECEL, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOut, _sideslipOut, true];
+    // Normalize clamp by deltaTime so angular impulse (position * thrust * deltaTime) stays
+    // constant regardless of step size. Prevents Euler instability during large time steps.
+    private _apClamp = [0.033 / (_deltaTime max 0.001), 0.0, 1.0] call BIS_fnc_clamp;
+    _yawOutput = [_yawOutput, -_apClamp, _apClamp] call BIS_fnc_clamp;
 
     if (_yawBreakout) then {
         [_pidAutoPedalHdg]  call fza_fnc_pidReset;
