@@ -61,10 +61,11 @@ for "_i" from 0 to (_count - 1) do {
     private _velModelSpace    = (_heli getVariable "fza_sfmplus_velModelSpace")    vectorMultiply -1.0;
     private _angVelModelSpace = (_heli getVariable "fza_sfmplus_angVelModelSpace") vectorMultiply -1.0;
     private _deltaPos    	  = _e vectorDiff _heliCom;
+    private _deltaPosSign     = _deltaPos vectorDotProduct _vecFwd;
 
 	private _relWindY    	  = _velModelSpace select 1;
 	private _relWindZ    	  = _velModelSpace select 2;
-	private _locRelWindZ      = (_angVelModelSpace select 0) * (vectorMagnitude _deltaPos);
+	private _locRelWindZ      = (_angVelModelSpace select 0) * ((vectorMagnitude _deltaPos) * _deltaPosSign);
 
 	private _relWind		  = [0.0, _relWindY, _relWindZ + _locRelWindZ];
 
