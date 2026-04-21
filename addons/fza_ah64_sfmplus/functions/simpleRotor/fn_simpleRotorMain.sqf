@@ -344,6 +344,7 @@ private _retBladeStallCollTable =
 ];
 
 private _retBladeStallInput = [_retBladeStallCollTable, _collectiveOutput] call fza_fnc_linearInterp select 1;
+private _retBladeStallVal   = linearConversion [0.0, 102.88, _velXYNoWind, 1.0, 0.0, true];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -353,8 +354,8 @@ _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
-_pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _torqueX          = (_pitchTorque * (_pitchInput + _retBladeStallInput)) * _deltaTime; 
+_pitchInput               = [_pitchInput, _retBladeStallVal, 1.0] call BIS_fnc_clamp;
+private _torqueX          = (_pitchTorque * (_pitchInput - _retBladeStallInput)) * _deltaTime; 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -363,7 +364,7 @@ private _cyclicLeftRightTrim = 0.0;
 _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
-_rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
+_rollInput                   = [_rollInput, -1.0, _retBladeStallVal] call BIS_fnc_clamp;
 private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
 private _torqueY             = (_rollTorque * (_rollInput + _retBladeStallInput)) * _deltaTime;
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
