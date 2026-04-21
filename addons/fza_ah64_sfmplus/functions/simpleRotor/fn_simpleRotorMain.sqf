@@ -354,7 +354,7 @@ _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
-_pitchInput               = [_pitchInput, _retBladeStallVal, 1.0] call BIS_fnc_clamp;
+_pitchInput               = [_pitchInput, -_retBladeStallVal, 1.0] call BIS_fnc_clamp;
 private _torqueX          = (_pitchTorque * (_pitchInput - _retBladeStallInput)) * _deltaTime; 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
