@@ -48,7 +48,7 @@ for "_i" from 0 to (_count - 1) do {
     [_heli, _e, _e vectorAdd _vecFwd, "white"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _v          = _heli getVariable "fza_sfmplus_vel2D";
+    private _v          = (_heli getVariable "fza_sfmplus_vel2D") min VEL_VNE;
     private _pa         = _heli getVariable "fza_sfmplus_PA";
     private _CD         = [_dragCoefTable, _pa] call fza_fnc_linearInterp select 1;
     private _area       = [_a, _b, _c, _d] call fza_fnc_getArea;

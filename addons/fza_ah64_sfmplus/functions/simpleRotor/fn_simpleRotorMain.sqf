@@ -147,7 +147,7 @@ private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModel
 if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
-private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
+private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY] min VEL_VNE;
 if ([_velXY] call fza_sfmplus_fnc_isNAN || [_velXY] call fza_sfmplus_fnc_isINF) then { _velXY = 0.0; };
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
 //systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
@@ -186,7 +186,7 @@ private _profile_max = 0.407;
 
 private _velXNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 0;
 private _velYNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 1;
-private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind];
+private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind] min VEL_VNE;
 
 private _profilePowerCollectiveScalar = [_collectiveOutput / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
 private _profile_cur                  = (_profile_min + (((_profile_max * _profilePowerCollectiveScalar) - _profile_min) / VEL_VNE) * _velXYNoWind);
@@ -323,6 +323,28 @@ if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza
 _heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
 _heli setVariable ["fza_sfmplus_vrsVelocityMax", _inducedVelocity * 1.25];
 /////////////////////////////////////////////////////////////////////////////////////////////
+// Retreating Blade Stall ///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _retBladeStallSpeedTable = 
+[
+ [  0.00, 0.00, 0.00]   //0ktas
+,[ 77.16, 0.00, 0.00]   //150ktas
+,[ 82.30, 0.00, 0.05]   //160ktas
+,[ 87.45, 0.02, 0.15]   //170ktas
+,[ 92.59, 0.10, 0.30]   //180ktas
+,[ 97.74, 0.30, 0.52]   //190ktas
+,[100.31, 0.50, 0.70]   //195ktas
+,[102.88, 1.00, 1.00]   //200ktas
+];
+
+private _retBladeStallCollTable =
+[
+ [0.0, [_retBladeStallSpeedTable, _velXYNoWind] call fza_fnc_linearInterp select 1]
+,[1.0, [_retBladeStallSpeedTable, _velXYNoWind] call fza_fnc_linearInterp select 2]
+];
+
+private _retBladeStallInput = [_retBladeStallCollTable, _collectiveOutput] call fza_fnc_linearInterp select 1;
+/////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft     = _heli getVariable "fza_sfmplus_cyclicFwdAft";
@@ -332,7 +354,7 @@ _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
 _pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _torqueX          = _pitchTorque * _pitchInput * _deltaTime; 
+private _torqueX          = (_pitchTorque * (_pitchInput + _retBladeStallInput)) * _deltaTime; 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -343,7 +365,7 @@ _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
 _rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
-private _torqueY             = _rollTorque * _rollInput * _deltaTime;
+private _torqueY             = (_rollTorque * (_rollInput + _retBladeStallInput)) * _deltaTime;
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw Torque           /////////////////////////////////////////////////////////////////////
