@@ -329,12 +329,12 @@ private _retBladeStallSpeedTable =
 [
  [  0.00, 0.00, 0.00]   //0ktas
 ,[ 77.16, 0.00, 0.00]   //150ktas
-,[ 82.30, 0.00, 0.05]   //160ktas
-,[ 87.45, 0.02, 0.15]   //170ktas
-,[ 92.59, 0.10, 0.30]   //180ktas
-,[ 97.74, 0.30, 0.52]   //190ktas
-,[100.31, 0.50, 0.70]   //195ktas
-,[102.88, 1.00, 1.00]   //200ktas
+,[ 82.30, 0.00, 0.10]   //160ktas
+,[ 87.45, 0.04, 0.30]   //170ktas
+,[ 92.59, 0.20, 0.60]   //180ktas
+,[ 97.74, 0.60, 1.04]   //190ktas
+,[100.31, 1.00, 1.40]   //195ktas
+,[102.88, 2.00, 2.00]   //200ktas
 ];
 
 private _retBladeStallCollTable =
@@ -344,7 +344,9 @@ private _retBladeStallCollTable =
 ];
 
 private _retBladeStallInput = [_retBladeStallCollTable, _collectiveOutput] call fza_fnc_linearInterp select 1;
-private _retBladeStallVal   = linearConversion [0.0, 102.88, _velXYNoWind, 1.0, 0.0, true];
+private _retBladeStallVal   = linearConversion [77.16, 102.88, _velXYNoWind, 1.0, 0.0, true];
+
+//systemChat format ["_retBladeStallval = %1", _retBladeStallVal];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
