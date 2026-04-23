@@ -329,24 +329,22 @@ private _retBladeStallSpeedTable =
 [
  [  0.00, 0.00, 0.00]   //0ktas
 ,[ 77.16, 0.00, 0.00]   //150ktas
-,[ 82.30, 0.00, 0.10]   //160ktas
-,[ 87.45, 0.04, 0.30]   //170ktas
-,[ 92.59, 0.20, 0.60]   //180ktas
-,[ 97.74, 0.60, 1.04]   //190ktas
-,[100.31, 1.00, 1.40]   //195ktas
-,[102.88, 2.00, 2.00]   //200ktas
+,[ 82.30, 0.04, 0.20]   //160ktas
+,[ 87.45, 0.12, 0.50]   //170ktas
+,[ 92.59, 0.25, 0.90]   //180ktas
+,[ 97.74, 0.50, 1.40]   //190ktas
+,[100.31, 0.70, 1.70]   //195ktas
+,[102.88, 1.00, 2.00]   //200ktas
 ];
 
 private _retBladeStallCollTable =
 [
- [0.0, [_retBladeStallSpeedTable, _velXYNoWind] call fza_fnc_linearInterp select 1]
-,[1.0, [_retBladeStallSpeedTable, _velXYNoWind] call fza_fnc_linearInterp select 2]
+ [0.0, [_retBladeStallSpeedTable, _velXY] call fza_fnc_linearInterp select 1]
+,[0.7, [_retBladeStallSpeedTable, _velXY] call fza_fnc_linearInterp select 2]
 ];
 
 private _retBladeStallInput = [_retBladeStallCollTable, _collectiveOutput] call fza_fnc_linearInterp select 1;
-private _retBladeStallVal   = linearConversion [77.16, 102.88, _velXYNoWind, 1.0, 0.0, true];
-
-//systemChat format ["_retBladeStallval = %1", _retBladeStallVal];
+private _retBladeStallVal   = linearConversion [77.16, 102.88, _velXY, 1.0, 0.0, true];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -414,7 +412,54 @@ if (cameraView == "INTERNAL") then {
     } else {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };
+    //Camera shake effect 130kts to 140kts
+    if (_velXY >= 66.87 && _velXY < 72.02) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
+        addCamShake       [2.5, 1, 5];
+        enableCamShake false;
 
+        setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+        setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
+    //Camera shake effect 140kts to 150kts
+    if (_velXY >= 72.02 && _velXY < 77.16) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
+            addCamShake       [3, 1, 5.5];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
+    //Camera shake effect 150kts to 160kts
+    if (_velXY >= 77.16 && _velXY < 82.30) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
+            addCamShake       [3.5, 1, 6.0];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };   
+    //Camera shake effect >160kts
+    if (_velXY >= 82.30) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 1.0, 0.0, 2.0, true];
+            addCamShake       [4.0, 1, 6.5];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
     //Camera shake effect for vortex ring sate
     if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround)) then {  //must be less than ETL
         //2000 fpm to 2933fpm
