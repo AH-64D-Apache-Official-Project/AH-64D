@@ -648,6 +648,58 @@ if (-not (Test-Path ".git")) {
 }
 
 # ---------------------------------------------------------------------------
+# Git hooks path (.githooks/) and build-number merge driver
+# ---------------------------------------------------------------------------
+Write-Step "Configuring git hooks and build-number merge driver..."
+
+if (-not (Test-Path ".git")) {
+    Write-Warn "No .git directory found - skipping git hooks configuration."
+} else {
+    # Point git at the repo's shared hooks folder
+    try {
+        $ErrorActionPreference = "Continue"
+        git config core.hooksPath .githooks
+        Write-OK "core.hooksPath set to .githooks"
+    } catch {
+        Write-Warn "Failed to set core.hooksPath: $_"
+    }
+
+    # Ensure the post-commit hook and merge driver script are executable
+    # (required on Linux/macOS; harmless on Windows)
+    $hookFiles = @(".githooks/post-commit", ".githooks/merge-version-number.py")
+    foreach ($hookFile in $hookFiles) {
+        if (Test-Path $hookFile) {
+            try {
+                $ErrorActionPreference = "Continue"
+                $result = git update-index --chmod=+x $hookFile 2>&1
+                if ($LASTEXITCODE -ne 0) {
+                    # File not yet tracked - stage it first then set chmod
+                    git add $hookFile 2>&1 | Out-Null
+                    git update-index --chmod=+x $hookFile 2>&1 | Out-Null
+                }
+            } catch { }
+        }
+    }
+    Write-OK "Hook files marked executable"
+
+    # Register the build-number merge driver in the local git config.
+    # The logic lives in .githooks/merge-version-number.py — keeping the config
+    # value as a simple one-liner avoids PowerShell quoting issues entirely.
+    try {
+        $ErrorActionPreference = "Continue"
+        git config merge.version-number-merge.name   "Version field auto-merge (minor/patch/build)"
+        git config merge.version-number-merge.driver "python .githooks/merge-version-number.py %O %A %B"
+        if ($LASTEXITCODE -eq 0) {
+            Write-OK "version-number-merge driver registered"
+        } else {
+            Write-Warn "git config for merge driver returned non-zero exit code"
+        }
+    } catch {
+        Write-Warn "Failed to register merge driver: $_"
+    }
+}
+
+# ---------------------------------------------------------------------------
 # Final verification
 # ---------------------------------------------------------------------------
 Write-Host ""

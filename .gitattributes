@@ -15,3 +15,8 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Use a custom merge driver for project.toml so that conflicting build number
+# increments from different branches are resolved automatically.
+# The driver is registered locally by running tools/setup.ps1.
+.hemtt/project.toml merge=version-number-merge

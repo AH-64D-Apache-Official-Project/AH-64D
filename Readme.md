@@ -113,6 +113,49 @@ scons [release]
         ├─ Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
         └─ SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbowhe dev team in the AH-64D Official Project discord server.
 
+### Version Management
+
+The version is stored in `.hemtt/project.toml` under the `[version]` section (`major`, `minor`, `patch`, `build`).
+
+#### Automatic local bumping
+
+After `tools\Setup Development ENV.bat` is run, a git post-commit hook automatically updates the version on every commit and folds the change into that same commit — no separate "bump" commit is created.
+
+The default behaviour is `build += 1`. You can trigger a semantic version bump by including a keyword anywhere in your commit message:
+
+| Commit message contains | Effect |
+|---|---|
+| `[minor]` | `minor += 1`, `patch = 0`, `build = 0` |
+| `[patch]` | `patch += 1`, `build = 0` |
+| *(nothing)* | `build += 1` |
+
+Example:
+```
+git commit -m "Refactor FCR sweep logic [patch]"
+```
+
+Manual edits to `minor` or `patch` in `project.toml` are also detected automatically: if the committed value is higher than the previous commit the hook resets downstream fields without needing a keyword.
+
+`git commit --amend` is always skipped — the hook will never double-increment.
+
+#### Merge conflict resolution
+
+When two branches have diverged versions, a custom git merge driver resolves `.hemtt/project.toml` automatically:
+
+| Field | Strategy |
+|---|---|
+| `minor` | Additive: `ours + (theirs − base)` — if increased, `patch` and `build` reset to 0 |
+| `patch` | Additive: `ours + (theirs − base)` — if increased, `build` resets to 0 |
+| `build` | Additive: `ours + (theirs − base)` — only if no version boundary was crossed |
+
+The merge driver is registered in your local `.git/config` by the setup script and requires no manual intervention.
+
+#### CI fallback
+
+A GitHub Actions workflow (`.github/workflows/bump_build.yml`) increments `build` whenever a PR merges to `master`. This catches any build number that wasn't bumped locally and commits with `[skip ci]` to avoid triggering further runs.
+
+---
+
 ## Support
 
 Learning this aircraft can be difficult, and you will need resources to help you do it. We recommend you take a look at the following areas to learn more about the aircraft:
