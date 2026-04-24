@@ -123,6 +123,9 @@ function Try-Winget([string[]]$wingetArgs) {
 # Tracks tools that could not be installed - shown at end with manual URLs.
 $script:manualInstalls = [System.Collections.Generic.List[string]]::new()
 
+# Tracks tools that were updated during this run - shown in the update summary.
+$script:updates = [System.Collections.Generic.List[string]]::new()
+
 # Snapshot PATH at startup. Compared at the end to detect whether the registry
 # was updated during this run — if so, open terminals won't see the new tools.
 $script:pathRegistryUpdated = $false
@@ -173,7 +176,10 @@ if (Test-Command "git") {
             "--accept-package-agreements", "--accept-source-agreements") | Out-Null
         Refresh-Path
         $gitver = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
-        if ($gitver -ne $gitverBefore) { Write-OK "Git updated: $gitver" } else { Write-OK "Git up to date: $gitver" }
+        if ($gitver -ne $gitverBefore) {
+            Write-OK "Git updated: $gitver"
+            $script:updates.Add(("Git            {0,-20} ->  {1}" -f ([string]$gitverBefore).Trim(), ([string]$gitver).Trim()))
+        } else { Write-OK "Git up to date: $gitver" }
     } else {
         $gitver = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
         Write-OK "Found: $gitver"
@@ -258,7 +264,10 @@ if (Test-Python) {
             Refresh-Path
         }
         $pyver = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
-        if ($pyver -ne $pyverBefore) { Write-OK "Python updated: $pyver" } else { Write-OK "Python up to date: $pyver" }
+        if ($pyver -ne $pyverBefore) {
+            Write-OK "Python updated: $pyver"
+            $script:updates.Add(("Python         {0,-20} ->  {1}" -f ([string]$pyverBefore).Trim(), ([string]$pyver).Trim()))
+        } else { Write-OK "Python up to date: $pyver" }
     } else {
         $pyver = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
         Write-OK "Found: $pyver"
@@ -402,9 +411,18 @@ if (Test-Python) {
         $preCommitVer= & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
         $yamlVer     = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1
         if ($script:checkUpdates -and $missing.Count -eq 0) {
-            if ($sconsVer -ne $sconsVerBefore) { Write-OK "scons updated:         $sconsVer" } else { Write-OK "scons up to date:      $sconsVer" }
-            if ($preCommitVer -ne $preCommitVerBefore) { Write-OK "pre-commit updated:    $preCommitVer" } else { Write-OK "pre-commit up to date: $preCommitVer" }
-            if ($yamlVer -ne $yamlVerBefore) { Write-OK "pyyaml updated:        $yamlVer" } else { Write-OK "pyyaml up to date:     $yamlVer" }
+            if ($sconsVer -ne $sconsVerBefore) {
+                Write-OK "scons updated:         $sconsVer"
+                $script:updates.Add(("SCons          {0,-20} ->  {1}" -f ([string]$sconsVerBefore).Trim(), ([string]$sconsVer).Trim()))
+            } else { Write-OK "scons up to date:      $sconsVer" }
+            if ($preCommitVer -ne $preCommitVerBefore) {
+                Write-OK "pre-commit updated:    $preCommitVer"
+                $script:updates.Add(("pre-commit     {0,-20} ->  {1}" -f ([string]$preCommitVerBefore).Trim(), ([string]$preCommitVer).Trim()))
+            } else { Write-OK "pre-commit up to date: $preCommitVer" }
+            if ($yamlVer -ne $yamlVerBefore) {
+                Write-OK "pyyaml updated:        $yamlVer"
+                $script:updates.Add(("PyYAML         {0,-20} ->  {1}" -f ([string]$yamlVerBefore).Trim(), ([string]$yamlVer).Trim()))
+            } else { Write-OK "pyyaml up to date:     $yamlVer" }
         } else {
             Write-OK "scons:      $sconsVer"
             Write-OK "pre-commit: $preCommitVer"
@@ -528,7 +546,10 @@ if (Test-Command "hemtt") {
             "--accept-package-agreements", "--accept-source-agreements") | Out-Null
         Refresh-Path
         $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
-        if ($hemttver -ne $hemttverBefore) { Write-OK "HEMTT updated: $hemttver" } else { Write-OK "HEMTT up to date: $hemttver" }
+        if (([string]$hemttver).Trim() -ne ([string]$hemttverBefore).Trim()) {
+            Write-OK "HEMTT updated: $hemttver"
+            $script:updates.Add(("HEMTT          {0,-20} ->  {1}" -f ([string]$hemttverBefore).Trim(), ([string]$hemttver).Trim()))
+        } else { Write-OK "HEMTT up to date: $hemttver" }
     } else {
         $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
         Write-OK "Found: $hemttver"
@@ -729,13 +750,28 @@ foreach ($check in $checks) {
     }
 }
 
+if ($script:updates.Count -gt 0) {
+    Write-Host ""
+    Write-Host "================================================================" -ForegroundColor Cyan
+    Write-Host "  Updates applied this run" -ForegroundColor Cyan
+    Write-Host "================================================================" -ForegroundColor Cyan
+    foreach ($entry in $script:updates) {
+        Write-Host ("  {0}" -f $entry) -ForegroundColor Cyan
+    }
+} elseif ($script:checkUpdates) {
+    Write-Host ""
+    Write-Host "================================================================" -ForegroundColor DarkGray
+    Write-Host "  No updates found - all tools are already up to date." -ForegroundColor DarkGray
+    Write-Host "================================================================" -ForegroundColor DarkGray
+}
+
 Write-Host ""
 if ($allOk -and $script:manualInstalls.Count -eq 0) {
-    Write-Host "================================================================" -ForegroundColor Green
-    Write-Host "  All tools verified. You are ready to build!" -ForegroundColor Green
-    Write-Host "  Run:  scons" -ForegroundColor Green
-    Write-Host "  See 'Development Build Commands.txt' for the full command reference." -ForegroundColor Green
-    Write-Host "================================================================" -ForegroundColor Green
+    Write-Host "================================================================" -ForegroundColor Magenta
+    Write-Host "  All tools verified. You are ready to build!" -ForegroundColor Magenta
+    Write-Host "  Run:  scons" -ForegroundColor Magenta
+    Write-Host "  See 'Development Build Commands.txt' for the full command reference." -ForegroundColor Magenta
+    Write-Host "================================================================" -ForegroundColor Magenta
 } else {
     Write-Host "================================================================" -ForegroundColor Yellow
     Write-Host "  Setup finished with issues." -ForegroundColor Yellow
