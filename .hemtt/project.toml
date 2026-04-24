@@ -9,7 +9,7 @@ author = "AH-64 Development team"
 major = 2
 minor = 3
 patch = 0
-build = 0
+build = 1
 git_hash = 0
 
 [files]
@@ -17,7 +17,7 @@ include = [
     "mod.cpp",
     "apache_mod_logo.paa",
     "apache_mod_picture.paa",
-    "APL-ND(LICENSE)",
+    "LICENSE",
     "Readme.md",
 ]
 

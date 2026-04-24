@@ -1,4 +1,56 @@
 repos:
+  # ---------------------------------------------------------------------------
+  # Standard file hygiene checks (official pre-commit-hooks mirror)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Remove trailing whitespace from all text files
+      - id: trailing-whitespace
+        exclude: '\.(paa|p3d|pac|wss|ogg|wav|png|jpg|pbo)$'
+
+      # Ensure every text file ends with a newline
+      - id: end-of-file-fixer
+        exclude: '\.(paa|p3d|pac|wss|ogg|wav|png|jpg|pbo)$'
+
+      # Block files with unresolved merge conflict markers (<<<< ==== >>>>)
+      - id: check-merge-conflict
+
+      # Validate JSON files parse cleanly
+      - id: check-json
+        files: '\.json$'
+
+      # Validate TOML files parse cleanly (catches broken project.toml etc.)
+      - id: check-toml
+        files: '\.toml$'
+
+      # Warn when files exceed 5 MB — large binaries should not be in source
+      - id: check-added-large-files
+        args: ['--maxkb=5120']
+
+      # Block mixed line endings — all text files should be LF
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        exclude: '\.(paa|p3d|pac|wss|ogg|wav|png|jpg|pbo|bat)$'
+
+  # ---------------------------------------------------------------------------
+  # SQF / config lint via HEMTT
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: hemtt-lint
+        name: HEMTT lint (SQF + config)
+        description: Run HEMTT's static analysis on all SQF and config files
+        entry: hemtt lint
+        language: system
+        pass_filenames: false
+        # Only run when SQF, HPP, or config files have changed
+        types_or: []
+        files: '\.(sqf|hpp|cpp)$'
+
+  # ---------------------------------------------------------------------------
+  # Project-specific path and naming convention checks
+  # ---------------------------------------------------------------------------
   - repo: local
     hooks:
     - id: path-validation
