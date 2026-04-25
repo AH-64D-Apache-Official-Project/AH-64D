@@ -1,4 +1,4 @@
-hemfrom SCons.Script import *
+from SCons.Script import *
 
 import os.path
 import glob
