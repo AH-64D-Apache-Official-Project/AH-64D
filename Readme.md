@@ -1,58 +1,112 @@
 # AH-64D Official Project
 
-[![](https://img.shields.io/steam/subscriptions/1351428303)](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303)
-[![](https://img.shields.io/steam/favorites/1351428303)](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303)
-[![](https://img.shields.io/discord/284725945921699840)](https://discord.gg/rB6yDDy)
-[![](https://img.shields.io/github/v/release/AH-64D-Apache-Official-Project/AH-64D)](https://github.com/AH-64D-Apache-Official-Project/AH-64D/releases)
+<p align="center">
+  <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303"><img src="https://img.shields.io/steam/subscriptions/1351428303?style=for-the-badge&logo=steam&label=Subscribers&color=1b2838" alt="Steam Subscriptions"></a>
+  <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303"><img src="https://img.shields.io/steam/favorites/1351428303?style=for-the-badge&logo=steam&label=Favourites&color=1b2838" alt="Steam Favourites"></a>
+  <a href="https://discord.gg/rB6yDDy"><img src="https://img.shields.io/discord/284725945921699840?style=for-the-badge&logo=discord&label=Discord&color=5865F2" alt="Discord"></a>
+  <a href="https://github.com/AH-64D-Apache-Official-Project/AH-64D/releases"><img src="https://img.shields.io/github/v/release/AH-64D-Apache-Official-Project/AH-64D?style=for-the-badge&logo=github&label=Latest+Release&color=238636" alt="Latest Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-APL--ND-red?style=for-the-badge" alt="License"></a>
+</p>
 
-This mod, initially developed by Franze and Nodunit for Arma 2, aims to bring as realistic an aviation experience as practicably possible to this game.
+<p align="center"><em>Originally developed by Franze & Nodunit for Arma 2 — brought to Arma 3 with their blessing in February 2017.</em></p>
 
-The primary features of the aircraft are:
+---
 
-* Fully clickable cockpit with an emphasis on core mission systems.
-* Realistic displays inspired by available documentation.
-* Augmented flight model.
-* Easy weapons & appearance customisation.
+**Key features:**
 
-## History
+- 🖱️ Fully clickable cockpit with an emphasis on core mission systems
+- 📺 Realistic displays inspired by available documentation
+- ✈️ Augmented flight model
+- 🔧 Easy weapons & appearance customisation
 
-This project is the official Arma 3 port of the legendary AH-64D Apache mod originally created by Franze & Nodunit for Arma 2. Launched in February 2017 with their blessing, this open-source initiative aims to deliver an unparalleled high-fidelity flight simulation experience within the Arma 3 engine. Built for sim-enthusiasts and real-life pilots, this repository represents the continued evolution of the "Official" branch following the transition from the original development team.
+---
 
-The 'Official' in the name is from when the original developers moved on, specifying that this branch-off of their work was the one that was the official port to Arma 3.
+## 📋 Table of Contents
 
-## Installation
+- [History](#-history)
+- <details><summary><a href="#-installation">Installation</a></summary>
 
-### Via Steam Workshop (Recommended)
+  - [Via Steam Workshop](#via-steam-workshop-recommended)
+  - [Via GitHub Releases](#via-github-releases)
+  - [From Source](#from-source-development-only)
 
-We recommend installing this mod through the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303). We do require [CBA](https://steamcommunity.com/workshop/filedetails/?id=450814997), but this mod should be automatically installed.
+  </details>
+- <details><summary><a href="#development-guide">Development Guide</a></summary>
 
-### Via Github Releases
+  - [Quick Start](#-quick-start)
+  - [Environment Setup](#environment-setup)
+  - [Building](#building)
+  - [Version Management](#version-management)
 
-To install via Github Releases, you must download a version from our [Releases Page](https://github.com/AH-64D-Apache-Official-Project/AH-64D/releases)
+  </details>
+- <details><summary><a href="#-player-support">Player Support</a></summary>
 
-From there, once it is unzipped, you can add `@AH-64D Apache Longbow` as a local mod through the [Arma 3 launcher](https://community.bistudio.com/wiki/Arma_3:_Launcher_-_Mod_Handling).
+  - [Bugs](#-bugs)
 
-Make sure you also have CBA, ACE & Hatchet Interaction Framework installed and active, as the launcher will not automatically handle this dependency when not installing through the workshop (It will remind you with an error if you forget).
+  </details>
+- [Contributing](#-contributing)
+- [License](#-license)
 
-### From Source (Development versions)
+---
 
-Use of these versions is at your own risk - these versions can be half-complete or intermediate versions that don't meet our standards for release. We recommend for anything other than development / testing to use the other two options.
+## 📖 History
 
-## Development Guide
+This project is the official Arma 3 port of the legendary AH-64D Apache mod originally created by Franze & Nodunit for Arma 2. Launched in February 2017 with their blessing, this open-source initiative aims to deliver an unparalleled high-fidelity flight simulation experience within the Arma 3 engine.
 
-### Environment Setup
+The *'Official'* in the name originates from when the original developers moved on, specifying that this branch was the official Arma 3 port of their work.
 
-A setup script is provided that automatically installs and configures all required tools:
+---
 
-**Requirements:** Windows 10 1709+ and an administrator PowerShell session.
+## 📦 Installation
 
-Run once after cloning the repository by double-clicking:
+### Via Steam Workshop *(Recommended)*
 
-```
-tools\Setup Development ENV.bat
-```
+[![Steam Workshop](https://img.shields.io/badge/Steam_Workshop-Install_Now-1b2838?style=for-the-badge&logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303)
 
-The script installs the following tools, trying multiple methods for each before falling back to manual instructions:
+Install through the Steam Workshop. Required dependencies will be listed by Arma on launch — the launcher will prompt you to install any that are missing.
+
+### Via GitHub Releases
+
+[![GitHub Releases](https://img.shields.io/badge/GitHub-Download_Release-238636?style=for-the-badge&logo=github)](https://github.com/AH-64D-Apache-Official-Project/AH-64D/releases)
+
+Download a release, unzip it, then add `@AH-64D Apache Longbow` as a local mod in the [Arma 3 launcher](https://community.bistudio.com/wiki/Arma_3:_Launcher_-_Mod_Handling).
+
+> [!IMPORTANT]
+> CBA, ACE, and Hatchet Interaction Framework must be installed and active. The launcher will not handle these dependencies automatically when installing outside the Workshop.
+
+### From Source *(Development only)*
+
+> [!WARNING]
+> Source builds may be incomplete or unstable. Use Steam Workshop or GitHub Releases for normal play.
+
+See the [Development Guide](#development-guide) below.
+
+---
+
+<details>
+<summary><h2 id="development-guide">🛠 Development Guide</h2></summary>
+
+### ⚡ Quick Start
+
+1. Clone the repository
+2. Run the setup script (admin PowerShell, Windows 10 1709+):
+   ```
+   tools\Setup Development ENV.bat
+   ```
+3. Open a new terminal, then build:
+   ```
+   scons
+   ```
+
+> [!TIP]
+> Run the setup script once after cloning and it handles everything else automatically.
+
+---
+
+<details>
+<summary><h3 id="environment-setup">🔧 Environment Setup</h3></summary>
+
+The setup script automatically installs and configures all required tools:
 
 | Tool | Purpose |
 |---|---|
@@ -62,96 +116,141 @@ The script installs the following tools, trying multiple methods for each before
 | pre-commit | Git hooks for code quality checks |
 | PyYAML | Config file parsing |
 | HEMTT | Mod builder and PBO packager |
-| Arma 3 Tools | Config binarizer (via Steam, App ID 233800) |
 
 Any tool that cannot be installed automatically will be listed at the end of the script output with a direct download URL.
 
-After setup completes, open a new terminal so that PATH changes take effect, then verify with:
-
+After setup, verify everything is on PATH:
 ```powershell
 git --version; python --version; scons --version; hemtt --version
 ```
 
-### Building
+</details>
 
-From the project root, run:
+---
 
-```
-scons
-```
+<details>
+<summary><h3 id="building">🔨 Building</h3></summary>
 
-This pre-binarizes configs (where needed), runs `hemtt build`, and places output in `.hemttout/build/`.
-
-### SCons Targets
-
-| Target | Description |
+| Command | Description |
 |---|---|
 | `scons` | Build all PBOs via HEMTT (default) |
-| `scons release` | Release build — signs PBOs, creates release archives, renames mod folder to `@fza_ah64_apache_longbow` |
-| `scons docs` | Generate NaturalDocs documentation + MFD index reference (`docs/other/mfdindices.html`) |
-| `scons symlinks` | Create NTFS junctions from the Arma 3 install into addon source folders (enables file patching) |
+| `scons release` | Release build — signs PBOs, creates archives, renames mod folder |
+| `scons docs` | Generate NaturalDocs documentation + MFD index reference |
+| `scons symlinks` | Create NTFS junctions into addon source folders (enables file patching) |
 | `scons rmsymlinks` | Remove the above junctions |
-| `scons -c` | Clean all build outputs (`.hemttout`, `releases`, `docs`, `buildTools`) |
-| `scons -c release` | Clean release outputs only (`.hemttout`, `releases`) |
+| `scons -c` | Clean all build outputs |
+| `scons -c release` | Clean release outputs only |
 
-### Build Pipeline
+`scons` and `scons release` are equivalent to running `hemtt build` / `hemtt release` directly. SCons is used for the additional targets above.
+
+<details>
+<summary>🔍 Build pipeline internals</summary>
 
 SCons is the top-level build orchestrator; PBO compilation is delegated to HEMTT.
 
-#### `scons` / `scons release`
-
 ```
 scons [release]
-│
-├─ CfgConvert pre-binarization  (addons with [rapify] enabled = false in addon.toml)
-│   ├─ Creates a temporary P: drive (subst) mapping each addon and include/ folder
-│   ├─ Runs CfgConvert.exe -bin to produce config.bin alongside config.cpp
-│   └─ Tears down the P: drive after binarization
-│
-├─ hemtt build / hemtt release
-│   ├─ Pre-build hook: version_files.rhai writes version.hpp into each addon
-│   ├─ Preprocessing: resolves #include, #define, __EVAL() macros
-│   ├─ Linting: static analysis on SQF and configs
-│   ├─ Rapify: binarizes config.cpp → config.bin (skipped where disabled)
-│   ├─ PBO packing → .hemttout/
-│   └─ (release only) Signing + zip archives in releases/
-│
-├─ (release only) Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
-├─ (release only) SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbow
-│
-└─ Cleanup: stale config.bin files removed
+└─ hemtt build / hemtt release
+    ├─ Pre-build hook: version_files.rhai writes version.hpp into each addon
+    ├─ Preprocessing: resolves #include, #define, __EVAL() macros
+    ├─ Linting: static analysis on SQF and configs
+    ├─ Rapify: binarizes config.cpp → config.bin (skipped where [rapify] disabled)
+    ├─ PBO packing → .hemttout/
+    └─ (release only) Signing + zip archives in releases/
+        ├─ Post-release hook: rename_zips.rhai renames fza_ah64-*.zip → ah64-*.zip
+        └─ SCons repackages zips: inner folder @fza_ah64 → @fza_ah64_apache_longbow
 ```
 
-### Troubleshooting
+</details>
 
-If `scons` can't find `hemtt`, ensure HEMTT is on your PATH and that you opened a new terminal after running setup.
+</details>
 
-If the release build fails with a CfgConvert error, ensure Arma 3 Tools is fully installed via Steam (App ID 233800) and that AddonBuilder has been launched at least once.
+---
 
-If you find any other errors, please ask the dev team in the AH-64D Official Project discord server.
+<details>
+<summary><h3 id="version-management">🏷️ Version Management</h3></summary>
 
-## Support
+The version is stored in `.hemtt/project.toml` under the `[version]` section (`major`, `minor`, `patch`, `build`).
 
-Learning this aircraft can be difficult, and you will need resources to help you do it. We recommend you take a look at the following areas to learn more about the aircraft:
+**Automatic local bumping**
 
-* Our [Discord server](https://discord.gg/rB6yDDy), in particular the `#faq` (Frequently Asked Questions) section.
-* Our [wiki](https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki), which stores long-form information about the aircraft and its systems
+After setup, a git post-commit hook automatically updates the version on every commit and folds the change into that same commit — no separate "bump" commit is created.
 
-### Bugs
+The default behaviour is `build += 1`. Include a keyword in your commit message to trigger a semantic bump:
 
-Should you find any bugs, please come and talk to us on discord. We would love to discuss the problem with you and ensure that your issue is indeed an issue with the mod. If after this you know it is a bug then please submit an issue on our [issues page](https://github.com/AH-64D-Apache-Official-Project/AH-64D/issues) with as much information as possible.
+| Commit message contains | Effect |
+|---|---|
+| `[minor]` | `minor += 1`, `patch = 0`, `build = 0` |
+| `[patch]` | `patch += 1`, `build = 0` |
+| *(nothing)* | `build += 1` |
 
-## Contributing
+```
+git commit -m "Refactor FCR sweep logic [patch]"
+```
 
-If you enjoy our mod and wish to give back to the project then we would love to have you on the team! Please come and join us on our discord server and talk to us as that is where the majority of our organisation is done.
+Manual edits to `minor` or `patch` in `project.toml` are also detected automatically — if the committed value is higher than the previous commit the hook resets downstream fields without needing a keyword.
 
-The main fields that we are looking for help in are as follows:
+`git commit --amend` is always skipped — the hook will never double-increment.
 
-* **Programmers** - People who are experienced with the SQF programming language, who would like to work on the systems programming in the aircraft.
-* **Artists** - We need people who can make textures and 3D models to work on the aircraft and additional content around it.
-* **Documentation writers** - We are trying to expand our wiki, and other content to help us better teach our players about the features we add.
-* **Testers** - We need people to test the new content we make, ensuring it all works as expected to the standards we expect.
+<details>
+<summary>🔀 Merge conflict resolution</summary>
 
-## Usage
+When two branches have diverged versions, a custom git merge driver resolves `.hemtt/project.toml` automatically:
 
-<a rel="license" href="https://www.bohemia.net/community/licenses/arma-public-license-nd" target="_blank" ><img src="https://data.bistudio.com/images/license/APL-ND.png" ><br>This work is licensed under the Arma Public License No Derivatives (APL-ND) </a>
+| Field | Strategy |
+|---|---|
+| `minor` | Additive: `ours + (theirs − base)` — if increased, `patch` and `build` reset to 0 |
+| `patch` | Additive: `ours + (theirs − base)` — if increased, `build` resets to 0 |
+| `build` | Additive: `ours + (theirs − base)` — only if no version boundary was crossed |
+
+The merge driver is registered in your local `.git/config` by the setup script and requires no manual intervention.
+
+A GitHub Actions workflow (`.github/workflows/bump_build.yml`) also increments `build` whenever a PR merges to `master` as a CI fallback — committing with `[skip ci]` to avoid re-triggering.
+
+</details>
+
+</details>
+
+</details>
+
+---
+
+## 🆘 Player Support
+
+Learning this aircraft can be difficult. The following resources will help:
+
+[![Discord](https://img.shields.io/badge/Discord-Join_Server-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/rB6yDDy)
+[![Wiki](https://img.shields.io/badge/GitHub_Wiki-Read_Guides-238636?style=for-the-badge&logo=github)](https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki)
+
+- **Discord** — check the `#faq` channel first for common questions
+- **Wiki** — long-form guides on aircraft systems and procedures
+
+### 🐛 Bugs
+
+> [!CAUTION]
+> Please confirm the issue on Discord before filing a report — many common issues are config or dependency problems, not bugs.
+
+Once confirmed, submit a report on the [Issues page](https://github.com/AH-64D-Apache-Official-Project/AH-64D/issues) with as much detail as possible.
+
+---
+
+## 🤝 Contributing
+
+We'd love to have you on the team!
+
+[![Discord](https://img.shields.io/badge/Discord-Talk_to_Us-5865F2?style=for-the-badge&logo=discord)](https://discord.gg/rB6yDDy)
+
+We're particularly looking for:
+
+| Role | Description |
+|---|---|
+| 💻 **Programmers** | SQF experience, working on aircraft systems |
+| 🎨 **Artists** | Textures and 3D models |
+| 📝 **Documentation writers** | Expanding the wiki and in-mod help |
+| 🧪 **Testers** | Verifying new features meet our quality bar |
+
+---
+
+## ⚖️ License
+
+<a rel="license" href="https://www.bohemia.net/community/licenses/arma-public-license-nd" target="_blank"><img src="https://data.bistudio.com/images/license/APL-ND.png"><br>This work is licensed under the Arma Public License No Derivatives (APL-ND)</a>

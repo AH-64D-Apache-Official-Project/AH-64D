@@ -1,0 +1,85 @@
+#!/bin/sh
+# Post-commit hook: bumps version fields in .hemtt/project.toml after every
+# local commit and amends that commit so the bump is part of it.
+#
+# Priority order:
+#   1. [minor] in commit msg      ->  minor += 1, patch = 0, build = 0
+#   2. [patch] in commit msg      ->  patch += 1, build = 0
+#   3. minor manually increased   ->  keep manual value, patch = 0, build = 0
+#   4. patch manually increased   ->  keep manual value, build = 0
+#   5. (none of the above)        ->  build += 1
+#
+# Skipped when:
+#   - The user manually runs `git commit --amend` (detected via reflog)
+#   - The hook's own internal amend fires post-commit (GIT_HOOKS_RUNNING guard)
+
+# Skip if this is a manual amend - we don't want to double-increment
+REFLOG_ACTION=$(git reflog -1 --format="%gs" 2>/dev/null)
+if echo "$REFLOG_ACTION" | grep -q "^commit (amend):"; then
+    exit 0
+fi
+
+PROJECT_TOML=".hemtt/project.toml"
+
+if [ ! -f "$PROJECT_TOML" ]; then
+    exit 0
+fi
+
+# Read values from the file as committed (HEAD = this commit)
+MINOR=$(grep -m1 '^minor = ' "$PROJECT_TOML" | sed 's/minor = //')
+PATCH=$(grep -m1 '^patch = ' "$PROJECT_TOML" | sed 's/patch = //')
+BUILD=$(grep -m1 '^build = ' "$PROJECT_TOML" | sed 's/build = //')
+
+if [ -z "$BUILD" ]; then
+    exit 0
+fi
+
+# Try to read previous commit's minor/patch for manual-bump detection
+PREV_MINOR=""
+PREV_PATCH=""
+if git rev-parse HEAD~1 >/dev/null 2>&1; then
+    PREV_CONTENT=$(git show HEAD~1:"$PROJECT_TOML" 2>/dev/null)
+    PREV_MINOR=$(echo "$PREV_CONTENT" | grep -m1 '^minor = ' | sed 's/minor = //')
+    PREV_PATCH=$(echo "$PREV_CONTENT" | grep -m1 '^patch = ' | sed 's/patch = //')
+fi
+
+# Read the last commit message to detect bump keywords
+COMMIT_MSG=$(git log -1 --format="%s" 2>/dev/null)
+
+case "$(echo "$COMMIT_MSG" | tr '[:upper:]' '[:lower:]')" in
+    *'[minor]'*)
+        NEW_MINOR=$((MINOR + 1))
+        sed -i "s/^minor = $MINOR$/minor = $NEW_MINOR/" "$PROJECT_TOML"
+        sed -i "s/^patch = $PATCH$/patch = 0/"         "$PROJECT_TOML"
+        sed -i "s/^build = $BUILD$/build = 0/"         "$PROJECT_TOML"
+        ;;
+    *'[patch]'*)
+        NEW_PATCH=$((PATCH + 1))
+        sed -i "s/^patch = $PATCH$/patch = $NEW_PATCH/" "$PROJECT_TOML"
+        sed -i "s/^build = $BUILD$/build = 0/"          "$PROJECT_TOML"
+        ;;
+    *)
+        # Detect manual bumps by comparing to the previous commit
+        if [ -n "$PREV_MINOR" ] && [ "$MINOR" -gt "$PREV_MINOR" ] 2>/dev/null; then
+            # Developer manually increased minor — reset downstream
+            sed -i "s/^patch = $PATCH$/patch = 0/" "$PROJECT_TOML"
+            sed -i "s/^build = $BUILD$/build = 0/" "$PROJECT_TOML"
+        elif [ -n "$PREV_PATCH" ] && [ "$PATCH" -gt "$PREV_PATCH" ] 2>/dev/null; then
+            # Developer manually increased patch — reset build
+            sed -i "s/^build = $BUILD$/build = 0/" "$PROJECT_TOML"
+        else
+            # Normal commit — bump build
+            NEW_BUILD=$((BUILD + 1))
+            sed -i "s/^build = $BUILD$/build = $NEW_BUILD/" "$PROJECT_TOML"
+        fi
+        ;;
+esac
+
+# Stage the change and amend the commit silently
+git add "$PROJECT_TOML"
+
+# GIT_HOOKS_RUNNING prevents recursive hook invocations
+if [ -z "$GIT_HOOKS_RUNNING" ]; then
+    export GIT_HOOKS_RUNNING=1
+    git commit --amend --no-edit --no-verify -q
+fi

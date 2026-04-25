@@ -1,0 +1,29 @@
+[lints.config]
+math_could_be_unquoted = false
+
+[lints.sqf]
+select_parse_number = false
+
+[lints.sqf.var_all_caps]
+options.ignore = [
+    "ACE_DEFAULT_LASER_WAVELENGTH",
+    "P", "Y", "R",
+    "PSI", "INPUT",
+]
+
+[lints.stringtables.usage]
+options.ignore = [
+    "str_fza_ah64_activate_keyboard_unit_toggle",
+    "str_fza_ah64_armament_panel",
+    "str_fza_ah64_door",
+    "str_fza_ah64_emergency_panel",
+    "str_fza_ah64_engine_panel",
+    "str_fza_ah64_fire_panel",
+    "str_fza_ah64_ihadss",
+    "str_fza_ah64_keyboard_unit",
+    "str_fza_ah64_lighting",
+    "str_fza_ah64_lmpd",
+    "str_fza_ah64_master_warning_caution_panel",
+    "str_fza_ah64_nvs",
+    "str_fza_ah64_rmpd",
+]

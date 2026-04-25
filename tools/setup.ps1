@@ -12,7 +12,6 @@
       - pre-commit   (git hooks,        via pip / Chocolatey)
       - PyYAML       (config lib,       via pip)
       - HEMTT        (mod builder,      via winget / GitHub release)
-      - Arma 3 Tools (config binarizer, via Steam App ID 233800)
 
     Each tool tries multiple install methods before giving up.
     Any tool that cannot be installed automatically is listed at the
@@ -124,15 +123,12 @@ function Try-Winget([string[]]$wingetArgs) {
 # Tracks tools that could not be installed - shown at end with manual URLs.
 $script:manualInstalls = [System.Collections.Generic.List[string]]::new()
 
-# Snapshot the PATH this process inherited (from Explorer's cached environment).
-# Compared against the registry at the end of the PATH audit to detect a stale
-# Explorer cache — the common cause of scons/hemtt not being found in VS Code
-# terminals even after setup has correctly written the registry.
-$script:inheritedPath = $env:PATH
+# Tracks tools that were updated during this run - shown in the update summary.
+$script:updates = [System.Collections.Generic.List[string]]::new()
 
-# Set to $true when Steam was opened to install Arma 3 Tools, so we can
-# prompt the user to re-run the script once the Steam install completes.
-$script:arma3ToolsInstalling = $false
+# Snapshot PATH at startup. Compared at the end to detect whether the registry
+# was updated during this run — if so, open terminals won't see the new tools.
+$script:pathRegistryUpdated = $false
 
 # Set to $true if the user opts in to checking for updates on an already-configured machine.
 $script:checkUpdates = $false
@@ -174,13 +170,20 @@ Write-Step "Checking Git..."
 
 if (Test-Command "git") {
     if ($script:checkUpdates) {
+        $gitverBefore = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
         Write-Host "    Checking for Git update..." -ForegroundColor DarkGray
         Try-Winget @("upgrade", "--id", "Git.Git", "--silent",
             "--accept-package-agreements", "--accept-source-agreements") | Out-Null
         Refresh-Path
+        $gitver = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
+        if ($gitver -ne $gitverBefore) {
+            Write-OK "Git updated: $gitver"
+            $script:updates.Add(("Git            {0,-20} ->  {1}" -f ([string]$gitverBefore).Trim(), ([string]$gitver).Trim()))
+        } else { Write-OK "Git up to date: $gitver" }
+    } else {
+        $gitver = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
+        Write-OK "Found: $gitver"
     }
-    $gitver = & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1
-    Write-OK "Found: $gitver"
 } else {
     # Method 1: winget
     Write-Host "    Trying winget (this may take a moment)..." -ForegroundColor DarkGray
@@ -250,8 +253,25 @@ if (Test-Command "git") {
 Write-Step "Checking Python 3..."
 
 if (Test-Python) {
-    $pyver = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
-    Write-OK "Found: $pyver"
+    if ($script:checkUpdates) {
+        $pyverBefore = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
+        Write-Host "    Checking for Python update..." -ForegroundColor DarkGray
+        # Detect the currently installed minor version and upgrade that specific package
+        $currentMinor = & { $ErrorActionPreference = "Continue"; python -c "import sys; print(sys.version_info.minor)" 2>&1 } | Select-Object -First 1
+        if ($currentMinor -match '^\d+$') {
+            Try-Winget @("upgrade", "--id", "Python.Python.3.$currentMinor", "--silent",
+                "--accept-package-agreements", "--accept-source-agreements") | Out-Null
+            Refresh-Path
+        }
+        $pyver = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
+        if ($pyver -ne $pyverBefore) {
+            Write-OK "Python updated: $pyver"
+            $script:updates.Add(("Python         {0,-20} ->  {1}" -f ([string]$pyverBefore).Trim(), ([string]$pyver).Trim()))
+        } else { Write-OK "Python up to date: $pyver" }
+    } else {
+        $pyver = & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1
+        Write-OK "Found: $pyver"
+    }
 } else {
     # Method 1: winget
     Write-Host "    Trying winget (this may take a moment)..." -ForegroundColor DarkGray
@@ -367,13 +387,16 @@ if (Test-Python) {
         $yamlCheck = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print('ok')" 2>&1 } | Select-Object -First 1
         if ($yamlCheck -ne 'ok') { $missing.Add("pyyaml") }
 
+        $sconsVerBefore = $null; $preCommitVerBefore = $null; $yamlVerBefore = $null
         if ($missing.Count -eq 0 -and -not $script:checkUpdates) {
-            Write-OK "pip packages already installed."
+            #Write-OK "pip packages already installed."
         } elseif ($missing.Count -eq 0 -and $script:checkUpdates) {
+            $sconsVerBefore    = & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1
+            $preCommitVerBefore= & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+            $yamlVerBefore     = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1
             Write-Host "    Checking for pip package updates..." -ForegroundColor DarkGray
             python -m pip install --upgrade pip --quiet
             python -m pip install --upgrade scons pre-commit pyyaml --quiet
-            Write-OK "pip packages up to date."
         } else {
             Write-Host "    Installing missing packages: $($missing -join ', ')..." -ForegroundColor DarkGray
             python -m ensurepip 2>&1 | Out-Null
@@ -383,7 +406,27 @@ if (Test-Python) {
             # on the User PATH, so scons/pre-commit will be found in any new terminal.
             # --user would put them in AppData\Roaming\...\Scripts which is NOT on User PATH.
             python -m pip install $missing --quiet 2>&1 | Out-Null
-            Write-OK "pip packages installed."
+        }
+        $sconsVer    = & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1
+        $preCommitVer= & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+        $yamlVer     = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1
+        if ($script:checkUpdates -and $missing.Count -eq 0) {
+            if ($sconsVer -ne $sconsVerBefore) {
+                Write-OK "scons updated:         $sconsVer"
+                $script:updates.Add(("SCons          {0,-20} ->  {1}" -f ([string]$sconsVerBefore).Trim(), ([string]$sconsVer).Trim()))
+            } else { Write-OK "scons up to date:      $sconsVer" }
+            if ($preCommitVer -ne $preCommitVerBefore) {
+                Write-OK "pre-commit updated:    $preCommitVer"
+                $script:updates.Add(("pre-commit     {0,-20} ->  {1}" -f ([string]$preCommitVerBefore).Trim(), ([string]$preCommitVer).Trim()))
+            } else { Write-OK "pre-commit up to date: $preCommitVer" }
+            if ($yamlVer -ne $yamlVerBefore) {
+                Write-OK "pyyaml updated:        $yamlVer"
+                $script:updates.Add(("PyYAML         {0,-20} ->  {1}" -f ([string]$yamlVerBefore).Trim(), ([string]$yamlVer).Trim()))
+            } else { Write-OK "pyyaml up to date:     $yamlVer" }
+        } else {
+            Write-OK "scons:      $sconsVer"
+            Write-OK "pre-commit: $preCommitVer"
+            Write-OK "pyyaml:     $yamlVer"
         }
     } catch {
         Write-Warn "pip install failed, retrying without --quiet..."
@@ -391,7 +434,12 @@ if (Test-Python) {
             $ErrorActionPreference = "Continue"
             python -m pip install --upgrade pip 2>&1 | Out-Null
             python -m pip install --upgrade scons pre-commit pyyaml
-            Write-OK "pip packages installed (retry succeeded)."
+            $sconsVer    = & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1
+            $preCommitVer= & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+            $yamlVer     = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1
+            Write-OK "scons:      $sconsVer"
+            Write-OK "pre-commit: $preCommitVer"
+            Write-OK "pyyaml:     $yamlVer"
         } catch {
             # Fallback: Chocolatey for scons and pre-commit (pyyaml has no choco package)
             Write-Warn "pip failed. Trying Chocolatey for scons and pre-commit..."
@@ -409,11 +457,38 @@ if (Test-Python) {
                     }
                     Refresh-Path
                     $pipFailed = $false
+                    if (Test-Command "scons") {
+                        $sconsVer = & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1
+                        Write-OK "scons:      $sconsVer"
+                    }
+                    if (Test-Command "pre-commit") {
+                        $preCommitVer = & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+                        Write-OK "pre-commit: $preCommitVer"
+                    }
                 } catch {
                     Write-Warn "Chocolatey threw an error: $_"
                 }
             } else {
                 Write-Host "    Chocolatey not found, skipping." -ForegroundColor DarkGray
+            }
+            # pyyaml has no Chocolatey package - retry pip for just pyyaml
+            $yamlCheck2 = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print('ok')" 2>&1 } | Select-Object -First 1
+            if ($yamlCheck2 -ne 'ok') {
+                Write-Host "    Retrying pip install for pyyaml..." -ForegroundColor DarkGray
+                try {
+                    $ErrorActionPreference = "Continue"
+                    python -m pip install pyyaml 2>&1 | Out-Null
+                    $yamlCheck3 = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print('ok')" 2>&1 } | Select-Object -First 1
+                    if ($yamlCheck3 -eq 'ok') {
+                        $yamlVer = & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1
+                        Write-OK "pyyaml:     $yamlVer"
+                    } else {
+                        throw "import yaml failed after install"
+                    }
+                } catch {
+                    Write-Fail "pyyaml: could not be installed automatically"
+                    $script:manualInstalls.Add("PyYAML     ->  pip install pyyaml       (https://pypi.org/project/PyYAML/)")
+                }
             }
             if ($pipFailed) {
                 Write-Fail "pip packages could not be installed: $_"
@@ -439,6 +514,7 @@ if (Test-Python) {
             if ($userPath -notlike "*$scriptsDir*") {
                 [System.Environment]::SetEnvironmentVariable("PATH", "$userPath;$scriptsDir", "User")
                 Write-Host "    Added Python Scripts to User PATH: $scriptsDir" -ForegroundColor DarkGray
+                $script:pathRegistryUpdated = $true
                 # Tell Explorer (and any process listening) that PATH changed so
                 # terminals opened after this point will inherit the new value.
                 Broadcast-EnvChange
@@ -452,9 +528,6 @@ if (Test-Python) {
     if (-not (Test-Command "scons")) {
         Write-Warn "'scons' not on PATH. A new terminal session is needed."
         $script:needsRestart = $true
-    } else {
-        $sconsver = & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1
-        Write-OK "SCons: $sconsver"
     }
 } else {
     Write-Warn "Skipping pip packages - Python is not available."
@@ -467,13 +540,20 @@ Write-Step "Checking HEMTT..."
 
 if (Test-Command "hemtt") {
     if ($script:checkUpdates) {
+        $hemttverBefore = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
         Write-Host "    Checking for HEMTT update..." -ForegroundColor DarkGray
         Try-Winget @("upgrade", "--id", "BrettMayson.HEMTT", "--silent",
             "--accept-package-agreements", "--accept-source-agreements") | Out-Null
         Refresh-Path
+        $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
+        if (([string]$hemttver).Trim() -ne ([string]$hemttverBefore).Trim()) {
+            Write-OK "HEMTT updated: $hemttver"
+            $script:updates.Add(("HEMTT          {0,-20} ->  {1}" -f ([string]$hemttverBefore).Trim(), ([string]$hemttver).Trim()))
+        } else { Write-OK "HEMTT up to date: $hemttver" }
+    } else {
+        $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
+        Write-OK "Found: $hemttver"
     }
-    $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
-    Write-OK "Found: $hemttver"
 } else {
     # Method 1: winget
     Write-Host "    Trying winget..." -ForegroundColor DarkGray
@@ -508,6 +588,7 @@ if (Test-Command "hemtt") {
             $userPath = [System.Environment]::GetEnvironmentVariable("PATH", "User")
             if ($userPath -notlike "*$installDir*") {
                 [System.Environment]::SetEnvironmentVariable("PATH", "$userPath;$installDir", "User")
+                $script:pathRegistryUpdated = $true
                 $env:PATH += ";$installDir"
             }
 
@@ -522,157 +603,6 @@ if (Test-Command "hemtt") {
             Write-Fail "GitHub download failed: $_"
             $script:manualInstalls.Add("HEMTT      ->  https://github.com/BrettMayson/HEMTT/releases")
         }
-    }
-}
-
-# ---------------------------------------------------------------------------
-# Arma 3 Tools (optional, needed for config binarization)
-# ---------------------------------------------------------------------------
-Write-Step "Checking Arma 3 Tools (required for config binarization)..."
-
-function Get-SteamLibraryRoots {
-    # Read all Steam library paths from libraryfolders.vdf
-    $steamConfigPaths = @(
-        "$env:ProgramFiles(x86)\Steam\steamapps\libraryfolders.vdf",
-        "$env:ProgramFiles\Steam\steamapps\libraryfolders.vdf"
-    )
-    # Also check registry for the Steam install path
-    try {
-        $reg = [Microsoft.Win32.Registry]::CurrentUser
-        $key = $reg.OpenSubKey("SOFTWARE\Valve\Steam")
-        if ($key) {
-            $steamPath = $key.GetValue("SteamPath")
-            $key.Close()
-            if ($steamPath) {
-                $steamConfigPaths += (Join-Path $steamPath "steamapps\libraryfolders.vdf")
-            }
-        }
-    } catch { }
-
-    $roots = [System.Collections.Generic.List[string]]::new()
-    foreach ($vdf in $steamConfigPaths) {
-        if (-not (Test-Path $vdf)) { continue }
-        # Parse "path" entries from the VDF - format: "path"  "D:\SteamLibrary"
-        Get-Content $vdf | Where-Object { $_ -match '"path"\s+"([^"]+)"' } | ForEach-Object {
-            $libPath = $Matches[1] -replace '\\\\', '\'
-            $steamapps = Join-Path $libPath "steamapps\common"
-            if (Test-Path $steamapps) { $roots.Add($steamapps) }
-        }
-    }
-    return $roots
-}
-
-function Get-Arma3ToolsStatus {
-    # Mirror exactly what SConstruct's arma3ToolsPath() does:
-    # Read the 'path' value from the registry, derive the tools root via dirname,
-    # and check it's a valid directory. SConstruct does not require CfgConvert.exe
-    # to exist — it only checks os.path.isdir(tools). Match that behaviour.
-    try {
-        $reg = [Microsoft.Win32.Registry]::LocalMachine
-        foreach ($keyPath in @(
-            "SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder",
-            "SOFTWARE\Bohemia Interactive\AddonBuilder"
-        )) {
-            $key = $reg.OpenSubKey($keyPath)
-            if ($key) {
-                $addonBuilderDirOrExe = $key.GetValue("path")
-                $key.Close()
-                if ($addonBuilderDirOrExe) {
-                    # SConstruct: tools = os.path.dirname(addon_builder_path)
-                    # dirname of a directory path returns its parent.
-                    $toolsRoot = Split-Path $addonBuilderDirOrExe -Parent
-                    if (Test-Path $toolsRoot -PathType Container) { return "Registered" }
-                }
-                # Key exists but 'path' value not yet written = AddonBuilder has never been run
-                break
-            }
-        }
-    } catch { }
-
-    # Check Steam library for AddonBuilder executable on disk
-    # (handles fresh install where AddonBuilder has never been run)
-    foreach ($root in (Get-SteamLibraryRoots)) {
-        $addonBuilderExe = Join-Path $root "Arma 3 Tools\AddonBuilder\AddonBuilder.exe"
-        if (Test-Path $addonBuilderExe) { return "Installed" }
-    }
-
-    return "NotFound"
-}
-
-$a3tStatus = Get-Arma3ToolsStatus
-
-if ($a3tStatus -eq "Registered") {
-    Write-OK "Arma 3 Tools found and registered."
-} elseif ($a3tStatus -eq "Installed") {
-    Write-Warn "Arma 3 Tools is installed but not yet registered."
-    Write-Host ""
-    Write-Host "    The registry entry that tells the build where CfgConvert is has not been written yet." -ForegroundColor Yellow
-    Write-Host "    This script can write it directly - no need to launch any tools manually." -ForegroundColor Yellow
-    Write-Host ""
-    $response = Read-Host "    Would you like to register Arma 3 Tools now? [Y/n]"
-    if ($response -eq '' -or $response -match '^[Yy]') {
-        $toolsFolder = Get-SteamLibraryRoots | ForEach-Object { Join-Path $_ "Arma 3 Tools" } | Where-Object { Test-Path (Join-Path $_ "AddonBuilder\AddonBuilder.exe") } | Select-Object -First 1
-        $addonBuilderDir = if ($toolsFolder) { Join-Path $toolsFolder "AddonBuilder" } else { $null }
-        if ($addonBuilderDir -and (Test-Path $addonBuilderDir)) {
-            # Write the registry values directly.
-            # HKLM\AddonBuilder is used by SConstruct (CfgConvert check).
-            # HKCU\binarize is used by HEMTT (binarize_x64.exe check).
-            try {
-                $reg = [Microsoft.Win32.Registry]::LocalMachine
-                $key = $reg.OpenSubKey("SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder", $true)
-                if (-not $key) {
-                    $key = $reg.CreateSubKey("SOFTWARE\Wow6432Node\Bohemia Interactive\AddonBuilder")
-                }
-                $key.SetValue("path", $addonBuilderDir)
-                $key.Close()
-
-                # HEMTT reads HKCU\Software\Bohemia Interactive\binarize -> path
-                # and checks for binarize_x64.exe in that folder.
-                $binarizeDir = Join-Path $toolsFolder "Binarize"
-                $hkcu = [Microsoft.Win32.Registry]::CurrentUser
-                $bKey = $hkcu.OpenSubKey("Software\Bohemia Interactive\binarize", $true)
-                if (-not $bKey) {
-                    $bKey = $hkcu.CreateSubKey("Software\Bohemia Interactive\binarize")
-                }
-                $bKey.SetValue("path", $binarizeDir)
-                $bKey.Close()
-
-                Write-Host "    Registry entries written (SConstruct + HEMTT)." -ForegroundColor DarkGray
-            } catch {
-                Write-Warn "Could not write registry: $_"
-            }
-            if ((Get-Arma3ToolsStatus) -eq "Registered") {
-                Write-OK "Arma 3 Tools registered successfully."
-            } else {
-                Write-Warn "Registration check failed - CfgConvert.exe may be missing from the Arma 3 Tools installation."
-                $script:arma3ToolsInstalling = $true
-                $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-            }
-        } else {
-            Write-Host "    Could not locate AddonBuilder folder in Steam libraries." -ForegroundColor Yellow
-            $script:arma3ToolsInstalling = $true
-            $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-        }
-    } else {
-        Write-Host "    Skipping. Open Arma 3 Tools from Steam before building." -ForegroundColor DarkGray
-        $script:manualInstalls.Add("Arma 3 Tools -> Open Arma 3 Tools from Steam to complete registration, then re-run this script")
-    }
-} else {
-    Write-Warn "Arma 3 Tools not found. This is required to binarize configs during the build."
-    Write-Host ""
-    Write-Host "    Arma 3 Tools is a free Steam application (App ID 233800)." -ForegroundColor Yellow
-    Write-Host "    Install it via Steam, then re-run this script." -ForegroundColor Yellow
-    Write-Host ""
-    $response = Read-Host "    Would you like to open the Steam install page now? [Y/n]"
-    if ($response -eq '' -or $response -match '^[Yy]') {
-        Write-Host "    Opening Steam install page for Arma 3 Tools..." -ForegroundColor DarkGray
-        Start-Process "steam://install/233800"
-        $script:arma3ToolsInstalling = $true
-        Write-Host "    Once Steam finishes installing, open Arma 3 Tools once, then re-run this script." -ForegroundColor Yellow
-    } else {
-        Write-Host "    Skipping. Install manually from:" -ForegroundColor DarkGray
-        Write-Host "    https://store.steampowered.com/app/233800/Arma_3_Tools/" -ForegroundColor Cyan
-        $script:manualInstalls.Add("Arma 3 Tools -> https://store.steampowered.com/app/233800/Arma_3_Tools/")
     }
 }
 
@@ -705,12 +635,33 @@ if (-not (Test-Path ".git")) {
         Write-Warn "pre-commit not found - skipping hook install. Re-run setup after opening a new terminal."
         $script:needsRestart = $true
     } elseif (Test-Path ".git\hooks\pre-commit") {
-        Write-OK "pre-commit hooks already installed."
+        if ($script:checkUpdates) {
+            Write-Host "    Running pre-commit autoupdate..." -ForegroundColor DarkGray
+            try {
+                $ErrorActionPreference = "Continue"
+                # Let autoupdate print its own per-hook lines (shows name + old->new version)
+                $autoupdateOut = & $preCommitExe autoupdate 2>&1
+                $autoupdateOut | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
+                $preCommitVer2 = & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+                # autoupdate prints "... -> ..." only when it actually bumps a version
+                if ($autoupdateOut -match '->') {
+                    Write-OK "pre-commit hooks updated ($preCommitVer2)"
+                } else {
+                    Write-OK "pre-commit hooks up to date ($preCommitVer2)"
+                }
+            } catch {
+                Write-Warn "pre-commit autoupdate failed: $_"
+            }
+        } else {
+            $preCommitVer2 = & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1
+            Write-OK "pre-commit hooks ($preCommitVer2)"
+        }
     } else {
         try {
             $ErrorActionPreference = "Continue"
             & $preCommitExe install
-            Write-OK "pre-commit hooks installed."
+            $preCommitVer2 = & { $ErrorActionPreference = "Continue"; & $preCommitExe --version 2>&1 } | Select-Object -First 1
+            Write-OK "pre-commit hooks installed ($preCommitVer2)"
         } catch {
             Write-Warn "pre-commit hook install failed: $_"
         }
@@ -718,160 +669,55 @@ if (-not (Test-Path ".git")) {
 }
 
 # ---------------------------------------------------------------------------
-# PATH audit — ensure every installed tool's directory is in User or Machine PATH
+# Git hooks path (.githooks/) and build-number merge driver
 # ---------------------------------------------------------------------------
-Write-Step "Auditing PATH..."
+Write-Step "Configuring git hooks and build-number merge driver..."
 
-$script:pathFixed = $false
-
-# Adds $dir to User PATH (HKCU) if it exists on disk but is absent from both
-# User PATH and Machine PATH. Also updates $env:PATH for this session.
-function Add-ToUserPath([string]$dir) {
-    if (-not $dir) { return }
-    $dir = $dir.TrimEnd('\')
-    if (-not (Test-Path $dir)) { return }
-    $machine = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
-    $user    = [System.Environment]::GetEnvironmentVariable("PATH", "User")
-    if (($machine + ";" + $user) -notlike "*$dir*") {
-        [System.Environment]::SetEnvironmentVariable("PATH", "$user;$dir", "User")
-        if ($env:PATH -notlike "*$dir*") { $env:PATH += ";$dir" }
-        Write-Host "    Fixed: added missing PATH entry: $dir" -ForegroundColor Yellow
-        $script:pathFixed = $true
-    }
-}
-
-# Python interpreter dir and Scripts dir (scons, pre-commit, pip live here)
-if (Test-Python) {
+if (-not (Test-Path ".git")) {
+    Write-Warn "No .git directory found - skipping git hooks configuration."
+} else {
+    # Point git at the repo's shared hooks folder
     try {
-        $pyExe = (Get-Command python -ErrorAction SilentlyContinue).Source
-        if ($pyExe) { Add-ToUserPath (Split-Path $pyExe -Parent) }
-        $scriptsDir = (& python -c "import sysconfig; print(sysconfig.get_path('scripts'))" 2>$null)
-        if ($scriptsDir) { Add-ToUserPath $scriptsDir.Trim() }
-    } catch { }
-    # Python Launcher (py.exe)
-    Add-ToUserPath "$env:LOCALAPPDATA\Programs\Python\Launcher"
-}
-
-# HEMTT — winget creates a symlink in WinGet\Links; GitHub fallback extracts to Programs\hemtt
-foreach ($hemttDir in @(
-    "$env:LOCALAPPDATA\Microsoft\WinGet\Links",
-    "$env:LOCALAPPDATA\Programs\hemtt"
-)) {
-    if (Test-Path (Join-Path $hemttDir "hemtt.exe")) {
-        Add-ToUserPath $hemttDir
-        break
+        $ErrorActionPreference = "Continue"
+        git config core.hooksPath .githooks
+        Write-OK "core.hooksPath set to .githooks"
+    } catch {
+        Write-Warn "Failed to set core.hooksPath: $_"
     }
-}
 
-# Git — its installer writes to Machine PATH; if git.exe exists on disk but
-# isn't on PATH yet, add the cmd dir to User PATH as a recovery step
-if (-not (Test-Command "git")) {
-    foreach ($gitDir in @(
-        "C:\Program Files\Git\cmd",
-        "C:\Program Files (x86)\Git\cmd"
-    )) {
-        if (Test-Path (Join-Path $gitDir "git.exe")) {
-            Add-ToUserPath $gitDir
-            break
+    # Ensure the post-commit hook and merge driver script are executable
+    # (required on Linux/macOS; harmless on Windows)
+    $hookFiles = @(".githooks/post-commit", ".githooks/merge-version-number.py")
+    foreach ($hookFile in $hookFiles) {
+        if (Test-Path $hookFile) {
+            try {
+                $ErrorActionPreference = "Continue"
+                $result = git update-index --chmod=+x $hookFile 2>&1
+                if ($LASTEXITCODE -ne 0) {
+                    # File not yet tracked - stage it first then set chmod
+                    git add $hookFile 2>&1 | Out-Null
+                    git update-index --chmod=+x $hookFile 2>&1 | Out-Null
+                }
+            } catch { }
         }
     }
-}
+    Write-OK "Hook files marked executable"
 
-# Remove stale entries (directories that no longer exist on disk) from Machine PATH.
-# This catches ghost entries left behind by uninstallers (e.g. C:\Python313\Scripts\
-# after Python 3.13 is removed) that silently shadow valid User PATH entries.
-try {
-    $rawMachine = [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
-    $cleanMachine = ($rawMachine -split ";") | Where-Object { -not $_ -or (Test-Path $_) }
-    $cleanMachineStr = $cleanMachine -join ";"
-    if ($cleanMachineStr -ne $rawMachine) {
-        [System.Environment]::SetEnvironmentVariable("PATH", $cleanMachineStr, "Machine")
-        Write-Host "    Fixed: removed stale entries from Machine PATH" -ForegroundColor Yellow
-        $script:pathFixed = $true
-    }
-} catch {
-    Write-Warn "Could not clean Machine PATH: $_"
-}
-
-if ($script:pathFixed) {
-    Broadcast-EnvChange
-    Refresh-Path
-    Write-OK "PATH corrections applied."
-}
-
-# Check whether Explorer's cached PATH (inherited by this process at launch)
-# matches the current registry. A mismatch means Explorer is holding a stale
-# snapshot — VS Code and any app launched from the taskbar will not see the
-# correct tools until Explorer is restarted.
-$registryPath = [System.Environment]::GetEnvironmentVariable("PATH","Machine") + ";" +
-                [System.Environment]::GetEnvironmentVariable("PATH","User")
-$inheritedEntries = ($script:inheritedPath -split ";" | Where-Object { $_ } | Sort-Object)
-$registryEntries  = ($registryPath         -split ";" | Where-Object { $_ } | Sort-Object)
-$explorerStale    = (Compare-Object $inheritedEntries $registryEntries) -ne $null
-
-if ($explorerStale) {
-    Write-Host ""
-    Write-Host "    Explorer's PATH cache is out of date. Apps launched from the" -ForegroundColor Yellow
-    Write-Host "    taskbar (VS Code, Windows Terminal, etc.) won't see the correct" -ForegroundColor Yellow
-    Write-Host "    tools until Explorer is restarted." -ForegroundColor Yellow
-
-    # Warn about apps that will still carry a stale PATH even after Explorer
-    # restarts — because they were already running and won't re-inherit.
-    # The user must close and reopen them manually after the Explorer restart.
-    $staleLaunchedApps = @(
-        @{ Process = "GitHubDesktop";  Label = "GitHub Desktop" },
-        @{ Process = "Code";           Label = "VS Code" },
-        @{ Process = "WindowsTerminal";Label = "Windows Terminal" },
-        @{ Process = "rider64";        Label = "JetBrains Rider" },
-        @{ Process = "clion64";        Label = "CLion" },
-        @{ Process = "idea64";         Label = "IntelliJ IDEA" },
-        @{ Process = "pycharm64";      Label = "PyCharm" },
-        @{ Process = "webstorm64";     Label = "WebStorm" },
-        @{ Process = "goland64";       Label = "GoLand" },
-        @{ Process = "devenv";         Label = "Visual Studio" },
-        @{ Process = "eclipse";        Label = "Eclipse" },
-        @{ Process = "sublime_text";   Label = "Sublime Text" },
-        @{ Process = "atom";           Label = "Atom" },
-        @{ Process = "notepad++";      Label = "Notepad++" },
-        @{ Process = "ConEmu64";       Label = "ConEmu" },
-        @{ Process = "Cmder";          Label = "Cmder" },
-        @{ Process = "cmd";            Label = "Command Prompt (any open windows)" },
-        @{ Process = "powershell";     Label = "PowerShell (any open windows)" },
-        @{ Process = "pwsh";           Label = "PowerShell 7 (any open windows)" }
-    ) | Where-Object { Get-Process -Name $_.Process -ErrorAction SilentlyContinue }
-
-    if ($staleLaunchedApps) {
-        Write-Host ""
-        Write-Host "    The following apps are currently open. They each hold their own" -ForegroundColor Yellow
-        Write-Host "    copy of the old PATH and must be closed and reopened after the" -ForegroundColor Yellow
-        Write-Host "    Explorer restart to pick up the correct tools:" -ForegroundColor Yellow
-        foreach ($app in $staleLaunchedApps) {
-            Write-Host "      - $($app.Label)" -ForegroundColor Yellow
+    # Register the build-number merge driver in the local git config.
+    # The logic lives in .githooks/merge-version-number.py — keeping the config
+    # value as a simple one-liner avoids PowerShell quoting issues entirely.
+    try {
+        $ErrorActionPreference = "Continue"
+        git config merge.version-number-merge.name   "Version field auto-merge (minor/patch/build)"
+        git config merge.version-number-merge.driver "python .githooks/merge-version-number.py %O %A %B"
+        if ($LASTEXITCODE -eq 0) {
+            Write-OK "version-number-merge driver registered"
+        } else {
+            Write-Warn "git config for merge driver returned non-zero exit code"
         }
+    } catch {
+        Write-Warn "Failed to register merge driver: $_"
     }
-
-    Write-Host ""
-    $restartExplorer = Read-Host "    Restart Explorer now? [Y/n]"
-    if ($restartExplorer -eq '' -or $restartExplorer -match '^[Yy]') {
-        Write-Host "    Restarting Explorer..." -ForegroundColor DarkGray
-        Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
-        Start-Sleep -Milliseconds 1500
-        Start-Process explorer
-        Write-Host ""
-        Write-Host "    Explorer restarted. Close and reopen all terminals and apps" -ForegroundColor Green
-        Write-Host "    to pick up the updated PATH." -ForegroundColor Green
-        if ($staleLaunchedApps) {
-            Write-Host "    These were detected as open:" -ForegroundColor Green
-            foreach ($app in $staleLaunchedApps) {
-                Write-Host "      - $($app.Label)" -ForegroundColor Green
-            }
-        }
-    } else {
-        Write-Warn "Explorer not restarted. Reboot or reopen affected apps manually to apply PATH changes."
-        $script:needsRestart = $true
-    }
-} elseif (-not $script:pathFixed) {
-    Write-OK "All PATH entries are correct."
 }
 
 # ---------------------------------------------------------------------------
@@ -888,9 +734,9 @@ $checks = @(
     @{ Name = "git";           Ver = { & { $ErrorActionPreference = "Continue"; git --version 2>&1 } | Select-Object -First 1 } },
     @{ Name = "python";        Ver = { & { $ErrorActionPreference = "Continue"; python --version 2>&1 } | Select-Object -First 1 } },
     @{ Name = "scons";         Ver = { & { $ErrorActionPreference = "Continue"; scons --version 2>&1 } | Select-Object -First 1 } },
-    @{ Name = "hemtt";         Ver = { & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1 } },
     @{ Name = "pre-commit";    Ver = { & { $ErrorActionPreference = "Continue"; pre-commit --version 2>&1 } | Select-Object -First 1 } },
-    @{ Name = "Arma 3 Tools";  Ver = { "Steam App ID 233800 (registered)" }; Check = { (Get-Arma3ToolsStatus) -eq "Registered" } }
+    @{ Name = "pyyaml";        Ver = { & { $ErrorActionPreference = "Continue"; python -c "import yaml; print(yaml.__version__)" 2>&1 } | Select-Object -First 1 }; Check = { (& { $ErrorActionPreference = "Continue"; python -c "import yaml; print('ok')" 2>&1 } | Select-Object -First 1) -eq 'ok' } },
+    @{ Name = "hemtt";         Ver = { & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1 } }
 )
 
 foreach ($check in $checks) {
@@ -898,25 +744,34 @@ foreach ($check in $checks) {
     if ($found) {
         $ver = & $check.Ver
         Write-Host ("  [OK]   {0,-14} {1}" -f $check.Name, $ver) -ForegroundColor Green
-    } elseif ($check.Name -eq "Arma 3 Tools" -and $script:arma3ToolsInstalling) {
-        Write-Host ("  [WAIT] {0,-14} Registration pending - re-run this script to confirm" -f $check.Name) -ForegroundColor Cyan
-        $allOk = $false
-    } elseif ($check.Name -eq "Arma 3 Tools" -and (Get-Arma3ToolsStatus) -eq "Installed") {
-        Write-Host ("  [WARN] {0,-14} Installed but never launched - run AddonBuilder.exe once" -f $check.Name) -ForegroundColor Yellow
-        $allOk = $false
     } else {
         Write-Host ("  [FAIL] {0,-14} NOT FOUND" -f $check.Name) -ForegroundColor Red
         $allOk = $false
     }
 }
 
+if ($script:updates.Count -gt 0) {
+    Write-Host ""
+    Write-Host "================================================================" -ForegroundColor Cyan
+    Write-Host "  Updates applied this run" -ForegroundColor Cyan
+    Write-Host "================================================================" -ForegroundColor Cyan
+    foreach ($entry in $script:updates) {
+        Write-Host ("  {0}" -f $entry) -ForegroundColor Cyan
+    }
+} elseif ($script:checkUpdates) {
+    Write-Host ""
+    Write-Host "================================================================" -ForegroundColor DarkGray
+    Write-Host "  No updates found - all tools are already up to date." -ForegroundColor DarkGray
+    Write-Host "================================================================" -ForegroundColor DarkGray
+}
+
 Write-Host ""
 if ($allOk -and $script:manualInstalls.Count -eq 0) {
-    Write-Host "================================================================" -ForegroundColor Green
-    Write-Host "  All tools verified. You are ready to build!" -ForegroundColor Green
-    Write-Host "  Run:  scons" -ForegroundColor Green
-    Write-Host "  See 'Development Build Commands.txt' for the full command reference." -ForegroundColor Green
-    Write-Host "================================================================" -ForegroundColor Green
+    Write-Host "================================================================" -ForegroundColor Magenta
+    Write-Host "  All tools verified. You are ready to build!" -ForegroundColor Magenta
+    Write-Host "  Run:  scons" -ForegroundColor Magenta
+    Write-Host "  See 'Development Build Commands.txt' for the full command reference." -ForegroundColor Magenta
+    Write-Host "================================================================" -ForegroundColor Magenta
 } else {
     Write-Host "================================================================" -ForegroundColor Yellow
     Write-Host "  Setup finished with issues." -ForegroundColor Yellow
@@ -932,18 +787,20 @@ if ($allOk -and $script:manualInstalls.Count -eq 0) {
     Write-Host ""
     Write-Host "  If a tool shows [FAIL] but you just installed it, close" -ForegroundColor Yellow
     Write-Host "  this window, open a new terminal, and re-run the script." -ForegroundColor Yellow
-    if ($script:arma3ToolsInstalling) {
-        Write-Host ""
-        Write-Host "  NOTE: Steam was opened to install Arma 3 Tools." -ForegroundColor Cyan
-        Write-Host "  Once Steam finishes the download, run the setup again to verify:" -ForegroundColor Cyan
-        Write-Host "  tools\Setup Development ENV.bat" -ForegroundColor Cyan
-    }
     Write-Host "================================================================" -ForegroundColor Yellow
 }
 
 # Broadcast final PATH state to Explorer so any terminal opened after this
 # point inherits the complete updated PATH without requiring a full logout.
 Broadcast-EnvChange
+
+# Warn if PATH was changed during this run — open terminals won't see the new entries.
+if ($script:pathRegistryUpdated) {
+    Write-Host ""
+    Write-Host "  PATH was updated during this run." -ForegroundColor Yellow
+    Write-Host "  Close all open terminals (e.g. VS Code, Windows Terminal, git) and" -ForegroundColor Yellow
+    Write-Host "  open a new one before running scons or hemtt." -ForegroundColor Yellow
+}
 
 # ---------------------------------------------------------------------------
 # Offer to relaunch in a fresh terminal if PATH changes require it
@@ -960,23 +817,4 @@ if ($script:needsRestart) {
         Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -NoExit -File `"$PSCommandPath`" -SkipUpdateCheck" -Verb RunAs
         Stop-Process -Id $PID
     }
-}
-
-if ($script:arma3ToolsInstalling) {
-    Write-Host ""
-    Write-Host "  Waiting for Arma 3 Tools to be installed..." -ForegroundColor Cyan
-    Write-Host "  Install it via Steam, then press Enter to re-verify." -ForegroundColor Cyan
-
-    $a3tFound = $false
-    while (-not $a3tFound) {
-        Read-Host "  Press Enter once Arma 3 Tools is installed"
-        $a3tFound = (Get-Arma3ToolsStatus) -ne "NotFound"
-        if (-not $a3tFound) {
-            Write-Host "  Still not detected. Make sure Steam has finished installing." -ForegroundColor Yellow
-        }
-    }
-
-    Write-Host "  Arma 3 Tools detected! Relaunching setup to complete registration..." -ForegroundColor Green
-    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -NoExit -File `"$PSCommandPath`" -SkipUpdateCheck" -Verb RunAs
-    Stop-Process -Id $PID
 }

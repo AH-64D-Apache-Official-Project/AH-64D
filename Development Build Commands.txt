@@ -7,9 +7,8 @@
 --------------------------------------------------------------------------------
 
   scons                   Default — same as "scons all"
-  scons all               CfgConvert pre-binarize -> hemtt build -> cleanup
-  scons release           CfgConvert pre-binarize -> hemtt release (signs,
-                            archives) -> rename zips -> cleanup
+  scons all               hemtt build
+  scons release           hemtt release (signs, archives) -> rename zips
   scons docs              Generate NaturalDocs + MFD documentation into docs/
   scons symlinks          Create Arma 3 junction links for each addon
                             (enables file patching in-game)
@@ -18,9 +17,6 @@
   scons -c release        Clean: remove releases/ and .hemttout/ only
   scons -h                Show all target descriptions
 
-  NOTE: scons all / scons release include CfgConvert pre-binarization for
-  addons with [rapify] enabled = false (currently: fza_ah64_mpd).
-  Running hemtt directly bypasses this step.
 
 --------------------------------------------------------------------------------
   HEMTT CHECK
@@ -71,10 +67,6 @@
 
   Full release build — signs PBOs, creates bikey, produces zips in releases/.
   The post_release hook renames fza_ah64-*.zip -> ah64-*.zip automatically.
-
-  NOTE: Prefer "scons release" over "hemtt release" — SCons pre-binarizes the
-  fza_ah64_mpd config.cpp with CfgConvert before packing, producing a proper
-  config.bin in the PBO. Running hemtt release directly skips this step.
 
   hemtt release
   hemtt release --no-archive          Skip zip creation
