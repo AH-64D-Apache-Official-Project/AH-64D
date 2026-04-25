@@ -72,22 +72,3 @@ if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShow
         createDialog "RscFzaDisplayWelcome";
     };
 };
-
-//Fixes pylons that went onto the wrong turret (pilot, rather than gunner)
-if (local _heli) then { 
-    { 
-        _x params ["_pylId", "", "_pylTurr", "_pylMag", "_pylAmmo"]; 
-        if (_pylTurr isNotEqualTo [0]) then { 
-            _wep = configFile >> "CfgMagazines" >> _pylMag >> "pylonWeapon";
-            if (isText _wep) then {
-                [[_heli, getText _wep, _pylTurr], { 
-                    params["_heli", "_weapon", "_turret"]; 
-                    
-                    _heli removeWeaponTurret [_weapon, _turret] 
-                }] remoteExec ["call", [driver _heli, _heli] select (isNull driver _heli)];
-            };
-            _heli setPylonLoadout [_pylId, _pylMag, true, [0]]; 
-            _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
-        }; 
-    } forEach getAllPylonsInfo _heli; 
-};

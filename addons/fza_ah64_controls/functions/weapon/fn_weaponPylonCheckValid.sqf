@@ -21,8 +21,24 @@ Author:
 ---------------------------------------------------------------------------- */
 #define ANY(_arr, _pred) (( _arr ) findIf ( _pred ) != -1)
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
-
 params["_heli"];
+
+//ensure the pylons are loaded on the gunner
+if (local _heli) then { 
+    { 
+        _x params ["_pylId", "", "_pylTurr", "_pylMag", "_pylAmmo"]; 
+        if (_pylTurr isNotEqualTo [0]) then { 
+            systemChat "Apache Pylon Issue: The pylons must be loaded from the gunner position, not the pilot. Attempting to move pylons to gunner...";
+            [[_heli, _pylId, _pylMag, _pylAmmo], { 
+                params["_heli", "_pylId", "_pylMag", "_pylAmmo"]; 
+
+                _heli setPylonLoadout [_pylId, _pylMag, true, [0]]; 
+                _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
+            }] remoteExec ["call", crew _heli];
+        }; 
+    } foreach getAllPylonsInfo _heli;
+};
+
 _mags = getPylonMagazines _heli;
 _magTypes = _mags apply {WEP_TYPE(_x)};
 
