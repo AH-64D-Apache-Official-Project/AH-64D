@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_init.sqf",{510:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Initialize public variables on mission startup To set up information accessible by all crew members</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_init.sqf",{514:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Initialize public variables on mission startup To set up information accessible by all crew members</div></div>"});

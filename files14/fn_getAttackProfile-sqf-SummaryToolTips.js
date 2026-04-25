@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File14:fn_getAttackProfile.sqf",{296:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">grabs the ace name for the current attack mode.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File14:fn_getAttackProfile.sqf",{298:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">grabs the ace name for the current attack mode.</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:fx/fn_fxMuzzle.sqf",{392:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Runs the script in the &quot;muzzleEffect&quot; property of the ammo config. Used for launch / firing effects</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:fx/fn_fxMuzzle.sqf",{398:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Runs the script in the &quot;muzzleEffect&quot; property of the ammo config. Used for launch / firing effects</div></div>"});

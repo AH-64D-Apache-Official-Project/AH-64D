@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fn_isNAN.sqf",{142:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false if a value is not a number</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:fn_isNAN.sqf",{144:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false if a value is not a number</div></div>"});
