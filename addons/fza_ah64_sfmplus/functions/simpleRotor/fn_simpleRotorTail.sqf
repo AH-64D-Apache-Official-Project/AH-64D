@@ -100,7 +100,7 @@ private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModel
 if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
-private _velYZ                     = vectorMagnitude [_velY + _velWindY, _velZ];
+private _velYZ                     = vectorMagnitude [_velY + _velWindY, _velZ] min VEL_VNE;
 private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;

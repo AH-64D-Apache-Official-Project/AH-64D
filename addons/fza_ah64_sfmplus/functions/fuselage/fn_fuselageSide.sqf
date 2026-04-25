@@ -65,7 +65,7 @@ for "_i" from 0 to (_count - 1) do {
 
 	private _relWindX    	  = _velModelSpace select 0;
 	private _relWindY    	  = _velModelSpace select 1;
-	private _locRelWindX      = (_angVelModelSpace select 2) * (vectorMagnitude _deltaPos);
+	private _locRelWindX      = (_angVelModelSpace select 2) * (_deltaPos select 1);
 
 	private _relWind		  = [_relWindX + _locRelWindX, _relWindY, 0.0];
 
@@ -80,7 +80,7 @@ for "_i" from 0 to (_count - 1) do {
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
     private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
-    private _v            = vectorMagnitude _relWind;
+    private _v            = (vectorMagnitude _relWind) min VEL_VNE;
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
     //Drag coefficient
