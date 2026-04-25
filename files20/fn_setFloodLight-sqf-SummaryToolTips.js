@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File20:fn_setFloodLight.sqf",{254:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the cockpit light to the correct state</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File20:fn_setFloodLight.sqf",{248:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the cockpit light to the correct state</div></div>"});

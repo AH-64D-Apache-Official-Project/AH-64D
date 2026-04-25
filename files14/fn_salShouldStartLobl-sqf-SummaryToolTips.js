@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File14:fn_salShouldStartLobl.sqf",{308:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines whether a SAL missile should start in LOBL (can see valid laser energy)</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File14:fn_salShouldStartLobl.sqf",{306:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines whether a SAL missile should start in LOBL (can see valid laser energy)</div></div>"});

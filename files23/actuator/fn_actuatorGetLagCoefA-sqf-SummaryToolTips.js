@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:actuator/fn_actuatorGetLagCoefA.sqf",{104:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sourced from JSBSim.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:actuator/fn_actuatorGetLagCoefA.sqf",{106:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sourced from JSBSim.</div></div>"});

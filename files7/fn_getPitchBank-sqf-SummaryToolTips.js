@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:fn_getPitchBank.sqf",{422:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets pitch bank of an object</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:fn_getPitchBank.sqf",{424:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets pitch bank of an object</div></div>"});
