@@ -414,7 +414,6 @@ if (cameraView == "INTERNAL") then {
     };
     //Camera shake effect 130kts to 140kts
     private _vel2d = (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS;
-    systemChat format ["test! 3"];
     if (_vel2d >= 66.87 && _vel2d < 72.02) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
