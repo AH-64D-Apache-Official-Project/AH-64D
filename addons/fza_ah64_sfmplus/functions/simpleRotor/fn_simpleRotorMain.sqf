@@ -413,7 +413,9 @@ if (cameraView == "INTERNAL") then {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };
     //Camera shake effect 130kts to 140kts
-    if (_velXY >= 66.87 && _velXY < 72.02) then {
+    private _vel2d = (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS;
+    systemChat format ["test! 3"];
+    if (_vel2d >= 66.87 && _vel2d < 72.02) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
         addCamShake       [2.5, 1, 5];
@@ -425,7 +427,7 @@ if (cameraView == "INTERNAL") then {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };
     //Camera shake effect 140kts to 150kts
-    if (_velXY >= 72.02 && _velXY < 77.16) then {
+    if (_vel2d >= 72.02 && _vel2d < 77.16) then {
             enableCamShake true;
             setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
             addCamShake       [3, 1, 5.5];
@@ -437,7 +439,7 @@ if (cameraView == "INTERNAL") then {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };
     //Camera shake effect 150kts to 160kts
-    if (_velXY >= 77.16 && _velXY < 82.30) then {
+    if (_vel2d >= 77.16 && _vel2d < 82.30) then {
             enableCamShake true;
             setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
             addCamShake       [3.5, 1, 6.0];
@@ -449,7 +451,7 @@ if (cameraView == "INTERNAL") then {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };   
     //Camera shake effect >160kts
-    if (_velXY >= 82.30) then {
+    if (_vel2d >= 82.30) then {
             enableCamShake true;
             setCamShakeParams [0.0, 1.0, 0.0, 2.0, true];
             addCamShake       [4.0, 1, 6.5];
