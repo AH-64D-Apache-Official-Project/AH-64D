@@ -20,10 +20,12 @@ params ["_heli", "_deltaTime"];
 #define INPUT_MAX 10.0
 
 if !(_heli getVariable "fza_ah64_LmcActive") exitWith {
-    _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
-    _heli setVariable ["fza_ah64_lmcStartRange", -1];
-    _heli setVariable ["fza_ah64_lmcRange", 3000];
-    _heli setVariable ["fza_ah64_lmcPosition", []];
+    _heli setVariable ["fza_ah64_lmcPrevInputs",  [0, 0]];
+    _heli setVariable ["fza_ah64_lmcStartRange",   -1];
+    _heli setVariable ["fza_ah64_lmcRange",        3000];
+    _heli setVariable ["fza_ah64_lmcPosition",     []];
+    _heli setVariable ["fza_ah64_lmcPrevPosition", []];
+    _heli setVariable ["fza_ah64_lmcVelocity",     [0,0,0]];
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
@@ -106,6 +108,13 @@ _m = matrixTranspose [_vX, _vY, _vZ];
 
 _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
-_heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
+
+// Finite-difference velocity estimate — used by ballistic computer for target lead
+private _prevLmcPos = _heli getVariable ["fza_ah64_lmcPrevPosition", []];
+if (!(_prevLmcPos isEqualTo []) && _deltaTime > 0) then {
+    _heli setVariable ["fza_ah64_lmcVelocity", (_lmcPosition vectorDiff _prevLmcPos) vectorMultiply (1 / _deltaTime)];
+};
+_heli setVariable ["fza_ah64_lmcPrevPosition", _lmcPosition];
+_heli setVariable ["fza_ah64_lmcPosition",     _lmcPosition];
 
 _heli lockCameraTo [_lmcPosition, [0], true];

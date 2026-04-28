@@ -28,7 +28,6 @@ while {true} do {
     if (!(_heli getVariable "fza_ah64_armSafeArmed"))                                     exitWith {};
     if (inputAction "defaultAction" < 0.5)                                                exitWith {};
 
-    // Fire once acquisition hold time has elapsed
     if (_launchTime + 1 < CBA_missionTime) exitWith {
         if (local _heli) then {
             [_heli, _selectedMissile] call BIS_fnc_fire;

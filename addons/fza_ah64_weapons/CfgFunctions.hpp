@@ -20,6 +20,12 @@ class CfgFunctions
             class pylonController {R;};
             class sightData {R;};
         };
+        class ballistics {
+            file = "\fza_ah64_weapons\functions\ballistics";
+            class ballisticComputer {R;};
+            class calculateElevationAngle {R;};
+            class calculateRange {R;};
+        };
         class cannon {
             file = "\fza_ah64_weapons\functions\cannon";
             class cannonPylonController {R;};

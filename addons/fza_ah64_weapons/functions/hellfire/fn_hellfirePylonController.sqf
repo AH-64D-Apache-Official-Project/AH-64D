@@ -22,11 +22,8 @@ params ["_heli"];
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 #define SCALE_METERS_FEET 3.28084
 
-// Only the machine that owns the vehicle drives the pylons
 if !(local _heli) exitWith {};
 
-// The seat with WAS_WEAPON_MSL drives the pylons; CPG takes precedence.
-// When neither seat has MSL selected, _was = NONE so pylons hold their stow position.
 private _authSeat = [_heli, WAS_WEAPON_MSL] call fza_weapons_fnc_getWasSeat;
 private _was      = [WAS_WEAPON_NONE, WAS_WEAPON_MSL] select (_authSeat != "");
 private _sight    = if (_authSeat != "") then { [_heli, "fza_ah64_sight", _authSeat] call fza_fnc_getSeatVariable } else { SIGHT_HMD };

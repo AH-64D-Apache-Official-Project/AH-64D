@@ -5,7 +5,7 @@ class CfgMagazines {
         displayName = "$STR_FZA_AH64_30MM_HEDP";
         ammo = "fza_30x113";
         count = 300;
-        initSpeed = 1620;
+        initSpeed = 805;
         tracersevery = 0;
         weight = 104.8;
     };

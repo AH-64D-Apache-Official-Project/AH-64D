@@ -64,6 +64,14 @@ switch (_sight) do {
         private _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _worldTargetPos    = _camPosASL vectorAdd (([_heli, "TADS"] call fza_sights_fnc_targetingAcqVec) vectorMultiply 50000);
         _targPos           = terrainIntersectAtASL [_camPosASL, _worldTargetPos];
+
+        if (_heli getVariable "fza_ah64_LmcActive") then {
+            private _lmcPos = _heli getVariable ["fza_ah64_lmcPosition", []];
+            if !(_lmcPos isEqualTo []) then {
+                _targPos = _lmcPos;
+                _targVel = _heli getVariable ["fza_ah64_lmcVelocity", [0,0,0]];
+            };
+        };
     };
     case SIGHT_FXD: {
         _cameraTarget = _heli modelToWorldVisual [0, 1000, 0];

@@ -41,17 +41,25 @@ if (_weapon == "fza_ah64_trigger") exitWith {
 // M230: redirect bullet to animated cannon barrel (turret aims at TADS)
 // -----------------------------------------------------------------------
 if (_weapon isKindOf ["fza_m230", configFile >> "CfgWeapons"] && local _missobj) then {
-    private _muzzlePosWorld = _heli modelToWorldVisualWorld (_heli selectionPosition "Usti hlavne");
-    private _authSeat = [_heli, WAS_WEAPON_GUN] call fza_weapons_fnc_getWasSeat;
-    private _tPos     = (_heli getVariable ["fza_ah64_sightData_" + _authSeat, [[0,0,0],[0,0,0],0,""]]) # 0;
-    private _barrelDir = if !(_tPos isEqualTo [0,0,0]) then {
-        vectorNormalized (_tPos vectorDiff _muzzlePosWorld)
-    } else {
-        private _konecPosWorld = _heli modelToWorldVisualWorld (_heli selectionPosition "Konec hlavne");
-        vectorNormalized (_muzzlePosWorld vectorDiff _konecPosWorld)
+    // Barrel positions are cached each draw3D frame by fn_cannonPylonController
+    // (selectionPosition is unreliable during a Fired EH — visual LOD state differs)
+    private _muzzleASL = _heli getVariable "fza_ah64_cannonMuzzleASL";
+    private _konecASL  = _heli getVariable "fza_ah64_cannonKonecASL";
+    // Fallback: re-query if cache is not yet populated (first round after mission start)
+    if (isNil "_muzzleASL") then {
+        _muzzleASL = _heli modelToWorldVisualWorld (_heli selectionPosition "Usti hlavne");
+        _konecASL  = _heli modelToWorldVisualWorld (_heli selectionPosition "Konec hlavne");
     };
-    _missobj setPosASL _muzzlePosWorld;
-    _missobj setVelocity (_barrelDir vectorMultiply (vectorMagnitude velocity _missobj));
+    // Direction from breech (Konec) toward muzzle tip (Usti) — forward along barrel
+    private _barrelDir = vectorNormalized (_muzzleASL vectorDiff _konecASL);
+
+    private _origDir   = vectorNormalized (velocity _missobj);
+    private _spd       = vectorMagnitude velocity _missobj;
+    private _parallel  = _barrelDir vectorMultiply (_origDir vectorDotProduct _barrelDir);
+    private _perp      = _origDir vectorDiff _parallel;   // pure dispersion component
+    private _finalDir  = vectorNormalized (_barrelDir vectorAdd _perp);
+    _missobj setPosASL _muzzleASL;
+    _missobj setVelocity (_finalDir vectorMultiply _spd);
 };
 
 // -----------------------------------------------------------------------
