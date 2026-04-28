@@ -124,7 +124,7 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-private _systemWas = _heli getVariable "fza_ah64_was";
+private _systemWas = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};

@@ -55,7 +55,7 @@ class AnimationSources
     {
         displayName = "$STR_FZA_AH64_SWAP_IAFS";
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
-        onPhaseChanged = "_this call fza_fnc_weaponSwapM230Mag";
+        onPhaseChanged = "_this call fza_weapons_fnc_SwapM230Mag";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingCurAcq
+Function: fza_sights_fnc_targetingCurAcq
 
 Description:
     Get the currently selected acquisition source for a seat in the aircraft
@@ -9,10 +9,11 @@ Parameters:
     _tur - The turret of the seat to read - either [0] or [-1]
 
 Returns:
-    The name of the currently selected acquisition source, valid for use in 
+    The name of the currently selected acquisition source, valid for use in
+    fza_sights_fnc_targetingAcqVec
 
 Examples:
-    [_heli] call fza_fnc_targetingAcqVec
+    [_heli, [0]] call fza_sights_fnc_targetingCurAcq
 
 Author:
     mattysmith22

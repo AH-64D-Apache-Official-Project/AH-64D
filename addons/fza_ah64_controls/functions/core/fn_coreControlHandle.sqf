@@ -14,11 +14,10 @@ if (_value) then {
     //When button pressed
     switch (_name) do {
         case "defaultAction": {
-            _heli setVariable ["fza_ah64_salvofired", 0];
-            _heli setVariable ["fza_ah64_burst_fired", 0];
+            // Dispatch is handled by fn_eventFired via the trigger weapon Fired EH
         };
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_fnc_laserArm;
+            [_heli] call fza_weapons_fnc_laserArm;
         };
         case "fza_ah64_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
@@ -75,35 +74,42 @@ if (_value) then {
             // Todo: Implemen target store
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
-                [_heli] call fza_fnc_weaponMissileCycle
+            if (([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) == WAS_WEAPON_MSL) then {
+                [_heli] call fza_weapons_fnc_MissileCycle;
             };
         };
         case "fza_ah64_wasGun": {
-            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+            // Exclusive: reject if the other seat already has GUN
+            if (([_heli, "fza_ah64_was", nil, true] call fza_fnc_getSeatVariable) == WAS_WEAPON_GUN) exitWith {};
+
+            if (([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) == WAS_WEAPON_GUN) then {
+                [_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;
             } else {
-                [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
+                [_heli, WAS_WEAPON_GUN] call fza_weapons_fnc_weaponActionSwitch;
             };
         };
         case "fza_ah64_wasRkt": {
-            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+            // Non-exclusive: both seats can have RKT simultaneously
+            if (([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) == WAS_WEAPON_RKT) then {
+                [_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;
             } else {
-                [_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
+                [_heli, WAS_WEAPON_RKT] call fza_weapons_fnc_weaponActionSwitch;
             };
         };
         case "fza_ah64_wasMsl": {
-            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+            // Exclusive: reject if the other seat already has MSL
+            if (([_heli, "fza_ah64_was", nil, true] call fza_fnc_getSeatVariable) == WAS_WEAPON_MSL) exitWith {};
+
+            if (([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) == WAS_WEAPON_MSL) then {
+                [_heli, WAS_WEAPON_NONE] call fza_weapons_fnc_weaponActionSwitch;
             } else {
-                [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
+                [_heli, WAS_WEAPON_MSL] call fza_weapons_fnc_weaponActionSwitch;
             };
         };
         case "SwitchWeaponGrp1";
@@ -112,7 +118,7 @@ if (_value) then {
         case "SwitchWeaponGrp4";
         case "nextWeapon";
         case "prevWeapon": {
-            ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
+            // Native weapon selection suppressed; no-op
         };
         case "vehLockTargets": {
             [_heli] call fza_fcr_fnc_cycleNTS;
@@ -292,7 +298,7 @@ if !(_value) then {
     //When button releassed
     switch (_name) do {
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_fnc_laserDisarm;
+            [_heli] call fza_weapons_fnc_laserDisarm;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (currentPilot _heli != player || !local _heli) exitWith {};

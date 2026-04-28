@@ -136,7 +136,6 @@ class CfgVehicles {
         laserScanner             = 1;
         laserTarget              = 0;
         lockdetectionsystem      = "8+4";
-        magazines[]              = {"fza_chaff_30_mag","fza_IR_JAMMING"};
         mainBladeRadius          = 7.3;
         maxFordingDepth          = 0.55;
         memorypointcm[]          = {"flare_1_beg","Flare_2_beg"};
@@ -195,7 +194,8 @@ class CfgVehicles {
         unitInfoTypeRTD          = "fza_ah64_rscInfoMinimal";
         usePreciseGetInAction    = 1;
         vehicleclass             = "fza_helicopters";
-        weapons[]                = {"fza_CMChaffLauncher","fza_AseIRjammer"};
+        weapons[]                = {"fza_CMChaffLauncher","fza_AseIRjammer","fza_ah64_trigger"};
+        magazines[]              = {"fza_chaff_30_mag","fza_IR_JAMMING","fza_trigger"};
         class Library {
             libTextDesc = "$STR_FZA_AH64_PROJECT_LIBRARY_DESCRIPTION";
         };

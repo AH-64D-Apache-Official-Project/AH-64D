@@ -2,7 +2,7 @@ params ["_heli", "_phase"];
 
 if (!local _heli) exitWith {};
 
-_heli removeMagazineTurret ["fza_m230_300", [0]];
+_heli removeMagazineTurret ["fza_m230_300",  [0]];
 _heli removeMagazineTurret ["fza_m230_1200", [0]];
 
 if (_phase > 0.5) then {

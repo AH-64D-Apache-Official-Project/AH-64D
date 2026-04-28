@@ -18,12 +18,11 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli"];
-
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
+params ["_heli"];
 
-private _wasState       = _heli getVariable "fza_ah64_was";
+private _wasState       = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
 private _cScopeCount    = 0;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];

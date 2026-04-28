@@ -4,12 +4,8 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 if (_this call fza_mpd_fnc_WpnTrajHandleControl) exitWith {};
 
 switch (_control) do {
-    case "l1": {
-        //Switch missile lase
-        [_heli] call fza_fnc_controlHandlelaserchange;
-    };
     case "r1": {
-        [_heli] call fza_fnc_weaponMissileCycleType;
+        [_heli] call fza_weapons_fnc_MissileCycleType;
     };
 };
 
@@ -27,7 +23,7 @@ switch (_state get "variant") do {
                 }
             };
             case "l3": {
-                [_heli] call fza_fnc_weaponMissileCycleTypeSal;
+                [_heli] call fza_weapons_fnc_MissileCycleTypeSal;
             };
         };
     };

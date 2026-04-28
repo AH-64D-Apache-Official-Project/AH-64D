@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingAcqVec
+Function: fza_sights_fnc_targetingAcqVec
 
 Description:
     Get a vector from the aircraft to the acquisition source point (in world space)
@@ -12,7 +12,7 @@ Returns:
     A world-space vector (of undetermined magnitude) pointing towards the acquisition source
 
 Examples:
-    [_heli] call fza_fnc_targetingAcqVec
+    [_heli, "TADS"] call fza_sights_fnc_targetingAcqVec
 
 Author:
     mattysmith22
@@ -28,7 +28,7 @@ switch _acq do {
         _heli vectorModelToWorldVisual ([1, _tadsAzimuth, _tadsElevation] call CBA_fnc_polar2vect)
     };
     case "PHS" : {
-        if (isNull driver _heli) exitWith {[_heli, "FXD"] call fza_fnc_targetingAcqVec};
+        if (isNull driver _heli) exitWith {[_heli, "FXD"] call fza_sights_fnc_targetingAcqVec};
         eyeDirection driver _heli;
     };
     case "FXD" : {

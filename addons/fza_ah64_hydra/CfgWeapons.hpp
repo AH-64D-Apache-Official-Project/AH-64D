@@ -77,6 +77,7 @@ class CfgWeapons {
                 soundSetShot[] = {"fza_soundset_hydra_shot"};
             };
             textureType = "semi";
+            showToPlayer = 0;
         };
     };
     #define ROCKET_MAGAZINES(AMMO_CLASS) QUOTE(AMMO_CLASS##_zoneA), QUOTE(AMMO_CLASS##_zoneB), QUOTE(AMMO_CLASS##_zoneE)

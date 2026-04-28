@@ -1,17 +1,14 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponMissileCycleTypeSal
+Function: fza_weapons_fnc_MissileCycle
 
 Description:
-    Cycles through the available hellfire types
+    Cycles through the available Hellfire missile types loaded on the aircraft.
 
 Parameters:
-    _heli - the helicopter
+    _heli - The helicopter
 
 Returns:
     Nothing
-
-Examples:
-    [_heli] call fza_fnc_weaponMissileCycle
 
 Author:
     mattysmith22
@@ -19,11 +16,9 @@ Author:
 params ["_heli"];
 
 private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
-private _missiles = _missiles - ["fza_agm114l_wep"];
 
 if (_missiles isEqualTo []) exitWith {};
 
 private _nextMissile = [_missiles, _heli getVariable "fza_ah64_selectedMissile"] call fza_fnc_cycle;
 
 _heli setVariable ["fza_ah64_selectedMissile", _nextMissile, true];
-[_heli] call fza_fnc_weaponUpdateSelected;

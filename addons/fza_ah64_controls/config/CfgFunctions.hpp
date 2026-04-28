@@ -54,39 +54,12 @@ class CfgFunctions
             class fxMuzzle {R;};
             class fxLoops {R;};
         };
-        class laser
-        {
-            file = "\fza_ah64_controls\functions\laser";
-            class laserArm {R;};
-            class laserDisarm {R;};
-        };
-        class targeting
-        {
-            file = "\fza_ah64_controls\functions\targeting";
-            class targetingAcqVec {R;};
-            class targetingCurAcq {R;};
-        };
+
+
         class ui
         {
             file = "\fza_ah64_controls\functions\ui";
             class uiShowIntro {R;};
-        };
-        class weapon
-        {
-            file = "\fza_ah64_controls\functions\weapon";
-            class weaponActionSwitch {R;};
-            class weaponMissileGetSelected {R;};
-            class weaponMissileCycle {R;};
-            class weaponMissileCycleType {R;};
-            class weaponMissileCycleTypeSal {R;};
-            class weaponMissileInventory {R;};
-            class weaponPylonCheckValid {R;};
-            class weaponRocketInventory {R;};
-            class weaponRocketSetSelected {R;};
-            class weaponSwapM230Mag {R;};
-            class weaponTrajectoryChange {R;};
-            class weaponTurretAim {R;};
-            class weaponUpdateSelected {R;};
         };
         class functions
         {

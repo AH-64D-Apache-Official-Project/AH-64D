@@ -41,7 +41,7 @@ params["_heli"];
 [_heli] call fza_systems_fnc_coreVariables;
 
 if (!(isNil "fza_ah64_noinit")) exitWith {};
-_heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
+
 
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
@@ -61,9 +61,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     ], true];
 };
 
-_heli setVariable ["fza_ah64_lastTimePropagated", 0];
-_heli setVariable ["fza_ah64_tadsElevation", 0];
-_heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
 if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {

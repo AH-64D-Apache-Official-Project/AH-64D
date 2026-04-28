@@ -1,23 +1,20 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponTrajectoryChange
+Function: fza_weapons_fnc_TrajectoryChange
 
 Description:
-    Cycles through the available hellfire trajectories
+    Cycles through the available Hellfire flight trajectories: LO, DIR, HI.
 
 Parameters:
-    _heli - the helicopter
+    _heli - The helicopter
 
 Returns:
     Nothing
-
-Examples:
-    [_heli] call fza_fnc_weaponTrajectoryChange
 
 Author:
     Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _nextFireMode = [["LO","DIR","HI"], _heli getVariable "fza_ah64_hellfireTrajectory"] call fza_fnc_cycle;
+private _nextFireMode = [["LO", "DIR", "HI"], _heli getVariable "fza_ah64_hellfireTrajectory"] call fza_fnc_cycle;
 
 _heli setVariable ["fza_ah64_hellfireTrajectory", _nextFireMode, true];

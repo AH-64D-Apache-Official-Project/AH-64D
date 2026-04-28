@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_laserArm
+Function: fza_weapons_fnc_laserDisarm
 
 Description:
-    Arms the apache's LRFD, from either seat. Must be run in scheduled environment (involve sleep)
+    Disarms the apache's LRFD, from either seat.
 
 Parameters:
     _heli - The helicopter to act upon
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] spawn fza_fnc_laserArm
+    [_heli] call fza_weapons_fnc_laserDisarm
     ---
 
 Author:
@@ -20,8 +20,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _acBusOn = _heli getVariable "fza_systems_acBusOn";
-
-if (isNull laserTarget _heli && _acBusOn) then {
+if !(isNull laserTarget _heli) then {
     [_heli, "Laserdesignator_mounted", [0]] call BIS_fnc_fire;
 }

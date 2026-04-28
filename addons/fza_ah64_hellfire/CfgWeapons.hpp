@@ -44,6 +44,7 @@ class CfgWeapons {
             midRangeProbab = 1.0;
             maxRange = 8000;
             maxRangeProbab = 0.95;
+            showToPlayer = 0;
         };
         //ACE CFG
         ace_overpressure_angle = 50;
