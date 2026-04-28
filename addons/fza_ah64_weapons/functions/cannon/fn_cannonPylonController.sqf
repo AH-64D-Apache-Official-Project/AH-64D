@@ -52,18 +52,13 @@ if (_was == WAS_WEAPON_GUN && !_gunFailed) then {
             _cannonElevation = _heli getVariable "fza_ah64_tadsElevation";
         };
         case SIGHT_HMD: {
-            // Published per-seat by fn_controller from the local player's machine.
-            // worldToModel returns SQF-space: [right, forward, up].
-            // Compute azimuth/elevation directly — do NOT use CBA_fnc_vect2Polar because
-            // it calls CBA_fnc_vectDir which returns a 0-360 bearing; anything left of
-            // the nose would read ~350° and lock the cannon hard-right at the AZ limit.
             private _tPos = (_heli getVariable ["fza_ah64_sightData_" + _authSeat, [[0,0,0],[0,0,0],0,""]]) # 0;
             if !(_tPos isEqualTo [0,0,0]) then {
-                private _b = _heli worldToModel (ASLToAGL _tPos); // [right, fwd, up]
+                private _b = _heli worldToModel (ASLToAGL _tPos);
                 private _mag = vectorMagnitude _b;
                 if (_mag > 0.001) then {
-                    _cannonAzimuth   = (_b # 0) atan2 (_b # 1); // -180..+180, positive = right
-                    _cannonElevation = asin ((_b # 2) / _mag);   // positive = above horizon
+                    _cannonAzimuth   = (_b # 0) atan2 (_b # 1);
+                    _cannonElevation = asin ((_b # 2) / _mag);
                 };
             };
         };
@@ -91,7 +86,7 @@ if (_was == WAS_WEAPON_GUN && !_gunFailed) then {
         _mainturret = -rad ([_cannonAzimuth,   -86, 86] call BIS_fnc_clamp);
         _maingun    =  rad ([_cannonElevation, -60, 11] call BIS_fnc_clamp);
     };
-};
+};s
 
 if (_gunFailed) then {
     _mainturret = _heli animationPhase "mainTurret";
@@ -106,15 +101,11 @@ if (abs ((_heli animationPhase "mainGun")    - _maingun)    > 0.00001) then { _h
 #ifdef __A3_DEBUG__
 private _targPos = ((_heli call fza_weapons_fnc_sightData) # 0);
 drawIcon3d ["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], ASLToAGL _targPos, 0.5, 0.5, 0, "Weapon target"];
-
-// Barrel mem-point debug: draw a line from Usti hlavne (muzzle) through Konec hlavne
-// (barrel end) extended 50 m. If the line follows the cannon, the mem points are
-// correctly weighted to the otochlaven bone. Red dot = muzzle, line = barrel direction.
 private _dbgMuzzle = _heli modelToWorldVisualWorld (_heli selectionPosition "Usti hlavne");
 private _dbgKonec  = _heli modelToWorldVisualWorld (_heli selectionPosition "Konec hlavne");
-private _dbgDir    = vectorNormalized (_dbgMuzzle vectorDiff _dbgKonec); // Usti - Konec = forward along barrel
+private _dbgDir    = vectorNormalized (_dbgMuzzle vectorDiff _dbgKonec);
 private _dbgEnd    = _dbgMuzzle vectorAdd (_dbgDir vectorMultiply 50);
-drawLine3D [ASLToAGL _dbgMuzzle, ASLToAGL _dbgEnd, [1, 0, 0, 1]]; // red barrel line
+drawLine3D [ASLToAGL _dbgMuzzle, ASLToAGL _dbgEnd, [1, 0, 0, 1]];
 drawIcon3d ["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 1, 0, 1], ASLToAGL _dbgMuzzle, 0.3, 0.3, 0, "Usti hlavne"];
 drawIcon3d ["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [0, 1, 1, 1], ASLToAGL _dbgKonec,  0.3, 0.3, 0, "Konec hlavne"];
 #endif

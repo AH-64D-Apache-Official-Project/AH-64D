@@ -18,6 +18,7 @@ Examples:
 Author:
     unknown, Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
 // -----------------------------------------------------------------------
@@ -34,6 +35,23 @@ if (_weapon == "fza_ah64_trigger") exitWith {
     private _seat = ["plt", "cpg"] select (_shooter == gunner _heli);
     // Execute on the machine where _heli is local (vehicle owner)
     [_heli, _seat] remoteExecCall ["fza_weapons_fnc_handleControl", _heli];
+};
+
+// -----------------------------------------------------------------------
+// M230: redirect bullet to animated cannon barrel (turret aims at TADS)
+// -----------------------------------------------------------------------
+if (_weapon isKindOf ["fza_m230", configFile >> "CfgWeapons"] && local _missobj) then {
+    private _muzzlePosWorld = _heli modelToWorldVisualWorld (_heli selectionPosition "Usti hlavne");
+    private _authSeat = [_heli, WAS_WEAPON_GUN] call fza_weapons_fnc_getWasSeat;
+    private _tPos     = (_heli getVariable ["fza_ah64_sightData_" + _authSeat, [[0,0,0],[0,0,0],0,""]]) # 0;
+    private _barrelDir = if !(_tPos isEqualTo [0,0,0]) then {
+        vectorNormalized (_tPos vectorDiff _muzzlePosWorld)
+    } else {
+        private _konecPosWorld = _heli modelToWorldVisualWorld (_heli selectionPosition "Konec hlavne");
+        vectorNormalized (_muzzlePosWorld vectorDiff _konecPosWorld)
+    };
+    _missobj setPosASL _muzzlePosWorld;
+    _missobj setVelocity (_barrelDir vectorMultiply (vectorMagnitude velocity _missobj));
 };
 
 // -----------------------------------------------------------------------

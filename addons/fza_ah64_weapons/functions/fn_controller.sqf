@@ -18,9 +18,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-// Publish per-seat sight data every frame. fn_sightData runs correctly on the local
-// player's machine (positionCameraToWorld, lockCameraTo etc.) and the results are
-// broadcast so the vehicle owner's pylon controllers can read them without re-running.
 private _sightSeat = if (player == driver _heli) then {"plt"} else {"cpg"};
 _heli setVariable ["fza_ah64_sightData_" + _sightSeat, (_heli call fza_weapons_fnc_sightData), isMultiplayer];
 
