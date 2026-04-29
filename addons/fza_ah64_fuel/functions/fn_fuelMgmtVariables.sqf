@@ -30,6 +30,7 @@ _heli setVariable ["fza_fuel_boostOn", false];
 
 // Fuel system status flags
 _heli setVariable ["fza_fuel_intercellTransferActive", false];
+_heli setVariable ["fza_fuel_intercellTransferDir", 0];
 _heli setVariable ["fza_fuel_eng1FuelAvail", true];
 _heli setVariable ["fza_fuel_eng2FuelAvail", true];
 _heli setVariable ["fza_fuel_apuFuelAvail",  true];

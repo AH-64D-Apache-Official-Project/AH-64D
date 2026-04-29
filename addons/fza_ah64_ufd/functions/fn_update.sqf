@@ -126,6 +126,17 @@ if (_battBusOn || _dcBusOn) then {
     } else {
         _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)];
     };
+
+    private _ufdTotalFuelLbs = (
+          (_heli getVariable ["fza_sfmplus_fwdFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_aftFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_ctrFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn1FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn2FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn3FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn4FuelMass", 0])
+    ) * 2.20462;
+    _heli setUserMFDText [MFD_TEXT_IND_UFD_FUEL, str (round (_ufdTotalFuelLbs / 10) * 10)];
 } else {
     _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
 };

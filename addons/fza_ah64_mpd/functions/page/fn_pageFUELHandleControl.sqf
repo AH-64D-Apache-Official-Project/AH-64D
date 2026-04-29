@@ -64,10 +64,10 @@ switch(_control) do {
         };
     };
 
-    // r3 / r4 / r5 — Crossfeed valve position
-    case "r3": { _heli setVariable ["fza_fuel_crossfeedMode", "FWD"];  };
-    case "r4": { _heli setVariable ["fza_fuel_crossfeedMode", "NORM"]; };
-    case "r5": { _heli setVariable ["fza_fuel_crossfeedMode", "AFT"];  };
+    // r3 / r4 / r5 — Crossfeed valve position (locked to AFT when boost is on)
+    case "r3": { if !(_heli getVariable ["fza_fuel_boostOn", false]) then { _heli setVariable ["fza_fuel_crossfeedMode", "FWD"];  }; };
+    case "r4": { if !(_heli getVariable ["fza_fuel_boostOn", false]) then { _heli setVariable ["fza_fuel_crossfeedMode", "NORM"]; }; };
+    case "r5": { if !(_heli getVariable ["fza_fuel_boostOn", false]) then { _heli setVariable ["fza_fuel_crossfeedMode", "AFT"];  }; };
 
     // b6 — CHECK sub-mode toggle
     case "b6": {

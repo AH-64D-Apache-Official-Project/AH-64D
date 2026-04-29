@@ -135,6 +135,7 @@ private _engBleedOn = _eng1On || _eng2On;
 private _airAvail   = _apuOn || _engBleedOn;
 private _xferMode   = _heli getVariable ["fza_fuel_xferMode", "OFF"];
 private _intercellTransferActive = false;
+private _intercellTransferDir = 0;
 
 private _doFwdToAft = false;
 private _doAftToFwd = false;
@@ -201,28 +202,45 @@ if (_doFwdToAft) then {
     private _amt = _fwdFuelMass min _xferStep min (_maxAftFuelMass - _aftFuelMass);
     _fwdFuelMass = _fwdFuelMass - _amt;
     _aftFuelMass = _aftFuelMass + _amt;
-    if (_amt > 0) then { _intercellTransferActive = true; };
+    if (_amt > 0) then {
+        _intercellTransferActive = true;
+        _intercellTransferDir = 1; // FWD -> AFT (down)
+    };
 };
 if (_doAftToFwd) then {
     private _amt = _aftFuelMass min _xferStep min (_maxFwdFuelMass - _fwdFuelMass);
     _aftFuelMass = _aftFuelMass - _amt;
     _fwdFuelMass = _fwdFuelMass + _amt;
-    if (_amt > 0) then { _intercellTransferActive = true; };
+    if (_amt > 0) then {
+        _intercellTransferActive = true;
+        _intercellTransferDir = 2; // AFT -> FWD (up)
+    };
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // IAFS (centre tank) gravity feeds into AFT and FWD when on and AFT/FWD have room   //////
+// Inhibited only when any aux tank is actively transferring fuel (not just switched on).
 /////////////////////////////////////////////////////////////////////////////////////////////
-if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false])) then {
+private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
+private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
+
+// Aux actively transferring only if tank has fuel > 10 lbs (4.5 kg)
+private _anyAuxTransferring = (_lAuxOn && (_stn1FuelMass > 4.5 || _stn2FuelMass > 4.5)) || (_rAuxOn && (_stn3FuelMass > 4.5 || _stn4FuelMass > 4.5));
+
+private _iafsAftFlowing = false;
+private _iafsFwdFlowing = false;
+if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false]) && !_anyAuxTransferring) then {
     if (_ctrFuelMass > 0 && _aftFuelMass < _maxAftFuelMass) then {
         private _iafsFlow = _xferStep min _ctrFuelMass min (_maxAftFuelMass - _aftFuelMass);
         _ctrFuelMass = _ctrFuelMass - _iafsFlow;
         _aftFuelMass = _aftFuelMass + _iafsFlow;
+        if (_iafsFlow > 0) then { _iafsAftFlowing = true; };
     };
     if (_ctrFuelMass > 0 && _fwdFuelMass < _maxFwdFuelMass) then {
         private _iafsFlow = _xferStep min _ctrFuelMass min (_maxFwdFuelMass - _fwdFuelMass);
         _ctrFuelMass = _ctrFuelMass - _iafsFlow;
         _fwdFuelMass = _fwdFuelMass + _iafsFlow;
+        if (_iafsFlow > 0) then { _iafsFwdFlowing = true; };
     };
 };
 
@@ -236,9 +254,6 @@ private _stn1HasTank = ["auxTank", _pylonMagazines select 0]  call BIS_fnc_inStr
 private _stn2HasTank = ["auxTank", _pylonMagazines select 4]  call BIS_fnc_inString;
 private _stn3HasTank = ["auxTank", _pylonMagazines select 8]  call BIS_fnc_inString;
 private _stn4HasTank = ["auxTank", _pylonMagazines select 12] call BIS_fnc_inString;
-
-private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
-private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
 
 private _aftRoom = _maxAftFuelMass - _aftFuelMass;
 
@@ -268,6 +283,8 @@ if (_stn4HasTank && _rAuxOn && _stn3HasTank && _stn4FuelMass > 0 && _aftRoom > 0
     _aftFuelMass  = _aftFuelMass  + _flow;
 };
 
+private _auxFlowing = (_lAuxOn && (_stn1FuelMass > 4.5 || _stn2FuelMass > 4.5)) || (_rAuxOn && (_stn3FuelMass > 4.5 || _stn4FuelMass > 4.5));
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Clamp all masses                                                                   //////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -295,6 +312,11 @@ _heli setVariable ["fza_fuel_apuFuelAvail",  _apuFuelAvail];
 // Fuel status flags                                                                 //////
 /////////////////////////////////////////////////////////////////////////////////////////////
 _heli setVariable ["fza_fuel_intercellTransferActive", _intercellTransferActive];
+_heli setVariable ["fza_fuel_intercellTransferDir",    _intercellTransferDir];
+_heli setVariable ["fza_fuel_iafsFlowing",            _iafsAftFlowing || _iafsFwdFlowing];
+_heli setVariable ["fza_fuel_iafsAftFlowing",         _iafsAftFlowing];
+_heli setVariable ["fza_fuel_iafsFwdFlowing",         _iafsFwdFlowing];
+_heli setVariable ["fza_fuel_auxFlowing",             _auxFlowing];
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Update Arma fuel fraction and write variables                                     //////
