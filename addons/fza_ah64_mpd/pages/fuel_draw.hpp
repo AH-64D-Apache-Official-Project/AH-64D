@@ -17,105 +17,163 @@ MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ENG"
 
 MPD_TEXT_C(CHECK, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("CHECK"))
 
-// Fuel XFER
-MPD_TEXT_R(XFER, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("XFER"))
-MPD_BOX_R(XFERAUTO, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), 4)
-MPD_TEXT_R(XFERAUTO, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AUTO"))
-
-// Fuel quantity
-MPD_TEXT_SMALL_R(FTANKSINT, 0.09, 0.80 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
-MPD_TEXT_R(FTANKSINTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.80, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_INT))
-MPD_TEXT_SMALL_R(FTANKSINTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.80 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
-
-// Fuel flow
-#define PAGE_MPD_FUELFLOW_X (0.5 - (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5)) / 2))
-MPD_TEXT_SMALL_C(FFLOW_HEAD, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 4), MPD_TEXT_STATIC("CALC FLOW"))
-
-MPD_TEXT_SMALL_L(FFLOW_1, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 3) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("1"))
-MPD_TEXT_L(FFLOW_1_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 3), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_1))
-MPD_TEXT_SMALL_R(FFLOW_1_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 3) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
-
-MPD_TEXT_SMALL_L(FFLOW_2, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 2) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("2"))
-MPD_TEXT_L(FFLOW_2_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 2), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_2))
-MPD_TEXT_SMALL_R(FFLOW_2_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 2) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
-
-MPD_TEXT_SMALL_L(FFLOW_TOT, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 1) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
-MPD_TEXT_L(FFLOW_TOT_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 1), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_TOT))
-MPD_TEXT_SMALL_R(FFLOW_TOT_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 1) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
-
-
-// Specific fuel range
-MPD_TEXT_SMALL_L(SFR_TEXT, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_STATIC("SFR"))
-MPD_TEXT_SMALL_R(SFR_QTY, 0.5 + MPD_TEXT_SMALL_WIDTH, 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_STATIC(".16"))
-
-
-// Fuel endurance
-MPD_TEXT_SMALL_C(FENDR_HEAD, 0.69 + (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5)) / 2), 0.77, MPD_TEXT_STATIC("ENDR"))
-
-MPD_TEXT_SMALL_R(FENDR_INT_TEXT, 0.69, 0.78 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
-MPD_TEXT_L(FENDR_INT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.78 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_INT))
-
 // Fuel type
 MPD_TEXT_L(FTYPE_TYPE, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("TYPE"))
 MPD_BOX_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + (MPD_TEXT_HEIGHT / 2), 3)
 MPD_TEXT_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("JP8"))
 
+class Transfere {
+    class ShowXferNormal {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
+        MPD_TEXT_R(XFER_LBL, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("XFER"))
+        class XFER_N_OFF {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_OFF));
+            MPD_BOX_R(XFERN_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("OFF"))
+        };
+        class XFER_N_FWD {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_FWD));
+            MPD_BOX_R(XFERN_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("FWD"))
+        };
+        class XFER_N_AFT {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_AFT));
+            MPD_BOX_R(XFERN_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AFT"))
+        };
+        class XFER_N_AUTO {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_AUTO));
+            MPD_BOX_R(XFERN_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 4)
+            MPD_TEXT_R(XFERN_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AUTO"))
+        };
+    };
 
-// CROSSFEED
-MPD_TEXT_L(CFEED_FWD, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("FWD"))
-MPD_BOX_L(CFEED_NORM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, 4)
-MPD_TEXT_L(CFEED_NORM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("NORM"))
-MPD_TEXT_L(CFEED_AFT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("AFT"))
+    class transfer_popout_box {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_MENU));
+        // l1: FWD
+        MPD_TEXT_R(XFERM_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("FWD"))
+        class XFERM_FWD_Sel {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_FWD));
+            MPD_BOX_R(XFERM_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
+        };
+        // l2: OFF
+        MPD_TEXT_R(XFERM_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("OFF"))
+        class XFERM_OFF_Sel {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_OFF));
+            MPD_BOX_R(XFERM_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 3)
+        };
+        // l3: AFT
+        MPD_TEXT_R(XFERM_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("AFT"))
+        class XFERM_AFT_Sel {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_AFT));
+            MPD_BOX_R(XFERM_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
+        };
+        // l4: AUTO
+        MPD_TEXT_R(XFERM_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("AUTO"))
+        class XFERM_AUTO_Sel {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_AUTO));
+            MPD_BOX_R(XFERM_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 4)
+        };
+        // Vertical TRANSFER label
 
-#define PAGE_MPD_CROSSFEED_X MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 6)
-class Crossfeed_Lines {
-    type = "line";
-    width = 3;
-    points[] = {
-        {{0.98, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT}, 1},
-        {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT}, 1},
-        {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 4 * MPD_TEXT_SMALL_HEIGHT}, 1},
-        {},
-        {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 5 * MPD_TEXT_SMALL_HEIGHT}, 1},
-        {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_5_Y + 1.5 * MPD_TEXT_HEIGHT}, 1},
-        {{0.98, MPD_POS_BUTTON_LR_5_Y + 1.5 * MPD_TEXT_HEIGHT}, 1}};
-};
+        #define XFER_MENU_LABEL_X (MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5)
+        #define XFER_MENU_LABEL_Y ((MPD_POS_BUTTON_LR_1_Y + MPD_POS_BUTTON_LR_2_Y) / 2)
 
-MPD_TEXT_SMALL_C(CrossfeedChar1, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("C"))
-MPD_TEXT_SMALL_C(CrossfeedChar2, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
-MPD_TEXT_SMALL_C(CrossfeedChar3, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("O"))
-MPD_TEXT_SMALL_C(CrossfeedChar4, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
-MPD_TEXT_SMALL_C(CrossfeedChar5, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("S"))
-MPD_TEXT_SMALL_C(CrossfeedChar6, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("F"))
-MPD_TEXT_SMALL_C(CrossfeedChar7, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
-MPD_TEXT_SMALL_C(CrossfeedChar8, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
-MPD_TEXT_SMALL_C(CrossfeedChar9, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("D"))
+        MPD_TEXT_SMALL_C(XM_C1, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y,                             MPD_TEXT_STATIC("T"))
+        MPD_TEXT_SMALL_C(XM_C2, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
+        MPD_TEXT_SMALL_C(XM_C3, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("A"))
+        MPD_TEXT_SMALL_C(XM_C4, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("N"))
+        MPD_TEXT_SMALL_C(XM_C5, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
+        MPD_TEXT_SMALL_C(XM_C6, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 5 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("F"))
+        MPD_TEXT_SMALL_C(XM_C7, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 6 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
+        MPD_TEXT_SMALL_C(XM_C8, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 7 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
 
-// Fuel boost
-#define FUEL_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
-#define FUEL_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
-class fuel_Off {
-    class lines_fuelOnOff {
-        type = "line";
-        width = 3;
-        points[] = {
-            //Power Indicator
-            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
-            {{FUEL_X - 0.007, FUEL_Y - 0.007}, 1},
-            {{FUEL_X - 0.000, FUEL_Y - 0.010}, 1},
-            {{FUEL_X + 0.007, FUEL_Y - 0.007}, 1},
-            {{FUEL_X + 0.010, FUEL_Y + 0.000}, 1},
-            {{FUEL_X + 0.007, FUEL_Y + 0.007}, 1},
-            {{FUEL_X + 0.000, FUEL_Y + 0.010}, 1},
-            {{FUEL_X - 0.007, FUEL_Y + 0.007}, 1}, 
-            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+        // Bracket line connecting l1-l4
+        class XferMenuBracket {
+            type = "line";
+            width = 2;
+            points[] = {
+                {{0.0, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y + 1.0*MPD_TEXT_HEIGHT}, 1},{},
+                
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y - 1.0*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1},
+                {{0.0, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1}
+            };
         };
     };
 };
-MPD_TEXT_L(FBOOST, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("BOOST "))
 
-MPD_TEXT_C(FWD_FUEL, 0.5, 0.19, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FWD))
-MPD_TEXT_C(AFT_FUEL, 0.5, 0.53, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_AFT))
+// Total fuel quantity (always visible)
+MPD_TEXT_SMALL_R(FTANKSTOT, 0.09, 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+MPD_TEXT_R(FTANKSTOTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.85, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_TOT))
+MPD_TEXT_SMALL_R(FTANKSTOTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
+
+class fuel_flow_display {
+    #define PAGE_MPD_FUELFLOW_X (0.5 - (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5)) / 2))
+    MPD_TEXT_SMALL_C(FFLOW_HEAD, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 4), MPD_TEXT_STATIC("CALC FLOW"))   
+
+    MPD_TEXT_SMALL_L(FFLOW_1, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 3) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("1"))
+    MPD_TEXT_L(FFLOW_1_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 3), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_1))
+    MPD_TEXT_SMALL_R(FFLOW_1_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 3) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
+
+    MPD_TEXT_SMALL_L(FFLOW_2, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 2) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("2"))
+    MPD_TEXT_L(FFLOW_2_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 2), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_2))
+    MPD_TEXT_SMALL_R(FFLOW_2_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 2) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
+
+    MPD_TEXT_SMALL_L(FFLOW_TOT, PAGE_MPD_FUELFLOW_X + (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 1) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+    MPD_TEXT_L(FFLOW_TOT_QTY, 0.5 + (1.2 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 1), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FLOW_TOT))
+    MPD_TEXT_SMALL_R(FFLOW_TOT_LBHR, 0.5 + (1.5 * MPD_TEXT_WIDTH), 0.96 - (MPD_TEXT_HEIGHT * 1) + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
+};
+
+class SFR_Display {
+    MPD_TEXT_SMALL_L(SFR_TEXT, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_STATIC("SFR"))
+    MPD_TEXT_SMALL_R(SFR_QTY, 0.5 + MPD_TEXT_SMALL_WIDTH, 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_USER(MFD_TEXT_IND_FUEL_SFR))
+};
+
+class fuel_crossfeed {
+    class CFEED_FWD_Selected {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_FWD));
+        MPD_BOX_L(CFEED_FWD_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 4)
+    };
+    MPD_TEXT_L(CFEED_FWD, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("FWD"))
+    class CFEED_NORM_Selected {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_NORM));
+        MPD_BOX_L(CFEED_NORM_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, 4)
+    };
+    MPD_TEXT_L(CFEED_NORM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("NORM"))
+    class CFEED_AFT_Selected {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_AFT));
+        MPD_BOX_L(CFEED_AFT_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, 4)
+    };
+    MPD_TEXT_L(CFEED_AFT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("AFT"))
+
+    #define PAGE_MPD_CROSSFEED_X MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 6)
+    class Crossfeed_Lines {
+        type = "line";
+        width = 3;
+        points[] = {
+            {{0.98, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT}, 1},
+            {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT}, 1},
+            {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 4 * MPD_TEXT_SMALL_HEIGHT}, 1},
+            {},
+            {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 5 * MPD_TEXT_SMALL_HEIGHT}, 1},
+            {{PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_5_Y + 1.5 * MPD_TEXT_HEIGHT}, 1},
+            {{0.98, MPD_POS_BUTTON_LR_5_Y + 1.5 * MPD_TEXT_HEIGHT}, 1}
+        };
+    };
+
+    MPD_TEXT_SMALL_C(CrossfeedChar1, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("C"))
+    MPD_TEXT_SMALL_C(CrossfeedChar2, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
+    MPD_TEXT_SMALL_C(CrossfeedChar3, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("O"))
+    MPD_TEXT_SMALL_C(CrossfeedChar4, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y - 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
+    MPD_TEXT_SMALL_C(CrossfeedChar5, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("S"))
+    MPD_TEXT_SMALL_C(CrossfeedChar6, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("F"))
+    MPD_TEXT_SMALL_C(CrossfeedChar7, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
+    MPD_TEXT_SMALL_C(CrossfeedChar8, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
+    MPD_TEXT_SMALL_C(CrossfeedChar9, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("D"))
+};
 
 MPD_TEXT_SMALL_C(ENG_1_INDICATOR, 0.395, 0.475, MPD_TEXT_STATIC("1"))
 MPD_TEXT_SMALL_C(ENG_2_INDICATOR, 0.605, 0.475, MPD_TEXT_STATIC("2"))
@@ -154,18 +212,301 @@ class Static {
         // Fuel flow
         MPD_POINTS_BOX("Null", PAGE_MPD_FUELFLOW_X, 0.96 - (MPD_TEXT_HEIGHT * 4), (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5), 4 * MPD_TEXT_HEIGHT), {},
         // SFR
-        MPD_POINTS_BOX("Null", 0.5 - (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_SMALL_WIDTH * 7, MPD_TEXT_SMALL_HEIGHT), {},
-        // Fuel endurance
-        MPD_POINTS_BOX("Null", 0.69, 0.77, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), (MPD_TEXT_SMALL_HEIGHT) + (MPD_TEXT_HEIGHT * 2)), {}
+        MPD_POINTS_BOX("Null", 0.5 - (MPD_TEXT_SMALL_WIDTH * 3), 0.96 - (MPD_TEXT_HEIGHT * 5.5), MPD_TEXT_SMALL_WIDTH * 8, MPD_TEXT_SMALL_HEIGHT), {},
+    };
+};
+
+class endurance_display {
+    MPD_TEXT_SMALL_C(FENDR_HEAD, 0.69 + (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5)) / 2), 0.77, MPD_TEXT_STATIC("ENDR"))
+
+    MPD_TEXT_SMALL_R(FENDR_INT_TEXT, 0.69, 0.78 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
+    class IntEndrNorm {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_ENDR_INT_LOW)));
+        MPD_TEXT_L(FENDR_INT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.78 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_INT))
+    };
+    class IntEndrWarn {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_ENDR_INT_LOW));
+        color[] = MPD_COLOUR_WHITE;
+        MPD_TEXT_L(FENDR_INT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.78 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_INT))
+    };
+
+    MPD_TEXT_SMALL_R(FENDR_TOT_TEXT, 0.69, 0.82 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+    MPD_TEXT_L(FENDR_TOT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.82 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_TOT))
+
+    class Static {
+        type = "line";
+        width = 3;
+        points[] = {
+            MPD_POINTS_BOX("Null", 0.69, 0.77, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), (MPD_TEXT_SMALL_HEIGHT) + (MPD_TEXT_HEIGHT * 2))
+        };
+    };
+}
+class fuel_display {
+    #define FUEL_FWD_LOW_THRESH_LBS 240
+    #define FUEL_AFT_LOW_THRESH_LBS 260
+    #define FUEL_EMPTY_THRESH_LBS 5
+
+    class FuelFWD_Norm {
+        condition = C_COND(C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_FWD_LOW_THRESH_LBS)));
+        MPD_TEXT_C(FWD_FUEL, 0.5, 0.19, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FWD))
+    };
+    class FuelAFT_Norm {
+        condition = C_COND(C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_AFT_LOW_THRESH_LBS)));
+        MPD_TEXT_C(AFT_FUEL, 0.5, 0.53, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_AFT))
+    };
+    class FuelFWD_Low {
+        condition = C_COND(C_AND(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_FWD_LOW_THRESH_LBS), C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_EMPTY_THRESH_LBS))));
+        color[] = MPD_COLOUR_YELLOW;
+        MPD_TEXT_C(FWD_FUEL, 0.5, 0.19, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FWD))
+    };
+    class FuelAFT_Low {
+        condition = C_COND(C_AND(C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_AFT_LOW_THRESH_LBS), C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_EMPTY_THRESH_LBS))));
+        color[] = MPD_COLOUR_YELLOW;
+        MPD_TEXT_C(AFT_FUEL, 0.5, 0.53, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_AFT))
+    };
+    class FuelFWD_Empty {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_EMPTY_THRESH_LBS));
+        color[] = MPD_COLOUR_WHITE;
+        MPD_TEXT_C(FWD_FUEL, 0.5, 0.19, MPD_TEXT_STATIC("E"))
+    };
+    class FuelAFT_Empty {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_EMPTY_THRESH_LBS));
+        color[] = MPD_COLOUR_WHITE;
+        MPD_TEXT_C(AFT_FUEL, 0.5, 0.53, MPD_TEXT_STATIC("E"))
+    };
+
+    // Fuel quantity
+    class FuelIntQty {
+        MPD_TEXT_SMALL_R(FTANKSINT, 0.09, 0.80 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
+        MPD_TEXT_SMALL_R(FTANKSINTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.80 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))        
+        MPD_TEXT_R(FTANKSINTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.80, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_INT))
+        class FuelIntNorm {
+            condition = C_COND(C_NOT(C_OR(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_FWD_LOW_THRESH_LBS), C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_AFT_LOW_THRESH_LBS)))));
+            MPD_TEXT_R(FTANKSINTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.80, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_INT))
+        };
+        class FuelIntLow {
+            condition = C_COND(C_OR(C_LESS(C_MPD_USER(MFD_IND_FUEL_FWD_LOW), FUEL_FWD_LOW_THRESH_LBS), C_LESS(C_MPD_USER(MFD_IND_FUEL_AFT_LOW), FUEL_AFT_LOW_THRESH_LBS))));
+            color[] = MPD_COLOUR_YELLOW;
+            MPD_TEXT_R(FTANKSINTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.80, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_INT))
+        };
     };
 };
 
 class FuelLines {
-    type = "line";
-    width = 9;
-    points[] = {
-        {{0.360, 0.390}, 1}, {{0.360,0.220}, 1}, {{0.430,0.220}, 1}, {},
-        {{0.520, 0.620}, 1}, {{0.520,0.660}, 1}, {{0.630,0.660}, 1}, {{0.630,0.600},1}
+    #define FUEL_TOP_Y 0.220
+    #define FUEL_BOT_Y 0.660
+
+    #define ENG_TOP_Y 0.390
+    #define ENG_BOT_Y 0.600
+    #define ENG1_X    0.360
+    #define ENG2_X    0.640
+
+    #define AFT_BOX_LEFT_X 0.480
+    #define AFT_BOX_RIGHT_X 0.520
+    #define AFT_BOX_BOTTOM_Y 0.620
+
+    #define FWD_BOX_LEFT_X 0.435
+    #define FWD_BOX_RIGHT_X 0.555
+    #define FWD_BOX_CENTER_Y 0.220
+
+    #define FUEL_INTERCELL_X 0.520
+    #define FUEL_INTERCELL_TOP 0.256
+    #define FUEL_INTERCELL_BOT 0.480
+    #define FUEL_INTERCELL_SPAN (FUEL_INTERCELL_BOT - FUEL_INTERCELL_TOP)
+
+    class FuelLines_Norm {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_NORM));
+        class lines {
+            type = "line";
+            width = 8;
+            points[] = {
+                {{ENG1_X, ENG_TOP_Y}, 1}, {{ENG1_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_LEFT_X, FWD_BOX_CENTER_Y}, 1}, {},
+                {{AFT_BOX_RIGHT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_RIGHT_X, FUEL_BOT_Y}, 1}, {{ENG2_X, FUEL_BOT_Y}, 1}, {{ENG2_X, ENG_BOT_Y},1}
+            };
+        };
+    };
+
+    class FuelLines_Aft {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_AFT));
+        class lines {
+            type = "line";
+            width = 8;
+            points[] = {
+                {{AFT_BOX_LEFT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_LEFT_X, FUEL_BOT_Y}, 1}, {{ENG1_X, FUEL_BOT_Y}, 1}, {{ENG1_X, ENG_BOT_Y},1}, {},
+                {{AFT_BOX_RIGHT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_RIGHT_X, FUEL_BOT_Y}, 1}, {{ENG2_X, FUEL_BOT_Y}, 1}, {{ENG2_X, ENG_BOT_Y},1}
+            };
+        };
+    };
+
+    class FuelLines_Fwd {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_CROSSFEED_FWD));
+        class lines {
+            type = "line";
+            width = 8;
+            points[] = {
+                {{ENG1_X, ENG_TOP_Y}, 1}, {{ENG1_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_LEFT_X, FWD_BOX_CENTER_Y}, 1}, {},      
+                {{ENG2_X, ENG_TOP_Y}, 1}, {{ENG2_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_RIGHT_X, FWD_BOX_CENTER_Y}, 1}
+            };
+        };
+    };
+
+    class FuelIntercellTransferActive {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_INTERCELL_XFER_ACTIVE));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.0000)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.0714)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.1339)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.2054)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.2679)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.3393)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.4018)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.4732)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.5357)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.6071)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.6696)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.7411)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.8036)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.8750)}, 1}, {},
+                {{FUEL_INTERCELL_X, FUEL_INTERCELL_TOP + (FUEL_INTERCELL_SPAN * 0.9286)}, 1}, {{FUEL_INTERCELL_X, FUEL_INTERCELL_BOT}, 1}
+            };
+        };
+    };
+};
+
+class AuxtanksDisplay {
+    #define AUX_RING_RX 0.022
+    #define AUX_RING_RY 0.080
+    #define AUX_RING_CY 0.400
+    #define AUX_STN1_X 0.238
+    #define AUX_STN2_X 0.292
+    #define AUX_STN3_X 0.708
+    #define AUX_STN4_X 0.762
+
+    class ShowStn2Tank {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_STN2_PRESENT));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_STN2_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN2_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN2_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN2_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN2_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN2_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN2_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
+            };
+        };
+    };
+    class ShowStn1Tank {
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_FUEL_STN1_PRESENT), C_MPD_USER(MFD_IND_FUEL_STN2_PRESENT)));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
+            };
+        };
+    };
+    class ShowStn3Tank {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_STN3_PRESENT));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_STN3_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN3_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN3_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN3_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN3_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN3_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN3_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
+            };
+        };
+    };
+    class ShowStn4Tank {
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_FUEL_STN4_PRESENT), C_MPD_USER(MFD_IND_FUEL_STN3_PRESENT)));
+        type = "line";
+        width = 3;
+        class lines {
+            points[] = {
+                {{AUX_STN4_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN4_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN4_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN4_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN4_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN4_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN4_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
+            };
+        };
+    };
+
+    class ShowAuxConnectLeft {
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_FUEL_STN2_PRESENT), C_MPD_USER(MFD_IND_FUEL_L_AUX_ON)));
+        class lines {
+            type = "line";
+            width = 8;
+            points[] = {
+                {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1},
+                {{AUX_STN2_X, 0.200}, 1},
+                {{0.435, 0.200}, 1}
+            };
+        };
+    };
+    class ShowAuxConnectRight {
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_FUEL_STN3_PRESENT), C_MPD_USER(MFD_IND_FUEL_R_AUX_ON)));
+        class lines {
+            type = "line";
+            width = 8;
+            points[] = {
+                {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1},
+                {{AUX_STN3_X, 0.680}, 1},
+                {{0.500, 0.680}, 1},
+                {{0.500, 0.620}, 1},
+            };
+        };
     };
 };
 
@@ -178,28 +519,13 @@ class TextBoxes {
     };
 };
 
-
-
-#define IAFS_QTY_X 0.46
-#define IAFS_QTY_Y 0.33
-
-#define IAFS_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
-#define IAFS_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
 class ShowIAFS {
     condition = C_COND(C_MPD_USER(MFD_IND_FUEL_IAFS_INSTALLED));
+    #define IAFS_QTY_X 0.46
+    #define IAFS_QTY_Y 0.33
 
-    MPD_TEXT_R(IAFS_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC(" C AUX"))
-    //Center tank quantity
-    MPD_TEXT_C(IAFS_QTY, IAFS_QTY_X, IAFS_QTY_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_IAFS))
-    
-    //Total quantity
-    MPD_TEXT_SMALL_R(FTANKSTOT, 0.09, 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
-    MPD_TEXT_R(FTANKSTOTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.85, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_TOT))
-    MPD_TEXT_SMALL_R(FTANKSTOTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
-
-    //Total endurance
-    MPD_TEXT_SMALL_R(FENDR_TOT_TEXT, 0.69, 0.82 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
-    MPD_TEXT_L(FENDR_TOT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.82 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_TOT))
+    #define IAFS_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
+    #define IAFS_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
 
     class box_IAFS {
         type = "line";
@@ -208,72 +534,259 @@ class ShowIAFS {
         MPD_POINTS_BOX("Null", IAFS_QTY_X-(1.5*MPD_TEXT_WIDTH), IAFS_QTY_Y, 3*MPD_TEXT_WIDTH, 0.98*MPD_TEXT_HEIGHT),
         };
     };
-
-
-    class iafs_Off {
-        class lines_iafsOnOff {
+    
+    class fuelLines_IAFS {
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_FUEL_IAFS_INSTALLED), C_MPD_USER(MFD_IND_FUEL_IAFS_ON)));
+        class lines {
             type = "line";
-            width = 3;
+            width = 8;
             points[] = {
-                //Power Indicator
-                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
-                {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
-                {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
-                {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
-                {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
-                {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1},
-                {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
-                {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
-                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                {{0.48, 0.256}, 1},
+                {{0.48, 0.322}, 1},
+                {},
+                {{0.48, 0.382}, 1},
+                {{0.48, 0.480}, 1}
             };
         };
     };
-    class iafs_On {
-        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_IAFS_ON));
-        class iafs_draw {
-            class polys_iafsOnOff {
-                class Polygons {
-                    type = "polygon";
-                    points[] = {
-                        { //Top left
-                            {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
-                            {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
-                            {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
-                            {{IAFS_X, IAFS_Y}, 1}
-                        },
-                        { //Top right
-                            {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
-                            {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
-                            {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
-                            {{IAFS_X, IAFS_Y}, 1}
-                        },
-                        { //Bottom right
-                            {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
-                            {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1}, 
-                            {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
-                            {{IAFS_X, IAFS_Y}, 1}
-                        },
-                        { //Bottom left
-                            {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
-                            {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
-                            {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
-                            {{IAFS_X, IAFS_Y}, 1}
-                        }
+    
+    MPD_TEXT_C(IAFS_QTY, IAFS_QTY_X, IAFS_QTY_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_IAFS))
+    class Show_hide_IAFS {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
+        MPD_TEXT_R(IAFS_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC(" C AUX"))
+        class iafs_Off {
+            class lines_iafsOnOff {
+                type = "line";
+                width = 3;
+                points[] = {
+                    //Power Indicator
+                    {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                    {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
+                    {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                    {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
+                    {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                    {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1},
+                    {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                    {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
+                    {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                };
+            };
+        };
+        class iafs_On {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_IAFS_ON));
+            class iafs_draw {
+                class polys_iafsOnOff {
+                    class Polygons {
+                        type = "polygon";
+                        points[] = {
+                            { //Top left
+                                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                                {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
+                                {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                                {{IAFS_X, IAFS_Y}, 1}
+                            },
+                            { //Top right
+                                {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                                {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
+                                {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                                {{IAFS_X, IAFS_Y}, 1}
+                            },
+                            { //Bottom right
+                                {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                                {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1}, 
+                                {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                                {{IAFS_X, IAFS_Y}, 1}
+                            },
+                            { //Bottom left
+                                {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                                {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
+                                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                                {{IAFS_X, IAFS_Y}, 1}
+                            }
+                        };
+                    };
+                };
+            };
+        };
+    };
+};
+
+class ShowAuxDots {
+    condition = C_COND(1);
+    #define AUX_L_DOT_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
+    #define AUX_L_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
+    class AUX_L_Dot_Off {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));
+
+        MPD_TEXT_R(AUX_L_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC(" L AUX"))
+
+        class lines_auxLOnOff {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_L_DOT_X - 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                {{AUX_L_DOT_X - 0.007, AUX_L_DOT_Y - 0.007}, 1},
+                {{AUX_L_DOT_X - 0.000, AUX_L_DOT_Y - 0.010}, 1},
+                {{AUX_L_DOT_X + 0.007, AUX_L_DOT_Y - 0.007}, 1},
+                {{AUX_L_DOT_X + 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                {{AUX_L_DOT_X + 0.007, AUX_L_DOT_Y + 0.007}, 1},
+                {{AUX_L_DOT_X + 0.000, AUX_L_DOT_Y + 0.010}, 1},
+                {{AUX_L_DOT_X - 0.007, AUX_L_DOT_Y + 0.007}, 1},
+                {{AUX_L_DOT_X - 0.010, AUX_L_DOT_Y + 0.000}, 1},
+            };
+        };
+        class AUX_L_Dot_On {
+            condition = C_COND(C_MPD_USER(MFD_IND_FUEL_L_AUX_ON));
+            class auxL_draw {
+                class polys_auxLOnOff {
+                    class Polygons {
+                        type = "polygon";
+                        points[] = {
+                            {
+                                {{AUX_L_DOT_X - 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                                {{AUX_L_DOT_X - 0.007, AUX_L_DOT_Y - 0.007}, 1},
+                                {{AUX_L_DOT_X - 0.000, AUX_L_DOT_Y - 0.010}, 1},
+                                {{AUX_L_DOT_X, AUX_L_DOT_Y}, 1}
+                            },
+                            {
+                                {{AUX_L_DOT_X - 0.000, AUX_L_DOT_Y - 0.010}, 1},
+                                {{AUX_L_DOT_X + 0.007, AUX_L_DOT_Y - 0.007}, 1},
+                                {{AUX_L_DOT_X + 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                                {{AUX_L_DOT_X, AUX_L_DOT_Y}, 1}
+                            },
+                            {
+                                {{AUX_L_DOT_X + 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                                {{AUX_L_DOT_X + 0.007, AUX_L_DOT_Y + 0.007}, 1},
+                                {{AUX_L_DOT_X + 0.000, AUX_L_DOT_Y + 0.010}, 1},
+                                {{AUX_L_DOT_X, AUX_L_DOT_Y}, 1}
+                            },
+                            {
+                                {{AUX_L_DOT_X + 0.000, AUX_L_DOT_Y + 0.010}, 1},
+                                {{AUX_L_DOT_X - 0.007, AUX_L_DOT_Y + 0.007}, 1},
+                                {{AUX_L_DOT_X - 0.010, AUX_L_DOT_Y + 0.000}, 1},
+                                {{AUX_L_DOT_X, AUX_L_DOT_Y}, 1}
+                            }
+                        };
                     };
                 };
             };
         };
     };
 
-    class fuelLines_IAFS {
+    #define AUX_R_DOT_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
+    #define AUX_R_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
+    MPD_TEXT_L(AUX_R_TXT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("R AUX "))
+    class AUX_R_Dot_Off {
+        class lines_auxROnOff {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_R_DOT_X - 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                {{AUX_R_DOT_X - 0.007, AUX_R_DOT_Y - 0.007}, 1},
+                {{AUX_R_DOT_X - 0.000, AUX_R_DOT_Y - 0.010}, 1},
+                {{AUX_R_DOT_X + 0.007, AUX_R_DOT_Y - 0.007}, 1},
+                {{AUX_R_DOT_X + 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                {{AUX_R_DOT_X + 0.007, AUX_R_DOT_Y + 0.007}, 1},
+                {{AUX_R_DOT_X + 0.000, AUX_R_DOT_Y + 0.010}, 1},
+                {{AUX_R_DOT_X - 0.007, AUX_R_DOT_Y + 0.007}, 1},
+                {{AUX_R_DOT_X - 0.010, AUX_R_DOT_Y + 0.000}, 1},
+            };
+        };
+    };
+    class AUX_R_Dot_On {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_R_AUX_ON));
+        class auxR_draw {
+            class polys_auxROnOff {
+                class Polygons {
+                    type = "polygon";
+                    points[] = {
+                        {
+                            {{AUX_R_DOT_X - 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                            {{AUX_R_DOT_X - 0.007, AUX_R_DOT_Y - 0.007}, 1},
+                            {{AUX_R_DOT_X - 0.000, AUX_R_DOT_Y - 0.010}, 1},
+                            {{AUX_R_DOT_X, AUX_R_DOT_Y}, 1}
+                        },
+                        {
+                            {{AUX_R_DOT_X - 0.000, AUX_R_DOT_Y - 0.010}, 1},
+                            {{AUX_R_DOT_X + 0.007, AUX_R_DOT_Y - 0.007}, 1},
+                            {{AUX_R_DOT_X + 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                            {{AUX_R_DOT_X, AUX_R_DOT_Y}, 1}
+                        },
+                        {
+                            {{AUX_R_DOT_X + 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                            {{AUX_R_DOT_X + 0.007, AUX_R_DOT_Y + 0.007}, 1},
+                            {{AUX_R_DOT_X + 0.000, AUX_R_DOT_Y + 0.010}, 1},
+                            {{AUX_R_DOT_X, AUX_R_DOT_Y}, 1}
+                        },
+                        {
+                            {{AUX_R_DOT_X + 0.000, AUX_R_DOT_Y + 0.010}, 1},
+                            {{AUX_R_DOT_X - 0.007, AUX_R_DOT_Y + 0.007}, 1},
+                            {{AUX_R_DOT_X - 0.010, AUX_R_DOT_Y + 0.000}, 1},
+                            {{AUX_R_DOT_X, AUX_R_DOT_Y}, 1}
+                        }
+                    };
+                };
+            };
+        };
+    };
+};
+
+class Boost_Pump {
+    #define FUEL_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
+    #define FUEL_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
+
+    MPD_TEXT_L(FBOOST, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("BOOST "))
+
+    class lines_fuelOnOff {
         type = "line";
-        width = 9;
+        width = 3;
         points[] = {
-            {{0.48, 0.256}, 1},
-            {{0.48, 0.322}, 1}, 
-            {},
-            {{0.48, 0.382}, 1},
-            {{0.48, 0.480}, 1} 
+            //Power Indicator
+            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+            {{FUEL_X - 0.007, FUEL_Y - 0.007}, 1},
+            {{FUEL_X - 0.000, FUEL_Y - 0.010}, 1},
+            {{FUEL_X + 0.007, FUEL_Y - 0.007}, 1},
+            {{FUEL_X + 0.010, FUEL_Y + 0.000}, 1},
+            {{FUEL_X + 0.007, FUEL_Y + 0.007}, 1},
+            {{FUEL_X + 0.000, FUEL_Y + 0.010}, 1},
+            {{FUEL_X - 0.007, FUEL_Y + 0.007}, 1}, 
+            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+        };
+    };
+    class fuel_On {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_BOOST_ON));
+        class fuel_draw {
+            class polys_fuelOnOff {
+                class Polygons {
+                    type = "polygon";
+                    points[] = {
+                        { //Top left
+                            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+                            {{FUEL_X - 0.007, FUEL_Y - 0.007}, 1},
+                            {{FUEL_X - 0.000, FUEL_Y - 0.010}, 1},
+                            {{FUEL_X, FUEL_Y}, 1}
+                        },
+                        { //Top right
+                            {{FUEL_X - 0.000, FUEL_Y - 0.010}, 1},
+                            {{FUEL_X + 0.007, FUEL_Y - 0.007}, 1},
+                            {{FUEL_X + 0.010, FUEL_Y + 0.000}, 1},
+                            {{FUEL_X, FUEL_Y}, 1}
+                        },
+                        { //Bottom right
+                            {{FUEL_X + 0.010, FUEL_Y + 0.000}, 1},
+                            {{FUEL_X + 0.007, FUEL_Y + 0.007}, 1}, 
+                            {{FUEL_X + 0.000, FUEL_Y + 0.010}, 1},
+                            {{FUEL_X, FUEL_Y}, 1}
+                        },
+                        { //Bottom left
+                            {{FUEL_X + 0.000, FUEL_Y + 0.010}, 1},
+                            {{FUEL_X - 0.007, FUEL_Y + 0.007}, 1}, 
+                            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+                            {{FUEL_X, FUEL_Y}, 1}
+                        }
+                    };
+                };
+            };
         };
     };
 };

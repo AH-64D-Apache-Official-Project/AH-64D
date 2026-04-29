@@ -168,6 +168,7 @@ _heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
 
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelVariables;
+[_heli] call fza_fuel_fnc_fuelMgmtVariables;
 [_heli] call fza_sfmplus_fnc_fuelSet;
 
 //Engines

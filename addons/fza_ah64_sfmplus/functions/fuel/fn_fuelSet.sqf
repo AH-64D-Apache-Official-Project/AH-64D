@@ -80,6 +80,20 @@ if (["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) then {
     _stn4MaxFuelMass = _maxTnkFuelMass;
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
+// Outer/inner tank dependency (pressurised air path)                                //////
+// stn1 (outer L) can only transfer if stn2 (inner L) is also loaded.               //////
+// stn4 (outer R) can only transfer if stn3 (inner R) is also loaded.               //////
+// Tanks without a transfer path are excluded from initial fuel distribution.        //////
+/////////////////////////////////////////////////////////////////////////////////////////////
+if (_stn1HasTank == 1 && _stn2HasTank == 0) then {
+    _stn1HasTank     = 0;
+    _stn1MaxFuelMass = 0;
+};
+if (_stn4HasTank == 1 && _stn3HasTank == 0) then {
+    _stn4HasTank     = 0;
+    _stn4MaxFuelMass = 0;
+};
+/////////////////////////////////////////////////////////////////////////////////////////////
 // External Fuel        /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 _numExtTanks        = _stn1HasTank  + _stn2HasTank  + _stn3HasTank  + _stn4HasTank;
@@ -89,23 +103,22 @@ _maxExtFuelMass     = _stn1MaxFuelMass + _stn2MaxFuelMass + _stn3MaxFuelMass + _
 /////////////////////////////////////////////////////////////////////////////////////////////
 if (isNil "_IAFSInstalled") exitWith {};
 
+// Initial load — distribute fuel across cells based on capacity
 if (_IAFSInstalled) then {
     _maxIntFuelMass = _maxFwdFuelMass + _maxCtrFuelMass + _maxAftFuelMass;
-    _maxTotFuelMass = _maxIntFuelMass  + _maxExtFuelMass;
-
-    _totFuelMass    = (_maxIntFuelMass * _percentFuel) + _maxExtFuelMass;
-    _fwdFuelMass    = [_totFuelMass / 2,                             0, _maxFwdFuelMass] call BIS_fnc_clamp;
-    _aftFuelMass    = [_totFuelMass - _fwdFuelMass,                  0, _maxAftFuelMass] call BIS_fnc_clamp;
-    _ctrFuelMass    = [_totFuelMass - (_fwdFuelMass + _aftFuelMass), 0, _maxCtrFuelMass] call BIS_fnc_clamp;
-    _extFuelMass    = _totFuelMass - (_fwdFuelMass + _ctrFuelMass + _aftFuelMass);
 } else {
     _maxIntFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
-    _maxTotFuelMass = _maxIntFuelMass + _maxExtFuelMass;
+};
+_maxTotFuelMass = _maxIntFuelMass + _maxExtFuelMass;
 
-    _totFuelMass    = (_maxIntFuelMass * _percentFuel) + _maxExtFuelMass;
-    _fwdFuelMass    = [_totFuelMass / 2,            0, _maxFwdFuelMass] call BIS_fnc_clamp;
-    _aftFuelMass    = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
-    _extFuelMass    = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
+_totFuelMass    = _maxTotFuelMass * _percentFuel;
+// Internal fills first; external gets whatever remains above internal capacity
+private _intFuelMass = _totFuelMass min _maxIntFuelMass;
+_extFuelMass    = 0 max (_totFuelMass - _intFuelMass) min _maxExtFuelMass;
+_fwdFuelMass    = [_intFuelMass / 2,                             0, _maxFwdFuelMass] call BIS_fnc_clamp;
+_aftFuelMass    = [_intFuelMass - _fwdFuelMass,                  0, _maxAftFuelMass] call BIS_fnc_clamp;
+if (_IAFSInstalled) then {
+    _ctrFuelMass = [_intFuelMass - (_fwdFuelMass + _aftFuelMass), 0, _maxCtrFuelMass] call BIS_fnc_clamp;
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // External Tanks Final /////////////////////////////////////////////////////////////////////
@@ -134,5 +147,7 @@ _heli setVariable ["fza_sfmplus_stn2FuelMass",   _stn2FuelMass];
 _heli setVariable ["fza_sfmplus_stn3FuelMass",   _stn3FuelMass];
 _heli setVariable ["fza_sfmplus_stn4FuelMass",   _stn4FuelMass];
 
-_heli setVariable ["fza_sfmplus_totFuelMass"   , _totFuelMass];
+private _actualTotFuelMass = _fwdFuelMass + _ctrFuelMass + _aftFuelMass
+                           + _stn1FuelMass + _stn2FuelMass + _stn3FuelMass + _stn4FuelMass;
+_heli setVariable ["fza_sfmplus_totFuelMass"   , _actualTotFuelMass];
 _heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];

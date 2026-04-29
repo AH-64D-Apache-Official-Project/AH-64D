@@ -55,4 +55,13 @@ private _totalEnduranceNumber = if(_totalFuelConsumption > 0) then {
     format["%1:%2", _enduranceHours toFixed 0, [_enduranceMinutes, 2] call CBA_fnc_formatNumber];
 } else {"9:99"};
 
-[_fwdCellWeight, _ctrFuelWeight, _aftCellWeight, _mainFuelCellWeight, _totalFuelCellWeight, _eng1FuelCons, _eng2FuelCons, _totalFuelConsumption, _mainEnduranceNumber, _totalEnduranceNumber]
+// Specific Fuel Range (nm per lb): airspeed (kts) / fuel flow (lb/hr)
+// Shown blank when groundspeed < 10 kts or no fuel flow
+private _sfrText = "";
+private _groundspeedKts = speed _heli * 1.94384;
+if (_groundspeedKts >= 10 && _totalFuelConsumption > 0) then {
+    private _sfr = (_groundspeedKts / _totalFuelConsumption) toFixed 2;
+    _sfrText = if (_sfr select [0, 2] == "0.") then { _sfr select [1] } else { _sfr };
+};
+
+[_fwdCellWeight, _ctrFuelWeight, _aftCellWeight, _mainFuelCellWeight, _totalFuelCellWeight, _eng1FuelCons, _eng2FuelCons, _totalFuelConsumption, _mainEnduranceNumber, _totalEnduranceNumber, _sfrText]
