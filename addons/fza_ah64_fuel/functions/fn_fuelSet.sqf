@@ -49,7 +49,7 @@ private _stn2FuelMass = 0.0;
 private _stn3FuelMass = 0.0;
 private _stn4FuelMass = 0.0;
 
-private _numExtTanks    = [_stn1HasTank, _stn2HasTank, _stn3HasTank, _stn4HasTank] count {_x};
+private _numExtTanks    = {_x} count [_stn1HasTank, _stn2HasTank, _stn3HasTank, _stn4HasTank];
 private _maxExtFuelMass = _numExtTanks * _maxTnkFuelMass;
 if (isNil "_IAFSInstalled") exitWith {};
 
