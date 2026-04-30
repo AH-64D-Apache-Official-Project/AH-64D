@@ -38,6 +38,8 @@ params ["_heli"];
 #define AUTO_SPLIT_50_KG     22.7    // ~50 lb
 #define AUTO_SPLIT_100_KG    45.4    // ~100 lb
 #define AUTO_500_KG          226.8   // ~500 lb
+#define TANK_LEAK_START_DMG   0.60
+#define TANK_LEAK_MAX_RATE_KGS 0.756  // ~100 lb/min at full damage
 
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 if (_deltaTime <= 0) exitWith {};
@@ -241,6 +243,32 @@ if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false]) && !_anyAux
         _fwdFuelMass = _fwdFuelMass + _iafsFlow;
         if (_iafsFlow > 0) then { _iafsFwdFlowing = true; };
     };
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Internal tank leaks                                                                //////
+// FWD: hit_fuel_forward, CTR: hit_msnEquip_magandrobbie, AFT: hit_fuel_aft         //////
+// Starts at 60% damage and ramps linearly to max leak rate at 100% damage.          //////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _fwdLeakDamage = (_heli getHitPointDamage "hit_fuel_forward") max 0;
+if (_fwdFuelMass > 0 && _fwdLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_fwdLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _fwdFuelMass;
+    _fwdFuelMass = _fwdFuelMass - _leakMass;
+};
+
+private _ctrLeakDamage = (_heli getHitPointDamage "hit_msnEquip_magandrobbie") max 0;
+if (_IAFSInstalled && _maxCtrFuelMass > 0 && _ctrFuelMass > 0 && _ctrLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_ctrLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _ctrFuelMass;
+    _ctrFuelMass = _ctrFuelMass - _leakMass;
+};
+
+private _aftLeakDamage = (_heli getHitPointDamage "hit_fuel_aft") max 0;
+if (_aftFuelMass > 0 && _aftLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_aftLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _aftFuelMass;
+    _aftFuelMass = _aftFuelMass - _leakMass;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
