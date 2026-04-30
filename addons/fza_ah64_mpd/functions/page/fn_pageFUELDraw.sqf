@@ -38,8 +38,6 @@ private _IAFSOn = _heli getVariable ["fza_ah64_IAFSOn", false];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_ON), BOOLTONUM(_IAFSOn)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_IAFS), str (round (_ctrFuelWeight / 10) * 10)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_EMPTY), _ctrFuelWeight];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_TOT),  str (round (_totalFuelCellWeight / 10) * 10)];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_ENDR_TOT), _totalEnduranceNumber];
 
 // Crossfeed mode selection box
 private _crossfeedMode = _heli getVariable ["fza_fuel_crossfeedMode", "NORM"];
@@ -62,6 +60,10 @@ private _stn1Present = ["auxTank", _pylonMags select 0]  call BIS_fnc_inString;
 private _stn2Present = ["auxTank", _pylonMags select 4]  call BIS_fnc_inString;
 private _stn3Present = ["auxTank", _pylonMags select 8]  call BIS_fnc_inString;
 private _stn4Present = ["auxTank", _pylonMags select 12] call BIS_fnc_inString;
+private _showTotalFuel = (_IAFSInstalled > 0) || _stn1Present || _stn2Present || _stn3Present || _stn4Present;
+private _totalFuelText = str (round (_totalFuelCellWeight / 10) * 10);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_TOT), ["", _totalFuelText] select _showTotalFuel];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_ENDR_TOT), ["", _totalEnduranceNumber] select _showTotalFuel];
 
 // FWD/AFT cell quantities (lbs) used by HPP threshold checks for low/empty states
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_FWD_LOW), _forwardCellWeight];
