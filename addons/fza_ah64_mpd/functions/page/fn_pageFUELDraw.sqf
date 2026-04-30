@@ -131,7 +131,7 @@ _heli setVariable ["fza_fuel_prevAnyAuxOn", _anyAuxOn];
 private _auxLineNew = _anyAuxOn && ((CBA_missionTime - (_heli getVariable ["fza_fuel_auxLineOpenTime", -99])) < 3);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AUX_LINE_NEW), BOOLTONUM(_auxLineNew)];
 
-// ── "Flowing" flags (50 % thicker when fuel actively passing through) ───────────────────
+// Flowing flags
 // Per-engine: consuming fuel and source cell has fuel
 private _eng1SrcHasFuel = if (_eng1Src == "AFT") then {_aftCellWeight > 0} else {_forwardCellWeight > 0};
 private _eng2SrcHasFuel = if (_eng2Src == "AFT") then {_aftCellWeight > 0} else {_forwardCellWeight > 0};
@@ -157,10 +157,6 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_FLOWING),    BOOLTONU
 // Fire panel armed: hides engine fuel lines to show fuel shutoff
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG1_FIRE_ARMED), BOOLTONUM((_heli getVariable ["fza_ah64_fireArmed1", [false, 0, 0]]) #0)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG2_FIRE_ARMED), BOOLTONUM((_heli getVariable ["fza_ah64_fireArmed2", [false, 0, 0]]) #0)];
-
-// Aux empty flag: true if any aux tank is actively selected and empty (< 10 lbs ≈ 4.5 kg)
-private _anyAuxEmpty = (_lAuxOn && _stn1FuelMassRaw < 4.5) || (_lAuxOn && _stn2FuelMassRaw < 4.5) || (_rAuxOn && _stn3FuelMassRaw < 4.5) || (_rAuxOn && _stn4FuelMassRaw < 4.5);
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AUX_EMPTY), BOOLTONUM(_anyAuxEmpty)];
 
 // CHECK sub-mode
 private _checkActive  = (_state get "checkActive") > 0;

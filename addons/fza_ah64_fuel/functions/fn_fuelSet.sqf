@@ -36,71 +36,21 @@ private _aftFuelMass    = 0.0;
 private _ctrFuelMass    = 0.0;
 private _extFuelMass    = 0.0;
 private _maxIntFuelMass = 0.0;
-private _maxExtFuelMass = 0.0;
 private _maxTotFuelMass = 0.0;
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Station 1 Fuel       /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-private _stn1HasTank     = 0;
-private _stn1FuelMass    = 0.0;
-private _stn1MaxFuelMass = 0.0;
-if (["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) then {
-    _stn1HasTank  = 1;
-    _stn1MaxFuelMass = _maxTnkFuelMass;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Station 2 Fuel       /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-private _stn2HasTank     = 0;
-private _stn2FuelMass    = 0.0;
-private _stn2MaxFuelMass = 0.0;
-if (["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) then {
-    _stn2HasTank  = 1;
-    _stn2MaxFuelMass = _maxTnkFuelMass;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Station 3 Fuel       /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-private _stn3HasTank     = 0;
-private _stn3FuelMass    = 0.0;
-private _stn3MaxFuelMass = 0.0;
-if (["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) then {
-    _stn3HasTank  = 1;
-    _stn3MaxFuelMass = _maxTnkFuelMass;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Station 4 Fuel       /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-private _stn4HasTank     = 0;
-private _stn4FuelMass    = 0.0;
-private _stn4MaxFuelMass = 0.0;
-if (["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) then {
-    _stn4HasTank  = 1;
-    _stn4MaxFuelMass = _maxTnkFuelMass;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Outer/inner tank dependency (pressurised air path)                                //////
-// stn1 (outer L) can only transfer if stn2 (inner L) is also loaded.               //////
-// stn4 (outer R) can only transfer if stn3 (inner R) is also loaded.               //////
-// Tanks without a transfer path are excluded from initial fuel distribution.        //////
-/////////////////////////////////////////////////////////////////////////////////////////////
-if (_stn1HasTank == 1 && _stn2HasTank == 0) then {
-    _stn1HasTank     = 0;
-    _stn1MaxFuelMass = 0;
-};
-if (_stn4HasTank == 1 && _stn3HasTank == 0) then {
-    _stn4HasTank     = 0;
-    _stn4MaxFuelMass = 0;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// External Fuel        /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-_numExtTanks        = _stn1HasTank  + _stn2HasTank  + _stn3HasTank  + _stn4HasTank;
-_maxExtFuelMass     = _stn1MaxFuelMass + _stn2MaxFuelMass + _stn3MaxFuelMass + _stn4MaxFuelMass; 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Internal Fuel        /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
+// Station presence — outer tanks need inner present (pressurised air path)
+private _stn1HasTank = ["auxTank", _pylonMagazines select 0]  call BIS_fnc_inString;
+private _stn2HasTank = ["auxTank", _pylonMagazines select 4]  call BIS_fnc_inString;
+private _stn3HasTank = ["auxTank", _pylonMagazines select 8]  call BIS_fnc_inString;
+private _stn4HasTank = ["auxTank", _pylonMagazines select 12] call BIS_fnc_inString;
+
+private _stn1FuelMass = 0.0;
+private _stn2FuelMass = 0.0;
+private _stn3FuelMass = 0.0;
+private _stn4FuelMass = 0.0;
+
+private _numExtTanks    = [_stn1HasTank, _stn2HasTank, _stn3HasTank, _stn4HasTank] count {_x};
+private _maxExtFuelMass = _numExtTanks * _maxTnkFuelMass;
 if (isNil "_IAFSInstalled") exitWith {};
 
 // Initial load — distribute fuel across cells based on capacity
@@ -120,24 +70,14 @@ _aftFuelMass    = [_intFuelMass - _fwdFuelMass,                  0, _maxAftFuelM
 if (_IAFSInstalled) then {
     _ctrFuelMass = [_intFuelMass - (_fwdFuelMass + _aftFuelMass), 0, _maxCtrFuelMass] call BIS_fnc_clamp;
 };
-/////////////////////////////////////////////////////////////////////////////////////////////
-// External Tanks Final /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-if (_stn1HasTank == 1) then {
-    _stn1FuelMass = _extFuelMass / _numExtTanks;
+// External tank initial fuel
+if (_numExtTanks > 0) then {
+    private _perTank = _extFuelMass / _numExtTanks;
+    if (_stn1HasTank) then { _stn1FuelMass = _perTank; };
+    if (_stn2HasTank) then { _stn2FuelMass = _perTank; };
+    if (_stn3HasTank) then { _stn3FuelMass = _perTank; };
+    if (_stn4HasTank) then { _stn4FuelMass = _perTank; };
 };
-if (_stn2HasTank == 1) then {
-    _stn2FuelMass = _extFuelMass / _numExtTanks;
-};
-if (_stn3HasTank == 1) then {
-    _stn3FuelMass = _extFuelMass / _numExtTanks;
-};
-if (_stn4HasTank == 1) then {
-    _stn4FuelMass = _extFuelMass / _numExtTanks;
-};
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Update Variables     /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
 _heli setVariable ["fza_sfmplus_fwdFuelMass",    _fwdFuelMass];
 _heli setVariable ["fza_sfmplus_ctrFuelMass",    _ctrFuelMass];
 _heli setVariable ["fza_sfmplus_aftFuelMass",    _aftFuelMass];

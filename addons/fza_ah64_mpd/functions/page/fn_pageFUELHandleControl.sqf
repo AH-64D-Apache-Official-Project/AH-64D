@@ -1,5 +1,9 @@
 params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
+private _chkActive  = (_state get "checkActive") > 0;
+private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
+private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
+
 switch(_control) do {
     // Page navigation
     case "t2": { [_heli, _mpdIndex, "flt"]    call fza_mpd_fnc_setCurrentPage; };
@@ -20,9 +24,6 @@ switch(_control) do {
 
     // l2 — OFF when XFER menu open; IAFS/C AUX toggle otherwise
     case "l2": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
         if ((_state get "xferMenuOpen") > 0) then {
             [_heli, "fza_fuel_xferMode", "OFF"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
@@ -35,9 +36,6 @@ switch(_control) do {
 
     // l3 — AFT when XFER menu open; nothing otherwise
     case "l3": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
         if ((_state get "xferMenuOpen") > 0) then {
             [_heli, "fza_fuel_xferMode", "AFT"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
@@ -61,9 +59,6 @@ switch(_control) do {
 
     // r2 — CHECK 15 min when setup open; else boost pump toggle
     case "r2": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
         if (_chkActive) then {
             if (!_chkRunning) then {
                 [_heli, "fza_fuel_checkMinutes", 15] call fza_fnc_updateNetworkGlobal;
@@ -81,9 +76,6 @@ switch(_control) do {
 
     // r3 — CHECK 20 min when setup open; else crossfeed FWD (locked when boost on)
     case "r3": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
         if (_chkActive) then {
             if (!_chkRunning) then {
                 [_heli, "fza_fuel_checkMinutes", 20] call fza_fnc_updateNetworkGlobal;
@@ -97,9 +89,6 @@ switch(_control) do {
 
     // r4 — CHECK 30 min when setup open; else crossfeed NORM (locked when boost on)
     case "r4": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
         if (_chkActive) then {
             if (!_chkRunning) then {
                 [_heli, "fza_fuel_checkMinutes", 30] call fza_fnc_updateNetworkGlobal;
@@ -113,10 +102,6 @@ switch(_control) do {
 
     // r5 — START when check setup; STOP when check running; else crossfeed AFT
     case "r5": {
-        private _chkActive  = (_state get "checkActive") > 0;
-        private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-        private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
-
         if (_chkActive && !_chkRunning) then {
             // START (also clears any previous done state)
             if (_chkDone) then {
