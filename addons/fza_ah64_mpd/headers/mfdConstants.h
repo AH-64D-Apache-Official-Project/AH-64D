@@ -45,7 +45,7 @@
 #define MFD_IND_FLT_ACQ_BOX 9
 #define MFD_IND_FLT_VERT_SPEED 10
 
-//Fuel page                           // 33 indices used (0-32)
+//Fuel page                           // 35 indices used (0-34)
 #define MFD_IND_FUEL_IAFS_INSTALLED       0
 #define MFD_IND_FUEL_IAFS_ON              1
 #define MFD_IND_FUEL_CROSSFEED            2  // 1=FWD, 2=NORM, 3=AFT
@@ -79,6 +79,8 @@
 #define MFD_IND_FUEL_STN3_MASS          30  // -1=not present, >=0 mass lbs
 #define MFD_IND_FUEL_STN4_MASS          31  // -1=not present, >=0 mass lbs
 #define MFD_IND_FUEL_R_AUX_FLOWING      32
+#define MFD_IND_FUEL_ENG1_FIRE_ARMED    33
+#define MFD_IND_FUEL_ENG2_FIRE_ARMED    34
 
 #define MFD_TEXT_IND_FUEL_FWD        0
 #define MFD_TEXT_IND_FUEL_AFT        1

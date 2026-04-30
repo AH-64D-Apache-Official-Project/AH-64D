@@ -313,6 +313,29 @@ private _eng1FuelAvail = (_eng1Req <= _eps) || ([_aftSourceAvail, _fwdSourceAvai
 private _eng2FuelAvail = (_eng2Req <= _eps) || ([_aftSourceAvail, _fwdSourceAvail] select (_eng2Source == "FWD"));
 private _apuFuelAvail  = (_apuReq  <= _eps) || ([_aftSourceAvail, _fwdSourceAvail] select (_apuSource  == "FWD"));
 
+// 2-second grace period: engines survive briefly after fuel source runs dry
+private _eng1StarvedSince = _heli getVariable ["fza_fuel_eng1StarvedSince", -1];
+if (_eng1FuelAvail) then {
+    _heli setVariable ["fza_fuel_eng1StarvedSince", -1];
+} else {
+    if (_eng1StarvedSince < 0) then {
+        _eng1StarvedSince = CBA_missionTime;
+        _heli setVariable ["fza_fuel_eng1StarvedSince", _eng1StarvedSince];
+    };
+    _eng1FuelAvail = (CBA_missionTime - _eng1StarvedSince) < 2;
+};
+
+private _eng2StarvedSince = _heli getVariable ["fza_fuel_eng2StarvedSince", -1];
+if (_eng2FuelAvail) then {
+    _heli setVariable ["fza_fuel_eng2StarvedSince", -1];
+} else {
+    if (_eng2StarvedSince < 0) then {
+        _eng2StarvedSince = CBA_missionTime;
+        _heli setVariable ["fza_fuel_eng2StarvedSince", _eng2StarvedSince];
+    };
+    _eng2FuelAvail = (CBA_missionTime - _eng2StarvedSince) < 2;
+};
+
 _heli setVariable ["fza_fuel_eng1FuelAvail", _eng1FuelAvail];
 _heli setVariable ["fza_fuel_eng2FuelAvail", _eng2FuelAvail];
 _heli setVariable ["fza_fuel_apuFuelAvail",  _apuFuelAvail];

@@ -349,7 +349,7 @@ class FuelLines {
 
     // Eng1 â†’ FWD tank (NORM or FWD crossfeed mode)
     class Eng1_FwdSide {
-    condition = C_COND(C_NOT(CROSSFEED_IS_AFT));
+    condition = C_COND(C_AND(C_NOT(CROSSFEED_IS_AFT), C_NOT(C_MPD_USER(MFD_IND_FUEL_ENG1_FIRE_ARMED))));
         class Normal      { condition = C_COND(ENG1_NORM_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{ENG1_X, ENG_TOP_Y}, 1}, {{ENG1_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_LEFT_X, FWD_BOX_CENTER_Y}, 1} }; }; };
         class Flowing     { condition = C_COND(ENG1_NORM_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{ENG1_X, ENG_TOP_Y}, 1}, {{ENG1_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_LEFT_X, FWD_BOX_CENTER_Y}, 1} }; }; };
         class WhiteNormal { condition = C_COND(ENG1_WHITE_NOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{ENG1_X, ENG_TOP_Y}, 1}, {{ENG1_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_LEFT_X, FWD_BOX_CENTER_Y}, 1} }; }; };
@@ -358,7 +358,7 @@ class FuelLines {
 
     // Eng1 â†’ AFT tank (AFT crossfeed mode only)
     class Eng1_AftSide {
-        condition = C_COND(CROSSFEED_IS_AFT);
+        condition = C_COND(C_AND(CROSSFEED_IS_AFT, C_NOT(C_MPD_USER(MFD_IND_FUEL_ENG1_FIRE_ARMED))));
         class Normal      { condition = C_COND(ENG1_NORM_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AFT_BOX_LEFT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_LEFT_X, FUEL_BOT_Y}, 1}, {{ENG1_X, FUEL_BOT_Y}, 1}, {{ENG1_X, ENG_BOT_Y}, 1} }; }; };
         class Flowing     { condition = C_COND(ENG1_NORM_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AFT_BOX_LEFT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_LEFT_X, FUEL_BOT_Y}, 1}, {{ENG1_X, FUEL_BOT_Y}, 1}, {{ENG1_X, ENG_BOT_Y}, 1} }; }; };
         class WhiteNormal { condition = C_COND(ENG1_WHITE_NOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AFT_BOX_LEFT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_LEFT_X, FUEL_BOT_Y}, 1}, {{ENG1_X, FUEL_BOT_Y}, 1}, {{ENG1_X, ENG_BOT_Y}, 1} }; }; };
@@ -367,7 +367,7 @@ class FuelLines {
 
     // Eng2 â†’ AFT tank (NORM or AFT crossfeed mode)
     class Eng2_AftSide {
-        condition = C_COND(C_NOT(CROSSFEED_IS_FWD));
+        condition = C_COND(C_AND(C_NOT(CROSSFEED_IS_FWD), C_NOT(C_MPD_USER(MFD_IND_FUEL_ENG2_FIRE_ARMED))));
         class Normal      { condition = C_COND(ENG2_NORM_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AFT_BOX_RIGHT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_RIGHT_X, FUEL_BOT_Y}, 1}, {{ENG2_X, FUEL_BOT_Y}, 1}, {{ENG2_X, ENG_BOT_Y}, 1} }; }; };
         class Flowing     { condition = C_COND(ENG2_NORM_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AFT_BOX_RIGHT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_RIGHT_X, FUEL_BOT_Y}, 1}, {{ENG2_X, FUEL_BOT_Y}, 1}, {{ENG2_X, ENG_BOT_Y}, 1} }; }; };
         class WhiteNormal { condition = C_COND(ENG2_WHITE_NOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AFT_BOX_RIGHT_X, AFT_BOX_BOTTOM_Y}, 1}, {{AFT_BOX_RIGHT_X, FUEL_BOT_Y}, 1}, {{ENG2_X, FUEL_BOT_Y}, 1}, {{ENG2_X, ENG_BOT_Y}, 1} }; }; };
@@ -376,7 +376,7 @@ class FuelLines {
 
     // Eng2 â†’ FWD tank (FWD crossfeed mode only)
     class Eng2_FwdSide {
-        condition = C_COND(CROSSFEED_IS_FWD);
+        condition = C_COND(C_AND(CROSSFEED_IS_FWD, C_NOT(C_MPD_USER(MFD_IND_FUEL_ENG2_FIRE_ARMED))));
         class Normal      { condition = C_COND(ENG2_NORM_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{ENG2_X, ENG_TOP_Y}, 1}, {{ENG2_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_RIGHT_X, FWD_BOX_CENTER_Y}, 1} }; }; };
         class Flowing     { condition = C_COND(ENG2_NORM_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{ENG2_X, ENG_TOP_Y}, 1}, {{ENG2_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_RIGHT_X, FWD_BOX_CENTER_Y}, 1} }; }; };
         class WhiteNormal { condition = C_COND(ENG2_WHITE_NOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{ENG2_X, ENG_TOP_Y}, 1}, {{ENG2_X, FWD_BOX_CENTER_Y}, 1}, {{FWD_BOX_RIGHT_X, FWD_BOX_CENTER_Y}, 1} }; }; };

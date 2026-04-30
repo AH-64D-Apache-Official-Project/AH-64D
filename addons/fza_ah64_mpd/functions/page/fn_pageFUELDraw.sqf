@@ -67,7 +67,7 @@ private _stn4Present = ["auxTank", _pylonMags select 12] call BIS_fnc_inString;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_FWD_LOW), _forwardCellWeight];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AFT_LOW), _aftCellWeight];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_XFER_ACTIVE), BOOLTONUM(_heli getVariable ["fza_fuel_intercellTransferActive", false])];
-private _intercellPhase = floor (diag_tickTime * 6) % 4;
+private _intercellPhase = floor (CBA_missionTime * 6) % 4;
 private _intercellDir = _heli getVariable ["fza_fuel_intercellTransferDir", 0];
 if (_intercellDir == 2) then {
     _intercellPhase = _intercellPhase + 4;
@@ -89,25 +89,25 @@ private _anyAuxOn = _lAuxOn || _rAuxOn;
 private _eng1Src = ["FWD", "AFT"] select (_crossfeedMode == "AFT");
 private _eng2Src = ["AFT", "FWD"] select (_crossfeedMode == "FWD");
 if (_eng1Src != (_heli getVariable ["fza_fuel_prevEng1Src", _eng1Src])) then {
-    _heli setVariable ["fza_fuel_eng1LineOpenTime", diag_tickTime];
+    _heli setVariable ["fza_fuel_eng1LineOpenTime", CBA_missionTime];
 };
 _heli setVariable ["fza_fuel_prevEng1Src", _eng1Src];
 if (_eng2Src != (_heli getVariable ["fza_fuel_prevEng2Src", _eng2Src])) then {
-    _heli setVariable ["fza_fuel_eng2LineOpenTime", diag_tickTime];
+    _heli setVariable ["fza_fuel_eng2LineOpenTime", CBA_missionTime];
 };
 _heli setVariable ["fza_fuel_prevEng2Src", _eng2Src];
-private _eng1LineNew = (diag_tickTime - (_heli getVariable ["fza_fuel_eng1LineOpenTime", -99])) < 3;
-private _eng2LineNew = (diag_tickTime - (_heli getVariable ["fza_fuel_eng2LineOpenTime", -99])) < 3;
+private _eng1LineNew = (CBA_missionTime - (_heli getVariable ["fza_fuel_eng1LineOpenTime", -99])) < 3;
+private _eng2LineNew = (CBA_missionTime - (_heli getVariable ["fza_fuel_eng2LineOpenTime", -99])) < 3;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG1_LINE_NEW), BOOLTONUM(_eng1LineNew)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG2_LINE_NEW), BOOLTONUM(_eng2LineNew)];
 
 // Intercell: flash when transfer becomes active
 private _intercellActive = _heli getVariable ["fza_fuel_intercellTransferActive", false];
 if (_intercellActive && !(_heli getVariable ["fza_fuel_prevIntercellActive", _intercellActive])) then {
-    _heli setVariable ["fza_fuel_intercellLineOpenTime", diag_tickTime];
+    _heli setVariable ["fza_fuel_intercellLineOpenTime", CBA_missionTime];
 };
 _heli setVariable ["fza_fuel_prevIntercellActive", _intercellActive];
-private _intercellLineNew = _intercellActive && ((diag_tickTime - (_heli getVariable ["fza_fuel_intercellLineOpenTime", -99])) < 3);
+private _intercellLineNew = _intercellActive && ((CBA_missionTime - (_heli getVariable ["fza_fuel_intercellLineOpenTime", -99])) < 3);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_LINE_NEW), BOOLTONUM(_intercellLineNew)];
 
 // Intercell flowing: transfer active with source cell having fuel
@@ -118,18 +118,18 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_FLOWING), BOOLTON
 
 // IAFS: flash when centre tank transfer turns on
 if (_IAFSOn && !(_heli getVariable ["fza_fuel_prevIAFSOn", _IAFSOn])) then {
-    _heli setVariable ["fza_fuel_iAFSLineOpenTime", diag_tickTime];
+    _heli setVariable ["fza_fuel_iAFSLineOpenTime", CBA_missionTime];
 };
 _heli setVariable ["fza_fuel_prevIAFSOn", _IAFSOn];
-private _iAFSLineNew = _IAFSOn && ((diag_tickTime - (_heli getVariable ["fza_fuel_iAFSLineOpenTime", -99])) < 3);
+private _iAFSLineNew = _IAFSOn && ((CBA_missionTime - (_heli getVariable ["fza_fuel_iAFSLineOpenTime", -99])) < 3);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_LINE_NEW), BOOLTONUM(_iAFSLineNew)];
 
 // Aux: flash when any aux transfer first activates
 if (_anyAuxOn && !(_heli getVariable ["fza_fuel_prevAnyAuxOn", _anyAuxOn])) then {
-    _heli setVariable ["fza_fuel_auxLineOpenTime", diag_tickTime];
+    _heli setVariable ["fza_fuel_auxLineOpenTime", CBA_missionTime];
 };
 _heli setVariable ["fza_fuel_prevAnyAuxOn", _anyAuxOn];
-private _auxLineNew = _anyAuxOn && ((diag_tickTime - (_heli getVariable ["fza_fuel_auxLineOpenTime", -99])) < 3);
+private _auxLineNew = _anyAuxOn && ((CBA_missionTime - (_heli getVariable ["fza_fuel_auxLineOpenTime", -99])) < 3);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AUX_LINE_NEW), BOOLTONUM(_auxLineNew)];
 
 // ── "Flowing" flags (50 % thicker when fuel actively passing through) ───────────────────
@@ -154,6 +154,10 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_FWD_FLOWING), BOOLTONU
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_AFT_FLOWING), BOOLTONUM(_heli getVariable ["fza_fuel_iafsAftFlowing", false])];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_L_AUX_FLOWING),    BOOLTONUM(_heli getVariable ["fza_fuel_lAuxFlowing",    false])];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_FLOWING),    BOOLTONUM(_heli getVariable ["fza_fuel_rAuxFlowing",    false])];
+
+// Fire panel armed: hides engine fuel lines to show fuel shutoff
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG1_FIRE_ARMED), BOOLTONUM((_heli getVariable ["fza_ah64_fireArmed1", [false, 0, 0]]) #0)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_ENG2_FIRE_ARMED), BOOLTONUM((_heli getVariable ["fza_ah64_fireArmed2", [false, 0, 0]]) #0)];
 
 // Aux empty flag: true if any aux tank is actively selected and empty (< 10 lbs ≈ 4.5 kg)
 private _anyAuxEmpty = (_lAuxOn && _stn1FuelMassRaw < 4.5) || (_lAuxOn && _stn2FuelMassRaw < 4.5) || (_rAuxOn && _stn3FuelMassRaw < 4.5) || (_rAuxOn && _stn4FuelMassRaw < 4.5);
