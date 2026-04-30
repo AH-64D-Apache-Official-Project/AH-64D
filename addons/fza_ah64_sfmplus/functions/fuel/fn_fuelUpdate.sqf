@@ -245,8 +245,9 @@ if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false]) && !_anyAux
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-// External tank transfer (pressurised air → AFT cell)                              //////
-// stn2 inner-L and stn3 inner-R transfer independently.                             //////
+// External tank transfer (pressurised air → internal cells)                        //////
+// stn1/stn2 (left, L AUX) feed FWD cell.                                           //////
+// stn3/stn4 (right, R AUX) feed AFT cell.                                          //////
 // stn1 outer-L requires stn2 present; stn4 outer-R requires stn3 present.           //////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _pylonMagazines = getPylonMagazines _heli;
@@ -255,35 +256,43 @@ private _stn2HasTank = ["auxTank", _pylonMagazines select 4]  call BIS_fnc_inStr
 private _stn3HasTank = ["auxTank", _pylonMagazines select 8]  call BIS_fnc_inString;
 private _stn4HasTank = ["auxTank", _pylonMagazines select 12] call BIS_fnc_inString;
 
+private _fwdRoom = _maxFwdFuelMass - _fwdFuelMass;
 private _aftRoom = _maxAftFuelMass - _aftFuelMass;
 
-// Left side: inner-L (stn2) then outer-L (stn1, requires stn2 for pressurised air path)
-if (_stn2HasTank && _lAuxOn && _stn2FuelMass > 0 && _aftRoom > 0) then {
-    private _flow = _xferStep min _stn2FuelMass min _aftRoom;
-    _stn2FuelMass = _stn2FuelMass - _flow;
-    _aftFuelMass  = _aftFuelMass  + _flow;
-    _aftRoom      = _aftRoom      - _flow;
+// Left side: inner-L (stn2) then outer-L (stn1, requires stn2 for pressurised air path) → FWD
+private _lAuxFlowTotal = 0;
+if (_stn2HasTank && _lAuxOn && _stn2FuelMass > 0 && _fwdRoom > 0) then {
+    private _flow = _xferStep min _stn2FuelMass min _fwdRoom;
+    _stn2FuelMass  = _stn2FuelMass - _flow;
+    _fwdFuelMass   = _fwdFuelMass  + _flow;
+    _fwdRoom       = _fwdRoom      - _flow;
+    _lAuxFlowTotal = _lAuxFlowTotal + _flow;
 };
-if (_stn1HasTank && _lAuxOn && _stn2HasTank && _stn1FuelMass > 0 && _aftRoom > 0) then {
-    private _flow = _xferStep min _stn1FuelMass min _aftRoom;
-    _stn1FuelMass = _stn1FuelMass - _flow;
-    _aftFuelMass  = _aftFuelMass  + _flow;
-    _aftRoom      = _aftRoom      - _flow;
+if (_stn1HasTank && _lAuxOn && _stn2HasTank && _stn1FuelMass > 0 && _fwdRoom > 0) then {
+    private _flow = _xferStep min _stn1FuelMass min _fwdRoom;
+    _stn1FuelMass  = _stn1FuelMass - _flow;
+    _fwdFuelMass   = _fwdFuelMass  + _flow;
+    _fwdRoom       = _fwdRoom      - _flow;
+    _lAuxFlowTotal = _lAuxFlowTotal + _flow;
 };
-// Right side: inner-R (stn3) then outer-R (stn4, requires stn3 for pressurised air path)
+// Right side: inner-R (stn3) then outer-R (stn4, requires stn3 for pressurised air path) → AFT
+private _rAuxFlowTotal = 0;
 if (_stn3HasTank && _rAuxOn && _stn3FuelMass > 0 && _aftRoom > 0) then {
     private _flow = _xferStep min _stn3FuelMass min _aftRoom;
-    _stn3FuelMass = _stn3FuelMass - _flow;
-    _aftFuelMass  = _aftFuelMass  + _flow;
-    _aftRoom      = _aftRoom      - _flow;
+    _stn3FuelMass  = _stn3FuelMass - _flow;
+    _aftFuelMass   = _aftFuelMass  + _flow;
+    _aftRoom       = _aftRoom      - _flow;
+    _rAuxFlowTotal = _rAuxFlowTotal + _flow;
 };
 if (_stn4HasTank && _rAuxOn && _stn3HasTank && _stn4FuelMass > 0 && _aftRoom > 0) then {
     private _flow = _xferStep min _stn4FuelMass min _aftRoom;
-    _stn4FuelMass = _stn4FuelMass - _flow;
-    _aftFuelMass  = _aftFuelMass  + _flow;
+    _stn4FuelMass  = _stn4FuelMass - _flow;
+    _aftFuelMass   = _aftFuelMass  + _flow;
+    _rAuxFlowTotal = _rAuxFlowTotal + _flow;
 };
 
-private _auxFlowing = (_lAuxOn && (_stn1FuelMass > 4.5 || _stn2FuelMass > 4.5)) || (_rAuxOn && (_stn3FuelMass > 4.5 || _stn4FuelMass > 4.5));
+private _lAuxFlowing = _lAuxFlowTotal > 0;
+private _rAuxFlowing = _rAuxFlowTotal > 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Clamp all masses                                                                   //////
@@ -316,7 +325,8 @@ _heli setVariable ["fza_fuel_intercellTransferDir",    _intercellTransferDir];
 _heli setVariable ["fza_fuel_iafsFlowing",            _iafsAftFlowing || _iafsFwdFlowing];
 _heli setVariable ["fza_fuel_iafsAftFlowing",         _iafsAftFlowing];
 _heli setVariable ["fza_fuel_iafsFwdFlowing",         _iafsFwdFlowing];
-_heli setVariable ["fza_fuel_auxFlowing",             _auxFlowing];
+_heli setVariable ["fza_fuel_lAuxFlowing",            _lAuxFlowing];
+_heli setVariable ["fza_fuel_rAuxFlowing",            _rAuxFlowing];
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Update Arma fuel fraction and write variables                                     //////

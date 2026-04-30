@@ -152,7 +152,8 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_STN4_MASS), if (_stn4Presen
 // IAFS and aux flowing flags — determined by fuelUpdate each tick
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_FWD_FLOWING), BOOLTONUM(_heli getVariable ["fza_fuel_iafsFwdFlowing", false])];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_AFT_FLOWING), BOOLTONUM(_heli getVariable ["fza_fuel_iafsAftFlowing", false])];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AUX_FLOWING),      BOOLTONUM(_heli getVariable ["fza_fuel_auxFlowing",     false])];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_L_AUX_FLOWING),    BOOLTONUM(_heli getVariable ["fza_fuel_lAuxFlowing",    false])];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_FLOWING),    BOOLTONUM(_heli getVariable ["fza_fuel_rAuxFlowing",    false])];
 
 // Aux empty flag: true if any aux tank is actively selected and empty (< 10 lbs ≈ 4.5 kg)
 private _anyAuxEmpty = (_lAuxOn && _stn1FuelMassRaw < 4.5) || (_lAuxOn && _stn2FuelMassRaw < 4.5) || (_rAuxOn && _stn3FuelMassRaw < 4.5) || (_rAuxOn && _stn4FuelMassRaw < 4.5);

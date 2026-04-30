@@ -21,13 +21,16 @@ MPD_TEXT_C(CHECK, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("CH
 MPD_TEXT_L(FTYPE_TYPE, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("TYPE"))
 MPD_BOX_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + (MPD_TEXT_HEIGHT / 2), 3)
 MPD_TEXT_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("JP8"))
+MPD_BOX_BAR_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
-#define XFER_IS_OFF  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 1)
-#define XFER_IS_FWD  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 2)
-#define XFER_IS_AFT  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 3)
-#define XFER_IS_AUTO C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 4)
+MPD_TEXT_SMALL_C(ENG_1_INDICATOR, 0.395, 0.475, MPD_TEXT_STATIC("1"))
+MPD_TEXT_SMALL_C(ENG_2_INDICATOR, 0.605, 0.475, MPD_TEXT_STATIC("2"))
 
 class Transfere {
+    #define XFER_IS_OFF  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 1)
+    #define XFER_IS_FWD  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 2)
+    #define XFER_IS_AFT  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 3)
+    #define XFER_IS_AUTO C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 4)
     class ShowXferNormal {
         condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
         MPD_TEXT_R(XFER_LBL, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("XFER"))
@@ -110,11 +113,6 @@ class Transfere {
     };
 };
 
-// Total fuel quantity (always visible)
-MPD_TEXT_SMALL_R(FTANKSTOT, 0.09, 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
-MPD_TEXT_R(FTANKSTOTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.85, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_TOT))
-MPD_TEXT_SMALL_R(FTANKSTOTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
-
 class fuel_flow_display {
     #define PAGE_MPD_FUELFLOW_X (0.5 - (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5)) / 2))
     MPD_TEXT_SMALL_C(FFLOW_HEAD, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 4), MPD_TEXT_STATIC("CALC FLOW"))   
@@ -184,19 +182,7 @@ class fuel_crossfeed {
     MPD_TEXT_SMALL_C(CrossfeedChar9, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("D"))
 };
 
-// L5 Aux tanks selector (blocked/unavailable indication)
-class AUX_GALLONS_BUTTON {
-    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));  // Only show when xfer menu is NOT open
-    MPD_TEXT_R(AUX_GALLONS_L5, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("AUX GALLONS EXT>"))
-    class AUX_Barrier_Indicator {
-        MPD_TEXT_C(AUX_BARRIER, MPD_POS_BUTTON_L_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_5_Y + 1.2 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("?"))
-    };
-};
-
-MPD_TEXT_SMALL_C(ENG_1_INDICATOR, 0.395, 0.475, MPD_TEXT_STATIC("1"))
-MPD_TEXT_SMALL_C(ENG_2_INDICATOR, 0.605, 0.475, MPD_TEXT_STATIC("2"))
-
-class Static {
+class Draw_static_images {
     type = "line";
     width = 3;
     points[] = {
@@ -258,8 +244,18 @@ class endurance_display {
             MPD_POINTS_BOX("Null", 0.69, 0.77, (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), (MPD_TEXT_SMALL_HEIGHT) + (MPD_TEXT_HEIGHT * 2))
         };
     };
-}
+};
+
 class fuel_display {
+    class Fuel_boxes {
+        type = "line";
+        width = 3;
+        points[] = {
+            MPD_POINTS_BOX("Null", 0.4425, 0.18, 0.1075, 0.070), {},
+            MPD_POINTS_BOX("Null", (0.5-0.05), 0.4875, 0.095, 0.125)
+        };
+    };
+
     #define FUEL_FWD_LOW_THRESH_LBS 240
     #define FUEL_AFT_LOW_THRESH_LBS 260
     #define FUEL_EMPTY_THRESH_LBS 10
@@ -309,6 +305,11 @@ class fuel_display {
             MPD_TEXT_R(FTANKSINTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.80, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_INT))
         };
     };
+
+    // Total fuel quantity (always visible)
+    MPD_TEXT_SMALL_R(FTANKSTOT, 0.09, 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+    MPD_TEXT_R(FTANKSTOTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.85, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_TOT))
+    MPD_TEXT_SMALL_R(FTANKSTOTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
 };
 
 class FuelLines {
@@ -538,21 +539,12 @@ class FuelLines {
     };
 };
 
-class TextBoxes {
-    type = "line";
-    width = 3;
-    points[] = {
-        MPD_POINTS_BOX("Null", 0.4425, 0.18, 0.1075, 0.070), {},
-        MPD_POINTS_BOX("Null", (0.5-0.05), 0.4875, 0.095, 0.125)
-    };
-};
-
-#define STN1_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN1_MASS), 0))
-#define STN2_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN2_MASS), 0))
-#define STN3_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN3_MASS), 0))
-#define STN4_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN4_MASS), 0))
-
 class AuxtanksDisplay {
+    #define STN1_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN1_MASS), 0))
+    #define STN2_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN2_MASS), 0))
+    #define STN3_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN3_MASS), 0))
+    #define STN4_PRESENT C_NOT(C_LESS(C_MPD_USER(MFD_IND_FUEL_STN4_MASS), 0))
+
     #define AUX_RING_RX 0.022
     #define AUX_RING_RY 0.080
     #define AUX_RING_CY 0.380
@@ -666,23 +658,27 @@ class AuxtanksDisplay {
         };
     };
 
-    #define AUX_LINE_NOFLOW  C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)), C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_FLOWING)))
-    #define AUX_LINE_FLOW    C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)),     C_MPD_USER(MFD_IND_FUEL_AUX_FLOWING))
-    #define AUX_LINE_WNOFLOW C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),    C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_FLOWING)))
-    #define AUX_LINE_WFLOW   C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),        C_MPD_USER(MFD_IND_FUEL_AUX_FLOWING))
+    #define L_AUX_LINE_NOFLOW  C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)), C_NOT(C_MPD_USER(MFD_IND_FUEL_L_AUX_FLOWING)))
+    #define L_AUX_LINE_FLOW    C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)),     C_MPD_USER(MFD_IND_FUEL_L_AUX_FLOWING))
+    #define L_AUX_LINE_WNOFLOW C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),    C_NOT(C_MPD_USER(MFD_IND_FUEL_L_AUX_FLOWING)))
+    #define L_AUX_LINE_WFLOW   C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),        C_MPD_USER(MFD_IND_FUEL_L_AUX_FLOWING))
+    #define R_AUX_LINE_NOFLOW  C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)), C_NOT(C_MPD_USER(MFD_IND_FUEL_R_AUX_FLOWING)))
+    #define R_AUX_LINE_FLOW    C_AND(C_NOT(C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW)),     C_MPD_USER(MFD_IND_FUEL_R_AUX_FLOWING))
+    #define R_AUX_LINE_WNOFLOW C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),    C_NOT(C_MPD_USER(MFD_IND_FUEL_R_AUX_FLOWING)))
+    #define R_AUX_LINE_WFLOW   C_AND(    C_MPD_USER(MFD_IND_FUEL_AUX_LINE_NEW),        C_MPD_USER(MFD_IND_FUEL_R_AUX_FLOWING))
     class ShowAuxConnectLeft {
         condition = C_COND(C_AND(STN2_PRESENT, C_MPD_USER(MFD_IND_FUEL_L_AUX_ON)));
-        class Normal      { condition = C_COND(AUX_LINE_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
-        class Flowing     { condition = C_COND(AUX_LINE_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
-        class WhiteNormal { condition = C_COND(AUX_LINE_WNOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
-        class WhiteFlowing{ condition = C_COND(AUX_LINE_WFLOW);   color[]={1,1,1,1}; class lines { type = "line"; width =  8; points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
+        class Normal      { condition = C_COND(L_AUX_LINE_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
+        class Flowing     { condition = C_COND(L_AUX_LINE_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
+        class WhiteNormal { condition = C_COND(L_AUX_LINE_WNOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
+        class WhiteFlowing{ condition = C_COND(L_AUX_LINE_WFLOW);   color[]={1,1,1,1}; class lines { type = "line"; width =  8; points[] = { {{AUX_STN2_X, (AUX_RING_CY - AUX_RING_RY)}, 1}, {{AUX_STN2_X, 0.200}, 1}, {{0.435, 0.200}, 1} }; }; };
     };
     class ShowAuxConnectRight {
         condition = C_COND(C_AND(STN3_PRESENT, C_MPD_USER(MFD_IND_FUEL_R_AUX_ON)));
-        class Normal      { condition = C_COND(AUX_LINE_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
-        class Flowing     { condition = C_COND(AUX_LINE_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
-        class WhiteNormal { condition = C_COND(AUX_LINE_WNOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
-        class WhiteFlowing{ condition = C_COND(AUX_LINE_WFLOW);   color[]={1,1,1,1}; class lines { type = "line"; width =  8; points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
+        class Normal      { condition = C_COND(R_AUX_LINE_NOFLOW);  class lines { type = "line"; width =  4;                    points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
+        class Flowing     { condition = C_COND(R_AUX_LINE_FLOW);    class lines { type = "line"; width =  8;                    points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
+        class WhiteNormal { condition = C_COND(R_AUX_LINE_WNOFLOW); color[]={1,1,1,1}; class lines { type = "line"; width =  4; points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
+        class WhiteFlowing{ condition = C_COND(R_AUX_LINE_WFLOW);   color[]={1,1,1,1}; class lines { type = "line"; width =  8; points[] = { {{AUX_STN3_X, (AUX_RING_CY + AUX_RING_RY)}, 1}, {{AUX_STN3_X, 0.680}, 1}, {{0.500, 0.680}, 1}, {{0.500, 0.620}, 1} }; }; };
     };
     
     class ShowAuxDots {
@@ -827,6 +823,15 @@ class AuxtanksDisplay {
             color[] = MPD_COLOUR_WHITE;
             MPD_TEXT_C(AUX_STN4_EMPTY, AUX_STN4_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
         };
+    };
+    // L5 Aux tanks selector (blocked/unavailable indication)
+    class AUX_GALLONS_BUTTON {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));  // Only show when xfer menu is NOT open
+        MPD_TEXT_R(AUX_GALLONS_L5, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("AUX GALLONS EXT>"))
+        class AUX_Barrier_Indicator {
+            MPD_TEXT_C(AUX_BARRIER, MPD_POS_BUTTON_L_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_5_Y + 1.2 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("?"))
+        };
+        MPD_BOX_BAR_R(ADF, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
     };
 };
 
