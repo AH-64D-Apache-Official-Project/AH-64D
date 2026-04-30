@@ -254,6 +254,12 @@ private _stn2HasTank = ["auxTank", _pylonMagazines select 4]  call BIS_fnc_inStr
 private _stn3HasTank = ["auxTank", _pylonMagazines select 8]  call BIS_fnc_inString;
 private _stn4HasTank = ["auxTank", _pylonMagazines select 12] call BIS_fnc_inString;
 
+// Zero fuel for any station whose tank is gone (jettisoned or removed)
+if (!_stn1HasTank) then { _stn1FuelMass = 0; };
+if (!_stn2HasTank) then { _stn2FuelMass = 0; };
+if (!_stn3HasTank) then { _stn3FuelMass = 0; };
+if (!_stn4HasTank) then { _stn4FuelMass = 0; };
+
 private _fwdRoom = _maxFwdFuelMass - _fwdFuelMass;
 private _aftRoom = _maxAftFuelMass - _aftFuelMass;
 
