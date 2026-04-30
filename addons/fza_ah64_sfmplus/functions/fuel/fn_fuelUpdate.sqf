@@ -103,13 +103,11 @@ private _eng2Source = switch (_crossfeedMode) do {
     case "AFT": { "AFT" };
     default     { "AFT" }; // NORM
 };
-private _apuSource = "AFT";
 
 private _fwdReq = 0;
-private _aftReq = 0;
+private _aftReq = _apuReq; // APU always draws from AFT
 if (_eng1Source == "FWD") then { _fwdReq = _fwdReq + _eng1Req; } else { _aftReq = _aftReq + _eng1Req; };
 if (_eng2Source == "FWD") then { _fwdReq = _fwdReq + _eng2Req; } else { _aftReq = _aftReq + _eng2Req; };
-if (_apuSource  == "FWD") then { _fwdReq = _fwdReq + _apuReq;  } else { _aftReq = _aftReq + _apuReq;  };
 
 private _fwdFuelBefore = _fwdFuelMass;
 private _aftFuelBefore = _aftFuelMass;
@@ -305,36 +303,25 @@ _stn2FuelMass = 0 max _stn2FuelMass min _maxTnkFuelMass;
 _stn3FuelMass = 0 max _stn3FuelMass min _maxTnkFuelMass;
 _stn4FuelMass = 0 max _stn4FuelMass min _maxTnkFuelMass;
 
-// Fuel-availability decision for this frame uses one-frame source state only.
-private _fwdSourceAvail = _fwdFuelAvailLastFrame;
-private _aftSourceAvail = _aftFuelAvailLastFrame;
+private _fwdSrcAvail = _fwdFuelAvailLastFrame;
+private _aftSrcAvail = _aftFuelAvailLastFrame;
 
-private _eng1FuelAvail = (_eng1Req <= _eps) || ([_aftSourceAvail, _fwdSourceAvail] select (_eng1Source == "FWD"));
-private _eng2FuelAvail = (_eng2Req <= _eps) || ([_aftSourceAvail, _fwdSourceAvail] select (_eng2Source == "FWD"));
-private _apuFuelAvail  = (_apuReq  <= _eps) || ([_aftSourceAvail, _fwdSourceAvail] select (_apuSource  == "FWD"));
+private _eng1FuelAvail = (_eng1Req <= _eps) || ([_aftSrcAvail, _fwdSrcAvail] select (_eng1Source == "FWD"));
+private _eng2FuelAvail = (_eng2Req <= _eps) || ([_aftSrcAvail, _fwdSrcAvail] select (_eng2Source == "FWD"));
+private _apuFuelAvail  = (_apuReq  <= _eps) || _aftSrcAvail;
 
-// 2-second grace period: engines survive briefly after fuel source runs dry
+// 2-second starvation grace period
 private _eng1StarvedSince = _heli getVariable ["fza_fuel_eng1StarvedSince", -1];
-if (_eng1FuelAvail) then {
-    _heli setVariable ["fza_fuel_eng1StarvedSince", -1];
-} else {
-    if (_eng1StarvedSince < 0) then {
-        _eng1StarvedSince = CBA_missionTime;
-        _heli setVariable ["fza_fuel_eng1StarvedSince", _eng1StarvedSince];
-    };
+if (!_eng1FuelAvail) then {
+    if (_eng1StarvedSince < 0) then { _eng1StarvedSince = CBA_missionTime; _heli setVariable ["fza_fuel_eng1StarvedSince", _eng1StarvedSince]; };
     _eng1FuelAvail = (CBA_missionTime - _eng1StarvedSince) < 2;
-};
+} else { _heli setVariable ["fza_fuel_eng1StarvedSince", -1]; };
 
 private _eng2StarvedSince = _heli getVariable ["fza_fuel_eng2StarvedSince", -1];
-if (_eng2FuelAvail) then {
-    _heli setVariable ["fza_fuel_eng2StarvedSince", -1];
-} else {
-    if (_eng2StarvedSince < 0) then {
-        _eng2StarvedSince = CBA_missionTime;
-        _heli setVariable ["fza_fuel_eng2StarvedSince", _eng2StarvedSince];
-    };
+if (!_eng2FuelAvail) then {
+    if (_eng2StarvedSince < 0) then { _eng2StarvedSince = CBA_missionTime; _heli setVariable ["fza_fuel_eng2StarvedSince", _eng2StarvedSince]; };
     _eng2FuelAvail = (CBA_missionTime - _eng2StarvedSince) < 2;
-};
+} else { _heli setVariable ["fza_fuel_eng2StarvedSince", -1]; };
 
 _heli setVariable ["fza_fuel_eng1FuelAvail", _eng1FuelAvail];
 _heli setVariable ["fza_fuel_eng2FuelAvail", _eng2FuelAvail];
@@ -368,30 +355,3 @@ _heli setVariable ["fza_sfmplus_stn2FuelMass", _stn2FuelMass];
 _heli setVariable ["fza_sfmplus_stn3FuelMass", _stn3FuelMass];
 _heli setVariable ["fza_sfmplus_stn4FuelMass", _stn4FuelMass];
 _heli setVariable ["fza_sfmplus_totFuelMass",  _totFuelMass];
-
-/*
-systemChat format ["ArmA Fuel Fraction = %1 -- ApuFF = %2 -- Eng1 FF = %3 -- Eng2 FF = %4", _armaFuelFrac, _apuFF_kgs, _eng1FF_kgs, _eng2FF_kgs];
-
-hintsilent format ["Fwd Fuel Mass = %1
-                    \nCtr Fuel Mass = %2
-                    \nAft Fuel Mass = %3
-                    \nStation 1 Fuel Mass = %4
-                    \nStation 2 Fuel Mass = %5
-                    \nStation 3 Fuel Mass = %6
-                    \nStation 4 Fuel Mass = %7
-                    \n------------------------------
-                    \nTotal Fuel Mass = %8
-                    \nMax Total Fuel Mass = %9
-                    \n------------------------------
-                    \nFuel Fraction = %10"
-                    , _heli getVariable "fza_sfmplus_fwdFuelMass"
-                    , _heli getVariable "fza_sfmplus_ctrFuelMass"
-                    , _heli getVariable "fza_sfmplus_aftFuelMass"
-                    , _heli getVariable "fza_sfmplus_stn1FuelMass"
-                    , _heli getVariable "fza_sfmplus_stn2FuelMass"
-                    , _heli getVariable "fza_sfmplus_stn3FuelMass"
-                    , _heli getVariable "fza_sfmplus_stn4FuelMass"
-                    , _heli getVariable "fza_sfmplus_totFuelMass"
-                    , _heli getVariable "fza_sfmplus_maxTotFuelMass"
-                    , (_heli getVariable "fza_sfmplus_totFuelMass") / (_heli getVariable "fza_sfmplus_maxTotFuelMass")];
-*/

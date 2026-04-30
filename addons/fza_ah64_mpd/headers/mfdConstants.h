@@ -45,12 +45,14 @@
 #define MFD_IND_FLT_ACQ_BOX 9
 #define MFD_IND_FLT_VERT_SPEED 10
 
-//Fuel page                           // 35 indices used (0-34)
+//Fuel page
 #define MFD_IND_FUEL_IAFS_INSTALLED       0
 #define MFD_IND_FUEL_IAFS_ON              1
-#define MFD_IND_FUEL_CROSSFEED            2  // 1=FWD, 2=NORM, 3=AFT
+// 1=FWD, 2=NORM, 3=AFT
+#define MFD_IND_FUEL_CROSSFEED            2
 #define MFD_IND_FUEL_BOOST_ON             3
-#define MFD_IND_FUEL_XFER_MODE           4  // 1=OFF, 2=FWD, 3=AFT, 4=AUTO
+// 1=OFF, 2=FWD, 3=AFT, 4=AUTO
+#define MFD_IND_FUEL_XFER_MODE            4
 #define MFD_IND_FUEL_FWD_LOW             5
 #define MFD_IND_FUEL_AFT_LOW             6
 #define MFD_IND_FUEL_CHECK_ACTIVE        7
@@ -60,7 +62,8 @@
 #define MFD_IND_FUEL_XFEED_OPEN         11
 #define MFD_IND_FUEL_INTERCELL_XFER_ACTIVE 12
 #define MFD_IND_FUEL_ENDR_INT_LOW       13
-#define MFD_IND_FUEL_INTERCELL_XFER_PHASE 14 // 0-3=FWD->AFT, 4-7=AFT->FWD
+// 0-3=FWD->AFT, 4-7=AFT->FWD
+#define MFD_IND_FUEL_INTERCELL_XFER_PHASE 14
 #define MFD_IND_FUEL_ENG1_LINE_NEW      15
 #define MFD_IND_FUEL_INTERCELL_LINE_NEW 16
 #define MFD_IND_FUEL_IAFS_LINE_NEW      17
@@ -74,10 +77,11 @@
 #define MFD_IND_FUEL_AUX_EMPTY          25
 #define MFD_IND_FUEL_IAFS_FWD_FLOWING   26
 #define MFD_IND_FUEL_IAFS_AFT_FLOWING   27
-#define MFD_IND_FUEL_STN1_MASS          28  // -1=not present, >=0 mass lbs
-#define MFD_IND_FUEL_STN2_MASS          29  // -1=not present, >=0 mass lbs
-#define MFD_IND_FUEL_STN3_MASS          30  // -1=not present, >=0 mass lbs
-#define MFD_IND_FUEL_STN4_MASS          31  // -1=not present, >=0 mass lbs
+// -1=not present, >=0 mass lbs
+#define MFD_IND_FUEL_STN1_MASS          28
+#define MFD_IND_FUEL_STN2_MASS          29
+#define MFD_IND_FUEL_STN3_MASS          30
+#define MFD_IND_FUEL_STN4_MASS          31
 #define MFD_IND_FUEL_R_AUX_FLOWING      32
 #define MFD_IND_FUEL_ENG1_FIRE_ARMED    33
 #define MFD_IND_FUEL_ENG2_FIRE_ARMED    34

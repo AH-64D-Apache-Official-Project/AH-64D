@@ -74,14 +74,11 @@ if (_intercellDir == 2) then {
 };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_XFER_PHASE), _intercellPhase];
 
-// AUX on indicators
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_L_AUX_ON), BOOLTONUM(_heli getVariable ["fza_fuel_lAuxOn", false])];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_ON), BOOLTONUM(_heli getVariable ["fza_fuel_rAuxOn", false])];
-
-// ── Line "new" flash (white 3 s when line first activates) ──────────────────────────────
-private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
-private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
+private _lAuxOn   = _heli getVariable ["fza_fuel_lAuxOn", false];
+private _rAuxOn   = _heli getVariable ["fza_fuel_rAuxOn", false];
 private _anyAuxOn = _lAuxOn || _rAuxOn;
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_L_AUX_ON), BOOLTONUM(_lAuxOn)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_ON), BOOLTONUM(_rAuxOn)];
 
 // Crossfeed: per-engine source tracking
 // Eng1 feeds from FWD in NORM/FWD mode, from AFT in AFT mode

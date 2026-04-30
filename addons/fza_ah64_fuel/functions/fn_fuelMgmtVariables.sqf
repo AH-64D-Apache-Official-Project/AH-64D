@@ -20,7 +20,7 @@ params ["_heli"];
 _heli setVariable ["fza_fuel_crossfeedMode", "NORM"];
 
 // XFER pump selection: "OFF" | "AFT" | "FWD" | "AUTO"
-_heli setVariable ["fza_fuel_xferMode", "OFF"];
+_heli setVariable ["fza_fuel_xferMode", "AUTO"];
 
 // XFER popup submenu open state
 _heli setVariable ["fza_fuel_xferMenuOpen", false];

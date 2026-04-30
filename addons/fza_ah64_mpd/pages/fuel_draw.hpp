@@ -553,6 +553,37 @@ class AuxtanksDisplay {
     #define AUX_STN3_X 0.708
     #define AUX_STN4_X 0.762
 
+    class ShowStn1Tank {
+        condition = C_COND(C_AND(STN1_PRESENT, STN2_PRESENT));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
+                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
+                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
+            };
+        };
+        class Aux_Empty_STN1 {
+            condition = C_COND(C_AND(STN1_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN1_MASS))));
+            color[] = MPD_COLOUR_WHITE;
+            MPD_TEXT_C(AUX_STN1_EMPTY, AUX_STN1_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
+        };
+    };
     class ShowStn2Tank {
         condition = C_COND(STN2_PRESENT);
         class lines {
@@ -578,31 +609,10 @@ class AuxtanksDisplay {
                 {{AUX_STN2_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
             };
         };
-    };
-    class ShowStn1Tank {
-        condition = C_COND(C_AND(STN1_PRESENT, STN2_PRESENT));
-        class lines {
-            type = "line";
-            width = 3;
-            points[] = {
-                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
-                {{AUX_STN1_X + AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
-                {{AUX_STN1_X + AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
-                {{AUX_STN1_X + 0.000, AUX_RING_CY + AUX_RING_RY}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY + AUX_RING_RY * 0.92}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY + AUX_RING_RY * 0.70}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY + AUX_RING_RY * 0.40}, 1},
-                {{AUX_STN1_X - AUX_RING_RX, AUX_RING_CY + 0.000}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.91, AUX_RING_CY - AUX_RING_RY * 0.40}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.68, AUX_RING_CY - AUX_RING_RY * 0.70}, 1},
-                {{AUX_STN1_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
-                {{AUX_STN1_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
-            };
+        class Aux_Empty_STN2 {
+            condition = C_COND(C_AND(STN2_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN2_MASS))));
+            color[] = MPD_COLOUR_WHITE;
+            MPD_TEXT_C(AUX_STN2_EMPTY, AUX_STN2_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
         };
     };
     class ShowStn3Tank {
@@ -630,6 +640,11 @@ class AuxtanksDisplay {
                 {{AUX_STN3_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
             };
         };
+        class Aux_Empty_STN3 {
+            condition = C_COND(C_AND(STN3_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN3_MASS))));
+            color[] = MPD_COLOUR_WHITE;
+            MPD_TEXT_C(AUX_STN3_EMPTY, AUX_STN3_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
+        };
     };
     class ShowStn4Tank {
         condition = C_COND(C_AND(STN4_PRESENT, STN3_PRESENT));
@@ -655,6 +670,11 @@ class AuxtanksDisplay {
                 {{AUX_STN4_X - AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},
                 {{AUX_STN4_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1}
             };
+        };
+        class Aux_Empty_STN4 {
+            condition = C_COND(C_AND(STN4_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN4_MASS))));
+            color[] = MPD_COLOUR_WHITE;
+            MPD_TEXT_C(AUX_STN4_EMPTY, AUX_STN4_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
         };
     };
 
@@ -685,7 +705,7 @@ class AuxtanksDisplay {
         #define AUX_L_DOT_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
         #define AUX_L_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
         class AUX_L_Dot_Off {
-            condition = C_COND(C_AND(C_OR(STN1_PRESENT, STN2_PRESENT), C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));
+            condition = C_COND(C_AND(STN2_PRESENT, C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));
 
             MPD_TEXT_R(AUX_L_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC(" L AUX"))
 
@@ -745,7 +765,7 @@ class AuxtanksDisplay {
         #define AUX_R_DOT_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
         #define AUX_R_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
         class AUX_R_Present {
-            condition = C_COND(C_OR(STN3_PRESENT, STN4_PRESENT));
+            condition = C_COND(STN3_PRESENT);
             MPD_TEXT_L(AUX_R_TXT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("R AUX "))
             class AUX_R_Dot_Off {
                 class lines_auxROnOff {
@@ -801,28 +821,6 @@ class AuxtanksDisplay {
                 };
             };
         }; // AUX_R_Present
-        
-        // Aux tanks empty state indicators
-        class Aux_Empty_STN1 {
-            condition = C_COND(C_AND(STN1_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN1_MASS))));
-            color[] = MPD_COLOUR_WHITE;
-            MPD_TEXT_C(AUX_STN1_EMPTY, AUX_STN1_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
-        };
-        class Aux_Empty_STN2 {
-            condition = C_COND(C_AND(STN2_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN2_MASS))));
-            color[] = MPD_COLOUR_WHITE;
-            MPD_TEXT_C(AUX_STN2_EMPTY, AUX_STN2_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
-        };
-        class Aux_Empty_STN3 {
-            condition = C_COND(C_AND(STN3_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN3_MASS))));
-            color[] = MPD_COLOUR_WHITE;
-            MPD_TEXT_C(AUX_STN3_EMPTY, AUX_STN3_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
-        };
-        class Aux_Empty_STN4 {
-            condition = C_COND(C_AND(STN4_PRESENT, FUEL_EMPTY_CHECK(C_MPD_USER(MFD_IND_FUEL_STN4_MASS))));
-            color[] = MPD_COLOUR_WHITE;
-            MPD_TEXT_C(AUX_STN4_EMPTY, AUX_STN4_X, AUX_RING_CY - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
-        };
     };
     // L5 Aux tanks selector (blocked/unavailable indication)
     class AUX_GALLONS_BUTTON {
