@@ -562,5 +562,7 @@ if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptAprch#1) then {
 if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptPassed) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT PASSED", "WPT PASSED"];
 };
-
+if (_heli getVariable ["fza_fuel_checkPendingAdvisory", false]) then {
+    _wcas pushBack [WCA_ADVISORY, "FUEL CHECK", "FUEL CHECK"];
+};
 _wcas;

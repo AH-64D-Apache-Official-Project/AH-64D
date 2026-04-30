@@ -1,4 +1,4 @@
-params["_heli", "_mpdIndex"];
+params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 [_heli] call fza_mpd_fnc_fuelGetData params [ "_forwardCellWeight"
@@ -49,7 +49,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_BOOST_ON), BOOLTONUM(_heli 
 // XFER pump mode
 private _xferMode = _heli getVariable ["fza_fuel_xferMode", "OFF"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_XFER_MODE), ( ["OFF", "FWD", "AFT", "AUTO"] find _xferMode ) + 1];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_XFER_MENU), BOOLTONUM(_heli getVariable ["fza_fuel_xferMenuOpen", false])];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_XFER_MENU), BOOLTONUM((_state get "xferMenuOpen") > 0)];
 
 // Crossfeed open (any non-NORM mode)
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_XFEED_OPEN), BOOLTONUM(_crossfeedMode != "NORM")];
@@ -163,26 +163,51 @@ private _anyAuxEmpty = (_lAuxOn && _stn1FuelMassRaw < 4.5) || (_lAuxOn && _stn2F
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_AUX_EMPTY), BOOLTONUM(_anyAuxEmpty)];
 
 // CHECK sub-mode
-private _checkActive = _heli getVariable ["fza_fuel_checkActive", false];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_CHECK_ACTIVE), BOOLTONUM(_checkActive)];
-if (_checkActive) then {
-    private _elapsedSec = _heli getVariable ["fza_fuel_checkElapsedSec", 0];
-    private _burnRate   = _heli getVariable ["fza_fuel_checkBurnRate",   0];
-    private _burnoutMin = _heli getVariable ["fza_fuel_checkBurnoutMin", 0];
-    private _vfrRes     = _heli getVariable ["fza_fuel_checkVFRRes",     0];
-    private _ifrRes     = _heli getVariable ["fza_fuel_checkIFRRes",     0];
+private _checkActive  = (_state get "checkActive") > 0;
+private _checkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
+private _checkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
+private _checkMinutes = _heli getVariable ["fza_fuel_checkMinutes", 15];
 
+// Sync per-seat CHECK-open state — set when CHECK sub-format is open, cleared by fn_update when off fuel page
+private _checkSeatVar = ["fza_fuel_checkActiveCpg", "fza_fuel_checkActivePlt"] select (player == driver _heli);
+[_heli, _checkSeatVar, _checkActive] call fza_fnc_updateNetworkGlobal;
+
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_CHECK_ACTIVE),  BOOLTONUM(_checkActive)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_CHECK_RUNNING), BOOLTONUM(_checkRunning)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_CHECK_DONE),    BOOLTONUM(_checkDone)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_CHECK_MINUTES), _checkMinutes];
+
+if (_checkRunning || _checkDone) then {
+    private _startTime   = _heli getVariable ["fza_fuel_checkStartTime", 0];
+    private _startFuel   = _heli getVariable ["fza_fuel_checkStartFuel", 0];
+    private _currentFuel = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
+    private _elapsedSec  = if (_checkRunning) then {
+        (CBA_missionTime - _startTime) min (_checkMinutes * 60)
+    } else {
+        _heli getVariable ["fza_fuel_checkElapsedSec", 0]
+    };
+    private _burnRate = if (_checkRunning && _elapsedSec > 0) then {
+        ((_startFuel - _currentFuel) * 2.20462) / (_elapsedSec / 3600)
+    } else {
+        _heli getVariable ["fza_fuel_checkBurnRate", 0]
+    };
     private _elapsedMin  = floor (_elapsedSec / 60);
-    private _elapsedSec2 = floor (_elapsedSec % 60);
+    private _elapsedSecR = floor (_elapsedSec % 60);
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_ELAPSED),
-        format ["T+%1:%2", _elapsedMin toFixed 0, [_elapsedSec2, 2] call CBA_fnc_formatNumber]];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURN),    _burnRate   toFixed 0];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURNOUT), (floor _burnoutMin) toFixed 0];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     _vfrRes     toFixed 0];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_IFR),     _ifrRes     toFixed 0];
+        format ["%1:%2", [_elapsedMin, 2] call CBA_fnc_formatNumber, [_elapsedSecR, 2] call CBA_fnc_formatNumber]];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURN),  str (round (_burnRate / 10) * 10)];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_START), _heli getVariable ["fza_fuel_checkStartZulu", ""]];
 } else {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_ELAPSED), ""];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURN),    ""];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_START),   ""];
+};
+
+if (_checkDone) then {
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURNOUT), _heli getVariable ["fza_fuel_checkBurnoutZulu", ""]];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     _heli getVariable ["fza_fuel_checkVFRZulu",     ""]];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_IFR),     _heli getVariable ["fza_fuel_checkIFRZulu",     ""]];
+} else {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURNOUT), ""];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     ""];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_IFR),     ""];

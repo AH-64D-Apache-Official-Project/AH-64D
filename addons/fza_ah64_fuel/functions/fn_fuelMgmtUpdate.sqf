@@ -18,37 +18,44 @@ params ["_heli"];
 
 #define KGTOLBS 2.20462
 
-private _checkActive = _heli getVariable ["fza_fuel_checkActive", false];
-if (!_checkActive) exitWith {};
+private _checkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
+if (!_checkRunning) exitWith {};
 
 private _checkStartTime = _heli getVariable ["fza_fuel_checkStartTime", 0];
+if (_checkStartTime <= 0) exitWith {};
+
 private _totalFuelMass  = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
+private _elapsed        = CBA_missionTime - _checkStartTime;
+private _startFuelMass  = _heli getVariable ["fza_fuel_checkStartFuel", _totalFuelMass];
+private _burnedKg       = _startFuelMass - _totalFuelMass;
+private _checkMinutes   = _heli getVariable ["fza_fuel_checkMinutes", 15];
+private _targetSec      = (_checkMinutes max 0) * 60;
+private _elapsedClamped = if (_targetSec > 0) then { _elapsed min _targetSec } else { _elapsed };
 
-// Record start values on first tick after activation
-if (_checkStartTime <= 0) then {
-    _heli setVariable ["fza_fuel_checkStartTime", CBA_missionTime];
-    _heli setVariable ["fza_fuel_checkStartFuel", _totalFuelMass];
-} else {
-    private _elapsed = CBA_missionTime - _checkStartTime;
-    private _checkStartFuel = _heli getVariable ["fza_fuel_checkStartFuel", _totalFuelMass];
-    private _burnedKg       = _checkStartFuel - _totalFuelMass;
+// Cumulative average burn rate over the full elapsed check time (lb/hr)
+private _burnRate = if (_elapsedClamped > 0) then { (_burnedKg * KGTOLBS) / (_elapsedClamped / 3600) } else { 0 };
 
-    // Burn rate in lb/hr
-    private _burnRate = if (_elapsed > 0) then { (_burnedKg * KGTOLBS) / (_elapsed / 3600) } else { 0 };
+if (_targetSec > 0 && _elapsed >= _targetSec) then {
+    private _totalLbs     = _totalFuelMass * KGTOLBS;
+    private _burnoutHours = if (_burnRate > 0) then { _totalLbs / _burnRate } else { 0 };
+    private _fnZulu = {
+        params ["_dt"];
+        private _h = floor (_dt % 24);
+        format ["%1:%2Z", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
+    };
 
-    // Total fuel remaining in lb
-    private _totalFuelLbs = _totalFuelMass * KGTOLBS;
-
-    // Burnout time (minutes at current burn rate)
-    private _burnoutMin = if (_burnRate > 0) then { (_totalFuelLbs / _burnRate) * 60 } else { 999 };
-
-    // VFR / IFR reserves in lb (20 min and 30 min at current burn rate)
-    private _vfrResLbs = (_burnRate / 60) * 20;
-    private _ifrResLbs = (_burnRate / 60) * 30;
-
-    _heli setVariable ["fza_fuel_checkElapsedSec", _elapsed];
-    _heli setVariable ["fza_fuel_checkBurnRate",   _burnRate];
-    _heli setVariable ["fza_fuel_checkBurnoutMin", _burnoutMin];
-    _heli setVariable ["fza_fuel_checkVFRRes",     _vfrResLbs];
-    _heli setVariable ["fza_fuel_checkIFRRes",     _ifrResLbs];
+    [_heli, "fza_fuel_checkRunning", false]     call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_fuel_checkDone",     true]      call fza_fnc_updateNetworkGlobal;
+    
+    private _fuelPageOpen = ("fuel" in ([_heli, 0] call fza_mpd_fnc_currentPage)) ||
+                            ("fuel" in ([_heli, 1] call fza_mpd_fnc_currentPage));
+    if (!_fuelPageOpen ||
+        (!(_heli getVariable ["fza_fuel_checkActivePlt", false]) &&
+         !(_heli getVariable ["fza_fuel_checkActiveCpg", false]))) then {
+        [_heli, "fza_fuel_checkPendingAdvisory", true] call fza_fnc_updateNetworkGlobal;
+    };
+    [_heli, "fza_fuel_checkBurnRate", _burnRate] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_fuel_checkBurnoutZulu", [dayTime + _burnoutHours]        call _fnZulu] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_fuel_checkVFRZulu",    [dayTime + _burnoutHours - 20/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_fuel_checkIFRZulu",    [dayTime + _burnoutHours - 30/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
 };

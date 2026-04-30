@@ -23,7 +23,6 @@ _heli setVariable ["fza_fuel_crossfeedMode", "NORM"];
 _heli setVariable ["fza_fuel_xferMode", "AUTO"];
 
 // XFER popup submenu open state
-_heli setVariable ["fza_fuel_xferMenuOpen", false];
 
 // Boost pump state
 _heli setVariable ["fza_fuel_boostOn", false];
@@ -41,14 +40,19 @@ _heli setVariable ["fza_fuel_lAuxOn", false];
 _heli setVariable ["fza_fuel_rAuxOn", false];
 
 // CHECK sub-mode
-_heli setVariable ["fza_fuel_checkActive",    false];
-_heli setVariable ["fza_fuel_checkMinutes",   20];
+_heli setVariable ["fza_fuel_checkMinutes",   15];
+_heli setVariable ["fza_fuel_checkRunning",   false];
+_heli setVariable ["fza_fuel_checkDone",      false];
 _heli setVariable ["fza_fuel_checkStartTime", 0];
 _heli setVariable ["fza_fuel_checkStartFuel", 0];
+_heli setVariable ["fza_fuel_checkActivePlt", false];
+_heli setVariable ["fza_fuel_checkActiveCpg", false];
+_heli setVariable ["fza_fuel_checkPendingAdvisory", false];
+_heli setVariable ["fza_fuel_checkStartZulu",   ""];
+_heli setVariable ["fza_fuel_checkBurnoutZulu", ""];
+_heli setVariable ["fza_fuel_checkVFRZulu",     ""];
+_heli setVariable ["fza_fuel_checkIFRZulu",     ""];
 
-// CHECK computed display values (lb/hr, minutes)
+// CHECK computed display values (lb/hr, seconds elapsed)
 _heli setVariable ["fza_fuel_checkElapsedSec", 0];
 _heli setVariable ["fza_fuel_checkBurnRate",   0];
-_heli setVariable ["fza_fuel_checkBurnoutMin", 0];
-_heli setVariable ["fza_fuel_checkVFRRes",     0];
-_heli setVariable ["fza_fuel_checkIFRRes",     0];

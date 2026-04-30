@@ -330,9 +330,9 @@ if (!_eng2FuelAvail) then {
     _eng2FuelAvail = (CBA_missionTime - _eng2StarvedSince) < 2;
 } else { _heli setVariable ["fza_fuel_eng2StarvedSince", -1]; };
 
-_heli setVariable ["fza_fuel_eng1FuelAvail", _eng1FuelAvail];
-_heli setVariable ["fza_fuel_eng2FuelAvail", _eng2FuelAvail];
-_heli setVariable ["fza_fuel_apuFuelAvail",  _apuFuelAvail];
+[_heli, "fza_fuel_eng1FuelAvail", _eng1FuelAvail] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_fuel_eng2FuelAvail", _eng2FuelAvail] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_fuel_apuFuelAvail",  _apuFuelAvail]  call fza_fnc_updateNetworkGlobal;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Fuel status flags                                                                 //////

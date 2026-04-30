@@ -26,93 +26,6 @@ MPD_BOX_BAR_L(FTYPE_JP4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 MPD_TEXT_SMALL_C(ENG_1_INDICATOR, 0.395, 0.475, MPD_TEXT_STATIC("1"))
 MPD_TEXT_SMALL_C(ENG_2_INDICATOR, 0.605, 0.475, MPD_TEXT_STATIC("2"))
 
-class Transfere {
-    #define XFER_IS_OFF  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 1)
-    #define XFER_IS_FWD  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 2)
-    #define XFER_IS_AFT  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 3)
-    #define XFER_IS_AUTO C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 4)
-    class ShowXferNormal {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
-        MPD_TEXT_R(XFER_LBL, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("XFER"))
-        class XFER_N_OFF {
-            condition = C_COND(XFER_IS_OFF);
-            MPD_BOX_R(XFERN_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
-            MPD_TEXT_R(XFERN_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("OFF"))
-        };
-        class XFER_N_FWD {
-            condition = C_COND(XFER_IS_FWD);
-            MPD_BOX_R(XFERN_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
-            MPD_TEXT_R(XFERN_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("FWD"))
-        };
-        class XFER_N_AFT {
-            condition = C_COND(XFER_IS_AFT);
-            MPD_BOX_R(XFERN_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 3)
-            MPD_TEXT_R(XFERN_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AFT"))
-        };
-        class XFER_N_AUTO {
-            condition = C_COND(XFER_IS_AUTO);
-            MPD_BOX_R(XFERN_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), 4)
-            MPD_TEXT_R(XFERN_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AUTO"))
-        };
-    };
-
-    class transfer_popout_box {
-        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_MENU));
-        // l1: FWD
-        MPD_TEXT_R(XFERM_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("FWD"))
-        class XFERM_FWD_Sel {
-            condition = C_COND(XFER_IS_FWD);
-            MPD_BOX_R(XFERM_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
-        };
-        // l2: OFF
-        MPD_TEXT_R(XFERM_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("OFF"))
-        class XFERM_OFF_Sel {
-            condition = C_COND(XFER_IS_OFF);
-            MPD_BOX_R(XFERM_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 3)
-        };
-        // l3: AFT
-        MPD_TEXT_R(XFERM_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("AFT"))
-        class XFERM_AFT_Sel {
-            condition = C_COND(XFER_IS_AFT);
-            MPD_BOX_R(XFERM_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
-        };
-        // l4: AUTO
-        MPD_TEXT_R(XFERM_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("AUTO"))
-        class XFERM_AUTO_Sel {
-            condition = C_COND(XFER_IS_AUTO);
-            MPD_BOX_R(XFERM_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 4)
-        };
-        // Vertical TRANSFER label
-
-        #define XFER_MENU_LABEL_X (MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5)
-        #define XFER_MENU_LABEL_Y ((MPD_POS_BUTTON_LR_1_Y + MPD_POS_BUTTON_LR_2_Y) / 2)
-
-        MPD_TEXT_SMALL_C(XM_C1, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y,                             MPD_TEXT_STATIC("T"))
-        MPD_TEXT_SMALL_C(XM_C2, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
-        MPD_TEXT_SMALL_C(XM_C3, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("A"))
-        MPD_TEXT_SMALL_C(XM_C4, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("N"))
-        MPD_TEXT_SMALL_C(XM_C5, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
-        MPD_TEXT_SMALL_C(XM_C6, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 5 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("F"))
-        MPD_TEXT_SMALL_C(XM_C7, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 6 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
-        MPD_TEXT_SMALL_C(XM_C8, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 7 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
-
-        // Bracket line connecting l1-l4
-        class XferMenuBracket {
-            type = "line";
-            width = 2;
-            points[] = {
-                {{0.0, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
-                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
-                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y + 1.0*MPD_TEXT_HEIGHT}, 1},{},
-                
-                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y - 1.0*MPD_TEXT_HEIGHT}, 1},
-                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1},
-                {{0.0, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1}
-            };
-        };
-    };
-};
-
 class fuel_flow_display {
     #define PAGE_MPD_FUELFLOW_X (0.5 - (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3) + (MPD_TEXT_SMALL_WIDTH * 5)) / 2))
     MPD_TEXT_SMALL_C(FFLOW_HEAD, 0.5, 0.96 - (MPD_TEXT_HEIGHT * 4), MPD_TEXT_STATIC("CALC FLOW"))   
@@ -144,8 +57,10 @@ class SFR_Display {
 #define CROSSFEED_IS_FWD  C_EQ(C_MPD_USER(MFD_IND_FUEL_CROSSFEED), 1)
 #define CROSSFEED_IS_NORM C_EQ(C_MPD_USER(MFD_IND_FUEL_CROSSFEED), 2)
 #define CROSSFEED_IS_AFT  C_EQ(C_MPD_USER(MFD_IND_FUEL_CROSSFEED), 3)
+#define CHECK_ACTIVE      C_MPD_USER(MFD_IND_FUEL_CHECK_ACTIVE)
 
 class fuel_crossfeed {
+    condition = C_COND(C_NOT(CHECK_ACTIVE));
     class CFEED_FWD_Selected {
         condition = C_COND(CROSSFEED_IS_FWD);
         MPD_BOX_L(CFEED_FWD_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 4)
@@ -716,7 +631,7 @@ class AuxtanksDisplay {
         #define AUX_L_DOT_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
         #define AUX_L_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
         class AUX_L_Dot_Off {
-            condition = C_COND(C_AND(STN2_PRESENT, C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));
+            condition = C_COND(C_AND(C_NOT(CHECK_ACTIVE), C_AND(STN2_PRESENT, C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)))));
 
             MPD_TEXT_R(AUX_L_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC(" L AUX"))
 
@@ -776,7 +691,7 @@ class AuxtanksDisplay {
         #define AUX_R_DOT_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
         #define AUX_R_DOT_Y MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
         class AUX_R_Present {
-            condition = C_COND(STN3_PRESENT);
+            condition = C_COND(C_AND(C_NOT(CHECK_ACTIVE), STN3_PRESENT));
             MPD_TEXT_L(AUX_R_TXT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("R AUX "))
             class AUX_R_Dot_Off {
                 class lines_auxROnOff {
@@ -835,7 +750,7 @@ class AuxtanksDisplay {
     };
     // L5 Aux tanks selector (blocked/unavailable indication)
     class AUX_GALLONS_BUTTON {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));  // Only show when xfer menu is NOT open
+        condition = C_COND(C_AND(C_NOT(CHECK_ACTIVE), C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));  // Hidden while CHECK is active; otherwise hide only in XFER menu
         MPD_TEXT_R(AUX_GALLONS_L5, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("AUX GALLONS EXT>"))
         class AUX_Barrier_Indicator {
             MPD_TEXT_C(AUX_BARRIER, MPD_POS_BUTTON_L_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_5_Y + 1.2 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("?"))
@@ -893,7 +808,7 @@ class ShowIAFS {
         MPD_TEXT_C(IAFS_EMPTY, IAFS_QTY_X, IAFS_QTY_Y, MPD_TEXT_STATIC("E"))
     };
     class Show_hide_IAFS {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
+        condition = C_COND(C_AND(C_NOT(CHECK_ACTIVE), C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU))));
         MPD_TEXT_R(IAFS_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC(" C AUX"))
         class iafs_Off {
             class lines_iafsOnOff {
@@ -952,8 +867,8 @@ class ShowIAFS {
     };
 };
 
-
 class Boost_Pump {
+    condition = C_COND(C_NOT(CHECK_ACTIVE));
     #define FUEL_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define FUEL_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
 
@@ -1013,3 +928,274 @@ class Boost_Pump {
     };
 };
 
+class fuel_check_displays {
+    #define CHECK_RUNNING         C_MPD_USER(MFD_IND_FUEL_CHECK_RUNNING)
+    #define CHECK_DONE            C_MPD_USER(MFD_IND_FUEL_CHECK_DONE)
+    #define CHECK_SETUP           C_AND(CHECK_ACTIVE, C_AND(C_NOT(CHECK_RUNNING), C_NOT(CHECK_DONE)))
+    #define CHECK_RUNNING_OR_DONE C_AND(CHECK_ACTIVE, C_OR(CHECK_RUNNING, CHECK_DONE))
+    #define CHECK_RUNNING_ACTIVE  C_AND(CHECK_ACTIVE, CHECK_RUNNING)
+    #define CHECK_IS_15           C_EQ(C_MPD_USER(MFD_IND_FUEL_CHECK_MINUTES), 15)
+    #define CHECK_IS_20           C_EQ(C_MPD_USER(MFD_IND_FUEL_CHECK_MINUTES), 20)
+    #define CHECK_IS_30           C_EQ(C_MPD_USER(MFD_IND_FUEL_CHECK_MINUTES), 30)
+
+    // CHECK button box at B6 when active
+    class Check_Boxed {
+        condition = C_COND(CHECK_ACTIVE);
+        MPD_BOX_C(CHECK_B, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, 5)
+    };
+
+    // Minutes selection popout at R2–R4 and START at R5 — visible whenever CHECK is active
+    class Check_Setup {
+        condition = C_COND(CHECK_ACTIVE);
+
+        MPD_TEXT_L(CHK_MIN15_T, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_L(CHK_MIN20_T, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("20"))
+        MPD_TEXT_L(CHK_MIN30_T, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("30"))
+        class CHK_MIN15_Sel {condition = C_COND(CHECK_IS_15); MPD_BOX_L(CHK_MIN15_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, 2)};
+        class CHK_MIN20_Sel {condition = C_COND(CHECK_IS_20); MPD_BOX_L(CHK_MIN20_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 2)};
+        class CHK_MIN30_Sel {condition = C_COND(CHECK_IS_30); MPD_BOX_L(CHK_MIN30_B, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, 2)};
+
+        // While a check is running, minutes are read-only and shown with bars.
+        class CHK_MIN_Lock15 { condition = C_COND(CHECK_RUNNING_ACTIVE); MPD_BOX_BAR_L(CHK_MIN15_LOCK, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y) };
+        class CHK_MIN_Lock20 { condition = C_COND(CHECK_RUNNING_ACTIVE); MPD_BOX_BAR_L(CHK_MIN20_LOCK, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y) };
+        class CHK_MIN_Lock30 { condition = C_COND(CHECK_RUNNING_ACTIVE); MPD_BOX_BAR_L(CHK_MIN30_LOCK, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y) };
+
+
+        // Vertical "MINUTES" label — centred between R2 and R4 (inboard of buttons)
+        #define CHK_MIN_LABEL_X   (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH * 4.125)
+        #define CHK_MIN_LABEL_Y   (((MPD_POS_BUTTON_LR_2_Y + MPD_POS_BUTTON_LR_3_Y) / 2) - MPD_TEXT_SMALL_HEIGHT)
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_M, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y,                             MPD_TEXT_STATIC("M"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_I, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("I"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_N, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("N"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_U, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("U"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_T, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("T"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_E, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 5 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
+        MPD_TEXT_SMALL_C(CHK_MIN_CH_S, CHK_MIN_LABEL_X, CHK_MIN_LABEL_Y + 6 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
+
+        // Bracket connecting R2–R4 (mirrors the XFER menu bracket on the left)
+        class CHK_MinutesBracket {
+            type = "line";
+            width = 2;
+            points[] = {
+                {{1.0,              MPD_POS_BUTTON_LR_2_Y - 0.8 * MPD_TEXT_HEIGHT}, 1},
+                {{CHK_MIN_LABEL_X,  MPD_POS_BUTTON_LR_2_Y - 0.8 * MPD_TEXT_HEIGHT}, 1},
+                {{CHK_MIN_LABEL_X,  MPD_POS_BUTTON_LR_2_Y + 0.0 * MPD_TEXT_HEIGHT}, 1}, {},
+                {{CHK_MIN_LABEL_X,  MPD_POS_BUTTON_LR_4_Y + 1.2 * MPD_TEXT_HEIGHT}, 1},
+                {{CHK_MIN_LABEL_X,  MPD_POS_BUTTON_LR_4_Y + 2.2 * MPD_TEXT_HEIGHT}, 1},
+                {{1.0,              MPD_POS_BUTTON_LR_4_Y + 2.2 * MPD_TEXT_HEIGHT}, 1}
+            };
+        };
+
+        // START label at R5 — visible when check is not actively running (setup or done)
+        class Check_Start_Btn {
+            condition = C_COND(C_AND(CHECK_ACTIVE, C_NOT(CHECK_RUNNING)));
+            MPD_TEXT_L(CHK_START_BTN, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("START"))
+        };
+    };
+
+    // STOP label at R5 — visible while timer is running
+    class Check_Running_Stop {
+        condition = C_COND(CHECK_RUNNING);
+        MPD_TEXT_L(CHK_STOP_BTN, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("STOP"))
+    };
+
+    // Run info box at upper-left — visible while running or done
+    class Check_RunBox {
+        condition = C_COND(CHECK_RUNNING_OR_DONE);
+
+        #define CHK_BOX_TOP      (MPD_POS_BUTTON_LR_1_Y - 0.8 * MPD_TEXT_HEIGHT)
+        #define CHK_BOX_BOTTOM   (MPD_POS_BUTTON_LR_3_Y + 0.8 * MPD_TEXT_HEIGHT)
+        #define CHK_BOX_LEFT     (0.055 + MPD_TEXT_WIDTH)
+        #define CHK_BOX_RIGHT    (0.355 + MPD_TEXT_WIDTH)
+        #define CHK_BOX_WIDTH    (CHK_BOX_RIGHT - CHK_BOX_LEFT)
+        #define CHK_RUN_LEFT     (CHK_BOX_LEFT + 0.5 * MPD_TEXT_WIDTH)
+        #define CHK_RUN_RIGHT    (CHK_BOX_RIGHT)
+        #define CHK_RUN_WIDTH    (CHK_RUN_RIGHT - CHK_RUN_LEFT)
+        #define CHK_RUN_TOP      (CHK_BOX_TOP - 1.5 * MPD_TEXT_HEIGHT)
+        #define CHK_RUN_BOTTOM   (CHK_RUN_TOP + 3.0 * MPD_TEXT_HEIGHT)
+        #define CHK_LBL_X        (CHK_RUN_LEFT + 0.9 * MPD_TEXT_SMALL_WIDTH + 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_VAL_X        (CHK_RUN_RIGHT - 5.4 * MPD_TEXT_WIDTH + 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_VAL_RUN_X    (CHK_VAL_X + 4.0 * MPD_TEXT_WIDTH)
+        #define CHK_VAL_START_X  (CHK_VAL_X + 4.0 * MPD_TEXT_WIDTH)
+        #define CHK_VAL_RATE_X   (CHK_VAL_X - 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_UNIT_X       (CHK_RUN_RIGHT - 0.9 * MPD_TEXT_SMALL_WIDTH + 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_RUN_ROW1_Y   (CHK_RUN_TOP + 0.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+        #define CHK_RUN_ROW2_Y   (CHK_RUN_TOP + 1.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+        #define CHK_RUN_ROW3_Y   (CHK_RUN_TOP + 2.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+
+        class CHK_RunBoxOccluder {
+            color[] = {0, 0, 0, 1};
+            class Polygons {
+                type = "polygon";
+                points[] = {
+                    MPD_POINTS_BOX_POLY("Null", CHK_RUN_LEFT, CHK_RUN_TOP, CHK_RUN_WIDTH, CHK_RUN_BOTTOM - CHK_RUN_TOP)
+                };
+            };
+        };
+
+        class CHK_RunBoxOutline {
+            type = "line";
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX("Null", CHK_RUN_LEFT, CHK_RUN_TOP, CHK_RUN_WIDTH, CHK_RUN_BOTTOM - CHK_RUN_TOP)
+            };
+        };
+
+        // Row 1: RUN  <elapsed>
+        MPD_TEXT_SMALL_R(CHK_RUN_LBL,  CHK_LBL_X, CHK_RUN_ROW1_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("RUN"))
+        MPD_TEXT_L(CHK_ELAPSED_VAL,    CHK_VAL_RUN_X, CHK_RUN_ROW1_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_ELAPSED))
+
+        // Row 2: START  <start Zulu>
+        MPD_TEXT_SMALL_R(CHK_START_LBL, CHK_LBL_X, CHK_RUN_ROW2_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("START"))
+        MPD_TEXT_L(CHK_START_VAL,       CHK_VAL_START_X, CHK_RUN_ROW2_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_START))
+
+        // Row 3: RATE  <burn rate>  LB/HR
+        MPD_TEXT_SMALL_R(CHK_RATE_LBL,  CHK_LBL_X, CHK_RUN_ROW3_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("RATE"))
+        MPD_TEXT_L(CHK_RATE_VAL,        CHK_VAL_RATE_X, CHK_RUN_ROW3_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_BURN))
+        MPD_TEXT_SMALL_L(CHK_RATE_UNIT, CHK_UNIT_X, CHK_RUN_ROW3_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB/HR"))
+    };
+
+    // Results box at upper-right — visible only after check is done
+    class Check_ResultBox {
+        condition = C_COND(C_AND(CHECK_ACTIVE, CHECK_DONE));
+
+        #define CHK_RES_LEFT    (1.0 - CHK_BOX_RIGHT)
+        #define CHK_RES_RIGHT   (1.0 - CHK_BOX_LEFT)
+        #define CHK_RES_WIDTH   (CHK_RES_RIGHT - CHK_RES_LEFT)
+        #define CHK_RES_TOP     (CHK_RUN_TOP)
+        #define CHK_RES_BOTTOM  (CHK_RES_TOP + 3.0 * MPD_TEXT_HEIGHT)
+        #define CHK_RES_LBL_X   (CHK_RES_LEFT + 0.9 * MPD_TEXT_SMALL_WIDTH + 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_RES_VAL_X   (CHK_RES_RIGHT - 0.9 * MPD_TEXT_SMALL_WIDTH + 0.0 * MPD_TEXT_WIDTH)
+        #define CHK_RES_ROW1_Y  (CHK_RES_TOP + 0.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+        #define CHK_RES_ROW2_Y  (CHK_RES_TOP + 1.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+        #define CHK_RES_ROW3_Y  (CHK_RES_TOP + 2.45 * MPD_TEXT_HEIGHT - 0.5 * MPD_TEXT_HEIGHT)
+
+        class CHK_ResBoxOccluder {
+            color[] = {0, 0, 0, 1};
+            class Polygons {
+                type = "polygon";
+                points[] = {
+                    MPD_POINTS_BOX_POLY("Null", CHK_RES_LEFT, CHK_RES_TOP, CHK_RES_WIDTH, CHK_RES_BOTTOM - CHK_RES_TOP)
+                };
+            };
+        };
+
+        class CHK_ResBoxOutline {
+            type = "line";
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX("Null", CHK_RES_LEFT, CHK_RES_TOP, CHK_RES_WIDTH, CHK_RES_BOTTOM - CHK_RES_TOP)
+            };
+        };
+
+        // Row 1: BURNOUT  <burnout Zulu>
+        MPD_TEXT_SMALL_R(CHK_BURNOUT_LBL, CHK_RES_LBL_X, CHK_RES_ROW1_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("BURNOUT"))
+        MPD_TEXT_L(CHK_BURNOUT_VAL,       CHK_RES_VAL_X, CHK_RES_ROW1_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_BURNOUT))
+
+        // Row 2: VFR RES  <VFR Zulu>
+        MPD_TEXT_SMALL_R(CHK_VFR_LBL, CHK_RES_LBL_X, CHK_RES_ROW2_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("VFR RES"))
+        MPD_TEXT_L(CHK_VFR_VAL,       CHK_RES_VAL_X, CHK_RES_ROW2_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_VFR))
+
+        // Row 3: IFR RES  <IFR Zulu>
+        MPD_TEXT_SMALL_R(CHK_IFR_LBL, CHK_RES_LBL_X, CHK_RES_ROW3_Y + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("IFR RES"))
+        MPD_TEXT_L(CHK_IFR_VAL,       CHK_RES_VAL_X, CHK_RES_ROW3_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_CHK_IFR))
+    };
+};
+
+class Transfere {
+    #define XFER_IS_OFF  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 1)
+    #define XFER_IS_FWD  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 2)
+    #define XFER_IS_AFT  C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 3)
+    #define XFER_IS_AUTO C_EQ(C_MPD_USER(MFD_IND_FUEL_XFER_MODE), 4)
+    class ShowXferNormal {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FUEL_XFER_MENU)));
+        MPD_TEXT_R(XFER_LBL, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("XFER"))
+        class XFER_N_OFF {
+            condition = C_COND(XFER_IS_OFF);
+            MPD_BOX_R(XFERN_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("OFF"))
+        };
+        class XFER_N_FWD {
+            condition = C_COND(XFER_IS_FWD);
+            MPD_BOX_R(XFERN_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("FWD"))
+        };
+        class XFER_N_AFT {
+            condition = C_COND(XFER_IS_AFT);
+            MPD_BOX_R(XFERN_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), 3)
+            MPD_TEXT_R(XFERN_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AFT"))
+        };
+        class XFER_N_AUTO {
+            condition = C_COND(XFER_IS_AUTO);
+            MPD_BOX_R(XFERN_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), 4)
+            MPD_TEXT_R(XFERN_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("AUTO"))
+        };
+    };
+
+    class transfer_popout_box {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_XFER_MENU));
+
+        class XferMenuOccluder {
+            color[] = {0, 0, 0, 1};
+            class Polygons {
+                type = "polygon";
+                points[] = {
+                    MPD_POINTS_BOX_POLY("Null", 0.0, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, (MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT) - (MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT))
+                };
+            };
+        };
+
+        // l1: FWD
+        MPD_TEXT_R(XFERM_FWD_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("FWD"))
+        class XFERM_FWD_Sel {
+            condition = C_COND(XFER_IS_FWD);
+            MPD_BOX_R(XFERM_FWD_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
+        };
+        // l2: OFF
+        MPD_TEXT_R(XFERM_OFF_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("OFF"))
+        class XFERM_OFF_Sel {
+            condition = C_COND(XFER_IS_OFF);
+            MPD_BOX_R(XFERM_OFF_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 3)
+        };
+        // l3: AFT
+        MPD_TEXT_R(XFERM_AFT_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("AFT"))
+        class XFERM_AFT_Sel {
+            condition = C_COND(XFER_IS_AFT);
+            MPD_BOX_R(XFERM_AFT_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
+        };
+        // l4: AUTO
+        MPD_TEXT_R(XFERM_AUTO_T, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("AUTO"))
+        class XFERM_AUTO_Sel {
+            condition = C_COND(XFER_IS_AUTO);
+            MPD_BOX_R(XFERM_AUTO_B, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 4)
+        };
+        // Vertical TRANSFER label
+
+        #define XFER_MENU_LABEL_X (MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5)
+        #define XFER_MENU_LABEL_Y ((MPD_POS_BUTTON_LR_1_Y + MPD_POS_BUTTON_LR_2_Y) / 2)
+
+        MPD_TEXT_SMALL_C(XM_C1, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y,                             MPD_TEXT_STATIC("T"))
+        MPD_TEXT_SMALL_C(XM_C2, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 1 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
+        MPD_TEXT_SMALL_C(XM_C3, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 2 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("A"))
+        MPD_TEXT_SMALL_C(XM_C4, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 3 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("N"))
+        MPD_TEXT_SMALL_C(XM_C5, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("S"))
+        MPD_TEXT_SMALL_C(XM_C6, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 5 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("F"))
+        MPD_TEXT_SMALL_C(XM_C7, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 6 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("E"))
+        MPD_TEXT_SMALL_C(XM_C8, XFER_MENU_LABEL_X, XFER_MENU_LABEL_Y + 7 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("R"))
+
+        // Bracket line connecting l1-l4
+        class XferMenuBracket {
+            type = "line";
+            width = 2;
+            points[] = {
+                {{0.0, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_1_Y + 1.0*MPD_TEXT_HEIGHT}, 1},{},
+                
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y - 1.0*MPD_TEXT_HEIGHT}, 1},
+                {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH * 5.5, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1},
+                {{0.0, MPD_POS_BUTTON_LR_4_Y + 1.5*MPD_TEXT_HEIGHT}, 1}
+            };
+        };
+    };
+};

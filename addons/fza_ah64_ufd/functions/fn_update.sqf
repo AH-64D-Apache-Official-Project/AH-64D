@@ -23,6 +23,12 @@ if (!(isNil "fza_ah64_noufd")) exitWith {};
 if (cba_missiontime <= 0) exitWith {};
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
+// Per-frame: clear this seat's CHECK-active var when not on the fuel page
+// (draw sets it to true when CHECK sub-format is open; this clears it on nav away)
+private _checkSeatVar = ["fza_fuel_checkActiveCpg", "fza_fuel_checkActivePlt"] select (player == driver _heli);
+private _fuelOpen = ("fuel" in ([_heli, 0] call fza_mpd_fnc_currentPage)) || ("fuel" in ([_heli, 1] call fza_mpd_fnc_currentPage));
+if (!_fuelOpen) then { [_heli, _checkSeatVar, false] call fza_fnc_updateNetworkGlobal; };
+
 ///end gunner weapon damage//
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
