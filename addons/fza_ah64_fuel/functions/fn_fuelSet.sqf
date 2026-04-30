@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_fuelSet
+Function: fza_fuel_fnc_fuelSet
 
 Description:
     Sets the initial fuel state of the aircraft.

@@ -58,7 +58,7 @@ class Draw
                 scale=1;
                 align="right";
                 source = "userText";
-                sourceIndex = 8;
+                sourceIndex = 10;
                 pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
                 right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
                 down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};

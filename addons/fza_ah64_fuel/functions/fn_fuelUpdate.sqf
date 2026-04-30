@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_fuelUpdate
+Function: fza_fuel_fnc_fuelUpdate
 
 Description:
     Updates fuel cell masses each tick. Handles independent cell draw based on
@@ -58,7 +58,8 @@ private _armaFuelFrac = fuel _heli;
 private _storedTotFuelMass = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
 private _storedFuelFrac = if (_maxTotFuelMass > 0) then { _storedTotFuelMass / _maxTotFuelMass } else { 0 };
 if (abs (_armaFuelFrac - _storedFuelFrac) > 0.01) then {
-    [_heli] call fza_sfmplus_fnc_fuelSet;
+    [_heli] call fza_fuel_fnc_fuelSet;
+    _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////

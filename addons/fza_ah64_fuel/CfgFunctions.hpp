@@ -13,6 +13,9 @@ class CfgFunctions
             file = "\fza_ah64_fuel\functions";
             class fuelMgmtVariables {R;};
             class fuelMgmtUpdate   {R;};
+            class fuelSet          {R;};
+            class fuelUpdate       {R;};
+            class fuelVariables    {R;};
         };
     };
 };

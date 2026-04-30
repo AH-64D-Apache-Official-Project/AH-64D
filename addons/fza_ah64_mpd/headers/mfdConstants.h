@@ -16,7 +16,7 @@
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
-#define MFD_TEXT_IND_UFD_FUEL 8
+#define MFD_TEXT_IND_UFD_FUEL 10
 
 
 #define MFD_OFFSET_L 20

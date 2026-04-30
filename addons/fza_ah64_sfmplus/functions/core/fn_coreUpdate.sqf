@@ -49,7 +49,7 @@ if (isAutoHoverOn _heli) then {
 [_heli] call fza_sfmplus_fnc_calculateAeroValues;
 
 //Fuel
-[_heli] call fza_sfmplus_fnc_fuelUpdate;
+[_heli] call fza_fuel_fnc_fuelUpdate;
 [_heli] call fza_fuel_fnc_fuelMgmtUpdate;
 
 //Mass and Balance

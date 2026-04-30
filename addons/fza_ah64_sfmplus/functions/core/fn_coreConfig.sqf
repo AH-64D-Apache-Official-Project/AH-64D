@@ -167,9 +167,9 @@ _heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
 _heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
 
 //Fuel
-[_heli] call fza_sfmplus_fnc_fuelVariables;
+[_heli] call fza_fuel_fnc_fuelVariables;
 [_heli] call fza_fuel_fnc_fuelMgmtVariables;
-[_heli] call fza_sfmplus_fnc_fuelSet;
+[_heli] call fza_fuel_fnc_fuelSet;
 
 //Engines
 _heli setVariable ["fza_sfmplus_pid_engine",        [[0.7000, 0.0000, 0.0005] call fza_fnc_pidCreate, [0.7000, 0.0000, 0.0005] call fza_fnc_pidCreate]];
