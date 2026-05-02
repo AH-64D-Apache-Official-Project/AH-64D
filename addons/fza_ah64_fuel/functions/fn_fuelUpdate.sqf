@@ -38,8 +38,8 @@ params ["_heli"];
 #define AUTO_SPLIT_50_KG     22.7    // ~50 lb
 #define AUTO_SPLIT_100_KG    45.4    // ~100 lb
 #define AUTO_500_KG          226.8   // ~500 lb
-#define TANK_LEAK_START_DMG   0.60
-#define TANK_LEAK_MAX_RATE_KGS 0.756  // ~100 lb/min at full damage
+#define TANK_LEAK_START_DMG   0.50
+#define TANK_LEAK_MAX_RATE_KGS 0.0168  // ~133.3 lb/hr per tank; ~400 lb/hr total for 3 tanks at full damage
 
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 if (_deltaTime <= 0) exitWith {};
