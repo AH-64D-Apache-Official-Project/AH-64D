@@ -139,11 +139,13 @@ if (_value) then {
         };
         case "fza_ah64_fcrModeSwitch_up": {
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
             _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
         };
         case "fza_ah64_fcrModeSwitch_down": {
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
             _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
         };

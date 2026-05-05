@@ -123,8 +123,11 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 //FCR Points
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
-private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-private _systemWas = _heli getVariable "fza_ah64_was";
+private _displayTargets   = _heli getVariable "fza_ah64_fcrTargets";
+private _systemWas        = _heli getVariable "fza_ah64_was";
+private _fcrMode          = _heli getVariable "fza_ah64_fcrMode";
+private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
+private _scanPeriod       = [3.2, 6.4] select (_fcrMode == 2);
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
@@ -135,73 +138,32 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2D _pos;
-    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
-    private _unitStatus          = ""; //loal, lobl, move
-    private _unitSelAndWpnStatus = []; //nts, ants
-    private _ident               = "";
-    
+    private _distance_m = _scanPos distance2D _pos;
+    private _ident      = "";
+
+    //Sweep reveal: hide target until the scan bar has passed its azimuth
+    if (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7)) then { continue; };
+
     if (_rangesetting < 25000) then {
-        switch (_type) do {
-            case FCR_TYPE_UNKNOWN: {
-                _unitType = "UNK";
-            };
-            case FCR_TYPE_WHEELED: {
-                _unitType = "WHEEL";
-            };
-            case FCR_TYPE_HELICOPTER: {
-                _unitType = "HELI";
-            };
-            case FCR_TYPE_FLYER: {
-                _unitType = "FLYER";
-            };
-            case FCR_TYPE_TRACKED: {
-                _unitType = "TRACK";
-            };
-            case FCR_TYPE_ADU: {
-                _unitType = "ADU";
-            };
-        };
-        //Unit status
-        if ((_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
-            _unitStatus = "MOVE";
-        } else {
-            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-                _unitStatus = "LOBL";
-            };
-            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-                _unitStatus = "LOAL";
-            };
-            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
-                continue;
-            };
-        };
-        if (_forEachIndex == _ntsIndex) then {
-            if (_SystemWas == WAS_WEAPON_NONE) then {
-                _unitSelAndWpnStatus = ["NTS", "NOMSL"];
-            } else {
-                _unitSelAndWpnStatus = ["NTS"];
-            };
-        };
-        if (_forEachIndex == _antsIndex) then {
-            _unitSelAndWpnStatus = ["ANTS"];
-        };
-        if (_unitType == "" || _unitStatus == "") exitWith {continue;};
-        _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
+        //Selection status
+        private _selStatus = 0;
+        if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
+        if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
+
+        _ident = [_type, _distance_m, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
+        if (_ident == "") then {continue;};
     } else {
-        _ident= "FCR_TSD_SC25_50_YELLOW";
+        _ident = "FCR_TSD_SC25_50_YELLOW";
     };
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
 
-private _fcrState = _heli getVariable "fza_ah64_fcrState";
-private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
     _tsdFcrState = _fcrMode;
-    if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
+    if (_fcrScanState == FCR_MODE_ON_SINGLE) then {
         _tsdFcrState = (_fcrMode + 2);
     };
 };

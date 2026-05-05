@@ -17,8 +17,11 @@ if (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUO
 };
 
 //FCR wiper
+// Use the later of scan-start or last-update as reference:
+//   first scan: _fcrScanStartTime is newest → wiper starts at 0
+//   subsequent scans: _time resets each fn_update → no end-of-cycle flicker
+private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 if (_fcrScanState != FCR_MODE_OFF) then {
-    private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     if (_fcrScanDeltaTime >= 2.93) then {
@@ -45,66 +48,48 @@ private _pointsArray = [];
 private _scale = (0.040625 * 8 / 8000);
 private _heliCtr = [0.5, 0.5];
 
+private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
+
 //Shot At UnderLay
 private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 0) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+    private _shotRange  = _scanPos distance2D _shotPos;
+    private _shotRelAzi = [[_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180 - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    if ((abs _shotRelAzi) > _atmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2D _pos;
-    private _unitType            = "unk";
-    private _unitStatus          = ""; //loal, lobl, move
-    private _unitSelAndWpnStatus = []; //nts, ants
+    private _distance_m = _scanPos distance2D _pos;
 
     //FCR max show
     if (count _pointsArray > 15) exitWith {};
-    
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue;};
-
-    //Unit type
-    switch (_type) do {
-        case FCR_TYPE_HELICOPTER: {
-            _unitType = "HELI";
-        };
-        case FCR_TYPE_FLYER: {
-            _unitType = "FLYER";
-        };
-    };
-    //Unit status
-    if ((_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
-            continue;
-        };
-    };
-    //Unit select status
-    if (_forEachIndex == _ntsIndex) then {
-        if (_SystemWas == WAS_WEAPON_NONE) then {
-            _unitSelAndWpnStatus = ["NTS", "NOMSL"];
+    //Sweep reveal: tracked targets visible at prev position before bar passes; fresh targets hidden
+    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7));
+    if (_beforeReveal) then {
+        if (count _x > 9) then {
+            // Tracked target: display at heading-corrected previous position until bar sweeps past
+            _aziAngle = _x # 9;
+            _range    = _x # 10;
         } else {
-            _unitSelAndWpnStatus = ["NTS"];
-        };
-        if (_unitType == "FLYER") then {
+            continue; // Fresh target: hidden until bar sweeps past
         };
     };
-    if (_forEachIndex == _antsIndex) then {
-        _unitSelAndWpnStatus = ["ANTS"];
-    };
-    if (_unitType == "" || _unitStatus == "") then {continue;};
-    private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
-    
+    if (_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then {continue;};
+
+    //Selection status
+    private _selStatus = 0;
+    if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
+    if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
+
+    private _ident = [_type, _distance_m, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
+    if (_ident == "") then {continue;};
+
     private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
     private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
     private _uiCtr = [_x, _y, 0];
@@ -118,11 +103,20 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 1) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+    private _shotRange  = _scanPos distance2D _shotPos;
+    private _shotRelAzi = [[_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180 - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    if ((abs _shotRelAzi) > _atmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+} forEach _shotATList;
+    if (_overlay != 1) then {continue;};
+    private _uiCtr = [_shotPos] call _shotToScreen;
+    if (count _uiCtr == 0) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+} forEach _shotATList;
 } forEach _shotATList;
 
-//Total target count
-private _fcrTgtCount  = count _displayTargets;
+//Total target count (ghosts excluded)
+private _fcrTgtCount  = { (count _x) < 9 || (_x # 8) == 0 } count _displayTargets;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

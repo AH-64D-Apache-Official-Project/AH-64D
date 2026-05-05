@@ -37,52 +37,18 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
     };
 
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = _scanPos distance2D _pos;
-    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
-    private _unitStatus          = ""; //loal, lobl, move
-    private _guiPos              = worldToScreen ASLToAGL _pos;
+    private _distance_m = _scanPos distance2D _pos;
+    private _guiPos     = worldToScreen ASLToAGL _pos;
 
-    //Unit type
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN: {
-            _unitType = "unk";
-        };
-        case FCR_TYPE_WHEELED: {
-            _unitType = "wheel";
-        };
-        case FCR_TYPE_HELICOPTER: {
-            _unitType = "heli";
-        };
-        case FCR_TYPE_FLYER: {
-            _unitType = "flyer";
-        };
-        case FCR_TYPE_TRACKED: {
-            _unitType = "track";
-        };
-        case FCR_TYPE_ADU: {
-            _unitType = "adu";
-        };
-    };
-    //Unit status
-    if (_unitType != "FLYER") then {
-        if (_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-            _unitStatus = "MOVE";
-        } else {
-            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-                _unitStatus = "LOBL";
-            };
-            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-                _unitStatus = "LOAL";
-            };
-            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
-                continue;
-            };
-        };
-    };
+    private _ident = [_type, _distance_m, _moving] call fza_mpd_fnc_buildFCRIdent;
+    if (_ident == "") exitWith {};
 
-    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitWith {};
-
-    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa", _unitType, _unitStatus];
+    // ident format is "FCR_TYPE_STATUS"; extract parts for the texture path
+    private _identParts = _ident splitString "_";
+    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa",
+        toLower (_identParts # 1),
+        _identParts # 2
+    ];
     
     if (count _guiPos < 1) then {
         _guiPos = [-100, -100];

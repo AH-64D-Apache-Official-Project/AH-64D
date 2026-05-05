@@ -19,12 +19,13 @@ Author:
 params["_heli"];
 
 private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
-if (count _fcrTargets == 0) then {
+private _knownTargets = _fcrTargets select { (count _x) < 9 || (_x # 8) == 0 };
+if (count _knownTargets == 0) then {
     [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0]], []] call fza_fnc_updateNetworkGlobal;
 } else {
     private _oldNts = _heli getVariable "fza_ah64_fcrNts";
     private _oldNts = _oldNts # 0;
-    private _oldNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
-    private _newNtsIndex = (_oldNtsIndex + 1) mod (count _fcrTargets min 16);
-    [_heli, "fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0, _fcrTargets # _newNtsIndex]] call fza_fnc_updateNetworkGlobal;
+    private _oldNtsIndex = _knownTargets findIf {_x # 3 == _oldNts};
+    private _newNtsIndex = (_oldNtsIndex + 1) mod (count _knownTargets min 16);
+    [_heli, "fza_ah64_fcrNts", [_knownTargets # _newNtsIndex # 3, _knownTargets # _newNtsIndex # 0, _knownTargets # _newNtsIndex]] call fza_fnc_updateNetworkGlobal;
 };
