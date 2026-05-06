@@ -2,16 +2,17 @@
 Function: fza_mpd_fnc_buildFCRPoints
 
 Description:
-    Builds the FCR points array and live target count for an FCR MFD page.
-    Shared by fn_fcrATMDraw and fn_fcrGTMDraw to avoid duplicating the
-    shot-at, target-loop, and count logic.
+    Builds the FCR points array for an FCR MFD page from a pre-resolved display
+    target list produced by fn_resolveDisplay. No reveal logic here — targets in
+    _displayTargets are already filtered and have positions resolved.
+
+    Shared by fn_fcrATMDraw and fn_fcrGTMDraw.
 
 Parameters:
     _heli           - The helicopter
-    _displayTargets - Array from fza_ah64_fcrTargets
+    _displayTargets - Pre-resolved array from fza_ah64_fcrDisplayTargets
+                      Record: [pos, type, moving, obj, aziAngle, range, isGhost]
     _scanPos        - World position of the helicopter at last scan
-    _fcrScanState   - FCR scan state integer
-    _lastFullCycle  - CBA_missionTime stamp from fza_ah64_fcrLastFullCycle
     _ntsIndex       - Index of NTS target in _displayTargets (-1 = none)
     _antsIndex      - Index of ANTS target in _displayTargets (-1 = none)
     _scale          - MFD metres-to-screen scale factor
@@ -23,7 +24,7 @@ Parameters:
     _filterAirOnly  - (optional, default false) Skip non-air FCR targets when true
 
 Returns:
-    [_pointsArray, _fcrTgtCount]
+    _pointsArray
 
 Author:
     Snow(Dryden)
@@ -32,11 +33,11 @@ Author:
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_displayTargets", "_scanPos", "_fcrScanState", "_lastFullCycle",
-        "_ntsIndex", "_antsIndex", "_scale", "_heliCtr", "_systemWas",
-        "_shotATList", "_fcrAzBias", "_halfFov", ["_filterAirOnly", false]];
+params ["_heli", "_displayTargets", "_scanPos", "_ntsIndex", "_antsIndex",
+        "_scale", "_heliCtr", "_systemWas", "_shotATList", "_fcrAzBias",
+        "_halfFov", ["_filterAirOnly", false]];
 
-private _pointsArray = [];
+private _pointsArray   = [];
 private _fcrPointCount = 0;
 
 //Shot At UnderLay
@@ -51,23 +52,11 @@ private _fcrPointCount = 0;
 } forEach _shotATList;
 
 {
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_range"];
     private _distance_m = _scanPos distance2D _pos;
 
     //FCR max show
     if (_fcrPointCount >= 16) exitWith {};
-
-    private _isGhost = (_x # 8 > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_x # 7));
-    if (_isGhost && (_x # 8 >= 3) && !_beforeReveal) then { continue; };
-    if (!_isGhost && _beforeReveal) then {
-        if (count _x > 9) then {
-            _aziAngle = _x # 9;
-            _range    = _x # 10;
-        } else {
-            continue;
-        };
-    };
 
     if (_filterAirOnly && _type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then {continue;};
 
@@ -96,9 +85,4 @@ private _fcrPointCount = 0;
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-private _fcrTgtCount = {
-    (_x # 8) == 0
-    && (_fcrScanState == FCR_MODE_OFF || (CBA_missionTime - _lastFullCycle) >= (_x # 7) || count _x > 9)
-} count _displayTargets;
-
-[_pointsArray, _fcrTgtCount]
+_pointsArray

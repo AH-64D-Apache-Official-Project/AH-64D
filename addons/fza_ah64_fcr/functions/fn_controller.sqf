@@ -16,6 +16,8 @@ Author:
 #include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli"];
 
+_heli call fza_fcr_fnc_resolveDisplay;
+
 if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
 
 private _fcrEnabled = _heli animationPhase "fcr_enable" == 1;

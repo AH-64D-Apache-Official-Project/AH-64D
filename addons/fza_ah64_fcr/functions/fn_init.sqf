@@ -23,6 +23,9 @@ if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, 0, direction _heli], true];
     _heli setVariable ["fza_ah64_fcrLastFullCycle", 0, true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
+    _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
+    _heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
+    _heli setVariable ["fza_ah64_fcrDisplayFrame", -1];
     _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_tofCountDown", [], true];

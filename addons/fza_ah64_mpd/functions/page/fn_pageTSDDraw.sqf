@@ -123,10 +123,9 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 //FCR Points
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
-private _displayTargets   = _heli getVariable "fza_ah64_fcrTargets";
-private _systemWas        = _heli getVariable "fza_ah64_was";
-private _fcrMode          = _heli getVariable "fza_ah64_fcrMode";
-private _lastFullCycle    = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
+private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
+private _systemWas      = _heli getVariable "fza_ah64_was";
+private _fcrMode        = _heli getVariable "fza_ah64_fcrMode";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
@@ -136,21 +135,10 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 };
 
 {
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    _x params ["_pos", "_type", "_moving", "_target"];
     private _ident = "";
-
-    private _isGhost = (_x # 8 > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_x # 7));
-    if (_isGhost && (_x # 8 >= 3) && !_beforeReveal) then { continue; }; // Age 3+ ghost cleared by sweep
-    if (!_isGhost && _beforeReveal) then {
-        if (count _x > 9) then {
-            _pos = _x # 11; // Tracked: hold at frozen world position until bar sweeps past
-        } else {
-            continue; // Fresh: hidden until bar sweeps past
-        };
-    };
-
     private _distance_m = _scanPos distance2D _pos;
+
     if (_rangesetting < 25000) then {
         //Selection status
         private _selStatus = 0;

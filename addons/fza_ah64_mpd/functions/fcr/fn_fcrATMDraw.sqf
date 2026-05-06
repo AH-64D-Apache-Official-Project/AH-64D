@@ -6,12 +6,11 @@ params ["_heli", "_mpdIndex"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
-private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 
 //FCR wiper
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _animDelta = _fcrScanDeltaTime max 0;
     private _cycleT    = _animDelta % 6.4;
@@ -41,11 +40,10 @@ private _heliCtr    = [0.5, 0.5];
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
 
-[_heli, _displayTargets, _scanPos, _fcrScanState, _lastFullCycle,
- _ntsIndex, _antsIndex, _scale, _heliCtr, _systemWas,
- _heli getVariable "fza_dms_shotAt", _fcrAzBias, _atmHalfFov, true
-] call fza_mpd_fnc_buildFCRPoints
-params ["_pointsArray", "_fcrTgtCount"];
+private _pointsArray = [_heli, _displayTargets, _scanPos,
+    _ntsIndex, _antsIndex, _scale, _heliCtr, _systemWas,
+    _heli getVariable "fza_dms_shotAt", _fcrAzBias, _atmHalfFov, true
+] call fza_mpd_fnc_buildFCRPoints;
 
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];
 [_heli, _pointsArray, _mpdIndex, _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

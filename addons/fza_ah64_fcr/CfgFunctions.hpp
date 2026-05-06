@@ -16,6 +16,7 @@ class CfgFunctions
             class init {RECOMPILE_FLAG;};
             class animateFCR {RECOMPILE_FLAG;};
             class mergeTargets {RECOMPILE_FLAG;};
+            class resolveDisplay {RECOMPILE_FLAG;};
             class stateControl {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
         };

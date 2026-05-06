@@ -21,11 +21,11 @@ params ["_heli", "_fcrTargets", ["_isFullCycle", true]];
 private _prevTargets = _heli getVariable "fza_ah64_fcrTargets";
 
 {
-    private _obj     = _x # 3;
+    _x params ["_pos", "_type", "_moving", "_obj"];
     private _prevIdx = _prevTargets findIf { (_x # 3) isEqualTo _obj };
 
     if (_prevIdx == -1) then {
-        _fcrTargets set [_forEachIndex, _x + [0]]; 
+        _fcrTargets set [_forEachIndex, _x + [0]];
     } else {
         private _prev = _prevTargets # _prevIdx;
         if (_isFullCycle) then {
@@ -38,7 +38,7 @@ private _prevTargets = _heli getVariable "fza_ah64_fcrTargets";
 
 // Age lost targets into ghosts
 {
-    private _obj = _x # 3;
+    _x params ["_pos", "_type", "_moving", "_obj"];
     if ((_fcrTargets findIf { (_x # 3) isEqualTo _obj }) == -1) then {
         private _age = if (count _x > 8) then { _x # 8 } else { 0 };
         if (_age < 4) then {
