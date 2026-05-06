@@ -2,17 +2,14 @@
 Function: fza_fcr_fnc_controller
 
 Description:
-    handles the relavent Fire control radar per frame functions
+    Handles per-frame FCR state and animation. Local pilot only.
 
 Parameters:
-    _heli - The apache to act upon
+    _heli - The helicopter to act upon
 
 Returns:
-    nil
-    
-Examples:
-    [_heli] call fza_fcr_fnc_controller
-    
+    Nothing
+
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */

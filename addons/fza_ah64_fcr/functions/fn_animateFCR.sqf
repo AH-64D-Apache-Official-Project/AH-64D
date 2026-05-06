@@ -2,25 +2,14 @@
 Function: fza_fcr_fnc_animateFCR
 
 Description:
-    Drives the physical FCR (Longbow) dish rotation to match the current scan
-    state. Called every frame from fn_controller (local only; animateSource
-    replicates automatically over the network).
-
-    States:
-        Off / Fault   - Dish returns to forward-facing (0°) at _dishSpeed.
-        Cueing        - Scan started but _fcrScanDeltaTime < 0 (future start
-                        time); dish animates to the scan start position.
-        Active scan   - Dish tracks the scan bar exactly, updated each frame.
-
-    GTM scan: near bar sweeps left (-halfFov) → right (+halfFov) in 1.6 s,
-              far bar sweeps right → left in the next 1.6 s.
-    ATM scan: full 360° revolution over 6.4 s.
+    Drives the FCR dish rotation each frame to match the current scan state.
+    Off/Fault: return to boresight. Cueing: step to scan start. Active: track bar.
 
 Parameters:
     _heli - The helicopter to act upon
 
 Returns:
-    nil
+    Nothing
 
 Author:
     Snow(Dryden)
@@ -36,12 +25,12 @@ private _waitingForStart = _heli getVariable ["fza_ah64_fcrWaitingForStart", fal
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias",    0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-// Dish rotation speed for cueing and return: ~86°/s
+// Dish speed for cueing and return (rad/s)
 private _dishSpeed = 1.5;
 
 private _applyModeSign = {
     params ["_rad"];
-    // GTM model axis is mirrored; ATM aligns with positive rotation
+    // GTM axis is mirrored; ATM aligns with positive rotation
     _rad * ([-1, 1] select (_fcrMode == 2))
 };
 
@@ -64,13 +53,13 @@ private _stepTowards = {
 
 private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 
-// --- Off / Fault: return dish to boresight -----------------------------------
+// Off / Fault: return to boresight
 if (_fcrScanState == FCR_MODE_OFF || _fcrScanState == FCR_MODE_FAULT) exitWith {
     _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
     [([0] call _applyModeSign), _dishSpeed] call _stepTowards;
 };
 
-// --- Cueing: animate to scan start position ----------------------------------
+// Cueing: step toward scan start position
 if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
     private _startDeg = if (_fcrMode == 1) then {
         _fcrAzBias - _gtmHalfFov   // GTM: left edge of scan sector
@@ -84,19 +73,17 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
     if (_err > pi) then { _err = _err - (2 * pi); };
     if (_err < -pi) then { _err = _err + (2 * pi); };
 
-    // Once physically at the scan start, latch backend start to now.
     if (abs _err <= 0.01) exitWith {
-        if (_waitingForStart || _fcrScanDeltaTime < 0) then {
-            _heli setVariable ["fza_ah64_fcrState", [_fcrScanState, CBA_missionTime], true];
-            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-        };
+        // Dish at start position — latch scan start time to now
+        _heli setVariable ["fza_ah64_fcrState", [_fcrScanState, CBA_missionTime], true];
+        _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
         _heli animateSource ["longbow", _startRad];
     };
 
     [_startRad, _dishSpeed] call _stepTowards;
 };
 
-// --- Active scan: track scan bar each frame ----------------------------------
+// Active scan: track bar position each frame
 private _targetDeg = 0;
 
 if (_fcrMode == 1) then {
@@ -111,8 +98,6 @@ if (_fcrMode == 1) then {
     // ATM 6.4 s cycle: full 360° revolution
     private _t = _fcrScanDeltaTime % 6.4;
     _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
-    // Normalise to ±180° so the animation phase stays in range
-    // Note: 180° and -180° map to the same physical angle, so no visual jump
     if (_targetDeg > 180) then { _targetDeg = _targetDeg - 360; };
 };
 

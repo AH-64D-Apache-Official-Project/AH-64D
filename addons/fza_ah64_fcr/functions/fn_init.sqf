@@ -1,20 +1,17 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fcr_fnc_eventInit
+Function: fza_fcr_fnc_init
 
 Description:
-    fire control radar event init
+    Initialises FCR variables for the given helicopter. Safe to call multiple times.
 
 Parameters:
-    _heli - the helicopter to initialise
+    _heli - The helicopter to initialise
 
 Returns:
     Nothing
 
-Examples:
-    [_heli] spawn fza_fcr_fnc_eventInit
-
 Author:
-    Snow(dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];

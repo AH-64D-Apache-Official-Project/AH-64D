@@ -2,12 +2,12 @@
 Function: fza_fcr_fnc_armScanStart
 
 Description:
-    Arms FCR scan start timing so backend scanning waits for the dish to queue
-    to the mode-specific start angle at fixed rotation speed.
+    Arms FCR scan start: computes cue delay then sets the waiting flag so the
+    backend waits for the dish to reach the mode-specific start angle.
 
 Parameters:
-    _heli - The helicopter
-    _scanState - FCR_MODE_ON_SINGLE or FCR_MODE_ON_CONTINUOUS
+    _heli       - The helicopter
+    _scanState  - FCR_MODE_ON_SINGLE or FCR_MODE_ON_CONTINUOUS
 
 Returns:
     Nothing

@@ -17,9 +17,6 @@ if (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUO
 };
 
 //FCR wiper
-// Use the later of scan-start or last-update as reference:
-//   first scan: _fcrScanStartTime is newest → wiper starts at 0
-//   subsequent scans: _time resets each fn_update → no end-of-cycle flicker
 private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _animDelta = _fcrScanDeltaTime max 0;
@@ -99,7 +96,7 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 } forEach _displayTargets;
 
 //Shot At Overlay
-private _shotATList = _heli getVariable "fza_dms_shotAt";
+_shotATList = _heli getVariable "fza_dms_shotAt";
 {
     _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     if (_x isEqualTo -1) then {continue;};
