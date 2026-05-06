@@ -25,8 +25,7 @@ private _waitingForStart = _heli getVariable ["fza_ah64_fcrWaitingForStart", fal
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias",    0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-// Dish speed for cueing and return (rad/s)
-private _dishSpeed = 1.5;
+private _dishSpeed  = pi / 3.2;
 
 private _applyModeSign = {
     params ["_rad"];
@@ -41,14 +40,14 @@ private _stepTowards = {
     if (_delta > pi) then { _delta = _delta - (2 * pi); };
     if (_delta < -pi) then { _delta = _delta + (2 * pi); };
 
-    private _maxStep = _speedRadPerSec * (diag_deltaTime max 0.001);
+    private _maxStep = _speedRadPerSec * ((diag_deltaTime max 0.001) min 0.05);
     private _step = _delta max (-_maxStep) min _maxStep;
     private _next = _current + _step;
 
     if (_next > pi) then { _next = _next - (2 * pi); };
     if (_next < -pi) then { _next = _next + (2 * pi); };
 
-    _heli animateSource ["longbow", _next];
+    _heli animateSource ["longbow", _next, true];
 };
 
 private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
@@ -77,7 +76,7 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
         // Dish at start position — latch scan start time to now
         _heli setVariable ["fza_ah64_fcrState", [_fcrScanState, CBA_missionTime], true];
         _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-        _heli animateSource ["longbow", _startRad];
+        _heli animateSource ["longbow", _startRad, true];
     };
 
     [_startRad, _dishSpeed] call _stepTowards;
@@ -101,15 +100,15 @@ if (_fcrMode == 1) then {
     if (_targetDeg > 180) then { _targetDeg = _targetDeg - 360; };
 };
 
-// Physical dish command: model axis is mirrored vs display azimuth, so negate
 private _targetRad = [(_targetDeg * (pi / 180))] call _applyModeSign;
-private _scanSpeed = if (_fcrMode == 1) then {
-    // GTM: 2*halfFov per 1.6s (rad/s)
-    ((_gtmHalfFov * 2) * (pi / 180)) / 1.6
-} else {
-    // ATM: full 360 in 6.4s (rad/s)
-    (2 * pi) / 6.4
-};
 
-// Track the sweep at commanded rate (no instantaneous snap)
-[_targetRad, _scanSpeed] call _stepTowards;
+// ATM: detect the one-frame ±pi wrap and skip animateSource that frame
+private _skipFrame = false;
+if (_fcrMode == 2) then {
+    private _prev = _heli getVariable ["fza_ah64_fcrDishTarget", _targetRad];
+    _heli setVariable ["fza_ah64_fcrDishTarget", _targetRad];
+    _skipFrame = abs (_targetRad - _prev) > pi;
+};
+if (_skipFrame) exitWith {};
+
+_heli animateSource ["longbow", _targetRad, true];

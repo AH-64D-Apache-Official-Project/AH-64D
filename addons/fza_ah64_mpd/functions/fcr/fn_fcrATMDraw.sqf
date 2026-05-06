@@ -9,29 +9,22 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 
-//ATM Rear block
-if (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
-    if (_fcrScanStartTime + 3.2 >= CBA_missionTime) then {
-        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
-    };
-};
-
 //FCR wiper
 private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _animDelta = _fcrScanDeltaTime max 0;
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _animDelta % 6.4];
+    private _cycleT    = _animDelta % 6.4;
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _cycleT];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    if (_animDelta >= 2.93) then {
-        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
-    };
-    if ((_animDelta % 6.4) < 2.96 || (_animDelta % 6.4) > 3.44 ) then {
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), [0,1] select (_cycleT >= 2.93)];
+    if (_cycleT < 2.96 || _cycleT > 3.44) then {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
     };
 } else {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
 };
 
 //FCR page draw

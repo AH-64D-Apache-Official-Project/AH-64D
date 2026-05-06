@@ -31,7 +31,7 @@ private _currentRad = _heli animationPhase "longbow";
 private _startRad   = (_startDeg * (pi / 180)) * ([-1, 1] select (_fcrMode == 2));
 private _angDist    = abs (_currentRad - _startRad);
 if (_angDist > pi) then { _angDist = (2 * pi) - _angDist; };
-private _cueDelay   = _angDist / 1.5;
+private _cueDelay   = _angDist / (pi / 3.2);
 
 _heli setVariable ["fza_ah64_fcrWaitingForStart", true, true];
 _heli setVariable ["fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay], true];
