@@ -5,12 +5,13 @@
 params ["_heli", "_mpdIndex"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 
 //FCR wiper
-private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
+private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
+private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (_fcrScanDeltaTime max 0) % 3.2];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
@@ -52,17 +53,15 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 
     //FCR max show
     if (count _pointsArray > 15) exitWith {};
-    //Sweep reveal: ghosts visible until sweep passes their position, then cleared; non-ghosts hidden until bar passes
     private _isGhost = (_x # 8 > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7));
-    if (_isGhost && (_x # 8 >= 2) && !_beforeReveal) then { continue; }; // Age-2 ghost cleared when sweep reaches its last-known position
+    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_x # 7));
+    if (_isGhost && (_x # 8 >= 3) && !_beforeReveal) then { continue; };
     if (!_isGhost && _beforeReveal) then {
         if (count _x > 9) then {
-            // Tracked: hold at previous position until bar sweeps past
             _aziAngle = _x # 9;
             _range    = _x # 10;
         } else {
-            continue; // Fresh: hidden until bar sweeps past
+            continue;
         };
     };
 
@@ -92,8 +91,10 @@ _shotATList = _heli getVariable "fza_dms_shotAt";
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-//Total target count (ghosts excluded)
-private _fcrTgtCount  = { (count _x) < 9 || (_x # 8) == 0 } count _displayTargets;
+private _fcrTgtCount = {
+    (_x # 8) == 0
+    && (_fcrScanState == FCR_MODE_OFF || (CBA_missionTime - _lastFullCycle) >= (_x # 7) || count _x > 9)
+} count _displayTargets;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

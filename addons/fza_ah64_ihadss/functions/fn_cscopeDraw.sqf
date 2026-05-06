@@ -18,17 +18,20 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli"];
-
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
+params ["_heli"];
+
 
 private _wasState       = _heli getVariable "fza_ah64_was";
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
 private _cScopeCount    = 0;
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
-private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
+private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
+private _fullCycle = [3.2, 6.4] select (_fcrMode == 2);
+private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
+private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
 {
     if (_cScopeCount > 15) exitWith {};
@@ -40,15 +43,14 @@ private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
 
-    // Sweep reveal: ghosts visible until sweep passes their position, then cleared; non-ghosts hidden until bar passes
     private _isGhost = (_x # 8 > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7));
-    if (_isGhost && (_x # 8 >= 2) && !_beforeReveal) then { continue; }; // Age-2 ghost cleared when sweep reaches its last-known position
+    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_x # 7));
+    if (_isGhost && (_x # 8 >= 3) && !_beforeReveal) then { continue; };
     if (!_isGhost && _beforeReveal) then {
         if (count _x > 9) then {
-            _pos = _x # 11; // Frozen at previous scan world position
+            _pos = _x # 11;
         } else {
-            continue; // Fresh: hidden until bar sweeps past
+            continue;
         };
     };
 
@@ -58,7 +60,6 @@ private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
     private _ident = [_type, _distance_m, _moving] call fza_mpd_fnc_buildFCRIdent;
     if (_ident == "") exitWith {};
 
-    // ident format is "FCR_TYPE_STATUS"; extract parts for the texture path
     private _identParts = _ident splitString "_";
     private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa",
         toLower (_identParts # 1),
@@ -96,8 +97,8 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
     // Resolve effective display position using same reveal logic as target loop
     private _fnEffectivePos = {
         params ["_rec"];
-        private _recBeforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_rec # 7));
-        if ((_rec # 8 >= 2) && !_recBeforeReveal) exitWith { [] }; // age-2 ghost erased by sweep
+        private _recBeforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_rec # 7));
+        if ((_rec # 8 >= 3) && !_recBeforeReveal) exitWith { [] }; // age 3+ ghost erased by sweep
         if ((_rec # 8 == 0) && _recBeforeReveal && count _rec > 9) exitWith { _rec # 11 }; // tracked frozen
         if ((_rec # 8 == 0) && _recBeforeReveal) exitWith { [] }; // fresh hidden
         _rec # 0 // live or ghost-before-sweep pos

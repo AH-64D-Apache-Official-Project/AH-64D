@@ -26,7 +26,7 @@ private _fcrMode     = _heli getVariable "fza_ah64_fcrMode";
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _armaRadarOn = isVehicleRadarOn _heli;
-private _updateDelay = [3.2,6.4] select (_fcrMode == 2);
+private _updateDelay = [1.6,3.2] select (_fcrMode == 2);
 private _onGnd       = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
 
@@ -50,10 +50,11 @@ switch _fcrScanState do {
         };
     };
     case FCR_MODE_ON_SINGLE: {
-        if (CBA_missionTime >= _fcrScanStartTime + _updateDelay && _time < _fcrScanStartTime) exitWith {
-            [_heli] call fza_fcr_fnc_update;
+        private _fullCycle = _updateDelay * 2;
+        if (CBA_missionTime >= _fcrScanStartTime + _fullCycle && _time < _fcrScanStartTime) exitWith {
+            [_heli, true] call fza_fcr_fnc_update;
         };
-        if (CBA_missionTime >= (_fcrScanStartTime + (_updateDelay * 2)) && _time >= _fcrScanStartTime) exitWith {
+        if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * 2)) && _time >= _fcrScanStartTime) exitWith {
             _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
             player action ["ActiveSensorsOff", _heli];
@@ -62,8 +63,12 @@ switch _fcrScanState do {
     };
     case FCR_MODE_ON_CONTINUOUS: {
         if _armaRadarOn exitWith {
-            if (CBA_missionTime >= _time + _updateDelay && CBA_missionTime >= _fcrScanStartTime + _updateDelay) then {
-                [_heli] call fza_fcr_fnc_update;
+            private _fullCycle = _updateDelay * 2;
+            private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
+            private _minStartDelay = [_updateDelay, _fullCycle] select (_time < _fcrScanStartTime);
+            private _isFullCycle = (CBA_missionTime - _lastFullCycle) >= _fullCycle;
+            if (CBA_missionTime >= _time + _updateDelay && CBA_missionTime >= _fcrScanStartTime + _minStartDelay) then {
+                [_heli, _isFullCycle] call fza_fcr_fnc_update;
             };
         };
         _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];

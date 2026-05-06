@@ -18,13 +18,14 @@ params["_heli"];
 private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_scanTime"];
-private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _scanTime);
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
+private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
+private _fullCycle = [3.2, 6.4] select (_fcrMode == 2);
+private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
-// Only cycle to visible targets: non-ghost AND (scan off, bar swept past, or tracked with prev pos)
 private _knownTargets = _fcrTargets select {
     ((count _x) < 9 || (_x # 8) == 0)
-    && (_fcrScanState == 0 || _fcrScanDeltaTime >= (_x # 7) || count _x > 9)
+    && (_fcrScanState == 0 || (CBA_missionTime - _lastFullCycle) >= (_x # 7) || count _x > 9)
 };
 if (count _knownTargets == 0) exitWith {
     [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0],[]]] call fza_fnc_updateNetworkGlobal;
