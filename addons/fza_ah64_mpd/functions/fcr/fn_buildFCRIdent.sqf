@@ -44,7 +44,7 @@ private _unitType = switch (_type) do {
 private _unitStatus = if ((_moving && _distance_m <= FCR_LIMIT_MOVING_RANGE) || _unitType == "FLYER") then {
     "MOVE"
 } else {
-    if (_distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then { "LOBL" } else { "LOAL" }
+    ["LOAL", "LOBL"] select (_distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE)
 };
 
 // Build optional selection / weapon suffix

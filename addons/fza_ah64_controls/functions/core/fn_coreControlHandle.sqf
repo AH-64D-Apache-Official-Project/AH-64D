@@ -64,11 +64,12 @@ if (_value) then {
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
                 player action ["ActiveSensorsOn", _heli];
-                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, CBA_missionTime], true];
+                [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
                 _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
             };
             player action ["ActiveSensorsOff", _heli];
+            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
         };
         case "fza_ah64_targetStoreUpdate": {
@@ -142,12 +143,24 @@ if (_value) then {
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
             _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            };
         };
         case "fza_ah64_fcrModeSwitch_down": {
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
             _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            };
         };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;

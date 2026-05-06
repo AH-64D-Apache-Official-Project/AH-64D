@@ -40,7 +40,7 @@ if (_shotPos isNotEqualTo [0,0,0]) then {
     _closestTarget params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     if ((_pos distance laserTarget _heli) > 200) exitWith {};
     private _candidateIdent = [_type, _range, _moving] call fza_mpd_fnc_buildFCRIdent;
-    _ident = if (_candidateIdent != "") then { _candidateIdent } else { "FCR_UNK_LOAL" };
+    _ident = ["FCR_UNK_LOAL", _candidateIdent] select (_candidateIdent != "");
 };
 
 if (_shotAtIndex != -1) then {

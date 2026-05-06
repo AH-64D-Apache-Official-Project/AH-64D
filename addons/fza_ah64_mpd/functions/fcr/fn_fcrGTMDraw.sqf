@@ -15,7 +15,7 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 //   subsequent scans: _time resets each fn_update → no end-of-cycle flicker
 private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
 if (_fcrScanState != FCR_MODE_OFF) then {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 3.2];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (_fcrScanDeltaTime max 0) % 3.2];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
 } else {
@@ -44,7 +44,7 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 0) then {continue;};
     private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [[_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180 - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
     if ((abs _shotRelAzi) > _gtmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
@@ -88,7 +88,7 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 1) then {continue;};
     private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [[_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180 - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
     if ((abs _shotRelAzi) > _gtmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
