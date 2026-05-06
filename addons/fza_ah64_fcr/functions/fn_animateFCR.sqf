@@ -19,7 +19,7 @@ params ["_heli"];
 
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 private _waitingForStart = _heli getVariable ["fza_ah64_fcrWaitingForStart", false];
 
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias",    0];
@@ -52,7 +52,8 @@ private _stepTowards = {
     _heli animateSource ["longbow", _next, true];
 };
 
-private _fcrScanDeltaTime = CBA_missionTime - (_fcrScanStartTime max _time);
+// Monotonic from scan start — must not use _time (last update stamp) as it resets every half-cycle
+private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 
 // Off / Fault: return to boresight
 if (_fcrScanState == FCR_MODE_OFF || _fcrScanState == FCR_MODE_FAULT) exitWith {

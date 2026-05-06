@@ -28,73 +28,16 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
-private _pointsArray = [];
-private _scale = (0.08125 * 8 / 8000);
-private _heliCtr = [0.5, 0.87];
-
+private _scale      = (0.08125 * 8 / 8000);
+private _heliCtr    = [0.5, 0.87];
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-//Shot At UnderLay
-private _shotATList = _heli getVariable "fza_dms_shotAt";
-{
-    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
-    if (_x isEqualTo -1) then {continue;};
-    if (_overlay != 0) then {continue;};
-    private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
-    if ((abs _shotRelAzi) > _gtmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} forEach _shotATList;
+[_heli, _displayTargets, _scanPos, _fcrScanState, _lastFullCycle,
+ _ntsIndex, _antsIndex, _scale, _heliCtr, _systemWas,
+ _heli getVariable "fza_dms_shotAt", _fcrAzBias, _gtmHalfFov
+] call fza_mpd_fnc_buildFCRPoints
+params ["_pointsArray", "_fcrTgtCount"];
 
-{
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m = _scanPos distance2D _pos;
-
-    //FCR max show
-    if (count _pointsArray > 15) exitWith {};
-    private _isGhost = (_x # 8 > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < (_x # 7));
-    if (_isGhost && (_x # 8 >= 3) && !_beforeReveal) then { continue; };
-    if (!_isGhost && _beforeReveal) then {
-        if (count _x > 9) then {
-            _aziAngle = _x # 9;
-            _range    = _x # 10;
-        } else {
-            continue;
-        };
-    };
-
-    //Selection status
-    private _selStatus = 0;
-    if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
-    if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
-
-    private _ident = [_type, _distance_m, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
-    if (_ident == "") then {continue;};
-
-    private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
-    private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
-    private _uiCtr = [_x, _y, 0];
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach _displayTargets;
-
-//Shot At Overlay
-_shotATList = _heli getVariable "fza_dms_shotAt";
-{
-    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
-    if (_x isEqualTo -1) then {continue;};
-    if (_overlay != 1) then {continue;};
-    private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
-    if ((abs _shotRelAzi) > _gtmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} forEach _shotATList;
-
-private _fcrTgtCount = {
-    (_x # 8) == 0
-    && (_fcrScanState == FCR_MODE_OFF || (CBA_missionTime - _lastFullCycle) >= (_x # 7) || count _x > 9)
-} count _displayTargets;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
-
-[_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex, _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;
