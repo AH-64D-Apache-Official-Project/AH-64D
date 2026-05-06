@@ -38,20 +38,18 @@ if (_fcrMode == 1 || _fcrMode == 2) then {
     _fcrTargets = [_heli, _fcrTargets] call fza_fcr_fnc_mergeTargets;
 };
 
-// Publish merged target list
-[_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
-if (count _fcrTargets == 0) then {
-    _heli setVariable ["fza_ah64_fcrNts", [objNull, [0,0,0], []], true];
-};
-
-// Update last scan record
+// Update last scan record first so _time is correct before targets arrive on remote machines
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir"];
 [_heli, "fza_ah64_fcrLastScan", [direction _heli, getPosASL _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
 
-// Auto-select NTS
-private _ntsObj       = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _knownTargets = _fcrTargets select { (count _x) < 9 || (_x # 8) == 0 };
-if (_ntsObj isEqualTo objNull || (_knownTargets findIf { (_x # 3) isEqualTo _ntsObj }) == -1) then {
+// Publish merged target list
+[_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
+
+// Only refresh NTS if the current selection is no longer in the target list
+private _ntsObj = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _ntsStillValid = !(_ntsObj isEqualTo objNull) && (_fcrTargets findIf { (_x # 3) isEqualTo _ntsObj } != -1);
+if (!_ntsStillValid) then {
+    [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
     [_heli] call fza_fcr_fnc_cycleNTS;
 };
 

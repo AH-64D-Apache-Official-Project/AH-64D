@@ -52,15 +52,17 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 
     //FCR max show
     if (count _pointsArray > 15) exitWith {};
-    //Sweep reveal: tracked targets visible at prev position before bar passes; fresh targets hidden
+    //Sweep reveal: ghosts visible until sweep passes their position, then cleared; non-ghosts hidden until bar passes
+    private _isGhost = (_x # 8 > 0);
     private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7));
-    if (_beforeReveal) then {
+    if (_isGhost && (_x # 8 >= 2) && !_beforeReveal) then { continue; }; // Age-2 ghost cleared when sweep reaches its last-known position
+    if (!_isGhost && _beforeReveal) then {
         if (count _x > 9) then {
-            // Tracked target: display at heading-corrected previous position until bar sweeps past
+            // Tracked: hold at previous position until bar sweeps past
             _aziAngle = _x # 9;
             _range    = _x # 10;
         } else {
-            continue; // Fresh target: hidden until bar sweeps past
+            continue; // Fresh: hidden until bar sweeps past
         };
     };
 

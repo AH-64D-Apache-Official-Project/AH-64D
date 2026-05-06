@@ -77,7 +77,7 @@ private _fcrTargets = [];
             1.6 + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * 1.6
         }
     } else {
-        ((_relAzi + _atmHalfFov) / (_atmHalfFov * 2)) * 6.4
+        (6.4 - (([_relAzi, _relAzi + 360] select (_relAzi < 0)) / 360 * 6.4)) % 6.4
     };
 
     _fcrTargets pushBack [

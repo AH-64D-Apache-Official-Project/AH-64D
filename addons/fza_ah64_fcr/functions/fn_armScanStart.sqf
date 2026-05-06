@@ -35,3 +35,4 @@ private _cueDelay   = _angDist / (pi / 3.2);
 
 _heli setVariable ["fza_ah64_fcrWaitingForStart", true, true];
 _heli setVariable ["fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay], true];
+[_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;

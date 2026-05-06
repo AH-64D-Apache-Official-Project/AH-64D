@@ -16,7 +16,8 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     private _cycleT    = _animDelta % 6.4;
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _cycleT];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), [0,1] select (_cycleT >= 2.93)];
+    // Block latches once sweep passes the rear; use time since scan start (not delta) so fn_update resets don't toggle it
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), [0,1] select ((CBA_missionTime - _fcrScanStartTime) >= 2.93)];
     if (_cycleT < 2.96 || _cycleT > 3.44) then {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
@@ -60,15 +61,17 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 
     //FCR max show
     if (count _pointsArray > 15) exitWith {};
-    //Sweep reveal: tracked targets visible at prev position before bar passes; fresh targets hidden
+    //Sweep reveal: ghosts visible until sweep passes their position, then cleared; non-ghosts hidden until bar passes
+    private _isGhost = (_x # 8 > 0);
     private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && _fcrScanDeltaTime < (_x # 7));
-    if (_beforeReveal) then {
+    if (_isGhost && (_x # 8 >= 2) && !_beforeReveal) then { continue; }; // Age-2 ghost cleared when sweep reaches its last-known position
+    if (!_isGhost && _beforeReveal) then {
         if (count _x > 9) then {
-            // Tracked target: display at heading-corrected previous position until bar sweeps past
+            // Tracked: hold at previous position until bar sweeps past
             _aziAngle = _x # 9;
             _range    = _x # 10;
         } else {
-            continue; // Fresh target: hidden until bar sweeps past
+            continue; // Fresh: hidden until bar sweeps past
         };
     };
     if (_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then {continue;};
@@ -100,8 +103,11 @@ _shotATList = _heli getVariable "fza_dms_shotAt";
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-//Total target count (ghosts excluded)
-private _fcrTgtCount  = { (count _x) < 9 || (_x # 8) == 0 } count _displayTargets;
+//Total target count: live targets the sweep has already revealed this cycle
+private _fcrTgtCount = {
+    (_x # 8) == 0
+    && (_fcrScanState == FCR_MODE_OFF || _fcrScanDeltaTime >= (_x # 7))
+} count _displayTargets;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

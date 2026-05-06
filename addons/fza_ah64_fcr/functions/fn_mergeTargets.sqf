@@ -27,29 +27,34 @@ private _prevTargets = _heli getVariable "fza_ah64_fcrTargets";
     private _prevIdx = _prevTargets findIf { (_x # 3) isEqualTo _obj };
 
     if (_prevIdx != -1) then {
-        // Tracked: carry previous relAzi and range
+        // Tracked: carry previous relAzi, range, and world position for CSCOPE freeze
         private _prevRec = _prevTargets # _prevIdx;
-        _fcrTargets set [_forEachIndex, _x + [0, _prevRec # 4, _prevRec # 6]];
+        _fcrTargets set [_forEachIndex, _x + [0, _prevRec # 4, _prevRec # 6, _prevRec # 0]];
     } else {
         // Fresh: hidden until bar sweeps past
         _fcrTargets set [_forEachIndex, _x + [0]];
     };
 } forEach _fcrTargets;
 
-// Ghost targets not re-found: keep for one more cycle then drop
+// Ghost targets not re-found: keep for two more cycles then drop
 {
     private _prevObj    = _x # 3;
     private _foundInNew = (_fcrTargets findIf { (_x # 3) isEqualTo _prevObj }) != -1;
 
     if (!_foundInNew) then {
         private _prevAge = if ((count _x) > 8) then { _x # 8 } else { 0 };
-        if (_prevAge < 1) then {
+        if (_prevAge == 0) then {
             private _ghost = +_x;
-            _ghost set [7, 0]; // revealOffset = 0: visible from cycle start
-            _ghost set [8, 1]; // scanAge = 1 (ghost)
+            _ghost set [8, 1]; // age=1: visible full cycle, not sweep-cleared
             _fcrTargets pushBack _ghost;
+        } else {
+            if (_prevAge == 1) then {
+                private _ghost = +_x;
+                _ghost set [8, 2]; // age=2: cleared by sweep then dropped
+                _fcrTargets pushBack _ghost;
+            };
+            // scanAge >= 2: drop silently
         };
-        // scanAge >= 1: drop silently (already ghosted for one cycle)
     };
 } forEach _prevTargets;
 
