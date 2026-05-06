@@ -36,15 +36,17 @@ private _applyModeSign = {
 private _stepTowards = {
     params ["_targetRad", "_speedRadPerSec"];
     private _current = _heli animationPhase "longbow";
+    while {_current > pi}  do { _current = _current - (2 * pi); };
+    while {_current < -pi} do { _current = _current + (2 * pi); };
     private _delta = _targetRad - _current;
-    if (_delta > pi) then { _delta = _delta - (2 * pi); };
+    if (_delta > pi)  then { _delta = _delta - (2 * pi); };
     if (_delta < -pi) then { _delta = _delta + (2 * pi); };
 
     private _maxStep = _speedRadPerSec * ((diag_deltaTime max 0.001) min 0.05);
     private _step = _delta max (-_maxStep) min _maxStep;
     private _next = _current + _step;
 
-    if (_next > pi) then { _next = _next - (2 * pi); };
+    if (_next > pi)  then { _next = _next - (2 * pi); };
     if (_next < -pi) then { _next = _next + (2 * pi); };
 
     _heli animateSource ["longbow", _next, true];
@@ -95,20 +97,11 @@ if (_fcrMode == 1) then {
     };
 } else {
     // ATM 6.4 s cycle: full 360° revolution
+    // Value goes 0→360° (not normalised to ±180°) so the wrap occurs at the front
+    // where both sides are visually identical — avoids the ±π blend artifact
     private _t = _fcrScanDeltaTime % 6.4;
     _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
-    if (_targetDeg > 180) then { _targetDeg = _targetDeg - 360; };
 };
 
 private _targetRad = [(_targetDeg * (pi / 180))] call _applyModeSign;
-
-// ATM: detect the one-frame ±pi wrap and skip animateSource that frame
-private _skipFrame = false;
-if (_fcrMode == 2) then {
-    private _prev = _heli getVariable ["fza_ah64_fcrDishTarget", _targetRad];
-    _heli setVariable ["fza_ah64_fcrDishTarget", _targetRad];
-    _skipFrame = abs (_targetRad - _prev) > pi;
-};
-if (_skipFrame) exitWith {};
-
 _heli animateSource ["longbow", _targetRad, true];
