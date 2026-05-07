@@ -30,7 +30,6 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-// No-op if already resolved this frame (called from both Draw3D and EachFrame schedulers)
 if ((_heli getVariable ["fza_ah64_fcrDisplayFrame", -1]) == diag_frameNo) exitWith {};
 _heli setVariable ["fza_ah64_fcrDisplayFrame", diag_frameNo];
 

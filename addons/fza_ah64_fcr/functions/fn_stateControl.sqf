@@ -32,11 +32,11 @@ private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
 
 if (_armaRadarOn) then {
     if (_fcrDamage >= SYS_FCR_DMG_THRESH || ((!_acBusOn || !_dcBusOn) && !_onGnd)) exitWith {
-        _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
+        [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_FAULT, _fcrScanStartTime]] call fza_fnc_updateNetworkGlobal;
     };
     if (((!_acBusOn || !_dcBusOn) && _onGnd) || (!_gndOrideOn && _onGnd)) exitWith {
-        _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
+        [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _fcrScanStartTime]] call fza_fnc_updateNetworkGlobal;
         player action ["ActiveSensorsOff", _heli];
     };
@@ -46,7 +46,7 @@ switch _fcrScanState do {
     case FCR_MODE_OFF: {
         if _armaRadarOn then {
             [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
-            _heli setVariable ["fza_ah64_fcrTargets", [], true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
         };
     };
     case FCR_MODE_ON_SINGLE: {
@@ -55,8 +55,8 @@ switch _fcrScanState do {
             [_heli, true] call fza_fcr_fnc_update;
         };
         if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * 2)) && _time >= _fcrScanStartTime) exitWith {
-            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
+            [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             player action ["ActiveSensorsOff", _heli];
         };
         player action ["ActiveSensorsOn", _heli];
@@ -71,16 +71,16 @@ switch _fcrScanState do {
                 [_heli, _isFullCycle] call fza_fcr_fnc_update;
             };
         };
-        _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
+        [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
     };
     case FCR_MODE_FAULT: {
         if _armaRadarOn then {
             player action ["ActiveSensorsOff", _heli];
         };
         if (_acBusOn && _dcBusOn && _fcrDamage < SYS_FCR_DMG_THRESH) then {
-            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, _time], true];
+            [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _time]] call fza_fnc_updateNetworkGlobal;
         };
     };
 };

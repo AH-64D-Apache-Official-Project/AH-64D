@@ -16,8 +16,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", ["_isFullCycle", true]];
 
-if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
-
 private _fcrMode   = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 
@@ -34,7 +32,7 @@ if (_fcrMode == 1 || _fcrMode == 2) then {
 };
 
 if (_isFullCycle) then {
-    _heli setVariable ["fza_ah64_fcrLastFullCycle", CBA_missionTime, true];
+    [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
 };
 
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir"];

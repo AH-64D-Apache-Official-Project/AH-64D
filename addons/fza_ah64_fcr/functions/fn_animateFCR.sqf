@@ -76,9 +76,10 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
     if (_err < -pi) then { _err = _err + (2 * pi); };
 
     if (abs _err <= 0.01) exitWith {
-        // Dish at start position — latch scan start time to now
-        _heli setVariable ["fza_ah64_fcrState", [_fcrScanState, CBA_missionTime], true];
-        _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
+        if (local _heli) then {
+            [_heli, "fza_ah64_fcrState", [_fcrScanState, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
+        };
         _heli animateSource ["longbow", _startRad, true];
     };
 
