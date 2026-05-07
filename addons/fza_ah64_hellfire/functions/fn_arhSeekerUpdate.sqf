@@ -28,14 +28,16 @@ _seekerStateParams params [
     "_lastTimeSeen",
     "_doesntHaveTarget",
     "_targetType",
-    ["_cachedSeekerAngle", -1]
+    ["_cachedSeekerAngle", -1],
+    ["_dbsOffset", [0, 0, 0]]
 ];
 
 private _resolvedSeekerAngle = [_seekerAngle, _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
 
 // Coast phase
 if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitWith {
-    _expectedTargetPos
+    _targetData set [2, (getPosASLVisual _projectile) distance _expectedTargetPos];
+    (_expectedTargetPos vectorAdd _dbsOffset)
 };
 
 if (!_isActive) then {
@@ -75,11 +77,11 @@ if (([_projectile, [getPos _lastTarget, speed _lastTarget, _lastTarget], true, _
                 ]
             };
 
-            // Type-aware class filter: skip infantry, props, terrain
+            // Type-aware class filter: sky targets use Air; ground targets use config-driven list
             private _searchClasses = if (_targetType in ["Helicopter", "Plane"]) then {
                 ["Air"]
             } else {
-                ["LandVehicle", "StaticWeapon"]
+                getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes")
             };
 
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
@@ -117,6 +119,10 @@ if !(isNull _target) then {
     _seekerStateParams set [6, CBA_missionTime];
     _seekerStateParams set [7, false];
 
+    // On lock, remove lateral bias so terminal homing is direct to target.
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
+
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
 
@@ -132,7 +138,9 @@ if !(isNull _target) then {
     _seekerStateParams set [7, true];
 };
 
-_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
+private _returnPos = _expectedTargetPos vectorAdd _dbsOffset;
+
+_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _returnPos];
 _seekerStateParams set [2, _expectedTargetPos];
 
-_expectedTargetPos
+_returnPos

@@ -9,9 +9,10 @@ params ["_heli"];
 
 private _trajectory = _heli getVariable "fza_ah64_hellfireTrajectory";
 
-switch _trajectory do {
-    case "DIR": { "hellfire"    };
-    case "HI":  { "hellfire_hi" };
-    case "LO":  { "hellfire_lo" };
-    default     { false         };
+switch (_trajectory) do {
+    case "DIR": {"hellfire"};
+    case "HI":  {"hellfire_hi"};
+    case "LO":  {"hellfire_lo"};
+    case "DBS": {"hellfire_hi"};
+    default     {false};
 };

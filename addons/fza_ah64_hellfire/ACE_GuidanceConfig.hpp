@@ -4,7 +4,7 @@ class ace_MissileGuidance_SeekerTypes {
         onFired = "fza_hellfire_fnc_salOnFired";
     };
     class Fza_ARH {
-        functionName  = "fza_hellfire_fnc_arhSeekerUpdate";
-        onFired = "fza_hellfire_fnc_arhOnFired";
+        functionName = "fza_hellfire_fnc_arhSeekerUpdate";
+        onFired      = "fza_hellfire_fnc_arhOnFired";
     };
 };

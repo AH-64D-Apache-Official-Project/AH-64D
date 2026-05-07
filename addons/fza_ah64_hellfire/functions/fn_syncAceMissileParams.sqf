@@ -14,8 +14,6 @@ _code    = _hash get _channel;
 _heli setVariable ["ace_laser_code", _code];
 
 private _attackProfile = [_heli] call fza_hellfire_fnc_trajectoryToAceProfile;
-if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-    _heli setVariable ["ace_missileguidance_attackProfile", "hellfire_hi"];
-} else {
+if (_attackProfile isEqualType "") then {
     _heli setVariable ["ace_missileguidance_attackProfile", _attackProfile];
 };

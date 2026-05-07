@@ -14,7 +14,7 @@ Returns: Nothing
 Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_firedEH", "_launchParams", "", "", "_stateParams"];
+params ["_firedEH", "_launchParams", "", "", "_stateParams", "_targetData"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _stateParams params ["", "_seekerStateParams"];
 
@@ -30,31 +30,68 @@ private _loblCheckLima     = [_heli, [getPos _targObj, speed _targObj, _targObj]
 private _loblCheckAircraft = [_heli, [getPos _targObj, speed _targObj, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
 private _targetType        = (_targObj call BIS_fnc_objectType) # 1;
 
-private _attackProfile       = "hellfire_hi";
+private _attackProfile       = "hellfire_lo";
 private _calculatedImpactPos = [0, 0, 0];
 private _calculatedSearchPos = [0, 0, 0];
 private _timeToSearch        = 9999999;
 private _timeToImpact        = 9999999;
 private _targetVel           = [0, 0, 0];
 private _isActive            = false;
+private _dbsOffset           = [0, 0, 0];
 
-if (!(isNull _targObj) && _loblCheckAircraft # 1) then {
+if (!(isNull _targObj) && _loblCheckAircraft # 0) then {
     _targPos   = getPosASL _targObj;
     _targetVel = velocity _targObj;
+
+    // For LOAL shots keep position/velocity, but clear object handoff so seeker area-searches.
+    if !(_loblCheckAircraft # 1) then {
+        _targObj = objNull;
+    };
 } else {
     _targObj = objNull;
 };
 
-if (!isNil "_targObj") then {
+if (_targPos isNotEqualTo [0, 0, 0]) then {
+    _targetData set [2, (getPosASL _heli) distance _targPos];
+    _targetData set [3, _targetVel];
+    _targetData set [4, [0, 0, 0]];
+};
+
+if (_targPos isNotEqualTo [0, 0, 0]) then {
     // Time-of-flight lookup table: [range_km, tof_seconds]
     private _hellfireTOF = [[0,0],[1,3],[2,7],[3,10],[4,14],[5,19],[6,24],[7,29],[8,36],[9,44]];
     private _rangeKm     = (_targPos distance _heli) * SCALE_METERS_KM;
+    private _rangeM      = _rangeKm * 1000;
+
+    // Shorter engagements should avoid an excessive climb arc.
+    _attackProfile = ["hellfire_hi", "hellfire_lo"] select (_rangeM <= 3500);
 
     _timeToImpact = ([_hellfireTOF, _rangeKm] call fza_fnc_linearInterp) # 1;
     _timeToSearch = ([_hellfireTOF, (_rangeKm - (FCR_LIMIT_FORCE_LOBL_RANGE * SCALE_METERS_KM))] call fza_fnc_linearInterp) # 1;
+    _timeToSearch = _timeToSearch max 0;
 
     _calculatedSearchPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToSearch);
     _calculatedImpactPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToImpact);
+
+    // DBS-style lateral bias only: keep standard attack profiles, just shape approach path.
+    private _isStationary = (vectorMagnitude _targetVel) < (FCR_LIMIT_MOVING_MIN_SPEED_KMH / 3.6);
+    if (_isStationary && _rangeM > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+        // DMS/DBS mode: wake seeker 20% sooner to begin terminal acquisition earlier.
+        _timeToSearch = (_timeToSearch * 0.8) max 0;
+        _calculatedSearchPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToSearch);
+
+        private _hPos     = getPosASL _heli;
+        private _toTarget = vectorNormalized [(_targPos # 0) - (_hPos # 0), (_targPos # 1) - (_hPos # 1), 0];
+        private _hFwd     = [sin (getDir _heli), cos (getDir _heli), 0];
+        private _crossZ   = (_hFwd # 0) * (_toTarget # 1) - (_hFwd # 1) * (_toTarget # 0);
+        private _perpDir  = if (_crossZ >= 0) then {
+            [_toTarget # 1, -(_toTarget # 0), 0]   // target LEFT  -> offset RIGHT
+        } else {
+            [-(_toTarget # 1), _toTarget # 0, 0]   // target RIGHT -> offset LEFT
+        };
+        private _offsetDist = (_rangeM * 0.15) min 800;
+        _dbsOffset = _perpDir vectorMultiply _offsetDist;
+    };
 
     private _currentTof = _heli getVariable "fza_ah64_tofCountDown";
     _currentTof pushBack (_timeToImpact + CBA_missionTime);
@@ -79,9 +116,10 @@ _seekerStateParams set [6, 0];
 _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
 _seekerStateParams set [9, _seekerAngle];
+_seekerStateParams set [10, _dbsOffset];
 
 _launchParams set [3, _attackProfile];
-_launchParams set [0, objNull];
+_launchParams set [0, _targObj];
 
 // Shot-at file
 _fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
