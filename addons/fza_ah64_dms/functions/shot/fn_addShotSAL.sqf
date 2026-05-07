@@ -39,24 +39,8 @@ if (_shotPos isNotEqualTo [0,0,0]) then {
     _closestTarget = ([_fcrTargets, [], {_x#0 distance laserTarget _heli}, "ASCEND"] call BIS_fnc_sortBy)#0;
     _closestTarget params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     if ((_pos distance laserTarget _heli) > 200) exitWith {};
-    private _unitType   = "UNK";
-    private _unitStatus = "LOAL"; 
-
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN:    {_unitType = "UNK";};
-        case FCR_TYPE_WHEELED:    {_unitType = "WHEEL";};
-        case FCR_TYPE_HELICOPTER: {_unitType = "HELI";};
-        case FCR_TYPE_FLYER:      {_unitType = "FLYER";};
-        case FCR_TYPE_TRACKED:    {_unitType = "TRACK";};
-        case FCR_TYPE_ADU:        {_unitType = "ADU";};
-    };
-
-    if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {_unitStatus = "MOVE";}
-     else {
-        if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then                          {_unitStatus = "LOBL";};
-        if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then                    {_unitStatus = "LOAL";};
-    };
-    _ident = ["FCR",_unitType,_unitStatus] joinString "_";
+    private _candidateIdent = [_type, _range, _moving] call fza_mpd_fnc_buildFCRIdent;
+    _ident = ["FCR_UNK_LOAL", _candidateIdent] select (_candidateIdent != "");
 };
 
 if (_shotAtIndex != -1) then {
