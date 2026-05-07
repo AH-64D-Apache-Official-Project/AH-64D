@@ -9,7 +9,9 @@ class CfgFunctions
         tag="fza_hellfire";
         class functions {
             file = "\fza_ah64_hellfire\functions";
+            class controller             {RECOMPILE_FLAG;};
             class syncAceMissileParams    {RECOMPILE_FLAG;};
+            class tadsRfHandoffUpdate    {RECOMPILE_FLAG;};
             class arhOnFired              {RECOMPILE_FLAG;};
             class arhSeekerUpdate         {RECOMPILE_FLAG;};
             class arhTargetConstraint     {RECOMPILE_FLAG;};

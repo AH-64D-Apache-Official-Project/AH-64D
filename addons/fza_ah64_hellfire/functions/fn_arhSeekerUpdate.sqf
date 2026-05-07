@@ -42,6 +42,8 @@ if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitWith {
 
 if (!_isActive) then {
     _seekerStateParams set [0, true];
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
 };
 
 #define ARH_MIN_SCAN_RADIUS  50

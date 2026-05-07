@@ -26,24 +26,40 @@ private _seekerAngle = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "a
 
 _heli getVariable "fza_ah64_fcrNts" params ["_targObj", "_targPos", "_fcrData"];
 
-private _loblCheckLima     = [_heli, [getPos _targObj, speed _targObj, _targObj], true,  _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
-private _loblCheckAircraft = [_heli, [getPos _targObj, speed _targObj, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
-private _targetType        = (_targObj call BIS_fnc_objectType) # 1;
+private _handoffSource = "FCR";
+private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+
+if (_sight == SIGHT_TADS) then {
+    _handoffSource = "TADS";
+    _targObj = objNull;
+    _targPos = [0, 0, 0];
+    private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
+    if (_handoffData isEqualType [] && {count _handoffData >= 1}) then {
+        _targPos = _handoffData # 0;
+    };
+};
+
+private _targSpeed = [0, speed _targObj] select (!isNull _targObj);
+private _loblCheckLima = [_heli, [_targPos, _targSpeed, _targObj], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
+private _loblCheckAircraft = [_heli, [_targPos, _targSpeed, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
+//if (_handoffSource == "TADS") then {
+//    _loblCheckLima = [_loblCheckLima # 0, false];
+//    _loblCheckAircraft = [_loblCheckAircraft # 0, false];
+//};
+private _targetType = ["UNKNOWN", (_targObj call BIS_fnc_objectType) # 1] select (!isNull _targObj);
 
 private _attackProfile       = "hellfire_lo";
 private _calculatedImpactPos = [0, 0, 0];
 private _calculatedSearchPos = [0, 0, 0];
 private _timeToSearch        = 9999999;
 private _timeToImpact        = 9999999;
-private _targetVel           = [0, 0, 0];
 private _isActive            = false;
 private _dbsOffset           = [0, 0, 0];
 
 if (!(isNull _targObj) && _loblCheckAircraft # 0) then {
     _targPos   = getPosASL _targObj;
-    _targetVel = velocity _targObj;
 
-    // For LOAL shots keep position/velocity, but clear object handoff so seeker area-searches.
+    // For LOAL shots keep position, but clear object handoff so seeker area-searches.
     if !(_loblCheckAircraft # 1) then {
         _targObj = objNull;
     };
@@ -53,7 +69,7 @@ if (!(isNull _targObj) && _loblCheckAircraft # 0) then {
 
 if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [2, (getPosASL _heli) distance _targPos];
-    _targetData set [3, _targetVel];
+    _targetData set [3, [0, 0, 0]];
     _targetData set [4, [0, 0, 0]];
 };
 
@@ -70,15 +86,15 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _timeToSearch = ([_hellfireTOF, (_rangeKm - (FCR_LIMIT_FORCE_LOBL_RANGE * SCALE_METERS_KM))] call fza_fnc_linearInterp) # 1;
     _timeToSearch = _timeToSearch max 0;
 
-    _calculatedSearchPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToSearch);
-    _calculatedImpactPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToImpact);
+    _calculatedSearchPos = _targPos;
+    _calculatedImpactPos = _targPos;
 
     // DBS-style lateral bias only: keep standard attack profiles, just shape approach path.
-    private _isStationary = (vectorMagnitude _targetVel) < (FCR_LIMIT_MOVING_MIN_SPEED_KMH / 3.6);
+    private _isStationary = _targSpeed < FCR_LIMIT_MOVING_MIN_SPEED_KMH;
     if (_isStationary && _rangeM > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
         // DMS/DBS mode: wake seeker 20% sooner to begin terminal acquisition earlier.
         _timeToSearch = (_timeToSearch * 0.8) max 0;
-        _calculatedSearchPos = _targPos vectorAdd (_targetVel vectorMultiply _timeToSearch);
+        _calculatedSearchPos = _targPos;
 
         private _hPos     = getPosASL _heli;
         private _toTarget = vectorNormalized [(_targPos # 0) - (_hPos # 0), (_targPos # 1) - (_hPos # 1), 0];
@@ -111,7 +127,7 @@ _seekerStateParams set [1, CBA_missionTime + _timeToSearch];
 _seekerStateParams set [2, _calculatedImpactPos];
 _seekerStateParams set [3, _calculatedSearchPos];
 _seekerStateParams set [4, 0];
-_seekerStateParams set [5, _targetVel];
+_seekerStateParams set [5, [0, 0, 0]];
 _seekerStateParams set [6, 0];
 _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
@@ -126,7 +142,7 @@ _fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle
 private _unitType   = "UNK";
 private _unitStatus = "LOAL";
 
-if (_fcrData isNotEqualTo []) then {
+if (_fcrData isNotEqualTo [] && _handoffSource == "FCR") then {
     switch (_type) do {
         case FCR_TYPE_UNKNOWN:    { _unitType = "UNK";   };
         case FCR_TYPE_WHEELED:    { _unitType = "WHEEL"; };
