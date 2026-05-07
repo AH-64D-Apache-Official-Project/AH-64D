@@ -35,7 +35,7 @@ if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitWith {};
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
 	if !isNull _ntsObj then {
-		_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_limaLoblCheck) # 1;
+		_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_arhTargetConstraint) # 1;
 		_vector = _heli worldToModelVisual (ASLToAGL _ntsPos);
 		if _indicateLobl then {
 			_vector = _heli worldToModelVisual (ASLToAGL getPosASL _ntsObj);
@@ -43,7 +43,7 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 		};
 	};
 } else {
-	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+	private _lasePos = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
 	if !isNil "_lasePos" then {
 		_vector = _heli worldToModelVisual (ASLToAGL _lasePos);
 		_indicateLobl = true;
