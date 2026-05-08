@@ -48,6 +48,8 @@ class CfgFunctions
             class addShotRF {R;};
             class addShotSAL {R;};
             class ageShot {R;};
+            class getNearestFcrTargetData {R;};
+            class shotIdentFromFcrData {R;};
         };
     };
 };
