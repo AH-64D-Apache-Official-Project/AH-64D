@@ -1,8 +1,9 @@
 /* ----------------------------------------------------------------------------
 Function: fza_hellfire_fnc_tadsRfHandoffUpdate
 Description:
-    Builds and caches a frozen TADS->RF handoff package after 3 seconds of
-    continuous laser designation. Package resets when the laser is lost/off.
+    Builds and caches a frozen TADS->RF handoff package after a per-handoff
+    random delay (2.5 to 5.0 seconds) of continuous laser designation.
+    Package resets when the laser is lost/off.
 Parameters:
     _heli - The helicopter
 Returns:
@@ -19,9 +20,12 @@ private _laserObj = laserTarget _heli;
 
 private _resetData = {
     params ["_heliObj"];
-    [_heliObj, "fza_ah64_tadsRfHandoffStart", -1] call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffLast", []] call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffData", []] call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffStart",     -1]      call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffLast",      []]      call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffData",      []]      call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffDelay",     -1]      call fza_fnc_updateNetworkGlobal;
+    [_heliObj, "fza_ah64_tadsRfHandoffLastScanTime", -1]   call fza_fnc_updateNetworkGlobal;
 };
 
 if (isNull _laserObj) exitWith {
@@ -30,19 +34,28 @@ if (isNull _laserObj) exitWith {
 
 if (_selectedMissile != "fza_agm114l_wep" || _sight != SIGHT_TADS) exitWith {};
 
-private _now = CBA_missionTime;
 private _start = _heli getVariable ["fza_ah64_tadsRfHandoffStart", -1];
+private _handoffDelay = _heli getVariable ["fza_ah64_tadsRfHandoffDelay", -1];
 private _lastSample = _heli getVariable ["fza_ah64_tadsRfHandoffLast", []];
 private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
 private _pos = getPosASL _laserObj;
 
 if (_start < 0) then {
-    [_heli, "fza_ah64_tadsRfHandoffStart", _now] call fza_fnc_updateNetworkGlobal;
+    _handoffDelay = 2.5 + random 2.5;
+    [_heli, "fza_ah64_tadsRfHandoffStart", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_tadsRfHandoffLast", [_pos, 1]] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_tadsRfHandoffData", []] call fza_fnc_updateNetworkGlobal;
-    _start = _now;
+    [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffLastScanTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+    _start = CBA_missionTime;
     _lastSample = [_pos, 1];
     _handoffData = [];
+};
+
+if (_handoffDelay < 0) then {
+    // Backward-compat fallback for existing vehicles that lack this runtime var.
+    _handoffDelay = 2.5 + random 2.5;
+    [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
 };
 
 if (_handoffData isEqualTo []) then {
@@ -60,8 +73,55 @@ if (_handoffData isEqualTo []) then {
 
     [_heli, "fza_ah64_tadsRfHandoffLast", [_avgPos, _samples]] call fza_fnc_updateNetworkGlobal;
 
-    if ((_now - _start) >= 3) then {
-        // Freeze handoff package after 3 seconds; firing later introduces error by design.
-        [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, _now]] call fza_fnc_updateNetworkGlobal;
+    if ((CBA_missionTime - _start) >= _handoffDelay) then {
+        // Freeze handoff package after the randomized handoff delay.
+        [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
     };
+};
+
+private _scanPos = [0, 0, 0];
+private _currentHandoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
+private _currentLastSample  = _heli getVariable ["fza_ah64_tadsRfHandoffLast", []];
+if (_currentHandoffData isEqualType [] && {count _currentHandoffData >= 1}) then {
+    _scanPos = _currentHandoffData # 0;
+} else {
+    if (_currentLastSample isEqualType [] && {count _currentLastSample >= 1}) then {
+        _scanPos = _currentLastSample # 0;
+    };
+};
+
+if (_scanPos isNotEqualTo [0, 0, 0]) then {
+    private _seekerAngle  = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
+    private _currentLobl  = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
+
+    // Validate existing lock first — keep it if the object is still alive and in cone.
+    if (!isNull _currentLobl && {alive _currentLobl} && {
+        ([_heli, [getPosASL _currentLobl, speed _currentLobl, _currentLobl], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+    }) exitWith {};
+
+    if (!isNull _currentLobl) then {
+        [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
+    };
+
+    // Keep target scan 1 second ahead of handoff completion (dynamic per cycle).
+    private _scanUnlockDelay = (_handoffDelay - 1) max 0;
+    if ((CBA_missionTime - _start) < _scanUnlockDelay) exitWith {};
+
+    // Throttle acquisition scan to at most once every 2 seconds.
+    private _lastScanTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastScanTime", -1];
+    if ((CBA_missionTime - _lastScanTime) < 2) exitWith {};
+    [_heli, "fza_ah64_tadsRfHandoffLastScanTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+
+    // Lock lost or not yet acquired — scan for a new candidate.
+    private _scanTypes  = getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
+    private _candidates = nearestObjects [ASLToAGL _scanPos, _scanTypes, TADS_RF_LOBL_SCAN_RADIUS];
+    private _loblTarget = objNull;
+    {
+        if (([_heli, [getPosASL _x, speed _x, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) exitWith {
+            _loblTarget = _x;
+        };
+    } forEach _candidates;
+    [_heli, "fza_ah64_tadsRfHandoffLoblTarget", _loblTarget] call fza_fnc_updateNetworkGlobal;
+} else {
+    [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
 };

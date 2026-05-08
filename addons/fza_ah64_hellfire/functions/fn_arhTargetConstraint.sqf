@@ -31,8 +31,8 @@ if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH && !_inFlight) exitWith {
     [true, true]
 };
 
-if (_dist <= FCR_LIMIT_FORCE_LOBL_RANGE)       exitWith { [_canSee, _canSee] };
-if (_dist <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) exitWith { [true, _canSee]    };
+if (_dist <= FCR_LIMIT_FORCE_LOBL_RANGE)       exitWith { [_canSee, _canSee]  };
+if (_dist <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) exitWith { [true, _canSee]     };
 if (_dist <= FCR_LIMIT_STATIONARY_RANGE)       exitWith { [true, false]       };
 
 [false, false]

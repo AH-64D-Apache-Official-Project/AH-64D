@@ -206,7 +206,7 @@ class CfgAmmo {
             seekerAngle                         = 60; 
             seekerMaxRange                      = 2500;
 
-            fza_arhLockTypes[]                  = {"LandVehicle", "StaticWeapon"};
+            fza_arhLockTypes[]                  = {"LandVehicle", "StaticWeapon", "Air"};
 
             navigationTypes[]                   = { "Direct", "ZeroEffortMiss" };
             class navigationStates {

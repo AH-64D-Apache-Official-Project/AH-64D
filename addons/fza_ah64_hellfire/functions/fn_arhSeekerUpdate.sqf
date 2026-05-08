@@ -52,7 +52,7 @@ if (!_isActive) then {
 private _target = objNull;
 
 // Direct-track
-if (([_projectile, [getPos _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
+if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
     _target = _lastTarget;
 } else {
     private _distMissileToSearch = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
@@ -80,16 +80,12 @@ if (([_projectile, [getPos _lastTarget, speed _lastTarget, _lastTarget], true, _
             };
 
             // Type-aware class filter: sky targets use Air; ground targets use config-driven list
-            private _searchClasses = if (_targetType in ["Helicopter", "Plane"]) then {
-                ["Air"]
-            } else {
-                getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes")
-            };
+            private _searchClasses = getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
 
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
 
             _candidates = _candidates select {
-                ([_projectile, [getPos _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+                ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
             };
 
             if (_candidates isNotEqualTo []) then {

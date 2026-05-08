@@ -31,21 +31,17 @@ private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 
 if (_sight == SIGHT_TADS) then {
     _handoffSource = "TADS";
-    _targObj = objNull;
     _targPos = [0, 0, 0];
     private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
     if (_handoffData isEqualType [] && {count _handoffData >= 1}) then {
         _targPos = _handoffData # 0;
     };
+    _targObj = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
+    if (!isNull _targObj) then { _targPos = getPosASL _targObj; };
 };
 
 private _targSpeed = [0, speed _targObj] select (!isNull _targObj);
-private _loblCheckLima = [_heli, [_targPos, _targSpeed, _targObj], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
-private _loblCheckAircraft = [_heli, [_targPos, _targSpeed, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
-//if (_handoffSource == "TADS") then {
-//    _loblCheckLima = [_loblCheckLima # 0, false];
-//    _loblCheckAircraft = [_loblCheckAircraft # 0, false];
-//};
+private _loblCheckLima = [_heli, [_targPos, _targSpeed, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
 private _targetType = ["UNKNOWN", (_targObj call BIS_fnc_objectType) # 1] select (!isNull _targObj);
 
 private _attackProfile       = "hellfire_lo";
@@ -55,17 +51,6 @@ private _timeToSearch        = 9999999;
 private _timeToImpact        = 9999999;
 private _isActive            = false;
 private _dbsOffset           = [0, 0, 0];
-
-if (!(isNull _targObj) && _loblCheckAircraft # 0) then {
-    _targPos   = getPosASL _targObj;
-
-    // For LOAL shots keep position, but clear object handoff so seeker area-searches.
-    if !(_loblCheckAircraft # 1) then {
-        _targObj = objNull;
-    };
-} else {
-    _targObj = objNull;
-};
 
 if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [2, (getPosASL _heli) distance _targPos];
