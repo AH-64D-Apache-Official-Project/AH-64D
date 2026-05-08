@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:core/fn_coreEachFrameScheduler.sqf",{396:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Schedules updates to all tasks in fza_ah64_eachFrameArray* Parameters: _heli - The helicopter to modify Returns: Nothing Examples:</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:core/fn_coreEachFrameScheduler.sqf",{398:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Schedules updates to all tasks in fza_ah64_eachFrameArray* Parameters: _heli - The helicopter to modify Returns: Nothing Examples:</div></div>"});

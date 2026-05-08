@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File16:canvas/fn_canvasDrawLine.sqf",{258:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws a line on the canvas</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File16:canvas/fn_canvasDrawLine.sqf",{256:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws a line on the canvas</div></div>"});
