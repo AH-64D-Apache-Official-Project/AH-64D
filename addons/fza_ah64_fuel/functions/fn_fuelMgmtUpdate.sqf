@@ -14,9 +14,8 @@ Returns:
 Author:
     FZA Development Team
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli"];
-
-#define KGTOLBS 2.20462
 
 private _checkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
 if (!_checkRunning) exitWith {};
@@ -33,10 +32,10 @@ private _targetSec      = (_checkMinutes max 0) * 60;
 private _elapsedClamped = if (_targetSec > 0) then { _elapsed min _targetSec } else { _elapsed };
 
 // Cumulative average burn rate over the full elapsed check time (lb/hr)
-private _burnRate = if (_elapsedClamped > 0) then { (_burnedKg * KGTOLBS) / (_elapsedClamped / 3600) } else { 0 };
+private _burnRate = if (_elapsedClamped > 0) then { (_burnedKg * KG_TO_LBS) / (_elapsedClamped / 3600) } else { 0 };
 
 if (_targetSec > 0 && _elapsed >= _targetSec) then {
-    private _totalLbs     = _totalFuelMass * KGTOLBS;
+    private _totalLbs     = _totalFuelMass * KG_TO_LBS;
     private _burnoutHours = if (_burnRate > 0) then { _totalLbs / _burnRate } else { 0 };
     private _fnZulu = {
         params ["_dt"];

@@ -43,8 +43,6 @@ params ["_heli"];
 #define RTR_RPM_PRIORITY           2
 #define ENG_OUT_PRIORITY           3
 #define FIRE_PRIORITY              4
-#define FWD_LOW_THRESH_KG        109.0
-#define AFT_LOW_THRESH_KG        118.0
 
 private _configVehicles = configOf _heli;
 
@@ -358,7 +356,7 @@ if (_xmsnDamage >= 0.75) then {
     [_activeCaut, "XMSN CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Fuel low cautions
-if (_fwdFuelMass < FWD_LOW_THRESH_KG) then {
+if (_fwdFuelMass < FWD_FUEL_LOW_VAL_KG) then {
     ([_heli, _activeCaut, "FORWARD FUEL LOW", "FWD FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
     _playCautAudio = _playAudio;
@@ -366,7 +364,7 @@ if (_fwdFuelMass < FWD_LOW_THRESH_KG) then {
 } else {
     [_activeCaut, "FWD FUEL LO"] call fza_wca_fnc_wcaDelCaution;
 };
-if (_aftFuelMass < AFT_LOW_THRESH_KG) then {
+if (_aftFuelMass < AFT_FUEL_LOW_VAL_KG) then {
     ([_heli, _activeCaut, "AFT FUEL LOW", "AFT FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
     _playCautAudio = _playAudio;

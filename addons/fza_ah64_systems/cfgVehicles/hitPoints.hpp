@@ -149,7 +149,7 @@ class HitPoints
     class hit_fuel_aft {
         armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.15;
+        minimalHit = MIN_HIT * 3;
         explosionShielding = 0.30;
         name = "hit_fuel_aft";
         material = 51;
@@ -158,7 +158,7 @@ class HitPoints
     class hit_fuel_forward {
         armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.15;
+        minimalHit = MIN_HIT * 3;
         explosionShielding = 0.30;
         name = "hit_fuel_forward";
         material = 51;
@@ -167,7 +167,7 @@ class HitPoints
     class hit_msnEquip_magandrobbie {
         armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.15;
+        minimalHit = MIN_HIT * 3;
         explosionShielding = 0.30;
         name = "hit_msnEquip_magandrobbie";
         material = 51;

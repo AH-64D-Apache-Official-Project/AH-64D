@@ -26,12 +26,11 @@ Returns:
 Author:
     BradMick / FZA Development Team
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli"];
 
 // Threshold constants (kg)
 #define XFER_RATE_KGS       0.378   // ~50 lb/min pump transfer rate
-#define FWD_LOW_THRESH_KG   109.0   // ~240 lb
-#define AFT_LOW_THRESH_KG   118.0   // ~260 lb
 #define AUTO_FILL_THRESH_KG 369.0   // ~814 lb (Table 2-6 AUTO trigger)
 #define AUTO_FWD_MIN_SRC_KG 127.0   // ~280 lb min FWD source for AUTO TO AFT
 #define AUTO_SPLIT_STOP_KG  9.1     // ~20 lb
@@ -121,8 +120,8 @@ private _aftFuelAvailLastFrame = _aftFuelBefore > _eps;
 
 // XFER pump — Table 2-6 logic
 private _xferStep   = XFER_RATE_KGS * _deltaTime;
-private _fwdLow     = _fwdFuelMass < FWD_LOW_THRESH_KG;
-private _aftLow     = _aftFuelMass < AFT_LOW_THRESH_KG;
+private _fwdLow     = _fwdFuelMass < FWD_FUEL_LOW_VAL_KG;
+private _aftLow     = _aftFuelMass < AFT_FUEL_LOW_VAL_KG;
 private _apuOn      = _heli getVariable ["fza_systems_apuOn", false];
 private _engBleedOn = _eng1On || _eng2On;
 private _airAvail   = _apuOn || _engBleedOn;
@@ -164,7 +163,7 @@ switch (_xferMode) do {
                 && _airAvail
                 && (_fwdFuelMass < AUTO_FILL_THRESH_KG)
                 && !_aftLow
-                && (_aftFuelMass > FWD_LOW_THRESH_KG)
+                && (_aftFuelMass > FWD_FUEL_LOW_VAL_KG)
                 && _aftLeadEnough
                 // HALT guards
                 && (_aftMinusFwd >= AUTO_SPLIT_STOP_KG) && (_fwdFuelMass < (_maxFwdFuelMass - 0.1))) then {
