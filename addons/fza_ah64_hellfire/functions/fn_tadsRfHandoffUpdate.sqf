@@ -103,9 +103,7 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
         [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
     };
 
-    // Keep target scan 1 second ahead of handoff completion (dynamic per cycle).
-    private _scanUnlockDelay = (_handoffDelay - 1) max 0;
-    if ((CBA_missionTime - _start) < _scanUnlockDelay) exitWith {};
+    if ((CBA_missionTime - _start) < _handoffDelay) exitWith {};
 
     // Throttle acquisition scan to at most once every 2 seconds.
     private _lastScanTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastScanTime", -1];

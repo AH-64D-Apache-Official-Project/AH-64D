@@ -27,7 +27,7 @@ private _conW = 0;
 private _conH = 0;
 private _indicateLobl = false;
 private _vector = [];
-private _allowableAngle = 20;
+private _allowableAngle = 7.5;
 private _constraintBoxUseTads = false;
 
 if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitWith {};
@@ -61,7 +61,6 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 			} else {
 				_vector         = _heli worldToModelVisual (ASLToAGL _handoffPos);
 				_indicateLobl   = false;
-				_allowableAngle = 7.5;
 			};
 		};
 	} else {
@@ -88,7 +87,7 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 			_vector = [0,1,0]
 		};
 	};
-	if !_indicateLobl then {_allowableAngle = 7.5};
+	if _indicateLobl then {_allowableAngle = 20};
 };
 
 private _angleOffAxis = [];
