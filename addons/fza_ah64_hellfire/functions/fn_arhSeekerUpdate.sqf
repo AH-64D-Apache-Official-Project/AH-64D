@@ -1,25 +1,16 @@
 /* ----------------------------------------------------------------------------
-Function: fza_hellfire_fnc_arhSeeker
-
-Description:
-    Using data available upon launch, returns the targets expected positon || caluclated position if LOBL on target
-    utilises Ace millimeterWaveRadar function rewritten to fit purpose
-
+Function: fza_hellfire_fnc_arhSeekerUpdate
+Description: Per-tick ARH seeker update for the AGM-114L. Returns the world
+    position the missile guides towards this frame.
+    seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
+    calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
+    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle]
 Parameters:
-    _shooter - The helicopter that shot the missile
-    _args - contains all of the main following paramaters
-    _firedEH - the intirety of the fired eh event handler output
-    _stateParams - contains the current hellfire guidance state
-    _projectile - the projectile object
-    _seekerAngle - cfg seeker max angle
-    _seekerMaxRange - cfg seeker max range
-
-Returns:
-
-Examples:
-
-Author:
-    Snow(Dryden)
+    _args              - ACE guidance args array
+    _seekerStateParams - ARH seeker state array
+    _timestep          - Seconds since last call
+Returns: World position [x,y,z]
+Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["", "_args", "_seekerStateParams", "", "_timestep"];
@@ -27,72 +18,97 @@ _args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams", 
 _firedEH params ["_shooter","","","","","","_projectile"];
 _launchParams params ["_lastTarget","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
-_seekerStateParams params ["_isActive", "_timeWhenActive", "_expectedTargetPos", "_calulatedSearchPos", "_lastTargetPollTime", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
+_seekerStateParams params [
+    "_isActive",
+    "_timeWhenActive",
+    "_expectedTargetPos",
+    "_calculatedSearchPos",
+    "_lastTargetPollTime",
+    "_lastKnownVelocity",
+    "_lastTimeSeen",
+    "_doesntHaveTarget",
+    "_targetType",
+    ["_cachedSeekerAngle", -1],
+    ["_dbsOffset", [0, 0, 0]]
+];
 
-#define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
+private _resolvedSeekerAngle = [_seekerAngle, _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
+
+// Coast phase
+if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitWith {
+    _targetData set [2, (getPosASLVisual _projectile) distance _expectedTargetPos];
+    (_expectedTargetPos vectorAdd _dbsOffset)
+};
+
+if (!_isActive) then {
+    _seekerStateParams set [0, true];
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
+};
+
+#define ARH_MIN_SCAN_RADIUS  50
+#define ARH_TERMINAL_RANGE   300
+
 private _target = objNull;
 
-if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitWith {
-    _expectedTargetPos
-};
-
-if !_isActive then {
-    _seekerStateParams set [0, true];
-};
-
-if (([_projectile, [getPos _lastTarget, speed _lastTarget, _lastTarget], true] call fza_hellfire_fnc_limaLoblCheck)#1) then {
+// Direct-track
+if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
     _target = _lastTarget;
 } else {
-    if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
-        _seekerStateParams set [4, CBA_missionTime];
-        private _searchPos = _calulatedSearchPos;
-        if (_searchPos isEqualTo [0, 0, 0]) exitWith {};
-        private _distanceToExpectedTarget = FCR_LIMIT_FORCE_LOBL_RANGE min ((getPosASL _projectile) vectorDistance _searchPos);
+    private _distMissileToSearch = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
 
-        // Simulate how much the seeker can see at the ground
-        private _projDir = vectorDir _projectile;
-        private _projYaw = getDir _projectile;
-        private _rotatedYaw = (+(_projDir select 0) * sin _projYaw) + (+(_projDir select 1) * cos _projYaw);
-        if (_rotatedYaw isEqualTo 0) then { _rotatedYaw = 0.001 };
-        private _projPitch = atan ((_projDir select 2) / _rotatedYaw);
-        private _a1 = abs _projPitch;
-        private _a2 = 180 - ((_seekerAngle / 3) + _a1);
-        private _seekerBaseRadiusAtGround = ACTIVE_RADAR_MINIMUM_SCAN_AREA max (_distanceToExpectedTarget / sin(_a2) * sin(_seekerAngle / 2));
-        private _seekerBaseRadiusAdjusted = linearConversion [0, _seekerBaseRadiusAtGround, (CBA_missionTime - _lastTimeSeen) * vectorMagnitude _lastKnownVelocity, ACTIVE_RADAR_MINIMUM_SCAN_AREA, _seekerBaseRadiusAtGround, false];
-        if (_doesntHaveTarget) then {
-            _seekerBaseRadiusAdjusted = _seekerBaseRadiusAtGround;
-        };
-        // Look in front of seeker for any targets
-        private _nearestObjects = nearestObjects [ASLToAGL _searchPos, ["all"], _seekerBaseRadiusAdjusted, false];
-        _nearestObjects = _nearestObjects select {([_projectile, [getPos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck)#1};
-        // Select closest object to the expected position to be the current radar target
-        if (_nearestObjects isEqualTo []) exitWith {
-            _projectile setMissileTarget objNull;
-            _expectedTargetPos
-        };
+    if (_distMissileToSearch > ARH_TERMINAL_RANGE && _calculatedSearchPos isNotEqualTo [0, 0, 0]) then {
 
-        private _primaryTargets = _nearestObjects select {
-            _targTypeCompare = (_x call BIS_fnc_objectType)#1;
-            (_targetType isEqualTo _targTypeCompare)
-        };
-        private _secondaryTargets = _nearestObjects - _primaryTargets;
-        _primaryTargets = [_primaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
-        _secondaryTargets = [_secondaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
+        // Adaptive poll: 2 Hz > 1500 m, 5 Hz 500-1500 m, 10 Hz < 500 m
+        private _pollInterval = [[0.1, 0.2] select (_distMissileToSearch > 500), 0.5] select (_distMissileToSearch > 1500);
 
-        if (_primaryTargets isNotEqualTo []) then {
-            _target = _primaryTargets#0
-        } else {
-            if (_secondaryTargets isNotEqualTo []) then {
-                _target = _secondaryTargets#0
-                //_seekerStateParams set [8, (_target call BIS_fnc_objectType)#1]; // Might cause unexpected behaviour in terminal, uncomment in future if needed
+        if (CBA_missionTime - _lastTargetPollTime >= _pollInterval) then {
+            _seekerStateParams set [4, CBA_missionTime];
+
+            // Cone footprint: tan(halfAngle) * slantDist, capped at FCR_LIMIT_FORCE_LOBL_RANGE
+            private _slantDist    = _distMissileToSearch min FCR_LIMIT_FORCE_LOBL_RANGE;
+            private _coneRadius   = ARH_MIN_SCAN_RADIUS max (_slantDist * tan (_resolvedSeekerAngle / 2));
+
+            private _searchRadius = if (_doesntHaveTarget) then {
+                _coneRadius
+            } else {
+                linearConversion [
+                    0, _coneRadius,
+                    (CBA_missionTime - _lastTimeSeen) * vectorMagnitude _lastKnownVelocity,
+                    ARH_MIN_SCAN_RADIUS, _coneRadius, false
+                ]
+            };
+
+            // Type-aware class filter: sky targets use Air; ground targets use config-driven list
+            private _searchClasses = getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
+
+            private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
+
+            _candidates = _candidates select {
+                ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+            };
+
+            if (_candidates isNotEqualTo []) then {
+                private _primaryTargets = _candidates select {
+                    private _targTypeCompare = (_x call BIS_fnc_objectType) # 1;
+                    _targetType isEqualTo _targTypeCompare
+                };
+                private _secondaryTargets = _candidates - _primaryTargets;
+
+                if (_primaryTargets isNotEqualTo []) then {
+                    _target = [_primaryTargets,   [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
+                } else {
+                    if (_secondaryTargets isNotEqualTo []) then {
+                        _target = [_secondaryTargets, [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
+                    };
+                };
             };
         };
     };
 };
 
-
 if !(isNull _target) then {
-    private _centerOfObject = getCenterOfMass _target;
+    private _centerOfObject    = getCenterOfMass _target;
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
     _expectedTargetPos = _targetAdjustedPos;
 
@@ -101,21 +117,28 @@ if !(isNull _target) then {
     _seekerStateParams set [6, CBA_missionTime];
     _seekerStateParams set [7, false];
 
+    // On lock, remove lateral bias so terminal homing is direct to target.
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
+
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
-    
+
     _launchParams set [0, _target];
 
-    if (_timestep != 0) then {
-        private _acceleration = ((velocity _target) vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
+    if (_timestep > 0) then {
+        private _acceleration = (velocity _target vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
         _targetData set [4, _acceleration];
     };
 } else {
+    _projectile setMissileTarget objNull;
     _launchParams set [0, objNull];
     _seekerStateParams set [7, true];
 };
 
-_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
+private _returnPos = _expectedTargetPos vectorAdd _dbsOffset;
+
+_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _returnPos];
 _seekerStateParams set [2, _expectedTargetPos];
 
-_expectedTargetPos
+_returnPos

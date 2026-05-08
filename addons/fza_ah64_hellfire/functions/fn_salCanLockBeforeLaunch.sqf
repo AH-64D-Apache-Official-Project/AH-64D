@@ -1,22 +1,11 @@
 /* ----------------------------------------------------------------------------
-Function: fza_hellfire_fnc_salShouldStartLobl
-
-Description:
-    Defines whether a SAL missile should start in LOBL
-    (can see valid laser energy)
-
-Parameters:
-    _heli - The object who is seeking
-
-Returns:
-    startLobl
-
-Examples:
-    --- Code
-    [_heli] call fza_hellfire_fnc_salShouldStartLobl
-    ---
-
+Function: fza_hellfire_fnc_salCanLockBeforeLaunch
+Description: Returns true when a lockable laser spot is visible pre-launch.
+Parameters: _heli - The helicopter
+Returns: Boolean
+Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-private _laserPos = [_heli] call fza_hellfire_fnc_salLasePos;
-!isNil "_laserPos";
+
+private _laserPos = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
+!isNil "_laserPos"

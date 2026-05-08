@@ -1,35 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_hellfire_fnc_getattackProfile
-
-Description:
-    grabs the ace name for the current attack mode.
-
-Parameters:
-    _heli - the helicopter
-
-Returns:
-    grabs the apaches system trajectory setting & outputs the ace cfg Trajectory name
-
-Examples:
-    [_heli] call fza_hellfire_fnc_getattackProfile
-
-Author:
-    Snow(Dryden)
+Function: fza_hellfire_fnc_trajectoryToAceProfile
+Description: Maps the hellfire trajectory mode to the ACE attack profile string.
+Parameters: _heli - The helicopter
+Returns: ACE attack profile string, or false if unrecognised
+Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
 private _trajectory = _heli getVariable "fza_ah64_hellfireTrajectory";
-private _result = false;
 
-switch _trajectory do {
-    case "DIR": {
-        _result = "hellfire";
-    };
-    case "HI": {
-        _result = "hellfire_hi";
-    };
-    case "LO": {
-        _result = "hellfire_lo";
-    };
+switch (_trajectory) do {
+    case "DIR": {"hellfire"};
+    case "HI":  {"hellfire_hi"};
+    case "LO":  {"hellfire_lo"};
+    case "DBS": {"hellfire_hi"};
+    default     {false};
 };
-_result;

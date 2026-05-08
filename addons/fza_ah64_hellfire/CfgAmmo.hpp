@@ -28,12 +28,12 @@ class CfgAmmo {
 
         fza_salType                 = "sal2";
 
-        maxSpeed                    = 450;
+        maxSpeed                    = 475;
         airFriction                 = 0.08;
         sideAirFriction             = 0.22;
         initTime                    = 0.1;
-        thrustTime                  = 3;
-        thrust                      = 180;
+        thrustTime                  = 2.5;
+        thrust                      = 250;
         fuseDistance                = 100;
         timeToLive                  = 40;
         explosionTime               = 39;
@@ -84,14 +84,27 @@ class CfgAmmo {
         class ace_missileguidance: ace_missileguidance {
             enabled = 1;
 
-            pitchRate = 25;
-            yawRate = 25;
-            seekerAngle = 70;
+            pitchRate = 18;
+            yawRate = 18;
+            seekerAngle = 60;
 
             defaultSeekerType = "fza_SALH";
             seekerTypes[] = { "fza_SALH" };
 
             defaultSeekerLockMode = "LOBL";
+
+            navigationTypes[] = { "Direct", "ZeroEffortMiss" };
+            class navigationStates {
+                class initial {
+                    transitionCondition = "ace_hellfire_fnc_midCourseTransition";
+                    navigationType = "Direct";
+                };
+                class terminal {
+                    transitionCondition = "";
+                    navigationType = "ZeroEffortMiss";
+                };
+                states[] = {"initial", "terminal"};
+            };
         };
     };
     class fza_agm114fa : fza_agm114base
@@ -190,7 +203,23 @@ class CfgAmmo {
             defaultSeekerType                   = "Fza_ARH";
             seekerTypes[]                       = { "Fza_ARH" };
 
-            seekerAngle                         = 70;
+            seekerAngle                         = 60; 
+            seekerMaxRange                      = 2500;
+
+            fza_arhLockTypes[]                  = {"LandVehicle", "StaticWeapon", "Air"};
+
+            navigationTypes[]                   = { "Direct", "ZeroEffortMiss" };
+            class navigationStates {
+                class initial {
+                    transitionCondition = "ace_hellfire_fnc_midCourseTransition";
+                    navigationType = "Direct";
+                };
+                class terminal {
+                    transitionCondition = "";
+                    navigationType = "ZeroEffortMiss";
+                };
+                states[] = {"initial", "terminal"};
+            };
         };
     };
     class fza_agm114n : fza_agm114base

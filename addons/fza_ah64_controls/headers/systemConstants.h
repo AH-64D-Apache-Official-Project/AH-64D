@@ -23,6 +23,8 @@
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6
+// TADS->RF handoff LOBL scan radius (metres around handoff position)
+#define TADS_RF_LOBL_SCAN_RADIUS         3.5
 //--FCR Priority
 #define FCR_TYPE_UNKNOWN    0
 #define FCR_TYPE_FLYER      1

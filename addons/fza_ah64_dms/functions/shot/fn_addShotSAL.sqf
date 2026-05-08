@@ -33,30 +33,10 @@ if _remoteEngagement then {
 };
 
 if (_shotPos isNotEqualTo [0,0,0]) then {
-    private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
-    if (_fcrTargets isEqualTo []) exitWith {};
-    if (isNull laserTarget _heli) exitWith {};
-    _closestTarget = ([_fcrTargets, [], {_x#0 distance laserTarget _heli}, "ASCEND"] call BIS_fnc_sortBy)#0;
-    _closestTarget params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    if ((_pos distance laserTarget _heli) > 200) exitWith {};
-    private _unitType   = "UNK";
-    private _unitStatus = "LOAL"; 
-
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN:    {_unitType = "UNK";};
-        case FCR_TYPE_WHEELED:    {_unitType = "WHEEL";};
-        case FCR_TYPE_HELICOPTER: {_unitType = "HELI";};
-        case FCR_TYPE_FLYER:      {_unitType = "FLYER";};
-        case FCR_TYPE_TRACKED:    {_unitType = "TRACK";};
-        case FCR_TYPE_ADU:        {_unitType = "ADU";};
+    private _closestTarget = [_heli, _shotPos, 200] call fza_dms_fnc_getNearestFcrTargetData;
+    if (_closestTarget isNotEqualTo []) then {
+        _ident = [_closestTarget] call fza_dms_fnc_shotIdentFromFcrData;
     };
-
-    if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {_unitStatus = "MOVE";}
-     else {
-        if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then                          {_unitStatus = "LOBL";};
-        if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then                    {_unitStatus = "LOAL";};
-    };
-    _ident = ["FCR",_unitType,_unitStatus] joinString "_";
 };
 
 if (_shotAtIndex != -1) then {

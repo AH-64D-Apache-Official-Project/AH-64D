@@ -136,6 +136,13 @@ if (_was == WAS_WEAPON_MSL && _sight != SIGHT_FXD) then {
     private _hellfireZero = ([_hellfiretable, ((getPos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
     private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
+
+    private _selectedMissile = _heli getVariable ["fza_ah64_selectedMissile", ""];
+    private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
+    if (_selectedMissile == "fza_agm114l_wep" && _sight == SIGHT_TADS && _handoffData isEqualTo []) then {
+        _inhibit = "TGT DATA?";
+        _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
+    };
 };
 
 if (currentWeapon _heli == "fza_pylon_inhibit" && _inhibit == "") then {
