@@ -85,7 +85,13 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
 
             _candidates = _candidates select {
-                ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+                private _radarSig  = getNumber (configOf _x >> "radarTargetSize");
+                if (_radarSig <= 0) then { _radarSig = 1.0 };
+                private _normRange = ((_x distance (ASLToAGL _calculatedSearchPos)) / FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) min 1;
+                private _detectionProb = _radarSig ^ (1 + _normRange);
+                (random 1 <= _detectionProb) && {
+                    ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+                }
             };
 
             if (_candidates isNotEqualTo []) then {

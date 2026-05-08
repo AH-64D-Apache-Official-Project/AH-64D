@@ -115,7 +115,14 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
     private _candidates = nearestObjects [ASLToAGL _scanPos, _scanTypes, TADS_RF_LOBL_SCAN_RADIUS];
     private _loblTarget = objNull;
     {
-        if (([_heli, [getPosASL _x, speed _x, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) exitWith {
+        if (!isNull _loblTarget) exitWith {};
+        private _radarSig  = getNumber (configOf _x >> "radarTargetSize");
+        if (_radarSig <= 0) then { _radarSig = 1.0 };
+        private _normRange = ((_x distance (ASLToAGL _scanPos)) / FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) min 1;
+        private _detectionProb = _radarSig ^ (1 + _normRange);
+        if ((random 1 <= _detectionProb) && {
+            ([_heli, [getPosASL _x, speed _x, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+        }) then {
             _loblTarget = _x;
         };
     } forEach _candidates;
