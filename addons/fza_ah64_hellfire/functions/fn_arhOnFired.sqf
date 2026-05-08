@@ -127,11 +127,6 @@ _seekerStateParams set [10, _dbsOffset];
 _launchParams set [3, _attackProfile];
 _launchParams set [0, _targObj];
 
-if (!isNull _targObj) then {
-    // Seed lock immediately at launch; seeker loop will keep it updated.
-    _projectile setMissileTarget _targObj;
-};
-
 // Shot-at file
 private _shotFcrData = [];
 if (_handoffSource == "FCR") then {
