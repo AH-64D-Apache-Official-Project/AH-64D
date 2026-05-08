@@ -4,7 +4,8 @@ Description: Per-tick ARH seeker update for the AGM-114L. Returns the world
     position the missile guides towards this frame.
     seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
     calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
-    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle]
+    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle,
+    dbsOffset, lastCmCheckTime, lastDecoyTime]
 Parameters:
     _args              - ACE guidance args array
     _seekerStateParams - ARH seeker state array
@@ -123,17 +124,7 @@ if !(isNull _target) then {// Chaff defeat check
     if ((CBA_missionTime - _lastCmCheckTime) >= RF_CM_CHECK_INTERVAL_SEEKER) then {
         _seekerStateParams set [11, CBA_missionTime];
 
-        private _chaffNearby = _target nearObjects RF_CM_CHECK_RADIUS;
-        _chaffNearby = _chaffNearby select {
-            (([getNumber (configOf _x >> "weaponLockSystem"), 4] call ace_common_fnc_binarizeNumber) select 3)
-            && { [_projectile, getPosASLVisual _x, _resolvedSeekerAngle] call fza_hellfire_fnc_isTargetInSeekerCone }
-            && { [_projectile, _x, false] call ace_missileguidance_fnc_checkLos }
-        };
-        private _perChaffChance = (RF_CM_PER_CHAFF_CHANCE * _chaffCoef) max 0 min 0.95;
-        private _chaffCount = count _chaffNearby;
-        private _combinedChance = 1 - ((1 - _perChaffChance) ^ _chaffCount);
-        private _chaffDefeated = _chaffCount > 0 && { random 1 < _combinedChance };
-
+        private _chaffDefeated = [_projectile, _target, _resolvedSeekerAngle, _chaffCoef] call fza_hellfire_fnc_checkChaffDefeat;
         if (_chaffDefeated) then {
             _target = objNull;
             _seekerStateParams set [7, true];

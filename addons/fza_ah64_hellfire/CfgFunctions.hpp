@@ -10,17 +10,18 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_hellfire\functions";
             class controller             {RECOMPILE_FLAG;};
-            class syncAceMissileParams    {RECOMPILE_FLAG;};
-            class tadsRfHandoffUpdate    {RECOMPILE_FLAG;};
-            class arhOnFired              {RECOMPILE_FLAG;};
-            class arhSeekerUpdate         {RECOMPILE_FLAG;};
-            class arhTargetConstraint     {RECOMPILE_FLAG;};
-            class isTargetInSeekerCone    {RECOMPILE_FLAG;};
-            class trajectoryToAceProfile  {RECOMPILE_FLAG;};
-            class init                    {RECOMPILE_FLAG;};
-            class salOnFired              {RECOMPILE_FLAG;};
+            class syncAceMissileParams  {RECOMPILE_FLAG;};
+            class tadsRfHandoffUpdate   {RECOMPILE_FLAG;};
+            class arhOnFired            {RECOMPILE_FLAG;};
+            class arhSeekerUpdate       {RECOMPILE_FLAG;};
+            class arhTargetConstraint   {RECOMPILE_FLAG;};
+            class checkChaffDefeat      {RECOMPILE_FLAG;};
+            class isTargetInSeekerCone  {RECOMPILE_FLAG;};
+            class trajectoryToAceProfile {RECOMPILE_FLAG;};
+            class init                  {RECOMPILE_FLAG;};
+            class salOnFired            {RECOMPILE_FLAG;};
             class salFindLaserDesignation {RECOMPILE_FLAG;};
-            class salCanLockBeforeLaunch  {RECOMPILE_FLAG;};
+            class salCanLockBeforeLaunch {RECOMPILE_FLAG;};
         };
     };
 };

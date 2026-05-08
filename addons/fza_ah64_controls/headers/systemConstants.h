@@ -23,14 +23,17 @@
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6
+
 // TADS->RF handoff LOBL scan radius (metres around handoff position)
 #define TADS_RF_LOBL_SCAN_RADIUS         3.5
+
 // Shared ARH/RF chaff interaction tuning
 #define RF_CM_CHECK_RADIUS               50
 #define RF_CM_CHECK_INTERVAL_SEEKER      0.2
 #define RF_CM_CHECK_INTERVAL_HANDOFF     0.25
-#define RF_CM_PER_CHAFF_CHANCE           0.15
+#define RF_CM_PER_CHAFF_CHANCE           0.10
 #define RF_REACQUIRE_DELAY               0.7
+
 //--FCR Priority
 #define FCR_TYPE_UNKNOWN    0
 #define FCR_TYPE_FLYER      1

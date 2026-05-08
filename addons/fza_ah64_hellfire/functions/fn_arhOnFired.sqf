@@ -56,9 +56,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [2, (getPosASL _heli) distance _targPos];
     _targetData set [3, [0, 0, 0]];
     _targetData set [4, [0, 0, 0]];
-};
 
-if (_targPos isNotEqualTo [0, 0, 0]) then {
     // Time-of-flight lookup table: [range_km, tof_seconds]
     private _hellfireTOF = [[0,0],[1,3],[2,7],[3,10],[4,14],[5,19],[6,24],[7,29],[8,36],[9,44]];
     private _rangeKm     = (_targPos distance _heli) * SCALE_METERS_KM;

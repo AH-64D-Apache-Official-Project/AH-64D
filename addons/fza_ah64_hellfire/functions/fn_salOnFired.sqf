@@ -7,7 +7,7 @@ Returns: Nothing
 Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["", "_launchParams"];
-_launchParams params ["_shooter","","","_attackProfile","","_laserinfo"];
+_launchParams params ["_shooter"];
 
 #define SCALE_METERS_KM 0.001
 #define SCALE_KM_TOF    4

@@ -55,7 +55,6 @@ if (_start < 0) then {
 };
 
 if (_handoffDelay < 0) then {
-    // Backward-compat fallback for existing vehicles that lack this runtime var.
     _handoffDelay = 2.5 + random 2.5;
     [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
 };
@@ -105,17 +104,7 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
         if ((CBA_missionTime - _lastCmCheckTime) < RF_CM_CHECK_INTERVAL_HANDOFF) exitWith { true };
 
         _heli setVariable ["fza_ah64_tadsRfHandoffLastCmCheckTime", CBA_missionTime];
-        private _chaffNearby = _currentLobl nearObjects 50;
-        _chaffNearby = _chaffNearby select {
-            // 8 = radar blocking (bit 3)
-            (([getNumber (configOf _x >> "weaponLockSystem"), 4] call ace_common_fnc_binarizeNumber) select 3)
-            && { [_heli, getPosASLVisual _x, _seekerAngle] call fza_hellfire_fnc_isTargetInSeekerCone }
-            && { [_heli, _x, false] call ace_missileguidance_fnc_checkLos }
-        };
-        private _perChaffChance = (RF_CM_PER_CHAFF_CHANCE * _chaffCoef) max 0 min 0.95;
-        private _chaffCount = count _chaffNearby;
-        private _combinedChance = 1 - ((1 - _perChaffChance) ^ _chaffCount);
-        private _chaffDefeated = _chaffCount > 0 && { random 1 < _combinedChance };
+        private _chaffDefeated = [_heli, _currentLobl, _seekerAngle, _chaffCoef] call fza_hellfire_fnc_checkChaffDefeat;
         if (_chaffDefeated) then {
             _heli setVariable ["fza_ah64_tadsRfHandoffLastDecoyTime", CBA_missionTime];
         };

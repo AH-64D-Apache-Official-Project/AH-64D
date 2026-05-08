@@ -8,9 +8,9 @@ Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_channel = _heli getVariable "fza_ah64_laserLRFDCode";
-_hash    = _heli getVariable "fza_ah64_laserChannelIndex";
-_code    = _hash get _channel;
+private _channel = _heli getVariable "fza_ah64_laserLRFDCode";
+private _hash    = _heli getVariable "fza_ah64_laserChannelIndex";
+private _code    = _hash get _channel;
 _heli setVariable ["ace_laser_code", _code];
 
 private _attackProfile = [_heli] call fza_hellfire_fnc_trajectoryToAceProfile;
