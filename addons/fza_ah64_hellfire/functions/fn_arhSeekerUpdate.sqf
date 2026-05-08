@@ -113,6 +113,21 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
     };
 };
 
+if !(isNull _target) then {// Chaff defeat check
+    private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
+    private _chaffNearby = nearestObjects [_target, ["Ammo"], 50] select {
+        (([getNumber (configOf _x >> "weaponLockSystem"), 4] call BIS_fnc_binarizeNumber) select 3) == 1
+        && { ([_projectile, [getPosASL _x, 0, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1 }
+        && { lineIntersectsSurfaces [getPosASLVisual _projectile, getPosASLVisual _x, _projectile, _x] isEqualTo [] }
+    };
+    private _chaffDefeated = _chaffNearby findIf { random 1 < (0.2 * _chaffCoef) } != -1;
+
+    if (_chaffDefeated) then {
+        _target = objNull;
+        _seekerStateParams set [7, true];
+    };
+};
+
 if !(isNull _target) then {
     private _centerOfObject    = getCenterOfMass _target;
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
@@ -131,6 +146,9 @@ if !(isNull _target) then {
     _targetData set [3, velocity _target];
 
     _launchParams set [0, _target];
+
+    // Notify AI of incoming radar lock — triggers evasive behaviour.
+    _projectile setMissileTarget _target;
 
     if (_timestep > 0) then {
         private _acceleration = (velocity _target vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);

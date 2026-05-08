@@ -94,9 +94,16 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
     private _seekerAngle  = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
     private _currentLobl  = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
 
-    // Validate existing lock first — keep it if the object is still alive and in cone.
+    private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
     if (!isNull _currentLobl && {alive _currentLobl} && {
         ([_heli, [getPosASL _currentLobl, speed _currentLobl, _currentLobl], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+    } && {
+        private _chaffNearby = nearestObjects [_currentLobl, ["Ammo"], 50] select {
+            (([getNumber (configOf _x >> "weaponLockSystem"), 4] call BIS_fnc_binarizeNumber) select 3) == 1
+            && { ([_heli, [getPosASL _x, 0, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1 }
+            && { lineIntersectsSurfaces [getPosASLVisual _heli, getPosASLVisual _x, _heli, _x] isEqualTo [] }
+        };
+        _chaffNearby findIf { random 1 < (0.2 * _chaffCoef) } == -1
     }) exitWith {};
 
     if (!isNull _currentLobl) then {
