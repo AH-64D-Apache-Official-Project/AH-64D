@@ -29,7 +29,9 @@ _seekerStateParams params [
     "_doesntHaveTarget",
     "_targetType",
     ["_cachedSeekerAngle", -1],
-    ["_dbsOffset", [0, 0, 0]]
+    ["_dbsOffset", [0, 0, 0]],
+    ["_lastCmCheckTime", -1],
+    ["_lastDecoyTime", -1]
 ];
 
 private _resolvedSeekerAngle = [_seekerAngle, _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
@@ -50,11 +52,14 @@ if (!_isActive) then {
 #define ARH_TERMINAL_RANGE   300
 
 private _target = objNull;
+private _canReacquire = (CBA_missionTime - _lastDecoyTime) >= RF_REACQUIRE_DELAY;
 
 // Direct-track
-if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
+if (_canReacquire && {([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1}) then {
     _target = _lastTarget;
 } else {
+    if (!_canReacquire) exitWith {};
+
     private _distMissileToSearch = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
 
     if (_distMissileToSearch > ARH_TERMINAL_RANGE && _calculatedSearchPos isNotEqualTo [0, 0, 0]) then {
@@ -115,16 +120,25 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
 
 if !(isNull _target) then {// Chaff defeat check
     private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
-    private _chaffNearby = nearestObjects [_target, ["Ammo"], 50] select {
-        (([getNumber (configOf _x >> "weaponLockSystem"), 4] call BIS_fnc_binarizeNumber) select 3) == 1
-        && { ([_projectile, [getPosASL _x, 0, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1 }
-        && { lineIntersectsSurfaces [getPosASLVisual _projectile, getPosASLVisual _x, _projectile, _x] isEqualTo [] }
-    };
-    private _chaffDefeated = _chaffNearby findIf { random 1 < (0.2 * _chaffCoef) } != -1;
+    if ((CBA_missionTime - _lastCmCheckTime) >= RF_CM_CHECK_INTERVAL_SEEKER) then {
+        _seekerStateParams set [11, CBA_missionTime];
 
-    if (_chaffDefeated) then {
-        _target = objNull;
-        _seekerStateParams set [7, true];
+        private _chaffNearby = _target nearObjects RF_CM_CHECK_RADIUS;
+        _chaffNearby = _chaffNearby select {
+            (([getNumber (configOf _x >> "weaponLockSystem"), 4] call ace_common_fnc_binarizeNumber) select 3)
+            && { [_projectile, getPosASLVisual _x, _resolvedSeekerAngle] call fza_hellfire_fnc_isTargetInSeekerCone }
+            && { [_projectile, _x, false] call ace_missileguidance_fnc_checkLos }
+        };
+        private _perChaffChance = (RF_CM_PER_CHAFF_CHANCE * _chaffCoef) max 0 min 0.95;
+        private _chaffCount = count _chaffNearby;
+        private _combinedChance = 1 - ((1 - _perChaffChance) ^ _chaffCount);
+        private _chaffDefeated = _chaffCount > 0 && { random 1 < _combinedChance };
+
+        if (_chaffDefeated) then {
+            _target = objNull;
+            _seekerStateParams set [7, true];
+            _seekerStateParams set [12, CBA_missionTime];
+        };
     };
 };
 
@@ -147,7 +161,7 @@ if !(isNull _target) then {
 
     _launchParams set [0, _target];
 
-    // Notify AI of incoming radar lock — triggers evasive behaviour.
+    // Publish active missile lock to vanilla threat systems.
     _projectile setMissileTarget _target;
 
     if (_timestep > 0) then {
