@@ -9,7 +9,7 @@ Parameters:
 Returns:
     Nothing
 Author:
-    GitHub Copilot
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

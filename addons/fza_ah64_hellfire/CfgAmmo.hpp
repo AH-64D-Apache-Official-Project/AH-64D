@@ -84,8 +84,8 @@ class CfgAmmo {
         class ace_missileguidance: ace_missileguidance {
             enabled = 1;
 
-            pitchRate = 25;
-            yawRate = 25;
+            pitchRate = 18;
+            yawRate = 18;
             seekerAngle = 60;
 
             defaultSeekerType = "fza_SALH";

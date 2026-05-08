@@ -102,6 +102,11 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
 if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _attackProfile = "hellfire";
     _isActive      = true;
+
+    private _atkProfileState = _stateParams # 2;
+    _atkProfileState pushBack 4;
+    _atkProfileState pushBack 0;
+    _atkProfileState pushBack [getPosASL _projectile select 2, 0];
 };
 
 [_heli] call fza_fcr_fnc_cycleNTS;
@@ -123,31 +128,9 @@ _launchParams set [3, _attackProfile];
 _launchParams set [0, _targObj];
 
 // Shot-at file
-_fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-private _unitType   = "UNK";
-private _unitStatus = "LOAL";
-
-if (_fcrData isNotEqualTo [] && _handoffSource == "FCR") then {
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN:    { _unitType = "UNK";   };
-        case FCR_TYPE_WHEELED:    { _unitType = "WHEEL"; };
-        case FCR_TYPE_HELICOPTER: { _unitType = "HELI";  };
-        case FCR_TYPE_FLYER:      { _unitType = "FLYER"; };
-        case FCR_TYPE_TRACKED:    { _unitType = "TRACK"; };
-        case FCR_TYPE_ADU:        { _unitType = "ADU";   };
-    };
-
-    if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-    };
+private _shotFcrData = [];
+if (_handoffSource == "FCR") then {
+    _shotFcrData = _fcrData;
 };
 
-private _ident = ["FCR", _unitType, _unitStatus] joinString "_";
-[_heli, _ident, [dayTime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_dms_fnc_addShotRF;
+[_heli, "", [dayTime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos, _shotFcrData] call fza_dms_fnc_addShotRF;
