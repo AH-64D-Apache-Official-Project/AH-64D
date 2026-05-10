@@ -29,7 +29,7 @@ params ["_heli"];
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
-private _weaponWas      = _heli getVariable "fza_ah64_was";
+private _weaponWas      = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _ntsPosition    = (_heli getVariable "fza_ah64_fcrNts")#1;
 private _headsdown      = (cameraView == "GUNNER" && player == gunner _heli);
 private _a3ti_vis       = call A3TI_fnc_getA3TIVision;
@@ -304,7 +304,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 
 if !_acBusOn then {
-    [_heli] call fza_fnc_laserDisarm;
+    [_heli] call fza_weapons_fnc_laserDisarm;
 };
 
 _autohide = {
@@ -455,7 +455,7 @@ if (_weaponWas == WAS_WEAPON_RKT) then {
     private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
     private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
     private _rocketcode = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_shortCode");
-    private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+    private _rocketInventory = [_heli] call fza_weapons_fnc_RocketInventory;
     private _rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
     if (_rocketInvIndex != -1) then {
         (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"];
@@ -507,8 +507,13 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
-    _safemessage = _heli getVariable "fza_ah64_weaponInhibited";
+private _gunInhibited = _heli getVariable "fza_ah64_gunInhibited";
+private _rktInhibited = _heli getVariable "fza_ah64_rocketInhibit";
+if (_weaponWas == WAS_WEAPON_GUN && _gunInhibited != "") then {
+    _safemessage = _gunInhibited;
+};
+if (_weaponWas == WAS_WEAPON_RKT && _rktInhibited != "") then {
+    _safemessage = _rktInhibited;
 };
 
 //SET NUMBERS AND IDC
@@ -527,7 +532,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 };
 
 private _curTurret = [_heli] call fza_fnc_currentTurret;
-private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
+private _curAcq = [_heli, _curTurret] call fza_sights_fnc_targetingCurAcq;
 
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetText _speedkts;
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetText _radaltft;
@@ -543,7 +548,7 @@ private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 
 private _cuedLosCtrl = (uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 132;
 
-private _cuedLosPos = worldToScreen ASLToAGL (AGLToASL positionCameraToWorld [0,0,0] vectorAdd ([_heli, _curAcq] call fza_fnc_targetingAcqVec));
+private _cuedLosPos = worldToScreen ASLToAGL (AGLToASL positionCameraToWorld [0,0,0] vectorAdd ([_heli, _curAcq] call fza_sights_fnc_targetingAcqVec));
 if (_cuedLosPos isEqualTo []) then {
     _cuedLosPos = [-100, -100];
 };

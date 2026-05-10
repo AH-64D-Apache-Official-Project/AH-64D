@@ -1,16 +1,18 @@
 class CfgAmmo {
     class B_30mm_HE;
     class fza_30x113: B_30mm_HE {
+        timeToLive= 10;
+        
         //Ace Cfg
         ACE_caliber = 30.00;
         ACE_bulletLength = 104;
         ACE_bulletMass = 234;
         ACE_muzzleVelocityVariationSD = 0.37;
         ACE_ammoTempMuzzleVelocityShifts[] = {-27.20, -26.44, -23.76, -21.00, -17.54, -13.10, -7.95, -1.62, 6.24, 15.48, 27.75};
-        ACE_ballisticCoefficients[] = {0.151};
+        ACE_ballisticCoefficients[] = {};
         ACE_velocityBoundaries[]={};
         ACE_standardAtmosphere = "ICAO";
-        ACE_dragModel = 1;
+        ACE_dragModel = 0;
         ACE_muzzleVelocities[] = {805};
         ACE_barrelLengths[] = {1676};
         ace_vehicle_damage_incendiary = 0.7;

@@ -10,7 +10,7 @@ class CfgWeapons {
         showAimCursorInternal = 0;
         magazines[]         ={"fza_m230_300","fza_m230_1200"};
         canLock             = 1;
-        ballisticsComputer  = "1 + 16";
+        ballisticsComputer  = 1 + 16;
         FCSZeroingDelay     = 0;
         maxZeroing          = 4200;
         aiDispersionCoefY   = 0.5;
@@ -62,6 +62,7 @@ class CfgWeapons {
             midRangeProbab = 0.01;
             maxRange = 2;
             maxRangeProbab = 0.01;
+            showToPlayer = 0;
         };
         class close: manual
         {
@@ -129,9 +130,24 @@ class CfgWeapons {
         };
     };
     
-    class fza_cannon_limit: fza_m230{displayName="$STR_FZA_AH64_BURST_LIMIT";magazines[]={"fza_cannon_limit"};};
-    class fza_ma_safe: fza_cannon_limit{ displayName="$STR_FZA_AH64_MASTER_ARM_SAFE";magazines[]={"fza_safe"};};
-    class fza_gun_inhibit: fza_cannon_limit {displayName = "$STR_FZA_AH64_CANNON_INHIBIT";magazines[]={"fza_gun_inhibit"};};
-    class fza_hydra_limit: fza_cannon_limit {displayName = "$STR_FZA_AH64_SALVO_LIMIT";magazines[]={"fza_hydra_limit"};};
-    class fza_pylon_inhibit: fza_cannon_limit {displayName = "$STR_FZA_AH64_PYLON_INHIBIT";magazines[]={"fza_pylon_inhibit"};};
+    class fza_ah64_trigger: fza_m230{
+        displayName="";
+        magazines[]={"fza_trigger"};
+        class GunParticles {};
+        class manual: CannonCore {
+            displayName="$STR_FZA_AH64_M230_E1";
+            autoFire = 0;
+            textureType = "fullAuto";
+            sounds[] = {"StandardSound"};
+            class StandardSound 
+            {
+                soundSetShot[] = {""};
+            };
+            soundContinuous = 0;
+            soundBurst = 0;
+            reloadTime = 0.109;
+            dispersion = 0.006;
+            showToPlayer = 0;
+        };
+    };
 };

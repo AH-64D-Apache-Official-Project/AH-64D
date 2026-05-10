@@ -23,4 +23,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_key", "_value", "_seat", "_swap"];
 
-_heli setVariable [format["%1_%2", _key, [_heli, _seat, _swap] call fza_fnc_getSeat], _value];
+_heli setVariable [format["%1_%2", _key, [_heli, _seat, _swap] call fza_fnc_getSeat], _value, true];

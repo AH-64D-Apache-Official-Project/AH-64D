@@ -79,8 +79,8 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
 
 //Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;
-private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
-private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqVec;
+private _currentAcq = [_heli, _curTurret] call fza_sights_fnc_targetingCurAcq;
+private _acqVector = [_heli, _currentAcq] call fza_sights_fnc_targetingAcqVec;
 private _acqVector = _heli vectorWorldToModelVisual _acqVector;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
 private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
@@ -105,7 +105,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
 //Weapon Control
-private _wasState = _heli getVariable "fza_ah64_was";
+private _wasState = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _mslTraj  = _heli getVariable "fza_ah64_hellfireTrajectory";
 private _wpnCtrl  = "";
 private _wpnStat  = "";
