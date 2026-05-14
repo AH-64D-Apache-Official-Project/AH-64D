@@ -535,17 +535,17 @@ if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
 
-//Auxilary Fuel tanks 
-if ((["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) && _auxTank1FuelMass < 25) then {
+//Auxilary Fuel tanks
+if (("auxTank" in (_pylonMagazines select 0))  && _auxTank1FuelMass < 25 && (_heli getVariable ["fza_fuel_ext1EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 1 EMPTY", "EXT1 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) && _auxTank2FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 4))  && _auxTank2FuelMass < 25 && (_heli getVariable ["fza_fuel_ext2EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 2 EMPTY", "EXT2 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) && _auxTank3FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 8))  && _auxTank3FuelMass < 25 && (_heli getVariable ["fza_fuel_ext3EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 3 EMPTY", "EXT3 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 12)) && _auxTank4FuelMass < 25 && (_heli getVariable ["fza_fuel_ext4EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 4 EMPTY", "EXT4 EMPTY"];
 };
 

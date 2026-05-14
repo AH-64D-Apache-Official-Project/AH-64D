@@ -29,17 +29,6 @@ Author:
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli"];
 
-// Threshold constants (kg)
-#define XFER_RATE_KGS       0.378   // ~50 lb/min pump transfer rate
-#define AUTO_FILL_THRESH_KG 369.0   // ~814 lb (Table 2-6 AUTO trigger)
-#define AUTO_FWD_MIN_SRC_KG 127.0   // ~280 lb min FWD source for AUTO TO AFT
-#define AUTO_SPLIT_STOP_KG  9.1     // ~20 lb
-#define AUTO_SPLIT_50_KG     22.7    // ~50 lb
-#define AUTO_SPLIT_100_KG    45.4    // ~100 lb
-#define AUTO_500_KG          226.8   // ~500 lb
-#define TANK_LEAK_START_DMG   0.50
-#define TANK_LEAK_MAX_RATE_KGS 0.0168  // ~133.3 lb/hr per tank; ~400 lb/hr total for 3 tanks at full damage
-
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 if (_deltaTime <= 0) exitWith {};
 
@@ -358,3 +347,19 @@ _heli setVariable ["fza_sfmplus_stn2FuelMass", _stn2FuelMass];
 _heli setVariable ["fza_sfmplus_stn3FuelMass", _stn3FuelMass];
 _heli setVariable ["fza_sfmplus_stn4FuelMass", _stn4FuelMass];
 _heli setVariable ["fza_sfmplus_totFuelMass",  _totFuelMass];
+
+private _fuelPageOpen = ("fuel" in (_heli getVariable ["fza_mpd_page_plt", ""]))
+                     || ("fuel" in (_heli getVariable ["fza_mpd_page_cpg", ""]));
+{
+    _x params ["_present", "_mass", "_var"];
+    if (!_present || _mass >= EXT_EMPTY_ADV_THRESH_KG) then {
+        _heli setVariable [_var, true];
+    } else {
+        if (_fuelPageOpen) then { _heli setVariable [_var, false]; };
+    };
+} forEach [
+    [_stn1HasTank, _stn1FuelMass, "fza_fuel_ext1EmptyArmed"],
+    [_stn2HasTank, _stn2FuelMass, "fza_fuel_ext2EmptyArmed"],
+    [_stn3HasTank, _stn3FuelMass, "fza_fuel_ext3EmptyArmed"],
+    [_stn4HasTank, _stn4FuelMass, "fza_fuel_ext4EmptyArmed"]
+];

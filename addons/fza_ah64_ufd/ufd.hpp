@@ -50,19 +50,16 @@ class Draw
             right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
             down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
         };
-        class FuelIAFSInstalled {
-            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED),0));
-            class Fuel
-            {
-                type = "text";
-                scale=1;
-                align="right";
-                source = "userText";
-                sourceIndex = 10;
-                pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
-                right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
-                down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
-            };
+        class Fuel
+        {
+            type = "text";
+            scale=1;
+            align="right";
+            source = "userText";
+            sourceIndex = 10;
+            pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
+            right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
+            down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
         };
         class Time : Line9
         {

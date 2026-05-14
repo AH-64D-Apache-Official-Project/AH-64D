@@ -1,5 +1,6 @@
 params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 [_heli] call fza_mpd_fnc_fuelGetData params [ "_forwardCellWeight"
                                             , "_ctrFuelWeight"
