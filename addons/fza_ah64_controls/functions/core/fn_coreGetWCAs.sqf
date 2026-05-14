@@ -33,6 +33,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
 #include "\fza_ah64_ase\headers\ase.h"
 
 params ["_heli"];

@@ -1,4 +1,5 @@
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
 params ["_heli"];
 
 private _fwdCellWeight       = _heli getVariable "fza_sfmplus_fwdFuelMass";

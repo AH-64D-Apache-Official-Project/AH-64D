@@ -26,7 +26,7 @@ Returns:
 Author:
     BradMick / FZA Development Team
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
 params ["_heli"];
 
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
