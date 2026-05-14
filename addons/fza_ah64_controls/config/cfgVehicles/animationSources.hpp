@@ -1,5 +1,24 @@
 class AnimationSources
 {
+    ////////CONTROLS///////
+    class plt_cyclic_pitch
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_cyclic_bank
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_collective
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
     ////////RADAR///////
     class fcr_enable
     {

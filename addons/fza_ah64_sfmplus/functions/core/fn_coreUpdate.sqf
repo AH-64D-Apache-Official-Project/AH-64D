@@ -66,6 +66,11 @@ if (isAutoHoverOn _heli) then {
 //Damage
 [_heli] call fza_sfmplus_fnc_damageApply;
 
+//Controls animation
+[_heli, "plt_cyclic_pitch", (_heli getVariable ["fza_sfmplus_cyclicFwdAft", 0]), 1]    call fza_fnc_updateAnimations;
+[_heli, "plt_cyclic_bank",  (_heli getVariable ["fza_sfmplus_cyclicLeftRight", 0]), 1] call fza_fnc_updateAnimations;
+[_heli, "plt_collective",   (_heli getVariable ["fza_sfmplus_collectiveOutput", 0]), 1] call fza_fnc_updateAnimations;
+
 if !(isMultiplayer) then {
     [_heli] call fza_sfmplus_fnc_probes;
 };
