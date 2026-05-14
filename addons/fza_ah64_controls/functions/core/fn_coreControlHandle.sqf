@@ -319,9 +319,14 @@ if !(_value) then {
             _heli setVariable ["fza_sfmplus_kbStickyInterupt", false];
         };
         case "fza_ah64_forceTrimPanicButton": {
+            // Reset force-trim reference positions
             _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
-            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];   
-            _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];  
+            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
+            _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
+            // Reset keyboard sticky input accumulated values to centre
+            _heli setVariable ["fza_sfmplus_cyclicPitchValue", 0.0];
+            _heli setVariable ["fza_sfmplus_cyclicRollValue",  0.0];
+            _heli setVariable ["fza_sfmplus_pedalYawValue",    0.0];
         };
     };
 };

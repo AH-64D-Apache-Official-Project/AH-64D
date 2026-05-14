@@ -30,6 +30,15 @@ class vname {\
     onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
 }
 
+// Direct-call action (calls named function directly, no coreControlHandle routing)
+#define CfgUserActionDirectDef(vname, vdisplayName, vtooltip, vfunc) \
+class vname {\
+    displayName  = vdisplayName;\
+    tooltip      = vtooltip;\
+    onActivate   = vfunc;\
+    onDeactivate = "";\
+}
+
 class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectHMD,"$STR_FZA_AH64_SIGHT_SELECT_HMD","$STR_FZA_AH64_SIGHT_SELECT_HMD_INFO");
     CfgUserActionDef(fza_ah64_sightSelectTADS,"$STR_FZA_AH64_SIGHT_SELECT_TADS","$STR_FZA_AH64_SIGHT_SELECT_TADS_INFO");
@@ -73,5 +82,7 @@ class CfgUserActions {
     CfgUserAnalogDef(fza_ah64_collectiveDn,"$STR_FZA_AH64_COLLECTIVE_DN","$STR_FZA_AH64_COLLECTIVE_DN");
     CfgUserNonAnalogDef(fza_ah64_kbCollectiveUp,"$STR_FZA_AH64_KB_COLLECTIVE_UP","$STR_FZA_AH64_KB_COLLECTIVE_UP");
     CfgUserNonAnalogDef(fza_ah64_kbCollectiveDn,"$STR_FZA_AH64_KB_COLLECTIVE_DN","$STR_FZA_AH64_KB_COLLECTIVE_DN");
+    CfgUserActionDirectDef(fza_ah64_ctrlVisToggle,"$STR_FZA_AH64_CTRLVIS_TOGGLE","$STR_FZA_AH64_CTRLVIS_TOGGLE_INFO","[] call fza_fnc_ctrlVisToggle");
+
     #include "\fza_ah64_controls\headers\controls.hpp"
 };

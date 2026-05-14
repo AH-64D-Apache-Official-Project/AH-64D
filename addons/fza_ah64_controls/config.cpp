@@ -38,6 +38,9 @@ class SensorTemplateLaser;
 #include "config\CfgDefaultKeysPresets.hpp"
 
 #include "config\CfgVideoOptions.hpp"
+
+// Control Input Visualiser UI
+#include "uiConfig\RscCtrlVis.hpp"
 #include "config\CfgUi.hpp"
 
 #include "config\CfgSettings.hpp"
