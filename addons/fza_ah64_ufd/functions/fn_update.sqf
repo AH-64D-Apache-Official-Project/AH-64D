@@ -23,6 +23,12 @@ if (!(isNil "fza_ah64_noufd")) exitWith {};
 if (cba_missiontime <= 0) exitWith {};
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
+// Per-frame: clear this seat's CHECK-active var when not on the fuel page
+// (draw sets it to true when CHECK sub-format is open; this clears it on nav away)
+private _checkSeatVar = ["fza_fuel_checkActiveCpg", "fza_fuel_checkActivePlt"] select (player == driver _heli);
+private _fuelOpen = ("fuel" in ([_heli, 0] call fza_mpd_fnc_currentPage)) || ("fuel" in ([_heli, 1] call fza_mpd_fnc_currentPage));
+if (!_fuelOpen) then { [_heli, _checkSeatVar, false] call fza_fnc_updateNetworkGlobal; };
+
 ///end gunner weapon damage//
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
@@ -126,6 +132,17 @@ if (_battBusOn || _dcBusOn) then {
     } else {
         _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)];
     };
+
+    private _ufdTotalFuelLbs = (
+          (_heli getVariable ["fza_sfmplus_fwdFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_aftFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_ctrFuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn1FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn2FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn3FuelMass", 0])
+        + (_heli getVariable ["fza_sfmplus_stn4FuelMass", 0])
+    ) * 2.20462;
+    _heli setUserMFDText [MFD_TEXT_IND_UFD_FUEL, str (round (_ufdTotalFuelLbs / 10) * 10)];
 } else {
     _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
 };

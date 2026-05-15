@@ -33,6 +33,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
 #include "\fza_ah64_ase\headers\ase.h"
 
 params ["_heli"];
@@ -112,6 +113,8 @@ private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
 private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
 private _pylonMagazines = getPylonMagazines _heli;
+private _fwdFuelMass = _heli getVariable ["fza_sfmplus_fwdFuelMass", 0];
+private _aftFuelMass = _heli getVariable ["fza_sfmplus_aftFuelMass", 0];
 private _auxTank1FuelMass = _heli getVariable "fza_sfmplus_stn1FuelMass";
 private _auxTank2FuelMass = _heli getVariable "fza_sfmplus_stn2FuelMass";
 private _auxTank3FuelMass = _heli getVariable "fza_sfmplus_stn3FuelMass";
@@ -353,20 +356,18 @@ if (_xmsnDamage >= 0.75) then {
 } else {
     [_activeCaut, "XMSN CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
-//--Fuel
-if (fuel _heli < 0.05) then {
+//--Fuel low cautions
+if (_fwdFuelMass < FWD_FUEL_LOW_VAL_KG) then {
     ([_heli, _activeCaut, "FORWARD FUEL LOW", "FWD FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
-
     _playCautAudio = _playAudio;
     _wcas pushBack _wcaAddCaution;
 } else {
     [_activeCaut, "FWD FUEL LO"] call fza_wca_fnc_wcaDelCaution;
 };
-if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
+if (_aftFuelMass < AFT_FUEL_LOW_VAL_KG) then {
     ([_heli, _activeCaut, "AFT FUEL LOW", "AFT FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
-
     _playCautAudio = _playAudio;
     _wcas pushBack _wcaAddCaution;
 } else {
@@ -535,17 +536,17 @@ if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
 
-//Auxilary Fuel tanks 
-if ((["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) && _auxTank1FuelMass < 25) then {
+//Auxilary Fuel tanks
+if (("auxTank" in (_pylonMagazines select 0))  && _auxTank1FuelMass < 25 && (_heli getVariable ["fza_fuel_ext1EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 1 EMPTY", "EXT1 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) && _auxTank2FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 4))  && _auxTank2FuelMass < 25 && (_heli getVariable ["fza_fuel_ext2EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 2 EMPTY", "EXT2 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) && _auxTank3FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 8))  && _auxTank3FuelMass < 25 && (_heli getVariable ["fza_fuel_ext3EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 3 EMPTY", "EXT3 EMPTY"];
 };
-if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4FuelMass < 25) then {
+if (("auxTank" in (_pylonMagazines select 12)) && _auxTank4FuelMass < 25 && (_heli getVariable ["fza_fuel_ext4EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 4 EMPTY", "EXT4 EMPTY"];
 };
 
@@ -560,5 +561,7 @@ if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptAprch#1) then {
 if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptPassed) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT PASSED", "WPT PASSED"];
 };
-
+if (_heli getVariable ["fza_fuel_checkPendingAdvisory", false]) then {
+    _wcas pushBack [WCA_ADVISORY, "FUEL CHECK", "FUEL CHECK"];
+};
 _wcas;

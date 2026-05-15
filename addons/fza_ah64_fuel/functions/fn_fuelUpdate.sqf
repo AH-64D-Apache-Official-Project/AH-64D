@@ -1,0 +1,369 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fuel_fnc_fuelUpdate
+
+Description:
+    Updates fuel cell masses each tick. Handles independent cell draw based on
+    crossfeed valve position, XFER pump logic, IAFS gravity feed, and external
+    tank transfer with outer/inner pressurisation dependency.
+
+    Crossfeed NORM:  Eng1 draws from FWD, Eng2 draws from AFT.
+    Crossfeed FWD:   Both engines draw from FWD.
+    Crossfeed AFT:   Both engines draw from AFT.
+
+    APU fuel source: Always AFT cell (independent of crossfeed selection).
+
+    External transfer (pressurised air):
+      stn2 (inner L) and stn3 (inner R) transfer independently.
+      stn1 (outer L) requires stn2 to be present.
+      stn4 (outer R) requires stn3 to be present.
+
+Parameters:
+    _heli - The helicopter to update [Unit].
+
+Returns:
+    None
+
+Author:
+    BradMick / FZA Development Team
+---------------------------------------------------------------------------- */
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
+params ["_heli"];
+
+private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
+if (_deltaTime <= 0) exitWith {};
+
+private _IAFSInstalled = _heli getVariable "fza_ah64_IAFSInstalled";
+if (isNil "_IAFSInstalled") exitWith {};
+
+private _maxFwdFuelMass = _heli getVariable "fza_sfmplus_maxFwdFuelMass";
+private _maxCtrFuelMass = _heli getVariable "fza_sfmplus_maxCtrFuelMass";
+private _maxAftFuelMass = _heli getVariable "fza_sfmplus_maxAftFuelMass";
+private _maxTnkFuelMass = _heli getVariable "fza_sfmplus_maxExtFuelMass";
+private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
+if (_maxTotFuelMass <= 0) exitWith {};
+
+// If Arma fuel was changed externally (e.g. editor/trigger script), resync
+// internal tank masses so subsequent simulation ticks stay consistent.
+private _armaFuelFrac = fuel _heli;
+private _storedTotFuelMass = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
+private _storedFuelFrac = if (_maxTotFuelMass > 0) then { _storedTotFuelMass / _maxTotFuelMass } else { 0 };
+if (abs (_armaFuelFrac - _storedFuelFrac) > 0.01) then {
+    [_heli] call fza_fuel_fnc_fuelSet;
+    _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
+};
+
+// Current cell masses
+private _fwdFuelMass  = _heli getVariable "fza_sfmplus_fwdFuelMass";
+private _ctrFuelMass  = _heli getVariable "fza_sfmplus_ctrFuelMass";
+private _aftFuelMass  = _heli getVariable "fza_sfmplus_aftFuelMass";
+private _stn1FuelMass = _heli getVariable "fza_sfmplus_stn1FuelMass";
+private _stn2FuelMass = _heli getVariable "fza_sfmplus_stn2FuelMass";
+private _stn3FuelMass = _heli getVariable "fza_sfmplus_stn3FuelMass";
+private _stn4FuelMass = _heli getVariable "fza_sfmplus_stn4FuelMass";
+
+// Fuel flow
+private _apuFF_kgs  = _heli getVariable "fza_systems_apuFF_kgs";
+private _engFF      = _heli getVariable "fza_sfmplus_engFF";
+private _eng1FF_kgs = _engFF select 0;
+private _eng2FF_kgs = _engFF select 1;
+
+private _engState = _heli getVariable "fza_sfmplus_engState";
+private _eng1On   = (_engState select 0) == "ON";
+private _eng2On   = (_engState select 1) == "ON";
+
+// Crossfeed draw — source-based with starvation
+private _crossfeedMode = _heli getVariable ["fza_fuel_crossfeedMode", "NORM"];
+
+private _eng1Req = if (_eng1On) then { _eng1FF_kgs * _deltaTime } else { 0 };
+private _eng2Req = if (_eng2On) then { _eng2FF_kgs * _deltaTime } else { 0 };
+private _apuReq  = _apuFF_kgs * _deltaTime;
+
+private _eng1Source = switch (_crossfeedMode) do {
+    case "FWD": { "FWD" };
+    case "AFT": { "AFT" };
+    default     { "FWD" }; // NORM
+};
+private _eng2Source = switch (_crossfeedMode) do {
+    case "FWD": { "FWD" };
+    case "AFT": { "AFT" };
+    default     { "AFT" }; // NORM
+};
+
+private _fwdReq = 0;
+private _aftReq = _apuReq; // APU always draws from AFT
+if (_eng1Source == "FWD") then { _fwdReq = _fwdReq + _eng1Req; } else { _aftReq = _aftReq + _eng1Req; };
+if (_eng2Source == "FWD") then { _fwdReq = _fwdReq + _eng2Req; } else { _aftReq = _aftReq + _eng2Req; };
+
+private _fwdFuelBefore = _fwdFuelMass;
+private _aftFuelBefore = _aftFuelMass;
+
+private _fwdDraw = _fwdReq min _fwdFuelMass;
+private _aftDraw = _aftReq min _aftFuelMass;
+
+_fwdFuelMass = (_fwdFuelMass - _fwdDraw) max 0;
+_aftFuelMass = (_aftFuelMass - _aftDraw) max 0;
+
+private _eps = 0.0001;
+private _fwdFuelAvailLastFrame = _fwdFuelBefore > _eps;
+private _aftFuelAvailLastFrame = _aftFuelBefore > _eps;
+
+// XFER pump — Table 2-6 logic
+private _xferStep   = XFER_RATE_KGS * _deltaTime;
+private _fwdLow     = _fwdFuelMass < FWD_FUEL_LOW_VAL_KG;
+private _aftLow     = _aftFuelMass < AFT_FUEL_LOW_VAL_KG;
+private _apuOn      = _heli getVariable ["fza_systems_apuOn", false];
+private _engBleedOn = _eng1On || _eng2On;
+private _airAvail   = _apuOn || _engBleedOn;
+private _xferMode   = _heli getVariable ["fza_fuel_xferMode", "OFF"];
+private _intercellTransferActive = false;
+private _intercellTransferDir = 0;
+
+private _doFwdToAft = false;
+private _doAftToFwd = false;
+
+switch (_xferMode) do {
+    case "AFT": {
+        if (_fwdFuelMass > _xferStep && _aftFuelMass < _maxAftFuelMass) then {
+            _doFwdToAft = true;
+        };
+    };
+    case "FWD": {
+        if (_aftFuelMass > _xferStep && _fwdFuelMass < _maxFwdFuelMass) then {
+            _doAftToFwd = true;
+        };
+    };
+    case "AUTO": {
+        private _aftMinusFwd = _aftFuelMass - _fwdFuelMass;
+        private _fwdMinusAft = _fwdFuelMass - _aftFuelMass;
+
+        private _aftLeadEnough = if (_aftFuelMass > AUTO_500_KG) then {
+            _aftMinusFwd > AUTO_SPLIT_100_KG
+        } else {
+            _aftMinusFwd > AUTO_SPLIT_50_KG
+        };
+        private _fwdLeadEnough = if (_fwdFuelMass > AUTO_500_KG) then {
+            _fwdMinusAft > AUTO_SPLIT_100_KG
+        } else {
+            _fwdMinusAft > AUTO_SPLIT_50_KG
+        };
+
+        // AUTO: AFT → FWD
+        if ((_eng1On || _eng2On)
+                && _airAvail
+                && (_fwdFuelMass < AUTO_FILL_THRESH_KG)
+                && !_aftLow
+                && (_aftFuelMass > FWD_FUEL_LOW_VAL_KG)
+                && _aftLeadEnough
+                // HALT guards
+                && (_aftMinusFwd >= AUTO_SPLIT_STOP_KG) && (_fwdFuelMass < (_maxFwdFuelMass - 0.1))) then {
+            _doAftToFwd = true;
+        };
+
+        // AUTO: FWD → AFT
+        if (_eng1On && _eng2On
+                && _airAvail
+                && (_aftFuelMass < AUTO_FILL_THRESH_KG)
+                && !_fwdLow
+                && (_fwdFuelMass > AUTO_FWD_MIN_SRC_KG)
+                && _fwdLeadEnough
+                // HALT guards
+                && (_fwdMinusAft >= AUTO_SPLIT_STOP_KG)) then {
+            _doFwdToAft = true;
+        };
+
+        if (!_airAvail) then {
+            _doAftToFwd = false;
+            _doFwdToAft = false;
+        };
+    };
+};
+
+if (_doFwdToAft) then {
+    private _amt = _fwdFuelMass min _xferStep min (_maxAftFuelMass - _aftFuelMass);
+    _fwdFuelMass = _fwdFuelMass - _amt;
+    _aftFuelMass = _aftFuelMass + _amt;
+    if (_amt > 0) then {
+        _intercellTransferActive = true;
+        _intercellTransferDir = 1; // FWD -> AFT (down)
+    };
+};
+if (_doAftToFwd) then {
+    private _amt = _aftFuelMass min _xferStep min (_maxFwdFuelMass - _fwdFuelMass);
+    _aftFuelMass = _aftFuelMass - _amt;
+    _fwdFuelMass = _fwdFuelMass + _amt;
+    if (_amt > 0) then {
+        _intercellTransferActive = true;
+        _intercellTransferDir = 2; // AFT -> FWD (up)
+    };
+};
+
+// IAFS gravity feed — inhibited while any aux tank is transferring
+private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
+private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
+
+private _anyAuxTransferring = (_lAuxOn && (_stn1FuelMass > 4.5 || _stn2FuelMass > 4.5)) || (_rAuxOn && (_stn3FuelMass > 4.5 || _stn4FuelMass > 4.5));
+
+private _iafsAftFlowing = false;
+private _iafsFwdFlowing = false;
+if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false]) && !_anyAuxTransferring) then {
+    if (_ctrFuelMass > 0 && _aftFuelMass < _maxAftFuelMass) then {
+        private _iafsFlow = _xferStep min _ctrFuelMass min (_maxAftFuelMass - _aftFuelMass);
+        _ctrFuelMass = _ctrFuelMass - _iafsFlow;
+        _aftFuelMass = _aftFuelMass + _iafsFlow;
+        if (_iafsFlow > 0) then { _iafsAftFlowing = true; };
+    };
+    if (_ctrFuelMass > 0 && _fwdFuelMass < _maxFwdFuelMass) then {
+        private _iafsFlow = _xferStep min _ctrFuelMass min (_maxFwdFuelMass - _fwdFuelMass);
+        _ctrFuelMass = _ctrFuelMass - _iafsFlow;
+        _fwdFuelMass = _fwdFuelMass + _iafsFlow;
+        if (_iafsFlow > 0) then { _iafsFwdFlowing = true; };
+    };
+    // Auto-shutoff: turn off IAFS switch when CTR tank is empty
+    if (_ctrFuelMass <= 0) then {
+        _heli setVariable ["fza_ah64_IAFSOn", false, true];
+    };
+};
+
+// Tank leaks — onset at 60% hitpoint damage, linear ramp to max rate
+private _fwdLeakDamage = (_heli getHitPointDamage "hit_fuel_forward") max 0;
+if (_fwdFuelMass > 0 && _fwdLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_fwdLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _fwdFuelMass;
+    _fwdFuelMass = _fwdFuelMass - _leakMass;
+};
+
+private _ctrLeakDamage = (_heli getHitPointDamage "hit_msnEquip_magandrobbie") max 0;
+if (_IAFSInstalled && _maxCtrFuelMass > 0 && _ctrFuelMass > 0 && _ctrLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_ctrLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _ctrFuelMass;
+    _ctrFuelMass = _ctrFuelMass - _leakMass;
+};
+
+private _aftLeakDamage = (_heli getHitPointDamage "hit_fuel_aft") max 0;
+if (_aftFuelMass > 0 && _aftLeakDamage > TANK_LEAK_START_DMG) then {
+    private _damageFrac = ((_aftLeakDamage - TANK_LEAK_START_DMG) / (1 - TANK_LEAK_START_DMG)) min 1;
+    private _leakMass = (TANK_LEAK_MAX_RATE_KGS * _damageFrac * _deltaTime) min _aftFuelMass;
+    _aftFuelMass = _aftFuelMass - _leakMass;
+};
+
+// External tank transfer — L aux → FWD, R aux → AFT; outer requires inner present
+private _pylonMagazines = getPylonMagazines _heli;
+private _stn1HasTank = ["auxTank", _pylonMagazines select 0]  call BIS_fnc_inString;
+private _stn2HasTank = ["auxTank", _pylonMagazines select 4]  call BIS_fnc_inString;
+private _stn3HasTank = ["auxTank", _pylonMagazines select 8]  call BIS_fnc_inString;
+private _stn4HasTank = ["auxTank", _pylonMagazines select 12] call BIS_fnc_inString;
+
+// Zero fuel for any station whose tank is gone (jettisoned or removed)
+if (!_stn1HasTank) then { _stn1FuelMass = 0; };
+if (!_stn2HasTank) then { _stn2FuelMass = 0; };
+if (!_stn3HasTank) then { _stn3FuelMass = 0; };
+if (!_stn4HasTank) then { _stn4FuelMass = 0; };
+
+private _fwdRoom = _maxFwdFuelMass - _fwdFuelMass;
+private _aftRoom = _maxAftFuelMass - _aftFuelMass;
+
+// Left side: inner-L (stn2) then outer-L (stn1, requires stn2 for pressurised air path) → FWD
+private _lAuxFlowTotal = 0;
+if (_stn2HasTank && _lAuxOn && _stn2FuelMass > 0 && _fwdRoom > 0) then {
+    private _flow = _xferStep min _stn2FuelMass min _fwdRoom;
+    _stn2FuelMass  = _stn2FuelMass - _flow;
+    _fwdFuelMass   = _fwdFuelMass  + _flow;
+    _fwdRoom       = _fwdRoom      - _flow;
+    _lAuxFlowTotal = _lAuxFlowTotal + _flow;
+};
+if (_stn1HasTank && _lAuxOn && _stn2HasTank && _stn1FuelMass > 0 && _fwdRoom > 0) then {
+    private _flow = _xferStep min _stn1FuelMass min _fwdRoom;
+    _stn1FuelMass  = _stn1FuelMass - _flow;
+    _fwdFuelMass   = _fwdFuelMass  + _flow;
+    _fwdRoom       = _fwdRoom      - _flow;
+    _lAuxFlowTotal = _lAuxFlowTotal + _flow;
+};
+// Right side: inner-R (stn3) then outer-R (stn4, requires stn3 for pressurised air path) → AFT
+private _rAuxFlowTotal = 0;
+if (_stn3HasTank && _rAuxOn && _stn3FuelMass > 0 && _aftRoom > 0) then {
+    private _flow = _xferStep min _stn3FuelMass min _aftRoom;
+    _stn3FuelMass  = _stn3FuelMass - _flow;
+    _aftFuelMass   = _aftFuelMass  + _flow;
+    _aftRoom       = _aftRoom      - _flow;
+    _rAuxFlowTotal = _rAuxFlowTotal + _flow;
+};
+if (_stn4HasTank && _rAuxOn && _stn3HasTank && _stn4FuelMass > 0 && _aftRoom > 0) then {
+    private _flow = _xferStep min _stn4FuelMass min _aftRoom;
+    _stn4FuelMass  = _stn4FuelMass - _flow;
+    _aftFuelMass   = _aftFuelMass  + _flow;
+    _rAuxFlowTotal = _rAuxFlowTotal + _flow;
+};
+
+private _lAuxFlowing = _lAuxFlowTotal > 0;
+private _rAuxFlowing = _rAuxFlowTotal > 0;
+
+// Clamp
+_fwdFuelMass  = 0 max _fwdFuelMass  min _maxFwdFuelMass;
+_aftFuelMass  = 0 max _aftFuelMass  min _maxAftFuelMass;
+_ctrFuelMass  = 0 max _ctrFuelMass  min _maxCtrFuelMass;
+_stn1FuelMass = 0 max _stn1FuelMass min _maxTnkFuelMass;
+_stn2FuelMass = 0 max _stn2FuelMass min _maxTnkFuelMass;
+_stn3FuelMass = 0 max _stn3FuelMass min _maxTnkFuelMass;
+_stn4FuelMass = 0 max _stn4FuelMass min _maxTnkFuelMass;
+
+private _eng1FuelAvail = (_eng1Req <= _eps) || ([_aftFuelAvailLastFrame, _fwdFuelAvailLastFrame] select (_eng1Source == "FWD"));
+private _eng2FuelAvail = (_eng2Req <= _eps) || ([_aftFuelAvailLastFrame, _fwdFuelAvailLastFrame] select (_eng2Source == "FWD"));
+private _apuFuelAvail  = (_apuReq  <= _eps) || _aftFuelAvailLastFrame;
+
+// 2-second starvation grace period
+private _eng1StarvedSince = _heli getVariable ["fza_fuel_eng1StarvedSince", -1];
+if (!_eng1FuelAvail) then {
+    if (_eng1StarvedSince < 0) then { _eng1StarvedSince = CBA_missionTime; _heli setVariable ["fza_fuel_eng1StarvedSince", _eng1StarvedSince]; };
+    _eng1FuelAvail = (CBA_missionTime - _eng1StarvedSince) < 2;
+} else { _heli setVariable ["fza_fuel_eng1StarvedSince", -1]; };
+
+private _eng2StarvedSince = _heli getVariable ["fza_fuel_eng2StarvedSince", -1];
+if (!_eng2FuelAvail) then {
+    if (_eng2StarvedSince < 0) then { _eng2StarvedSince = CBA_missionTime; _heli setVariable ["fza_fuel_eng2StarvedSince", _eng2StarvedSince]; };
+    _eng2FuelAvail = (CBA_missionTime - _eng2StarvedSince) < 2;
+} else { _heli setVariable ["fza_fuel_eng2StarvedSince", -1]; };
+
+[_heli, "fza_fuel_eng1FuelAvail", _eng1FuelAvail] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_fuel_eng2FuelAvail", _eng2FuelAvail] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_fuel_apuFuelAvail",  _apuFuelAvail]  call fza_fnc_updateNetworkGlobal;
+
+// Status flags
+_heli setVariable ["fza_fuel_intercellTransferActive", _intercellTransferActive];
+_heli setVariable ["fza_fuel_intercellTransferDir",    _intercellTransferDir];
+_heli setVariable ["fza_fuel_iafsFlowing",            _iafsAftFlowing || _iafsFwdFlowing];
+_heli setVariable ["fza_fuel_iafsAftFlowing",         _iafsAftFlowing];
+_heli setVariable ["fza_fuel_iafsFwdFlowing",         _iafsFwdFlowing];
+_heli setVariable ["fza_fuel_lAuxFlowing",            _lAuxFlowing];
+_heli setVariable ["fza_fuel_rAuxFlowing",            _rAuxFlowing];
+
+// Write back
+private _totFuelMass = _fwdFuelMass + _ctrFuelMass + _aftFuelMass
+                     + _stn1FuelMass + _stn2FuelMass + _stn3FuelMass + _stn4FuelMass;
+if (local _heli) then {
+    _heli setFuel (_totFuelMass / _maxTotFuelMass);
+};
+
+_heli setVariable ["fza_sfmplus_fwdFuelMass",  _fwdFuelMass];
+_heli setVariable ["fza_sfmplus_ctrFuelMass",  _ctrFuelMass];
+_heli setVariable ["fza_sfmplus_aftFuelMass",  _aftFuelMass];
+_heli setVariable ["fza_sfmplus_stn1FuelMass", _stn1FuelMass];
+_heli setVariable ["fza_sfmplus_stn2FuelMass", _stn2FuelMass];
+_heli setVariable ["fza_sfmplus_stn3FuelMass", _stn3FuelMass];
+_heli setVariable ["fza_sfmplus_stn4FuelMass", _stn4FuelMass];
+_heli setVariable ["fza_sfmplus_totFuelMass",  _totFuelMass];
+
+private _fuelPageOpen = ("fuel" in (_heli getVariable ["fza_mpd_page_plt", ""]))
+                     || ("fuel" in (_heli getVariable ["fza_mpd_page_cpg", ""]));
+{
+    _x params ["_present", "_mass", "_var"];
+    if (!_present || _mass >= EXT_EMPTY_ADV_THRESH_KG) then {
+        _heli setVariable [_var, true];
+    } else {
+        if (_fuelPageOpen) then { _heli setVariable [_var, false]; };
+    };
+} forEach [
+    [_stn1HasTank, _stn1FuelMass, "fza_fuel_ext1EmptyArmed"],
+    [_stn2HasTank, _stn2FuelMass, "fza_fuel_ext2EmptyArmed"],
+    [_stn3HasTank, _stn3FuelMass, "fza_fuel_ext3EmptyArmed"],
+    [_stn4HasTank, _stn4FuelMass, "fza_fuel_ext4EmptyArmed"]
+];

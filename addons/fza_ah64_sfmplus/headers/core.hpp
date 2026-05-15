@@ -25,6 +25,7 @@
 #define MIN_THRUST              1
 #define FEET_TO_METERS          0.3048
 #define METERS_TO_FEET          3.28084
+#define KG_TO_LBS               2.20462
 #define MPS_TO_KNOTS            1.94384
 #define MPS_TO_FPM              196.85
 #define FPM_TO_MPS              0.00508
