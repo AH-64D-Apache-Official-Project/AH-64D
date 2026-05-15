@@ -66,32 +66,6 @@ if (isAutoHoverOn _heli) then {
 //Damage
 [_heli] call fza_sfmplus_fnc_damageApply;
 
-//Controls animation – effective cyclic replicates fza_sfmplus_fnc_getInterpInput(_cyclic, _ftTrim):
-//   cyclic=0  → effective = ftTrim  (stick at trim, model doesn't move)
-//   cyclic=±1 → effective = ±1.0
-//   in between → lerp from ftTrim toward the relevant limit by abs(cyclic)
-private _animCyclicFwd  = _heli getVariable ["fza_sfmplus_cyclicFwdAft",    0.0];
-private _animCyclicBank = _heli getVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
-private _animFtPitch    = _heli getVariable ["fza_ah64_forceTrimPosPitch",   0.0];
-private _animFtRoll     = _heli getVariable ["fza_ah64_forceTrimPosRoll",    0.0];
-
-private _effAnimPitch = if (_animCyclicFwd  == 0) then { _animFtPitch } else {
-    private _dir = if (_animCyclicFwd  > 0) then { 1.0 } else { -1.0 };
-    _animFtPitch + (_dir - _animFtPitch) * abs(_animCyclicFwd)
-};
-private _effAnimRoll  = if (_animCyclicBank == 0) then { _animFtRoll  } else {
-    private _dir = if (_animCyclicBank > 0) then { 1.0 } else { -1.0 };
-    _animFtRoll  + (_dir - _animFtRoll)  * abs(_animCyclicBank)
-};
-
-[_heli, "plt_cyclic_pitch", _effAnimPitch, 1] call fza_fnc_updateAnimations;
-[_heli, "plt_cyclic_bank",  _effAnimRoll,  1] call fza_fnc_updateAnimations;
-[_heli, "plt_collective",   (_heli getVariable ["fza_sfmplus_collectiveOutput", 0]), 1] call fza_fnc_updateAnimations;
-
-if !(isMultiplayer) then {
-    [_heli] call fza_sfmplus_fnc_probes;
-};
-
 if (fza_ah64_sfmPlusFmDebug) then { 
     hintSilent format [
     "_cyclicFwdAft = %1

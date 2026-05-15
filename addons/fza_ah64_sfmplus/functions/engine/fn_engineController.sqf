@@ -46,14 +46,25 @@ private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
 //private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if (local _heli) then {
-    if ((_heli getHitPointDamage "hithrotor") > 0.9) then {
-        _heli engineOn false;
-    } else {
-        if (_eng1State != "OFF" || _eng2State != "OFF" || _rtrRPM >= 0.5) then {
-            _heli engineOn true;
-        } else {
-            _heli engineOn false;
+    if ((_heli getHitPointDamage "hithrotor") < 1.0) then {
+        private _lastRtdUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
+        if (cba_missionTime > _lastRtdUpdate + MIN_TIME_BETWEEN_UPDATES) then {
+            private _realRPM = (_heli animationPhase "mainRotorRPM") * 1.08 / 10;
+            if (_realRPM > _rtrRPM && _rtrRPM < 0.9) then {
+                _heli setHitpointDamage ["hithrotor", 0.9];
+            } else {
+                _heli setHitpointDamage ["hithrotor", 0.0];
+                _heli engineOn true;
+            };
+            _heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
         };
+    } else {
+        _heli engineOn false;
+    };
+
+    if (_eng1State == "OFF" && _eng2State == "OFF" && _rtrRPM < 0.5) then {
+        _heli engineOn false;
+        _heli setHitpointDamage ["hithrotor", 0.9];
     };
 };
 

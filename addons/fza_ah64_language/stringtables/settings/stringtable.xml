@@ -868,5 +868,29 @@
             <Turkish>Etkinleştirildiğinde, pilotu VRS'nin başlaması konusunda uyaracaktır</Turkish>
             <Dutch>Wanneer ingeschakeld, waarschuwt de piloot voor het begin van VRS</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_CONTROLS">
+            <Original>Control Input Animations</Original>
+            <English>Control Input Animations</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_CONTROLS_INFO">
+            <Original>Enable 3D model animations for the pilot stick (cyclic) and collective lever, driven by HeliSim data with force trim interpolation</Original>
+            <English>Enable 3D model animations for the pilot stick (cyclic) and collective lever, driven by HeliSim data with force trim interpolation</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_PROBES">
+            <Original>Air Data Probe Animations</Original>
+            <English>Air Data Probe Animations</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_PROBES_INFO">
+            <Original>Enable animations for the left and right air data sensor (ADS) probe vanes, driven by simulated local airflow including rotor downwash</Original>
+            <English>Enable animations for the left and right air data sensor (ADS) probe vanes, driven by simulated local airflow including rotor downwash</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_ROTOR">
+            <Original>Rotor Swashplate Animations</Original>
+            <English>Rotor Swashplate Animations</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ANIM_ROTOR_INFO">
+            <Original>Enable HeliSim-driven swashplate, blade pitch, and tail rotor animations (collective translation, cyclic tilt, pedal blade pitch)</Original>
+            <English>Enable HeliSim-driven swashplate, blade pitch, and tail rotor animations (collective translation, cyclic tilt, pedal blade pitch)</English>
+        </Key>
     </Package>
 </Project>
