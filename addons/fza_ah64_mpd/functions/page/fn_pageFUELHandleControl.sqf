@@ -29,7 +29,12 @@ switch(_control) do {
             _state set ["xferMenuOpen", 0];
         } else {
             if (_heli getVariable ["fza_ah64_IAFSInstalled", false]) then {
-                _heli setVariable ["fza_ah64_IAFSOn", !(_heli getVariable ["fza_ah64_IAFSOn", false])];
+                private _iafsOn  = _heli getVariable ["fza_ah64_IAFSOn", false];
+                private _ctrMass = _heli getVariable ["fza_sfmplus_ctrFuelMass", 0];
+                // Can turn off freely; can only turn on when CTR has fuel
+                if (_iafsOn || _ctrMass > 0) then {
+                    _heli setVariable ["fza_ah64_IAFSOn", !_iafsOn];
+                };
             };
         };
     };

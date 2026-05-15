@@ -218,6 +218,10 @@ if (_IAFSInstalled && (_heli getVariable ["fza_ah64_IAFSOn", false]) && !_anyAux
         _fwdFuelMass = _fwdFuelMass + _iafsFlow;
         if (_iafsFlow > 0) then { _iafsFwdFlowing = true; };
     };
+    // Auto-shutoff: turn off IAFS switch when CTR tank is empty
+    if (_ctrFuelMass <= 0) then {
+        _heli setVariable ["fza_ah64_IAFSOn", false, true];
+    };
 };
 
 // Tank leaks — onset at 60% hitpoint damage, linear ramp to max rate
