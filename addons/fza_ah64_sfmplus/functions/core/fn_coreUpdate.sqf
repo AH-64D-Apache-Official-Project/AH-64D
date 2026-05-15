@@ -66,10 +66,6 @@ if (isAutoHoverOn _heli) then {
 //Damage
 [_heli] call fza_sfmplus_fnc_damageApply;
 
-if !(isMultiplayer) then {
-    [_heli] call fza_sfmplus_fnc_probes;
-};
-
 if (fza_ah64_sfmPlusFmDebug) then { 
     hintSilent format [
     "_cyclicFwdAft = %1

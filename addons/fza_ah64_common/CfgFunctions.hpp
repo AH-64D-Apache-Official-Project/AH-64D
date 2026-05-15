@@ -24,7 +24,6 @@ class CfgFunctions
             class sign {R;};
             class currentTurret {R;};
             class updateNetworkGlobal {R;};
-            class updateAnimations {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";

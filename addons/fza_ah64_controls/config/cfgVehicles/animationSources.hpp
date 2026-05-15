@@ -1,5 +1,46 @@
 class AnimationSources
 {
+    ////////CONTROLS///////
+    class plt_cyclic_pitch
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_cyclic_bank
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_collective
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    ////////ROTOR RPM///////
+    class mainRotorRPMUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    // Drives mainRotor rotation (replaces vanilla rotorH source) so HeliSim RPM
+    // controls the visual spin speed rather than the RTD engine.
+    class rotorHUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    // Drives tailRotor rotation (replaces vanilla rotorV source).
+    class rotorVUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
     ////////RADAR///////
     class fcr_enable
     {

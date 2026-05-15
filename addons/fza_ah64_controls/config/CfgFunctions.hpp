@@ -13,7 +13,6 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\anim";
             class animSetValue {R;};
             class animReset {R;};
-            class probes {R;};
         };
         class avionics
         {

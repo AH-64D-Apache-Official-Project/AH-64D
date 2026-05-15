@@ -148,18 +148,18 @@ for "_i" from 0 to 3 do {
     private _pylonD = [4, 0] select _onGnd;
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
         if (_was == WAS_WEAPON_RKT) exitWith {
-            [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+            [_heli, _pylon, _pylonAdjustment] call fza_anim_fnc_updateAnimations;
             [_heli, "fza_ah64_rocketPylonElev", _pylonAdjustment] call fza_fnc_updateNetworkGlobal;
             
         };
-        [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+        [_heli, _pylon, _pylonD] call fza_anim_fnc_updateAnimations;
         
     };
     if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
         if (_was == WAS_WEAPON_MSL) exitWith {
-            [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+            [_heli, _pylon, _pylonAdjustment] call fza_anim_fnc_updateAnimations;
         };
-        [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+        [_heli, _pylon, _pylonD] call fza_anim_fnc_updateAnimations;
     };
 };
 
@@ -196,13 +196,13 @@ if (_gunFailed) then {
     _maingun = 0.298;
 };
 
-[_heli, "mainTurret", _mainturret] call fza_fnc_updateAnimations;
-[_heli, "mainGun", _maingun] call fza_fnc_updateAnimations;
+[_heli, "mainTurret", _mainturret] call fza_anim_fnc_updateAnimations;
+[_heli, "mainGun", _maingun] call fza_anim_fnc_updateAnimations;
 
 for "_i" from 0 to 3 do {
     if (WEP_TYPE(_firstPylonMags#_i) == "auxTank") then {
         _pylon = "pylon" + str(_i + 1);
-        [_heli, _pylon, +4] call fza_fnc_updateAnimations;
+        [_heli, _pylon, +4] call fza_anim_fnc_updateAnimations;
     };
 };
 
