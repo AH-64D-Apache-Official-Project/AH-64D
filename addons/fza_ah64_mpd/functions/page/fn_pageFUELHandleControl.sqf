@@ -123,7 +123,7 @@ switch(_control) do {
             [_heli, "fza_fuel_checkStartTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_fuel_checkStartFuel", _startFuelMass]  call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_fuel_checkRunning",   true]            call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkStartZulu", format ["%1:%2Z", _dh, [_dm, 2] call CBA_fnc_formatNumber]] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_fuel_checkStartZulu", format ["%1:%2L", _dh, [_dm, 2] call CBA_fnc_formatNumber]] call fza_fnc_updateNetworkGlobal;
         };
         if (_chkActive && _chkRunning && !_chkDone) then {
             // STOP — freeze elapsed and results
@@ -135,7 +135,7 @@ switch(_control) do {
             private _fnZulu = {
                 params ["_dt"];
                 private _h = floor (_dt % 24);
-                format ["%1:%2Z", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
+                format ["%1:%2L", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
             };
             [_heli, "fza_fuel_checkRunning",     false]    call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_fuel_checkDone",        true]     call fza_fnc_updateNetworkGlobal;
