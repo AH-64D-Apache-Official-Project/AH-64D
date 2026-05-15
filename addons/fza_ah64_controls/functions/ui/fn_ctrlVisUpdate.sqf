@@ -20,7 +20,7 @@ Returns:
     Nothing
 
 Author:
-    FZA AH-64D Project
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -278,21 +278,35 @@ CTRL(5132) ctrlCommit 0;
 // ── Cyclic indicators (geometric rectangles – no font, no bias, scale-invariant) ─────────────
 // All sizes are fractions of _H so they scale exactly with the layout editor.
 
-// Actual physical stick (green ring) – top layer; transparency baked in ring_act_ca.paa
-private _szActW = _szAct * _circleWAdj;  // width corrected for screen aspect ratio
-private _actX = _cxCtr - _cycLeftRight * _cxHW;
-private _actY = _cyCtr - _cycFwdAft   * _cyHH;
-CTRL(5135) ctrlSetPosition [_actX - _szActW * 0.5, _actY - _szAct * 0.5, _szActW, _szAct];
-CTRL(5135) ctrlSetTextColor _colAct;
-CTRL(5135) ctrlCommit 0;
-
 // Force trim reference (orange ring, ½ actual diameter) – middle layer; same absolute ring thickness
+// FT is the origin: all other cyclic indicators are positioned relative to it.
 private _szFTW = _szFT * _circleWAdj;
 private _ftX = _cxCtr - _ftRoll  * _cxHW;
 private _ftY = _cyCtr - _ftPitch * _cyHH;
 CTRL(5134) ctrlSetPosition [_ftX - _szFTW * 0.5, _ftY - _szFT * 0.5, _szFTW, _szFT];
 CTRL(5134) ctrlSetTextColor _colFT;
 CTRL(5134) ctrlCommit 0;
+
+// Actual physical stick (green ring) – top layer; transparency baked in ring_act_ca.paa
+// Replicates fza_sfmplus_fnc_getInterpInput(_cyclic, _ftTrim):
+//   cyclic=0  → effective = FT trim  (Actual sits on FT)
+//   cyclic=+1 → effective = 1.0      (FT side of travel shrinks, opposite side stretches)
+//   cyclic=-1 → effective = -1.0
+//   in between → lerp between FT and the relevant limit by abs(cyclic)
+private _effPitch = if (_cycFwdAft    == 0) then { _ftPitch } else {
+    private _dir = if (_cycFwdAft    > 0) then { 1.0 } else { -1.0 };
+    _ftPitch + (_dir - _ftPitch) * abs(_cycFwdAft)
+};
+private _effRoll = if (_cycLeftRight == 0) then { _ftRoll } else {
+    private _dir = if (_cycLeftRight > 0) then { 1.0 } else { -1.0 };
+    _ftRoll  + (_dir - _ftRoll)  * abs(_cycLeftRight)
+};
+private _szActW = _szAct * _circleWAdj;
+private _actX = _cxCtr - _effRoll  * _cxHW;
+private _actY = _cyCtr - _effPitch * _cyHH;
+CTRL(5135) ctrlSetPosition [_actX - _szActW * 0.5, _actY - _szAct * 0.5, _szActW, _szAct];
+CTRL(5135) ctrlSetTextColor _colAct;
+CTRL(5135) ctrlCommit 0;
 
 // SAS + ATT hold commanded position (red + cross) – bottom layer
 // Clamped to ±1 so the indicators never leave the frame.
@@ -337,8 +351,12 @@ CTRL(5141) ctrlSetFontHeight _fontSz;
 CTRL(5141) ctrlSetTextColor _colFT;
 CTRL(5141) ctrlCommit 0;
 
-// Actual pedal (green "|")
-private _actPedX = _yawCtrX + ([_pedal, -1.0, 1.0] call BIS_fnc_clamp) * _yawHW - _indW * 0.5;
+// Actual pedal (green "|") – same getInterpInput logic as cyclic
+private _effPedal = if (_pedal == 0) then { _ftPedal } else {
+    private _dir = if (_pedal > 0) then { 1.0 } else { -1.0 };
+    _ftPedal + (_dir - _ftPedal) * abs(_pedal)
+};
+private _actPedX = _yawCtrX + ([_effPedal, -1.0, 1.0] call BIS_fnc_clamp) * _yawHW - _indW * 0.5;
 private _actPedY = _yawCtrY - _fontSz * 0.50;
 CTRL(5142) ctrlSetPosition [_actPedX, _actPedY, _indW, _indH];
 CTRL(5142) ctrlSetFontHeight _fontSz;

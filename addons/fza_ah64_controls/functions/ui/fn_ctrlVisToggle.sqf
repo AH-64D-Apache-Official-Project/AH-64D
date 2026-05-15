@@ -14,7 +14,7 @@ Returns:
     Nothing
 
 Author:
-    FZA AH-64D Project
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 
