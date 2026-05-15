@@ -868,5 +868,175 @@
             <Turkish>Etkinleştirildiğinde, pilotu VRS'nin başlaması konusunda uyaracaktır</Turkish>
             <Dutch>Wanneer ingeschakeld, waarschuwt de piloot voor het begin van VRS</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_TOGGLE">
+            <Original>Control Input Visualiser: Toggle</Original>
+            <English>Control Input Visualiser: Toggle</English>
+            <Czech>Vizualizér vstupů řízení: Přepnout</Czech>
+            <French>Visualiseur d'entrées de commande : Activer/Désactiver</French>
+            <Spanish>Visualizador de entradas de control: Activar/Desactivar</Spanish>
+            <Italian>Visualizzatore input di controllo: Attiva/Disattiva</Italian>
+            <Polish>Wizualizator wejść sterowania: Przełącz</Polish>
+            <Portuguese>Visualizador de Entradas de Controlo: Alternar</Portuguese>
+            <Russian>Визуализатор входов управления: Переключить</Russian>
+            <German>Steuereingangs-Visualizer: Umschalten</German>
+            <Korean>조종 입력 시각화 도구: 토글</Korean>
+            <Japanese>操縦入力ビジュアライザー：切り替え</Japanese>
+            <Chinesesimp>控制输入可视化工具：切换</Chinesesimp>
+            <Turkish>Kontrol Girişi Görselleştirici: Aç/Kapat</Turkish>
+            <Dutch>Besturingsinvoer Visualizer: Wisselen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_TOGGLE_INFO">
+            <Original>Show or hide the HeliSim Control Input and SAS Visualiser overlay</Original>
+            <English>Show or hide the HeliSim Control Input and SAS Visualiser overlay</English>
+            <Czech>Zobrazit nebo skrýt překryvnou vrstvu vizualizéru vstupů řízení HeliSim a SAS</Czech>
+            <French>Afficher ou masquer la superposition du visualiseur d'entrées de commande HeliSim et SAS</French>
+            <Spanish>Mostrar u ocultar la superposición del visualizador de entradas de control HeliSim y SAS</Spanish>
+            <Italian>Mostra o nascondi il pannello sovrapposto del visualizzatore input di controllo HeliSim e SAS</Italian>
+            <Polish>Pokaż lub ukryj nakładkę wizualizatora wejść sterowania HeliSim i SAS</Polish>
+            <Portuguese>Mostrar ou ocultar a sobreposição do visualizador de entradas de controlo HeliSim e SAS</Portuguese>
+            <Russian>Показать или скрыть наложение визуализатора входов управления HeliSim и SAS</Russian>
+            <German>HeliSim-Steuereingangs- und SAS-Visualizer-Overlay ein- oder ausblenden</German>
+            <Korean>헬리심 조종 입력 및 SAS 시각화 도구 오버레이 표시 또는 숨기기</Korean>
+            <Japanese>HeliSim操縦入力およびSASビジュアライザーオーバーレイを表示または非表示にする</Japanese>
+            <Chinesesimp>显示或隐藏HeliSim控制输入和SAS可视化工具叠加层</Chinesesimp>
+            <Turkish>HeliSim Kontrol Girişi ve SAS Görselleştirici katmanını göster veya gizle</Turkish>
+            <Dutch>Toon of verberg de HeliSim besturingsinvoer en SAS visualizer overlay</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR">
+            <Original>Control Input Visualiser: Colour Scheme</Original>
+            <English>Control Input Visualiser: Colour Scheme</English>
+            <Czech>Vizualizér vstupů řízení: Barevné schéma</Czech>
+            <French>Visualiseur d'entrées de commande : Jeu de couleurs</French>
+            <Spanish>Visualizador de entradas de control: Esquema de color</Spanish>
+            <Italian>Visualizzatore input di controllo: Schema colori</Italian>
+            <Polish>Wizualizator wejść sterowania: Schemat kolorów</Polish>
+            <Portuguese>Visualizador de Entradas de Controlo: Esquema de Cores</Portuguese>
+            <Russian>Визуализатор входов управления: Цветовая схема</Russian>
+            <German>Steuereingangs-Visualizer: Farbschema</German>
+            <Korean>조종 입력 시각화 도구: 색상 구성표</Korean>
+            <Japanese>操縦入力ビジュアライザー：カラースキーム</Japanese>
+            <Chinesesimp>控制输入可视化工具：配色方案</Chinesesimp>
+            <Turkish>Kontrol Girişi Görselleştirici: Renk Şeması</Turkish>
+            <Dutch>Besturingsinvoer Visualizer: Kleurenschema</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_INFO">
+            <Original>Colour theme for the Control Input Visualiser indicators</Original>
+            <English>Colour theme for the Control Input Visualiser indicators</English>
+            <Czech>Barevný motiv pro indikátory vizualizéru vstupů řízení</Czech>
+            <French>Thème de couleur pour les indicateurs du visualiseur d'entrées de commande</French>
+            <Spanish>Tema de color para los indicadores del visualizador de entradas de control</Spanish>
+            <Italian>Tema colori per gli indicatori del visualizzatore input di controllo</Italian>
+            <Polish>Motyw kolorystyczny dla wskaźników wizualizatora wejść sterowania</Polish>
+            <Portuguese>Tema de cores para os indicadores do visualizador de entradas de controlo</Portuguese>
+            <Russian>Цветовая тема для индикаторов визуализатора входов управления</Russian>
+            <German>Farbthema für die Indikatoren des Steuereingangs-Visualizers</German>
+            <Korean>조종 입력 시각화 도구 표시기의 색상 테마</Korean>
+            <Japanese>操縦入力ビジュアライザーインジケーターのカラーテーマ</Japanese>
+            <Chinesesimp>控制输入可视化工具指示器的颜色主题</Chinesesimp>
+            <Turkish>Kontrol Girişi Görselleştirici göstergeleri için renk teması</Turkish>
+            <Dutch>Kleurthema voor de indicatoren van de besturingsinvoer visualizer</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_DEFAULT">
+            <Original>Default (Green / Orange / Red)</Original>
+            <English>Default (Green / Orange / Red)</English>
+            <Czech>Výchozí (Zelená / Oranžová / Červená)</Czech>
+            <French>Défaut (Vert / Orange / Rouge)</French>
+            <Spanish>Predeterminado (Verde / Naranja / Rojo)</Spanish>
+            <Italian>Predefinito (Verde / Arancione / Rosso)</Italian>
+            <Polish>Domyślny (Zielony / Pomarańczowy / Czerwony)</Polish>
+            <Portuguese>Predefinido (Verde / Laranja / Vermelho)</Portuguese>
+            <Russian>По умолчанию (Зелёный / Оранжевый / Красный)</Russian>
+            <German>Standard (Grün / Orange / Rot)</German>
+            <Korean>기본값 (녹색 / 주황색 / 빨간색)</Korean>
+            <Japanese>デフォルト（緑 / オレンジ / 赤）</Japanese>
+            <Chinesesimp>默认（绿色 / 橙色 / 红色）</Chinesesimp>
+            <Turkish>Varsayılan (Yeşil / Turuncu / Kırmızı)</Turkish>
+            <Dutch>Standaard (Groen / Oranje / Rood)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_NVG">
+            <Original>NVG (All Green)</Original>
+            <English>NVG (All Green)</English>
+            <Czech>NVG (Vše zelené)</Czech>
+            <French>NVG (Tout vert)</French>
+            <Spanish>NVG (Todo verde)</Spanish>
+            <Italian>NVG (Tutto verde)</Italian>
+            <Polish>NVG (Cały zielony)</Polish>
+            <Portuguese>NVG (Tudo Verde)</Portuguese>
+            <Russian>NVG (Всё зелёное)</Russian>
+            <German>NVG (Alles Grün)</German>
+            <Korean>NVG (전체 녹색)</Korean>
+            <Japanese>NVG（全て緑）</Japanese>
+            <Chinesesimp>NVG（全绿）</Chinesesimp>
+            <Turkish>NVG (Tamamı Yeşil)</Turkish>
+            <Dutch>NVG (Alles Groen)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_MONO">
+            <Original>Monochrome (White / Grey)</Original>
+            <English>Monochrome (White / Grey)</English>
+            <Czech>Monochromatické (Bílá / Šedá)</Czech>
+            <French>Monochrome (Blanc / Gris)</French>
+            <Spanish>Monocromo (Blanco / Gris)</Spanish>
+            <Italian>Monocromatico (Bianco / Grigio)</Italian>
+            <Polish>Monochromatyczny (Biały / Szary)</Polish>
+            <Portuguese>Monocromático (Branco / Cinzento)</Portuguese>
+            <Russian>Монохромный (Белый / Серый)</Russian>
+            <German>Monochrom (Weiß / Grau)</German>
+            <Korean>단색 (흰색 / 회색)</Korean>
+            <Japanese>モノクロ（白 / グレー）</Japanese>
+            <Chinesesimp>单色（白色 / 灰色）</Chinesesimp>
+            <Turkish>Tek Renkli (Beyaz / Gri)</Turkish>
+            <Dutch>Monochroom (Wit / Grijs)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_AMBER">
+            <Original>Amber (Amber / Yellow / Red)</Original>
+            <English>Amber (Amber / Yellow / Red)</English>
+            <Czech>Jantarová (Jantarová / Žlutá / Červená)</Czech>
+            <French>Ambre (Ambre / Jaune / Rouge)</French>
+            <Spanish>Ámbar (Ámbar / Amarillo / Rojo)</Spanish>
+            <Italian>Ambra (Ambra / Giallo / Rosso)</Italian>
+            <Polish>Bursztynowy (Bursztynowy / Żółty / Czerwony)</Polish>
+            <Portuguese>Âmbar (Âmbar / Amarelo / Vermelho)</Portuguese>
+            <Russian>Янтарный (Янтарный / Жёлтый / Красный)</Russian>
+            <German>Bernstein (Bernstein / Gelb / Rot)</German>
+            <Korean>앰버 (앰버 / 노란색 / 빨간색)</Korean>
+            <Japanese>アンバー（アンバー / 黄色 / 赤）</Japanese>
+            <Chinesesimp>琥珀色（琥珀色 / 黄色 / 红色）</Chinesesimp>
+            <Turkish>Kehribar (Kehribar / Sarı / Kırmızı)</Turkish>
+            <Dutch>Amber (Amber / Geel / Rood)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_BLUEFOR">
+            <Original>Blue Force (Cyan / White / Yellow)</Original>
+            <English>Blue Force (Cyan / White / Yellow)</English>
+            <Czech>Modrá síla (Azurová / Bílá / Žlutá)</Czech>
+            <French>Force bleue (Cyan / Blanc / Jaune)</French>
+            <Spanish>Fuerza azul (Cian / Blanco / Amarillo)</Spanish>
+            <Italian>Forza blu (Ciano / Bianco / Giallo)</Italian>
+            <Polish>Siła niebieska (Cyjan / Biały / Żółty)</Polish>
+            <Portuguese>Força Azul (Ciano / Branco / Amarelo)</Portuguese>
+            <Russian>Синяя сила (Циан / Белый / Жёлтый)</Russian>
+            <German>Blaue Truppen (Cyan / Weiß / Gelb)</German>
+            <Korean>청군 (청록색 / 흰색 / 노란색)</Korean>
+            <Japanese>ブルーフォース（シアン / 白 / 黄色）</Japanese>
+            <Chinesesimp>蓝方（青色 / 白色 / 黄色）</Chinesesimp>
+            <Turkish>Mavi Kuvvet (Camgöbeği / Beyaz / Sarı)</Turkish>
+            <Dutch>Blauwe Macht (Cyaan / Wit / Geel)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CTRLVIS_COLOR_HICONTRAST">
+            <Original>High Contrast (White / Yellow / Red)</Original>
+            <English>High Contrast (White / Yellow / Red)</English>
+            <Czech>Vysoký kontrast (Bílá / Žlutá / Červená)</Czech>
+            <French>Contraste élevé (Blanc / Jaune / Rouge)</French>
+            <Spanish>Alto contraste (Blanco / Amarillo / Rojo)</Spanish>
+            <Italian>Alto contrasto (Bianco / Giallo / Rosso)</Italian>
+            <Polish>Wysoki kontrast (Biały / Żółty / Czerwony)</Polish>
+            <Portuguese>Alto Contraste (Branco / Amarelo / Vermelho)</Portuguese>
+            <Russian>Высокий контраст (Белый / Жёлтый / Красный)</Russian>
+            <German>Hoher Kontrast (Weiß / Gelb / Rot)</German>
+            <Korean>고대비 (흰색 / 노란색 / 빨간색)</Korean>
+            <Japanese>ハイコントラスト（白 / 黄色 / 赤）</Japanese>
+            <Chinesesimp>高对比度（白色 / 黄色 / 红色）</Chinesesimp>
+            <Turkish>Yüksek Kontrast (Beyaz / Sarı / Kırmızı)</Turkish>
+            <Dutch>Hoog Contrast (Wit / Geel / Rood)</Dutch>
+        </Key>
     </Package>
 </Project>
