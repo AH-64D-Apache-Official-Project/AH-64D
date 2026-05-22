@@ -38,6 +38,7 @@
   #app {
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100vw;
     height: 100vh;
     border: 1px solid var(--border2);
@@ -246,23 +247,79 @@
     letter-spacing: 1px;
   }
   .fcr-badge.active { border-color: var(--accent); background: #1a3a1a; color: #aaffaa; }
+  .silhouette-fcr {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+  }
 
   /* ── SILHOUETTE AREA ── */
   .silhouette-area {
     /* Equal split with pylon area. */
-    flex: 1 1 0;
+    flex: 1.36 1 0;
     min-height: 0;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 44%, rgba(255,255,255,0.10), rgba(255,255,255,0.02) 30%, rgba(0,0,0,0.10) 68%, rgba(0,0,0,0.16) 100%),
+      linear-gradient(180deg, #091009 0%, #121912 100%);
   }
   #apache-svg {
-    width: 42%;
-    max-width: 220px;
-    opacity: 0.92;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    opacity: 0.97;
     pointer-events: none;
+  }
+  #apache-svg .sil-body { fill: #050505; }
+  #apache-svg .sil-dark { fill: #080808; }
+  #apache-svg .sil-mid { fill: #141414; }
+  #apache-svg .sil-light { fill: #d7d7d7; }
+  #apache-svg .sil-line { stroke: #050505; stroke-width: 4; stroke-linecap: round; fill: none; }
+  #apache-svg .sil-stroke { stroke: #090909; stroke-width: 2; stroke-linecap: round; fill: none; }
+  #apache-svg .sil-label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    fill: #f0f0f0;
+    letter-spacing: 0.5px;
+  }
+  #apache-svg .sil-tag {
+    fill: rgba(0, 0, 0, 0.72);
+    stroke: rgba(255, 255, 255, 0.28);
+    stroke-width: 1;
+  }
+  #apache-svg .sil-gloss { fill: rgba(255, 255, 255, 0.11); }
+  #apache-svg .sil-window { fill: #cfcfcf; }
+  #apache-svg .sil-window-line { stroke: #9f9f9f; stroke-width: 2; stroke-linecap: round; }
+  #apache-svg .store-group { display: none; }
+  #apache-svg .store-none { display: block; }
+  #apache-svg[data-p1-mode='hellfire'] .p1-hellfire,
+  #apache-svg[data-p1-mode='rocket'] .p1-rocket,
+  #apache-svg[data-p1-mode='aux'] .p1-aux,
+  #apache-svg[data-p1-mode='none'] .p1-none,
+  #apache-svg[data-p2-mode='hellfire'] .p2-hellfire,
+  #apache-svg[data-p2-mode='rocket'] .p2-rocket,
+  #apache-svg[data-p2-mode='aux'] .p2-aux,
+  #apache-svg[data-p2-mode='none'] .p2-none,
+  #apache-svg[data-p3-mode='hellfire'] .p3-hellfire,
+  #apache-svg[data-p3-mode='rocket'] .p3-rocket,
+  #apache-svg[data-p3-mode='aux'] .p3-aux,
+  #apache-svg[data-p3-mode='none'] .p3-none,
+  #apache-svg[data-p4-mode='hellfire'] .p4-hellfire,
+  #apache-svg[data-p4-mode='rocket'] .p4-rocket,
+  #apache-svg[data-p4-mode='aux'] .p4-aux,
+  #apache-svg[data-p4-mode='none'] .p4-none {
+    display: block;
+  }
+  #apache-svg[data-fcr='off'] .fcr-on,
+  #apache-svg[data-fcr='on'] .fcr-off,
+  #apache-svg[data-gun='off'] .gun-on,
+  #apache-svg[data-gun='on'] .gun-off {
+    display: none;
   }
 
   /* ── PYLON ROW ── */
@@ -274,7 +331,7 @@
     border-top: 1px solid var(--border);
     gap: 6px;
     /* Equal split with silhouette area. */
-    flex: 1 1 0;
+    flex: 0.512 1 0;
     min-height: 0;
     overflow-y: auto;
   }
@@ -292,6 +349,7 @@
     text-align: center;
     border: 1px solid var(--border2);
     padding: 1px 6px;
+    margin-top: 5%;
     background: var(--bg3);
     white-space: nowrap;
   }
@@ -301,6 +359,11 @@
     border: none;
     background: transparent;
     color: var(--text-bright);
+  }
+  .center-store-select {
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
   }
   .pylon-content {
     width: 100%;
@@ -331,10 +394,16 @@
   }
   .rail-labels {
     display: flex;
-    gap: 16px;
+    gap: 4px;
+    width: 120px;
+    justify-content: center;
     font-size:13.5px;
     color: var(--text-dim);
-    margin-bottom: 1px;
+    margin: 0 auto 1px;
+  }
+  .rail-labels span {
+    width: 58px;
+    text-align: center;
   }
   .rail-ammo {
     width: 58px;
@@ -424,6 +493,7 @@
     padding: 6px 8px;
     width: 100%;
   }
+  .aux-note:empty { display: none; }
   .none-note {
     color: var(--text-dim);
     font-size:15px;
@@ -519,14 +589,170 @@
   }
   .fuel-total-row .total-lbs { color: var(--text-bright); }
   .fuel-total-row .total-unit { color: var(--text-dim); }
+  .fuel-stats {
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .fuel-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    font-size: 15px;
+    width: 100%;
+  }
+  .fuel-stat-label { color: var(--text-dim); min-width: 148px; }
+  .stat-right {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    min-width: 0;
+  }
+  .fuel-stat-value {
+    color: var(--text-bright);
+    display: inline-block;
+    min-width: 56px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .fuel-stat-row .perf-unit {
+    display: inline-block;
+    min-width: 28px;
+  }
+  .fuel-stat-pct {
+    color: var(--yellow);
+    display: inline-block;
+    min-width: 56px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    margin-left: 2px;
+  }
 
   /* ── BOTTOM STRIP ── */
   #bottom-strip {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 264px;
+    z-index: 4;
     border-top: 2px solid var(--border2);
+    border-right: 1px solid var(--border);
     background: var(--bg3);
-    flex-shrink: 0;
+  }
+  #dtc-box {
+    width: 100%;
+    min-width: 0;
+    border-right: none;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dtc-title {
+    color: var(--text-bright);
+    font-size: 16.5px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+  .dtc-current {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+  #config-perf {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  #panel-config #config-perf {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
+    min-width: 0;
+  }
+  #panel-config #config-perf .bottom-row {
+    padding: 3px 0;
+    gap: 6px;
+    border-bottom: 1px solid rgba(61, 107, 64, 0.45);
+  }
+  #panel-config #config-perf .bottom-row:last-child {
+    border-bottom: none;
+  }
+  #panel-config #config-perf .perf-grid {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+    min-width: 0;
+  }
+  #panel-config #config-perf .perf-cell {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    font-size: 14px;
+    gap: 3px;
+    line-height: 1.2;
+    width: 100%;
+  }
+  .perf-right {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    min-width: 0;
+  }
+  #panel-config #config-perf .perf-label {
+    min-width: 120px;
+    text-align: left;
+  }
+  #panel-config #config-perf .perf-value {
+    display: inline-block;
+    min-width: 44px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  #panel-config #config-perf .perf-unit {
+    display: inline-block;
+    min-width: 30px;
+  }
+  #panel-config #config-perf .perf-unit.dual-unit {
+    min-width: 42px;
+  }
+  #panel-config #config-perf .sep {
+    display: inline-block;
+    min-width: 12px;
+    text-align: center;
+  }
+  #panel-config #config-perf #maxGWT,
+  #panel-config #config-perf #emptyGWT,
+  #panel-config #config-perf #currentGWT {
+    min-width: 62px;
+  }
+  #panel-config #config-perf #maxEndPph,
+  #panel-config #config-perf #maxRangePph {
+    min-width: 44px;
+    text-align: right;
+  }
+  #panel-config #config-perf .pph-unit {
+    min-width: 30px;
+  }
+  #app.non-config-tab .config-only-bottom { display: none; }
+  #panel-config .col-left {
+    padding-bottom: 128px;
+  }
+  #app.non-config-tab .tab-sidebar {
+    padding-bottom: 128px;
   }
   .bottom-row {
     display: flex;
@@ -572,17 +798,45 @@
   .perf-label { color: var(--text-dim); min-width: 100px; }
   .perf-value { color: var(--text-bright); }
   .perf-value.warn { color: var(--red-bright); font-weight: bold; }
+  .perf-value.caution { color: var(--yellow); font-weight: bold; }
   .perf-value.ok { color: #88ee88; }
   .perf-unit { color: var(--text-dim); font-size:13.5px; }
   .sep { color: var(--border2); }
 
   /* ── PLACEHOLDER TABS ── */
   .placeholder-panel {
+    flex-direction: row;
+  }
+  .tab-sidebar {
+    width: 264px;
+    min-width: 264px;
+    border-right: 1px solid var(--border);
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--text-dim);
+  }
+  .tab-sidebar-title {
+    color: var(--text-bright);
+    font-size: 16.5px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+  .tab-map-placeholder {
+    flex: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-dim);
-    font-size:21px;
+    font-size: 21px;
     letter-spacing: 2px;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+      radial-gradient(circle at 20% 30%, rgba(122,170,112,0.14), transparent 30%),
+      radial-gradient(circle at 70% 60%, rgba(122,170,112,0.08), transparent 26%),
+      var(--bg2);
   }
 
   /* scrollbar */
@@ -665,63 +919,148 @@
     <!-- CENTER COLUMN -->
     <div class="col-center">
 
-      <!-- Center-top info strip -->
-      <div class="center-top">
-        <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-          <div class="ct-row">
-            <span class="ct-label">Ammo Weight</span>
-            <span class="ct-value" id="ammoWeight">945</span>
-            <span class="perf-unit">lbs</span>
-          </div>
-          <div class="ct-row">
-            <span class="ct-label">Jettison Weight</span>
-            <span class="ct-value" id="jettisonWeight">2395</span>
-            <span class="perf-unit">lbs</span>
-            <span class="ct-pct" id="jettisonPct" style="margin-left:4px">-12 %</span>
-          </div>
-          <div class="ct-row">
-            <span class="ct-label">Endurance @ Max Range</span>
-            <span class="ct-value" id="endurance">3+55</span>
-          </div>
-        </div>
-
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div id="fcrBadge" class="fcr-badge active" title="Toggle FCR">FCR</div>
-        </div>
-      </div>
-
       <!-- Silhouette -->
       <div class="silhouette-area">
-        <svg id="apache-svg" viewBox="0 0 260 240" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64 forward silhouette">
-          <!-- Forward-facing rotor disk -->
-          <line x1="25" y1="78" x2="235" y2="78" stroke="#0a0a0a" stroke-width="6" stroke-linecap="round"/>
+        <div id="fcrBadge" class="fcr-badge silhouette-fcr active" title="Toggle FCR">FCR</div>
+        <svg id="apache-svg" viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64D front silhouette">
+          <g id="apache-art" transform="translate(-18 -12) scale(1.22)">
+            <ellipse cx="350" cy="304" rx="192" ry="14" fill="rgba(0,0,0,0.18)"/>
 
-          <!-- FCR mast and dome -->
-          <rect x="126" y="66" width="8" height="16" fill="#0a0a0a"/>
-          <ellipse cx="130" cy="58" rx="16" ry="9" fill="#0a0a0a"/>
+            <!-- rotor -->
+            <line x1="50" y1="70" x2="650" y2="70" class="sil-line"/>
+            <ellipse cx="350" cy="70" rx="32" ry="10" class="sil-body"/>
+            <rect x="344" y="44" width="12" height="32" rx="4" class="sil-body"/>
 
-          <!-- Canopy / upper fuselage -->
-          <path d="M96 95 Q130 70 164 95 L158 124 Q130 133 102 124 Z" fill="#0a0a0a"/>
+            <!-- FCR -->
+            <g class="fcr-on">
+              <rect x="338" y="24" width="24" height="16" rx="5" class="sil-dark"/>
+              <ellipse cx="350" cy="18" rx="26" ry="11" class="sil-body"/>
+              <line x1="350" y1="10" x2="350" y2="18" class="sil-stroke"/>
+            </g>
+            <g class="fcr-off">
+              <rect x="344" y="26" width="12" height="12" rx="4" class="sil-dark"/>
+              <line x1="350" y1="14" x2="350" y2="26" class="sil-stroke"/>
+              <line x1="342" y1="14" x2="358" y2="14" class="sil-stroke"/>
+            </g>
 
-          <!-- Main body -->
-          <rect x="96" y="123" width="68" height="54" rx="9" fill="#0a0a0a"/>
+            <!-- upper body -->
+            <path d="M242 86 L458 86 Q476 100 480 124 L472 150 Q460 168 442 174 L258 174 Q240 168 228 150 L220 124 Q224 100 242 86 Z" class="sil-body"/>
+            <path d="M272 92 Q350 60 428 92 L424 128 Q350 146 276 128 Z" class="sil-light"/>
+            <path d="M290 100 L350 86 L410 100 L404 116 L350 122 L296 116 Z" class="sil-gloss"/>
+            <rect x="268" y="106" width="164" height="10" rx="5" class="sil-mid"/>
 
-          <!-- Wings / stub pylons in forward POV -->
-          <rect x="70" y="138" width="26" height="8" rx="3" fill="#0a0a0a"/>
-          <rect x="164" y="138" width="26" height="8" rx="3" fill="#0a0a0a"/>
+            <!-- engine pods -->
+            <rect x="174" y="108" width="72" height="30" rx="10" class="sil-body"/>
+            <rect x="454" y="108" width="72" height="30" rx="10" class="sil-body"/>
+            <ellipse cx="210" cy="122" rx="20" ry="9" class="sil-dark"/>
+            <ellipse cx="490" cy="122" rx="20" ry="9" class="sil-dark"/>
 
-          <!-- Sensor / chin mount -->
-          <ellipse cx="130" cy="182" rx="12" ry="8" fill="#0a0a0a"/>
+            <!-- cockpit / windows -->
+            <path d="M284 108 L416 108 Q426 118 428 134 L422 158 Q412 170 398 172 L302 172 Q288 170 278 158 L272 134 Q274 118 284 108 Z" class="sil-body"/>
+            <path d="M300 114 L400 114 Q406 120 408 134 L404 152 Q398 158 390 160 L310 160 Q302 158 296 152 L292 134 Q294 120 300 114 Z" class="sil-window"/>
+            <path d="M326 114 L344 114 L342 160 L322 160 Z" class="sil-body"/>
+            <path d="M356 114 L374 114 L378 160 L358 160 Z" class="sil-body"/>
+            <line x1="350" y1="114" x2="350" y2="160" class="sil-window-line"/>
 
-          <!-- Landing gear legs -->
-          <line x1="108" y1="176" x2="98" y2="204" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/>
-          <line x1="152" y1="176" x2="162" y2="204" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/>
+            <!-- shoulders / wings -->
+            <rect x="90" y="168" width="150" height="12" rx="6" class="sil-body"/>
+            <rect x="460" y="168" width="150" height="12" rx="6" class="sil-body"/>
+            <rect x="220" y="164" width="40" height="8" rx="4" class="sil-body"/>
+            <rect x="440" y="164" width="40" height="8" rx="4" class="sil-body"/>
 
-          <!-- Wheels -->
-          <circle cx="94" cy="210" r="7" fill="#0a0a0a"/>
-          <circle cx="166" cy="210" r="7" fill="#0a0a0a"/>
-          <circle cx="130" cy="205" r="4" fill="#0a0a0a"/>
-        </svg>
+            <!-- pylons + stores -->
+            <g id="sil-p1" transform="translate(120 168)">
+              <rect x="0" y="0" width="52" height="9" rx="4" class="sil-body"/>
+              <g class="store-group p1-hellfire">
+                <rect x="14" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="24" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="14" y="34" width="18" height="6" rx="3" class="sil-body"/>
+              </g>
+              <g class="store-group p1-rocket">
+                <rect x="4" y="11" width="36" height="16" rx="7" class="sil-body"/>
+                <circle cx="22" cy="19" r="3.5" class="sil-light"/>
+              </g>
+              <g class="store-group p1-aux">
+                <rect x="3" y="9" width="38" height="20" rx="10" class="sil-body"/>
+                <rect x="8" y="15" width="28" height="6" rx="3" class="sil-dark"/>
+              </g>
+              <g class="store-group p1-none"><rect x="13" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
+            </g>
+
+            <g id="sil-p2" transform="translate(202 168)">
+              <rect x="0" y="0" width="54" height="9" rx="4" class="sil-body"/>
+              <g class="store-group p2-hellfire">
+                <rect x="15" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="25" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="15" y="34" width="18" height="6" rx="3" class="sil-body"/>
+              </g>
+              <g class="store-group p2-rocket">
+                <rect x="4" y="11" width="40" height="16" rx="7" class="sil-body"/>
+                <circle cx="24" cy="19" r="3.5" class="sil-light"/>
+              </g>
+              <g class="store-group p2-aux">
+                <rect x="3" y="9" width="42" height="20" rx="10" class="sil-body"/>
+                <rect x="8" y="15" width="32" height="6" rx="3" class="sil-dark"/>
+              </g>
+              <g class="store-group p2-none"><rect x="15" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
+            </g>
+
+            <g id="sil-p3" transform="translate(444 168)">
+              <rect x="0" y="0" width="54" height="9" rx="4" class="sil-body"/>
+              <g class="store-group p3-hellfire">
+                <rect x="15" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="25" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="15" y="34" width="18" height="6" rx="3" class="sil-body"/>
+              </g>
+              <g class="store-group p3-rocket">
+                <rect x="4" y="11" width="40" height="16" rx="7" class="sil-body"/>
+                <circle cx="24" cy="19" r="3.5" class="sil-light"/>
+              </g>
+              <g class="store-group p3-aux">
+                <rect x="3" y="9" width="42" height="20" rx="10" class="sil-body"/>
+                <rect x="8" y="15" width="32" height="6" rx="3" class="sil-dark"/>
+              </g>
+              <g class="store-group p3-none"><rect x="15" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
+            </g>
+
+            <g id="sil-p4" transform="translate(534 168)">
+              <rect x="0" y="0" width="52" height="9" rx="4" class="sil-body"/>
+              <g class="store-group p4-hellfire">
+                <rect x="14" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="24" y="10" width="8" height="24" rx="3" class="sil-body"/>
+                <rect x="14" y="34" width="18" height="6" rx="3" class="sil-body"/>
+              </g>
+              <g class="store-group p4-rocket">
+                <rect x="4" y="11" width="36" height="16" rx="7" class="sil-body"/>
+                <circle cx="22" cy="19" r="3.5" class="sil-light"/>
+              </g>
+              <g class="store-group p4-aux">
+                <rect x="3" y="9" width="38" height="20" rx="10" class="sil-body"/>
+                <rect x="8" y="15" width="28" height="6" rx="3" class="sil-dark"/>
+              </g>
+              <g class="store-group p4-none"><rect x="13" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
+            </g>
+
+            <!-- chin turret -->
+            <g class="gun-on">
+              <rect x="326" y="188" width="48" height="16" rx="6" class="sil-dark"/>
+              <rect x="304" y="194" width="92" height="8" rx="4" class="sil-body"/>
+              <rect x="346" y="180" width="8" height="34" rx="2" class="sil-body"/>
+            </g>
+            <g class="gun-off">
+              <ellipse cx="350" cy="196" rx="11" ry="7" class="sil-dark"/>
+            </g>
+
+            <!-- landing gear -->
+            <line x1="318" y1="168" x2="286" y2="260" class="sil-line"/>
+            <line x1="382" y1="168" x2="414" y2="260" class="sil-line"/>
+            <line x1="274" y1="258" x2="320" y2="258" class="sil-line"/>
+            <line x1="380" y1="258" x2="426" y2="258" class="sil-line"/>
+            <ellipse cx="304" cy="270" rx="12" ry="8" class="sil-body"/>
+            <ellipse cx="396" cy="270" rx="12" ry="8" class="sil-body"/>
+            <ellipse cx="350" cy="230" rx="14" ry="8" class="sil-body"/>
+          </g>
+            </svg>
       </div>
 
       <!-- PYLON ROW -->
@@ -731,10 +1070,10 @@
         <div class="pylon-block">
           <div class="pylon-title">
             <select id="pylon1Type" title="Pylon 1 (Left Outer)">
-              <option value="hellfire">hellfire</option>
-              <option value="rocket">rocket</option>
-              <option value="aux">aux</option>
-              <option value="none">none</option>
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket">M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
             </select>
           </div>
           <div class="pylon-content">
@@ -758,7 +1097,7 @@
               <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
               <div class="zone-row"><div class="zone-count"><input type="text" id="p1_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
             </div>
-            <div class="aux-note hidden" id="p1_aux">230 Aux Tank</div>
+            <div class="aux-note hidden" id="p1_aux"></div>
             <div class="none-note hidden" id="p1_none">No Store</div>
           </div>
         </div>
@@ -767,10 +1106,10 @@
         <div class="pylon-block">
           <div class="pylon-title">
             <select id="pylon2Type" title="Pylon 2 (Left Inner)">
-              <option value="hellfire">hellfire</option>
-              <option value="rocket">rocket</option>
-              <option value="aux" selected>aux</option>
-              <option value="none">none</option>
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket">M-261</option>
+              <option value="aux" selected>230 Aux</option>
+              <option value="none">None</option>
             </select>
           </div>
           <div class="pylon-content">
@@ -794,14 +1133,19 @@
               <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
               <div class="zone-row"><div class="zone-count"><input type="text" id="p2_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
             </div>
-            <div class="aux-note" id="p2_aux">230 Aux Tank</div>
+            <div class="aux-note" id="p2_aux"></div>
             <div class="none-note hidden" id="p2_none">No Store</div>
           </div>
         </div>
 
         <!-- Cannon (center) -->
         <div class="pylon-block cannon-block">
-          <div id="robbieBadge" class="fcr-badge active" title="Toggle Robbie">ROBBIE</div>
+          <div class="pylon-title" style="width:100%">
+            <select id="robbieMode" class="center-store-select" title="Center Pylon Store">
+              <option value="iafs" selected>IAFS</option>
+              <option value="magazine">MAGAZINE</option>
+            </select>
+          </div>
           <div class="pylon-sub-label">30mm MAX <span id="cannonMaxRds">300</span></div>
           <div class="cannon-count-box" id="cannonCountBox">
             <input type="text" id="cannonRds" value="300" inputmode="numeric" maxlength="4" max="1200"
@@ -813,10 +1157,10 @@
         <div class="pylon-block">
           <div class="pylon-title">
             <select id="pylon3Type" title="Pylon 3 (Right Inner)">
-              <option value="hellfire">hellfire</option>
-              <option value="rocket" selected>rocket</option>
-              <option value="aux">aux</option>
-              <option value="none">none</option>
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket" selected>M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
             </select>
           </div>
           <div class="pylon-content">
@@ -858,7 +1202,7 @@
               <div class="zone-type"><select id="p3_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
             </div>
           </div>
-          <div class="aux-note hidden" id="p3_aux">230 Aux Tank</div>
+          <div class="aux-note hidden" id="p3_aux"></div>
           <div class="none-note hidden" id="p3_none">No Store</div>
           </div>
         </div>
@@ -867,10 +1211,10 @@
         <div class="pylon-block">
           <div class="pylon-title">
             <select id="pylon4Type" title="Pylon 4 (Right Outer)">
-              <option value="hellfire">hellfire</option>
-              <option value="rocket" selected>rocket</option>
-              <option value="aux">aux</option>
-              <option value="none">none</option>
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket" selected>M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
             </select>
           </div>
           <div class="pylon-content">
@@ -912,7 +1256,7 @@
               <div class="zone-type"><select id="p4_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
             </div>
           </div>
-          <div class="aux-note hidden" id="p4_aux">230 Aux Tank</div>
+          <div class="aux-note hidden" id="p4_aux"></div>
           <div class="none-note hidden" id="p4_none">No Store</div>
           </div>
         </div>
@@ -962,10 +1306,10 @@
             <span>lbs</span>
           </div>
         </div>
-        <div class="fuel-card">
+        <div class="fuel-card" id="fuelAuxRow">
           <div class="fuel-card-title">Aux Fuel</div>
           <div class="fuel-card-line">
-            <span>Gal (230)</span>
+            <span>Gal (<span id="fuelAuxMax">230</span>)</span>
             <input type="text" id="fuelAux" class="fuel-gal-input" value="230" inputmode="numeric" maxlength="3" data-max="230">
             <span>gal,</span>
             <span id="fuelAuxLbs" class="fuel-lbs-value">1541</span>
@@ -979,6 +1323,123 @@
         <span class="total-unit">lbs</span>
       </div>
 
+      <div class="fuel-stats">
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Ammo Weight</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="ammoWeight">945</span>
+            <span class="perf-unit">lbs</span>
+          </span>
+        </div>
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Jettison Weight</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="jettisonWeight">2395</span>
+            <span class="perf-unit">lbs</span>
+            <span class="fuel-stat-pct" id="jettisonPct">-12 %</span>
+          </span>
+        </div>
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Endurance @ Max Range</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="endurance">3+55</span>
+          </span>
+        </div>
+      </div>
+
+      <div id="config-perf">
+      <!-- Row 1 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label">Empty GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="emptyGWT">14,539</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Maximum GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxGWT">20260</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Current GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="currentGWT">19400</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label">Max End</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxEnd">70</span>
+              <span class="perf-unit dual-unit">ktas /</span>
+              <span class="perf-value" id="maxEndPph">900</span>
+              <span class="perf-unit pph-unit">pph</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Max Range</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxRange">118</span>
+              <span class="perf-unit dual-unit">ktas /</span>
+              <span class="perf-value" id="maxRangePph">1200</span>
+              <span class="perf-unit pph-unit">pph</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">VSSE @ Max Tq SE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="vsse">40</span>
+              <span class="perf-unit">ktas</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label">Max Tq DE / SE</span>
+            <span class="perf-right">
+              <span class="perf-value warn" id="maxTqDE">133</span>
+              <span class="sep"> / </span>
+              <span class="perf-value warn" id="maxTqSE">137</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Hvr Tq IGE DE</span>
+            <span class="perf-right">
+              <span class="perf-value ok" id="hvrTqIGE">82</span>
+              <span class="sep"> / </span>
+              <span class="perf-value ok" id="hvrTqIGESE">70</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Hvr Tq OGE DE</span>
+            <span class="perf-right">
+              <span class="perf-value warn" id="hvrTqOGE">117</span>
+              <span class="sep"> / </span>
+              <span class="perf-value" id="hvrTqOGESE">100</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      </div>
+
     </div><!-- /col-right -->
 
   </div><!-- /panel-config -->
@@ -987,112 +1448,61 @@
        PLACEHOLDER TABS
   ═══════════════════════════════════ -->
   <div class="tab-panel placeholder-panel" id="panel-comms">
-    [ COMMUNICATIONS — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Communications</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-wp">
-    [ WAYPOINTS / HAZARDS — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Waypoint / Hazards</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-cm">
-    [ CONTROL MEASURES — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Control Measures</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-tt">
-    [ TARGET / THREATS — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Target / Threats</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-az">
-    [ AREAS / ZONES — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Areas / Zones</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-lines">
-    [ LINES — NOT YET IMPLEMENTED ]
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Lines</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
 
   <!-- ══════════════════════════════════
        BOTTOM STRIP
   ═══════════════════════════════════ -->
   <div id="bottom-strip">
-    <!-- Row 1 -->
-    <div class="bottom-row">
-      <div class="bs-btn-area" style="flex-direction:row;gap:4px;align-items:center;min-width:auto">
-        <button id="btnLoadDTC" style="min-width:80px">Load DTC</button>
-        <div class="bs-dtc-label">
-          Current DTC &nbsp;
-          <input type="text" id="dtcName" value="MYMSNV01" maxlength="12"
-            style="width:80px;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright)">
-        </div>
-      </div>
-      <div class="perf-grid">
-        <div class="perf-cell">
-          <span class="perf-label">Maximum GWT</span>
-          <span class="perf-value" id="maxGWT">20260</span>
-          <span class="perf-unit">lbs</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">Max End</span>
-          <span class="perf-value" id="maxEnd">70</span>
-          <span class="perf-unit">ktas /</span>
-          <span class="perf-value" id="maxEndPph" style="margin-left:3px">900</span>
-          <span class="perf-unit">pph</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">Max Tq DE / SE</span>
-          <span class="perf-value warn" id="maxTqDE">133</span>
-          <span class="sep"> / </span>
-          <span class="perf-value warn" id="maxTqSE">137</span>
-          <span class="perf-unit">%</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 2 -->
-    <div class="bottom-row">
-      <div class="bs-btn-area" style="flex-direction:row;gap:4px;align-items:center;min-width:auto">
-        <button id="btnSaveDTC" style="min-width:80px">Save DTC</button>
-        <div style="min-width:160px"></div>
-      </div>
-      <div class="perf-grid">
-        <div class="perf-cell">
-          <span class="perf-label">Empty GWT</span>
-          <span class="perf-value" id="emptyGWT">14,539</span>
-          <span class="perf-unit">lbs</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">Max Range</span>
-          <span class="perf-value" id="maxRange">118</span>
-          <span class="perf-unit">ktas /</span>
-          <span class="perf-value" id="maxRangePph" style="margin-left:3px">1200</span>
-          <span class="perf-unit">pph</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">Hvr Tq IGE DE</span>
-          <span class="perf-value ok" id="hvrTqIGE">82</span>
-          <span class="sep"> / </span>
-          <span class="perf-value ok" id="hvrTqIGESE">70</span>
-          <span class="perf-unit">%</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 3 -->
-    <div class="bottom-row">
-      <div style="min-width:244px"></div>
-      <div class="perf-grid">
-        <div class="perf-cell">
-          <span class="perf-label">Current GWT</span>
-          <span class="perf-value" id="currentGWT">19400</span>
-          <span class="perf-unit">lbs</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">VSSE @ Max Tq SE</span>
-          <span class="perf-value" id="vsse">40</span>
-          <span class="perf-unit">ktas</span>
-        </div>
-        <div class="perf-cell">
-          <span class="perf-label">Hvr Tq OGE DE</span>
-          <span class="perf-value warn" id="hvrTqOGE">117</span>
-          <span class="sep"> / </span>
-          <span class="perf-value" id="hvrTqOGESE">100</span>
-          <span class="perf-unit">%</span>
-        </div>
-      </div>
+    <div id="dtc-box">
+      <div class="dtc-title">DTC</div>
+      <button id="btnLoadDTC">Load DTC</button>
+      <button id="btnSaveDTC">Save DTC</button>
+      <label class="dtc-current">
+        <span>Current Loaded</span>
+        <input type="text" id="dtcName" value="MYMSNV01" maxlength="12"
+          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright)">
+      </label>
     </div>
 
   </div><!-- /bottom-strip -->
@@ -1100,8 +1510,25 @@
 </div><!-- /app -->
 
 <script>
+function eachNode(selector, callback) {
+  var nodes = document.querySelectorAll(selector);
+  for (var i = 0; i < nodes.length; i++) {
+    callback(nodes[i], i);
+  }
+}
+
+function getData(el, key) {
+  return (el && el.getAttribute) ? (el.getAttribute('data-' + key) || '') : '';
+}
+
+function setData(el, key, value) {
+  if (el && el.setAttribute) {
+    el.setAttribute('data-' + key, String(value));
+  }
+}
+
 // ── TAB SWITCHING ──────────────────────────────────────────────
-const tabMap = {
+var tabMap = {
   config: 'panel-config',
   comms:  'panel-comms',
   wp:     'panel-wp',
@@ -1111,19 +1538,35 @@ const tabMap = {
   lines:  'panel-lines'
 };
 
-document.querySelectorAll('.tab').forEach(function(tab) {
+function setActiveTabState(tabName) {
+  var app = document.getElementById('app');
+  if (!app) return;
+  if (tabName === 'config') {
+    app.classList.remove('non-config-tab');
+  } else {
+    app.classList.add('non-config-tab');
+  }
+}
+
+eachNode('.tab', function(tab) {
   tab.addEventListener('click', function() {
-    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    eachNode('.tab', function(t) { t.classList.remove('active'); });
+    eachNode('.tab-panel', function(p) { p.classList.remove('active'); });
     tab.classList.add('active');
-    var panel = document.getElementById('panel-' + tab.dataset.tab);
+    var tabName = getData(tab, 'tab');
+    var panel = document.getElementById('panel-' + tabName);
     if (panel) panel.classList.add('active');
+    setActiveTabState(tabName);
   });
 });
+
+setActiveTabState('config');
 
 // ── FCR TOGGLE ────────────────────────────────────────────────
 document.getElementById('fcrBadge').addEventListener('click', function() {
   this.classList.toggle('active');
+  syncSilhouette();
+  updateWeightsAndPerformance();
 });
 
 // ── FUEL WEIGHT CALC ─────────────────────────────────────────
@@ -1133,14 +1576,315 @@ var GAL_TO_LBS_AFT = 1474 / 220;  // ~6.700
 var GAL_TO_LBS_CTR = 663  / 100;  // ~6.630
 var GAL_TO_LBS_AUX = 1541 / 230;  // ~6.700
 
+var EST_ROCKET_ROUND_LBS = 11.9;
+var EST_HELLFIRE_LBS = 108;
+var EST_30MM_ROUND_LBS = 1.8;
+var EST_M299_EMPTY_LBS = 130;
+var EST_M261_EMPTY_LBS = 160;
+var EST_AUX_TANK_EMPTY_LBS = 310;
+var EST_FCR_LBS = 140;
+var EST_IAFS_LBS = 120;
+var EST_MAGAZINE_LBS = 220;
+
+var weightModelBaseline = null;
+
+function parseNumberText(text) {
+  var cleaned = String(text || '').replace(/[^0-9\-]/g, '');
+  var value = parseInt(cleaned || '0', 10);
+  if (isNaN(value)) return 0;
+  return value;
+}
+
+function formatWhole(value) {
+  return String(Math.round(value));
+}
+
+function formatWholeComma(value) {
+  var n = Math.round(value);
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function clampNumber(value, min, max) {
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
+}
+
+function countHellfiresOnPylon(pylonIndex) {
+  var rails = ['tr', 'tl', 'br', 'bl'];
+  var count = 0;
+  for (var i = 0; i < rails.length; i++) {
+    var railEl = document.getElementById('p' + pylonIndex + '_' + rails[i]);
+    var code = normalizeHellfireCode(railEl ? railEl.value : '');
+    if (code !== '') count += 1;
+  }
+  return count;
+}
+
+function countRocketsOnPylon(pylonIndex) {
+  var zones = getZoneIdsForPylon(pylonIndex);
+  var total = 0;
+  for (var i = 0; i < zones.length; i++) {
+    var zoneKey = zones[i][0];
+    var countEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_count');
+    total += parseInt(countEl ? countEl.value : '0', 10) || 0;
+  }
+  return total;
+}
+
+function computeLoadoutWeightMetrics() {
+  var rocketCount = 0;
+  var hellfireCount = 0;
+  var externalDryWeight = 0;
+  var hasAuxTank = false;
+
+  for (var i = 1; i <= 4; i++) {
+    var modeEl = document.getElementById('pylon' + i + 'Type');
+    var mode = modeEl ? modeEl.value : 'none';
+
+    if (mode === 'hellfire') {
+      externalDryWeight += EST_M299_EMPTY_LBS;
+      hellfireCount += countHellfiresOnPylon(i);
+    } else if (mode === 'rocket') {
+      externalDryWeight += EST_M261_EMPTY_LBS;
+      rocketCount += countRocketsOnPylon(i);
+    } else if (mode === 'aux') {
+      externalDryWeight += EST_AUX_TANK_EMPTY_LBS;
+      hasAuxTank = true;
+    }
+  }
+
+  var cannonRounds = parseInt(document.getElementById('cannonRds').value || '0', 10) || 0;
+  var ammoWeightCalc = (rocketCount * EST_ROCKET_ROUND_LBS) + (hellfireCount * EST_HELLFIRE_LBS) + (cannonRounds * EST_30MM_ROUND_LBS);
+
+  var fcrWeight = document.getElementById('fcrBadge').classList.contains('active') ? EST_FCR_LBS : 0;
+  var centerStoreWeight = document.getElementById('robbieMode').value === 'iafs' ? EST_IAFS_LBS : EST_MAGAZINE_LBS;
+  var equipmentWeightCalc = externalDryWeight + fcrWeight + centerStoreWeight;
+
+  var auxFuelLbs = parseNumberText(document.getElementById('fuelAuxLbs').textContent);
+  var jettisonWeightCalc = externalDryWeight + (hasAuxTank ? auxFuelLbs : 0);
+
+  return {
+    ammoWeight: Math.round(ammoWeightCalc),
+    jettisonWeight: Math.round(jettisonWeightCalc),
+    equipmentWeight: Math.round(equipmentWeightCalc)
+  };
+}
+
+function updateWeightsAndPerformance() {
+  var fuelTotalLbs = parseNumberText(document.getElementById('fuelTotalLbs').textContent);
+  var maxGwt = parseNumberText(document.getElementById('maxGWT').textContent);
+  var metrics = computeLoadoutWeightMetrics();
+
+  if (!weightModelBaseline) {
+    weightModelBaseline = {
+      fuelLbs: fuelTotalLbs,
+      ammoCalc: metrics.ammoWeight,
+      jettCalc: metrics.jettisonWeight,
+      equipCalc: metrics.equipmentWeight,
+      ammoDisplay: parseNumberText(document.getElementById('ammoWeight').textContent),
+      jettDisplay: parseNumberText(document.getElementById('jettisonWeight').textContent),
+      emptyDisplay: parseNumberText(document.getElementById('emptyGWT').textContent),
+      currentDisplay: parseNumberText(document.getElementById('currentGWT').textContent),
+      maxEnd: parseNumberText(document.getElementById('maxEnd').textContent),
+      maxEndPph: parseNumberText(document.getElementById('maxEndPph').textContent),
+      maxRange: parseNumberText(document.getElementById('maxRange').textContent),
+      maxRangePph: parseNumberText(document.getElementById('maxRangePph').textContent),
+      vsse: parseNumberText(document.getElementById('vsse').textContent),
+      maxTqDE: parseNumberText(document.getElementById('maxTqDE').textContent),
+      maxTqSE: parseNumberText(document.getElementById('maxTqSE').textContent),
+      hvrTqIGE: parseNumberText(document.getElementById('hvrTqIGE').textContent),
+      hvrTqIGESE: parseNumberText(document.getElementById('hvrTqIGESE').textContent),
+      hvrTqOGE: parseNumberText(document.getElementById('hvrTqOGE').textContent),
+      hvrTqOGESE: parseNumberText(document.getElementById('hvrTqOGESE').textContent)
+    };
+  }
+
+  var deltaFuel = fuelTotalLbs - weightModelBaseline.fuelLbs;
+  var deltaAmmo = metrics.ammoWeight - weightModelBaseline.ammoCalc;
+  var deltaEquip = metrics.equipmentWeight - weightModelBaseline.equipCalc;
+  var deltaJett = metrics.jettisonWeight - weightModelBaseline.jettCalc;
+
+  var ammoDisplay = Math.max(0, weightModelBaseline.ammoDisplay + deltaAmmo);
+  var jettDisplay = Math.max(0, weightModelBaseline.jettDisplay + deltaJett);
+  var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay + deltaEquip);
+  var currentDisplay = Math.max(0, weightModelBaseline.currentDisplay + deltaFuel + deltaAmmo + deltaEquip);
+
+  document.getElementById('ammoWeight').textContent = formatWhole(ammoDisplay);
+  document.getElementById('jettisonWeight').textContent = formatWhole(jettDisplay);
+  document.getElementById('emptyGWT').textContent = formatWholeComma(emptyDisplay);
+  document.getElementById('currentGWT').textContent = formatWhole(currentDisplay);
+
+  var currentGwtEl = document.getElementById('currentGWT');
+  if (currentGwtEl) {
+    currentGwtEl.classList.remove('caution');
+    currentGwtEl.classList.remove('warn');
+    if (currentDisplay > maxGwt) {
+      currentGwtEl.classList.add('warn');
+    } else if ((maxGwt - currentDisplay) <= 1000) {
+      currentGwtEl.classList.add('caution');
+    }
+  }
+
+  var jettPct = maxGwt > 0 ? Math.round(((currentDisplay - maxGwt) / maxGwt) * 100) : 0;
+  document.getElementById('jettisonPct').textContent = (jettPct > 0 ? '+' : '') + String(jettPct) + ' %';
+
+  var deltaCurrent = currentDisplay - weightModelBaseline.currentDisplay;
+  function shifted(baseValue, slope, min, max) {
+    return clampNumber(Math.round(baseValue + (deltaCurrent * slope)), min, max);
+  }
+
+  document.getElementById('maxEnd').textContent = formatWhole(shifted(weightModelBaseline.maxEnd, -1 / 900, 35, 120));
+  document.getElementById('maxEndPph').textContent = formatWhole(shifted(weightModelBaseline.maxEndPph, 1 / 10, 700, 2600));
+  document.getElementById('maxRange').textContent = formatWhole(shifted(weightModelBaseline.maxRange, -1 / 700, 50, 180));
+  document.getElementById('maxRangePph').textContent = formatWhole(shifted(weightModelBaseline.maxRangePph, 1 / 8, 900, 3200));
+  document.getElementById('vsse').textContent = formatWhole(shifted(weightModelBaseline.vsse, -1 / 800, 15, 90));
+  document.getElementById('maxTqDE').textContent = formatWhole(shifted(weightModelBaseline.maxTqDE, 1 / 220, 90, 180));
+  document.getElementById('maxTqSE').textContent = formatWhole(shifted(weightModelBaseline.maxTqSE, 1 / 220, 90, 180));
+  document.getElementById('hvrTqIGE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqIGE, 1 / 230, 40, 170));
+  document.getElementById('hvrTqIGESE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqIGESE, 1 / 230, 35, 170));
+  document.getElementById('hvrTqOGE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqOGE, 1 / 180, 70, 180));
+  document.getElementById('hvrTqOGESE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqOGESE, 1 / 180, 60, 180));
+}
+
+function getFuelMax(id) {
+  var el = document.getElementById(id);
+  return parseInt(getData(el, 'max') || el.max || '0', 10) || 0;
+}
+
+function getInternalFuelIds() {
+  var ids = ['fuelFwd', 'fuelAft'];
+  var centerFuelRow = document.getElementById('fuelCtrRow');
+  if (centerFuelRow && !centerFuelRow.classList.contains('hidden')) {
+    ids.push('fuelCtr');
+  }
+  return ids;
+}
+
+function getLoadedAuxTankCount() {
+  var count = 0;
+  for (var i = 1; i <= 4; i++) {
+    var modeEl = document.getElementById('pylon' + i + 'Type');
+    if (modeEl && modeEl.value === 'aux') count += 1;
+  }
+  return count;
+}
+
+function syncAuxFuelAvailability() {
+  var auxRow = document.getElementById('fuelAuxRow');
+  var auxInput = document.getElementById('fuelAux');
+  var auxMaxLabel = document.getElementById('fuelAuxMax');
+  if (!auxRow || !auxInput) return;
+
+  var tankCount = getLoadedAuxTankCount();
+  var auxMax = tankCount * 230;
+
+  setData(auxInput, 'max', String(auxMax));
+  auxInput.max = String(auxMax);
+  if (auxMaxLabel) auxMaxLabel.textContent = String(auxMax);
+
+  if (tankCount <= 0) {
+    auxInput.value = '0';
+    auxRow.classList.add('hidden');
+  } else {
+    auxRow.classList.remove('hidden');
+    sanitizeFuelInput(auxInput);
+  }
+}
+
+function setFuelFromPercentage() {
+  var pctEl = document.getElementById('fuelPct');
+  sanitizeFuelInput(pctEl);
+
+  var totalCapacity = 0;
+  var internalIds = getInternalFuelIds();
+  for (var i = 0; i < internalIds.length; i++) {
+    totalCapacity += getFuelMax(internalIds[i]);
+  }
+  totalCapacity += getFuelMax('fuelAux');
+
+  var pct = parseInt(pctEl.value || '0', 10);
+  if (isNaN(pct) || pct < 0) pct = 0;
+  if (pct > 100) pct = 100;
+
+  var gallonsToAllocate = Math.round((totalCapacity * pct) / 100);
+
+  // Fill FWD + AFT evenly first.
+  var fwdMax = getFuelMax('fuelFwd');
+  var aftMax = getFuelMax('fuelAft');
+  var pairCapacity = fwdMax + aftMax;
+  var pairToAllocate = gallonsToAllocate > pairCapacity ? pairCapacity : gallonsToAllocate;
+  var fwd = 0;
+  var aft = 0;
+  var turn = 0;
+
+  while (pairToAllocate > 0) {
+    var canFwd = fwd < fwdMax;
+    var canAft = aft < aftMax;
+    if (!canFwd && !canAft) break;
+
+    if ((turn % 2 === 0 && canFwd) || !canAft) {
+      fwd += 1;
+    } else {
+      aft += 1;
+    }
+
+    pairToAllocate -= 1;
+    turn += 1;
+  }
+
+  document.getElementById('fuelFwd').value = String(fwd);
+  document.getElementById('fuelAft').value = String(aft);
+  gallonsToAllocate -= (fwd + aft);
+
+  // Fill center next (if installed/visible).
+  var centerFuelRow = document.getElementById('fuelCtrRow');
+  if (centerFuelRow && !centerFuelRow.classList.contains('hidden')) {
+    var ctrMax = getFuelMax('fuelCtr');
+    var ctrValue = gallonsToAllocate > ctrMax ? ctrMax : gallonsToAllocate;
+    if (ctrValue < 0) ctrValue = 0;
+    document.getElementById('fuelCtr').value = String(ctrValue);
+    gallonsToAllocate -= ctrValue;
+  } else {
+    document.getElementById('fuelCtr').value = '0';
+  }
+
+  if (document.getElementById('fuelCtrRow').classList.contains('hidden')) {
+    document.getElementById('fuelCtr').value = '0';
+  }
+
+  // Fill AUX last.
+  var auxMax = getFuelMax('fuelAux');
+  var auxValue = gallonsToAllocate > auxMax ? auxMax : gallonsToAllocate;
+  if (auxValue < 0) auxValue = 0;
+  document.getElementById('fuelAux').value = String(auxValue);
+
+  calcFuel();
+}
+
+function syncFuelPctFromTanks() {
+  var totalCapacity = 0;
+  var totalGallons = 0;
+  var fuelIds = ['fuelFwd', 'fuelAft', 'fuelAux'];
+  var internalIds = getInternalFuelIds();
+  for (var i = 0; i < internalIds.length; i++) {
+    if (fuelIds.indexOf(internalIds[i]) === -1) fuelIds.push(internalIds[i]);
+  }
+  for (var j = 0; j < fuelIds.length; j++) {
+    totalCapacity += getFuelMax(fuelIds[j]);
+    totalGallons += parseInt(document.getElementById(fuelIds[j]).value || '0', 10) || 0;
+  }
+  document.getElementById('fuelPct').value = totalCapacity > 0 ? String(Math.round((totalGallons / totalCapacity) * 100)) : '0';
+}
+
 function calcFuel() {
   function readClampedFuel(id) {
     var el = document.getElementById(id);
     var raw = (el.value || '').replace(/[^0-9]/g, '');
     var value = raw === '' ? 0 : parseInt(raw, 10);
-    var max = parseInt(el.dataset.max || el.max || '0', 10);
-    if (Number.isNaN(value) || value < 0) value = 0;
-    if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+    var max = parseInt(getData(el, 'max') || el.max || '0', 10);
+    if (isNaN(value) || value < 0) value = 0;
+    if (!isNaN(max) && max > 0 && value > max) value = max;
     el.value = String(value);
     return value;
   }
@@ -1161,18 +1905,23 @@ function calcFuel() {
   document.getElementById('fuelCtrLbs').textContent = ctrLbs;
   document.getElementById('fuelAuxLbs').textContent = auxLbs;
   document.getElementById('fuelTotalLbs').textContent = total;
+  syncFuelPctFromTanks();
+  updateWeightsAndPerformance();
 }
 
 ['fuelFwd','fuelAft','fuelCtr','fuelAux'].forEach(function(id) {
-  document.getElementById(id).addEventListener('input', calcFuel);
+  document.getElementById(id).addEventListener('input', function() {
+    sanitizeFuelInput(document.getElementById(id));
+    calcFuel();
+  });
 });
 
 function sanitizeFuelInput(inputEl) {
   var cleaned = (inputEl.value || '').replace(/[^0-9]/g, '');
   var value = cleaned === '' ? 0 : parseInt(cleaned, 10);
-  var max = parseInt(inputEl.dataset.max || inputEl.max || '0', 10);
-  if (Number.isNaN(value) || value < 0) value = 0;
-  if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+  var max = parseInt(getData(inputEl, 'max') || inputEl.max || '0', 10);
+  if (isNaN(value) || value < 0) value = 0;
+  if (!isNaN(max) && max > 0 && value > max) value = max;
   inputEl.value = String(value);
 }
 
@@ -1181,28 +1930,32 @@ function sanitizeFuelInput(inputEl) {
   if (!fuelInput) return;
   fuelInput.addEventListener('input', function() {
     sanitizeFuelInput(fuelInput);
+    if (id === 'fuelPct') setFuelFromPercentage();
   });
   fuelInput.addEventListener('blur', function() {
     sanitizeFuelInput(fuelInput);
+    if (id === 'fuelPct') setFuelFromPercentage();
+    else calcFuel();
   });
   sanitizeFuelInput(fuelInput);
 });
 
-// ── ROBBIE + CANNON LOGIC ──────────────────────────────────────
+// ── CENTER STORE + CANNON LOGIC ─────────────────────────────────
 function syncCannonDisplay() {
   var cannonInput = document.getElementById('cannonRds');
   var cleaned = (cannonInput.value || '').replace(/[^0-9]/g, '');
   var current = cleaned === '' ? 0 : parseInt(cleaned, 10);
-  if (Number.isNaN(current) || current < 0) current = 0;
+  if (isNaN(current) || current < 0) current = 0;
 
   var max = parseInt(cannonInput.max || '1200', 10);
   if (current > max) current = max;
   cannonInput.value = String(current);
+  updateWeightsAndPerformance();
 }
 
 function syncRobbieState() {
-  var robbieBadge = document.getElementById('robbieBadge');
-  var robbieInstalled = robbieBadge.classList.contains('active');
+  var robbieMode = document.getElementById('robbieMode');
+  var robbieInstalled = robbieMode && robbieMode.value === 'iafs';
   var cannonInput = document.getElementById('cannonRds');
   var centerFuelRow = document.getElementById('fuelCtrRow');
   var centerFuelInput = document.getElementById('fuelCtr');
@@ -1213,22 +1966,22 @@ function syncRobbieState() {
 
   if (robbieInstalled) {
     centerFuelRow.classList.remove('hidden');
-    if (centerFuelInput.value === '0' && centerFuelInput.dataset.prevValue) {
-      centerFuelInput.value = centerFuelInput.dataset.prevValue;
+    if (centerFuelInput.value === '0' && getData(centerFuelInput, 'prevValue')) {
+      centerFuelInput.value = getData(centerFuelInput, 'prevValue');
     }
   } else {
-    centerFuelInput.dataset.prevValue = centerFuelInput.value;
+    setData(centerFuelInput, 'prevValue', centerFuelInput.value);
     centerFuelInput.value = '0';
     centerFuelRow.classList.add('hidden');
   }
 
   syncCannonDisplay();
   calcFuel();
+  syncSilhouette();
 }
 
 document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
-document.getElementById('robbieBadge').addEventListener('click', function() {
-  this.classList.toggle('active');
+document.getElementById('robbieMode').addEventListener('change', function() {
   syncRobbieState();
 });
 
@@ -1255,7 +2008,7 @@ function normalizeHellfireCode(rawValue) {
 }
 
 function initHellfireCyclers() {
-  document.querySelectorAll('.rail-ammo').forEach(function(selectEl) {
+  eachNode('.rail-ammo', function(selectEl) {
     var selectedCode = normalizeHellfireCode(selectEl.value);
 
     selectEl.innerHTML = '';
@@ -1270,15 +2023,17 @@ function initHellfireCyclers() {
     var cycleBtn = document.createElement('button');
     cycleBtn.type = 'button';
     cycleBtn.className = 'rail-cycle';
-    cycleBtn.dataset.index = String(hellfireCycleOrder.indexOf(selectedCode));
+    setData(cycleBtn, 'index', hellfireCycleOrder.indexOf(selectedCode));
     cycleBtn.textContent = selectedCode === '' ? '-' : selectedCode;
 
     cycleBtn.addEventListener('click', function() {
-      var nextIndex = (parseInt(cycleBtn.dataset.index || '0', 10) + 1) % hellfireCycleOrder.length;
+      var nextIndex = (parseInt(getData(cycleBtn, 'index') || '0', 10) + 1) % hellfireCycleOrder.length;
       var nextCode = hellfireCycleOrder[nextIndex];
-      cycleBtn.dataset.index = String(nextIndex);
+      setData(cycleBtn, 'index', nextIndex);
       cycleBtn.textContent = nextCode === '' ? '-' : nextCode;
       selectEl.value = hellfireCodeMap[nextCode];
+      syncSilhouette();
+      updateWeightsAndPerformance();
     });
 
     selectEl.classList.add('hidden');
@@ -1286,9 +2041,75 @@ function initHellfireCyclers() {
   });
 }
 
+function getZoneIdsForPylon(pylonIndex) {
+  if (pylonIndex === 1 || pylonIndex === 4) {
+    return [['za', 'A'], ['zb', 'B'], ['ze', 'E']];
+  }
+  return [['zc', 'C'], ['zd', 'D'], ['ze', 'E']];
+}
+
+function getPylonSummary(pylonIndex, mode) {
+  var summary = [];
+  if (mode === 'hellfire') {
+    var railIds = ['tr', 'tl', 'br', 'bl'];
+    for (var i = 0; i < railIds.length; i++) {
+      var railEl = document.getElementById('p' + pylonIndex + '_' + railIds[i]);
+      var code = normalizeHellfireCode(railEl ? railEl.value : '');
+      summary.push(code === '' ? '-' : code);
+    }
+    return summary.join(' ');
+  }
+
+  if (mode === 'rocket') {
+    var zoneIds = getZoneIdsForPylon(pylonIndex);
+    for (var j = 0; j < zoneIds.length; j++) {
+      var zoneKey = zoneIds[j][0];
+      var zoneLabel = zoneIds[j][1];
+      var countEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_count');
+      var typeEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_type');
+      var count = countEl ? countEl.value : '0';
+      var type = typeEl ? typeEl.value : '';
+      summary.push(zoneLabel + ':' + count + 'x' + (type || 'None'));
+    }
+    return summary.join(' | ');
+  }
+
+  if (mode === 'aux') {
+    return '230 GAL TANK';
+  }
+
+  return 'EMPTY';
+}
+
+function syncSilhouette() {
+  var svg = document.getElementById('apache-svg');
+  if (!svg) return;
+
+  svg.setAttribute('data-fcr', document.getElementById('fcrBadge').classList.contains('active') ? 'on' : 'off');
+  svg.setAttribute('data-gun', document.getElementById('robbieMode').value === 'iafs' ? 'on' : 'off');
+
+  var loadoutParts = [];
+  for (var i = 1; i <= 4; i++) {
+    var modeSelect = document.getElementById('pylon' + i + 'Type');
+    var mode = modeSelect ? modeSelect.value : 'none';
+    svg.setAttribute('data-p' + i + '-mode', mode);
+
+    var summaryEl = document.getElementById('sil-p' + i + '-label');
+    if (summaryEl) {
+      summaryEl.textContent = mode === 'hellfire' ? 'HF' : (mode === 'rocket' ? 'RKT' : (mode === 'aux' ? 'AUX' : 'EMPTY'));
+    }
+    loadoutParts.push('P' + i + ' ' + getPylonSummary(i, mode));
+  }
+
+  var loadoutEl = document.getElementById('sil-loadout');
+  if (loadoutEl) {
+    loadoutEl.textContent = loadoutParts.join('   ');
+  }
+}
+
 function initRocketTypeOptions() {
   var rocketCodes = ['None', '6PD', '6FL', '6MP', '6IL', '6IR'];
-  document.querySelectorAll('.zone-type select').forEach(function(selectEl) {
+  eachNode('.zone-type select', function(selectEl) {
     var current = selectEl.value;
     selectEl.innerHTML = '';
     rocketCodes.forEach(function(code) {
@@ -1301,12 +2122,36 @@ function initRocketTypeOptions() {
   });
 }
 
+function syncMatchingRocketZoneTypes(changedSelect) {
+  var changedId = changedSelect && changedSelect.id ? changedSelect.id : '';
+  var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(changedId);
+  if (!changedMatch) return;
+
+  var zoneLetter = changedMatch[1].toLowerCase();
+  var selectedType = changedSelect.value;
+
+  eachNode('.zone-type select', function(selectEl) {
+    if (selectEl === changedSelect) return;
+
+    var otherMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
+    if (!otherMatch) return;
+
+    if (otherMatch[1].toLowerCase() === zoneLetter) {
+      selectEl.value = selectedType;
+    }
+  });
+}
+
 // ── PYLON MODE + ROCKET CAP LOGIC ───────────────────────────
 function setPylonMode(pylonIndex, mode) {
   ['hellfire', 'rocket', 'aux', 'none'].forEach(function(name) {
     var panel = document.getElementById('p' + pylonIndex + '_' + name);
     if (panel) {
-      panel.classList.toggle('hidden', name !== mode);
+      if (name !== mode) {
+        panel.classList.add('hidden');
+      } else {
+        panel.classList.remove('hidden');
+      }
     }
   });
 }
@@ -1314,10 +2159,10 @@ function setPylonMode(pylonIndex, mode) {
 function sanitizeZoneInput(inputEl) {
   var cleaned = (inputEl.value || '').replace(/[^0-9]/g, '');
   var value = cleaned === '' ? 0 : parseInt(cleaned, 10);
-  var max = parseInt(inputEl.dataset.max || '0', 10);
-  if (Number.isNaN(value)) value = 0;
+  var max = parseInt(getData(inputEl, 'max') || '0', 10);
+  if (isNaN(value)) value = 0;
   if (value < 0) value = 0;
-  if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+  if (!isNaN(max) && max > 0 && value > max) value = max;
   inputEl.value = String(value);
 }
 
@@ -1328,23 +2173,49 @@ for (var i = 1; i <= 4; i++) {
     setPylonMode(pylonIndex, select.value);
     select.addEventListener('change', function() {
       setPylonMode(pylonIndex, select.value);
+      syncAuxFuelAvailability();
+      calcFuel();
+      syncSilhouette();
+      updateWeightsAndPerformance();
     });
   })(i);
 }
 
-document.querySelectorAll('[id$="_count"]').forEach(function(inputEl) {
+eachNode('[id$="_count"]', function(inputEl) {
   inputEl.addEventListener('input', function() {
     sanitizeZoneInput(inputEl);
+    syncSilhouette();
+    updateWeightsAndPerformance();
   });
   inputEl.addEventListener('blur', function() {
     sanitizeZoneInput(inputEl);
+    syncSilhouette();
+    updateWeightsAndPerformance();
   });
   sanitizeZoneInput(inputEl);
 });
 
+eachNode('.rail-ammo', function(selectEl) {
+  selectEl.addEventListener('change', function() {
+    syncSilhouette();
+    updateWeightsAndPerformance();
+  });
+});
+
+eachNode('.zone-type select', function(selectEl) {
+  selectEl.addEventListener('change', function() {
+    syncMatchingRocketZoneTypes(selectEl);
+    syncSilhouette();
+  });
+});
+
+syncSilhouette();
+
 initHellfireCyclers();
 initRocketTypeOptions();
+syncAuxFuelAvailability();
 syncRobbieState();
+updateWeightsAndPerformance();
 
 // ── SQF BRIDGE STUB ──────────────────────────────────────────
 // When wired to Arma: window.location = "exec://<sqf_code>";
