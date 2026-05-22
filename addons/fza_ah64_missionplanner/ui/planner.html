@@ -739,6 +739,8 @@
   #panel-config #config-perf #currentGWT {
     min-width: 62px;
   }
+  #panel-config #config-perf #currentGWT.warn { color: var(--red-bright); font-weight: bold; }
+  #panel-config #config-perf #currentGWT.caution { color: var(--yellow); font-weight: bold; }
   #panel-config #config-perf #maxEndPph,
   #panel-config #config-perf #maxRangePph {
     min-width: 44px;
@@ -746,6 +748,16 @@
   }
   #panel-config #config-perf .pph-unit {
     min-width: 30px;
+  }
+  #panel-config #config-perf .perf-input {
+    width: 52px;
+    height: 22px;
+    border: 1px solid var(--border2);
+    background: var(--panel);
+    color: var(--text-bright);
+    text-align: right;
+    font-size: 14px;
+    padding: 0 4px;
   }
   #app.non-config-tab .config-only-bottom { display: none; }
   #panel-config .col-left {
@@ -1352,6 +1364,16 @@
       <div class="bottom-row">
         <div class="perf-grid">
           <div class="perf-cell">
+            <span class="perf-label">PA / FAT</span>
+            <span class="perf-right">
+              <input class="perf-input" id="perfPA" type="text" value="0" maxlength="5" aria-label="Pressure altitude feet">
+              <span class="perf-unit">ft</span>
+              <span class="sep"> / </span>
+              <input class="perf-input" id="perfFAT" type="text" value="20" maxlength="4" aria-label="Free air temperature C">
+              <span class="perf-unit">C</span>
+            </span>
+          </div>
+          <div class="perf-cell">
             <span class="perf-label">Empty GWT</span>
             <span class="perf-right">
               <span class="perf-value" id="emptyGWT">14,539</span>
@@ -1397,9 +1419,11 @@
             </span>
           </div>
           <div class="perf-cell">
-            <span class="perf-label">VSSE @ Max Tq SE</span>
+            <span class="perf-label">VSSE KTAS Cur/Jett</span>
             <span class="perf-right">
               <span class="perf-value" id="vsse">40</span>
+              <span class="sep"> / </span>
+              <span class="perf-value" id="vsseAfterJett">40</span>
               <span class="perf-unit">ktas</span>
             </span>
           </div>
@@ -1412,27 +1436,23 @@
           <div class="perf-cell">
             <span class="perf-label">Max Tq DE / SE</span>
             <span class="perf-right">
-              <span class="perf-value warn" id="maxTqDE">133</span>
+              <span class="perf-value" id="maxTqDE">133</span>
               <span class="sep"> / </span>
-              <span class="perf-value warn" id="maxTqSE">137</span>
+              <span class="perf-value" id="maxTqSE">137</span>
               <span class="perf-unit">%</span>
             </span>
           </div>
           <div class="perf-cell">
-            <span class="perf-label">Hvr Tq IGE DE</span>
+            <span class="perf-label">Hvr Tq IGE</span>
             <span class="perf-right">
-              <span class="perf-value ok" id="hvrTqIGE">82</span>
-              <span class="sep"> / </span>
-              <span class="perf-value ok" id="hvrTqIGESE">70</span>
+              <span class="perf-value" id="hvrTqIGE">82</span>
               <span class="perf-unit">%</span>
             </span>
           </div>
           <div class="perf-cell">
-            <span class="perf-label">Hvr Tq OGE DE</span>
+            <span class="perf-label">Hvr Tq OGE</span>
             <span class="perf-right">
-              <span class="perf-value warn" id="hvrTqOGE">117</span>
-              <span class="sep"> / </span>
-              <span class="perf-value" id="hvrTqOGESE">100</span>
+              <span class="perf-value" id="hvrTqOGE">117</span>
               <span class="perf-unit">%</span>
             </span>
           </div>
@@ -1528,16 +1548,6 @@ function setData(el, key, value) {
 }
 
 // ── TAB SWITCHING ──────────────────────────────────────────────
-var tabMap = {
-  config: 'panel-config',
-  comms:  'panel-comms',
-  wp:     'panel-wp',
-  cm:     'panel-cm',
-  tt:     'panel-tt',
-  az:     'panel-az',
-  lines:  'panel-lines'
-};
-
 function setActiveTabState(tabName) {
   var app = document.getElementById('app');
   if (!app) return;
@@ -1585,14 +1595,289 @@ var EST_AUX_TANK_EMPTY_LBS = 310;
 var EST_FCR_LBS = 140;
 var EST_IAFS_LBS = 120;
 var EST_MAGAZINE_LBS = 220;
+var LBS_PER_KG = 2.20462;
+
+// Planner currently has no PA/FAT controls; use standard baseline values.
+var PERF_DEFAULT_PA_FT = 0;
+var PERF_DEFAULT_FAT_C = 20;
+var SFMPLUS_CONFIG_PATH = '../../fza_ah64_controls/config/cfgVehicles/sfmplus.hpp';
 
 var weightModelBaseline = null;
+var sfmPerfDataReady = false;
+var sfmPerfDataError = '';
+
+var PERF_TABLES = [];
+var HOVER_TABLES = [];
+var CRUISE_TABLES = [];
+var TAS_TABLES = [];
+var ENG_FF_TABLE = [];
+
+function readTextFile(path) {
+  return new Promise(function(resolve, reject) {
+    if (typeof fetch === 'function') {
+      fetch(path)
+        .then(function(resp) {
+          if (!resp || !resp.ok) throw new Error('Fetch failed for ' + path);
+          return resp.text();
+        })
+        .then(resolve)
+        .catch(function() {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', path, true);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status === 200 || xhr.status === 0) {
+              resolve(xhr.responseText || '');
+            } else {
+              reject(new Error('XHR failed for ' + path));
+            }
+          };
+          xhr.send();
+        });
+      return;
+    }
+
+    try {
+      var xhrOnly = new XMLHttpRequest();
+      xhrOnly.open('GET', path, true);
+      xhrOnly.onreadystatechange = function() {
+        if (xhrOnly.readyState !== 4) return;
+        if (xhrOnly.status === 200 || xhrOnly.status === 0) {
+          resolve(xhrOnly.responseText || '');
+        } else {
+          reject(new Error('XHR failed for ' + path));
+        }
+      };
+      xhrOnly.send();
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+function stripHppComments(text) {
+  return String(text || '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\/\/.*$/gm, '');
+}
+
+function parseHppTableRows(hppText, tableName) {
+  var pattern = new RegExp(tableName + '\\s*\\[\\]\\s*=\\s*\\{([\\s\\S]*?)\\};');
+  var match = hppText.match(pattern);
+  if (!match || !match[1]) return null;
+
+  var rows = [];
+  var rowRegex = /\{([^{}]+)\}/g;
+  var rowMatch;
+  while ((rowMatch = rowRegex.exec(match[1])) !== null) {
+    var row = rowMatch[1]
+      .split(',')
+      .map(function(token) { return parseFloat(String(token).trim()); })
+      .filter(function(value) { return !isNaN(value); });
+    if (row.length > 0) rows.push(row);
+  }
+
+  return rows.length > 0 ? rows : null;
+}
+
+function loadSfmPerfTablesFromConfig() {
+  return readTextFile(SFMPLUS_CONFIG_PATH)
+    .then(function(rawText) {
+      var hpp = stripHppComments(rawText);
+
+      var parsedPerf = [];
+      var parsedHover = [];
+      var parsedTas = [];
+      var parsedCruise = [];
+
+      var i;
+      for (i = 0; i <= 4; i++) {
+        var perfRows = parseHppTableRows(hpp, 'perfTable' + i);
+        var hoverRows = parseHppTableRows(hpp, 'hoverTable' + i);
+        var tasRows = parseHppTableRows(hpp, 'TASTable' + i);
+        if (!perfRows || !hoverRows || !tasRows) {
+          throw new Error('Missing perf/hover/TAS table index ' + i);
+        }
+        parsedPerf.push(perfRows);
+        parsedHover.push(hoverRows);
+        parsedTas.push(tasRows);
+      }
+
+      for (i = 0; i <= 4; i++) {
+        var cruiseForFat = [];
+        var j;
+        for (j = 0; j <= 3; j++) {
+          var cruiseName = 'cruiseTable' + String(i) + String(j);
+          var cruiseRows = parseHppTableRows(hpp, cruiseName);
+          if (!cruiseRows) {
+            throw new Error('Missing cruise table ' + cruiseName);
+          }
+          cruiseForFat.push(cruiseRows);
+        }
+        parsedCruise.push(cruiseForFat);
+      }
+
+      var parsedEngFf = parseHppTableRows(hpp, 'engFFTable');
+      if (!parsedEngFf) {
+        throw new Error('Missing engFFTable');
+      }
+
+      PERF_TABLES = parsedPerf;
+      HOVER_TABLES = parsedHover;
+      TAS_TABLES = parsedTas;
+      CRUISE_TABLES = parsedCruise;
+      ENG_FF_TABLE = parsedEngFf;
+      sfmPerfDataReady = true;
+      sfmPerfDataError = '';
+      return true;
+    })
+    .catch(function(err) {
+      sfmPerfDataReady = false;
+      sfmPerfDataError = err && err.message ? err.message : String(err);
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('Unable to load live SFM perf tables.', sfmPerfDataError);
+      }
+      return false;
+    });
+}
+
+function linearInterpRows(rows, key, extrapolateOutOfRange) {
+  var upperIndex = -1;
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i][0] > key) {
+      upperIndex = i;
+      break;
+    }
+  }
+
+  var lower;
+  var upper;
+
+  if (upperIndex === 0) {
+    if (!extrapolateOutOfRange || rows.length < 2) return rows[0].slice(0);
+    lower = rows[0];
+    upper = rows[1];
+  } else if (upperIndex === -1) {
+    if (!extrapolateOutOfRange || rows.length < 2) return rows[rows.length - 1].slice(0);
+    lower = rows[rows.length - 2];
+    upper = rows[rows.length - 1];
+  } else {
+    lower = rows[upperIndex - 1];
+    upper = rows[upperIndex];
+  }
+
+  var lowKey = lower[0];
+  var highKey = upper[0];
+  var out = [key];
+
+  for (var j = 1; j < lower.length; j++) {
+    var lowVal = lower[j];
+    var highVal = upper[j];
+    var value = lowVal + ((highVal - lowVal) / (highKey - lowKey)) * (key - lowKey);
+    out.push(value);
+  }
+
+  return out;
+}
+
+function setPerfValueClass(id, state) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('warn');
+  el.classList.remove('caution');
+  el.classList.remove('ok');
+  if (state) el.classList.add(state);
+}
+
+function computeSfmPerformance(gwtLbs, paFt, fatC) {
+  if (!sfmPerfDataReady) {
+    throw new Error('SFM perf data not loaded');
+  }
+
+  var gwtKg = gwtLbs / LBS_PER_KG;
+  var fatBins = [-40, -20, 0, 20, 40];
+  var gwtBinsKg = [6804, 7711, 8618, 9525];
+
+  var perfRows = [];
+  var hoverRows = [];
+  var cruiseRowsByFat = [];
+  var tasRows = [];
+
+  var i;
+  for (i = 0; i < fatBins.length; i++) {
+    var perfAtPa = linearInterpRows(PERF_TABLES[i], paFt);
+    perfRows.push([fatBins[i], perfAtPa[1], perfAtPa[2], perfAtPa[3], perfAtPa[4], perfAtPa[5], perfAtPa[6], perfAtPa[7], perfAtPa[8], perfAtPa[9]]);
+
+    var hoverAtPa = linearInterpRows(HOVER_TABLES[i], paFt);
+    hoverRows.push([fatBins[i], hoverAtPa[1], hoverAtPa[2], hoverAtPa[3], hoverAtPa[4], hoverAtPa[5], hoverAtPa[6], hoverAtPa[7], hoverAtPa[8]]);
+
+    var tasAtPa = linearInterpRows(TAS_TABLES[i], paFt);
+    tasRows.push([fatBins[i], tasAtPa[1], tasAtPa[2], tasAtPa[3], tasAtPa[4], tasAtPa[5], tasAtPa[6]]);
+
+    var cruiseAtWeightRows = [];
+    var j;
+    for (j = 0; j < gwtBinsKg.length; j++) {
+      var cruiseAtPa = linearInterpRows(CRUISE_TABLES[i][j], paFt);
+      cruiseAtWeightRows.push([gwtBinsKg[j], cruiseAtPa[1], cruiseAtPa[2], cruiseAtPa[3], cruiseAtPa[4], cruiseAtPa[5], cruiseAtPa[6]]);
+    }
+    var cruiseAtGwt = linearInterpRows(cruiseAtWeightRows, gwtKg, true);
+    cruiseRowsByFat.push([fatBins[i], cruiseAtGwt[1], cruiseAtGwt[2], cruiseAtGwt[3], cruiseAtGwt[4], cruiseAtGwt[5], cruiseAtGwt[6]]);
+  }
+
+  var intPerf = linearInterpRows(perfRows, fatC);
+  var intHover = linearInterpRows(hoverRows, fatC);
+  var hoverByGwt = [
+    [6804, intHover[1], intHover[2]],
+    [7711, intHover[3], intHover[4]],
+    [8618, intHover[5], intHover[6]],
+    [9525, intHover[7], intHover[8]]
+  ];
+  var intHover2 = linearInterpRows(hoverByGwt, gwtKg, true);
+
+  var tas = linearInterpRows(tasRows, fatC);
+  var rngFf = linearInterpRows(ENG_FF_TABLE, tas[4])[1] * 2 * 7936.64;
+  var endFf = linearInterpRows(ENG_FF_TABLE, tas[6])[1] * 2 * 7936.64;
+  return {
+    maxTQ_DE: intPerf[2],
+    maxTQ_SE: intPerf[3],
+    hvrTQ_IGE: intHover2[1],
+    hvrTQ_OGE: intHover2[2],
+    vsseTAS: tas[2],
+    rngTAS: tas[3],
+    rngTQ: tas[4],
+    rngFF: rngFf,
+    endTAS: tas[5],
+    endTQ: tas[6],
+    endFF: endFf
+  };
+}
 
 function parseNumberText(text) {
   var cleaned = String(text || '').replace(/[^0-9\-]/g, '');
   var value = parseInt(cleaned || '0', 10);
   if (isNaN(value)) return 0;
   return value;
+}
+
+function sanitizeSignedInput(inputEl, min, max) {
+  if (!inputEl) return 0;
+  var raw = String(inputEl.value || '');
+  var sign = raw.trim().indexOf('-') === 0 ? '-' : '';
+  var digits = raw.replace(/[^0-9]/g, '');
+  var parsed = parseInt((sign + digits) || '0', 10);
+  if (isNaN(parsed)) parsed = 0;
+  if (parsed < min) parsed = min;
+  if (parsed > max) parsed = max;
+  inputEl.value = String(parsed);
+  return parsed;
+}
+
+function getPerfAtmosphere() {
+  var paEl = document.getElementById('perfPA');
+  var fatEl = document.getElementById('perfFAT');
+  var pa = sanitizeSignedInput(paEl, -2000, 14000);
+  var fat = sanitizeSignedInput(fatEl, -60, 60);
+  return { pa: pa, fat: fat };
 }
 
 function formatWhole(value) {
@@ -1604,10 +1889,14 @@ function formatWholeComma(value) {
   return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-function clampNumber(value, min, max) {
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
+function formatEnduranceFromPph(fuelLbs, pph) {
+  if (!isFinite(fuelLbs) || !isFinite(pph) || pph <= 0) return '--';
+  var totalMinutes = Math.round((fuelLbs / pph) * 60);
+  if (totalMinutes < 0) totalMinutes = 0;
+  var hours = Math.floor(totalMinutes / 60);
+  var minutes = totalMinutes % 60;
+  var minuteText = minutes < 10 ? ('0' + String(minutes)) : String(minutes);
+  return String(hours) + '+' + minuteText;
 }
 
 function countHellfiresOnPylon(pylonIndex) {
@@ -1685,18 +1974,7 @@ function updateWeightsAndPerformance() {
       ammoDisplay: parseNumberText(document.getElementById('ammoWeight').textContent),
       jettDisplay: parseNumberText(document.getElementById('jettisonWeight').textContent),
       emptyDisplay: parseNumberText(document.getElementById('emptyGWT').textContent),
-      currentDisplay: parseNumberText(document.getElementById('currentGWT').textContent),
-      maxEnd: parseNumberText(document.getElementById('maxEnd').textContent),
-      maxEndPph: parseNumberText(document.getElementById('maxEndPph').textContent),
-      maxRange: parseNumberText(document.getElementById('maxRange').textContent),
-      maxRangePph: parseNumberText(document.getElementById('maxRangePph').textContent),
-      vsse: parseNumberText(document.getElementById('vsse').textContent),
-      maxTqDE: parseNumberText(document.getElementById('maxTqDE').textContent),
-      maxTqSE: parseNumberText(document.getElementById('maxTqSE').textContent),
-      hvrTqIGE: parseNumberText(document.getElementById('hvrTqIGE').textContent),
-      hvrTqIGESE: parseNumberText(document.getElementById('hvrTqIGESE').textContent),
-      hvrTqOGE: parseNumberText(document.getElementById('hvrTqOGE').textContent),
-      hvrTqOGESE: parseNumberText(document.getElementById('hvrTqOGESE').textContent)
+      currentDisplay: parseNumberText(document.getElementById('currentGWT').textContent)
     };
   }
 
@@ -1705,8 +1983,8 @@ function updateWeightsAndPerformance() {
   var deltaEquip = metrics.equipmentWeight - weightModelBaseline.equipCalc;
   var deltaJett = metrics.jettisonWeight - weightModelBaseline.jettCalc;
 
-  var ammoDisplay = Math.max(0, weightModelBaseline.ammoDisplay + deltaAmmo);
-  var jettDisplay = Math.max(0, weightModelBaseline.jettDisplay + deltaJett);
+  var ammoDisplay = Math.max(0, metrics.ammoWeight);
+  var jettDisplay = Math.max(0, metrics.jettisonWeight);
   var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay + deltaEquip);
   var currentDisplay = Math.max(0, weightModelBaseline.currentDisplay + deltaFuel + deltaAmmo + deltaEquip);
 
@@ -1726,25 +2004,78 @@ function updateWeightsAndPerformance() {
     }
   }
 
-  var jettPct = maxGwt > 0 ? Math.round(((currentDisplay - maxGwt) / maxGwt) * 100) : 0;
-  document.getElementById('jettisonPct').textContent = (jettPct > 0 ? '+' : '') + String(jettPct) + ' %';
+  document.getElementById('jettisonPct').textContent = '0 %';
 
-  var deltaCurrent = currentDisplay - weightModelBaseline.currentDisplay;
-  function shifted(baseValue, slope, min, max) {
-    return clampNumber(Math.round(baseValue + (deltaCurrent * slope)), min, max);
+  if (!sfmPerfDataReady) {
+    document.getElementById('maxEnd').textContent = '--';
+    document.getElementById('maxEndPph').textContent = '--';
+    document.getElementById('maxRange').textContent = '--';
+    document.getElementById('maxRangePph').textContent = '--';
+    document.getElementById('vsse').textContent = '--';
+    document.getElementById('vsseAfterJett').textContent = '--';
+    document.getElementById('maxTqDE').textContent = '--';
+    document.getElementById('maxTqSE').textContent = '--';
+    document.getElementById('hvrTqIGE').textContent = '--';
+    document.getElementById('hvrTqOGE').textContent = '--';
+    document.getElementById('endurance').textContent = '--';
+    setPerfValueClass('maxEnd', '');
+    setPerfValueClass('maxEndPph', '');
+    setPerfValueClass('maxRange', '');
+    setPerfValueClass('maxRangePph', '');
+    setPerfValueClass('vsse', '');
+    setPerfValueClass('vsseAfterJett', '');
+    setPerfValueClass('maxTqDE', '');
+    setPerfValueClass('maxTqSE', '');
+    setPerfValueClass('hvrTqIGE', '');
+    setPerfValueClass('hvrTqOGE', '');
+    return;
   }
 
-  document.getElementById('maxEnd').textContent = formatWhole(shifted(weightModelBaseline.maxEnd, -1 / 900, 35, 120));
-  document.getElementById('maxEndPph').textContent = formatWhole(shifted(weightModelBaseline.maxEndPph, 1 / 10, 700, 2600));
-  document.getElementById('maxRange').textContent = formatWhole(shifted(weightModelBaseline.maxRange, -1 / 700, 50, 180));
-  document.getElementById('maxRangePph').textContent = formatWhole(shifted(weightModelBaseline.maxRangePph, 1 / 8, 900, 3200));
-  document.getElementById('vsse').textContent = formatWhole(shifted(weightModelBaseline.vsse, -1 / 800, 15, 90));
-  document.getElementById('maxTqDE').textContent = formatWhole(shifted(weightModelBaseline.maxTqDE, 1 / 220, 90, 180));
-  document.getElementById('maxTqSE').textContent = formatWhole(shifted(weightModelBaseline.maxTqSE, 1 / 220, 90, 180));
-  document.getElementById('hvrTqIGE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqIGE, 1 / 230, 40, 170));
-  document.getElementById('hvrTqIGESE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqIGESE, 1 / 230, 35, 170));
-  document.getElementById('hvrTqOGE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqOGE, 1 / 180, 70, 180));
-  document.getElementById('hvrTqOGESE').textContent = formatWhole(shifted(weightModelBaseline.hvrTqOGESE, 1 / 180, 60, 180));
+  var atmosphere = getPerfAtmosphere();
+  var perf = computeSfmPerformance(currentDisplay, atmosphere.pa, atmosphere.fat);
+  var jettisonStep = Math.round(jettDisplay / 200);
+  var maxEnd = Math.round(perf.endTAS);
+  var maxEndPph = Math.round(perf.endFF / 10) * 10;
+  var maxRange = Math.round(perf.rngTAS);
+  var maxRangePph = Math.round(perf.rngFF / 10) * 10;
+  var endurance = formatEnduranceFromPph(fuelTotalLbs, perf.rngFF);
+  var vsse = Math.round(perf.vsseTAS);
+  var vsseAfterJett = vsse + jettisonStep;
+
+  var maxTqDePct = Math.round(perf.maxTQ_DE * 100);
+  var maxTqSePct = Math.round(perf.maxTQ_SE * 100);
+
+  var hvrIgeDePct = Math.round(perf.hvrTQ_IGE * 100);
+  var hvrOgeDePct = Math.round(perf.hvrTQ_OGE * 100);
+
+  // User rule: each 200 lbs jettisonable mass = 1% torque reduction.
+  var torqueDiffPct = jettisonStep > 0 ? -jettisonStep : 0;
+  document.getElementById('jettisonPct').textContent = String(torqueDiffPct) + ' %';
+
+  document.getElementById('maxEnd').textContent = formatWhole(maxEnd);
+  document.getElementById('maxEndPph').textContent = formatWhole(maxEndPph);
+  document.getElementById('maxRange').textContent = formatWhole(maxRange);
+  document.getElementById('maxRangePph').textContent = formatWhole(maxRangePph);
+  document.getElementById('endurance').textContent = endurance;
+  document.getElementById('vsse').textContent = formatWhole(vsse);
+  document.getElementById('vsseAfterJett').textContent = formatWhole(vsseAfterJett);
+
+  document.getElementById('maxTqDE').textContent = formatWhole(maxTqDePct);
+  document.getElementById('maxTqSE').textContent = formatWhole(maxTqSePct);
+  document.getElementById('hvrTqIGE').textContent = formatWhole(hvrIgeDePct);
+  document.getElementById('hvrTqOGE').textContent = formatWhole(hvrOgeDePct);
+
+  setPerfValueClass('maxEnd', '');
+  setPerfValueClass('maxEndPph', '');
+  setPerfValueClass('maxRange', '');
+  setPerfValueClass('maxRangePph', '');
+  setPerfValueClass('vsse', '');
+  setPerfValueClass('vsseAfterJett', '');
+
+  setPerfValueClass('maxTqDE', maxTqDePct > 100 ? 'warn' : 'ok');
+  setPerfValueClass('maxTqSE', maxTqSePct > 122 ? 'warn' : (maxTqSePct > 110 ? 'caution' : 'ok'));
+  setPerfValueClass('hvrTqIGE', hvrIgeDePct > 100 ? 'warn' : (hvrIgeDePct >= 80 ? 'caution' : ''));
+  setPerfValueClass('hvrTqOGE', hvrOgeDePct > 100 ? 'warn' : (hvrOgeDePct >= 80 ? 'caution' : ''));
 }
 
 function getFuelMax(id) {
@@ -1938,6 +2269,19 @@ function sanitizeFuelInput(inputEl) {
     else calcFuel();
   });
   sanitizeFuelInput(fuelInput);
+});
+
+['perfPA','perfFAT'].forEach(function(id) {
+  var perfInput = document.getElementById(id);
+  if (!perfInput) return;
+  perfInput.addEventListener('input', function() {
+    getPerfAtmosphere();
+    updateWeightsAndPerformance();
+  });
+  perfInput.addEventListener('blur', function() {
+    getPerfAtmosphere();
+    updateWeightsAndPerformance();
+  });
 });
 
 // ── CENTER STORE + CANNON LOGIC ─────────────────────────────────
@@ -2216,6 +2560,11 @@ initRocketTypeOptions();
 syncAuxFuelAvailability();
 syncRobbieState();
 updateWeightsAndPerformance();
+loadSfmPerfTablesFromConfig().then(function(loaded) {
+  if (loaded) {
+    updateWeightsAndPerformance();
+  }
+});
 
 // ── SQF BRIDGE STUB ──────────────────────────────────────────
 // When wired to Arma: window.location = "exec://<sqf_code>";
