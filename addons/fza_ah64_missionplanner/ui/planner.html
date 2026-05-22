@@ -716,11 +716,20 @@
     min-width: 120px;
     text-align: left;
   }
+  #panel-config #config-perf .perf-label.compact-line {
+    min-width: 78px;
+    white-space: nowrap;
+    font-size: 12px;
+    letter-spacing: 0;
+  }
   #panel-config #config-perf .perf-value {
     display: inline-block;
     min-width: 44px;
     text-align: right;
     font-variant-numeric: tabular-nums;
+  }
+  #panel-config #config-perf .perf-value.atm-value {
+    min-width: 28px;
   }
   #panel-config #config-perf .perf-unit {
     display: inline-block;
@@ -729,10 +738,19 @@
   #panel-config #config-perf .perf-unit.dual-unit {
     min-width: 42px;
   }
+  #panel-config #config-perf .perf-unit.atm-unit {
+    min-width: 0;
+  }
   #panel-config #config-perf .sep {
     display: inline-block;
     min-width: 12px;
     text-align: center;
+  }
+  #panel-config #config-perf .sep.atm-sep {
+    min-width: 6px;
+  }
+  #panel-config #config-perf .perf-right.atm-right {
+    gap: 1px;
   }
   #panel-config #config-perf #maxGWT,
   #panel-config #config-perf #emptyGWT,
@@ -784,14 +802,14 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size:15px;
+    font-size: 15px;
     color: var(--text-dim);
     flex: 1;
   }
   .bs-dtc-value {
     font-weight: bold;
     color: var(--text-bright);
-    font-size:16.5px;
+    font-size: 16.5px;
     letter-spacing: 1px;
   }
   .perf-grid {
@@ -804,7 +822,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size:15px;
+    font-size: 15px;
     white-space: nowrap;
   }
   .perf-label { color: var(--text-dim); min-width: 100px; }
@@ -812,7 +830,7 @@
   .perf-value.warn { color: var(--red-bright); font-weight: bold; }
   .perf-value.caution { color: var(--yellow); font-weight: bold; }
   .perf-value.ok { color: #88ee88; }
-  .perf-unit { color: var(--text-dim); font-size:13.5px; }
+  .perf-unit { color: var(--text-dim); font-size: 13.5px; }
   .sep { color: var(--border2); }
 
   /* ── PLACEHOLDER TABS ── */
@@ -1364,13 +1382,13 @@
       <div class="bottom-row">
         <div class="perf-grid">
           <div class="perf-cell">
-            <span class="perf-label">PA / FAT (Env)</span>
-            <span class="perf-right">
-              <span class="perf-value" id="perfPA">0</span>
-              <span class="perf-unit">ft</span>
-              <span class="sep"> / </span>
-              <span class="perf-value" id="perfFAT">20</span>
-              <span class="perf-unit">C</span>
+            <span class="perf-label compact-line">Press Alt / Free Air Temp</span>
+            <span class="perf-right atm-right">
+              <span class="perf-value atm-value" id="perfPA">0</span>
+              <span class="perf-unit atm-unit">ft</span>
+              <span class="sep atm-sep"> / </span>
+              <span class="perf-value atm-value" id="perfFAT">20</span>
+              <span class="perf-unit atm-unit">C</span>
             </span>
           </div>
           <div class="perf-cell">
@@ -1454,6 +1472,20 @@
             <span class="perf-right">
               <span class="perf-value" id="hvrTqOGE">117</span>
               <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Power Margin DE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="powerMarginDE">0</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Max Rate of Descent OGE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxRodOGE">0</span>
+              <span class="perf-unit" id="maxRodOGEUnit">fpm</span>
             </span>
           </div>
         </div>
@@ -1900,16 +1932,6 @@ function resolveEnvironmentSettingValue() {
       candidates.push(window.fzaMissionPlannerEnv.environment);
     }
 
-    if (typeof window.location !== 'undefined' && window.location && window.location.search) {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        candidates.push(params.get('fza_ah64_sfmplusEnvironment'));
-        candidates.push(params.get('sfmEnvironment'));
-        candidates.push(params.get('env'));
-      } catch (err) {
-        // Ignore query parsing failures and continue with defaults.
-      }
-    }
   }
 
   var bodyEl = document.body;
@@ -2065,15 +2087,12 @@ function updateWeightsAndPerformance() {
     };
   }
 
-  var deltaFuel = fuelTotalLbs - weightModelBaseline.fuelLbs;
-  var deltaAmmo = metrics.ammoWeight - weightModelBaseline.ammoCalc;
   var deltaEquip = metrics.equipmentWeight - weightModelBaseline.equipCalc;
-  var deltaJett = metrics.jettisonWeight - weightModelBaseline.jettCalc;
 
   var ammoDisplay = Math.max(0, metrics.ammoWeight);
   var jettDisplay = Math.max(0, metrics.jettisonWeight);
   var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay + deltaEquip);
-  var currentDisplay = Math.max(0, weightModelBaseline.currentDisplay + deltaFuel + deltaAmmo + deltaEquip);
+  var currentDisplay = Math.max(emptyDisplay, emptyDisplay + fuelTotalLbs + ammoDisplay);
 
   document.getElementById('ammoWeight').textContent = formatWhole(ammoDisplay);
   document.getElementById('jettisonWeight').textContent = formatWhole(jettDisplay);
@@ -2104,6 +2123,9 @@ function updateWeightsAndPerformance() {
     document.getElementById('maxTqSE').textContent = '--';
     document.getElementById('hvrTqIGE').textContent = '--';
     document.getElementById('hvrTqOGE').textContent = '--';
+    document.getElementById('powerMarginDE').textContent = '--';
+    document.getElementById('maxRodOGE').textContent = '--';
+    document.getElementById('maxRodOGEUnit').textContent = 'fpm';
     document.getElementById('endurance').textContent = '--';
     setPerfValueClass('maxEnd', '');
     setPerfValueClass('maxEndPph', '');
@@ -2115,6 +2137,8 @@ function updateWeightsAndPerformance() {
     setPerfValueClass('maxTqSE', '');
     setPerfValueClass('hvrTqIGE', '');
     setPerfValueClass('hvrTqOGE', '');
+    setPerfValueClass('powerMarginDE', '');
+    setPerfValueClass('maxRodOGE', '');
     return;
   }
 
@@ -2134,6 +2158,8 @@ function updateWeightsAndPerformance() {
 
   var hvrIgeDePct = Math.round(perf.hvrTQ_IGE * 100);
   var hvrOgeDePct = Math.round(perf.hvrTQ_OGE * 100);
+  var powerMarginDePct = Math.min(maxTqDePct, 100) - hvrOgeDePct;
+  var maxRodOgeFpm = powerMarginDePct >= 0 ? Math.round((powerMarginDePct / 2) * 100) : null;
 
   // User rule: each 200 lbs jettisonable mass = 1% torque reduction.
   var torqueDiffPct = jettisonStep > 0 ? -jettisonStep : 0;
@@ -2151,6 +2177,9 @@ function updateWeightsAndPerformance() {
   document.getElementById('maxTqSE').textContent = formatWhole(maxTqSePct);
   document.getElementById('hvrTqIGE').textContent = formatWhole(hvrIgeDePct);
   document.getElementById('hvrTqOGE').textContent = formatWhole(hvrOgeDePct);
+  document.getElementById('powerMarginDE').textContent = formatWhole(powerMarginDePct);
+  document.getElementById('maxRodOGE').textContent = maxRodOgeFpm === null ? 'OGE N/A' : formatWhole(maxRodOgeFpm);
+  document.getElementById('maxRodOGEUnit').textContent = maxRodOgeFpm === null ? '' : 'fpm';
 
   setPerfValueClass('maxEnd', '');
   setPerfValueClass('maxEndPph', '');
@@ -2163,6 +2192,8 @@ function updateWeightsAndPerformance() {
   setPerfValueClass('maxTqSE', maxTqSePct > 122 ? 'warn' : (maxTqSePct > 110 ? 'caution' : 'ok'));
   setPerfValueClass('hvrTqIGE', hvrIgeDePct > 100 ? 'warn' : (hvrIgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('hvrTqOGE', hvrOgeDePct > 100 ? 'warn' : (hvrOgeDePct >= 80 ? 'caution' : ''));
+  setPerfValueClass('powerMarginDE', powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : ''));
+  setPerfValueClass('maxRodOGE', maxRodOgeFpm === null ? 'warn' : (powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : '')));
 }
 
 function getFuelMax(id) {
