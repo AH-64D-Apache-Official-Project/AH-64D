@@ -1364,12 +1364,12 @@
       <div class="bottom-row">
         <div class="perf-grid">
           <div class="perf-cell">
-            <span class="perf-label">PA / FAT</span>
+            <span class="perf-label">PA / FAT (Env)</span>
             <span class="perf-right">
-              <input class="perf-input" id="perfPA" type="text" value="0" maxlength="5" aria-label="Pressure altitude feet">
+              <span class="perf-value" id="perfPA">0</span>
               <span class="perf-unit">ft</span>
               <span class="sep"> / </span>
-              <input class="perf-input" id="perfFAT" type="text" value="20" maxlength="4" aria-label="Free air temperature C">
+              <span class="perf-value" id="perfFAT">20</span>
               <span class="perf-unit">C</span>
             </span>
           </div>
@@ -1597,9 +1597,18 @@ var EST_IAFS_LBS = 120;
 var EST_MAGAZINE_LBS = 220;
 var LBS_PER_KG = 2.20462;
 
-// Planner currently has no PA/FAT controls; use standard baseline values.
+// Fallback values used when environment setting cannot be resolved.
 var PERF_DEFAULT_PA_FT = 0;
 var PERF_DEFAULT_FAT_C = 20;
+var ENV_PROFILE_PA_FAT = {
+  0: { pa: 0, fat: 15 },
+  1: { pa: 800, fat: 20 },
+  2: { pa: 800, fat: 0 },
+  3: { pa: 1800, fat: 30 },
+  4: { pa: 5000, fat: 30 },
+  5: { pa: 5000, fat: -5 },
+  6: { pa: 3100, fat: 25 }
+};
 var SFMPLUS_CONFIG_PATH = '../../fza_ah64_controls/config/cfgVehicles/sfmplus.hpp';
 
 var weightModelBaseline = null;
@@ -1872,12 +1881,87 @@ function sanitizeSignedInput(inputEl, min, max) {
   return parsed;
 }
 
+function parseEnvironmentSettingValue(rawValue) {
+  var parsed = parseInt(String(rawValue), 10);
+  if (isNaN(parsed)) return null;
+  if (!ENV_PROFILE_PA_FAT.hasOwnProperty(parsed)) return null;
+  return parsed;
+}
+
+function resolveEnvironmentSettingValue() {
+  var candidates = [];
+
+  if (typeof window !== 'undefined') {
+    candidates.push(window.fza_ah64_sfmplusEnvironment);
+    candidates.push(window.fzaSfmplusEnvironment);
+    candidates.push(window.fzaEnvironmentSetting);
+
+    if (window.fzaMissionPlannerEnv && typeof window.fzaMissionPlannerEnv.environment !== 'undefined') {
+      candidates.push(window.fzaMissionPlannerEnv.environment);
+    }
+
+    if (typeof window.location !== 'undefined' && window.location && window.location.search) {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        candidates.push(params.get('fza_ah64_sfmplusEnvironment'));
+        candidates.push(params.get('sfmEnvironment'));
+        candidates.push(params.get('env'));
+      } catch (err) {
+        // Ignore query parsing failures and continue with defaults.
+      }
+    }
+  }
+
+  var bodyEl = document.body;
+  if (bodyEl && bodyEl.getAttribute) {
+    candidates.push(bodyEl.getAttribute('data-fza-environment'));
+    candidates.push(bodyEl.getAttribute('data-sfm-environment'));
+  }
+
+  for (var i = 0; i < candidates.length; i++) {
+    var parsed = parseEnvironmentSettingValue(candidates[i]);
+    if (parsed !== null) return parsed;
+  }
+
+  return null;
+}
+
+function computePerfAtmosphereFromEnvironment() {
+  var envSetting = resolveEnvironmentSettingValue();
+  if (envSetting === null) {
+    return {
+      pa: PERF_DEFAULT_PA_FT,
+      fat: PERF_DEFAULT_FAT_C,
+      envSetting: null,
+      source: 'default'
+    };
+  }
+
+  var profile = ENV_PROFILE_PA_FAT[envSetting];
+  if (!profile) {
+    return {
+      pa: PERF_DEFAULT_PA_FT,
+      fat: PERF_DEFAULT_FAT_C,
+      envSetting: null,
+      source: 'default'
+    };
+  }
+
+  return {
+    pa: profile.pa,
+    fat: profile.fat,
+    envSetting: envSetting,
+    source: 'environment'
+  };
+}
+
 function getPerfAtmosphere() {
+  var atmosphere = computePerfAtmosphereFromEnvironment();
   var paEl = document.getElementById('perfPA');
   var fatEl = document.getElementById('perfFAT');
-  var pa = sanitizeSignedInput(paEl, -2000, 14000);
-  var fat = sanitizeSignedInput(fatEl, -60, 60);
-  return { pa: pa, fat: fat };
+  if (paEl) paEl.textContent = formatWhole(atmosphere.pa);
+  if (fatEl) fatEl.textContent = formatWhole(atmosphere.fat);
+  return { pa: atmosphere.pa, fat: atmosphere.fat };
 }
 
 function formatWhole(value) {
@@ -1916,6 +2000,9 @@ function countRocketsOnPylon(pylonIndex) {
   for (var i = 0; i < zones.length; i++) {
     var zoneKey = zones[i][0];
     var countEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_count');
+    var typeEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_type');
+    var typeValue = typeEl ? String(typeEl.value || '').trim() : '';
+    if (typeValue === '') continue;
     total += parseInt(countEl ? countEl.value : '0', 10) || 0;
   }
   return total;
@@ -1951,7 +2038,7 @@ function computeLoadoutWeightMetrics() {
   var equipmentWeightCalc = externalDryWeight + fcrWeight + centerStoreWeight;
 
   var auxFuelLbs = parseNumberText(document.getElementById('fuelAuxLbs').textContent);
-  var jettisonWeightCalc = externalDryWeight + (hasAuxTank ? auxFuelLbs : 0);
+  var jettisonWeightCalc = externalDryWeight + ammoWeightCalc + (hasAuxTank ? auxFuelLbs : 0);
 
   return {
     ammoWeight: Math.round(ammoWeightCalc),
@@ -2040,7 +2127,7 @@ function updateWeightsAndPerformance() {
   var maxRangePph = Math.round(perf.rngFF / 10) * 10;
   var endurance = formatEnduranceFromPph(fuelTotalLbs, perf.rngFF);
   var vsse = Math.round(perf.vsseTAS);
-  var vsseAfterJett = vsse + jettisonStep;
+  var vsseAfterJett = Math.max(0, vsse - jettisonStep);
 
   var maxTqDePct = Math.round(perf.maxTQ_DE * 100);
   var maxTqSePct = Math.round(perf.maxTQ_SE * 100);
@@ -2271,19 +2358,6 @@ function sanitizeFuelInput(inputEl) {
   sanitizeFuelInput(fuelInput);
 });
 
-['perfPA','perfFAT'].forEach(function(id) {
-  var perfInput = document.getElementById(id);
-  if (!perfInput) return;
-  perfInput.addEventListener('input', function() {
-    getPerfAtmosphere();
-    updateWeightsAndPerformance();
-  });
-  perfInput.addEventListener('blur', function() {
-    getPerfAtmosphere();
-    updateWeightsAndPerformance();
-  });
-});
-
 // ── CENTER STORE + CANNON LOGIC ─────────────────────────────────
 function syncCannonDisplay() {
   var cannonInput = document.getElementById('cannonRds');
@@ -2486,6 +2560,16 @@ function syncMatchingRocketZoneTypes(changedSelect) {
   });
 }
 
+function clearMatchingRocketZoneCounts(zoneLetter) {
+  var letter = String(zoneLetter || '').toLowerCase();
+  eachNode('[id$="_count"]', function(inputEl) {
+    var match = /^p[1-4]_z([a-z])_count$/i.exec(inputEl.id || '');
+    if (!match) return;
+    if (match[1].toLowerCase() !== letter) return;
+    inputEl.value = '0';
+  });
+}
+
 // ── PYLON MODE + ROCKET CAP LOGIC ───────────────────────────
 function setPylonMode(pylonIndex, mode) {
   ['hellfire', 'rocket', 'aux', 'none'].forEach(function(name) {
@@ -2549,7 +2633,12 @@ eachNode('.rail-ammo', function(selectEl) {
 eachNode('.zone-type select', function(selectEl) {
   selectEl.addEventListener('change', function() {
     syncMatchingRocketZoneTypes(selectEl);
+    var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
+    if (changedMatch && String(selectEl.value || '').trim() === '') {
+      clearMatchingRocketZoneCounts(changedMatch[1]);
+    }
     syncSilhouette();
+    updateWeightsAndPerformance();
   });
 });
 
