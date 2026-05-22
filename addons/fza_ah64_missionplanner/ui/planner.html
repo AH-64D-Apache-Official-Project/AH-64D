@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AH-64D Mission Planning Tool</title>
+<style>
+  :root {
+    --bg:        #0a150a;
+    --bg2:       #0f1e0f;
+    --bg3:       #152515;
+    --border:    #2e5230;
+    --border2:   #3d6b40;
+    --accent:    #4a8a4a;
+    --text:      #b0d0a8;
+    --text-dim:  #7aaa70;
+    --text-bright: #d8f0d0;
+    --input-bg:  #0a1a0a;
+    --btn-bg:    #1a3a1a;
+    --btn-hover: #2a5a2a;
+    --red:       #cc3333;
+    --red-bright:#ff5555;
+    --yellow:    #cccc44;
+    --white:     #e8f8e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    font-size:12.1px;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── OUTER WRAPPER ── */
+  #app {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid var(--border2);
+    background: rgba(10,20,10,0.93);
+  }
+
+  /* ── TITLE BAR ── */
+  #titlebar {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border2);
+    text-align: center;
+    padding: 4px 0 3px;
+    font-size:19.5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--text-bright);
+    flex-shrink: 0;
+  }
+
+  /* ── TAB ROW ── */
+  #tabs {
+    display: flex;
+    background: var(--bg3);
+    border-bottom: 2px solid var(--border2);
+    flex-shrink: 0;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 5px 2px;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size:16.5px;
+    letter-spacing: 0.5px;
+    transition: background 0.1s;
+  }
+  .tab:last-child { border-right: none; }
+  .tab:hover { background: var(--btn-hover); color: var(--text-bright); }
+  .tab.active {
+    background: var(--btn-bg);
+    color: var(--text-bright);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: -2px;
+  }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none !important; flex: 1; overflow: hidden; min-height: 0; }
+  .tab-panel.active { display: flex !important; }
+
+  /* ── CONFIGURATION TAB LAYOUT ── */
+  #panel-config {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  /* ── COLUMNS ── */
+  .col-left {
+    width: 264px;
+    min-width: 264px;
+    border-right: 1px solid var(--border);
+    padding: 6px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .col-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .col-right {
+    width: 320px;
+    min-width: 320px;
+    padding: 6px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  label.field-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+    min-width: 0;
+  }
+  label.field-row .lbl {
+    width: 52px;
+    min-width: 52px;
+    color: var(--text-dim);
+    font-size:15px;
+  }
+  input[type=text], input[type=number], select {
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: 'Courier New', monospace;
+    font-size:16.5px;
+    padding: 2px 4px;
+    outline: none;
+    flex: 1;
+    min-width: 0;
+  }
+  #tailNum {
+    max-width: 100%;
+  }
+  #currentConfigRow .lbl {
+    width: 86px;
+    min-width: 86px;
+  }
+  #currentConfigName {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  input[type=text]:focus, input[type=number]:focus, select:focus {
+    border-color: var(--accent);
+  }
+  select option { background: var(--bg2); }
+  button {
+    background: var(--btn-bg);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    font-size:16.5px;
+    padding: 3px 8px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  button:hover { background: var(--btn-hover); color: var(--text-bright); border-color: var(--accent); }
+  button:active { background: var(--accent); color: #000; }
+
+  /* ── LEFT COLUMN SECTIONS ── */
+  .section-divider {
+    border-top: 1px solid var(--border);
+    margin: 4px 0;
+  }
+  .row2btn {
+    display: flex;
+    gap: 4px;
+  }
+  .row2btn button { flex: 1; }
+  .farp-list {
+    margin-top: 2px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    padding: 4px;
+    flex: 1;
+    font-size:15px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    overflow-y: auto;
+  }
+  .farp-list .farp-title {
+    color: var(--text);
+    font-size:15px;
+    margin-bottom: 3px;
+    text-decoration: underline;
+  }
+
+  /* ── CENTER COLUMN ── */
+  .center-top {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid var(--border);
+    padding: 4px 8px;
+    gap: 12px;
+    flex-shrink: 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .center-top-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size:15px;
+    color: var(--text-dim);
+  }
+  .center-top-block .val {
+    color: var(--text-bright);
+    font-size:16.5px;
+  }
+  .ct-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .ct-label { color: var(--text-dim); min-width: 140px; }
+  .ct-value { color: var(--text-bright); }
+  .ct-pct { color: var(--yellow); }
+  .fcr-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    padding: 3px 14px;
+    font-size:18px;
+    font-weight: bold;
+    color: var(--text-bright);
+    text-align: center;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .fcr-badge.active { border-color: var(--accent); background: #1a3a1a; color: #aaffaa; }
+
+  /* ── SILHOUETTE AREA ── */
+  .silhouette-area {
+    /* Equal split with pylon area. */
+    flex: 1 1 0;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #apache-svg {
+    width: 42%;
+    max-width: 220px;
+    opacity: 0.92;
+    pointer-events: none;
+  }
+
+  /* ── PYLON ROW ── */
+  .pylon-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 4px 8px;
+    border-top: 1px solid var(--border);
+    gap: 6px;
+    /* Equal split with silhouette area. */
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .pylon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 132px;
+    max-width: 168px;
+  }
+  .pylon-title {
+    font-size:15px;
+    color: var(--text-bright);
+    text-align: center;
+    border: 1px solid var(--border2);
+    padding: 1px 6px;
+    background: var(--bg3);
+    white-space: nowrap;
+  }
+  .pylon-title select {
+    font-size:15px;
+    padding: 1px 2px;
+    border: none;
+    background: transparent;
+    color: var(--text-bright);
+  }
+  .pylon-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .pylon-sub-label {
+    font-size:13.5px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 2px;
+  }
+  .hellfire-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .rail-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  .rail-labels {
+    display: flex;
+    gap: 16px;
+    font-size:13.5px;
+    color: var(--text-dim);
+    margin-bottom: 1px;
+  }
+  .rail-ammo {
+    width: 58px;
+    height: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    font-size:15px;
+    color: var(--text-bright);
+    text-align: center;
+    padding: 1px 2px;
+  }
+
+  .zone-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: stretch;
+  }
+  .zone-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size:13.5px;
+    justify-content: center;
+  }
+  .zone-label {
+    color: var(--text-dim);
+    min-width: 68px;
+    text-align: right;
+    font-size:13.5px;
+  }
+  .zone-count input {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    width: 46px;
+    height: 22px;
+    text-align: center;
+    padding: 1px 2px;
+    color: var(--text-bright);
+    font-size:15px;
+    outline: none;
+  }
+  .rail-cycle {
+    width: 58px;
+    height: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size:15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+  .rail-cycle:hover {
+    border-color: var(--accent);
+  }
+  .zone-count input::-webkit-outer-spin-button,
+  .zone-count input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .zone-count input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  .zone-x { color: var(--text-dim); font-size:13.5px; }
+  .zone-type select {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    width: 64px;
+    height: 22px;
+    font-size:13.5px;
+    text-align: center;
+    padding: 1px 2px;
+    color: var(--text-bright);
+    outline: none;
+  }
+  .aux-note {
+    color: var(--text-dim);
+    font-size:15px;
+    text-align: center;
+    border: 1px dashed var(--border2);
+    padding: 6px 8px;
+    width: 100%;
+  }
+  .none-note {
+    color: var(--text-dim);
+    font-size:15px;
+    text-align: center;
+    opacity: 0.8;
+    width: 100%;
+  }
+  .cannon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .cannon-count-box {
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    padding: 2px 10px;
+    font-size:19.5px;
+    font-weight: bold;
+    color: var(--text-bright);
+    cursor: pointer;
+    min-width: 64px;
+    text-align: center;
+  }
+  .cannon-count-box:hover { border-color: var(--accent); }
+
+  /* ── RIGHT COLUMN ── */
+  .fuel-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+  }
+  .fuel-section-header .title { font-size:16.5px; color: var(--text-bright); font-weight: bold; }
+  .fuel-pct-input {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .fuel-pct-input input {
+    width: 44px;
+    text-align: right;
+    font-size:18px;
+    font-weight: bold;
+  }
+  .fuel-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .fuel-card {
+    border: 1px solid var(--border);
+    background: var(--input-bg);
+    padding: 4px 6px;
+  }
+  .fuel-card-title {
+    color: var(--text-bright);
+    font-size:15px;
+    margin-bottom: 2px;
+  }
+  .fuel-card-line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size:15px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .fuel-gal-input {
+    width: 52px;
+    min-width: 52px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .fuel-lbs-value {
+    color: var(--text-bright);
+    min-width: 40px;
+    text-align: right;
+  }
+  .fuel-total-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid var(--border2);
+    margin-top: 4px;
+    padding-top: 4px;
+    gap: 6px;
+    font-size:16.5px;
+    font-weight: bold;
+  }
+  .fuel-total-row .total-lbs { color: var(--text-bright); }
+  .fuel-total-row .total-unit { color: var(--text-dim); }
+
+  /* ── BOTTOM STRIP ── */
+  #bottom-strip {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--border2);
+    background: var(--bg3);
+    flex-shrink: 0;
+  }
+  .bottom-row {
+    display: flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+  }
+  .bottom-row:last-child { border-bottom: none; }
+  .bs-btn-area {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 90px;
+  }
+  .bs-dtc-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size:15px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+  .bs-dtc-value {
+    font-weight: bold;
+    color: var(--text-bright);
+    font-size:16.5px;
+    letter-spacing: 1px;
+  }
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 16px;
+    flex: 1;
+  }
+  .perf-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size:15px;
+    white-space: nowrap;
+  }
+  .perf-label { color: var(--text-dim); min-width: 100px; }
+  .perf-value { color: var(--text-bright); }
+  .perf-value.warn { color: var(--red-bright); font-weight: bold; }
+  .perf-value.ok { color: #88ee88; }
+  .perf-unit { color: var(--text-dim); font-size:13.5px; }
+  .sep { color: var(--border2); }
+
+  /* ── PLACEHOLDER TABS ── */
+  .placeholder-panel {
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size:21px;
+    letter-spacing: 2px;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TITLE BAR -->
+  <div id="titlebar">AH-64D AIRCRAFT MISSION PLANNING TOOL</div>
+
+  <!-- TAB ROW -->
+  <div id="tabs">
+    <div class="tab active"   data-tab="config">Configuration</div>
+    <div class="tab"          data-tab="comms">Communications</div>
+    <div class="tab"          data-tab="wp">Waypoint/Hazards</div>
+    <div class="tab"          data-tab="cm">Control Measures</div>
+    <div class="tab"          data-tab="tt">Target/Threats</div>
+    <div class="tab"          data-tab="az">Areas/Zones</div>
+    <div class="tab"          data-tab="lines">Lines</div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CONFIGURATION TAB
+  ═══════════════════════════════════ -->
+  <div class="tab-panel active" id="panel-config">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+
+      <label class="field-row">
+        <span class="lbl">Msn Equip</span>
+        <select id="msnEquip">
+          <option>US Army</option>
+          <option>US Army (Night)</option>
+          <option>Custom</option>
+        </select>
+      </label>
+
+      <label class="field-row">
+        <span class="lbl">Tail #</span>
+        <input type="text" id="tailNum" value="25-299" maxlength="10">
+      </label>
+
+      <button id="btnLoadConfig" style="width:100%">Load Config</button>
+
+      <div class="section-divider"></div>
+
+      <label class="field-row" id="currentConfigRow">
+        <span class="lbl" style="color:var(--text);font-size:15px">Current Config</span>
+        <input type="text" id="currentConfigName" value="MyCustomConfig_v1" readonly style="font-size:15px">
+      </label>
+
+      <div class="row2btn">
+        <button id="btnApplyConfig">Apply Config</button>
+        <button id="btnSaveConfig">Save Config</button>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="farp-list">
+        <div class="farp-title">Available in FARP:</div>
+        <div id="farpList">
+          5x AGM-114K<br>
+          2x AGM-114L<br>
+          5x AGM-114FA<br>
+          405x 30mm<br>
+          111x M151 (6PD)<br>
+          40x M261 (6MP)<br>
+          33x M255A1 (6FL)<br>
+          9x M257 (6IL)
+        </div>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <!-- CENTER COLUMN -->
+    <div class="col-center">
+
+      <!-- Center-top info strip -->
+      <div class="center-top">
+        <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+          <div class="ct-row">
+            <span class="ct-label">Ammo Weight</span>
+            <span class="ct-value" id="ammoWeight">945</span>
+            <span class="perf-unit">lbs</span>
+          </div>
+          <div class="ct-row">
+            <span class="ct-label">Jettison Weight</span>
+            <span class="ct-value" id="jettisonWeight">2395</span>
+            <span class="perf-unit">lbs</span>
+            <span class="ct-pct" id="jettisonPct" style="margin-left:4px">-12 %</span>
+          </div>
+          <div class="ct-row">
+            <span class="ct-label">Endurance @ Max Range</span>
+            <span class="ct-value" id="endurance">3+55</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div id="fcrBadge" class="fcr-badge active" title="Toggle FCR">FCR</div>
+        </div>
+      </div>
+
+      <!-- Silhouette -->
+      <div class="silhouette-area">
+        <svg id="apache-svg" viewBox="0 0 260 240" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64 forward silhouette">
+          <!-- Forward-facing rotor disk -->
+          <line x1="25" y1="78" x2="235" y2="78" stroke="#0a0a0a" stroke-width="6" stroke-linecap="round"/>
+
+          <!-- FCR mast and dome -->
+          <rect x="126" y="66" width="8" height="16" fill="#0a0a0a"/>
+          <ellipse cx="130" cy="58" rx="16" ry="9" fill="#0a0a0a"/>
+
+          <!-- Canopy / upper fuselage -->
+          <path d="M96 95 Q130 70 164 95 L158 124 Q130 133 102 124 Z" fill="#0a0a0a"/>
+
+          <!-- Main body -->
+          <rect x="96" y="123" width="68" height="54" rx="9" fill="#0a0a0a"/>
+
+          <!-- Wings / stub pylons in forward POV -->
+          <rect x="70" y="138" width="26" height="8" rx="3" fill="#0a0a0a"/>
+          <rect x="164" y="138" width="26" height="8" rx="3" fill="#0a0a0a"/>
+
+          <!-- Sensor / chin mount -->
+          <ellipse cx="130" cy="182" rx="12" ry="8" fill="#0a0a0a"/>
+
+          <!-- Landing gear legs -->
+          <line x1="108" y1="176" x2="98" y2="204" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/>
+          <line x1="152" y1="176" x2="162" y2="204" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- Wheels -->
+          <circle cx="94" cy="210" r="7" fill="#0a0a0a"/>
+          <circle cx="166" cy="210" r="7" fill="#0a0a0a"/>
+          <circle cx="130" cy="205" r="4" fill="#0a0a0a"/>
+        </svg>
+      </div>
+
+      <!-- PYLON ROW -->
+      <div class="pylon-row">
+
+        <!-- Pylon 1 - Left Outer -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon1Type" title="Pylon 1 (Left Outer)">
+              <option value="hellfire">hellfire</option>
+              <option value="rocket">rocket</option>
+              <option value="aux">aux</option>
+              <option value="none">none</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+            <div class="hellfire-grid" id="p1_hellfire">
+              <div class="rail-labels"><span>TR</span><span>TL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p1_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p1_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+              <div class="rail-labels"><span>BR</span><span>BL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p1_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p1_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+            </div>
+            <div class="zone-grid hidden" id="p1_rocket">
+              <div class="zone-row"><span class="zone-label">ZONE A (max 12)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_za_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_za_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE B (max 4)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_zb_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_zb_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+            </div>
+            <div class="aux-note hidden" id="p1_aux">230 Aux Tank</div>
+            <div class="none-note hidden" id="p1_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Pylon 2 - Left Inner -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon2Type" title="Pylon 2 (Left Inner)">
+              <option value="hellfire">hellfire</option>
+              <option value="rocket">rocket</option>
+              <option value="aux" selected>aux</option>
+              <option value="none">none</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+            <div class="hellfire-grid hidden" id="p2_hellfire">
+              <div class="rail-labels"><span>TR</span><span>TL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p2_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p2_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+              <div class="rail-labels"><span>BR</span><span>BL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p2_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p2_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+            </div>
+            <div class="zone-grid hidden" id="p2_rocket">
+              <div class="zone-row"><span class="zone-label">ZONE C (max 12)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_zc_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_zc_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE D (max 4)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_zd_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_zd_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+            </div>
+            <div class="aux-note" id="p2_aux">230 Aux Tank</div>
+            <div class="none-note hidden" id="p2_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Cannon (center) -->
+        <div class="pylon-block cannon-block">
+          <div id="robbieBadge" class="fcr-badge active" title="Toggle Robbie">ROBBIE</div>
+          <div class="pylon-sub-label">30mm MAX <span id="cannonMaxRds">300</span></div>
+          <div class="cannon-count-box" id="cannonCountBox">
+            <input type="text" id="cannonRds" value="300" inputmode="numeric" maxlength="4" max="1200"
+              style="width:56px;text-align:center;border:none;background:transparent;font-size:19.5px;font-weight:bold;color:var(--text-bright);outline:none">
+          </div>
+        </div>
+
+        <!-- Pylon 3 - Right Inner -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon3Type" title="Pylon 3 (Right Inner)">
+              <option value="hellfire">hellfire</option>
+              <option value="rocket" selected>rocket</option>
+              <option value="aux">aux</option>
+              <option value="none">none</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+          <div class="hellfire-grid hidden" id="p3_hellfire">
+            <div class="rail-labels"><span>TR</span><span>TL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p3_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p3_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+            <div class="rail-labels"><span>BR</span><span>BL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p3_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p3_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+          </div>
+          <div class="zone-grid" id="p3_rocket">
+            <div class="zone-row">
+              <span class="zone-label">ZONE C (max 12)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_zc_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_zc_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE D (max 4)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_zd_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_zd_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE E (max 3)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+          </div>
+          <div class="aux-note hidden" id="p3_aux">230 Aux Tank</div>
+          <div class="none-note hidden" id="p3_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Pylon 4 - Right Outer -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon4Type" title="Pylon 4 (Right Outer)">
+              <option value="hellfire">hellfire</option>
+              <option value="rocket" selected>rocket</option>
+              <option value="aux">aux</option>
+              <option value="none">none</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+          <div class="hellfire-grid hidden" id="p4_hellfire">
+            <div class="rail-labels"><span>TR</span><span>TL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p4_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p4_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+            <div class="rail-labels"><span>BR</span><span>BL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p4_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p4_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+          </div>
+          <div class="zone-grid" id="p4_rocket">
+            <div class="zone-row">
+              <span class="zone-label">ZONE A (max 12)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_za_count" value="8" inputmode="numeric" maxlength="2" data-max="12"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_za_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE B (max 4)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_zb_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_zb_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE E (max 3)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+          </div>
+          <div class="aux-note hidden" id="p4_aux">230 Aux Tank</div>
+          <div class="none-note hidden" id="p4_none">No Store</div>
+          </div>
+        </div>
+
+      </div><!-- /pylon-row -->
+    </div><!-- /col-center -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <div class="fuel-section-header">
+        <span class="title">Fuel</span>
+        <div class="fuel-pct-input">
+          <input type="text" id="fuelPct" value="100" inputmode="numeric" maxlength="3" data-max="100" style="width:44px;text-align:right;font-size:19.5px;font-weight:bold;color:var(--text-bright)">
+          <span style="color:var(--text-dim);font-size:16.5px">%</span>
+        </div>
+      </div>
+
+      <div class="fuel-cards">
+        <div class="fuel-card">
+          <div class="fuel-card-title">Fwd Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (155)</span>
+            <input type="text" id="fuelFwd" class="fuel-gal-input" value="155" inputmode="numeric" maxlength="3" data-max="155">
+            <span>gal,</span>
+            <span id="fuelFwdLbs" class="fuel-lbs-value">1043</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card">
+          <div class="fuel-card-title">Aft Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (220)</span>
+            <input type="text" id="fuelAft" class="fuel-gal-input" value="220" inputmode="numeric" maxlength="3" data-max="220">
+            <span>gal,</span>
+            <span id="fuelAftLbs" class="fuel-lbs-value">1474</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card" id="fuelCtrRow">
+          <div class="fuel-card-title">Ctr Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (100)</span>
+            <input type="text" id="fuelCtr" class="fuel-gal-input" value="100" inputmode="numeric" maxlength="3" data-max="100">
+            <span>gal,</span>
+            <span id="fuelCtrLbs" class="fuel-lbs-value">663</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card">
+          <div class="fuel-card-title">Aux Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (230)</span>
+            <input type="text" id="fuelAux" class="fuel-gal-input" value="230" inputmode="numeric" maxlength="3" data-max="230">
+            <span>gal,</span>
+            <span id="fuelAuxLbs" class="fuel-lbs-value">1541</span>
+            <span>lbs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fuel-total-row">
+        <span class="total-lbs" id="fuelTotalLbs">4721</span>
+        <span class="total-unit">lbs</span>
+      </div>
+
+    </div><!-- /col-right -->
+
+  </div><!-- /panel-config -->
+
+  <!-- ══════════════════════════════════
+       PLACEHOLDER TABS
+  ═══════════════════════════════════ -->
+  <div class="tab-panel placeholder-panel" id="panel-comms">
+    [ COMMUNICATIONS — NOT YET IMPLEMENTED ]
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-wp">
+    [ WAYPOINTS / HAZARDS — NOT YET IMPLEMENTED ]
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-cm">
+    [ CONTROL MEASURES — NOT YET IMPLEMENTED ]
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-tt">
+    [ TARGET / THREATS — NOT YET IMPLEMENTED ]
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-az">
+    [ AREAS / ZONES — NOT YET IMPLEMENTED ]
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-lines">
+    [ LINES — NOT YET IMPLEMENTED ]
+  </div>
+
+  <!-- ══════════════════════════════════
+       BOTTOM STRIP
+  ═══════════════════════════════════ -->
+  <div id="bottom-strip">
+    <!-- Row 1 -->
+    <div class="bottom-row">
+      <div class="bs-btn-area" style="flex-direction:row;gap:4px;align-items:center;min-width:auto">
+        <button id="btnLoadDTC" style="min-width:80px">Load DTC</button>
+        <div class="bs-dtc-label">
+          Current DTC &nbsp;
+          <input type="text" id="dtcName" value="MYMSNV01" maxlength="12"
+            style="width:80px;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright)">
+        </div>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-cell">
+          <span class="perf-label">Maximum GWT</span>
+          <span class="perf-value" id="maxGWT">20260</span>
+          <span class="perf-unit">lbs</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">Max End</span>
+          <span class="perf-value" id="maxEnd">70</span>
+          <span class="perf-unit">ktas /</span>
+          <span class="perf-value" id="maxEndPph" style="margin-left:3px">900</span>
+          <span class="perf-unit">pph</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">Max Tq DE / SE</span>
+          <span class="perf-value warn" id="maxTqDE">133</span>
+          <span class="sep"> / </span>
+          <span class="perf-value warn" id="maxTqSE">137</span>
+          <span class="perf-unit">%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="bottom-row">
+      <div class="bs-btn-area" style="flex-direction:row;gap:4px;align-items:center;min-width:auto">
+        <button id="btnSaveDTC" style="min-width:80px">Save DTC</button>
+        <div style="min-width:160px"></div>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-cell">
+          <span class="perf-label">Empty GWT</span>
+          <span class="perf-value" id="emptyGWT">14,539</span>
+          <span class="perf-unit">lbs</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">Max Range</span>
+          <span class="perf-value" id="maxRange">118</span>
+          <span class="perf-unit">ktas /</span>
+          <span class="perf-value" id="maxRangePph" style="margin-left:3px">1200</span>
+          <span class="perf-unit">pph</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">Hvr Tq IGE DE</span>
+          <span class="perf-value ok" id="hvrTqIGE">82</span>
+          <span class="sep"> / </span>
+          <span class="perf-value ok" id="hvrTqIGESE">70</span>
+          <span class="perf-unit">%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="bottom-row">
+      <div style="min-width:244px"></div>
+      <div class="perf-grid">
+        <div class="perf-cell">
+          <span class="perf-label">Current GWT</span>
+          <span class="perf-value" id="currentGWT">19400</span>
+          <span class="perf-unit">lbs</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">VSSE @ Max Tq SE</span>
+          <span class="perf-value" id="vsse">40</span>
+          <span class="perf-unit">ktas</span>
+        </div>
+        <div class="perf-cell">
+          <span class="perf-label">Hvr Tq OGE DE</span>
+          <span class="perf-value warn" id="hvrTqOGE">117</span>
+          <span class="sep"> / </span>
+          <span class="perf-value" id="hvrTqOGESE">100</span>
+          <span class="perf-unit">%</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /bottom-strip -->
+
+</div><!-- /app -->
+
+<script>
+// ── TAB SWITCHING ──────────────────────────────────────────────
+const tabMap = {
+  config: 'panel-config',
+  comms:  'panel-comms',
+  wp:     'panel-wp',
+  cm:     'panel-cm',
+  tt:     'panel-tt',
+  az:     'panel-az',
+  lines:  'panel-lines'
+};
+
+document.querySelectorAll('.tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    tab.classList.add('active');
+    var panel = document.getElementById('panel-' + tab.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// ── FCR TOGGLE ────────────────────────────────────────────────
+document.getElementById('fcrBadge').addEventListener('click', function() {
+  this.classList.toggle('active');
+});
+
+// ── FUEL WEIGHT CALC ─────────────────────────────────────────
+// lbs-per-gal constants from sfmplus.hpp data
+var GAL_TO_LBS_FWD = 1043 / 155;  // ~6.729
+var GAL_TO_LBS_AFT = 1474 / 220;  // ~6.700
+var GAL_TO_LBS_CTR = 663  / 100;  // ~6.630
+var GAL_TO_LBS_AUX = 1541 / 230;  // ~6.700
+
+function calcFuel() {
+  function readClampedFuel(id) {
+    var el = document.getElementById(id);
+    var raw = (el.value || '').replace(/[^0-9]/g, '');
+    var value = raw === '' ? 0 : parseInt(raw, 10);
+    var max = parseInt(el.dataset.max || el.max || '0', 10);
+    if (Number.isNaN(value) || value < 0) value = 0;
+    if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+    el.value = String(value);
+    return value;
+  }
+
+  var fwd = readClampedFuel('fuelFwd');
+  var aft = readClampedFuel('fuelAft');
+  var ctr = readClampedFuel('fuelCtr');
+  var aux = readClampedFuel('fuelAux');
+
+  var fwdLbs = Math.round(fwd * GAL_TO_LBS_FWD);
+  var aftLbs = Math.round(aft * GAL_TO_LBS_AFT);
+  var ctrLbs = Math.round(ctr * GAL_TO_LBS_CTR);
+  var auxLbs = Math.round(aux * GAL_TO_LBS_AUX);
+  var total  = fwdLbs + aftLbs + ctrLbs + auxLbs;
+
+  document.getElementById('fuelFwdLbs').textContent = fwdLbs;
+  document.getElementById('fuelAftLbs').textContent = aftLbs;
+  document.getElementById('fuelCtrLbs').textContent = ctrLbs;
+  document.getElementById('fuelAuxLbs').textContent = auxLbs;
+  document.getElementById('fuelTotalLbs').textContent = total;
+}
+
+['fuelFwd','fuelAft','fuelCtr','fuelAux'].forEach(function(id) {
+  document.getElementById(id).addEventListener('input', calcFuel);
+});
+
+function sanitizeFuelInput(inputEl) {
+  var cleaned = (inputEl.value || '').replace(/[^0-9]/g, '');
+  var value = cleaned === '' ? 0 : parseInt(cleaned, 10);
+  var max = parseInt(inputEl.dataset.max || inputEl.max || '0', 10);
+  if (Number.isNaN(value) || value < 0) value = 0;
+  if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+  inputEl.value = String(value);
+}
+
+['fuelPct','fuelFwd','fuelAft','fuelCtr','fuelAux'].forEach(function(id) {
+  var fuelInput = document.getElementById(id);
+  if (!fuelInput) return;
+  fuelInput.addEventListener('input', function() {
+    sanitizeFuelInput(fuelInput);
+  });
+  fuelInput.addEventListener('blur', function() {
+    sanitizeFuelInput(fuelInput);
+  });
+  sanitizeFuelInput(fuelInput);
+});
+
+// ── ROBBIE + CANNON LOGIC ──────────────────────────────────────
+function syncCannonDisplay() {
+  var cannonInput = document.getElementById('cannonRds');
+  var cleaned = (cannonInput.value || '').replace(/[^0-9]/g, '');
+  var current = cleaned === '' ? 0 : parseInt(cleaned, 10);
+  if (Number.isNaN(current) || current < 0) current = 0;
+
+  var max = parseInt(cannonInput.max || '1200', 10);
+  if (current > max) current = max;
+  cannonInput.value = String(current);
+}
+
+function syncRobbieState() {
+  var robbieBadge = document.getElementById('robbieBadge');
+  var robbieInstalled = robbieBadge.classList.contains('active');
+  var cannonInput = document.getElementById('cannonRds');
+  var centerFuelRow = document.getElementById('fuelCtrRow');
+  var centerFuelInput = document.getElementById('fuelCtr');
+
+  var maxRds = robbieInstalled ? 300 : 1200;
+  cannonInput.max = String(maxRds);
+  document.getElementById('cannonMaxRds').textContent = String(maxRds);
+
+  if (robbieInstalled) {
+    centerFuelRow.classList.remove('hidden');
+    if (centerFuelInput.value === '0' && centerFuelInput.dataset.prevValue) {
+      centerFuelInput.value = centerFuelInput.dataset.prevValue;
+    }
+  } else {
+    centerFuelInput.dataset.prevValue = centerFuelInput.value;
+    centerFuelInput.value = '0';
+    centerFuelRow.classList.add('hidden');
+  }
+
+  syncCannonDisplay();
+  calcFuel();
+}
+
+document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
+document.getElementById('robbieBadge').addEventListener('click', function() {
+  this.classList.toggle('active');
+  syncRobbieState();
+});
+
+// ── HELLFIRE RAIL CLICK-CYCLE ─────────────────────────────────
+var hellfireCodeMap = {
+  '': 'None',
+  'K': 'AGM-114K',
+  'K2A': 'AGM-114K2A',
+  'L': 'AGM-114L',
+  'FA': 'AGM-114FA',
+  'N': 'AGM-114N'
+};
+var hellfireCycleOrder = ['', 'K', 'L', 'K2A', 'FA', 'N'];
+
+function normalizeHellfireCode(rawValue) {
+  var value = String(rawValue || '').toUpperCase();
+  if (value === '' || value === 'NONE') return '';
+  if (value.indexOf('K2A') !== -1) return 'K2A';
+  if (value.indexOf('FA') !== -1) return 'FA';
+  if (value.indexOf('114N') !== -1 || value === 'N') return 'N';
+  if (value.indexOf('114L') !== -1 || value === 'L') return 'L';
+  if (value.indexOf('114K') !== -1 || value === 'K') return 'K';
+  return '';
+}
+
+function initHellfireCyclers() {
+  document.querySelectorAll('.rail-ammo').forEach(function(selectEl) {
+    var selectedCode = normalizeHellfireCode(selectEl.value);
+
+    selectEl.innerHTML = '';
+    hellfireCycleOrder.forEach(function(code) {
+      var option = document.createElement('option');
+      option.value = hellfireCodeMap[code];
+      option.textContent = code === '' ? 'None' : code;
+      selectEl.appendChild(option);
+    });
+    selectEl.value = hellfireCodeMap[selectedCode];
+
+    var cycleBtn = document.createElement('button');
+    cycleBtn.type = 'button';
+    cycleBtn.className = 'rail-cycle';
+    cycleBtn.dataset.index = String(hellfireCycleOrder.indexOf(selectedCode));
+    cycleBtn.textContent = selectedCode === '' ? '-' : selectedCode;
+
+    cycleBtn.addEventListener('click', function() {
+      var nextIndex = (parseInt(cycleBtn.dataset.index || '0', 10) + 1) % hellfireCycleOrder.length;
+      var nextCode = hellfireCycleOrder[nextIndex];
+      cycleBtn.dataset.index = String(nextIndex);
+      cycleBtn.textContent = nextCode === '' ? '-' : nextCode;
+      selectEl.value = hellfireCodeMap[nextCode];
+    });
+
+    selectEl.classList.add('hidden');
+    selectEl.parentNode.appendChild(cycleBtn);
+  });
+}
+
+function initRocketTypeOptions() {
+  var rocketCodes = ['None', '6PD', '6FL', '6MP', '6IL', '6IR'];
+  document.querySelectorAll('.zone-type select').forEach(function(selectEl) {
+    var current = selectEl.value;
+    selectEl.innerHTML = '';
+    rocketCodes.forEach(function(code) {
+      var option = document.createElement('option');
+      option.value = code === 'None' ? '' : code;
+      option.textContent = code;
+      selectEl.appendChild(option);
+    });
+    selectEl.value = rocketCodes.indexOf(current) !== -1 ? current : '';
+  });
+}
+
+// ── PYLON MODE + ROCKET CAP LOGIC ───────────────────────────
+function setPylonMode(pylonIndex, mode) {
+  ['hellfire', 'rocket', 'aux', 'none'].forEach(function(name) {
+    var panel = document.getElementById('p' + pylonIndex + '_' + name);
+    if (panel) {
+      panel.classList.toggle('hidden', name !== mode);
+    }
+  });
+}
+
+function sanitizeZoneInput(inputEl) {
+  var cleaned = (inputEl.value || '').replace(/[^0-9]/g, '');
+  var value = cleaned === '' ? 0 : parseInt(cleaned, 10);
+  var max = parseInt(inputEl.dataset.max || '0', 10);
+  if (Number.isNaN(value)) value = 0;
+  if (value < 0) value = 0;
+  if (!Number.isNaN(max) && max > 0 && value > max) value = max;
+  inputEl.value = String(value);
+}
+
+for (var i = 1; i <= 4; i++) {
+  (function(pylonIndex) {
+    var select = document.getElementById('pylon' + pylonIndex + 'Type');
+    if (!select) return;
+    setPylonMode(pylonIndex, select.value);
+    select.addEventListener('change', function() {
+      setPylonMode(pylonIndex, select.value);
+    });
+  })(i);
+}
+
+document.querySelectorAll('[id$="_count"]').forEach(function(inputEl) {
+  inputEl.addEventListener('input', function() {
+    sanitizeZoneInput(inputEl);
+  });
+  inputEl.addEventListener('blur', function() {
+    sanitizeZoneInput(inputEl);
+  });
+  sanitizeZoneInput(inputEl);
+});
+
+initHellfireCyclers();
+initRocketTypeOptions();
+syncRobbieState();
+
+// ── SQF BRIDGE STUB ──────────────────────────────────────────
+// When wired to Arma: window.location = "exec://<sqf_code>";
+function callSQF(code) {
+  try { window.location = 'exec://' + encodeURIComponent(code); }
+  catch(e) {}
+}
+
+document.getElementById('btnApplyConfig').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_applyConfig');
+});
+document.getElementById('btnSaveConfig').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_saveConfig');
+});
+document.getElementById('btnLoadConfig').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_loadConfig');
+});
+document.getElementById('btnLoadDTC').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_loadDTC');
+});
+document.getElementById('btnSaveDTC').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_saveDTC');
+});
+</script>
+</body>
+</html>
