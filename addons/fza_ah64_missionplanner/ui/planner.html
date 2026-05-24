@@ -1632,6 +1632,8 @@ var LBS_PER_KG = 2.20462;
 // Fallback values used when environment setting cannot be resolved.
 var PERF_DEFAULT_PA_FT = 0;
 var PERF_DEFAULT_FAT_C = 20;
+var EMPTY_MASS_FCR_LBS = 6609 * 2.20462;
+var EMPTY_MASS_NON_FCR_LBS = 6314 * 2.20462;
 var ENV_PROFILE_PA_FAT = {
   0: { pa: 0, fat: 15 },
   1: { pa: 800, fat: 20 },
@@ -1721,10 +1723,24 @@ function parseHppTableRows(hppText, tableName) {
   return rows.length > 0 ? rows : null;
 }
 
+function parseConfigEmptyMassLbs(hppText) {
+  var cleaned = stripHppComments(hppText);
+  var fcrMatch = cleaned.match(/emptyMassFCR\s*=\s*([0-9.]+)\s*;/);
+  var nonFcrMatch = cleaned.match(/emptyMassNonFCR\s*=\s*([0-9.]+)\s*;/);
+
+  if (fcrMatch && fcrMatch[1]) {
+    EMPTY_MASS_FCR_LBS = parseFloat(fcrMatch[1]) * LBS_PER_KG;
+  }
+  if (nonFcrMatch && nonFcrMatch[1]) {
+    EMPTY_MASS_NON_FCR_LBS = parseFloat(nonFcrMatch[1]) * LBS_PER_KG;
+  }
+}
+
 function loadSfmPerfTablesFromConfig() {
   return readTextFile(SFMPLUS_CONFIG_PATH)
     .then(function(rawText) {
       var hpp = stripHppComments(rawText);
+      parseConfigEmptyMassLbs(rawText);
 
       var parsedPerf = [];
       var parsedHover = [];
@@ -2076,23 +2092,14 @@ function updateWeightsAndPerformance() {
 
   if (!weightModelBaseline) {
     weightModelBaseline = {
-      fuelLbs: fuelTotalLbs,
-      ammoCalc: metrics.ammoWeight,
-      jettCalc: metrics.jettisonWeight,
-      equipCalc: metrics.equipmentWeight,
-      ammoDisplay: parseNumberText(document.getElementById('ammoWeight').textContent),
-      jettDisplay: parseNumberText(document.getElementById('jettisonWeight').textContent),
-      emptyDisplay: parseNumberText(document.getElementById('emptyGWT').textContent),
-      currentDisplay: parseNumberText(document.getElementById('currentGWT').textContent)
+      emptyDisplay: Math.round(EMPTY_MASS_NON_FCR_LBS)
     };
   }
 
-  var deltaEquip = metrics.equipmentWeight - weightModelBaseline.equipCalc;
-
   var ammoDisplay = Math.max(0, metrics.ammoWeight);
   var jettDisplay = Math.max(0, metrics.jettisonWeight);
-  var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay + deltaEquip);
-  var currentDisplay = Math.max(emptyDisplay, emptyDisplay + fuelTotalLbs + ammoDisplay);
+  var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay);
+  var currentDisplay = emptyDisplay + metrics.equipmentWeight + fuelTotalLbs + ammoDisplay;
 
   document.getElementById('ammoWeight').textContent = formatWhole(ammoDisplay);
   document.getElementById('jettisonWeight').textContent = formatWhole(jettDisplay);
