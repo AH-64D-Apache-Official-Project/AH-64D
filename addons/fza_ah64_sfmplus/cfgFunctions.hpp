@@ -115,6 +115,13 @@ class CfgFunctions
             class transmission {R;};
             class transmissionVariables {R;};
         };
+        class suspension {
+            file = "\fza_ah64_sfmplus\functions\suspension";
+            class suspension {R;};
+            class suspensionUpdate {R;};
+            class suspensionVariables {R;};
+            class suspensionWheel {R;};
+        };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class analogHandler {R;};

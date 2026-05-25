@@ -188,3 +188,6 @@ _heli setVariable ["fza_sfmplus_pid_engine",        [[0.7000, 0.0000, 0.0005, 0.
 
 //Actuators
 [_heli] call fza_sfmplus_fnc_actuatorVariables;
+
+//Suspension
+[_heli] call fza_sfmplus_fnc_suspensionVariables;
