@@ -135,7 +135,7 @@ _heli setVariable ["fza_sfmplus_suspensionFrameCount", _frameCount + 1, true];
 // c = 2 × sqrt(I × k_ang) follows the same critical-damping formula as the linear suspension.
 // No new config values: everything is derived from _mass, _wheelPositions, _springConstants.
 if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > 0.001} >= 0) then {
-    private _dt   = _heli getVariable "fza_sfmplus_deltaTime";
+    private _dt   = (_heli getVariable "fza_sfmplus_deltaTime") min 0.033;
     private _px   = abs ((_wheelPositions select 0) select 0);   // 1.2  m  half-track
     private _py_f = abs ((_wheelPositions select 0) select 1);   // 4.24 m  front arm
     private _py_t = abs ((_wheelPositions select 2) select 1);   // 6.28 m  tail arm
@@ -155,9 +155,13 @@ if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > 0.001} 
     ]);
     // Direct angular velocity decay while on the ground.
     // addTorque effectiveness depends on PhysX inertia (unknown), so this guarantees
-    // convergence. Factor (1 - dt * 8) is time-normalized: ~99.99% decay per second at any fps.
-    // Higher coefficient (8 vs 4) suppresses sudden pitch transients from tail-wheel decompression.
-    _heli setAngularVelocity ((angularVelocity _heli) vectorMultiply (1.0 - (_dt * 8.0)));
+    // convergence. Axis-specific: roll (Y) uses 12× to quickly kill spring-excited oscillation;
+    // pitch (X) stays at 3× so the tail wheel can still pitch to its equilibrium.
+    _heli setAngularVelocity (_heli vectorModelToWorld [
+        (_angVelModel select 0) * (1.0 - (_dt * 3.0)),
+        (_angVelModel select 1) * (1.0 - (_dt * 12.0)),
+        (_angVelModel select 2) * (1.0 - (_dt * 3.0))
+    ]);
     diag_log format ["AngDamp | RollRate: %1 PitchRate: %2 cRoll: %3 cPitch: %4",
         (_angVelModel select 1) toFixed 4, (_angVelModel select 0) toFixed 4,
         _cRoll toFixed 0, _cPitch toFixed 0];
