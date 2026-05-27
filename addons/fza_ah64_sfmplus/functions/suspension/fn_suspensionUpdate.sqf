@@ -42,13 +42,14 @@ private _wheelPositions = [
     [ 0.0, -6.28, -2.4]    // Wheel 2 (tail)
 ];
 
-// Fixed spring constants (tuned for aircraft stiffness)
-private _springConstants = [60000, 60000, 30000];
+// Spring constants sized to put equilibrium at ~35-40% of strut travel
+// k = m_wheel * g / x_eq, e.g. 3542 kg * 9.81 / 0.46m ≈ 75000 for front
+private _springConstants = [75000, 75000, 45000];
 
 // Calculate dynamic damper constants based on load distribution
 // Using formula: c = ζ * 2 * sqrt(m * k)
 // Where ζ is target damping ratio (0.45 = slightly underdamped for responsive settling)
-private _dampingRatio = 0.6; // Increased for more critical damping
+private _dampingRatio = 1.0; // Critical damping
 
 // Calculate moment arms and wheel loads
 // Front wheel span (Y coordinate distance)
@@ -57,13 +58,13 @@ private _tailY = -6.28;
 private _wheelSpan = _frontY - _tailY;  // 10.52
 
 // Longitudinal load distribution (moment balance)
-// Tail moment arm (distance from tail wheel to front wheel CG projection)
-private _tailMomentArm = _frontY - (_cg select 1);  // Distance from tail to CG
-// Front moment arm (distance from front wheels to tail wheel CG projection)
-private _frontMomentArm = (_cg select 1) - _tailY;  // Distance from CG to tail
+// _armCGToFront: distance from CG back to front wheels (short arm — small tail load)
+// _armCGToTail:  distance from CG forward to tail wheel  (long arm  — large front load)
+private _armCGToFront = _frontY - (_cg select 1);
+private _armCGToTail  = (_cg select 1) - _tailY;
 
 // Total moment arm span for equilibrium
-private _totalMomentArm = _frontMomentArm + _tailMomentArm;
+private _totalMomentArm = _armCGToFront + _armCGToTail;
 
 // Lateral (left/right) load distribution based on CG X position
 private _frontTrack = abs(((_wheelPositions select 0) select 0) - ((_wheelPositions select 1) select 0)); // X distance between front wheels
@@ -75,8 +76,9 @@ private _leftFrac  = 0.5 + (_cgX / _frontTrack); // Fraction of front load on le
 _rightFrac = _rightFrac max 0 min 1;
 _leftFrac  = _leftFrac max 0 min 1;
 
-private _frontLoad = (_mass * _tailMomentArm) / _totalMomentArm;
-private _tailLoad  = (_mass * _frontMomentArm) / _totalMomentArm;
+// Front wheels carry the larger share: CG is close to front, far from tail
+private _frontLoad = (_mass * _armCGToTail)  / _totalMomentArm;
+private _tailLoad  = (_mass * _armCGToFront) / _totalMomentArm;
 
 private _wheelLoads = [];
 _wheelLoads set [0, _frontLoad * _rightFrac]; // Right front
@@ -86,14 +88,27 @@ _wheelLoads set [2, _tailLoad];               // Tail
 // Debug output for CG and per-wheel loads
 diag_log format ["CG: %1 | RightFrac: %2 | LeftFrac: %3 | Loads: RF=%4, LF=%5, Tail=%6", _cg, _rightFrac, _leftFrac, _wheelLoads select 0, _wheelLoads select 1, _wheelLoads select 2];
 
+private _worldVel = velocity _heli;
+private _angVel   = angularVelocity _heli;
+diag_log format ["Vel WS[X=%1, Y=%2, Z=%3] Speed=%4 | AngVel[X=%5, Y=%6, Z=%7] AngSpeed=%8",
+    (_worldVel select 0) toFixed 3,
+    (_worldVel select 1) toFixed 3,
+    (_worldVel select 2) toFixed 3,
+    (vectorMagnitude _worldVel) toFixed 3,
+    (_angVel select 0) toFixed 3,
+    (_angVel select 1) toFixed 3,
+    (_angVel select 2) toFixed 3,
+    (vectorMagnitude _angVel) toFixed 3
+];
+
 // Calculate damper constants for each wheel
 // c = ζ * 2 * sqrt(m * k)
 private _damperConstants = [];
 for "_i" from 0 to 2 do {
     private _wheelMass = _wheelLoads select _i;
     private _springK = _springConstants select _i;
-    private _naturalFreq = sqrt(_springK / _wheelMass);
-    private _damperC = _dampingRatio * 2 * _wheelMass * _naturalFreq;
+    // c = 2 * ζ * sqrt(m * k)
+    private _damperC = _dampingRatio * 2 * sqrt(_wheelMass * _springK);
     _damperConstants set [_i, _damperC];
 };
 
