@@ -83,10 +83,9 @@ if (count _rayCastArray > 0) then {
     // Apply spring force in world-up direction — prevents lateral force when aircraft is tilted
     _heli addForce [[0, 0, _totalForce], _pos];
 
-    // Get current velocity once for both suppression and friction
+    // Suppress PhysX restitution: zero world-space upward velocity while wheel is loaded.
+    // Without this the springs over-compress on first contact and launch the aircraft off the ground.
     private _wVel = velocity _heli;
-
-    // Suppress PhysX restitution: zero world-space upward velocity while a wheel is loaded
     if ((_wVel select 2) > 0.05) then {
         _heli setVelocity [_wVel select 0, _wVel select 1, 0];
     };
