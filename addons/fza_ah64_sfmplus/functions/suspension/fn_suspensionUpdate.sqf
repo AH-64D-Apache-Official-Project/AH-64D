@@ -42,14 +42,10 @@ private _wheelPositions = [
     [ 0.0, -6.28, -2.4]    // Wheel 2 (tail)
 ];
 
-// Spring constants sized to put equilibrium at ~35-40% of strut travel
-// k = m_wheel * g / x_eq, e.g. 3542 kg * 9.81 / 0.46m ≈ 75000 for front
-private _springConstants = [75000, 75000, 45000];
-
 // Calculate dynamic damper constants based on load distribution
 // Using formula: c = ζ * 2 * sqrt(m * k)
 // Where ζ is target damping ratio (0.45 = slightly underdamped for responsive settling)
-private _dampingRatio = 1.0; // Critical damping
+private _dampingRatio = 1.5; // Overdamped to reduce differential spring excitation of roll mode
 
 // Calculate moment arms and wheel loads
 // Front wheel span (Y coordinate distance)
@@ -84,6 +80,15 @@ private _wheelLoads = [];
 _wheelLoads set [0, _frontLoad * _rightFrac]; // Right front
 _wheelLoads set [1, _frontLoad * _leftFrac];  // Left front
 _wheelLoads set [2, _tailLoad];               // Tail
+
+// Target equilibrium compression: front struts ~0.46 m (~33% of 1.37 m travel).
+// k = wheelLoad * g / x_eq — springs are load-proportional so all wheels sag equally.
+private _x_eq = 0.46;
+private _springConstants = [
+    (_wheelLoads select 0) * _g / _x_eq,
+    (_wheelLoads select 1) * _g / _x_eq,
+    (_wheelLoads select 2) * _g / _x_eq
+];
 
 // Debug output for CG and per-wheel loads
 diag_log format ["CG: %1 | RightFrac: %2 | LeftFrac: %3 | Loads: RF=%4, LF=%5, Tail=%6", _cg, _rightFrac, _leftFrac, _wheelLoads select 0, _wheelLoads select 1, _wheelLoads select 2];
@@ -123,3 +128,37 @@ private _frameCount = _heli getVariable "fza_sfmplus_suspensionFrameCount";
 
 // Increment frame counter
 _heli setVariable ["fza_sfmplus_suspensionFrameCount", _frameCount + 1, true];
+
+// Ground angular damping — damp roll/pitch oscillation from differential spring forces.
+// Roll (Y axis) and pitch (X axis) have no explicit damping in the friction system.
+// I is estimated as mass × arm² which pairs each axis with its own wheel geometry arm.
+// c = 2 × sqrt(I × k_ang) follows the same critical-damping formula as the linear suspension.
+// No new config values: everything is derived from _mass, _wheelPositions, _springConstants.
+if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > 0.001} >= 0) then {
+    private _dt   = _heli getVariable "fza_sfmplus_deltaTime";
+    private _px   = abs ((_wheelPositions select 0) select 0);   // 1.2  m  half-track
+    private _py_f = abs ((_wheelPositions select 0) select 1);   // 4.24 m  front arm
+    private _py_t = abs ((_wheelPositions select 2) select 1);   // 6.28 m  tail arm
+    private _kRoll  = 2 * (_springConstants select 0) * _px  * _px;
+    private _kPitch = (_springConstants select 0) * _py_f * _py_f
+                    + (_springConstants select 2) * _py_t * _py_t;
+    // Both axes use _px² as the inertia estimate (half-track ≈ fuselage radius of gyration).
+    // Using _py_f² for pitch yields I_est >> I_actual → c*dt/I > 1 → per-frame sign-flip instability.
+    private _iEst   = _mass * _px * _px;
+    private _cRoll  = 6.0 * sqrt(_iEst * _kRoll);
+    private _cPitch = 6.0 * sqrt(_iEst * _kPitch);
+    private _angVelModel = _heli vectorWorldToModel (angularVelocity _heli);
+    _heli addTorque (_heli vectorModelToWorld [
+        (_angVelModel select 0) * -_cPitch * _dt,
+        (_angVelModel select 1) * -_cRoll  * _dt,
+        0
+    ]);
+    // Direct angular velocity decay while on the ground.
+    // addTorque effectiveness depends on PhysX inertia (unknown), so this guarantees
+    // convergence. Factor (1 - dt * 8) is time-normalized: ~99.99% decay per second at any fps.
+    // Higher coefficient (8 vs 4) suppresses sudden pitch transients from tail-wheel decompression.
+    _heli setAngularVelocity ((angularVelocity _heli) vectorMultiply (1.0 - (_dt * 8.0)));
+    diag_log format ["AngDamp | RollRate: %1 PitchRate: %2 cRoll: %3 cPitch: %4",
+        (_angVelModel select 1) toFixed 4, (_angVelModel select 0) toFixed 4,
+        _cRoll toFixed 0, _cPitch toFixed 0];
+};
