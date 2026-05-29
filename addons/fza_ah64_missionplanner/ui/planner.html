@@ -6,27 +6,27 @@
 <title>AH-64D Mission Planning Tool</title>
 <style>
   :root {
-    --bg:        #0a150a;
-    --bg2:       #0f1e0f;
-    --bg3:       #152515;
-    --border:    #2e5230;
-    --border2:   #3d6b40;
-    --accent:    #4a8a4a;
-    --text:      #b0d0a8;
-    --text-dim:  #7aaa70;
-    --text-bright: #d8f0d0;
-    --input-bg:  #0a1a0a;
-    --btn-bg:    #1a3a1a;
-    --btn-hover: #2a5a2a;
-    --red:       #cc3333;
-    --red-bright:#ff5555;
-    --yellow:    #cccc44;
-    --white:     #e8f8e0;
+    --bg:        #000000;
+    --bg2:       #050505;
+    --bg3:       #0b0b0b;
+    --border:    #183218;
+    --border2:   #245024;
+    --accent:    #4cc94c;
+    --text:      #9ad79a;
+    --text-dim:  #6ea46e;
+    --text-bright: #d8ffd8;
+    --input-bg:  #090909;
+    --btn-bg:    #0e170e;
+    --btn-hover: #173117;
+    --red:       #8f2f2f;
+    --red-bright:#ff6b6b;
+    --yellow:    #d8cf5a;
+    --white:     #d8ffd8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     width: 100%; height: 100%;
-    background: var(--bg);
+    background: transparent;
     color: var(--text);
     font-family: 'Courier New', Courier, monospace;
     font-size:12.1px;
@@ -42,7 +42,7 @@
     width: 100vw;
     height: 100vh;
     border: 1px solid var(--border2);
-    background: rgba(10,20,10,0.93);
+    background: transparent;
   }
 
   /* ── TITLE BAR ── */
@@ -106,6 +106,7 @@
     gap: 4px;
     overflow-y: auto;
     overflow-x: hidden;
+    background: rgba(0, 0, 0, 0.72);
   }
   .col-center {
     flex: 1;
@@ -113,6 +114,7 @@
     flex-direction: column;
     border-right: 1px solid var(--border);
     overflow: hidden;
+    background: transparent;
   }
   .col-right {
     width: 320px;
@@ -121,6 +123,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    background: rgba(0, 0, 0, 0.72);
   }
 
   /* ── FORM ELEMENTS ── */
@@ -188,7 +191,7 @@
   .row2btn button { flex: 1; }
   .farp-list {
     margin-top: 2px;
-    background: var(--input-bg);
+    background: rgba(0, 0, 0, 0.45);
     border: 1px solid var(--border);
     padding: 4px;
     flex: 1;
@@ -264,9 +267,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background:
-      radial-gradient(circle at 50% 44%, rgba(255,255,255,0.10), rgba(255,255,255,0.02) 30%, rgba(0,0,0,0.10) 68%, rgba(0,0,0,0.16) 100%),
-      linear-gradient(180deg, #091009 0%, #121912 100%);
+    background: rgba(0, 0, 0, 0.45);
   }
   #apache-svg {
     width: 100%;
@@ -278,18 +279,18 @@
   #apache-svg .sil-body { fill: #050505; }
   #apache-svg .sil-dark { fill: #080808; }
   #apache-svg .sil-mid { fill: #141414; }
-  #apache-svg .sil-light { fill: #d7d7d7; }
-  #apache-svg .sil-line { stroke: #050505; stroke-width: 4; stroke-linecap: round; fill: none; }
-  #apache-svg .sil-stroke { stroke: #090909; stroke-width: 2; stroke-linecap: round; fill: none; }
+  #apache-svg .sil-light { fill: #b4f0b4; }
+  #apache-svg .sil-line { stroke: #041004; stroke-width: 4; stroke-linecap: round; fill: none; }
+  #apache-svg .sil-stroke { stroke: #103010; stroke-width: 2; stroke-linecap: round; fill: none; }
   #apache-svg .sil-label {
     font-family: 'Courier New', monospace;
     font-size: 11px;
-    fill: #f0f0f0;
+    fill: #d8ffd8;
     letter-spacing: 0.5px;
   }
   #apache-svg .sil-tag {
     fill: rgba(0, 0, 0, 0.72);
-    stroke: rgba(255, 255, 255, 0.28);
+    stroke: rgba(120, 232, 120, 0.32);
     stroke-width: 1;
   }
   #apache-svg .sil-gloss { fill: rgba(255, 255, 255, 0.11); }
@@ -334,6 +335,7 @@
     flex: 0.512 1 0;
     min-height: 0;
     overflow-y: auto;
+    background: rgba(0, 0, 0, 0.45);
   }
   .pylon-block {
     display: flex;
@@ -645,7 +647,7 @@
     z-index: 4;
     border-top: 2px solid var(--border2);
     border-right: 1px solid var(--border);
-    background: var(--bg3);
+    background: rgba(0, 0, 0, 0.40);
   }
   #dtc-box {
     width: 100%;
@@ -655,6 +657,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    background: rgba(0, 0, 0, 0.45);
   }
   .dtc-title {
     color: var(--text-bright);
@@ -833,6 +836,173 @@
   .perf-unit { color: var(--text-dim); font-size: 13.5px; }
   .sep { color: var(--border2); }
 
+  /* ── SAVE / LOAD MODAL ── */
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.58);
+    z-index: 20;
+  }
+  .modal-backdrop.visible { display: flex; }
+  .modal-card {
+    width: min(780px, calc(100vw - 32px));
+    max-height: min(88vh, 860px);
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #111815, #0c100e);
+    border: 1px solid var(--border2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-title {
+    color: var(--text-bright);
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+  }
+  .modal-close {
+    width: auto;
+    min-width: 90px;
+  }
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px 12px;
+    overflow: hidden;
+  }
+  .scope-tabs {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .scope-tab {
+    min-width: 100px;
+    padding: 6px 10px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text-dim);
+    text-align: center;
+    cursor: pointer;
+  }
+  .scope-tab.active {
+    color: var(--text-bright);
+    border-color: var(--accent);
+    background: #163816;
+  }
+  .modal-form-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .modal-form-row .label {
+    color: var(--text-dim);
+    min-width: 88px;
+  }
+  .modal-form-row input[type=text] {
+    flex: 1;
+    min-width: 220px;
+  }
+  .modal-panel {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+  }
+  .modal-panel.active { display: flex; }
+  .save-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 210px;
+    max-height: 280px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 8px;
+  }
+  .save-entry {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+  }
+  .save-entry.selected {
+    border-color: var(--accent);
+    background: rgba(58, 120, 58, 0.22);
+  }
+  .save-entry .name {
+    color: var(--text-bright);
+    flex: 1;
+    min-width: 0;
+  }
+  .save-entry .meta {
+    color: var(--text-dim);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .save-entry .meta.owner-lock {
+    color: #92e792;
+  }
+  .save-entry .scope-badge {
+    color: #c8ffc8;
+    border: 1px solid rgba(170, 255, 170, 0.34);
+    padding: 1px 6px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .modal-actions .left,
+  .modal-actions .right {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .modal-hint {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  /* ── CONFIRM MODAL ── */
+  .confirm-modal .modal-card {
+    width: min(460px, calc(100vw - 32px));
+  }
+  .confirm-message {
+    color: var(--text-bright);
+    font-size: 16px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+  }
+  .confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
   /* ── PLACEHOLDER TABS ── */
   .placeholder-panel {
     flex-direction: row;
@@ -920,7 +1090,7 @@
 
       <label class="field-row" id="currentConfigRow">
         <span class="lbl" style="color:var(--text);font-size:15px">Current Config</span>
-        <input type="text" id="currentConfigName" value="MyCustomConfig_v1" readonly style="font-size:15px">
+        <input type="text" id="currentConfigName" value="" readonly style="font-size:15px" placeholder="">
       </label>
 
       <div class="row2btn">
@@ -1561,6 +1731,59 @@
 
 </div><!-- /app -->
 
+<div id="saveLoadModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="saveLoadTitle">
+    <div class="modal-head">
+      <div id="saveLoadTitle" class="modal-title">Loadout Saves</div>
+      <button id="btnCloseSaveLoad" type="button" class="modal-close">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="scope-tabs">
+        <div class="scope-tab active" data-scope="own">OWN</div>
+        <div class="scope-tab" data-scope="mission">MISSION</div>
+      </div>
+      <div class="modal-form-row">
+        <span class="label">Save Name</span>
+        <input type="text" id="saveLoadName" maxlength="28" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="modal-panel active" data-scope-panel="own">
+        <div class="save-list" id="saveListOwn"></div>
+      </div>
+      <div class="modal-panel" data-scope-panel="mission">
+        <div class="save-list" id="saveListMission"></div>
+      </div>
+      <div class="modal-actions">
+        <div class="left">
+          <button id="btnModalSave" type="button">Save</button>
+          <button id="btnModalLoad" type="button">Load</button>
+          <button id="btnModalPushMission" type="button">Push to Mission</button>
+          <button id="btnModalDelete" type="button">Delete</button>
+        </div>
+        <div class="right">
+          <button id="btnModalRefresh" type="button">Refresh</button>
+        </div>
+      </div>
+      <div class="modal-hint" id="saveLoadHint">Select a save to load it into the planner, or type a name to create/overwrite a save in the active scope.</div>
+    </div>
+  </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal-backdrop confirm-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
+    <div class="modal-head">
+      <div id="deleteConfirmTitle" class="modal-title">Confirm Delete</div>
+      <button id="btnDeleteConfirmClose" type="button" class="modal-close">Cancel</button>
+    </div>
+    <div class="modal-body">
+      <div id="deleteConfirmMessage" class="confirm-message"></div>
+      <div class="confirm-actions">
+        <button id="btnDeleteConfirmNo" type="button">Cancel</button>
+        <button id="btnDeleteConfirmYes" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 function eachNode(selector, callback) {
   var nodes = document.querySelectorAll(selector);
@@ -1644,10 +1867,32 @@ var ENV_PROFILE_PA_FAT = {
   6: { pa: 3100, fat: 25 }
 };
 var SFMPLUS_CONFIG_PATH = '../../fza_ah64_controls/config/cfgVehicles/sfmplus.hpp';
+var SFMPLUS_CONFIG_GAME_PATH = 'fza_ah64_controls\\config\\cfgVehicles\\sfmplus.hpp';
 
 var weightModelBaseline = null;
 var sfmPerfDataReady = false;
 var sfmPerfDataError = '';
+var saveLoadState = {
+  open: false,
+  mode: 'save',
+  scope: 'own',
+  selectedName: '',
+  currentPlayerUid: '',
+  currentPlayerName: '',
+  seedReceived: false
+};
+
+// WebBrowser localStorage can be unavailable in Arma sandbox mode.
+// Keep an in-memory fallback so save/load works during the current planner session.
+var SAVE_STORE_RAM = {
+  own: [],
+  mission: []
+};
+
+var SAVE_STORAGE_KEYS = {
+  own: 'fza_mplanner_saves_own',
+  mission: 'fza_mplanner_saves_mission'
+};
 
 var PERF_TABLES = [];
 var HOVER_TABLES = [];
@@ -1657,6 +1902,17 @@ var ENG_FF_TABLE = [];
 
 function readTextFile(path) {
   return new Promise(function(resolve, reject) {
+    if (typeof A3API !== 'undefined' && A3API && typeof A3API.RequestFile === 'function') {
+      A3API.RequestFile(SFMPLUS_CONFIG_GAME_PATH)
+        .then(function(content) {
+          resolve(String(content || ''));
+        })
+        .catch(function(err) {
+          reject(err || new Error('A3API.RequestFile failed'));
+        });
+      return;
+    }
+
     if (typeof fetch === 'function') {
       fetch(path)
         .then(function(resp) {
@@ -2019,6 +2275,746 @@ function formatEnduranceFromPph(fuelLbs, pph) {
   var minutes = totalMinutes % 60;
   var minuteText = minutes < 10 ? ('0' + String(minutes)) : String(minutes);
   return String(hours) + '+' + minuteText;
+}
+
+function getSaveKey(scope) {
+  return SAVE_STORAGE_KEYS[scope] || SAVE_STORAGE_KEYS.own;
+}
+
+function readQueryParam(name) {
+  if (typeof window === 'undefined' || !window.location) return '';
+  var search = String(window.location.search || '');
+  if (!search || search.charAt(0) !== '?') return '';
+
+  var pairs = search.substring(1).split('&');
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i].split('=');
+    if (decodeURIComponent(pair[0] || '') !== name) continue;
+    return decodeURIComponent(pair.slice(1).join('=') || '');
+  }
+  return '';
+}
+
+function hydrateSavesFromSqfSeed() {
+  var seed = readQueryParam('sqfseed');
+  if (!seed) return;
+
+  try {
+    if (typeof atob !== 'function') return;
+    var sqfArrayText = atob(seed);
+    if (!sqfArrayText) return;
+
+    // SQF str escapes embedded quotes as doubled quotes; convert to JSON-safe strings.
+    var jsonLike = sqfArrayText.replace(/""/g, '\\"');
+    var parsed = JSON.parse(jsonLike);
+    if (!parsed || parsed.length < 2) return;
+
+    function normalizeSqfEntries(rawEntries) {
+      if (!rawEntries || !rawEntries.length) return [];
+      var out = [];
+      for (var i = 0; i < rawEntries.length; i++) {
+        var entry = rawEntries[i];
+        if (!entry || entry.length < 2) continue;
+        var name = String(entry[0] || '').trim();
+        if (!name) continue;
+        var stateRaw = String(entry[1] || '');
+        if (!stateRaw) continue;
+
+        var stateObj = null;
+        try {
+          stateObj = JSON.parse(stateRaw);
+        } catch (e) {
+          continue;
+        }
+
+        if (entry.length > 2 && (stateObj.timestamp === undefined || stateObj.timestamp === null)) {
+          stateObj.timestamp = Number(entry[2]) || Date.now();
+        }
+
+        out.push({
+          name: name,
+          state: stateObj,
+          timestamp: entry.length > 2 ? Number(entry[2]) || Date.now() : Date.now(),
+          ownerUid: entry.length > 3 ? String(entry[3] || '') : '',
+          ownerName: entry.length > 4 ? String(entry[4] || '') : ''
+        });
+      }
+      return out;
+    }
+
+    writeSaveStore('own', normalizeSqfEntries(parsed[0]));
+    writeSaveStore('mission', normalizeSqfEntries(parsed[1]));
+  } catch (err) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner SQF save seed import failed.', err);
+    }
+  }
+}
+
+function readSaveStore(scope) {
+  var scopeKey = scope === 'mission' ? 'mission' : 'own';
+  if (saveLoadState.seedReceived) {
+    var seeded = SAVE_STORE_RAM[scopeKey] || [];
+    return seeded.slice();
+  }
+
+  var key = getSaveKey(scope);
+  var raw = '';
+  try {
+    raw = window.localStorage ? (window.localStorage.getItem(key) || '') : '';
+  } catch (e) {
+    raw = '';
+  }
+  if (!raw) {
+    var mem = SAVE_STORE_RAM[scopeKey] || [];
+    return mem.slice();
+  }
+
+  try {
+    var parsed = JSON.parse(raw);
+    if (!parsed || !parsed.length) {
+      var memFallback = SAVE_STORE_RAM[scopeKey] || [];
+      return memFallback.slice();
+    }
+    SAVE_STORE_RAM[scopeKey] = parsed.slice();
+    return parsed;
+  } catch (err) {
+    var memRecover = SAVE_STORE_RAM[scopeKey] || [];
+    return memRecover.slice();
+  }
+}
+
+function writeSaveStore(scope, entries) {
+  var scopeKey = scope === 'mission' ? 'mission' : 'own';
+  var key = getSaveKey(scope);
+  var cleanEntries = (entries || []).slice();
+  SAVE_STORE_RAM[scopeKey] = cleanEntries;
+  try {
+    if (window.localStorage) {
+      window.localStorage.setItem(key, JSON.stringify(cleanEntries));
+    }
+  } catch (e) {}
+}
+
+function trimSaveName(rawName) {
+  return String(rawName || '').replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
+}
+
+function showAlert(message) {
+  if (typeof A3API !== 'undefined' && A3API && typeof A3API.SendAlert === 'function') {
+    A3API.SendAlert(String(message || ''));
+    return;
+  }
+
+  alert(String(message || ''));
+}
+
+function showConfirm(message) {
+  if (typeof A3API !== 'undefined' && A3API && typeof A3API.SendConfirm === 'function') {
+    return !!A3API.SendConfirm(String(message || ''));
+  }
+
+  return confirm(String(message || ''));
+}
+
+function normalizeSaveEntry(entry, fallbackTimestamp) {
+  if (!entry || typeof entry !== 'object') return null;
+
+  var name = trimSaveName(entry.name);
+  if (!name) return null;
+
+  var state = entry.state && typeof entry.state === 'object' ? entry.state : {};
+  if (state.timestamp === undefined && fallbackTimestamp !== undefined) {
+    state.timestamp = fallbackTimestamp;
+  }
+
+  return {
+    name: name,
+    state: state,
+    timestamp: entry.timestamp !== undefined ? entry.timestamp : fallbackTimestamp,
+    ownerUid: String(entry.ownerUid || ''),
+    ownerName: String(entry.ownerName || '')
+  };
+}
+
+function sqfQuotedString(value) {
+  return '"' + String(value || '')
+    .replace(/"/g, '""') + '"';
+}
+
+function syncSaveToSqf(scope, name, stateObj) {
+  var payload = JSON.stringify(stateObj || {});
+  var code = '[' + sqfQuotedString(scope) + ',' + sqfQuotedString(name) + ',' + sqfQuotedString(payload) + '] call fza_mplanner_fnc_saveConfig';
+  callSQF(code);
+}
+
+function syncDeleteToSqf(scope, name) {
+  var code = '[' + sqfQuotedString(scope) + ',' + sqfQuotedString(name) + '] call fza_mplanner_fnc_deleteConfig';
+  callSQF(code);
+}
+
+function syncSetLastLoadedConfig(name) {
+  var code = 'profileNamespace setVariable ["fza_mplanner_last_loaded_config",' + sqfQuotedString(name) + '];saveProfileNamespace;';
+  callSQF(code);
+}
+
+function syncPushMissionToSqf(name, stateObj) {
+  var payload = JSON.stringify(stateObj || {});
+  var code = '[' + sqfQuotedString(name) + ',' + sqfQuotedString(payload) + '] call fza_mplanner_fnc_pushMissionConfig';
+  callSQF(code);
+}
+
+function requestSaveSeed() {
+  return callSQF('[] call fza_mplanner_fnc_seedSaves');
+}
+
+var saveSeedRetryHandle = 0;
+function scheduleSaveSeedRefresh() {
+  if (saveSeedRetryHandle) {
+    clearTimeout(saveSeedRetryHandle);
+    saveSeedRetryHandle = 0;
+  }
+
+  var attempts = 0;
+  function tick() {
+    attempts += 1;
+    requestSaveSeed();
+
+    if ((saveLoadState.currentPlayerUid && saveLoadState.currentPlayerName) || attempts >= 10) {
+      saveSeedRetryHandle = 0;
+      return;
+    }
+
+    saveSeedRetryHandle = setTimeout(tick, 250);
+  }
+
+  tick();
+}
+
+function receiveSqfSaveSeed(payloadText) {
+  if (!payloadText) return;
+
+  try {
+    var parsed = JSON.parse(String(payloadText));
+    if (!parsed || typeof parsed !== 'object') return;
+
+    saveLoadState.currentPlayerUid = parsed.player && parsed.player.uid ? String(parsed.player.uid) : '';
+    saveLoadState.currentPlayerName = parsed.player && parsed.player.name ? String(parsed.player.name) : '';
+
+    if (parsed.environment !== undefined && parsed.environment !== null) {
+      window.fza_ah64_sfmplusEnvironment = parsed.environment;
+    }
+
+    if (parsed.currentConfig !== undefined) {
+      var cfgName = trimSaveName(parsed.currentConfig);
+      document.getElementById('currentConfigName').value = cfgName;
+    }
+
+    function normalizeSeedList(rawEntries) {
+      var out = [];
+      if (!rawEntries || !rawEntries.length) return out;
+      for (var i = 0; i < rawEntries.length; i++) {
+        var normalized = normalizeSaveEntry(rawEntries[i], rawEntries[i] ? rawEntries[i].timestamp : undefined);
+        if (normalized) out.push(normalized);
+      }
+      return out;
+    }
+
+    writeSaveStore('own', normalizeSeedList(parsed.own));
+    writeSaveStore('mission', normalizeSeedList(parsed.mission));
+    saveLoadState.seedReceived = true;
+    updateWeightsAndPerformance();
+    renderSaveLoadList();
+  } catch (err) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner live save seed failed.', err);
+    }
+  }
+}
+
+window.fza_mplanner_receiveSeed = receiveSqfSaveSeed;
+
+function getSelectedSaveEntry(scope, nameOverride) {
+  var actualScope = scope === 'mission' ? 'mission' : 'own';
+  var name = trimSaveName(nameOverride || document.getElementById('saveLoadName').value || saveLoadState.selectedName);
+  if (!name) return null;
+
+  var entries = readSaveStore(actualScope);
+  var idx = findSaveIndex(entries, name);
+  if (idx === -1) return null;
+  return entries[idx];
+}
+
+function canDeleteEntry(scope, entry) {
+  if (!entry) return false;
+  if (scope !== 'mission') return true;
+  if (!entry.ownerUid) return true;
+  return entry.ownerUid === saveLoadState.currentPlayerUid;
+}
+
+function updateSaveLoadControls() {
+  var scope = saveLoadState.scope === 'mission' ? 'mission' : 'own';
+  var entry = getSelectedSaveEntry(scope);
+  var deleteButton = document.getElementById('btnModalDelete');
+  var pushButton = document.getElementById('btnModalPushMission');
+  var hintEl = document.getElementById('saveLoadHint');
+
+  if (deleteButton) deleteButton.disabled = !entry || !canDeleteEntry(scope, entry);
+  if (pushButton) pushButton.disabled = scope !== 'own' || !entry;
+
+  if (!hintEl) return;
+  if (scope === 'mission' && entry && !canDeleteEntry(scope, entry)) {
+    hintEl.textContent = 'Mission saves display their owner. Only the owner can delete a mission save.';
+  } else if (scope === 'own') {
+    hintEl.textContent = 'Select an OWN save to load it, overwrite it, or push it into missionNamespace for the current mission.';
+  } else {
+    hintEl.textContent = 'Select a save to load it into the planner, or type a name to create/overwrite a save in the active scope.';
+  }
+}
+
+function mapPlannerRocketTypeToLegacy(typeCode) {
+  var map = {
+    '6PD': 'M151',
+    '6FL': 'M255',
+    '6IL': 'M257',
+    '6MP': 'M261',
+    '6IR': 'M278'
+  };
+  return map[String(typeCode || '').trim().toUpperCase()] || '';
+}
+
+function mapPlannerHellfireCodeToLegacy(code) {
+  var map = {
+    'K': 'AGM114k',
+    'L': 'AGM114L',
+    'K2A': 'AGM114K2A',
+    'FA': 'AGM114FA',
+    'N': 'AGM114N'
+  };
+  return map[String(code || '').toUpperCase()] || '';
+}
+
+function buildLegacyApplyPayload(state) {
+  var payload = {
+    fcrInstalled: !!state.fcrActive,
+    iafsInstalled: String(state.robbieMode || 'iafs') === 'iafs',
+    fuel: ((state.fuel.fwd || 0) * GAL_TO_LBS_FWD + (state.fuel.aft || 0) * GAL_TO_LBS_AFT + (state.fuel.ctr || 0) * GAL_TO_LBS_CTR + (state.fuel.aux || 0) * GAL_TO_LBS_AUX) / LBS_PER_KG,
+    pylon1: { type: 'none' },
+    pylon2: { type: 'none' },
+    pylon3: { type: 'none' },
+    pylon4: { type: 'none' }
+  };
+
+  for (var i = 1; i <= 4; i++) {
+    var pylon = state.pylons[i - 1] || { type: 'none' };
+    var key = 'pylon' + i;
+    var out = { type: pylon.type || 'none' };
+
+    if (out.type === 'hellfire') {
+      var rails = pylon.rails || [];
+      out.lr = mapPlannerHellfireCodeToLegacy(rails[2] || '');
+      out.ll = mapPlannerHellfireCodeToLegacy(rails[3] || '');
+      out.ur = mapPlannerHellfireCodeToLegacy(rails[0] || '');
+      out.ul = mapPlannerHellfireCodeToLegacy(rails[1] || '');
+    }
+
+    if (out.type === 'rocket') {
+      var zones = pylon.zones || [];
+      if (i === 1 || i === 4) {
+        out.zoneA = (zones[0] && zones[0].count > 0) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
+        out.zoneB = (zones[1] && zones[1].count > 0) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
+        out.zoneE = (zones[2] && zones[2].count > 0) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
+      } else {
+        out.zoneA = (zones[0] && zones[0].count > 0) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
+        out.zoneB = (zones[1] && zones[1].count > 0) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
+        out.zoneE = (zones[2] && zones[2].count > 0) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
+      }
+    }
+
+    payload[key] = out;
+  }
+
+  return payload;
+}
+
+function normalizeSaveName(name) {
+  return trimSaveName(name).toLowerCase();
+}
+
+function getPlannerState() {
+  var state = {
+    version: 1,
+    timestamp: Date.now(),
+    fcrActive: document.getElementById('fcrBadge').classList.contains('active'),
+    robbieMode: document.getElementById('robbieMode').value,
+    cannonRds: parseNumberText(document.getElementById('cannonRds').value),
+    fuelPct: parseNumberText(document.getElementById('fuelPct').value),
+    fuel: {
+      fwd: parseNumberText(document.getElementById('fuelFwd').value),
+      aft: parseNumberText(document.getElementById('fuelAft').value),
+      ctr: parseNumberText(document.getElementById('fuelCtr').value),
+      aux: parseNumberText(document.getElementById('fuelAux').value)
+    },
+    pylons: []
+  };
+
+  for (var i = 1; i <= 4; i++) {
+    var pylonTypeEl = document.getElementById('pylon' + i + 'Type');
+    var pylon = { type: pylonTypeEl ? pylonTypeEl.value : 'none' };
+    if (pylon.type === 'hellfire') {
+      pylon.rails = [];
+      ['tr', 'tl', 'br', 'bl'].forEach(function(railKey) {
+        var railEl = document.getElementById('p' + i + '_' + railKey);
+        pylon.rails.push(railEl ? normalizeHellfireCode(railEl.value) : '');
+      });
+    } else if (pylon.type === 'rocket') {
+      pylon.zones = [];
+      getZoneIdsForPylon(i).forEach(function(zonePair) {
+        var zoneKey = zonePair[0];
+        var countEl = document.getElementById('p' + i + '_' + zoneKey + '_count');
+        var typeEl = document.getElementById('p' + i + '_' + zoneKey + '_type');
+        pylon.zones.push({
+          count: parseNumberText(countEl ? countEl.value : '0'),
+          type: typeEl ? typeEl.value : ''
+        });
+      });
+    }
+    state.pylons.push(pylon);
+  }
+
+  return state;
+}
+
+function applyPlannerState(state) {
+  if (!state) return;
+
+  var fcrBadge = document.getElementById('fcrBadge');
+  if (fcrBadge) {
+    if (state.fcrActive) fcrBadge.classList.add('active');
+    else fcrBadge.classList.remove('active');
+  }
+
+  var robbieMode = document.getElementById('robbieMode');
+  if (robbieMode && state.robbieMode) {
+    robbieMode.value = state.robbieMode;
+  }
+
+  if (state.fuel) {
+    if (state.fuel.fwd !== undefined) document.getElementById('fuelFwd').value = String(state.fuel.fwd);
+    if (state.fuel.aft !== undefined) document.getElementById('fuelAft').value = String(state.fuel.aft);
+    if (state.fuel.ctr !== undefined) document.getElementById('fuelCtr').value = String(state.fuel.ctr);
+    if (state.fuel.aux !== undefined) document.getElementById('fuelAux').value = String(state.fuel.aux);
+  }
+
+  if (state.cannonRds !== undefined) {
+    document.getElementById('cannonRds').value = String(state.cannonRds);
+  }
+
+  if (state.fuelPct !== undefined) {
+    document.getElementById('fuelPct').value = String(state.fuelPct);
+  }
+
+  for (var i = 1; i <= 4; i++) {
+    var pylon = state.pylons && state.pylons[i - 1] ? state.pylons[i - 1] : null;
+    if (!pylon) continue;
+
+    var pylonTypeEl = document.getElementById('pylon' + i + 'Type');
+    if (pylonTypeEl && pylon.type) {
+      pylonTypeEl.value = pylon.type;
+      setPylonMode(i, pylon.type);
+    }
+
+    if (pylon.type === 'hellfire' && pylon.rails) {
+      ['tr', 'tl', 'br', 'bl'].forEach(function(railKey, railIndex) {
+        var railEl = document.getElementById('p' + i + '_' + railKey);
+        if (railEl) railEl.value = hellfireCodeMap[pylon.rails[railIndex] || ''] || 'None';
+      });
+    }
+
+    if (pylon.type === 'rocket' && pylon.zones) {
+      getZoneIdsForPylon(i).forEach(function(zonePair, zoneIndex) {
+        var zoneKey = zonePair[0];
+        var countEl = document.getElementById('p' + i + '_' + zoneKey + '_count');
+        var typeEl = document.getElementById('p' + i + '_' + zoneKey + '_type');
+        var zoneState = pylon.zones[zoneIndex] || {};
+        if (countEl && zoneState.count !== undefined) countEl.value = String(zoneState.count);
+        if (typeEl && zoneState.type !== undefined) typeEl.value = zoneState.type;
+      });
+    }
+  }
+
+  syncAuxFuelAvailability();
+  syncRobbieState();
+  syncSilhouette();
+  calcFuel();
+  syncCannonDisplay();
+  updateWeightsAndPerformance();
+}
+
+function findSaveIndex(entries, name) {
+  var target = normalizeSaveName(name);
+  for (var i = 0; i < entries.length; i++) {
+    if (normalizeSaveName(entries[i].name) === target) return i;
+  }
+  return -1;
+}
+
+function renderSaveLoadList() {
+  var scope = saveLoadState.scope;
+  var entries = readSaveStore(scope);
+  var listEl = document.getElementById(scope === 'mission' ? 'saveListMission' : 'saveListOwn');
+  if (!listEl) return;
+  listEl.innerHTML = '';
+
+  if (entries.length === 0) {
+    var emptyEl = document.createElement('div');
+    emptyEl.className = 'modal-hint';
+    emptyEl.textContent = 'No saves yet in this scope.';
+    listEl.appendChild(emptyEl);
+    updateSaveLoadControls();
+    return;
+  }
+
+  for (var i = 0; i < entries.length; i++) {
+    (function(entry) {
+      var row = document.createElement('div');
+      row.className = 'save-entry' + (normalizeSaveName(entry.name) === normalizeSaveName(saveLoadState.selectedName) ? ' selected' : '');
+
+      var nameEl = document.createElement('div');
+      nameEl.className = 'name';
+      nameEl.textContent = entry.name;
+
+      var scopeEl = document.createElement('div');
+      scopeEl.className = 'scope-badge';
+      scopeEl.textContent = scope.toUpperCase();
+
+      var metaEl = document.createElement('div');
+      metaEl.className = 'meta';
+      var stamp = entry.state && entry.state.timestamp ? entry.state.timestamp : entry.timestamp;
+      var metaParts = [];
+      if (stamp) metaParts.push(new Date(stamp).toLocaleString());
+      if (scope === 'mission') {
+        metaParts.push('Owner: ' + (entry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
+        if (!canDeleteEntry(scope, entry)) metaEl.classList.add('owner-lock');
+      }
+      metaEl.textContent = metaParts.join(' • ');
+
+      row.appendChild(nameEl);
+      row.appendChild(scopeEl);
+      row.appendChild(metaEl);
+
+      row.addEventListener('click', function() {
+        saveLoadState.selectedName = entry.name;
+        document.getElementById('saveLoadName').value = entry.name;
+        renderSaveLoadList();
+      });
+
+      listEl.appendChild(row);
+    })(entries[i]);
+  }
+
+  updateSaveLoadControls();
+}
+
+function setSaveLoadMode(mode) {
+  saveLoadState.mode = mode === 'load' ? 'load' : 'save';
+  document.getElementById('saveLoadTitle').textContent = saveLoadState.mode === 'save' ? 'Save Loadout' : 'Load Loadout';
+  document.getElementById('btnModalSave').textContent = saveLoadState.mode === 'save' ? 'Save' : 'Save As';
+  document.getElementById('btnModalLoad').style.display = saveLoadState.mode === 'load' ? '' : 'none';
+  updateSaveLoadControls();
+}
+
+function setSaveLoadScope(scope) {
+  saveLoadState.scope = scope === 'mission' ? 'mission' : 'own';
+  var tabs = document.querySelectorAll('.scope-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove('active');
+    if (getData(tabs[i], 'scope') === saveLoadState.scope) tabs[i].classList.add('active');
+  }
+
+  var panels = document.querySelectorAll('.modal-panel');
+  for (var j = 0; j < panels.length; j++) {
+    panels[j].classList.remove('active');
+    if (String(panels[j].getAttribute('data-scope-panel') || '') === saveLoadState.scope) panels[j].classList.add('active');
+  }
+
+  renderSaveLoadList();
+}
+
+function openSaveLoadDialog(mode) {
+  setSaveLoadMode(mode);
+  saveLoadState.open = true;
+  saveLoadState.selectedName = '';
+  document.getElementById('saveLoadName').value = '';
+  document.getElementById('saveLoadModal').classList.add('visible');
+  document.getElementById('saveLoadModal').setAttribute('aria-hidden', 'false');
+  setSaveLoadScope(saveLoadState.scope);
+  scheduleSaveSeedRefresh();
+}
+
+function closeSaveLoadDialog() {
+  saveLoadState.open = false;
+  document.getElementById('saveLoadModal').classList.remove('visible');
+  document.getElementById('saveLoadModal').setAttribute('aria-hidden', 'true');
+}
+
+function saveCurrentPlannerState() {
+  var name = trimSaveName(document.getElementById('saveLoadName').value);
+  if (!name) {
+    showAlert('Enter a save name first.');
+    return;
+  }
+
+  var scope = saveLoadState.scope;
+  var entries = readSaveStore(scope);
+  var idx = findSaveIndex(entries, name);
+  if (idx !== -1 && !showConfirm('Overwrite existing save "' + entries[idx].name + '"?')) {
+    return;
+  }
+
+  var state = getPlannerState();
+  var entry = normalizeSaveEntry({
+    name: name,
+    state: state,
+    timestamp: state.timestamp,
+    ownerUid: saveLoadState.currentPlayerUid,
+    ownerName: saveLoadState.currentPlayerName
+  }, state.timestamp);
+  if (idx === -1) entries.push(entry);
+  else entries[idx] = entry;
+  writeSaveStore(scope, entries);
+  syncSaveToSqf(scope, name, state);
+  saveLoadState.selectedName = name;
+  renderSaveLoadList();
+}
+
+function loadSelectedPlannerState() {
+  var name = trimSaveName(document.getElementById('saveLoadName').value || saveLoadState.selectedName);
+  if (!name) {
+    showAlert('Select a save to load.');
+    return;
+  }
+
+  var entries = readSaveStore(saveLoadState.scope);
+  var idx = findSaveIndex(entries, name);
+  if (idx === -1) {
+    showAlert('That save no longer exists. Refreshing the list.');
+    renderSaveLoadList();
+    return;
+  }
+
+  applyPlannerState(entries[idx].state);
+  saveLoadState.selectedName = entries[idx].name;
+  document.getElementById('currentConfigName').value = entries[idx].name;
+  syncSetLastLoadedConfig(entries[idx].name);
+  closeSaveLoadDialog();
+}
+
+var deleteConfirmState = {
+  onConfirm: null
+};
+
+function closeDeleteConfirmDialog() {
+  deleteConfirmState.onConfirm = null;
+  document.getElementById('deleteConfirmModal').classList.remove('visible');
+  document.getElementById('deleteConfirmModal').setAttribute('aria-hidden', 'true');
+}
+
+function showDeleteConfirm(message, onConfirm) {
+  deleteConfirmState.onConfirm = typeof onConfirm === 'function' ? onConfirm : null;
+  document.getElementById('deleteConfirmMessage').textContent = String(message || 'Are you sure?');
+  document.getElementById('deleteConfirmModal').classList.add('visible');
+  document.getElementById('deleteConfirmModal').setAttribute('aria-hidden', 'false');
+}
+
+function performDeleteSelectedPlannerState(name) {
+  var targetName = trimSaveName(name || document.getElementById('saveLoadName').value || saveLoadState.selectedName);
+  if (!targetName) return;
+
+  var entries = readSaveStore(saveLoadState.scope);
+  var idx = findSaveIndex(entries, targetName);
+  if (idx === -1) {
+    showAlert('That save no longer exists. Refreshing the list.');
+    renderSaveLoadList();
+    return;
+  }
+
+  if (!canDeleteEntry(saveLoadState.scope, entries[idx])) {
+    showAlert('Only the owner can delete that mission save.');
+    updateSaveLoadControls();
+    return;
+  }
+
+  entries.splice(idx, 1);
+  writeSaveStore(saveLoadState.scope, entries);
+  syncDeleteToSqf(saveLoadState.scope, targetName);
+  saveLoadState.selectedName = '';
+  document.getElementById('saveLoadName').value = '';
+  renderSaveLoadList();
+}
+
+function deleteSelectedPlannerState() {
+  var name = trimSaveName(document.getElementById('saveLoadName').value || saveLoadState.selectedName);
+  if (!name) {
+    showAlert('Select a save to delete.');
+    return;
+  }
+
+  var entries = readSaveStore(saveLoadState.scope);
+  var idx = findSaveIndex(entries, name);
+  if (idx === -1) {
+    showAlert('That save no longer exists. Refreshing the list.');
+    renderSaveLoadList();
+    return;
+  }
+
+  if (!canDeleteEntry(saveLoadState.scope, entries[idx])) {
+    showAlert('Only the owner can delete that mission save.');
+    updateSaveLoadControls();
+    return;
+  }
+
+  showDeleteConfirm('Delete save "' + entries[idx].name + '"?\nThis cannot be undone.', function() {
+    performDeleteSelectedPlannerState(entries[idx].name);
+  });
+}
+
+function pushSelectedPlannerStateToMission() {
+  if (saveLoadState.scope !== 'own') {
+    showAlert('Push to Mission works from the OWN save list.');
+    return;
+  }
+
+  var entry = getSelectedSaveEntry('own');
+  if (!entry) {
+    showAlert('Select an OWN save to push into missionNamespace.');
+    return;
+  }
+
+  var missionEntries = readSaveStore('mission');
+  var idx = findSaveIndex(missionEntries, entry.name);
+  if (idx !== -1 && !showConfirm('Overwrite mission save "' + missionEntries[idx].name + '"?')) {
+    return;
+  }
+
+  var pushedEntry = normalizeSaveEntry({
+    name: entry.name,
+    state: entry.state,
+    timestamp: entry.state && entry.state.timestamp ? entry.state.timestamp : Date.now(),
+    ownerUid: saveLoadState.currentPlayerUid,
+    ownerName: saveLoadState.currentPlayerName
+  }, entry.state && entry.state.timestamp ? entry.state.timestamp : Date.now());
+
+  if (idx === -1) missionEntries.push(pushedEntry);
+  else missionEntries[idx] = pushedEntry;
+
+  writeSaveStore('mission', missionEntries);
+  syncPushMissionToSqf(pushedEntry.name, pushedEntry.state);
+  showAlert('Mission save pushed. Owner: ' + (pushedEntry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
+  setSaveLoadScope('mission');
+  saveLoadState.selectedName = pushedEntry.name;
+  document.getElementById('saveLoadName').value = pushedEntry.name;
+  renderSaveLoadList();
 }
 
 function countHellfiresOnPylon(pylonIndex) {
@@ -2696,18 +3692,35 @@ loadSfmPerfTablesFromConfig().then(function(loaded) {
 // ── SQF BRIDGE STUB ──────────────────────────────────────────
 // When wired to Arma: window.location = "exec://<sqf_code>";
 function callSQF(code) {
-  try { window.location = 'exec://' + encodeURIComponent(code); }
-  catch(e) {}
+  try {
+    if (typeof A3API !== 'undefined' && A3API && typeof A3API.SendAlert === 'function') {
+      A3API.SendAlert('sqf:' + String(code || ''));
+      return true;
+    }
+
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner SQF bridge unavailable.', code);
+    }
+  } catch (e) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner SQF bridge failed.', e);
+    }
+  }
+
+  return false;
 }
 
 document.getElementById('btnApplyConfig').addEventListener('click', function() {
-  callSQF('[] call fza_mplanner_fnc_applyConfig');
+  var state = getPlannerState();
+  var legacy = buildLegacyApplyPayload(state);
+  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(parseInt(state.cannonRds || 0, 10) || 0) + ',' + (state.fcrActive ? '1' : '0') + '] call fza_mplanner_fnc_applyConfig';
+  callSQF(code);
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
-  callSQF('[] call fza_mplanner_fnc_saveConfig');
+  openSaveLoadDialog('save');
 });
 document.getElementById('btnLoadConfig').addEventListener('click', function() {
-  callSQF('[] call fza_mplanner_fnc_loadConfig');
+  openSaveLoadDialog('load');
 });
 document.getElementById('btnLoadDTC').addEventListener('click', function() {
   callSQF('[] call fza_mplanner_fnc_loadDTC');
@@ -2715,6 +3728,44 @@ document.getElementById('btnLoadDTC').addEventListener('click', function() {
 document.getElementById('btnSaveDTC').addEventListener('click', function() {
   callSQF('[] call fza_mplanner_fnc_saveDTC');
 });
+
+document.getElementById('btnCloseSaveLoad').addEventListener('click', closeSaveLoadDialog);
+document.getElementById('btnModalRefresh').addEventListener('click', function() {
+  scheduleSaveSeedRefresh();
+});
+document.getElementById('btnModalSave').addEventListener('click', function() {
+  saveCurrentPlannerState();
+});
+document.getElementById('btnModalLoad').addEventListener('click', function() {
+  loadSelectedPlannerState();
+});
+document.getElementById('btnModalPushMission').addEventListener('click', function() {
+  pushSelectedPlannerStateToMission();
+});
+document.getElementById('btnModalDelete').addEventListener('click', function() {
+  deleteSelectedPlannerState();
+});
+document.getElementById('btnDeleteConfirmClose').addEventListener('click', closeDeleteConfirmDialog);
+document.getElementById('btnDeleteConfirmNo').addEventListener('click', closeDeleteConfirmDialog);
+document.getElementById('btnDeleteConfirmYes').addEventListener('click', function() {
+  var callback = deleteConfirmState.onConfirm;
+  closeDeleteConfirmDialog();
+  if (typeof callback === 'function') callback();
+});
+document.getElementById('saveLoadName').addEventListener('input', function() {
+  saveLoadState.selectedName = trimSaveName(this.value);
+  renderSaveLoadList();
+});
+eachNode('.scope-tab', function(tab) {
+  tab.addEventListener('click', function() {
+    setSaveLoadScope(getData(tab, 'scope'));
+  });
+});
+
+renderSaveLoadList();
+hydrateSavesFromSqfSeed();
+scheduleSaveSeedRefresh();
+renderSaveLoadList();
 </script>
 </body>
 </html>

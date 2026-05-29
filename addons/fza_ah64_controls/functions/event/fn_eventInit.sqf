@@ -66,6 +66,25 @@ _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
+if (isNil { _heli getVariable "fza_ah64_mplanner_debugAction" }) then {
+    private _debugActionId = _heli addAction [
+        "<t color='#aaffaa'>Mission Planner (DEBUG)</t>",
+        {
+            params ["_target", "_caller", "_actionId", "_arguments"];
+            if (!isNull _caller && {player == _caller}) then {
+                [] call fza_mplanner_fnc_open;
+            };
+        },
+        nil,
+        1.5,
+        true,
+        true,
+        "",
+        "alive _target && {player in crew _target}"
+    ];
+    _heli setVariable ["fza_ah64_mplanner_debugAction", _debugActionId, true];
+};
+
 if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
         waitUntil {cba_missiontime != 0;};
