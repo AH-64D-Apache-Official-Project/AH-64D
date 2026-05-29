@@ -6,7 +6,10 @@ params [
 
 if (_legacyJson isEqualTo "") exitWith {false};
 
-private _heli = vehicle player;
+private _heli = uiNamespace getVariable ["fza_mplanner_target", objNull];
+if (isNull _heli || {!(_heli isKindOf "Helicopter")}) then {
+    _heli = vehicle player;
+};
 if (isNull _heli) exitWith {false};
 if !(_heli isKindOf "Helicopter") exitWith {false};
 
@@ -95,7 +98,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     };
                 };
                 case "rocket": {
-                    [""] call _assignMagazine;
+                    ["fza_275_pod"] call _assignMagazine;
                     {
                         private _zoneKey = _x;
                         private _ammoName = _pylonInfo getVariable [_zoneKey, ""];
@@ -103,7 +106,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                             private _magName = "fza_275_" + _ammoName + "_" + _zoneKey;
                             [_magName] call _assignMagazine;
                         } else {
-                            [""] call _assignMagazine;
+                            ["fza_275_pod"] call _assignMagazine;
                         };
                     } forEach _pylonRktCheck;
                 };
@@ -116,7 +119,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                             private _magName = "fza_" + _ammoName + "_" + _railKey;
                             [_magName] call _assignMagazine;
                         } else {
-                            [""] call _assignMagazine;
+                            ["fza_agm114_rail"] call _assignMagazine;
                         };
                     } forEach _pylonMslCheck;
                 };
@@ -152,6 +155,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         if !(_rearmNewPylons isEqualType true) then {
             _rearmNewPylons = false;
         };
+
+        _heli setVariable ["fza_mplanner_rearming", true, true];
 
         [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons] spawn {
             params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons"];
@@ -210,6 +215,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 };
             } forEach _queue;
 
+            _heli setVariable ["fza_mplanner_rearming", false, true];
             [_heli] call fza_fnc_weaponPylonCheckValid;
             systemChat "Mission Planner: pylon application complete.";
         };
@@ -219,12 +225,50 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         call _applyPylons;
     };
 
+    // Wait for pylon spawn to complete before cannon/fuel progress bars
+    waitUntil { uiSleep 0.1; !(_heli getVariable ["fza_mplanner_rearming", false]) };
+
     if (_needsCenterStore) then {
         [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
     };
 
     if (_needsCannon) then {
-        _heli setAmmo ["fza_m230", _targetCannonRds];
+        private _aceRearmDelay = missionNamespace getVariable ["ace_rearm_loadTime", 5];
+        if !(_aceRearmDelay isEqualType 0) then { _aceRearmDelay = 5 };
+        private _cannonDuration = (_cannonDelta / 50.0) * _aceRearmDelay;
+
+        private _status = [false, false];
+        [
+            _cannonDuration,
+            [_heli, _curCannonRds, _targetCannonRds, _status],
+            {
+                params [["_args", []]];
+                _args params ["_heli", "_startRds", "_targetRds", "_status"];
+                _heli setAmmo ["fza_m230", _targetRds];
+                systemChat format ["Mission Planner: cannon at %1 rds.", _targetRds];
+                _status set [1, true];
+                _status set [0, true];
+            },
+            {
+                params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                _args params ["_heli", "_startRds", "_targetRds", "_status"];
+                private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
+                private _actualRds = _startRds + round ((_targetRds - _startRds) * _partial);
+                _heli setAmmo ["fza_m230", _actualRds max 0];
+                systemChat format ["Mission Planner: cannon partial load %1 rds (cancelled).", _actualRds max 0];
+                _status set [1, false];
+                _status set [0, true];
+            },
+            format ["Mission Planner - %1 Cannon (%2%3 rds)", (["Unloading","Loading"] select (_targetCannonRds > _curCannonRds)), (["-","+"] select (_targetCannonRds > _curCannonRds)), _cannonDelta],
+            {
+                params [["_args", []]];
+                _args params ["_heli"];
+                player distanceSqr _heli <= (15 ^ 2)
+            },
+            ["isNotInside"]
+        ] call ace_common_fnc_progressBar;
+
+        waitUntil {uiSleep 0.1; _status # 0};
     };
 
     if (_needsFuel) then {
@@ -232,12 +276,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         private _deltaRatio = _targetFuelPct - _currentFuelRatio;
 
         if (_deltaRatio > 0) then {
-            // Vanilla fuelCapacity (liters) gives the helicopter tank size ACE uses for source math
-            private _heliCapacityL = getNumber (configOf _heli >> "fuelCapacity");
-            if (_heliCapacityL <= 0) then {
-                _heliCapacityL = _tankCapacityKg * 1.25; // fallback: ~0.8 kg/L Jet-A
-            };
-            private _requiredLiters = _deltaRatio * _heliCapacityL;
+            // Use SFM+ mass delta converted to liters (Jet-A density ~0.8 kg/L)
+            private _requiredLiters = _fuelDeltaKg / 0.8;
 
             private _maxRange = missionNamespace getVariable ["ace_refuel_hoseLength", 12];
             if !(_maxRange isEqualType 0) then {_maxRange = 12};
@@ -276,19 +316,58 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 systemChat "Mission Planner: selected ACE source has no fuel available.";
             };
 
-            private _newFuelRatio = _currentFuelRatio + (_transferLiters / _heliCapacityL);
-            _heli setFuel (_newFuelRatio min 1);
-            [_heli] call fza_sfmplus_fnc_fuelSet;
+            // ACE refuel rate in L/s; use mission-planner-specific rate defaulting to 30 L/s
+            private _fuelRateL = missionNamespace getVariable ["fza_mplanner_fuelRate", 30];
+            if !(_fuelRateL isEqualType 0 && {_fuelRateL > 0}) then { _fuelRateL = 30 };
+            private _fuelDuration = _transferLiters / _fuelRateL;
 
-            if (_sourceCapacity != -10) then {
-                [_source, (_sourceFuel - _transferLiters) max 0] call ace_refuel_fnc_setFuel;
-            };
+            // Proportion of requested fuel that can actually be transferred
+            private _transferFraction = _transferLiters / (_requiredLiters max 0.001);
+            private _actualTargetRatio = (_currentFuelRatio + ((_targetFuelPct - _currentFuelRatio) * _transferFraction)) min 1;
 
-            if (_transferLiters < _requiredLiters) then {
-                systemChat format ["Mission Planner: refueled %1L (source limited).", round _transferLiters];
-            } else {
-                systemChat format ["Mission Planner: refueled %1L.", round _transferLiters];
-            };
+            private _status = [false, false];
+            [
+                _fuelDuration max 0.5,
+                [_heli, _currentFuelRatio, _actualTargetRatio, _source, _sourceFuel, _sourceCapacity, _transferLiters, _status],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli", "_curRatio", "_targetRatio", "_source", "_srcFuel", "_srcCap", "_litres", "_status"];
+                    _heli setFuel _targetRatio;
+                    [_heli] call fza_sfmplus_fnc_fuelSet;
+                    if (_srcCap != -10) then {
+                        [_source, (_srcFuel - _litres) max 0] call ace_refuel_fnc_setFuel;
+                    };
+                    systemChat format ["Mission Planner: refueled %1 L.", round _litres];
+                    _status set [1, true];
+                    _status set [0, true];
+                },
+                {
+                    params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                    _args params ["_heli", "_curRatio", "_targetRatio", "_source", "_srcFuel", "_srcCap", "_litres", "_status"];
+                    private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
+                    private _partialRatio = (_curRatio + ((_targetRatio - _curRatio) * _partial)) min 1;
+                    private _partialLitres = _litres * _partial;
+                    if (_partial > 0.01) then {
+                        _heli setFuel _partialRatio;
+                        [_heli] call fza_sfmplus_fnc_fuelSet;
+                        if (_srcCap != -10) then {
+                            [_source, (_srcFuel - _partialLitres) max 0] call ace_refuel_fnc_setFuel;
+                        };
+                        systemChat format ["Mission Planner: partial refuel %1 L (cancelled).", round _partialLitres];
+                    };
+                    _status set [1, false];
+                    _status set [0, true];
+                },
+                format ["Mission Planner - Refueling (%1 L)", round _transferLiters],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli"];
+                    player distanceSqr _heli <= (15 ^ 2)
+                },
+                ["isNotInside"]
+            ] call ace_common_fnc_progressBar;
+
+            waitUntil {uiSleep 0.1; _status # 0};
         } else {
             _heli setFuel _targetFuelPct;
             [_heli] call fza_sfmplus_fnc_fuelSet;
@@ -296,7 +375,33 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     };
 
     if (_needsFcr) then {
-        _heli animateSource ["fcr_enable", _desiredFcrState];
+        private _fcrStatus = [false, false];
+        [
+            5,
+            [_heli, _desiredFcrState, _fcrStatus],
+            {
+                params [["_args", []]];
+                _args params ["_heli", "_fcrState", "_fcrStatus"];
+                _heli animateSource ["fcr_enable", _fcrState];
+                _fcrStatus set [1, true];
+                _fcrStatus set [0, true];
+            },
+            {
+                params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                _args params ["_heli", "_fcrState", "_fcrStatus"];
+                _heli animateSource ["fcr_enable", _fcrState];
+                _fcrStatus set [1, false];
+                _fcrStatus set [0, true];
+            },
+            format ["Mission Planner - %1 FCR", (["Uninstalling", "Installing"] select _desiredFcrState)],
+            {
+                params [["_args", []]];
+                _args params ["_heli"];
+                player distanceSqr _heli <= (15 ^ 2)
+            },
+            ["isNotInside"]
+        ] call ace_common_fnc_progressBar;
+        waitUntil { uiSleep 0.1; _fcrStatus # 0 };
     };
 
     [_heli] call fza_sfmplus_fnc_massUpdate;

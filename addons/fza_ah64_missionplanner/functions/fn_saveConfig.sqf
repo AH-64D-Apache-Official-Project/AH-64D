@@ -40,6 +40,9 @@ if (_idx >= 0) then {
 _namespace setVariable [_key, _entries];
 if (!_isMissionScope) then {
     saveProfileNamespace;
+    systemChat format ["Mission Planner: saved '%1' to profile (%2 total saves).", _trimmedName, count _entries];
+} else {
+    systemChat format ["Mission Planner: saved '%1' to mission namespace.", _trimmedName];
 };
 
 true;

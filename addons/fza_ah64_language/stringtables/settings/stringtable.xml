@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_AGM114FA">
+            <Original>AGM-114FA Hellfire count</Original>
+            <English>AGM-114FA Hellfire count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_AGM114K">
+            <Original>AGM-114K Hellfire count</Original>
+            <English>AGM-114K Hellfire count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_AGM114K2A">
+            <Original>AGM-114K2A Hellfire count</Original>
+            <English>AGM-114K2A Hellfire count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_AGM114L">
+            <Original>AGM-114L Longbow Hellfire count</Original>
+            <English>AGM-114L Longbow Hellfire count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_AGM114N">
+            <Original>AGM-114N Thermobaric Hellfire count</Original>
+            <English>AGM-114N Thermobaric Hellfire count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_DESC">
+            <Original>Available count for this mission (-1 = unlimited). Requires Mission Ammo Limit to be enabled.</Original>
+            <English>Available count for this mission (-1 = unlimited). Requires Mission Ammo Limit to be enabled.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_LIMIT_ENABLE">
+            <Original>Mission Ammo Limit: Enable</Original>
+            <English>Mission Ammo Limit: Enable</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_LIMIT_ENABLE_DESC">
+            <Original>Enable per-ammo-type limits in the Mission Planner FARP panel. When disabled, all ammo shows as unlimited.</Original>
+            <English>Enable per-ammo-type limits in the Mission Planner FARP panel. When disabled, all ammo shows as unlimited.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M151">
+            <Original>M151 FFAR (6PD) count</Original>
+            <English>M151 FFAR (6PD) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M230">
+            <Original>30mm Cannon (M230) count</Original>
+            <English>30mm Cannon (M230) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M255A1">
+            <Original>M255A1 Flechette (6FL) count</Original>
+            <English>M255A1 Flechette (6FL) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M257">
+            <Original>M257 Illumination (6IL) count</Original>
+            <English>M257 Illumination (6IL) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M261">
+            <Original>M261 MPSM (6MP) count</Original>
+            <English>M261 MPSM (6MP) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_AMMO_M278">
+            <Original>M278 IR Illumination (6IR) count</Original>
+            <English>M278 IR Illumination (6IR) count</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_SETTINGS">
+            <Original>Mission Planner</Original>
+            <English>Mission Planner</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
             <Original>Cyclic Center Trim Mode</Original>
             <English>Cyclic Center Trim Mode</English>

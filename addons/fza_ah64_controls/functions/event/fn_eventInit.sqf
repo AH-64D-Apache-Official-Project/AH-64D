@@ -72,7 +72,7 @@ if (isNil { _heli getVariable "fza_ah64_mplanner_debugAction" }) then {
         {
             params ["_target", "_caller", "_actionId", "_arguments"];
             if (!isNull _caller && {player == _caller}) then {
-                [] call fza_mplanner_fnc_open;
+                [_target] call fza_mplanner_fnc_open;
             };
         },
         nil,
@@ -80,7 +80,7 @@ if (isNil { _heli getVariable "fza_ah64_mplanner_debugAction" }) then {
         true,
         true,
         "",
-        "alive _target && {player in crew _target}"
+        "alive _target && {vehicle player != _target}"
     ];
     _heli setVariable ["fza_ah64_mplanner_debugAction", _debugActionId, true];
 };

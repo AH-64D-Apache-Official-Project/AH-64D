@@ -250,6 +250,20 @@
     letter-spacing: 1px;
   }
   .fcr-badge.active { border-color: var(--accent); background: #1a3a1a; color: #aaffaa; }
+  .conversion-warning {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+    background: #3a2000;
+    border: 1px solid #cc6600;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffaa44;
+    letter-spacing: 0.5px;
+  }
+  .conversion-warning.hidden { display: none; }
   .silhouette-fcr {
     position: absolute;
     top: 8px;
@@ -1084,10 +1098,6 @@
         <input type="text" id="tailNum" value="25-299" maxlength="10">
       </label>
 
-      <button id="btnLoadConfig" style="width:100%">Load Config</button>
-
-      <div class="section-divider"></div>
-
       <label class="field-row" id="currentConfigRow">
         <span class="lbl" style="color:var(--text);font-size:15px">Current Config</span>
         <input type="text" id="currentConfigName" value="" readonly style="font-size:15px" placeholder="">
@@ -1095,22 +1105,14 @@
 
       <div class="row2btn">
         <button id="btnApplyConfig">Apply Config</button>
-        <button id="btnSaveConfig">Save Config</button>
+        <button id="btnSaveConfig">Open Configs</button>
       </div>
 
       <div class="section-divider"></div>
 
       <div class="farp-list">
-        <div class="farp-title">Available in FARP:</div>
+        <div class="farp-title">FARP Status:</div>
         <div id="farpList">
-          5x AGM-114K<br>
-          2x AGM-114L<br>
-          5x AGM-114FA<br>
-          405x 30mm<br>
-          111x M151 (6PD)<br>
-          40x M261 (6MP)<br>
-          33x M255A1 (6FL)<br>
-          9x M257 (6IL)
         </div>
       </div>
 
@@ -1122,6 +1124,7 @@
       <!-- Silhouette -->
       <div class="silhouette-area">
         <div id="fcrBadge" class="fcr-badge silhouette-fcr active" title="Toggle FCR">FCR</div>
+        <div id="conversionWarning" class="conversion-warning hidden" title="FCR or magazine mode change requires ~300s rearm">&#9888; 300s REARM</div>
         <svg id="apache-svg" viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64D front silhouette">
           <g id="apache-art" transform="translate(-18 -12) scale(1.22)">
             <ellipse cx="350" cy="304" rx="192" ry="14" fill="rgba(0,0,0,0.18)"/>
@@ -1777,7 +1780,6 @@
     <div class="modal-body">
       <div id="deleteConfirmMessage" class="confirm-message"></div>
       <div class="confirm-actions">
-        <button id="btnDeleteConfirmNo" type="button">Cancel</button>
         <button id="btnDeleteConfirmYes" type="button">Delete</button>
       </div>
     </div>
@@ -1832,6 +1834,7 @@ document.getElementById('fcrBadge').addEventListener('click', function() {
   this.classList.toggle('active');
   syncSilhouette();
   updateWeightsAndPerformance();
+  updateConversionWarning();
 });
 
 // ── FUEL WEIGHT CALC ─────────────────────────────────────────
@@ -1888,6 +1891,94 @@ var SAVE_STORE_RAM = {
   own: [],
   mission: []
 };
+
+// Built-in preset loadouts — always present, cannot be deleted.
+var BUILTIN_PRESETS = (function() {
+  // Correct rocket zone counts from CfgMagazines ROCKET_MAGAZINE_CONFIG: zoneA=12, zoneB=4, zoneE=3
+  var rktCmbtSprt = [
+    {count:12, type:'6PD'},  // zoneA = M151
+    {count:4,  type:'6MP'},  // zoneB = M261
+    {count:3,  type:'6MP'}   // zoneE = M261
+  ];
+  var rktCOIN = [
+    {count:12, type:'6PD'},  // zoneA = M151
+    {count:4,  type:'6FL'},  // zoneB = M255A1
+    {count:3,  type:'6IL'}   // zoneE = M257
+  ];
+  // HF rails format: [tr, tl, br, bl]
+  var hfKKLL = ['K','K','L','L'];  // K top rails, L bottom rails (FCR loadout)
+  var hfKKKK = ['K','K','K','K'];  // all K (standard loadout)
+  var fullFuel = {fwd:155, aft:220, ctr:100, aux:0};
+
+  function preset(name, state) {
+    return {
+      name: name,
+      locked: true,
+      ownerUid: '',
+      ownerName: 'FZA Default',
+      timestamp: 0,
+      state: Object.assign({version:1, timestamp:0}, state)
+    };
+  }
+
+  return [
+    // Combat Support (FCR) — cmbt_sprt_fcr: rockets outer, K/L hellfires inner, FCR on
+    preset('Combat Support (FCR)', {
+      fcrActive: true, robbieMode: 'iafs', cannonRds: 1200, fuel: fullFuel,
+      pylons: [
+        {type:'rocket',   zones: rktCmbtSprt},
+        {type:'hellfire', rails: hfKKLL},
+        {type:'hellfire', rails: hfKKLL},
+        {type:'rocket',   zones: rktCmbtSprt}
+      ]
+    }),
+    // Combat Support — cmbt_sprt: rockets outer, all-K hellfires inner, FCR off
+    preset('Combat Support', {
+      fcrActive: false, robbieMode: 'iafs', cannonRds: 1200, fuel: fullFuel,
+      pylons: [
+        {type:'rocket',   zones: rktCmbtSprt},
+        {type:'hellfire', rails: hfKKKK},
+        {type:'hellfire', rails: hfKKKK},
+        {type:'rocket',   zones: rktCmbtSprt}
+      ]
+    }),
+    // Heavy Attack (FCR) — hvy_atk_fcr: all hellfires K/L, FCR on
+    preset('Heavy Attack (FCR)', {
+      fcrActive: true, robbieMode: 'iafs', cannonRds: 1200, fuel: fullFuel,
+      pylons: [
+        {type:'hellfire', rails: hfKKLL},
+        {type:'hellfire', rails: hfKKLL},
+        {type:'hellfire', rails: hfKKLL},
+        {type:'hellfire', rails: hfKKLL}
+      ]
+    }),
+    // Heavy Attack — hvy_atk: all hellfires all-K, FCR off
+    preset('Heavy Attack', {
+      fcrActive: false, robbieMode: 'iafs', cannonRds: 1200, fuel: fullFuel,
+      pylons: [
+        {type:'hellfire', rails: hfKKKK},
+        {type:'hellfire', rails: hfKKKK},
+        {type:'hellfire', rails: hfKKKK},
+        {type:'hellfire', rails: hfKKKK}
+      ]
+    }),
+    // COIN — coin: mixed rockets left outer, mixed hellfires right outer
+    preset('COIN', {
+      fcrActive: false, robbieMode: 'iafs', cannonRds: 300, fuel: fullFuel,
+      pylons: [
+        {type:'hellfire', rails: ['','K','N','']},  // UI P1: tl=K, br=N
+        {type:'none'},
+        {type:'none'},
+        {type:'rocket',   zones: rktCOIN}           // UI P4: M151/M255A1/M257
+      ]
+    }),
+    // Cold Aircraft — empty, no fuel
+    preset('Cold Aircraft', {
+      fcrActive: false, robbieMode: 'iafs', cannonRds: 0, fuel: {fwd:0,aft:0,ctr:0,aux:0},
+      pylons: [{type:'none'},{type:'none'},{type:'none'},{type:'none'}]
+    })
+  ];
+}());
 
 var SAVE_STORAGE_KEYS = {
   own: 'fza_mplanner_saves_own',
@@ -2353,9 +2444,11 @@ function hydrateSavesFromSqfSeed() {
 
 function readSaveStore(scope) {
   var scopeKey = scope === 'mission' ? 'mission' : 'own';
+  var presets = (scope === 'own') ? BUILTIN_PRESETS : [];
+
   if (saveLoadState.seedReceived) {
     var seeded = SAVE_STORE_RAM[scopeKey] || [];
-    return seeded.slice();
+    return presets.concat(seeded.slice());
   }
 
   var key = getSaveKey(scope);
@@ -2367,21 +2460,67 @@ function readSaveStore(scope) {
   }
   if (!raw) {
     var mem = SAVE_STORE_RAM[scopeKey] || [];
-    return mem.slice();
+    return presets.concat(mem.slice());
   }
 
   try {
     var parsed = JSON.parse(raw);
     if (!parsed || !parsed.length) {
       var memFallback = SAVE_STORE_RAM[scopeKey] || [];
-      return memFallback.slice();
+      return presets.concat(memFallback.slice());
     }
     SAVE_STORE_RAM[scopeKey] = parsed.slice();
-    return parsed;
+    return presets.concat(parsed);
   } catch (err) {
     var memRecover = SAVE_STORE_RAM[scopeKey] || [];
-    return memRecover.slice();
+    return presets.concat(memRecover.slice());
   }
+}
+
+function readSaveStoreRaw(scope) {
+  var scopeKey = scope === 'mission' ? 'mission' : 'own';
+  var key = getSaveKey(scope);
+  var raw = '';
+
+  try {
+    raw = window.localStorage ? (window.localStorage.getItem(key) || '') : '';
+  } catch (e) {
+    raw = '';
+  }
+
+  if (raw) {
+    try {
+      var parsed = JSON.parse(raw);
+      if (parsed && parsed.length) {
+        return parsed.slice();
+      }
+    } catch (err) {}
+  }
+
+  return (SAVE_STORE_RAM[scopeKey] || []).slice();
+}
+
+function mergeSaveEntries(existingEntries, incomingEntries) {
+  var merged = [];
+  var indexByName = {};
+
+  function upsert(entry) {
+    var normalized = normalizeSaveEntry(entry, entry ? entry.timestamp : undefined);
+    if (!normalized) return;
+
+    var key = String(normalized.name || '').toLowerCase();
+    if (Object.prototype.hasOwnProperty.call(indexByName, key)) {
+      merged[indexByName[key]] = normalized;
+    } else {
+      indexByName[key] = merged.length;
+      merged.push(normalized);
+    }
+  }
+
+  (existingEntries || []).forEach(upsert);
+  (incomingEntries || []).forEach(upsert);
+
+  return merged;
 }
 
 function writeSaveStore(scope, entries) {
@@ -2520,9 +2659,45 @@ function receiveSqfSaveSeed(payloadText) {
       return out;
     }
 
-    writeSaveStore('own', normalizeSeedList(parsed.own));
-    writeSaveStore('mission', normalizeSeedList(parsed.mission));
+    writeSaveStore('own', mergeSaveEntries(readSaveStoreRaw('own'), normalizeSeedList(parsed.own)));
+    writeSaveStore('mission', mergeSaveEntries(readSaveStoreRaw('mission'), normalizeSeedList(parsed.mission)));
     saveLoadState.seedReceived = true;
+
+    // Update FARP fuel list
+    var farpEl = document.getElementById('farpList');
+    if (farpEl) {
+      var fuelLines = [];
+      if (parsed.farpFuel && parsed.farpFuel.length) {
+        var totalLiters = 0;
+        var hasInfinite = false;
+        for (var fi = 0; fi < parsed.farpFuel.length; fi++) {
+          var fs = parsed.farpFuel[fi];
+          if (fs.liters < 0) hasInfinite = true;
+          else totalLiters += Number(fs.liters);
+        }
+        fuelLines.push('<strong>Fuel: ' + (hasInfinite ? 'Unlimited' : '~' + Math.round(totalLiters) + ' L total') + '</strong>');
+        for (var fi2 = 0; fi2 < parsed.farpFuel.length; fi2++) {
+          var fs2 = parsed.farpFuel[fi2];
+          fuelLines.push(String(fs2.name || 'Fuel Source') + ': ' + (fs2.liters < 0 ? 'Unlimited' : Math.round(fs2.liters) + ' L'));
+        }
+      } else {
+        fuelLines.push('No fuel sources detected nearby.');
+      }
+
+      // Ammo limits section
+      if (parsed.ammoLimits && parsed.ammoLimits.ammo && parsed.ammoLimits.ammo.length) {
+        fuelLines.push('');
+        fuelLines.push('<strong>Ammo' + (parsed.ammoLimits.enabled ? '' : ' (Unlimited)') + ':</strong>');
+        for (var ai = 0; ai < parsed.ammoLimits.ammo.length; ai++) {
+          var a = parsed.ammoLimits.ammo[ai];
+          var countStr = (!parsed.ammoLimits.enabled || a.count < 0) ? 'INF' : String(a.count);
+          fuelLines.push(String(a.label || a.key) + ': ' + countStr);
+        }
+      }
+
+      farpEl.innerHTML = fuelLines.join('<br>');
+    }
+
     updateWeightsAndPerformance();
     renderSaveLoadList();
   } catch (err) {
@@ -2533,6 +2708,35 @@ function receiveSqfSaveSeed(payloadText) {
 }
 
 window.fza_mplanner_receiveSeed = receiveSqfSaveSeed;
+
+var initialAircraftState = null;
+
+window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
+  try {
+    var state = JSON.parse(String(stateJson || '{}'));
+    if (state && typeof state === 'object') {
+      if (!initialAircraftState) {
+        initialAircraftState = { fcrActive: !!state.fcrActive, robbieMode: String(state.robbieMode || 'iafs') };
+      }
+      applyPlannerState(state);
+      updateConversionWarning();
+    }
+  } catch (err) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner receiveCurrentConfig failed.', err);
+    }
+  }
+};
+
+function updateConversionWarning() {
+  var warningEl = document.getElementById('conversionWarning');
+  if (!warningEl || !initialAircraftState) return;
+  var curFcr = document.getElementById('fcrBadge').classList.contains('active');
+  var curMode = document.getElementById('robbieMode').value;
+  var changed = (curFcr !== initialAircraftState.fcrActive) || (curMode !== initialAircraftState.robbieMode);
+  if (changed) warningEl.classList.remove('hidden');
+  else warningEl.classList.add('hidden');
+}
 
 function getSelectedSaveEntry(scope, nameOverride) {
   var actualScope = scope === 'mission' ? 'mission' : 'own';
@@ -2547,6 +2751,7 @@ function getSelectedSaveEntry(scope, nameOverride) {
 
 function canDeleteEntry(scope, entry) {
   if (!entry) return false;
+  if (entry.locked) return false;
   if (scope !== 'mission') return true;
   if (!entry.ownerUid) return true;
   return entry.ownerUid === saveLoadState.currentPlayerUid;
@@ -2559,7 +2764,10 @@ function updateSaveLoadControls() {
   var pushButton = document.getElementById('btnModalPushMission');
   var hintEl = document.getElementById('saveLoadHint');
 
-  if (deleteButton) deleteButton.disabled = !entry || !canDeleteEntry(scope, entry);
+  if (deleteButton) {
+    var canDel = entry && canDeleteEntry(scope, entry);
+    deleteButton.style.display = canDel ? '' : 'none';
+  }
   if (pushButton) pushButton.disabled = scope !== 'own' || !entry;
 
   if (!hintEl) return;
@@ -2778,7 +2986,7 @@ function renderSaveLoadList() {
   for (var i = 0; i < entries.length; i++) {
     (function(entry) {
       var row = document.createElement('div');
-      row.className = 'save-entry' + (normalizeSaveName(entry.name) === normalizeSaveName(saveLoadState.selectedName) ? ' selected' : '');
+      row.className = 'save-entry' + (normalizeSaveName(entry.name) === normalizeSaveName(saveLoadState.selectedName) ? ' selected' : '') + (entry.locked ? ' preset-entry' : '');
 
       var nameEl = document.createElement('div');
       nameEl.className = 'name';
@@ -2786,14 +2994,16 @@ function renderSaveLoadList() {
 
       var scopeEl = document.createElement('div');
       scopeEl.className = 'scope-badge';
-      scopeEl.textContent = scope.toUpperCase();
+      scopeEl.textContent = entry.locked ? 'PRESET' : scope.toUpperCase();
 
       var metaEl = document.createElement('div');
       metaEl.className = 'meta';
       var stamp = entry.state && entry.state.timestamp ? entry.state.timestamp : entry.timestamp;
       var metaParts = [];
-      if (stamp) metaParts.push(new Date(stamp).toLocaleString());
-      if (scope === 'mission') {
+      if (stamp && !entry.locked) metaParts.push(new Date(stamp).toLocaleString());
+      if (entry.locked) {
+        metaParts.push('Built-in preset');
+      } else if (scope === 'mission') {
         metaParts.push('Owner: ' + (entry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
         if (!canDeleteEntry(scope, entry)) metaEl.classList.add('owner-lock');
       }
@@ -2868,6 +3078,10 @@ function saveCurrentPlannerState() {
   var scope = saveLoadState.scope;
   var entries = readSaveStore(scope);
   var idx = findSaveIndex(entries, name);
+  if (idx !== -1 && entries[idx].locked) {
+    showAlert('Cannot overwrite a built-in preset. Choose a different name.');
+    return;
+  }
   if (idx !== -1 && !showConfirm('Overwrite existing save "' + entries[idx].name + '"?')) {
     return;
   }
@@ -2880,9 +3094,12 @@ function saveCurrentPlannerState() {
     ownerUid: saveLoadState.currentPlayerUid,
     ownerName: saveLoadState.currentPlayerName
   }, state.timestamp);
-  if (idx === -1) entries.push(entry);
-  else entries[idx] = entry;
-  writeSaveStore(scope, entries);
+  // Strip locked presets before writing — they are always prepended from BUILTIN_PRESETS
+  var userEntries = entries.filter(function(e) { return !e.locked; });
+  var userIdx = findSaveIndex(userEntries, name);
+  if (userIdx === -1) userEntries.push(entry);
+  else userEntries[userIdx] = entry;
+  writeSaveStore(scope, userEntries);
   syncSaveToSqf(scope, name, state);
   saveLoadState.selectedName = name;
   renderSaveLoadList();
@@ -2946,7 +3163,8 @@ function performDeleteSelectedPlannerState(name) {
   }
 
   entries.splice(idx, 1);
-  writeSaveStore(saveLoadState.scope, entries);
+  // Strip locked presets before writing back
+  writeSaveStore(saveLoadState.scope, entries.filter(function(e) { return !e.locked; }));
   syncDeleteToSqf(saveLoadState.scope, targetName);
   saveLoadState.selectedName = '';
   document.getElementById('saveLoadName').value = '';
@@ -3008,7 +3226,7 @@ function pushSelectedPlannerStateToMission() {
   if (idx === -1) missionEntries.push(pushedEntry);
   else missionEntries[idx] = pushedEntry;
 
-  writeSaveStore('mission', missionEntries);
+  writeSaveStore('mission', missionEntries.filter(function(e) { return !e.locked; }));
   syncPushMissionToSqf(pushedEntry.name, pushedEntry.state);
   showAlert('Mission save pushed. Owner: ' + (pushedEntry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
   setSaveLoadScope('mission');
@@ -3435,6 +3653,7 @@ function syncRobbieState() {
 document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
 document.getElementById('robbieMode').addEventListener('change', function() {
   syncRobbieState();
+  updateConversionWarning();
 });
 
 // ── HELLFIRE RAIL CLICK-CYCLE ─────────────────────────────────
@@ -3717,9 +3936,6 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
   callSQF(code);
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
-  openSaveLoadDialog('save');
-});
-document.getElementById('btnLoadConfig').addEventListener('click', function() {
   openSaveLoadDialog('load');
 });
 document.getElementById('btnLoadDTC').addEventListener('click', function() {
@@ -3746,7 +3962,6 @@ document.getElementById('btnModalDelete').addEventListener('click', function() {
   deleteSelectedPlannerState();
 });
 document.getElementById('btnDeleteConfirmClose').addEventListener('click', closeDeleteConfirmDialog);
-document.getElementById('btnDeleteConfirmNo').addEventListener('click', closeDeleteConfirmDialog);
 document.getElementById('btnDeleteConfirmYes').addEventListener('click', function() {
   var callback = deleteConfirmState.onConfirm;
   closeDeleteConfirmDialog();
@@ -3765,6 +3980,7 @@ eachNode('.scope-tab', function(tab) {
 renderSaveLoadList();
 hydrateSavesFromSqfSeed();
 scheduleSaveSeedRefresh();
+callSQF('[] call fza_mplanner_fnc_seedCurrentConfig');
 renderSaveLoadList();
 </script>
 </body>

@@ -11,6 +11,7 @@ class CfgFunctions
             class deleteConfig {};
             class pushMissionConfig {};
             class seedSaves {};
+            class seedCurrentConfig {};
             class applyConfig {};
         };
     };
