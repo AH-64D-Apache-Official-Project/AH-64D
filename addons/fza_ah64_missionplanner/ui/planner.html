@@ -264,6 +264,34 @@
     letter-spacing: 0.5px;
   }
   .conversion-warning.hidden { display: none; }
+  .fcr-change-alert {
+    position: absolute;
+    top: 8px;
+    right: 58px;
+    z-index: 2;
+    background: #3a0000;
+    border: 1px solid #cc0000;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #ff6666;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .fcr-change-alert.hidden { display: none; }
+  .iafs-change-alert {
+    display: block;
+    background: #3a0000;
+    border: 1px solid #cc0000;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #ff6666;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+    text-align: center;
+  }
+  .iafs-change-alert.hidden { display: none; }
   .silhouette-fcr {
     position: absolute;
     top: 8px;
@@ -1124,6 +1152,7 @@
       <!-- Silhouette -->
       <div class="silhouette-area">
         <div id="fcrBadge" class="fcr-badge silhouette-fcr active" title="Toggle FCR">FCR</div>
+        <div id="fcrChangeAlert" class="fcr-change-alert hidden" title="FCR change requires ~300s rearm">&#9888; 300s</div>
         <div id="conversionWarning" class="conversion-warning hidden" title="FCR or magazine mode change requires ~300s rearm">&#9888; 300s REARM</div>
         <svg id="apache-svg" viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64D front silhouette">
           <g id="apache-art" transform="translate(-18 -12) scale(1.22)">
@@ -1348,6 +1377,7 @@
               <option value="iafs" selected>IAFS</option>
               <option value="magazine">MAGAZINE</option>
             </select>
+            <div id="iafsChangeAlert" class="iafs-change-alert hidden" title="IAFS/Magazine change requires ~300s rearm">&#9888; 300s REARM</div>
           </div>
           <div class="pylon-sub-label">30mm MAX <span id="cannonMaxRds">300</span></div>
           <div class="cannon-count-box" id="cannonCountBox">
@@ -2730,12 +2760,26 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
 
 function updateConversionWarning() {
   var warningEl = document.getElementById('conversionWarning');
-  if (!warningEl || !initialAircraftState) return;
+  var fcrAlertEl = document.getElementById('fcrChangeAlert');
+  var iafsAlertEl = document.getElementById('iafsChangeAlert');
+  if (!initialAircraftState) return;
   var curFcr = document.getElementById('fcrBadge').classList.contains('active');
   var curMode = document.getElementById('robbieMode').value;
-  var changed = (curFcr !== initialAircraftState.fcrActive) || (curMode !== initialAircraftState.robbieMode);
-  if (changed) warningEl.classList.remove('hidden');
-  else warningEl.classList.add('hidden');
+  var fcrChanged = curFcr !== initialAircraftState.fcrActive;
+  var iafsChanged = curMode !== initialAircraftState.robbieMode;
+  var changed = fcrChanged || iafsChanged;
+  if (warningEl) {
+    if (changed) warningEl.classList.remove('hidden');
+    else warningEl.classList.add('hidden');
+  }
+  if (fcrAlertEl) {
+    if (fcrChanged) fcrAlertEl.classList.remove('hidden');
+    else fcrAlertEl.classList.add('hidden');
+  }
+  if (iafsAlertEl) {
+    if (iafsChanged) iafsAlertEl.classList.remove('hidden');
+    else iafsAlertEl.classList.add('hidden');
+  }
 }
 
 function getSelectedSaveEntry(scope, nameOverride) {
@@ -2935,7 +2979,17 @@ function applyPlannerState(state) {
     if (pylon.type === 'hellfire' && pylon.rails) {
       ['tr', 'tl', 'br', 'bl'].forEach(function(railKey, railIndex) {
         var railEl = document.getElementById('p' + i + '_' + railKey);
-        if (railEl) railEl.value = hellfireCodeMap[pylon.rails[railIndex] || ''] || 'None';
+        if (!railEl) return;
+        var code = pylon.rails[railIndex] || '';
+        railEl.value = hellfireCodeMap[code] || 'None';
+        // Sync the adjacent cycle button text and data-index
+        var cycleBtn = railEl.nextElementSibling;
+        if (cycleBtn && cycleBtn.classList.contains('rail-cycle')) {
+          var idx = hellfireCycleOrder.indexOf(code);
+          if (idx < 0) idx = 0;
+          setData(cycleBtn, 'index', idx);
+          cycleBtn.textContent = code === '' ? '-' : code;
+        }
       });
     }
 
@@ -3801,6 +3855,9 @@ function syncMatchingRocketZoneTypes(changedSelect) {
   var zoneLetter = changedMatch[1].toLowerCase();
   var selectedType = changedSelect.value;
 
+  // Do not propagate an empty/none selection — the user is clearing only this pylon's zone.
+  if (!selectedType || String(selectedType).trim() === '') return;
+
   eachNode('.zone-type select', function(selectEl) {
     if (selectEl === changedSelect) return;
 
@@ -3888,7 +3945,13 @@ eachNode('.zone-type select', function(selectEl) {
     syncMatchingRocketZoneTypes(selectEl);
     var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
     if (changedMatch && String(selectEl.value || '').trim() === '') {
-      clearMatchingRocketZoneCounts(changedMatch[1]);
+      // Only clear the count on this specific pylon, not across all pylons.
+      var pylonMatch = /^(p[1-4])_z[a-z]_type$/i.exec(selectEl.id || '');
+      var countId = pylonMatch ? pylonMatch[1] + '_z' + changedMatch[1].toLowerCase() + '_count' : null;
+      if (countId) {
+        var countEl = document.getElementById(countId);
+        if (countEl) countEl.value = '0';
+      }
     }
     syncSilhouette();
     updateWeightsAndPerformance();
@@ -3982,6 +4045,23 @@ hydrateSavesFromSqfSeed();
 scheduleSaveSeedRefresh();
 callSQF('[] call fza_mplanner_fnc_seedCurrentConfig');
 renderSaveLoadList();
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  var deleteModal = document.getElementById('deleteConfirmModal');
+  if (deleteModal && deleteModal.classList.contains('visible')) {
+    e.preventDefault();
+    closeDeleteConfirmDialog();
+    return;
+  }
+  var saveLoadModal = document.getElementById('saveLoadModal');
+  if (saveLoadModal && saveLoadModal.classList.contains('visible')) {
+    e.preventDefault();
+    closeSaveLoadDialog();
+    return;
+  }
+  // No modal open — allow Arma to handle the escape (close dialog)
+});
 </script>
 </body>
 </html>

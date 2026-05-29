@@ -131,8 +131,19 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             };
         } forEach _pylonArraycheck;
 
+        // Treat empty-structure magazines (count=0 placeholder) as equivalent to ""
+        // so we don't trigger unnecessary rearms when only the placeholder differs.
+        private _normaliseSlot = {
+            params ["_mag"];
+            if (_mag isEqualTo "") exitWith { "" };
+            private _cnt = getNumber (configFile >> "CfgMagazines" >> _mag >> "count");
+            if (_cnt == 0) exitWith { "" };
+            _mag
+        };
         for "_i" from 0 to ((count _targetPylonMagazines) - 1) do {
-            if ((_targetPylonMagazines # _i) != ((getPylonMagazines _heli) # _i)) then {
+            private _desired = [_targetPylonMagazines # _i] call _normaliseSlot;
+            private _current = [(getPylonMagazines _heli) # _i] call _normaliseSlot;
+            if (_desired != _current) then {
                 _configureQueue pushBack _i;
             };
         };

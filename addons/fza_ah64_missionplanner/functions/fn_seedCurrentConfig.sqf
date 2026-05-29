@@ -95,6 +95,9 @@ private _hfAmmoMap = [
 private _buildRktZone = {
     params ["_magName"];
     if (_magName isEqualTo "") exitWith { '{"count":0,"type":"6PD"}' };
+    // Empty pod placeholder — treat as no ammo
+    private _cnt0check = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
+    if (_cnt0check == 0) exitWith { '{"count":0,"type":"6PD"}' };
     private _ammoClass = toLower getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
     private _count     = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
     private _typeCode  = "6PD";
@@ -105,6 +108,9 @@ private _buildRktZone = {
 private _buildHfRail = {
     params ["_magName"];
     if (_magName isEqualTo "") exitWith { '""' };
+    // Empty rail placeholder — treat as no ammo
+    private _cnt0hf = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
+    if (_cnt0hf == 0) exitWith { '""' };
     private _ammoClass = toLower getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
     private _code = "";
     { if ((_x # 0) isEqualTo _ammoClass) exitWith { _code = _x # 1; }; } forEach _hfAmmoMap;
