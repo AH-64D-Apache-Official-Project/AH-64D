@@ -138,13 +138,16 @@ _heli setVariable ["fza_sfmplus_suspensionFrameCount", _frameCount + 1, true];
 if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > -0.5} >= 0) then {
     private _dt          = (_heli getVariable "fza_sfmplus_deltaTime") min 0.033;
     private _angVelModel = _heli vectorWorldToModel (angularVelocity _heli);
+    private _pitch = asin  ((vectorDir _heli) select 2);          // +ve = nose up  (deg)
+    private _bank  = asin (-((vectorUp  _heli) select 0));        // +ve = bank left (deg)
+    // Attitude correction: K=10 gives ~0.087 rad/s restoring force at 0.5° — enough to
+    // overcome PhysX-injected roll (~0.02 rad/s) while K×dt_max = 0.33 < 1 (stable).
+    // On sloped terrain, spring torques dominate and still find the correct equilibrium.
     _heli setAngularVelocity (_heli vectorModelToWorld [
-        (_angVelModel select 0) * (1.0 - (_dt * 25.0)),
-        (_angVelModel select 1) * (1.0 - (_dt * 25.0)),
+        (_angVelModel select 0) * (1.0 - (_dt * 25.0)) + (_pitch * 0.01745) * 10.0,
+        (_angVelModel select 1) * (1.0 - (_dt * 25.0)) - (_bank  * 0.01745) * 10.0,
         (_angVelModel select 2) * (1.0 - (_dt *  3.0))
     ]);
-    private _pitch = asin  ((vectorDir _heli) select 2);          // +ve = nose up  (deg)
-    private _bank  = asin (-((vectorUp  _heli) select 0));        // +ve = bank right (deg)
     diag_log format ["AngDamp | RollRate: %1 PitchRate: %2 | Pitch: %3 Bank: %4",
         (_angVelModel select 1) toFixed 4, (_angVelModel select 0) toFixed 4,
         _pitch toFixed 2, _bank toFixed 2];
