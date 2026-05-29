@@ -16,7 +16,7 @@ private _axisZ = [0.0, 0.0, 1.0];
 #endif
 */
 
-params ["_heli", "_num", "_pos", "_length", "_angle", "_radius", "_springConstant", "_damperConstant", "_frameCount"];
+params ["_heli", "_num", "_pos", "_radius", "_springConstant", "_damperConstant", "_x_eq", "_frameCount"];
 
 if (_heli getVariable ["fza_sfmplus_suspensionDisabled", false]) exitWith {};
 
@@ -31,23 +31,25 @@ private _springForce    = 0.0;
 private _damperForce    = 0.0;
 private _prevSuspDist   = _heli getVariable "fza_sfmplus_wheelPrevSuspDistance" select _num;
 
-private _strut           = [0.0, 0.0, -_length];
-_strut                   = [_strut, _vectorRight, _angle] call fza_sfmplus_fnc_quaternion;
-private _wheelPos        = _pos vectorAdd _strut;
-private _contactPointPos = _wheelPos vectorAdd [0.0, 0.0, -_radius];
-private _strutHeight     = ((_pos select 2) - (_wheelPos select 2)) + _radius;
+// _pos is the wheel centre; ray starts at the top of the wheel and the contact point
+// is the bottom of the wheel, so strutHeight spans the full diameter.
+private _contactPointPos = _pos vectorAdd [0.0, 0.0, -_radius];
+private _strutHeight     = 2.0 * _radius;
 
 private _heightOfTerrain    = 0.0;
 private _heightAboveTerrain = 0.0;
-private _posASL             = _heli modelToWorldWorld _pos;
-// Ray extended 0.2 m beyond max strut reach to avoid false no-contact when the aircraft
-// is marginally above the wheel's extension limit during decompression.
-private _rayCastArray = lineIntersectsSurfaces [_posASL, _posASL vectorAdd [0.0, 0.0, -(_strutHeight + 0.2)], _heli, objNull, true, 1, "GEOM"];
+private _posASL             = _heli modelToWorldWorld (_pos vectorAdd [0.0, 0.0, _radius]);
+// Ghost zone of 0.05 m keeps the wheel in the ray-hit branch during tiny bounces at rest.
+// This prevents chatter: without it, the wheel pops to no-contact at Dist=0 and re-contacts
+// with sentinel-driven velocity, creating a 4000+ N·s damper spike every few frames.
+private _rayCastArray = lineIntersectsSurfaces [_posASL, _posASL vectorAdd [0.0, 0.0, -(_strutHeight + 0.05)], _heli, objNull, true, 1, "GEOM"];
 
 if (count _rayCastArray > 0) then {
     _heightOfTerrain    = (_rayCastArray select 0 select 0) select 2;
     _heightAboveTerrain = (_posASL select 2) - _heightOfTerrain;
     _curSuspDist = _strutHeight - _heightAboveTerrain;
+    // Ghost zone yields negative curSuspDist. Spring uses max 0 so only preload fires there.
+    private _effectiveDist = _curSuspDist max 0.0;
 
     private _settled    = _heli getVariable "fza_sfmplus_wheelSettled"    select _num;
     private _settledK   = _heli getVariable "fza_sfmplus_wheelSettledK"   select _num;
@@ -64,7 +66,7 @@ if (count _rayCastArray > 0) then {
         // Live compression is kept so roll/pitch tilts still produce corrective spring forces.
         // Disturbance threshold is velocity-based (0.5 m/s) so only actual impacts unsettle
         // the wheel — not the slow roll drift that compression-based detection caused.
-        _springForce = (_settledK * _curSuspDist) * _deltaTime;
+        _springForce = (_settledK * (_effectiveDist + _x_eq)) * _deltaTime;
         _heli addForce [[0, 0, _springForce max 0.0], _pos];
     } else {
         // Disturbance detected OR not yet settled — run full spring-damper.
@@ -78,17 +80,13 @@ if (count _rayCastArray > 0) then {
 
         _springVel = _springVel max -5 min 5;
 
-        // --- Initial contact: smoothstep ramp over first 10 frames ---
-        private _settleFrames = 10;
-        if (!isNil { _frameCount } && { _frameCount < _settleFrames }) then {
-            private _t = _frameCount / (_settleFrames - 1);
-            _t = _t * _t * (3 - 2 * _t);
-            _curSuspDist = _curSuspDist * _t;
-            _springVel   = _springVel   * _t;
-        };
+        _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime;
+        _damperForce = (_damperConstant * _springVel)              * _deltaTime;
 
-        _springForce = (_springConstant * _curSuspDist) * _deltaTime;
-        _damperForce = (_damperConstant * _springVel)   * _deltaTime;
+        // Frame 0: prevSuspDist is the init value (0.0), not real compression, so the
+        // velocity term is meaningless. Zero the damper to prevent a ~3000 N·s spike
+        // that would pitch the nose up and embed the tail wheel on the very first frame.
+        if (_frameCount == 0) then { _damperForce = 0.0; };
 
         // Semi-implicit: damper can never pull down harder than spring pushes up.
         _damperForce = _damperForce max (-_springForce);
@@ -102,7 +100,7 @@ if (count _rayCastArray > 0) then {
 
         // Accumulate settle time while spring velocity is small and wheel is loaded.
         // Threshold 0.05 m/s accommodates ~1 mm/frame PhysX position jitter.
-        if (abs _springVel < 0.05 && _prevSuspDist > 0.0 && _curSuspDist > 0.05) then {
+        if (abs _springVel < 0.05) then {
             _settleTime = _settleTime + _deltaTime;
             if (_settleTime >= 0.3) then {
                 [_heli, "fza_sfmplus_wheelSettled",  _num, true,            true] call fza_fnc_setArrayVariable;
@@ -115,17 +113,10 @@ if (count _rayCastArray > 0) then {
         [_heli, "fza_sfmplus_wheelSettleTime", _num, _settleTime, true] call fza_fnc_setArrayVariable;
     };
 
-    // Suppress PhysX restitution during active spring-damper phase only.
-    // Captured after addForce so the post-impulse upward velocity is visible.
-    // Skipped in settled mode so rotor-generated lift is not blocked at takeoff.
-    private _wVel = velocity _heli;
-    if (!_inSettledMode && (_wVel select 2) > 0.05) then {
-        _heli setVelocity [_wVel select 0, _wVel select 1, 0];
-    };
-
     // Friction: resist translation and yaw rotation using only in-plane wheel positions.
     // Only ωz contributes via px/py — using ωx/ωy with pz creates spurious roll/pitch torques
     // that fight the spring system. Note: Arma3 angularVelocity sign is inverted vs right-hand rule.
+    private _wVel        = velocity _heli;
     private _velLocal    = _heli vectorWorldToModel _wVel;
     private _oz = (_heli vectorWorldToModel (angularVelocity _heli)) select 2;
     private _px = _pos select 0;
@@ -153,17 +144,16 @@ if (count _rayCastArray > 0) then {
         [_heli, "fza_sfmplus_wheelSettled",    _num, false, true] call fza_fnc_setArrayVariable;
         [_heli, "fza_sfmplus_wheelSettleTime", _num, 0.0,   true] call fza_fnc_setArrayVariable;
     };
-    [_heli, "fza_sfmplus_wheelPrevSuspDistance", _num, 0.0, true] call fza_fnc_setArrayVariable;
+    [_heli, "fza_sfmplus_wheelPrevSuspDistance", _num, -1.0, true] call fza_fnc_setArrayVariable;
 };
 
 #ifdef __A3_DEBUG__
-//Wheel
-[_heli, _pos, _wheelPos, "white"] call fza_fnc_debugDrawLine;
-[_heli, 24, _wheelPos, _radius, 0, "white"]   call fza_fnc_debugDrawCircle;
-[_heli, _wheelPos vectorDiff [0.00, _radius, 0.00], _wheelPos vectorAdd [0.00, _radius, 0.00], "green"] call fza_fnc_debugDrawLine;
-[_heli, _wheelPos vectorDiff [0.00, 0.00, _radius], _wheelPos vectorAdd [0.00, 0.00, _radius], "blue"] call fza_fnc_debugDrawLine;
+//Wheel (pos is wheel centre)
+[_heli, 24, _pos, _radius, 0, "white"]   call fza_fnc_debugDrawCircle;
+[_heli, _pos vectorDiff [0.00, _radius, 0.00], _pos vectorAdd [0.00, _radius, 0.00], "green"] call fza_fnc_debugDrawLine;
+[_heli, _pos vectorDiff [0.00, 0.00, _radius], _pos vectorAdd [0.00, 0.00, _radius], "blue"] call fza_fnc_debugDrawLine;
 
-//Contact Point
+//Contact Point (bottom of wheel)
 [_heli, 24, _contactPointPos, 0.05, 0, "white"]   call fza_fnc_debugDrawCircle;
 [_heli, 24, _contactPointPos, 0.05, 1, "white"]   call fza_fnc_debugDrawCircle;
 [_heli, 24, _contactPointPos, 0.05, 2, "white"]   call fza_fnc_debugDrawCircle;
@@ -171,6 +161,6 @@ if (count _rayCastArray > 0) then {
 [_heli, _contactPointPos vectorDiff [0.00, 0.05, 0.00], _contactPointPos vectorAdd [0.00, 0.05, 0.00], "green"] call fza_fnc_debugDrawLine;
 [_heli, _contactPointPos vectorDiff [0.00, 0.00, 0.05], _contactPointPos vectorAdd [0.00, 0.00, 0.05], "blue"] call fza_fnc_debugDrawLine;
 
-//Ray
-[_heli, _pos, _pos vectorAdd [0.0,0.0, -_strutHeight], "red"] call fza_fnc_debugDrawLine;
+//Ray (top of wheel to bottom)
+[_heli, _pos vectorAdd [0.0,0.0,_radius], _contactPointPos, "red"] call fza_fnc_debugDrawLine;
 #endif
