@@ -21,3 +21,48 @@ _browser ctrlAddEventHandler [_eventName, {
 	call compile _code;
 	true
 }];
+// Intercept ESC key so modals close before the dialog itself closes.
+// The JS window.fza_mplanner_handleEscape function handles scope logic;
+// if no modal is open it calls SQF to close the display.
+_display displayAddEventHandler ["KeyDown", {
+    params ["_display", "_key"];
+    if (_key != 1) exitWith {false};   // 1 = DIK_ESCAPE
+    private _browser = _display displayCtrl 100;
+    private _jsEsc = "var fn=window.fza_mplanner_handleEscape;if(fn)fn();";
+    [_browser, _jsEsc] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+    true   // block Arma's default ESC-closes-dialog behaviour
+}];
+
+// Seed saves and current config once the browser has finished loading.
+// fza_mplanner_ready is set to false NOW (before spawning), so even if the
+// HTML fires the ready signal before the spawn's first tick, the spawn will
+// see the updated true value when it runs its first waitUntil check.
+uiNamespace setVariable ["fza_mplanner_ready", false];
+[_display] spawn {
+    params ["_display"];
+    disableSerialization;
+    private _msg1 = "[MP Debug] onLoad spawn: waiting for browser ready signal";
+    diag_log _msg1; systemChat _msg1;
+    private _t0 = diag_tickTime;
+    waitUntil {
+        uiSleep 0.1;
+        uiNamespace getVariable ["fza_mplanner_ready", false]
+        || {isNull _display}
+        || {(diag_tickTime - _t0) > 5}
+    };
+    if (isNull _display) exitWith {
+        private _mNull = "[MP Debug] onLoad spawn: display became null";
+        diag_log _mNull; systemChat _mNull;
+    };
+    if (uiNamespace getVariable ["fza_mplanner_ready", false]) then {
+        private _mReady = "[MP Debug] onLoad spawn: ready signal received, seeding";
+        diag_log _mReady; systemChat _mReady;
+    } else {
+        private _mTimeout = "[MP Debug] onLoad spawn: 5s timeout, seeding anyway";
+        diag_log _mTimeout; systemChat _mTimeout;
+    };
+    [] call fza_mplanner_fnc_seedSaves;
+    [] call fza_mplanner_fnc_seedCurrentConfig;
+    private _mDone = "[MP Debug] onLoad spawn: seeding complete";
+    diag_log _mDone; systemChat _mDone;
+};

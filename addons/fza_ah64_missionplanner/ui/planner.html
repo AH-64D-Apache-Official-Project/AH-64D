@@ -309,7 +309,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.72);
   }
   #apache-svg {
     width: 100%;
@@ -377,7 +377,7 @@
     flex: 0.512 1 0;
     min-height: 0;
     overflow-y: auto;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.72);
   }
   .pylon-block {
     display: flex;
@@ -824,7 +824,37 @@
   }
   #app.non-config-tab .config-only-bottom { display: none; }
   #panel-config .col-left {
-    padding-bottom: 128px;
+    padding-bottom: 180px;
+  }
+  .perf-box {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--border);
+    padding: 4px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .perf-box-title {
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-decoration: underline;
+    flex-shrink: 0;
+  }
+  .perf-box .fuel-stats {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    flex-shrink: 0;
+  }
+  #panel-config .perf-box #config-perf {
+    border-top: none;
+    margin-top: 2px;
+    padding-top: 0;
   }
   #app.non-config-tab .tab-sidebar {
     padding-bottom: 128px;
@@ -1088,6 +1118,7 @@
 </style>
 </head>
 <body>
+<div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;color:#9ad79a;font-size:20px;letter-spacing:3px;font-family:'Courier New',Courier,monospace;">LOADING...</div>
 <div id="app">
 
   <!-- TITLE BAR -->
@@ -1115,15 +1146,15 @@
       <label class="field-row">
         <span class="lbl">Msn Equip</span>
         <select id="msnEquip">
-          <option>US Army</option>
-          <option>US Army (Night)</option>
-          <option>Custom</option>
+          <option value="US">US Army</option>
+          <option value="UK">UK Army</option>
+          <option value="none">None</option>
         </select>
       </label>
 
       <label class="field-row">
         <span class="lbl">Tail #</span>
-        <input type="text" id="tailNum" value="25-299" maxlength="10">
+        <input type="text" id="tailNum" value="" maxlength="5">
       </label>
 
       <label class="field-row" id="currentConfigRow">
@@ -1556,6 +1587,8 @@
         <span class="total-unit">lbs</span>
       </div>
 
+      <div class="perf-box">
+      <div class="perf-box-title">Performance Data:</div>
       <div class="fuel-stats">
         <div class="fuel-stat-row">
           <span class="fuel-stat-label">Ammo Weight</span>
@@ -1694,6 +1727,8 @@
         </div>
       </div>
       </div>
+
+      </div><!-- /perf-box -->
 
     </div><!-- /col-right -->
 
@@ -1904,6 +1939,7 @@ var SFMPLUS_CONFIG_GAME_PATH = 'fza_ah64_controls\\config\\cfgVehicles\\sfmplus.
 
 var weightModelBaseline = null;
 var sfmPerfDataReady = false;
+var fzaMplanner_fuelRateLS = 1; // ACE ace_refuel_rate default; updated from SQF seed
 var sfmPerfDataError = '';
 var saveLoadState = {
   open: false,
@@ -2634,7 +2670,8 @@ function syncPushMissionToSqf(name, stateObj) {
 }
 
 function requestSaveSeed() {
-  return callSQF('[] call fza_mplanner_fnc_seedSaves');
+  // Wrap in spawn so fn_seedSaves runs in scheduled context where ExecJS works.
+  return callSQF('[] spawn { disableSerialization; [] call fza_mplanner_fnc_seedSaves; }');
 }
 
 var saveSeedRetryHandle = 0;
@@ -2674,6 +2711,10 @@ function receiveSqfSaveSeed(payloadText) {
       window.fza_ah64_sfmplusEnvironment = parsed.environment;
     }
 
+    if (typeof parsed.fuelRateLS === 'number' && parsed.fuelRateLS > 0) {
+      fzaMplanner_fuelRateLS = parsed.fuelRateLS;
+    }
+
     if (parsed.currentConfig !== undefined) {
       var cfgName = trimSaveName(parsed.currentConfig);
       document.getElementById('currentConfigName').value = cfgName;
@@ -2689,9 +2730,12 @@ function receiveSqfSaveSeed(payloadText) {
       return out;
     }
 
+    var _ownCount = parsed.own ? parsed.own.length : 0;
+    var _missionCount = parsed.mission ? parsed.mission.length : 0;
     writeSaveStore('own', mergeSaveEntries(readSaveStoreRaw('own'), normalizeSeedList(parsed.own)));
     writeSaveStore('mission', mergeSaveEntries(readSaveStoreRaw('mission'), normalizeSeedList(parsed.mission)));
     saveLoadState.seedReceived = true;
+    callSQF('diag_log "[MP JS] receiveSeed OK - own=' + _ownCount + ' mission=' + _missionCount + '"');
 
     // Update FARP fuel list
     var farpEl = document.getElementById('farpList');
@@ -2705,10 +2749,12 @@ function receiveSqfSaveSeed(payloadText) {
           if (fs.liters < 0) hasInfinite = true;
           else totalLiters += Number(fs.liters);
         }
-        fuelLines.push('<strong>Fuel: ' + (hasInfinite ? 'Unlimited' : '~' + Math.round(totalLiters) + ' L total') + '</strong>');
+        var totalGal = Math.round(totalLiters * 0.264172);
+        fuelLines.push('<strong>Fuel: ' + (hasInfinite ? 'Unlimited' : '~' + Math.round(totalLiters) + ' L (~' + totalGal + ' gal) total') + '</strong>');
         for (var fi2 = 0; fi2 < parsed.farpFuel.length; fi2++) {
           var fs2 = parsed.farpFuel[fi2];
-          fuelLines.push(String(fs2.name || 'Fuel Source') + ': ' + (fs2.liters < 0 ? 'Unlimited' : Math.round(fs2.liters) + ' L'));
+          var galStr = fs2.liters < 0 ? '' : ' (' + Math.round(fs2.liters * 0.264172) + ' gal)';
+          fuelLines.push(String(fs2.name || 'Fuel Source') + ': ' + (fs2.liters < 0 ? 'Unlimited' : Math.round(fs2.liters) + ' L' + galStr));
         }
       } else {
         fuelLines.push('No fuel sources detected nearby.');
@@ -2721,7 +2767,17 @@ function receiveSqfSaveSeed(payloadText) {
         for (var ai = 0; ai < parsed.ammoLimits.ammo.length; ai++) {
           var a = parsed.ammoLimits.ammo[ai];
           var countStr = (!parsed.ammoLimits.enabled || a.count < 0) ? 'INF' : String(a.count);
-          fuelLines.push(String(a.label || a.key) + ': ' + countStr);
+          fuelLines.push(countStr + 'x ' + String(a.label || a.key));
+        }
+      }
+
+      // Rearm sources section
+      if (parsed.farpRearm && parsed.farpRearm.length) {
+        fuelLines.push('');
+        fuelLines.push('<strong>Rearm Sources:</strong>');
+        for (var ri = 0; ri < parsed.farpRearm.length; ri++) {
+          var rs = parsed.farpRearm[ri];
+          fuelLines.push(String(rs.name || 'Rearm Source') + ': ' + String(rs.supply || '?'));
         }
       }
 
@@ -2734,19 +2790,52 @@ function receiveSqfSaveSeed(payloadText) {
     if (typeof console !== 'undefined' && console.warn) {
       console.warn('Mission Planner live save seed failed.', err);
     }
+    var _errMsg = err ? String(err.message || err) : 'unknown';
+    _errMsg = _errMsg.replace(/["'\\]/g, '?').substring(0, 80);
+    callSQF('diag_log "[MP JS] receiveSeed ERR: ' + _errMsg + '"');
   }
 }
 
 window.fza_mplanner_receiveSeed = receiveSqfSaveSeed;
 
+// Called by the display-level KeyDown event handler (via ExecJS) when ESC is pressed.
+// Closes the innermost visible modal; if none open, closes the whole dialog via SQF.
+window.fza_mplanner_handleEscape = function() {
+  var deleteModal = document.getElementById('deleteConfirmModal');
+  if (deleteModal && deleteModal.classList.contains('visible')) {
+    closeDeleteConfirmDialog();
+    return;
+  }
+  var saveLoadModal = document.getElementById('saveLoadModal');
+  if (saveLoadModal && saveLoadModal.classList.contains('visible')) {
+    closeSaveLoadDialog();
+    return;
+  }
+  // No modal — let Arma close the dialog
+  callSQF('closeDialog 0;');
+};
+
 var initialAircraftState = null;
 
+function dismissLoadingOverlay() {
+  var overlay = document.getElementById('loadingOverlay');
+  if (overlay) overlay.parentNode.removeChild(overlay);
+}
+
 window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
+  dismissLoadingOverlay();
   try {
     var state = JSON.parse(String(stateJson || '{}'));
     if (state && typeof state === 'object') {
       if (!initialAircraftState) {
-        initialAircraftState = { fcrActive: !!state.fcrActive, robbieMode: String(state.robbieMode || 'iafs') };
+        initialAircraftState = {
+          fcrActive: !!state.fcrActive,
+          robbieMode: String(state.robbieMode === 'robbie' ? 'magazine' : (state.robbieMode || 'iafs')),
+          tailNum: String(state.tailNum || ''),
+          msnEquip: String(state.msnEquip || 'US'),
+          pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
+          fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
+        };
       }
       applyPlannerState(state);
       updateConversionWarning();
@@ -2760,18 +2849,57 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
 
 function updateConversionWarning() {
   var warningEl = document.getElementById('conversionWarning');
+  if (!warningEl || !initialAircraftState) return;
   var fcrAlertEl = document.getElementById('fcrChangeAlert');
   var iafsAlertEl = document.getElementById('iafsChangeAlert');
-  if (!initialAircraftState) return;
-  var curFcr = document.getElementById('fcrBadge').classList.contains('active');
-  var curMode = document.getElementById('robbieMode').value;
-  var fcrChanged = curFcr !== initialAircraftState.fcrActive;
-  var iafsChanged = curMode !== initialAircraftState.robbieMode;
-  var changed = fcrChanged || iafsChanged;
-  if (warningEl) {
-    if (changed) warningEl.classList.remove('hidden');
-    else warningEl.classList.add('hidden');
+
+  var curState = getPlannerState();
+  var fcrChanged = curState.fcrActive !== initialAircraftState.fcrActive;
+  var iafsChanged = curState.robbieMode !== initialAircraftState.robbieMode;
+  var tailChanged = curState.tailNum !== initialAircraftState.tailNum;
+  var msnEquipChanged = curState.msnEquip !== initialAircraftState.msnEquip;
+
+  // Count pylon differences (each changed pylon ~4 slots x 5s = 20s)
+  var pylonChangedSecs = 0;
+  if (initialAircraftState.pylons && curState.pylons) {
+    for (var pi = 0; pi < 4; pi++) {
+      var initP = initialAircraftState.pylons[pi] || { type: 'none' };
+      var curP = curState.pylons[pi] || { type: 'none' };
+      if (JSON.stringify(initP) !== JSON.stringify(curP)) {
+        pylonChangedSecs += 20;
+      }
+    }
   }
+
+  // Fuel time estimate: delta gallons * 3.785 L/gal / 30 L/s (default ACE rate)
+  var fuelTimeSecs = 0;
+  if (initialAircraftState.fuel && curState.fuel) {
+    var initFuelGal = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
+    var curFuelGal = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
+    var fuelDeltaGal = curFuelGal - initFuelGal;
+    if (fuelDeltaGal > 5) {
+      fuelTimeSecs = Math.round(fuelDeltaGal * 3.785 / fzaMplanner_fuelRateLS);
+    }
+  }
+
+  var totalSecs = 0;
+  if (fcrChanged) totalSecs += 300;
+  if (iafsChanged) totalSecs += 30;
+  if (msnEquipChanged) totalSecs += 30;
+  if (tailChanged) totalSecs += 10;
+  totalSecs += pylonChangedSecs;
+  totalSecs += fuelTimeSecs;
+
+  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || fuelTimeSecs > 0;
+
+  if (anyChange) {
+    warningEl.textContent = '\u26A0 ~' + totalSecs + 's REARM';
+    warningEl.title = 'Estimated total time for this config change';
+    warningEl.classList.remove('hidden');
+  } else {
+    warningEl.classList.add('hidden');
+  }
+
   if (fcrAlertEl) {
     if (fcrChanged) fcrAlertEl.classList.remove('hidden');
     else fcrAlertEl.classList.add('hidden');
@@ -2897,10 +3025,12 @@ function getPlannerState() {
   var state = {
     version: 1,
     timestamp: Date.now(),
+    tailNum: String(document.getElementById('tailNum').value).replace(/[^0-9 ]/g, '').slice(0, 5),
     fcrActive: document.getElementById('fcrBadge').classList.contains('active'),
     robbieMode: document.getElementById('robbieMode').value,
     cannonRds: parseNumberText(document.getElementById('cannonRds').value),
     fuelPct: parseNumberText(document.getElementById('fuelPct').value),
+    msnEquip: document.getElementById('msnEquip').value,
     fuel: {
       fwd: parseNumberText(document.getElementById('fuelFwd').value),
       aft: parseNumberText(document.getElementById('fuelAft').value),
@@ -2948,7 +3078,10 @@ function applyPlannerState(state) {
 
   var robbieMode = document.getElementById('robbieMode');
   if (robbieMode && state.robbieMode) {
-    robbieMode.value = state.robbieMode;
+    // 'robbie' is a legacy SQF value for non-IAFS mode — map to 'magazine'
+    var rmVal = String(state.robbieMode);
+    if (rmVal === 'robbie') rmVal = 'magazine';
+    robbieMode.value = rmVal;
   }
 
   if (state.fuel) {
@@ -2960,6 +3093,16 @@ function applyPlannerState(state) {
 
   if (state.cannonRds !== undefined) {
     document.getElementById('cannonRds').value = String(state.cannonRds);
+  }
+
+  if (state.tailNum !== undefined) {
+    var tn = String(state.tailNum !== undefined ? state.tailNum : '').replace(/[^0-9 ]/g, '').slice(0, 5);
+    document.getElementById('tailNum').value = tn;
+  }
+
+  if (state.msnEquip !== undefined) {
+    var meEl = document.getElementById('msnEquip');
+    if (meEl) meEl.value = state.msnEquip;
   }
 
   if (state.fuelPct !== undefined) {
@@ -3705,6 +3848,9 @@ function syncRobbieState() {
 }
 
 document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
+document.getElementById('tailNum').addEventListener('input', function() {
+  this.value = this.value.replace(/[^0-9 ]/g, '').slice(0, 5);
+});
 document.getElementById('robbieMode').addEventListener('change', function() {
   syncRobbieState();
   updateConversionWarning();
@@ -3995,7 +4141,9 @@ function callSQF(code) {
 document.getElementById('btnApplyConfig').addEventListener('click', function() {
   var state = getPlannerState();
   var legacy = buildLegacyApplyPayload(state);
-  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(parseInt(state.cannonRds || 0, 10) || 0) + ',' + (state.fcrActive ? '1' : '0') + '] call fza_mplanner_fnc_applyConfig';
+  var tailNum = state.tailNum !== undefined ? state.tailNum : '';
+  var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
+  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(parseInt(state.cannonRds || 0, 10) || 0) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
   callSQF(code);
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
@@ -4043,25 +4191,13 @@ eachNode('.scope-tab', function(tab) {
 renderSaveLoadList();
 hydrateSavesFromSqfSeed();
 scheduleSaveSeedRefresh();
-callSQF('[] call fza_mplanner_fnc_seedCurrentConfig');
 renderSaveLoadList();
+// Page init complete — signal fn_onLoad's waitUntil spawn so it can seed
+// saves and current config from its own scheduled context.
+callSQF('uiNamespace setVariable ["fza_mplanner_ready", true];');
 
-document.addEventListener('keydown', function(e) {
-  if (e.key !== 'Escape') return;
-  var deleteModal = document.getElementById('deleteConfirmModal');
-  if (deleteModal && deleteModal.classList.contains('visible')) {
-    e.preventDefault();
-    closeDeleteConfirmDialog();
-    return;
-  }
-  var saveLoadModal = document.getElementById('saveLoadModal');
-  if (saveLoadModal && saveLoadModal.classList.contains('visible')) {
-    e.preventDefault();
-    closeSaveLoadDialog();
-    return;
-  }
-  // No modal open — allow Arma to handle the escape (close dialog)
-});
+// Fallback: dismiss loading overlay if receiveCurrentConfig never fires (e.g. out-of-game browser)
+setTimeout(dismissLoadingOverlay, 7000);
 </script>
 </body>
 </html>

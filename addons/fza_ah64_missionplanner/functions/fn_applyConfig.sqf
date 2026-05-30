@@ -1,7 +1,9 @@
 params [
     ["_legacyJson", "", [""]],
     ["_cannonRds", -1, [0]],
-    ["_desiredFcr", -1, [0]]
+    ["_desiredFcr", -1, [0]],
+    ["_tailNum", "00000", [""]],
+    ["_msnEquip", "US", [""]]
 ];
 
 if (_legacyJson isEqualTo "") exitWith {false};
@@ -13,8 +15,8 @@ if (isNull _heli || {!(_heli isKindOf "Helicopter")}) then {
 if (isNull _heli) exitWith {false};
 if !(_heli isKindOf "Helicopter") exitWith {false};
 
-[_heli, _legacyJson, _cannonRds, _desiredFcr] spawn {
-    params ["_heli", "_legacyJson", "_cannonRds", "_desiredFcr"];
+[_heli, _legacyJson, _cannonRds, _desiredFcr, _tailNum, _msnEquip] spawn {
+    params ["_heli", "_legacyJson", "_cannonRds", "_desiredFcr", "_tailNum", "_msnEquip"];
 
     if (isNull _heli) exitWith {};
 
@@ -232,56 +234,161 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
+    // ── STEP 1: CANNON + IAFS (before pylons, direction-aware) ───────────────
+    private _aceRearmDelay = missionNamespace getVariable ["ace_rearm_loadTime", 5];
+    if !(_aceRearmDelay isEqualType 0) then { _aceRearmDelay = 5 };
+
+    private _currentIafsInstalled = _heli getVariable ["fza_ah64_IAFSInstalled", true];
+
+    if (_needsCenterStore && _iafsInstalled && !_currentIafsInstalled) then {
+        // magazine → IAFS: unload cannon first (if loaded), then swap
+        if (_curCannonRds > 0) then {
+            private _unloadDuration = (_curCannonRds / 50.0) * _aceRearmDelay;
+            private _unloadStatus = [false, false];
+            [
+                _unloadDuration max 0.1,
+                [_heli, _curCannonRds, _unloadStatus],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli", "_startRds", "_unloadStatus"];
+                    _heli setAmmo ["fza_m230", 0];
+                    _unloadStatus set [1, true];
+                    _unloadStatus set [0, true];
+                },
+                {
+                    params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                    _args params ["_heli", "_startRds", "_unloadStatus"];
+                    private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
+                    _heli setAmmo ["fza_m230", (_startRds * (1 - _partial)) max 0];
+                    _unloadStatus set [1, false];
+                    _unloadStatus set [0, true];
+                },
+                "Mission Planner - Unloading Cannon (before IAFS install)",
+                {
+                    params [["_args", []]];
+                    _args params ["_heli"];
+                    player distanceSqr _heli <= (15 ^ 2)
+                },
+                ["isNotInside"]
+            ] call ace_common_fnc_progressBar;
+            waitUntil { uiSleep 0.1; _unloadStatus # 0 };
+        };
+        [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
+        _needsCenterStore = false;
+    };
+
+    if (_needsCenterStore) then {
+        // IAFS → magazine: swap first, then cannon rearm follows below
+        [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
+        _needsCenterStore = false;
+    };
+
+    if (_needsCannon) then {
+        private _postSwapRds = _heli ammo "fza_m230";
+        private _cannonDeltaPost = abs (_targetCannonRds - _postSwapRds);
+        if (_cannonDeltaPost > 0) then {
+            private _cannonDuration = (_cannonDeltaPost / 50.0) * _aceRearmDelay;
+            private _cannonStatus = [false, false];
+            [
+                _cannonDuration,
+                [_heli, _postSwapRds, _targetCannonRds, _cannonStatus],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli", "_startRds", "_targetRds", "_cannonStatus"];
+                    _heli setAmmo ["fza_m230", _targetRds];
+                    systemChat format ["Mission Planner: cannon at %1 rds.", _targetRds];
+                    _cannonStatus set [1, true];
+                    _cannonStatus set [0, true];
+                },
+                {
+                    params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                    _args params ["_heli", "_startRds", "_targetRds", "_cannonStatus"];
+                    private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
+                    private _actualRds = _startRds + round ((_targetRds - _startRds) * _partial);
+                    _heli setAmmo ["fza_m230", _actualRds max 0];
+                    systemChat format ["Mission Planner: cannon partial load %1 rds (cancelled).", _actualRds max 0];
+                    _cannonStatus set [1, false];
+                    _cannonStatus set [0, true];
+                },
+                format ["Mission Planner - %1 Cannon (%2%3 rds)", (["Unloading","Loading"] select (_targetCannonRds > _postSwapRds)), (["-","+"] select (_targetCannonRds > _postSwapRds)), _cannonDeltaPost],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli"];
+                    player distanceSqr _heli <= (15 ^ 2)
+                },
+                ["isNotInside"]
+            ] call ace_common_fnc_progressBar;
+            waitUntil { uiSleep 0.1; _cannonStatus # 0 };
+        };
+    };
+
+    // ── STEP 2: PYLONS ───────────────────────────────────────────────────────
+    private _prevPylonMags = getPylonMagazines _heli;
+    private _prevCannonRds = _heli ammo "fza_m230";
+
     if (_needsPylons) then {
         call _applyPylons;
     };
 
-    // Wait for pylon spawn to complete before cannon/fuel progress bars
     waitUntil { uiSleep 0.1; !(_heli getVariable ["fza_mplanner_rearming", false]) };
 
-    if (_needsCenterStore) then {
-        [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
+    // ── STEP 3: AMMO TRACKING ────────────────────────────────────────────────
+    private _ammoTrackKeys = ["AGM114K","AGM114L","AGM114K2A","AGM114FA","AGM114N","M151","M261","M255A1","M257","M278","M230"];
+    private _ammoTrackPrefixMap = [
+        ["fza_agm114k_",    "AGM114K"],
+        ["fza_agm114l_",    "AGM114L"],
+        ["fza_agm114k2a_",  "AGM114K2A"],
+        ["fza_agm114fa_",   "AGM114FA"],
+        ["fza_agm114n_",    "AGM114N"],
+        ["fza_275_m151_",   "M151"],
+        ["fza_275_m261_",   "M261"],
+        ["fza_275_m255a1_", "M255A1"],
+        ["fza_275_m257_",   "M257"],
+        ["fza_275_m278_",   "M278"]
+    ];
+    private _getMagKey = {
+        params ["_mag"];
+        private _result = "";
+        private _magLower = toLower _mag;
+        { if (_magLower find (_x # 0) == 0) exitWith { _result = _x # 1; }; } forEach _ammoTrackPrefixMap;
+        _result
     };
-
-    if (_needsCannon) then {
-        private _aceRearmDelay = missionNamespace getVariable ["ace_rearm_loadTime", 5];
-        if !(_aceRearmDelay isEqualType 0) then { _aceRearmDelay = 5 };
-        private _cannonDuration = (_cannonDelta / 50.0) * _aceRearmDelay;
-
-        private _status = [false, false];
-        [
-            _cannonDuration,
-            [_heli, _curCannonRds, _targetCannonRds, _status],
-            {
-                params [["_args", []]];
-                _args params ["_heli", "_startRds", "_targetRds", "_status"];
-                _heli setAmmo ["fza_m230", _targetRds];
-                systemChat format ["Mission Planner: cannon at %1 rds.", _targetRds];
-                _status set [1, true];
-                _status set [0, true];
-            },
-            {
-                params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
-                _args params ["_heli", "_startRds", "_targetRds", "_status"];
-                private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
-                private _actualRds = _startRds + round ((_targetRds - _startRds) * _partial);
-                _heli setAmmo ["fza_m230", _actualRds max 0];
-                systemChat format ["Mission Planner: cannon partial load %1 rds (cancelled).", _actualRds max 0];
-                _status set [1, false];
-                _status set [0, true];
-            },
-            format ["Mission Planner - %1 Cannon (%2%3 rds)", (["Unloading","Loading"] select (_targetCannonRds > _curCannonRds)), (["-","+"] select (_targetCannonRds > _curCannonRds)), _cannonDelta],
-            {
-                params [["_args", []]];
-                _args params ["_heli"];
-                player distanceSqr _heli <= (15 ^ 2)
-            },
-            ["isNotInside"]
-        ] call ace_common_fnc_progressBar;
-
-        waitUntil {uiSleep 0.1; _status # 0};
+    private _countMagAmmo = {
+        params ["_mags"];
+        private _counts = _ammoTrackKeys apply {0};
+        {
+            private _mag = _x;
+            if (_mag isNotEqualTo "") then {
+                private _cnt = getNumber (configFile >> "CfgMagazines" >> _mag >> "count");
+                if (_cnt > 0) then {
+                    private _key = [_mag] call _getMagKey;
+                    if (_key isNotEqualTo "") then {
+                        private _idx = _ammoTrackKeys find _key;
+                        if (_idx >= 0) then {
+                            _counts set [_idx, (_counts # _idx) + _cnt];
+                        };
+                    };
+                };
+            };
+        } forEach _mags;
+        _counts
     };
+    private _prevAmmo = [_prevPylonMags] call _countMagAmmo;
+    _prevAmmo set [_ammoTrackKeys find "M230", _prevCannonRds];
+    private _newAmmo = [getPylonMagazines _heli] call _countMagAmmo;
+    _newAmmo set [_ammoTrackKeys find "M230", _heli ammo "fza_m230"];
+    {
+        private _delta = (_newAmmo # _forEachIndex) - (_prevAmmo # _forEachIndex);
+        if (_delta != 0) then {
+            private _varName = "fza_mplanner_ammo_" + (_ammoTrackKeys # _forEachIndex);
+            private _supply = missionNamespace getVariable [_varName, -1];
+            if (_supply >= 0) then {
+                missionNamespace setVariable [_varName, (_supply - _delta) max 0, true];
+            };
+        };
+    } forEach _ammoTrackKeys;
 
+    // ── STEP 4: FUEL ─────────────────────────────────────────────────────────
     if (_needsFuel) then {
         private _currentFuelRatio = fuel _heli;
         private _deltaRatio = _targetFuelPct - _currentFuelRatio;
@@ -327,9 +434,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 systemChat "Mission Planner: selected ACE source has no fuel available.";
             };
 
-            // ACE refuel rate in L/s; use mission-planner-specific rate defaulting to 30 L/s
-            private _fuelRateL = missionNamespace getVariable ["fza_mplanner_fuelRate", 30];
-            if !(_fuelRateL isEqualType 0 && {_fuelRateL > 0}) then { _fuelRateL = 30 };
+            // ACE refuel rate in L/s; mission override → ace_refuel_rate → 1
+            private _aceRefuelRate = if (isNil "ace_refuel_rate") then {1} else {ace_refuel_rate};
+            if !(_aceRefuelRate isEqualType 0 && {_aceRefuelRate > 0}) then { _aceRefuelRate = 1 };
+            private _fuelRateL = missionNamespace getVariable ["fza_mplanner_fuelRate", _aceRefuelRate];
+            if !(_fuelRateL isEqualType 0 && {_fuelRateL > 0}) then { _fuelRateL = _aceRefuelRate };
             private _fuelDuration = _transferLiters / _fuelRateL;
 
             // Proportion of requested fuel that can actually be transferred
@@ -385,10 +494,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
+    // ── STEP 5: FCR (300s) ───────────────────────────────────────────────────
     if (_needsFcr) then {
         private _fcrStatus = [false, false];
         [
-            5,
+            300,
             [_heli, _desiredFcrState, _fcrStatus],
             {
                 params [["_args", []]];
@@ -415,7 +525,84 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         waitUntil { uiSleep 0.1; _fcrStatus # 0 };
     };
 
+    // ── STEP 6: MASS UPDATE ──────────────────────────────────────────────────
     [_heli] call fza_sfmplus_fnc_massUpdate;
+
+    // ── STEP 7: MSN EQUIP (30s progress bar) ────────────────────────────────
+    private _isUK = _msnEquip isEqualTo "UK";
+    private _isUS = _msnEquip isEqualTo "US";
+    private _curIsUK = (_heli animationPhase "msn_equip_british")  > 0.5;
+    private _curIsUS = (_heli animationPhase "msn_equip_american") > 0.5;
+    if ((_isUK != _curIsUK) || (_isUS != _curIsUS)) then {
+        private _msnStatus = [false, false];
+        [
+            30,
+            [_heli, _isUK, _isUS, _msnStatus],
+            {
+                params [["_args", []]];
+                _args params ["_heli", "_isUK", "_isUS", "_msnStatus"];
+                _heli animateSource ["msn_equip_american", [0, 1] select _isUS, true];
+                _heli animateSource ["msn_equip_british",  [0, 1] select _isUK, true];
+                _msnStatus set [1, true];
+                _msnStatus set [0, true];
+            },
+            {
+                params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                _args params ["_heli", "_isUK", "_isUS", "_msnStatus"];
+                _msnStatus set [1, false];
+                _msnStatus set [0, true];
+            },
+            format ["Mission Planner - Fitting MSN Equipment (%1)", _msnEquip],
+            {
+                params [["_args", []]];
+                _args params ["_heli"];
+                player distanceSqr _heli <= (15 ^ 2)
+            },
+            ["isNotInside"]
+        ] call ace_common_fnc_progressBar;
+        waitUntil { uiSleep 0.1; _msnStatus # 0 };
+    } else {
+        _heli animateSource ["msn_equip_american", [0, 1] select _isUS, true];
+        _heli animateSource ["msn_equip_british",  [0, 1] select _isUK, true];
+    };
+
+    // ── STEP 8: TAIL NUMBER (10s progress bar) ───────────────────────────────
+    if (_tailNum isNotEqualTo "") then {
+        private _currentTailNum = _heli getVariable ["fza_ah64_tailNumber", ""];
+        if (_tailNum isNotEqualTo _currentTailNum) then {
+            private _tailStatus = [false, false];
+            [
+                10,
+                [_heli, _tailNum, _tailStatus],
+                {
+                    params [["_args", []]];
+                    _args params ["_heli", "_tailNum", "_tailStatus"];
+                    [_heli, _tailNum] call fza_customise_fnc_setTailNumber;
+                    _heli setVariable ["fza_ah64_tailNumber", _tailNum, true];
+                    _tailStatus set [1, true];
+                    _tailStatus set [0, true];
+                },
+                {
+                    params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
+                    _args params ["_heli", "_tailNum", "_tailStatus"];
+                    _tailStatus set [1, false];
+                    _tailStatus set [0, true];
+                },
+                "Mission Planner - Painting Tail Number",
+                {
+                    params [["_args", []]];
+                    _args params ["_heli"];
+                    player distanceSqr _heli <= (15 ^ 2)
+                },
+                ["isNotInside"]
+            ] call ace_common_fnc_progressBar;
+            waitUntil { uiSleep 0.1; _tailStatus # 0 };
+        } else {
+            [_heli, _tailNum] call fza_customise_fnc_setTailNumber;
+            _heli setVariable ["fza_ah64_tailNumber", _tailNum, true];
+        };
+    };
+
     systemChat "Mission Planner apply complete.";
 };
 

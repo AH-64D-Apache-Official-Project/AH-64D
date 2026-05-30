@@ -3,7 +3,7 @@ class RscFzaMissionPlanner
     idd = 2964;
     enableSimulation = 1;
     movingEnable = 0;
-    onLoad = "[_this select 0] spawn fza_mplanner_fnc_onLoad";
+    onLoad = "[_this select 0] call fza_mplanner_fnc_onLoad";
     onUnload = "uiNamespace setVariable ['fza_mplanner_display', displayNull]";
 
     class controlsBackground
@@ -19,6 +19,9 @@ class RscFzaMissionPlanner
             w = "safeZoneH * 1.28";
             h = "safeZoneH * 0.80";
             colorBackground[] = {0, 0, 0, 0.0};
+            colorText[] = {1, 1, 1, 0};
+            font = "PuristaMedium";
+            sizeEx = 0;
         };
     };
 

@@ -23,11 +23,12 @@ if (isNull _display) exitWith { false };
 private _browser = _display displayCtrl 100;
 if (isNull _browser) exitWith { false };
 
-private _heli = uiNamespace getVariable ["fza_mplanner_target", objNull];
-if (isNull _heli || {!(_heli isKindOf "Helicopter")}) then {
+private _heli = uiNamespace getVariable ["fza_mplanner_target", vehicle player];
+if (isNull _heli || !(_heli isKindOf "Helicopter")) then {
     _heli = vehicle player;
-    if (!(_heli isKindOf "Helicopter")) exitWith { false };
 };
+if (isNull _heli) exitWith { false };
+if !(_heli isKindOf "Helicopter") exitWith { false };
 
 private _jsEscape = {
     params ["_text"];
@@ -40,15 +41,19 @@ private _jsEscape = {
             case 13: {};
             default {_chars pushBack _x};
         };
-    } forEach toArray str _text;
+    } forEach toArray _text;
     toString _chars
 };
+
+// ── Tail number ───────────────────────────────────────────────────────────────
+private _tailNum = _heli getVariable ["fza_ah64_tailNumber", ""];
+if !(_tailNum isEqualType "") then { _tailNum = "00000" };
 
 // ── FCR / IAFS ──────────────────────────────────────────────────────────────
 private _fcrActive = (_heli animationPhase "fcr_enable") > 0.5;
 private _fcrJson = if (_fcrActive) then {"true"} else {"false"};
 private _iafsInstalled = _heli getVariable ["fza_ah64_IAFSInstalled", true];
-private _robbieMode = ["robbie", "iafs"] select _iafsInstalled;
+private _robbieMode = ["magazine", "iafs"] select _iafsInstalled;
 
 // ── Cannon ───────────────────────────────────────────────────────────────────
 private _cannonRds = _heli ammo "fza_m230";
@@ -75,6 +80,7 @@ private _ctrGal = if (_maxCtrKg > 0) then { (round (_ctrKg / _maxCtrKg * 100)) m
 //   base+0 = zoneA / ul-hellfire    base+1 = zoneB / ur-hellfire
 //   base+2 = zoneE / ll-hellfire    base+3 = empty(rkt) / lr-hellfire / aux
 private _mags = getPylonMagazines _heli;
+diag_log format ["[MP Debug] seedCurrentConfig start: heli=%1, isNull=%2, mags=%3", typeof _heli, isNull _heli, _mags];
 
 // Ammo class (toLower) → UI code maps
 private _rktAmmoMap = [
@@ -172,8 +178,14 @@ private _pylonJsonArr = [];
     _pylonJsonArr pushBack _pylonJson;
 } forEach [1, 2, 3, 4];
 
+// ── ASE Equipment ─────────────────────────────────────────────────────────────
+private _msnEquipBritish  = (_heli animationPhase "msn_equip_british")  > 0.5;
+private _msnEquipAmerican = (_heli animationPhase "msn_equip_american") > 0.5;
+private _msnEquipCode = if (_msnEquipBritish) then {"UK"} else {if (_msnEquipAmerican) then {"US"} else {"none"}};
+
 private _stateJson = format [
-    '{"version":1,"fcrActive":%1,"robbieMode":"%2","cannonRds":%3,"fuel":{"fwd":%4,"aft":%5,"ctr":%6,"aux":%7},"pylons":[%8]}',
+    '{"version":1,"tailNum":"%1","fcrActive":%2,"robbieMode":"%3","cannonRds":%4,"fuel":{"fwd":%5,"aft":%6,"ctr":%7,"aux":%8},"pylons":[%9],"msnEquip":"%10"}',
+    _tailNum call _jsEscape,
     _fcrJson,
     _robbieMode,
     _cannonRds,
@@ -181,13 +193,15 @@ private _stateJson = format [
     _aftGal,
     _ctrGal,
     _auxGal,
-    _pylonJsonArr joinString ","
+    _pylonJsonArr joinString ",",
+    _msnEquipCode
 ];
 
 private _jsCode = format [
     "window.fza_mplanner_receiveCurrentConfig && window.fza_mplanner_receiveCurrentConfig('%1');",
     _stateJson call _jsEscape
 ];
+diag_log format ["[MP Debug] seedCurrentConfig: sending stateJson (len=%1), msnEquip=%2", count _stateJson, _msnEquipCode];
 [_browser, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
 
 true
