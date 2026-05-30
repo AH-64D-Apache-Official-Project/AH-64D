@@ -66,6 +66,12 @@ _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
+    // Block ACE rearm truck interactions and ACE pylons "Configure Pylons" dialog.
+    // Rearming is exclusively handled through the Mission Planner.
+    _heli setVariable ["ace_rearm_disabled", true, true];
+    if (!isNil "ace_interact_menu_fnc_removeActionFromClass") then {
+        [typeOf _heli, 0, ["ACE_MainActions", "ace_pylons_loadoutAction"]] call ace_interact_menu_fnc_removeActionFromClass;
+    };
 if (isNil { _heli getVariable "fza_ah64_mplanner_debugAction" }) then {
     private _debugActionId = _heli addAction [
         "<t color='#aaffaa'>Mission Planner (DEBUG)</t>",

@@ -83,6 +83,7 @@ private _serializeEntries = {
 // ── Nearby ACE fuel sources ───────────────────────────────────────────────────
 private _farpFuelJson = "[]";
 private _rearmJson = "[]";
+private _aceAmmoTotals = createHashMap; // populated if ace_rearm_supply==2 and custom limits disabled
 private _heliTarget = uiNamespace getVariable ["fza_mplanner_target", objNull];
 if (isNull _heliTarget || {!(_heliTarget isKindOf "Helicopter")}) then {
     _heliTarget = vehicle player;
@@ -132,6 +133,43 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
         ];
     } forEach _nearby;
     _rearmJson = format ['[%1]', _rearmSources joinString ','];
+
+    // ACE supply=2: aggregate per-magazine counts from nearby sources
+    // (used as ammo limits when the custom limit system is not configured)
+    private _aceRearmSupplyMode = missionNamespace getVariable ["ace_rearm_supply", 0];
+    if (_aceRearmSupplyMode == 2) then {
+        // Map magazine-class prefixes to our ammo keys
+        private _magPrefixToKey = [
+            ["fza_agm114k",   "AGM114K"],
+            ["fza_agm114l",   "AGM114L"],
+            ["fza_agm114k2a", "AGM114K2A"],
+            ["fza_agm114fa",  "AGM114FA"],
+            ["fza_agm114n",   "AGM114N"],
+            ["fza_275_m151",  "M151"],
+            ["fza_275_m255a1","M255A1"],
+            ["fza_275_m261",  "M261"],
+            ["fza_275_m257",  "M257"],
+            ["fza_275_m278",  "M278"],
+            ["fza_m230",      "M230"]
+        ];
+        {
+            private _src = _x;
+            if (_src == _heliTarget) then {continue};
+            if !(alive _src) then {continue};
+            private _magSupply = _src getVariable ["ace_rearm_magazineSupply", []];
+            {
+                _x params ["_magClass", "_rounds"];
+                private _ammoKey = "";
+                {
+                    _y params ["_prefix", "_key"];
+                    if ((_magClass find _prefix) == 0) exitWith { _ammoKey = _key; };
+                } forEach _magPrefixToKey;
+                if (_ammoKey != "") then {
+                    _aceAmmoTotals set [_ammoKey, (_aceAmmoTotals getOrDefault [_ammoKey, 0]) + _rounds];
+                };
+            } forEach _magSupply;
+        } forEach _nearby;
+    };
 } else {
     _rearmJson = "[]";
 };
@@ -161,14 +199,21 @@ private _ammoTypes = [
 ];
 
 private _ammoEntries = [];
+// If custom limits are off but ACE supply=2 data is available, use it
+private _useAceAmmoTotals = (!_ammoLimitEnabled && (count _aceAmmoTotals) > 0);
+if (_useAceAmmoTotals) then { _ammoLimitEnabled = true; };
 {
     private _key = _x # 0;
     private _label = _x # 1;
     private _varName = "fza_mplanner_ammo_" + _key;
     private _count = -1;
     if (_ammoLimitEnabled) then {
-        _count = missionNamespace getVariable [_varName, -1];
-        if !(_count isEqualType 0) then { _count = -1 };
+        if (_useAceAmmoTotals) then {
+            _count = _aceAmmoTotals getOrDefault [_key, 0];
+        } else {
+            _count = missionNamespace getVariable [_varName, -1];
+            if !(_count isEqualType 0) then { _count = -1 };
+        };
     };
     // Hide ammo type only if limits are enabled AND count is exactly 0
     if (!_ammoLimitEnabled || {_count != 0}) then {

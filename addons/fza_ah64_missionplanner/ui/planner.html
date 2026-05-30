@@ -907,6 +907,11 @@
   .perf-value.ok { color: #88ee88; }
   .perf-unit { color: var(--text-dim); font-size: 13.5px; }
   .sep { color: var(--border2); }
+  /* Ammo supply warning */
+  .rail-cycle.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
+  .zone-count input.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
+  .zone-type select.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
+  #cannonRds.ammo-warn { color: var(--red-bright) !important; }
 
   /* ── SAVE / LOAD MODAL ── */
   .modal-backdrop {
@@ -1940,6 +1945,10 @@ var SFMPLUS_CONFIG_GAME_PATH = 'fza_ah64_controls\\config\\cfgVehicles\\sfmplus.
 var weightModelBaseline = null;
 var sfmPerfDataReady = false;
 var fzaMplanner_fuelRateLS = 1; // ACE ace_refuel_rate default; updated from SQF seed
+var fzaMplanner_ammoLimits = null; // updated from SQF seed
+var selectionSeq = 0;              // ever-increasing counter; updated on each user ammo selection
+var railSelectionSeq = {};         // 'p1_tr' → seq (lower = older = higher supply priority)
+var zoneSelectionSeq = {};         // 'p1_za' → seq (lower = older = higher supply priority)
 var sfmPerfDataError = '';
 var saveLoadState = {
   open: false,
@@ -2715,6 +2724,12 @@ function receiveSqfSaveSeed(payloadText) {
       fzaMplanner_fuelRateLS = parsed.fuelRateLS;
     }
 
+    if (parsed.ammoLimits && Array.isArray(parsed.ammoLimits.ammo) && parsed.ammoLimits.ammo.length > 0) {
+      fzaMplanner_ammoLimits = parsed.ammoLimits;
+    } else {
+      fzaMplanner_ammoLimits = null;
+    }
+
     if (parsed.currentConfig !== undefined) {
       var cfgName = trimSaveName(parsed.currentConfig);
       document.getElementById('currentConfigName').value = cfgName;
@@ -2833,6 +2848,7 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
           robbieMode: String(state.robbieMode === 'robbie' ? 'magazine' : (state.robbieMode || 'iafs')),
           tailNum: String(state.tailNum || ''),
           msnEquip: String(state.msnEquip || 'US'),
+          cannonRds: typeof state.cannonRds === 'number' ? state.cannonRds : 0,
           pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
           fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
         };
@@ -2859,27 +2875,41 @@ function updateConversionWarning() {
   var tailChanged = curState.tailNum !== initialAircraftState.tailNum;
   var msnEquipChanged = curState.msnEquip !== initialAircraftState.msnEquip;
 
-  // Count pylon differences (each changed pylon ~4 slots x 5s = 20s)
+  // Count pylon differences: hellfire at 5s/changed rail; other types at flat 20s/pylon
   var pylonChangedSecs = 0;
   if (initialAircraftState.pylons && curState.pylons) {
     for (var pi = 0; pi < 4; pi++) {
       var initP = initialAircraftState.pylons[pi] || { type: 'none' };
       var curP = curState.pylons[pi] || { type: 'none' };
-      if (JSON.stringify(initP) !== JSON.stringify(curP)) {
+      if (JSON.stringify(initP) === JSON.stringify(curP)) continue;
+      if (initP.type === 'hellfire' || curP.type === 'hellfire') {
+        var initRails = initP.rails || ['', '', '', ''];
+        var curRails = curP.rails || ['', '', '', ''];
+        for (var ri = 0; ri < 4; ri++) {
+          if ((initRails[ri] || '') !== (curRails[ri] || '')) { pylonChangedSecs += 5; }
+        }
+      } else {
         pylonChangedSecs += 20;
       }
     }
   }
 
-  // Fuel time estimate: delta gallons * 3.785 L/gal / 30 L/s (default ACE rate)
+  // Fuel time estimate: delta gallons * 3.785 L/gal / ACE rate
   var fuelTimeSecs = 0;
   if (initialAircraftState.fuel && curState.fuel) {
     var initFuelGal = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
     var curFuelGal = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
-    var fuelDeltaGal = curFuelGal - initFuelGal;
+    var fuelDeltaGal = Math.abs(curFuelGal - initFuelGal);
     if (fuelDeltaGal > 5) {
       fuelTimeSecs = Math.round(fuelDeltaGal * 3.785 / fzaMplanner_fuelRateLS);
     }
+  }
+
+  // Cannon time estimate: ~1s per 50 rounds delta
+  var cannonTimeSecs = 0;
+  if (typeof initialAircraftState.cannonRds === 'number') {
+    var cannonDelta = Math.abs((curState.cannonRds || 0) - initialAircraftState.cannonRds);
+    if (cannonDelta > 0) { cannonTimeSecs = Math.round(cannonDelta / 10); }
   }
 
   var totalSecs = 0;
@@ -2889,8 +2919,9 @@ function updateConversionWarning() {
   if (tailChanged) totalSecs += 10;
   totalSecs += pylonChangedSecs;
   totalSecs += fuelTimeSecs;
+  totalSecs += cannonTimeSecs;
 
-  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || fuelTimeSecs > 0;
+  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || fuelTimeSecs > 0 || cannonTimeSecs > 0;
 
   if (anyChange) {
     warningEl.textContent = '\u26A0 ~' + totalSecs + 's REARM';
@@ -2975,6 +3006,43 @@ function mapPlannerHellfireCodeToLegacy(code) {
 }
 
 function buildLegacyApplyPayload(state) {
+  // Supply enforcement: track remaining available ammo per key
+  var HF_SUPPLY_KEY = { 'K': 'AGM114K', 'L': 'AGM114L', 'K2A': 'AGM114K2A', 'FA': 'AGM114FA', 'N': 'AGM114N' };
+  var RKT_SUPPLY_KEY = { '6PD': 'M151', '6FL': 'M255A1', '6MP': 'M261', '6IL': 'M257', '6IR': 'M278' };
+  var applyRemaining = null;
+  if (fzaMplanner_ammoLimits && fzaMplanner_ammoLimits.enabled &&
+      fzaMplanner_ammoLimits.ammo && fzaMplanner_ammoLimits.ammo.length) {
+    applyRemaining = {};
+    for (var ai = 0; ai < fzaMplanner_ammoLimits.ammo.length; ai++) {
+      var ae = fzaMplanner_ammoLimits.ammo[ai];
+      applyRemaining[String(ae.key)] = ae.count;
+    }
+  }
+
+  // Returns the code to use (or '' if supply exhausted)
+  function tryAllocHF(code) {
+    if (!code || !applyRemaining) return code;
+    var supKey = HF_SUPPLY_KEY[code];
+    if (!supKey) return code;
+    var rem = applyRemaining[supKey];
+    if (typeof rem !== 'number' || rem < 0) return code; // unlimited
+    if (rem <= 0) return '';
+    applyRemaining[supKey] = rem - 1;
+    return code;
+  }
+
+  // Returns true if zone can be allocated, false if supply insufficient
+  function tryAllocRkt(typeCode, count) {
+    if (!count || !applyRemaining) return true;
+    var supKey = RKT_SUPPLY_KEY[typeCode];
+    if (!supKey) return true;
+    var rem = applyRemaining[supKey];
+    if (typeof rem !== 'number' || rem < 0) return true; // unlimited
+    if (rem < count) return false;
+    applyRemaining[supKey] = rem - count;
+    return true;
+  }
+
   var payload = {
     fcrInstalled: !!state.fcrActive,
     iafsInstalled: String(state.robbieMode || 'iafs') === 'iafs',
@@ -2987,31 +3055,59 @@ function buildLegacyApplyPayload(state) {
 
   for (var i = 1; i <= 4; i++) {
     var pylon = state.pylons[i - 1] || { type: 'none' };
-    var key = 'pylon' + i;
+    var pylonKey = 'pylon' + i;
     var out = { type: pylon.type || 'none' };
 
     if (out.type === 'hellfire') {
+      // Allocate in order of selection age: oldest first = highest priority
       var rails = pylon.rails || [];
-      out.lr = mapPlannerHellfireCodeToLegacy(rails[2] || '');
-      out.ll = mapPlannerHellfireCodeToLegacy(rails[3] || '');
-      out.ur = mapPlannerHellfireCodeToLegacy(rails[0] || '');
-      out.ul = mapPlannerHellfireCodeToLegacy(rails[1] || '');
+      var hfRailKeys = ['tr', 'tl', 'br', 'bl'];
+      var hfRailOrder = [0, 1, 2, 3].sort(function(a, b) {
+        var idA = 'p' + i + '_' + hfRailKeys[a];
+        var idB = 'p' + i + '_' + hfRailKeys[b];
+        return (railSelectionSeq[idA] || 0) - (railSelectionSeq[idB] || 0);
+      });
+      var allocatedRails = ['', '', '', ''];
+      for (var hfsi = 0; hfsi < hfRailOrder.length; hfsi++) {
+        var hfIdx = hfRailOrder[hfsi];
+        allocatedRails[hfIdx] = tryAllocHF(rails[hfIdx] || '');
+      }
+      out.ur = mapPlannerHellfireCodeToLegacy(allocatedRails[0]); // tr → ur slot
+      out.ul = mapPlannerHellfireCodeToLegacy(allocatedRails[1]); // tl → ul slot
+      out.lr = mapPlannerHellfireCodeToLegacy(allocatedRails[2]); // br → lr slot
+      out.ll = mapPlannerHellfireCodeToLegacy(allocatedRails[3]); // bl → ll slot
     }
 
     if (out.type === 'rocket') {
-      var zones = pylon.zones || [];
-      if (i === 1 || i === 4) {
-        out.zoneA = (zones[0] && zones[0].count > 0) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
-        out.zoneB = (zones[1] && zones[1].count > 0) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
-        out.zoneE = (zones[2] && zones[2].count > 0) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
-      } else {
-        out.zoneA = (zones[0] && zones[0].count > 0) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
-        out.zoneB = (zones[1] && zones[1].count > 0) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
-        out.zoneE = (zones[2] && zones[2].count > 0) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
+      // Allocate zones in order of selection age: oldest first = highest priority
+      var zoneIds = getZoneIdsForPylon(i);
+      var zoneOrder = [0, 1, 2].sort(function(a, b) {
+        var keyA = 'p' + i + '_' + zoneIds[a][0];
+        var keyB = 'p' + i + '_' + zoneIds[b][0];
+        return (zoneSelectionSeq[keyA] || 0) - (zoneSelectionSeq[keyB] || 0);
+      });
+      var zoneAllocated = [false, false, false];
+      for (var zsi = 0; zsi < zoneOrder.length; zsi++) {
+        var zOrig = zoneOrder[zsi];
+        var zKey = zoneIds[zOrig][0];
+        var cEl = document.getElementById('p' + i + '_' + zKey + '_count');
+        var tEl = document.getElementById('p' + i + '_' + zKey + '_type');
+        if (cEl && tEl) {
+          var zCnt = parseInt(cEl.value || '0', 10) || 0;
+          if (zCnt > 0 && tEl.value) { zoneAllocated[zOrig] = tryAllocRkt(tEl.value, zCnt); }
+        }
+      }
+      // Write results using positional keys (index 0→zoneA, 1→zoneB, 2→zoneE)
+      var zoneOutKeys = ['zoneA', 'zoneB', 'zoneE'];
+      for (var zi3 = 0; zi3 < zoneIds.length; zi3++) {
+        var zId = zoneIds[zi3][0];
+        var cEl3 = document.getElementById('p' + i + '_' + zId + '_count');
+        var tEl3 = document.getElementById('p' + i + '_' + zId + '_type');
+        out[zoneOutKeys[zi3]] = (zoneAllocated[zi3] && cEl3 && tEl3 && parseInt(cEl3.value||'0',10) > 0) ? mapPlannerRocketTypeToLegacy(tEl3.value) : '';
       }
     }
 
-    payload[key] = out;
+    payload[pylonKey] = out;
   }
 
   return payload;
@@ -3125,9 +3221,13 @@ function applyPlannerState(state) {
         if (!railEl) return;
         var code = pylon.rails[railIndex] || '';
         railEl.value = hellfireCodeMap[code] || 'None';
-        // Sync the adjacent cycle button text and data-index
-        var cycleBtn = railEl.nextElementSibling;
-        if (cycleBtn && cycleBtn.classList.contains('rail-cycle')) {
+        // Sync the cycle button by matching select index within its parent
+        var parent = railEl.parentNode;
+        var parentSelects = parent.querySelectorAll('.rail-ammo');
+        var parentCycleBtns = parent.querySelectorAll('button.rail-cycle');
+        var selIdx = Array.prototype.indexOf.call(parentSelects, railEl);
+        var cycleBtn = selIdx >= 0 ? parentCycleBtns[selIdx] : null;
+        if (cycleBtn) {
           var idx = hellfireCycleOrder.indexOf(code);
           if (idx < 0) idx = 0;
           setData(cycleBtn, 'index', idx);
@@ -3496,6 +3596,124 @@ function computeLoadoutWeightMetrics() {
   };
 }
 
+function updateAmmoWarnings() {
+  // Clear all existing warnings
+  eachNode('.rail-cycle', function(btn) { btn.classList.remove('ammo-warn'); });
+  eachNode('.zone-count input', function(inp) { inp.classList.remove('ammo-warn'); });
+  eachNode('.zone-type select', function(sel) { sel.classList.remove('ammo-warn'); });
+  var cannonEl = document.getElementById('cannonRds');
+  if (cannonEl) cannonEl.classList.remove('ammo-warn');
+
+  if (!fzaMplanner_ammoLimits || !fzaMplanner_ammoLimits.enabled ||
+      !fzaMplanner_ammoLimits.ammo || !fzaMplanner_ammoLimits.ammo.length) return;
+
+  // Build available lookup: key → count (-1 = unlimited)
+  var available = {};
+  for (var ai = 0; ai < fzaMplanner_ammoLimits.ammo.length; ai++) {
+    var entry = fzaMplanner_ammoLimits.ammo[ai];
+    available[String(entry.key)] = entry.count;
+  }
+
+  // Display-name → ammo-key mapping for hellfire
+  var HF_KEY_MAP = {
+    'AGM-114K':   'AGM114K',
+    'AGM-114L':   'AGM114L',
+    'AGM-114K2A': 'AGM114K2A',
+    'AGM-114FA':  'AGM114FA',
+    'AGM-114N':   'AGM114N'
+  };
+  // Zone-type code → ammo-key mapping for rockets
+  var RKT_KEY_MAP = {
+    '6PD': 'M151',
+    '6FL': 'M255A1',
+    '6MP': 'M261',
+    '6IL': 'M257',
+    '6IR': 'M278'
+  };
+
+  // --- Selection-order allocation: the most recently selected item loses supply first ---
+  // Hellfires: build sorted list of active rails (oldest selection = highest priority)
+  var hfAllRails = [];
+  for (var hpi = 1; hpi <= 4; hpi++) {
+    var hPylonTypeEl = document.getElementById('pylon' + hpi + 'Type');
+    if (!hPylonTypeEl || hPylonTypeEl.value !== 'hellfire') continue;
+    var hfGridEl = document.getElementById('p' + hpi + '_hellfire');
+    if (!hfGridEl || hfGridEl.classList.contains('hidden')) continue;
+    var hRailKeys = ['tr', 'tl', 'br', 'bl'];
+    for (var hri = 0; hri < hRailKeys.length; hri++) {
+      var hSelectEl = document.getElementById('p' + hpi + '_' + hRailKeys[hri]);
+      if (!hSelectEl) continue;
+      var hAmmoKey = HF_KEY_MAP[hSelectEl.value];
+      if (!hAmmoKey) continue; // 'None' — skip
+      hfAllRails.push({ el: hSelectEl, ammoKey: hAmmoKey, seq: railSelectionSeq[hSelectEl.id] || 0 });
+    }
+  }
+  hfAllRails.sort(function(a, b) { return a.seq - b.seq; }); // oldest first = highest priority
+
+  var hfRemaining = {};
+  for (var hInitKey in available) { hfRemaining[hInitKey] = available[hInitKey]; }
+  for (var hfi = 0; hfi < hfAllRails.length; hfi++) {
+    var hRailEl = hfAllRails[hfi].el;
+    var hAmmoKey = hfAllRails[hfi].ammoKey;
+    var hRem = hfRemaining[hAmmoKey];
+    if (typeof hRem !== 'number' || hRem < 0) continue; // unlimited
+    if (hRem > 0) {
+      hfRemaining[hAmmoKey] = hRem - 1;
+    } else {
+      var hParent = hRailEl.parentNode;
+      var hSelects = hParent.querySelectorAll('.rail-ammo');
+      var hButtons = hParent.querySelectorAll('button.rail-cycle');
+      var hIdx = Array.prototype.indexOf.call(hSelects, hRailEl);
+      var hCycleBtn = hIdx >= 0 ? hButtons[hIdx] : null;
+      if (hCycleBtn) hCycleBtn.classList.add('ammo-warn');
+    }
+  }
+
+  // Rockets: build sorted list of active zones (oldest selection = highest priority)
+  var rktAllZones = [];
+  for (var rpi = 1; rpi <= 4; rpi++) {
+    var rPylonTypeEl = document.getElementById('pylon' + rpi + 'Type');
+    if (!rPylonTypeEl || rPylonTypeEl.value !== 'rocket') continue;
+    var rktZones = getZoneIdsForPylon(rpi);
+    for (var rzi = 0; rzi < rktZones.length; rzi++) {
+      var rzKey = rktZones[rzi][0];
+      var rcEl = document.getElementById('p' + rpi + '_' + rzKey + '_count');
+      var rtEl = document.getElementById('p' + rpi + '_' + rzKey + '_type');
+      if (!rcEl || !rtEl) continue;
+      var rCnt = parseInt(rcEl.value || '0', 10) || 0;
+      if (rCnt <= 0) continue;
+      var rSupplyKey = RKT_KEY_MAP[rtEl.value];
+      if (!rSupplyKey) continue;
+      var rZoneKey = 'p' + rpi + '_' + rzKey;
+      rktAllZones.push({ countEl: rcEl, typeEl: rtEl, supplyKey: rSupplyKey, cnt: rCnt, seq: zoneSelectionSeq[rZoneKey] || 0 });
+    }
+  }
+  rktAllZones.sort(function(a, b) { return a.seq - b.seq; }); // oldest first = highest priority
+
+  var rktRemaining = {};
+  for (var rInitKey in available) { rktRemaining[rInitKey] = available[rInitKey]; }
+  for (var rzi2 = 0; rzi2 < rktAllZones.length; rzi2++) {
+    var rz = rktAllZones[rzi2];
+    var rRem = rktRemaining[rz.supplyKey];
+    if (typeof rRem !== 'number' || rRem < 0) continue; // unlimited
+    if (rRem >= rz.cnt) {
+      rktRemaining[rz.supplyKey] = rRem - rz.cnt;
+    } else {
+      rz.countEl.classList.add('ammo-warn');
+      rz.typeEl.classList.add('ammo-warn');
+    }
+  }
+
+  // Cannon
+  if (cannonEl) {
+    var cannonDemand = parseInt(cannonEl.value || '0', 10) || 0;
+    var cAvail = available['M230'];
+    if (typeof cAvail === 'number' && cAvail >= 0 && cannonDemand > cAvail) {
+      cannonEl.classList.add('ammo-warn');
+    }
+  }
+}
+
 function updateWeightsAndPerformance() {
   var fuelTotalLbs = parseNumberText(document.getElementById('fuelTotalLbs').textContent);
   var maxGwt = parseNumberText(document.getElementById('maxGWT').textContent);
@@ -3557,6 +3775,7 @@ function updateWeightsAndPerformance() {
     setPerfValueClass('hvrTqOGE', '');
     setPerfValueClass('powerMarginDE', '');
     setPerfValueClass('maxRodOGE', '');
+    updateConversionWarning();
     return;
   }
 
@@ -3606,12 +3825,14 @@ function updateWeightsAndPerformance() {
   setPerfValueClass('vsse', '');
   setPerfValueClass('vsseAfterJett', '');
 
-  setPerfValueClass('maxTqDE', maxTqDePct > 100 ? 'warn' : 'ok');
-  setPerfValueClass('maxTqSE', maxTqSePct > 122 ? 'warn' : (maxTqSePct > 110 ? 'caution' : 'ok'));
+  setPerfValueClass('maxTqDE', 'ok');
+  setPerfValueClass('maxTqSE', 'ok');
   setPerfValueClass('hvrTqIGE', hvrIgeDePct > 100 ? 'warn' : (hvrIgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('hvrTqOGE', hvrOgeDePct > 100 ? 'warn' : (hvrOgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('powerMarginDE', powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : ''));
   setPerfValueClass('maxRodOGE', maxRodOgeFpm === null ? 'warn' : (powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : '')));
+  updateAmmoWarnings();
+  updateConversionWarning();
 }
 
 function getFuelMax(id) {
@@ -3850,6 +4071,7 @@ function syncRobbieState() {
 document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
 document.getElementById('tailNum').addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9 ]/g, '').slice(0, 5);
+  updateConversionWarning();
 });
 document.getElementById('robbieMode').addEventListener('change', function() {
   syncRobbieState();
@@ -3903,6 +4125,7 @@ function initHellfireCyclers() {
       setData(cycleBtn, 'index', nextIndex);
       cycleBtn.textContent = nextCode === '' ? '-' : nextCode;
       selectEl.value = hellfireCodeMap[nextCode];
+      railSelectionSeq[selectEl.id] = ++selectionSeq;
       syncSilhouette();
       updateWeightsAndPerformance();
     });
@@ -4068,11 +4291,15 @@ for (var i = 1; i <= 4; i++) {
 eachNode('[id$="_count"]', function(inputEl) {
   inputEl.addEventListener('input', function() {
     sanitizeZoneInput(inputEl);
+    var zKey = (inputEl.id || '').replace(/_count$/, '');
+    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncSilhouette();
     updateWeightsAndPerformance();
   });
   inputEl.addEventListener('blur', function() {
     sanitizeZoneInput(inputEl);
+    var zKey = (inputEl.id || '').replace(/_count$/, '');
+    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncSilhouette();
     updateWeightsAndPerformance();
   });
@@ -4088,6 +4315,8 @@ eachNode('.rail-ammo', function(selectEl) {
 
 eachNode('.zone-type select', function(selectEl) {
   selectEl.addEventListener('change', function() {
+    var zKey = (selectEl.id || '').replace(/_type$/, '');
+    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncMatchingRocketZoneTypes(selectEl);
     var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
     if (changedMatch && String(selectEl.value || '').trim() === '') {
@@ -4143,7 +4372,18 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
   var legacy = buildLegacyApplyPayload(state);
   var tailNum = state.tailNum !== undefined ? state.tailNum : '';
   var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
-  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(parseInt(state.cannonRds || 0, 10) || 0) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
+  var cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
+  // Cap cannon at available supply
+  if (fzaMplanner_ammoLimits && fzaMplanner_ammoLimits.enabled && fzaMplanner_ammoLimits.ammo) {
+    for (var ci = 0; ci < fzaMplanner_ammoLimits.ammo.length; ci++) {
+      if (fzaMplanner_ammoLimits.ammo[ci].key === 'M230') {
+        var m230Avail = fzaMplanner_ammoLimits.ammo[ci].count;
+        if (typeof m230Avail === 'number' && m230Avail >= 0) { cannonRds = Math.min(cannonRds, m230Avail); }
+        break;
+      }
+    }
+  }
+  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
   callSQF(code);
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {

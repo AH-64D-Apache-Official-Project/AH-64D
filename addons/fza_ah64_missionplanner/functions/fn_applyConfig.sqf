@@ -198,7 +198,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         params [["_args", []]];
                         _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove"];
                         ["ace_pylons_setPylonLoadOutEvent", [_heli, _pylonIndex + 1, _targetMagazine, [], _weaponToRemove]] call CBA_fnc_globalEvent;
-                        private _count = if (_rearmNewPylons && {_targetMagazine != ""}) then {
+                        private _count = if (_targetMagazine != "") then {
                             getNumber (configFile >> "CfgMagazines" >> _targetMagazine >> "count")
                         } else {
                             0
