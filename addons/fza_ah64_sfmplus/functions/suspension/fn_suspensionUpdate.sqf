@@ -30,6 +30,80 @@ systemChat format ["v2.43"];
 
 params ["_heli"];
 
+// Time-acceleration freeze: override PhysX position every frame so gravity and terrain
+// collision can't cause spring oscillation at large dt. exitWith skips all spring math.
+if (accTime > 1.1) exitWith {
+    if (!(_heli getVariable ["fza_sfmplus_simFrozen", false])) then {
+        // Entering time accel — capture current pose and zero velocity.
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
+        _heli setVariable ["fza_sfmplus_frozenPos", getPosASL _heli, true];
+        _heli setVariable ["fza_sfmplus_frozenDir", vectorDir _heli, true];
+        _heli setVariable ["fza_sfmplus_frozenUp",  vectorUp  _heli, true];
+        _heli setVariable ["fza_sfmplus_simFrozen", true, true];
+    } else {
+        // Maintain freeze — override whatever PhysX did between SQF frames.
+        _heli setPosASL         (_heli getVariable "fza_sfmplus_frozenPos");
+        _heli setVectorDirAndUp [(_heli getVariable "fza_sfmplus_frozenDir"), (_heli getVariable "fza_sfmplus_frozenUp")];
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
+    };
+};
+
+// Exiting time accel — restore exact frozen pose and zero velocity so the spring
+// resumes from a clean, stationary state.
+if (_heli getVariable ["fza_sfmplus_simFrozen", false]) then {
+    _heli setPosASL         (_heli getVariable "fza_sfmplus_frozenPos");
+    _heli setVectorDirAndUp [(_heli getVariable "fza_sfmplus_frozenDir"), (_heli getVariable "fza_sfmplus_frozenUp")];
+    _heli setVelocity        [0.0, 0.0, 0.0];
+    _heli setAngularVelocity [0.0, 0.0, 0.0];
+    _heli setVariable ["fza_sfmplus_simFrozen", false, true];
+};
+
+// Ground freeze — once all wheels have settled, lock position/attitude until collective > 0.20.
+// Uses the same setPosASL override pattern as time-accel freeze so PhysX can't perturb the aircraft.
+private _groundFrozen = _heli getVariable ["fza_sfmplus_groundFrozen", false];
+if (_groundFrozen) then {
+    private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+    if (_collective >= 0.20) then {
+        // Pilot raising collective — restore exact frozen pose and release the lock.
+        _heli setPosASL         (_heli getVariable "fza_sfmplus_groundFrozenPos");
+        _heli setVectorDirAndUp [(_heli getVariable "fza_sfmplus_groundFrozenDir"), (_heli getVariable "fza_sfmplus_groundFrozenUp")];
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
+        _heli setVariable ["fza_sfmplus_groundFrozen", false, true];
+        // Settled flags are intentionally preserved — wheels re-enter settled mode immediately,
+        // using frozen K/C. This prevents getCenterOfMass noise from re-triggering bounce.
+        // The airborne branch in fn_suspensionWheel resets settled when wheels fully leave ground.
+        diag_log format ["GroundFreeze RELEASED | collective: %1", _collective toFixed 3];
+        // Fall through — normal physics resumes this frame.
+    } else {
+        // Maintain lock: override PhysX and skip all spring/damper math.
+        _heli setPosASL         (_heli getVariable "fza_sfmplus_groundFrozenPos");
+        _heli setVectorDirAndUp [(_heli getVariable "fza_sfmplus_groundFrozenDir"), (_heli getVariable "fza_sfmplus_groundFrozenUp")];
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
+    };
+} else {
+    // Not frozen yet — check if all three wheels have settled AND collective is at idle.
+    // Requiring collective < 0.10 provides hysteresis: once released at 0.20 the freeze
+    // cannot re-latch until the pilot has lowered collective back to near-idle.
+    private _settled    = _heli getVariable "fza_sfmplus_wheelSettled";
+    private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+    if ((_settled select 0) && (_settled select 1) && (_settled select 2) && (_collective < 0.10)) then {
+        _heli setVariable ["fza_sfmplus_groundFrozenPos", getPosASL _heli, true];
+        _heli setVariable ["fza_sfmplus_groundFrozenDir", vectorDir _heli, true];
+        _heli setVariable ["fza_sfmplus_groundFrozenUp",  vectorUp  _heli, true];
+        _heli setVariable ["fza_sfmplus_groundFrozen",    true,            true];
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
+        diag_log "GroundFreeze ACTIVATED";
+    };
+};
+
+// Skip spring-damper calls and angular damping while the ground freeze is active.
+if (_heli getVariable ["fza_sfmplus_groundFrozen", false]) exitWith {};
+
 // Aircraft parameters
 private _mass      = getMass _heli;  // 8006 kg (17650 lbs)
 private _cg        = getCenterOfMass _heli;  // Dynamic CG from helicopter
@@ -39,7 +113,7 @@ private _g         = 9.81;
 private _wheelPositions = [
     [ 1.09,  3.39, -2.98],   // Wheel 0 (right front)
     [-1.09,  3.39, -2.98],   // Wheel 1 (left front)
-    [ 0.00, -7.31, -2.95]    // Wheel 2 (tail)
+    [ 0.00, -7.31, -3.13]    // Wheel 2 (tail)
 ];
 
 // Calculate dynamic damper constants based on load distribution
@@ -119,7 +193,6 @@ for "_i" from 0 to 2 do {
     private _damperC = _dampingRatio * 2 * sqrt(_wheelMass * _springK);
     _damperConstants set [_i, _damperC];
 };
-
 
 // --- Suspension settling period (first 10 frames) ---
 private _frameCount = _heli getVariable "fza_sfmplus_suspensionFrameCount";
