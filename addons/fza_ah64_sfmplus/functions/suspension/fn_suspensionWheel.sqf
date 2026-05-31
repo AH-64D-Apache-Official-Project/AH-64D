@@ -20,15 +20,13 @@ params ["_heli", "_num", "_pos", "_radius", "_springConstant", "_damperConstant"
 
 if (_heli getVariable ["fza_sfmplus_suspensionDisabled", false]) exitWith {};
 
-// Cap at 33 ms (30 fps minimum) so a single long frame can't over-apply spring impulse
-// and lift the aircraft, which would produce a false high-velocity unsettle on the next frame.
-private _deltaTime = (_heli getVariable "fza_sfmplus_deltaTime") min 0.033;
+// getDeltaTime already multiplies by accTime and caps at 0.10 s.
+// Angular damping in fn_suspensionUpdate uses a tighter 0.033 s cap (25× multiplier limit).
+private _deltaTime = (_heli getVariable "fza_sfmplus_deltaTime") min 0.10;
 diag_log format ["Wheel %1 - DeltaTime: %2", _num, _deltaTime];
 
 private _curSuspDist    = 0.0;
-private _springVel      = 0.0;
 private _springForce    = 0.0;
-private _damperForce    = 0.0;
 private _prevSuspDist   = _heli getVariable "fza_sfmplus_wheelPrevSuspDistance" select _num;
 
 // _pos is the wheel centre; ray starts at the top of the wheel and the contact point
@@ -48,77 +46,82 @@ if (count _rayCastArray > 0) then {
     _heightOfTerrain    = (_rayCastArray select 0 select 0) select 2;
     _heightAboveTerrain = (_posASL select 2) - _heightOfTerrain;
     _curSuspDist = _strutHeight - _heightAboveTerrain;
-    // Ghost zone yields negative curSuspDist. Spring uses max 0 so only preload fires there.
-    private _effectiveDist = _curSuspDist max 0.0;
+    // effectiveDist = curSuspDist (allowed to be negative in the ghost zone).
+    // At curSuspDist < 0: spring = K×(neg+x_eq) < gravity → net downward → aircraft descends to 0.
+    // At curSuspDist > 0: spring = K×(pos+x_eq) > gravity → net upward → aircraft rises to 0.
+    // Both sides push toward curSuspDist = 0, making the equilibrium fully stable.
+    private _effectiveDist = _curSuspDist;
 
-    private _settled    = _heli getVariable "fza_sfmplus_wheelSettled"    select _num;
-    private _settledK   = _heli getVariable "fza_sfmplus_wheelSettledK"   select _num;
-    private _settledC   = _heli getVariable "fza_sfmplus_wheelSettledC"   select _num;
-    private _settleTime = _heli getVariable "fza_sfmplus_wheelSettleTime" select _num;
+    private _springVel  = 0.0;
+    private _damperForce = 0.0;
 
-    // Compute velocity for both disturbance detection and (unsettled) spring-damper.
-    _springVel = (_curSuspDist - _prevSuspDist) / _deltaTime;
-    private _inSettledMode = _settled && (abs _springVel) < 1.5;
+        private _settled    = _heli getVariable "fza_sfmplus_wheelSettled"    select _num;
+        private _settledK   = _heli getVariable "fza_sfmplus_wheelSettledK"   select _num;
+        private _settledC   = _heli getVariable "fza_sfmplus_wheelSettledC"   select _num;
+        private _settleTime = _heli getVariable "fza_sfmplus_wheelSettleTime" select _num;
 
-    if (_inSettledMode) then {
-        // Locked-K spring + locked-C damper.  Both constants are frozen at settle time to
-        // eliminate per-frame getCenterOfMass noise (±15% spikes) that otherwise continuously
-        // perturbs forces and prevents the settle timer from holding.  Live compression is kept
-        // so roll/pitch tilts still produce corrective spring forces.
-        _springForce = (_settledK * (_effectiveDist + _x_eq)) * _deltaTime;
-        _damperForce = (_settledC * _springVel)               * _deltaTime;
-        private _totalForce = _springForce + _damperForce;
-        if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };
-        _heli addForce [[0, 0, _totalForce], _pos];
-    } else {
-        // Disturbance detected OR not yet settled — run full spring-damper.
-        if (_settled) then {
-            [_heli, "fza_sfmplus_wheelSettled",    _num, false, true] call fza_fnc_setArrayVariable;
-            [_heli, "fza_sfmplus_wheelSettleTime", _num, 0.0,   true] call fza_fnc_setArrayVariable;
-            _settled    = false;
-            _settleTime = 0.0;
-            diag_log format ["Wheel %1 - UNSETTLED | vel: %2", _num, _springVel toFixed 3];
-        };
+        // Compute velocity for both disturbance detection and spring-damper.
+        _springVel = (_curSuspDist - _prevSuspDist) / _deltaTime;
+        // Clamp spring velocity: stable at ±5 m/s up to dt=0.10 (damperC×5×0.10 < wheelLoad).
+        _springVel = _springVel max -5.0 min 5.0;
+        private _inSettledMode = _settled && (abs _springVel) < 1.5;
 
-        _springVel = _springVel max -5 min 5;
-
-        _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime;
-        _damperForce = (_damperConstant * _springVel)              * _deltaTime;
-
-        // Suppress the damper whenever prevSuspDist is not a real compression reading:
-        //   frame 0  → init value 0.0 is meaningless
-        //   re-contact after airborne → sentinel -1.0 makes vel = (dist+1)/dt ≈ 50 m/s
-        // In both cases the velocity is garbage; only the spring fires this frame.
-        // The damper picks up on the very next frame with a real prevSuspDist.
-        if (_frameCount == 0 || _prevSuspDist < -0.5) then { _damperForce = 0.0; };
-
-        // When compressed (effectiveDist > 0), allow the damper to resist rebound fully —
-        // total force may go negative so the damper brakes the bounce on touchdown.
-        // In the ghost zone (effectiveDist = 0), only the preload fires; no pull.
-        private _totalForce = _springForce + _damperForce;
-        if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };
-
-        _heli addForce [[0, 0, _totalForce], _pos];
-
-        diag_log format ["Wheel %1 - Dist: %2 | SpringF: %3 | DamperF: %4 | Vel: %5 | Frame: %6 | ST: %7",
-            _num, _curSuspDist toFixed 3, _springForce toFixed 0, _damperForce toFixed 0,
-            _springVel toFixed 3, _frameCount, _settleTime toFixed 2];
-
-        // Accumulate settle time while spring velocity is below 0.12 m/s.
-        // 0.12 tolerates getCenterOfMass noise spikes (~0.07-0.10 m/s) without false resets.
-        if (abs _springVel < 0.12) then {
-            _settleTime = _settleTime + _deltaTime;
-            if (_settleTime >= 0.3) then {
-                [_heli, "fza_sfmplus_wheelSettled",  _num, true,            true] call fza_fnc_setArrayVariable;
-                [_heli, "fza_sfmplus_wheelSettledK", _num, _springConstant, true] call fza_fnc_setArrayVariable;
-                [_heli, "fza_sfmplus_wheelSettledC", _num, _damperConstant, true] call fza_fnc_setArrayVariable;
-                diag_log format ["Wheel %1 - SETTLED | K: %2 C: %3 Dist: %4", _num, _springConstant toFixed 1, _damperConstant toFixed 1, _curSuspDist toFixed 4];
-            };
+        if (_inSettledMode) then {
+            // Locked-K spring + locked-C damper.  Both constants are frozen at settle time to
+            // eliminate per-frame getCenterOfMass noise (±15% spikes) that otherwise continuously
+            // perturbs forces and prevents the settle timer from holding.  Live compression is kept
+            // so roll/pitch tilts still produce corrective spring forces.
+            _springForce = (_settledK * (_effectiveDist + _x_eq)) * _deltaTime;
+            _damperForce = (_settledC * _springVel)               * _deltaTime;
+            private _totalForce = _springForce + _damperForce;
+            if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };  // prevent downward pull in ghost zone
+            _heli addForce [[0, 0, _totalForce], _pos];
         } else {
-            _settleTime = 0.0;
+            // Disturbance detected OR not yet settled — run full spring-damper.
+            if (_settled) then {
+                [_heli, "fza_sfmplus_wheelSettled",    _num, false, true] call fza_fnc_setArrayVariable;
+                [_heli, "fza_sfmplus_wheelSettleTime", _num, 0.0,   true] call fza_fnc_setArrayVariable;
+                _settled    = false;
+                _settleTime = 0.0;
+                diag_log format ["Wheel %1 - UNSETTLED | vel: %2", _num, _springVel toFixed 3];
+            };
+
+            _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime;
+            _damperForce = (_damperConstant * _springVel)              * _deltaTime;
+
+            // Suppress the damper whenever prevSuspDist is not a real compression reading:
+            //   frame 0  → init value 0.0 is meaningless
+            //   re-contact after airborne → sentinel -1.0 makes vel = (dist+1)/dt ≈ 50 m/s
+            // In both cases the velocity is garbage; only the spring fires this frame.
+            // The damper picks up on the very next frame with a real prevSuspDist.
+            if (_frameCount == 0 || _prevSuspDist < -0.5) then { _damperForce = 0.0; };
+
+            // Clamp total force to non-negative to prevent the damper from creating
+            // a net downward pull when the spring is in the ghost zone (effectiveDist < 0).
+            private _totalForce = _springForce + _damperForce;
+            if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };
+
+            _heli addForce [[0, 0, _totalForce], _pos];
+
+            diag_log format ["Wheel %1 - Dist: %2 | SpringF: %3 | DamperF: %4 | Vel: %5 | Frame: %6 | ST: %7",
+                _num, _curSuspDist toFixed 3, _springForce toFixed 0, _damperForce toFixed 0,
+                _springVel toFixed 3, _frameCount, _settleTime toFixed 2];
+
+            // Accumulate settle time while spring velocity is below 0.12 m/s.
+            // 0.12 tolerates getCenterOfMass noise spikes (~0.07-0.10 m/s) without false resets.
+            if (abs _springVel < 0.12) then {
+                _settleTime = _settleTime + _deltaTime;
+                if (_settleTime >= 0.3) then {
+                    [_heli, "fza_sfmplus_wheelSettled",  _num, true,            true] call fza_fnc_setArrayVariable;
+                    [_heli, "fza_sfmplus_wheelSettledK", _num, _springConstant, true] call fza_fnc_setArrayVariable;
+                    [_heli, "fza_sfmplus_wheelSettledC", _num, _damperConstant, true] call fza_fnc_setArrayVariable;
+                    diag_log format ["Wheel %1 - SETTLED | K: %2 C: %3 Dist: %4", _num, _springConstant toFixed 1, _damperConstant toFixed 1, _curSuspDist toFixed 4];
+                };
+            } else {
+                _settleTime = 0.0;
+            };
+            [_heli, "fza_sfmplus_wheelSettleTime", _num, _settleTime, true] call fza_fnc_setArrayVariable;
         };
-        [_heli, "fza_sfmplus_wheelSettleTime", _num, _settleTime, true] call fza_fnc_setArrayVariable;
-    };
 
     // Friction: resist translation and yaw rotation using only in-plane wheel positions.
     // Only ωz contributes via px/py — using ωx/ωy with pz creates spurious roll/pitch torques

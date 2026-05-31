@@ -41,6 +41,20 @@ _heli setVariable ["fza_sfmplus_wheelSettleTime", [0.0,   0.0,   0.0]];
 _heli setVariable ["fza_sfmplus_wheelSettledK",   [0.0,   0.0,   0.0]];
 _heli setVariable ["fza_sfmplus_wheelSettledC",   [0.0,   0.0,   0.0]];
 
+// Time-acceleration freeze state: captures position/orientation on entry and overrides
+// PhysX every frame so the aircraft is immune to gravity and terrain collision bounce.
+_heli setVariable ["fza_sfmplus_simFrozen",  false];
+_heli setVariable ["fza_sfmplus_frozenPos",  [0.0, 0.0, 0.0]];
+_heli setVariable ["fza_sfmplus_frozenDir",  [0.0, 1.0, 0.0]];
+_heli setVariable ["fza_sfmplus_frozenUp",   [0.0, 0.0, 1.0]];
+
+// Ground freeze: same mechanism as time-accel freeze but triggered by all wheels settling.
+// Holds the aircraft perfectly still until collective exceeds 0.20.
+_heli setVariable ["fza_sfmplus_groundFrozen",    false];
+_heli setVariable ["fza_sfmplus_groundFrozenPos", [0.0, 0.0, 0.0]];
+_heli setVariable ["fza_sfmplus_groundFrozenDir", [0.0, 1.0, 0.0]];
+_heli setVariable ["fza_sfmplus_groundFrozenUp",  [0.0, 0.0, 1.0]];
+
 // Spawn correction: Arma 3 places the helicopter via the fuselage collision hull, which
 // leaves wheel contact points underground and sometimes with residual bank/pitch.
 // PhysX then generates asymmetric body-terrain collision torques every frame, causing
