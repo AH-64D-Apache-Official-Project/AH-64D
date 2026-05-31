@@ -7,8 +7,9 @@ params["_name", "_value"];
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
-private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
-private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+private _onGnd        = [_heli] call fza_sfmplus_fnc_onGround;
+private _gndOrideOn   = _heli getVariable "fza_ah64_gndOrideOn";
+private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
 
 if (_value) then {
     //When button pressed
@@ -284,6 +285,9 @@ if (_value) then {
         };
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
+        };
+        case "fza_ah64_toggleParkingBrake": {
+            _heli setVariable ["fza_ah64_toggleParkingBrake", !_parkingBrake, true];
         };
     };
 };

@@ -62,8 +62,9 @@ if (count _rayCastArray > 0) then {
 
         // Compute velocity for both disturbance detection and spring-damper.
         _springVel = (_curSuspDist - _prevSuspDist) / _deltaTime;
-        // Clamp spring velocity: stable at ±5 m/s up to dt=0.10 (damperC×5×0.10 < wheelLoad).
-        _springVel = _springVel max -5.0 min 5.0;
+        // Clamp spring velocity: stable at ±3 m/s up to dt=0.10 (damperC×3×0.10 < wheelLoad).
+        // Lower clamp reduces per-frame impulse on hard landings, preventing overshoot bounce.
+        _springVel = _springVel max -3.0 min 3.0;
         private _inSettledMode = _settled && (abs _springVel) < 1.5;
 
         if (_inSettledMode) then {
@@ -131,20 +132,29 @@ if (count _rayCastArray > 0) then {
     private _oz = (_heli vectorWorldToModel (angularVelocity _heli)) select 2;
     private _px = _pos select 0;
     private _py = _pos select 1;
-    private _contactVelX = (_velLocal select 0) + (_oz * _py);
-    private _contactVelY = (_velLocal select 1) - (_oz * _px);
-    private _horizVel = [_contactVelX, _contactVelY, 0.0];
-    private _velMag   = vectorMagnitude _horizVel;
+    private _contactVelX = (_velLocal select 0) + (_oz * _py);  // lateral
+    private _contactVelY = (_velLocal select 1) - (_oz * _px);  // longitudinal
 
-    if (_velMag > 0.01) then {
-        private _mass          = getMass _heli;
-        private _normalForce   = _springForce;
-        private _frictionForce = _normalForce * 0.8;
-        // Clamp so a single wheel can't contribute more than 1/3 of the impulse
-        // needed to stop the CG — prevents per-frame velocity reversal and oscillation.
-        _frictionForce = _frictionForce min (_mass * _velMag / 3.0);
-        private _frictionVector = _horizVel vectorMultiply (-_frictionForce / _velMag);
-        _heli addForce [_heli vectorModelToWorld _frictionVector, _pos];
+    // Lateral and longitudinal friction applied independently so each axis can carry a different μ.
+    // Lateral   (μ=0.8):  always active — prevents sideways sliding and spin-out.
+    // Longitudinal:
+    //   Parking brake ON  → full braking  (μ=0.8) to decelerate during landing roll-out.
+    //   Parking brake OFF → rolling resistance (μ=0.03) so the aircraft slows naturally after
+    //                       touchdown and can be taxied forward under rotor thrust.
+    // Per-axis clamp at 1/3 of stopping impulse — 3 wheels together can stop the CG in one frame
+    // without sign-flip overshoot.
+    private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
+    private _mass         = getMass _heli;
+    private _normalForce  = _springForce;
+    private _longMu = if (_parkingBrake) then {0.8} else {0.03};
+
+    if (abs _contactVelX > 0.01) then {
+        private _latForce = (_normalForce * 0.8) min (_mass * (abs _contactVelX) / 3.0);
+        _heli addForce [_heli vectorModelToWorld [(if (_contactVelX > 0) then {-_latForce} else {_latForce}), 0.0, 0.0], _pos];
+    };
+    if (abs _contactVelY > 0.01) then {
+        private _longForce = (_normalForce * _longMu) min (_mass * (abs _contactVelY) / 3.0);
+        _heli addForce [_heli vectorModelToWorld [0.0, (if (_contactVelY > 0) then {-_longForce} else {_longForce}), 0.0], _pos];
     };
 
     [_heli, "fza_sfmplus_wheelPrevSuspDistance", _num, _curSuspDist, true] call fza_fnc_setArrayVariable;

@@ -55,6 +55,12 @@ _heli setVariable ["fza_sfmplus_groundFrozenPos", [0.0, 0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_groundFrozenDir", [0.0, 1.0, 0.0]];
 _heli setVariable ["fza_sfmplus_groundFrozenUp",  [0.0, 0.0, 1.0]];
 
+// Parking brake: true = full omni-directional friction (aircraft locked).
+// false = lateral friction only; wheels roll freely forward/aft for ground taxi.
+// Ground freeze only activates while the parking brake is ON.
+// Toggled via fza_ah64_toggleParkingBrake in fn_coreControlHandle.
+_heli setVariable ["fza_ah64_toggleParkingBrake", true, true];
+
 // Spawn correction: Arma 3 places the helicopter via the fuselage collision hull, which
 // leaves wheel contact points underground and sometimes with residual bank/pitch.
 // PhysX then generates asymmetric body-terrain collision torques every frame, causing

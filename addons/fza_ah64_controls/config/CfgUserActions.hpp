@@ -63,6 +63,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_stickyControlInterupt,"$STR_FZA_AH64_STICKY_CONTROL_INTERUPT","$STR_FZA_AH64_STICKY_CONTROL_INTERUPT_INFO");
     CfgUserActionDef(fza_ah64_forceTrimPanicButton,"$STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON","$STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON_INFO");
     CfgUserActionDef(fza_ah64_collectiveEmergJett,"$STR_FZA_AH64_COLLECTIVE_EMERG_JETT","$STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO");
+    CfgUserActionDef(fza_ah64_toggleParkingBrake,"$STR_FZA_AH64_TOGGLE_PARKING_BRAKE","$STR_FZA_AH64_TOGGLE_PARKING_BRAKE_INFO");
     CfgUserAnalogDef(fza_ah64_cyclicForward,"$STR_FZA_AH64_CYCLIC_FORWARD","$STR_FZA_AH64_CYCLIC_FORWARD");
     CfgUserAnalogDef(fza_ah64_cyclicBackward,"$STR_FZA_AH64_CYCLIC_BACKWARD","$STR_FZA_AH64_CYCLIC_BACKWARD");
     CfgUserAnalogDef(fza_ah64_cyclicLeft,"$STR_FZA_AH64_CYCLIC_LEFT","$STR_FZA_AH64_CYCLIC_LEFT");

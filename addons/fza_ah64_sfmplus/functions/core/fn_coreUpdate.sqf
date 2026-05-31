@@ -116,7 +116,7 @@ if (fza_ah64_sfmPlusFmDebug) then {
     \n_hdgHoldSubMode = %30
     \n--------------------    
     \n_flightControlLockOut = %34
-    \n_autoPedalTimeScalar = %37
+    \nfza_ah64_toggleParkingBrake = %37
     \nF/B[%41, %42] L/R[%43,%44]
     \nPL/PR[%45,%46] CR/CL[%47,%48]
     \n--------------------
@@ -159,7 +159,7 @@ if (fza_ah64_sfmPlusFmDebug) then {
     _heli getVariable "fza_sfmplus_flightControlLockOut", //34   
     fza_sfmplus_cyclicCenterTrimMode, //35   
     fza_sfmplus_pedalCenterTrimMode, //36   
-    fza_ah64_sfmPlusAutoPedalTimeScalar, //37   
+    _heli getVariable "fza_ah64_toggleParkingBrake", //37   
     _heli call BIS_fnc_getPitchBank select 0 toFixed 2, //38   
     _heli call BIS_fnc_getPitchBank select 1 toFixed 2, //39   
     _heli getVariable "fza_sfmplus_aero_beta_deg" toFixed 2, //40  

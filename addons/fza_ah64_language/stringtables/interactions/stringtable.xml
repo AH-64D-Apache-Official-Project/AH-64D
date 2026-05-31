@@ -1157,6 +1157,40 @@
             <Turkish>TADS'da şu anda bakılan hedefi bir rota noktası olarak kaydedin</Turkish>
             <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_PARKING_BRAKE">
+            <Original>Toggle Parking Brake</Original>
+            <English>Toggle Parking Brake</English>
+            <Czech>Přepnout Parkovací Brzdu</Czech>
+            <French>Activer/Désactiver Frein de Parking</French>
+            <Spanish>Alternar Freno de Estacionamiento</Spanish>
+            <Italian>Attiva/Disattiva Freno di Parcheggio</Italian>
+            <Polish>Przełącz Hamulec Postojowy</Polish>
+            <Portuguese>Alternar Freio de Estacionamento</Portuguese>
+            <Russian>Переключить Стояночный Тормоз</Russian>
+            <German>Feststellbremse Umschalten</German>
+            <Korean>주차 브레이크 토글</Korean>
+            <Japanese>パーキングブレーキ切替</Japanese>
+            <Chinesesimp>切换驻车制动器</Chinesesimp>
+            <Turkish>Park Frenini Aç/Kapat</Turkish>
+            <Dutch>Parkeerrem Omschakelen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_PARKING_BRAKE_INFO">
+            <Original>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</Original>
+            <English>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</English>
+            <Czech>Přepíná parkovací brzdu. Při ZAPNUTÍ je letadlo plně zablokováno. Při VYPNUTÍ se kola volně otáčejí dopředu a dozadu pro pojíždění po zemi.</Czech>
+            <French>Active/désactive le frein de parking. Quand ACTIVÉ, l'aéronef est totalement immobilisé. Quand DÉSACTIVÉ, les roues roulent librement avant et arrière pour le roulage au sol.</French>
+            <Spanish>Activa y desactiva el freno de estacionamiento. Cuando está ACTIVADO, la aeronave queda completamente bloqueada. Cuando está DESACTIVADO, las ruedas ruedan libremente hacia adelante y atrás para el rodaje en tierra.</Spanish>
+            <Italian>Attiva e disattiva il freno di parcheggio. Quando ATTIVO, l'aeromobile è completamente bloccato. Quando DISATTIVO, le ruote rotolano liberamente avanti e indietro per il rullaggio a terra.</Italian>
+            <Polish>Włącza i wyłącza hamulec postojowy. Gdy WŁĄCZONY, statek powietrzny jest całkowicie zablokowany. Gdy WYŁĄCZONY, koła toczą się swobodnie do przodu i do tyłu dla kołowania naziemnego.</Polish>
+            <Portuguese>Liga e desliga o freio de estacionamento. Quando LIGADO, a aeronave fica totalmente travada. Quando DESLIGADO, as rodas rolam livremente para frente e para trás para o táxi no solo.</Portuguese>
+            <Russian>Включает и выключает стояночный тормоз. При ВКЛЮЧЁННОМ тормозе воздушное судно полностью зафиксировано. При ВЫКЛЮЧЁННОМ колёса свободно катятся вперёд и назад для руления по земле.</Russian>
+            <German>Schaltet die Feststellbremse ein und aus. Bei EIN ist das Luftfahrzeug vollständig fixiert. Bei AUS rollen die Räder frei vor und zurück für das Rollen am Boden.</German>
+            <Korean>주차 브레이크를 켜고 끕니다. ON 상태에서는 항공기가 완전히 고정됩니다. OFF 상태에서는 지상 주행을 위해 바퀴가 앞뒤로 자유롭게 구릅니다.</Korean>
+            <Japanese>パーキングブレーキのオン/オフを切り替えます。オン時は機体が完全に固定されます。オフ時は地上走行のためにホイールが前後に自由に転がります。</Japanese>
+            <Chinesesimp>切换驻车制动器的开关状态。开启时，飞机完全锁定。关闭时，机轮可自由前后滚动以进行地面滑行。</Chinesesimp>
+            <Turkish>Park frenini açar ve kapatır. AÇIK konumda, uçak tamamen kilitlenir. KAPALI konumda, tekerlekler yer taksi için serbestçe ileri geri döner.</Turkish>
+            <Dutch>Schakelt de parkeerrem aan en uit. Wanneer AAN is het luchtvaartuig volledig vergrendeld. Wanneer UIT rollen de wielen vrij voor en achter voor het taxiën op de grond.</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN">
             <Original>WAS Gun</Original>
             <English>WAS Gun</English>

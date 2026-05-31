@@ -53,7 +53,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_collectiveDn[] = {};
             fza_ah64_kbCollectiveUp[] = {0x2A};
             fza_ah64_kbCollectiveDn[] = {0x1D};
-            
         };
     };
     class Arma3: Arma2 {
