@@ -64,9 +64,10 @@ if (_heli getVariable ["fza_sfmplus_simFrozen", false]) then {
 // Uses the same setPosASL override pattern as time-accel freeze so PhysX can't perturb the aircraft.
 private _groundFrozen = _heli getVariable ["fza_sfmplus_groundFrozen", false];
 if (_groundFrozen) then {
-    private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
-    if (_collective >= 0.20) then {
-        // Pilot raising collective — restore exact frozen pose and release the lock.
+    private _collective    = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+    private _parkingBrake  = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
+    if (_collective >= 0.20 || !_parkingBrake) then {
+        // Release: pilot raising collective OR parking brake released for taxi.
         _heli setPosASL         (_heli getVariable "fza_sfmplus_groundFrozenPos");
         _heli setVectorDirAndUp [(_heli getVariable "fza_sfmplus_groundFrozenDir"), (_heli getVariable "fza_sfmplus_groundFrozenUp")];
         _heli setVelocity        [0.0, 0.0, 0.0];
@@ -88,9 +89,10 @@ if (_groundFrozen) then {
     // Not frozen yet — check if all three wheels have settled AND collective is at idle.
     // Requiring collective < 0.10 provides hysteresis: once released at 0.20 the freeze
     // cannot re-latch until the pilot has lowered collective back to near-idle.
-    private _settled    = _heli getVariable "fza_sfmplus_wheelSettled";
-    private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
-    if ((_settled select 0) && (_settled select 1) && (_settled select 2) && (_collective < 0.10)) then {
+    private _settled      = _heli getVariable "fza_sfmplus_wheelSettled";
+    private _collective   = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+    private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
+    if ((_settled select 0) && (_settled select 1) && (_settled select 2) && (_collective < 0.10) && _parkingBrake && (vectorMagnitude (velocity _heli) < 0.3)) then {
         _heli setVariable ["fza_sfmplus_groundFrozenPos", getPosASL _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenDir", vectorDir _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenUp",  vectorUp  _heli, true];
@@ -119,7 +121,7 @@ private _wheelPositions = [
 // Calculate dynamic damper constants based on load distribution
 // Using formula: c = ζ * 2 * sqrt(m * k)
 // Where ζ is target damping ratio (0.45 = slightly underdamped for responsive settling)
-private _dampingRatio = 1.5; // Overdamped to reduce differential spring excitation of roll mode
+private _dampingRatio = 2.5; // Overdamped to reduce differential spring excitation of roll mode
 
 // Calculate moment arms and wheel loads
 // Front wheel span (Y coordinate distance)

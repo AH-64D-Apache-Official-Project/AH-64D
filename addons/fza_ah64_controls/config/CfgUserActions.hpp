@@ -51,6 +51,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_SensorSelect_DVO,"$STR_FZA_AH64_SENSOR_SELECT_DVO","$STR_FZA_AH64_SENSOR_SELECT_DVO_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc,"$STR_FZA_AH64_TADS_LHG_LMC","$STR_FZA_AH64_TADS_LHG_LMC_INFO");
     CfgUserActionDef(fza_ah64_collectiveEmergJett,"$STR_FZA_AH64_COLLECTIVE_EMERG_JETT","$STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO");
+    CfgUserActionDef(fza_ah64_toggleParkingBrake,"$STR_FZA_AH64_TOGGLE_PARKING_BRAKE","$STR_FZA_AH64_TOGGLE_PARKING_BRAKE_INFO");
     CfgUserActionDef(fza_ah64_lstAuto,"$STR_FZA_AH64_LST_AUTO","$STR_FZA_AH64_LST_AUTO_INFO");
     CfgUserActionDef(fza_ah64_lstOff,"$STR_FZA_AH64_LST_OFF","$STR_FZA_AH64_LST_OFF_INFO");
     CfgUserActionDef(fza_ah64_lstManual,"$STR_FZA_AH64_LST_MANUAL","$STR_FZA_AH64_LST_MANUAL_INFO");
