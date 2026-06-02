@@ -80,10 +80,29 @@ private _serializeEntries = {
     format ['[%1]', _serialized joinString ',']
 };
 
+// ── ACE rearm caliber costs (read from CfgAmmo via representative magazine) ──
+private _fnCaliberCost = {
+    params ["_magClass"];
+    private _ammo = getText (configFile >> "CfgMagazines" >> _magClass >> "ammo");
+    if (_ammo isEqualTo "") exitWith { 0 };
+    private _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ace_caliber");
+    if (_cal <= 0) then { _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_caliber") };
+    round _cal
+};
+private _costHellfire = ["fza_agm114k_ul"]    call _fnCaliberCost;
+private _costRocket   = ["fza_275_m151_zoneA"] call _fnCaliberCost;
+private _costCannon   = ["fza_m230_300"]        call _fnCaliberCost;
+private _costAux      = 50;
+private _costJson     = format ['{"hellfire":%1,"rocket":%2,"cannon":%3,"aux":%4}', _costHellfire, _costRocket, _costCannon, _costAux];
+
+// ── ACE rearm pylons auto-fill setting ───────────────────────────────────────
+private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylons", false];
+if !(_rearmNewPylons isEqualType true) then { _rearmNewPylons = false; };
+private _rearmNewPylonsStr = ["false", "true"] select _rearmNewPylons;
+
 // ── Nearby ACE fuel sources ───────────────────────────────────────────────────
 private _farpFuelJson = "[]";
-private _rearmJson = "[]";
-private _aceAmmoTotals = createHashMap; // populated if ace_rearm_supply==2 and custom limits disabled
+private _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"trucks":[],"costs":%2}', _rearmNewPylonsStr, _costJson];
 private _heliTarget = uiNamespace getVariable ["fza_mplanner_target", objNull];
 if (isNull _heliTarget || {!(_heliTarget isKindOf "Helicopter")}) then {
     _heliTarget = vehicle player;
@@ -120,115 +139,66 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
 
     // ACE rearm sources
     private _rearmSources = [];
+    private _rearmTotalSupply = 0;
+    private _rearmHasUnlimited = false;
+    private _aceSupplyMode = missionNamespace getVariable ["ace_rearm_supply", 0];
+    if !(_aceSupplyMode isEqualType 0) then { _aceSupplyMode = 0 };
     {
         private _src = _x;
         if (_src == _heliTarget) then {continue};
         if !(alive _src) then {continue};
-        private _supply = _src getVariable ["ace_rearm_supply", -999];
-        if (_supply isEqualTo -999) then {continue};
-        private _supplyStr = if (_supply < 0) then {"Unlimited"} else {str (round _supply)};
-        _rearmSources pushBack format ['{"name":"%1","supply":"%2"}',
+        // Detect ACE rearm sources: explicitly marked or has supply config
+        private _isSource = _src getVariable ["ace_rearm_isSupplyVehicle", false];
+        if !(_isSource) then {
+            private _cfgSupply = getNumber (configOf _src >> "ace_rearm_defaultSupply");
+            if (_cfgSupply == 0) then { _cfgSupply = getNumber (configOf _src >> "transportAmmo"); };
+            _isSource = _cfgSupply > 0;
+        };
+        if !(_isSource) then {continue};
+        // Get supply amount — only meaningful in limited mode (ace_rearm_supply == 1)
+        private _supplyAmt = -1; // treat as unlimited unless mode 1
+        if (_aceSupplyMode == 1) then {
+            private _currentSupply = _src getVariable "ace_rearm_currentSupply";
+            if (isNil "_currentSupply") then {
+                _currentSupply = getNumber (configOf _src >> "ace_rearm_defaultSupply");
+                if (_currentSupply <= 0) then { _currentSupply = 1200; };
+            };
+            _supplyAmt = round _currentSupply;
+        };
+        private _isUnlimited = _supplyAmt < 0;
+        if (_isUnlimited) then {
+            _rearmHasUnlimited = true;
+        } else {
+            _rearmTotalSupply = _rearmTotalSupply + _supplyAmt;
+        };
+        _rearmSources pushBack format ['{"name":"%1","supply":%2,"unlimited":%3}',
             (getText (configOf _src >> "displayName")) call _jsonEscape,
-            _supplyStr call _jsonEscape
+            if (_isUnlimited) then {-1} else {_supplyAmt},
+            if (_isUnlimited) then {"true"} else {"false"}
         ];
     } forEach _nearby;
-    _rearmJson = format ['[%1]', _rearmSources joinString ','];
 
-    // ACE supply=2: aggregate per-magazine counts from nearby sources
-    // (used as ammo limits when the custom limit system is not configured)
-    private _aceRearmSupplyMode = missionNamespace getVariable ["ace_rearm_supply", 0];
-    if (_aceRearmSupplyMode == 2) then {
-        // Map magazine-class prefixes to our ammo keys
-        private _magPrefixToKey = [
-            ["fza_agm114k",   "AGM114K"],
-            ["fza_agm114l",   "AGM114L"],
-            ["fza_agm114k2a", "AGM114K2A"],
-            ["fza_agm114fa",  "AGM114FA"],
-            ["fza_agm114n",   "AGM114N"],
-            ["fza_275_m151",  "M151"],
-            ["fza_275_m255a1","M255A1"],
-            ["fza_275_m261",  "M261"],
-            ["fza_275_m257",  "M257"],
-            ["fza_275_m278",  "M278"],
-            ["fza_m230",      "M230"]
+    if (_rearmSources isNotEqualTo []) then {
+        _rearmJson = format [
+            '{"mode":%1,"totalSupply":%2,"unlimited":%3,"rearmNewPylons":%4,"trucks":[%5],"costs":%6}',
+            _aceSupplyMode,
+            if (_rearmHasUnlimited) then {-1} else {_rearmTotalSupply},
+            if (_rearmHasUnlimited) then {"true"} else {"false"},
+            _rearmNewPylonsStr,
+            _rearmSources joinString ',',
+            _costJson
         ];
-        {
-            private _src = _x;
-            if (_src == _heliTarget) then {continue};
-            if !(alive _src) then {continue};
-            private _magSupply = _src getVariable ["ace_rearm_magazineSupply", []];
-            {
-                _x params ["_magClass", "_rounds"];
-                private _ammoKey = "";
-                {
-                    _y params ["_prefix", "_key"];
-                    if ((_magClass find _prefix) == 0) exitWith { _ammoKey = _key; };
-                } forEach _magPrefixToKey;
-                if (_ammoKey != "") then {
-                    _aceAmmoTotals set [_ammoKey, (_aceAmmoTotals getOrDefault [_ammoKey, 0]) + _rounds];
-                };
-            } forEach _magSupply;
-        } forEach _nearby;
+    } else {
+        _rearmJson = format ['{"mode":%1,"totalSupply":0,"unlimited":false,"rearmNewPylons":%2,"trucks":[],"costs":%3}', _aceSupplyMode, _rearmNewPylonsStr, _costJson];
     };
+
 } else {
-    _rearmJson = "[]";
+    // No heli target — still provide cost structure with no trucks
+    _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"trucks":[],"costs":%2}', _rearmNewPylonsStr, _costJson];
 };
 
-// ── Mission Ammo Limits ───────────────────────────────────────────────────────
-// CBA settings are exposed as global variables; fall back to missionNamespace for manual setting
-private _ammoLimitEnabled = if (!isNil "fza_mplanner_ammoLimitEnable") then {
-    fza_mplanner_ammoLimitEnable
-} else {
-    missionNamespace getVariable ["fza_mplanner_ammoLimitEnable", false]
-};
-if !(_ammoLimitEnabled isEqualType false || {_ammoLimitEnabled isEqualType 0}) then { _ammoLimitEnabled = false };
-if (_ammoLimitEnabled isEqualType 0) then { _ammoLimitEnabled = _ammoLimitEnabled > 0 };
-
-private _ammoTypes = [
-    ["AGM114K",  "AGM-114K"],
-    ["AGM114L",  "AGM-114L"],
-    ["AGM114K2A","AGM-114K2A"],
-    ["AGM114FA", "AGM-114FA"],
-    ["AGM114N",  "AGM-114N"],
-    ["M151",     "M151"],
-    ["M261",     "M261"],
-    ["M255A1",   "M255A1"],
-    ["M257",     "M257"],
-    ["M278",     "M278"],
-    ["M230",     "M230"]
-];
-
-private _ammoEntries = [];
-// If custom limits are off but ACE supply=2 data is available, use it
-private _useAceAmmoTotals = (!_ammoLimitEnabled && (count _aceAmmoTotals) > 0);
-if (_useAceAmmoTotals) then { _ammoLimitEnabled = true; };
-{
-    private _key = _x # 0;
-    private _label = _x # 1;
-    private _varName = "fza_mplanner_ammo_" + _key;
-    private _count = -1;
-    if (_ammoLimitEnabled) then {
-        if (_useAceAmmoTotals) then {
-            _count = _aceAmmoTotals getOrDefault [_key, 0];
-        } else {
-            _count = missionNamespace getVariable [_varName, -1];
-            if !(_count isEqualType 0) then { _count = -1 };
-        };
-    };
-    // Hide ammo type only if limits are enabled AND count is exactly 0
-    if (!_ammoLimitEnabled || {_count != 0}) then {
-        _ammoEntries pushBack format ['{"key":"%1","label":"%2","count":%3}',
-            _key call _jsonEscape,
-            _label call _jsonEscape,
-            _count
-        ];
-    };
-} forEach _ammoTypes;
-
-private _ammoLimitJson = format ['{"enabled":%1,"ammo":[%2]}',
-    ["false", "true"] select _ammoLimitEnabled,
-    _ammoEntries joinString ","
-];
+// ── Ammo List (always INF — limit enforcement not yet implemented) ──────────
+private _ammoLimitJson = '{"enabled":false,"ammo":[{"key":"AGM114K","label":"AGM-114K","count":-1},{"key":"AGM114L","label":"AGM-114L","count":-1},{"key":"AGM114K2A","label":"AGM-114K2A","count":-1},{"key":"AGM114FA","label":"AGM-114FA","count":-1},{"key":"AGM114N","label":"AGM-114N","count":-1},{"key":"M151","label":"M151","count":-1},{"key":"M261","label":"M261","count":-1},{"key":"M255A1","label":"M255A1","count":-1},{"key":"M257","label":"M257","count":-1},{"key":"M278","label":"M278","count":-1},{"key":"M230","label":"M230","count":-1}]}';
 
 private _seedFuelRate = if (isNil "ace_refuel_rate") then {1} else {ace_refuel_rate};
 if !(_seedFuelRate isEqualType 0 && {_seedFuelRate > 0}) then { _seedFuelRate = 1 };

@@ -25,7 +25,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         systemChat "Mission Planner apply failed: invalid payload.";
     };
 
-    private _nameCheck = ["M151", "M255", "M257", "M261", "M278", "AGM114FA", "AGM114k", "AGM114K2A", "AGM114L", "AGM114N"];
+    private _nameCheck = ["M151", "m255a1", "M257", "M261", "M278", "AGM114FA", "AGM114k", "AGM114K2A", "AGM114L", "AGM114N"];
     private _pylonArraycheck = ["pylon1", "pylon2", "pylon3", "pylon4"];
     private _pylonRktCheck = ["zoneE", "zoneB", "zoneA"];
     private _pylonMslCheck = ["lr", "ll", "ur", "ul"];
@@ -71,6 +71,56 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     private _needsCannon = _cannonDelta > 0;
     private _needsPylons = true;
 
+    // ACE rearm supply mode (0=unlimited, 1=caliber pool, 2=magazine-inventory)
+    private _supplyMode = missionNamespace getVariable ["ace_rearm_supply", 0];
+    if !(_supplyMode isEqualType 0) then { _supplyMode = 0 };
+    _supplyMode = _supplyMode max 0 min 2;
+
+    // Supply cost (caliber pts) of a magazine class; 0 = no cost / not tracked
+    private _fnMagCaliberCost = {
+        params ["_magClass"];
+        if (_magClass isEqualTo "") exitWith { 0 };
+        if (_magClass isEqualTo "fza_230gal_auxTank") exitWith { 50 };
+        if (getNumber (configFile >> "CfgMagazines" >> _magClass >> "count") == 0) exitWith { 0 };
+        private _ammo = getText (configFile >> "CfgMagazines" >> _magClass >> "ammo");
+        if (_ammo isEqualTo "") exitWith { 0 };
+        private _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ace_caliber");
+        if (_cal <= 0) then { _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_caliber"); };
+        _cal
+    };
+
+    // Find the nearest ACE supply truck (source vehicle for caliber deduction)
+    private _fnFindSupplyTruck = {
+        private _nearby = nearestObjects [getPosATL _heli, ["AllVehicles"], 30];
+        private _found = objNull;
+        {
+            if (_x == _heli || {!alive _x}) then {continue};
+            private _isSource = _x getVariable ["ace_rearm_isSupplyVehicle", false];
+            if !(_isSource) then {
+                private _cfgSupply = getNumber (configOf _x >> "ace_rearm_defaultSupply");
+                if (_cfgSupply == 0) then { _cfgSupply = getNumber (configOf _x >> "transportAmmo"); };
+                _isSource = _cfgSupply > 0;
+            };
+            if (_isSource) exitWith { _found = _x; };
+        } forEach _nearby;
+        _found
+    };
+
+    // Read once here so post-loop deduction can also access it (private inside _applyPylons
+    // would be out of scope after call returns)
+    private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylons", false];
+    if !(_rearmNewPylons isEqualType true) then { _rearmNewPylons = false; };
+
+    // Caliber cost per 50-round cannon batch (ACE_caliber from CfgAmmo)
+    private _cannonCaliberCost = round (getNumber (configFile >> "CfgAmmo" >> "fza_30x113" >> "ACE_caliber"));
+    if (_cannonCaliberCost <= 0) then { _cannonCaliberCost = 30 };
+
+    // In rearmNewPylons=false mode only allow unloading cannon; loading is left to ACE manual rearm
+    if (!_rearmNewPylons && _targetCannonRds > _curCannonRds) then {
+        _targetCannonRds = _curCannonRds;
+        _needsCannon = false;
+    };
+
     private _applyPylons = {
         private _targetPylonMagazines = +getPylonMagazines _heli;
         private _configureQueue = [];
@@ -94,10 +144,14 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     };
                 };
                 case "aux": {
-                    ["fza_230gal_auxTank"] call _assignMagazine;
-                    for "_i" from 1 to 3 do {
+                    // fza_railzone hardpoint (required for aux tank) only exists on the
+                    // first sub-slot of each 4-slot pylon group (e.g. pylons1/5/9/13).
+                    // _assignMagazine fills from the highest index downward, so the aux
+                    // tank must be assigned LAST to land in that first (lowest-index) sub-slot.
+                    for "_i" from 0 to 2 do {
                         [""] call _assignMagazine;
                     };
+                    ["fza_230gal_auxTank"] call _assignMagazine;
                 };
                 case "rocket": {
                     ["fza_275_pod"] call _assignMagazine;
@@ -154,6 +208,34 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             [_heli] call fza_fnc_weaponPylonCheckValid;
         };
 
+        // ── SUPPLY PRE-CHECK: trim pylon queue to what we can afford ─────────
+        // Runs before spawning the progress-bar loop so we never start a pylon
+        // rearm that would exceed the available caliber pool.
+        if (_rearmNewPylons && { _supplyMode == 1 }) then {
+            private _truck = call _fnFindSupplyTruck;
+            if (!isNull _truck) then {
+                private _available = _truck getVariable ["ace_rearm_currentSupply", -1];
+                if (_available >= 0) then {
+                    // Reserve points already committed by cannon loading in STEP 1
+                    private _cannonLoadRds = (_targetCannonRds - _curCannonRds) max 0;
+                    private _cannonReserve = ceil (_cannonLoadRds / 50) * _cannonCaliberCost;
+                    private _budget = (_available - _cannonReserve) max 0;
+                    private _trimmedQueue = [];
+                    {
+                        private _mag = _targetPylonMagazines select _x;
+                        private _cost = ([_mag] call _fnMagCaliberCost) max 0;
+                        if (_budget >= _cost || { _cost == 0 }) then {
+                            _trimmedQueue pushBack _x;
+                            _budget = _budget - _cost;
+                        } else {
+                            systemChat format ["Mission Planner: skipping pylon %1 - needs %2 pts, only %3 remain.", _x + 1, _cost, _budget];
+                        };
+                    } forEach _configureQueue;
+                    _configureQueue = _trimmedQueue;
+                };
+            };
+        };
+
         private _timePerPylon = missionNamespace getVariable ["ace_pylons_timePerPylon", 5];
         if !(_timePerPylon isEqualType 0) then {
             _timePerPylon = 5;
@@ -164,15 +246,10 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             _searchDistance = 15;
         };
 
-        private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylons", false];
-        if !(_rearmNewPylons isEqualType true) then {
-            _rearmNewPylons = false;
-        };
-
         _heli setVariable ["fza_mplanner_rearming", true, true];
 
-        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons] spawn {
-            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons"];
+        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons, _supplyMode, _fnMagCaliberCost] spawn {
+            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons", "_supplyMode", "_fnMagCaliberCost"];
 
             {
                 private _pylonIndex = _x;
@@ -198,7 +275,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         params [["_args", []]];
                         _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove"];
                         ["ace_pylons_setPylonLoadOutEvent", [_heli, _pylonIndex + 1, _targetMagazine, [], _weaponToRemove]] call CBA_fnc_globalEvent;
-                        private _count = if (_targetMagazine != "") then {
+                        // Ammo count: fill if rearmNewPylons=true; else zero (player must ACE-rearm manually)
+                        private _count = if (_rearmNewPylons && {_targetMagazine != ""}) then {
                             getNumber (configFile >> "CfgMagazines" >> _targetMagazine >> "count")
                         } else {
                             0
@@ -217,9 +295,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     {
                         params [["_args", []]];
                         _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove", "_searchDistance"];
-                        player distanceSqr _heli <= (_searchDistance ^ 2)
+                        (vehicle player == _heli) || {player distanceSqr _heli <= (_searchDistance ^ 2)}
                     },
-                    ["isNotInside"]
+                    ["isNotInZeus"]
                 ] call ace_common_fnc_progressBar;
 
                 waitUntil {uiSleep 0.05; _status # 0};
@@ -267,9 +345,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 {
                     params [["_args", []]];
                     _args params ["_heli"];
-                    player distanceSqr _heli <= (15 ^ 2)
+                    (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                ["isNotInside"]
+                []
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _unloadStatus # 0 };
         };
@@ -304,9 +382,12 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
                     _args params ["_heli", "_startRds", "_targetRds", "_cannonStatus"];
                     private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
-                    private _actualRds = _startRds + round ((_targetRds - _startRds) * _partial);
-                    _heli setAmmo ["fza_m230", _actualRds max 0];
-                    systemChat format ["Mission Planner: cannon partial load %1 rds (cancelled).", _actualRds max 0];
+                    if (_partial > 0.01) then {
+                        private _actualRds = (_startRds + round ((_targetRds - _startRds) * _partial)) max 0;
+                        _heli setAmmo ["fza_m230", _actualRds];
+                        private _direction = ["unloading", "loading"] select (_targetRds > _startRds);
+                        systemChat format ["Mission Planner: cannon %1 stopped at %2 rds.", _direction, _actualRds];
+                    };
                     _cannonStatus set [1, false];
                     _cannonStatus set [0, true];
                 },
@@ -314,9 +395,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 {
                     params [["_args", []]];
                     _args params ["_heli"];
-                    player distanceSqr _heli <= (15 ^ 2)
+                    (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                ["isNotInside"]
+                []
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _cannonStatus # 0 };
         };
@@ -331,6 +412,35 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     };
 
     waitUntil { uiSleep 0.1; !(_heli getVariable ["fza_mplanner_rearming", false]) };
+
+    // ── SUPPLY DEDUCTION: caliber pool, only when pylons were auto-filled ─────
+    if (_rearmNewPylons && { _supplyMode == 1 }) then {
+        private _truck = call _fnFindSupplyTruck;
+        if (!isNull _truck) then {
+            private _truckSupply = _truck getVariable ["ace_rearm_currentSupply", -1];
+            if (_truckSupply >= 0) then {
+                private _netCost = 0;
+                // Pylon cost: magazine changes since before the pylon step
+                private _postPylonMags = getPylonMagazines _heli;
+                for "_si" from 0 to ((count _postPylonMags) - 1) do {
+                    private _newMag = _postPylonMags # _si;
+                    private _oldMag = _prevPylonMags # _si;
+                    if (_newMag isNotEqualTo _oldMag) then {
+                        _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
+                        _netCost = _netCost - ([_oldMag] call _fnMagCaliberCost);
+                    };
+                };
+                // Cannon cost: rounds loaded in STEP 1 (50 rds per rearm = _cannonCaliberCost pts)
+                private _cannonNewRds = (_prevCannonRds - _curCannonRds) max 0;
+                if (_cannonNewRds > 0) then {
+                    _netCost = _netCost + (ceil (_cannonNewRds / 50) * _cannonCaliberCost);
+                };
+                if (_netCost != 0) then {
+                    _truck setVariable ["ace_rearm_currentSupply", (_truckSupply - _netCost) max 0, true];
+                };
+            };
+        };
+    };
 
     // ── STEP 3: AMMO TRACKING ────────────────────────────────────────────────
     private _ammoTrackKeys = ["AGM114K","AGM114L","AGM114K2A","AGM114FA","AGM114N","M151","M261","M255A1","M257","M278","M230"];
@@ -482,9 +592,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 {
                     params [["_args", []]];
                     _args params ["_heli"];
-                    player distanceSqr _heli <= (15 ^ 2)
+                    (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                ["isNotInside"]
+                []
             ] call ace_common_fnc_progressBar;
 
             waitUntil {uiSleep 0.1; _status # 0};
@@ -518,9 +628,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             {
                 params [["_args", []]];
                 _args params ["_heli"];
-                player distanceSqr _heli <= (15 ^ 2)
+                (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
             },
-            ["isNotInside"]
+            []
         ] call ace_common_fnc_progressBar;
         waitUntil { uiSleep 0.1; _fcrStatus # 0 };
     };
@@ -556,9 +666,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             {
                 params [["_args", []]];
                 _args params ["_heli"];
-                player distanceSqr _heli <= (15 ^ 2)
+                (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
             },
-            ["isNotInside"]
+            []
         ] call ace_common_fnc_progressBar;
         waitUntil { uiSleep 0.1; _msnStatus # 0 };
     } else {
@@ -592,9 +702,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 {
                     params [["_args", []]];
                     _args params ["_heli"];
-                    player distanceSqr _heli <= (15 ^ 2)
+                    (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                ["isNotInside"]
+                []
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _tailStatus # 0 };
         } else {

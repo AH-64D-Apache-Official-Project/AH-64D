@@ -263,6 +263,11 @@
     color: #ffaa44;
     letter-spacing: 0.5px;
   }
+  .conversion-warning.rearm-urgent {
+    background: #3a0000;
+    border-color: #cc0000;
+    color: #ff4444;
+  }
   .conversion-warning.hidden { display: none; }
   .fcr-change-alert {
     position: absolute;
@@ -715,6 +720,17 @@
     color: var(--text-dim);
     font-size: 15px;
   }
+  .dtc-wip {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #e8a020;
+    opacity: 0.85;
+    border: 1px solid #e8a02055;
+    border-radius: 2px;
+    padding: 2px 0;
+    margin-top: 2px;
+  }
   #config-perf {
     flex: 1;
     display: flex;
@@ -908,6 +924,16 @@
   .perf-unit { color: var(--text-dim); font-size: 13.5px; }
   .sep { color: var(--border2); }
   /* Ammo supply warning */
+  .supply-tally { font-size: 12px; padding: 2px 0 4px 0; color: var(--text-dim); }
+  .supply-tally.supply-over { color: var(--red-bright); font-weight: bold; }
+  .supply-tally.supply-ok { color: #88ee88; }
+  .farp-section { margin-bottom: 8px; }
+  .farp-sec-hdr { color: var(--text); font-size: 13px; font-weight: bold; border-bottom: 1px solid var(--border); margin-bottom: 3px; padding-bottom: 1px; letter-spacing: 0.5px; }
+  .farp-sec-total { color: var(--text-dim); font-size: 11px; font-weight: normal; margin-left: 6px; letter-spacing: 0; }
+  .farp-src-row { display: flex; justify-content: space-between; gap: 4px; font-size: 12px; padding: 1px 4px; }
+  .farp-src-name { color: var(--text-dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .farp-src-val { color: var(--text); text-align: right; flex-shrink: 0; }
+  .farp-none { color: var(--text-dim); font-style: italic; font-size: 12px; padding: 1px 4px; }
   .rail-cycle.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   .zone-count input.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   .zone-type select.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
@@ -1093,6 +1119,7 @@
     flex-direction: column;
     gap: 6px;
     color: var(--text-dim);
+    background: rgba(0, 0, 0, 0.40);
   }
   .tab-sidebar-title {
     color: var(--text-bright);
@@ -1176,6 +1203,8 @@
 
       <div class="farp-list">
         <div class="farp-title">FARP Status:</div>
+        <div id="supplyTally" class="supply-tally"></div>
+        <div id="rearmDebug" style="display:none;font-size:0.7em;color:#aaa;word-break:break-all;margin-top:2px;"></div>
         <div id="farpList">
         </div>
       </div>
@@ -1795,9 +1824,10 @@
       <button id="btnSaveDTC">Save DTC</button>
       <label class="dtc-current">
         <span>Current Loaded</span>
-        <input type="text" id="dtcName" value="MYMSNV01" maxlength="12"
-          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright)">
+        <input type="text" id="dtcName" value="MYMSNV01" maxlength="12" readonly
+          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright);cursor:default;">
       </label>
+      <div class="dtc-wip">&#9888; WORK IN PROGRESS</div>
     </div>
 
   </div><!-- /bottom-strip -->
@@ -1945,10 +1975,6 @@ var SFMPLUS_CONFIG_GAME_PATH = 'fza_ah64_controls\\config\\cfgVehicles\\sfmplus.
 var weightModelBaseline = null;
 var sfmPerfDataReady = false;
 var fzaMplanner_fuelRateLS = 1; // ACE ace_refuel_rate default; updated from SQF seed
-var fzaMplanner_ammoLimits = null; // updated from SQF seed
-var selectionSeq = 0;              // ever-increasing counter; updated on each user ammo selection
-var railSelectionSeq = {};         // 'p1_tr' → seq (lower = older = higher supply priority)
-var zoneSelectionSeq = {};         // 'p1_za' → seq (lower = older = higher supply priority)
 var sfmPerfDataError = '';
 var saveLoadState = {
   open: false,
@@ -2724,12 +2750,6 @@ function receiveSqfSaveSeed(payloadText) {
       fzaMplanner_fuelRateLS = parsed.fuelRateLS;
     }
 
-    if (parsed.ammoLimits && Array.isArray(parsed.ammoLimits.ammo) && parsed.ammoLimits.ammo.length > 0) {
-      fzaMplanner_ammoLimits = parsed.ammoLimits;
-    } else {
-      fzaMplanner_ammoLimits = null;
-    }
-
     if (parsed.currentConfig !== undefined) {
       var cfgName = trimSaveName(parsed.currentConfig);
       document.getElementById('currentConfigName').value = cfgName;
@@ -2752,54 +2772,62 @@ function receiveSqfSaveSeed(payloadText) {
     saveLoadState.seedReceived = true;
     callSQF('diag_log "[MP JS] receiveSeed OK - own=' + _ownCount + ' mission=' + _missionCount + '"');
 
-    // Update FARP fuel list
+    // Update FARP list
     var farpEl = document.getElementById('farpList');
     if (farpEl) {
-      var fuelLines = [];
+      var farpHtml = '';
+
+      // ── FUEL section ──
+      farpHtml += '<div class="farp-section">';
       if (parsed.farpFuel && parsed.farpFuel.length) {
         var totalLiters = 0;
-        var hasInfinite = false;
+        var hasInfFuel = false;
         for (var fi = 0; fi < parsed.farpFuel.length; fi++) {
-          var fs = parsed.farpFuel[fi];
-          if (fs.liters < 0) hasInfinite = true;
-          else totalLiters += Number(fs.liters);
+          if (parsed.farpFuel[fi].liters < 0) hasInfFuel = true;
+          else totalLiters += Number(parsed.farpFuel[fi].liters);
         }
-        var totalGal = Math.round(totalLiters * 0.264172);
-        fuelLines.push('<strong>Fuel: ' + (hasInfinite ? 'Unlimited' : '~' + Math.round(totalLiters) + ' L (~' + totalGal + ' gal) total') + '</strong>');
+        var fuelTotalStr = hasInfFuel ? 'Unlimited' : '~' + Math.round(totalLiters * 0.264172) + ' gal';
+        farpHtml += '<div class="farp-sec-hdr">FUEL <span class="farp-sec-total">' + fuelTotalStr + '</span></div>';
         for (var fi2 = 0; fi2 < parsed.farpFuel.length; fi2++) {
-          var fs2 = parsed.farpFuel[fi2];
-          var galStr = fs2.liters < 0 ? '' : ' (' + Math.round(fs2.liters * 0.264172) + ' gal)';
-          fuelLines.push(String(fs2.name || 'Fuel Source') + ': ' + (fs2.liters < 0 ? 'Unlimited' : Math.round(fs2.liters) + ' L' + galStr));
+          var fs = parsed.farpFuel[fi2];
+          var fsVal = fs.liters < 0 ? 'Unlimited' : '~' + Math.round(fs.liters * 0.264172) + ' gal';
+          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(fs.name || 'Fuel Source') + '</span><span class="farp-src-val">' + fsVal + '</span></div>';
         }
       } else {
-        fuelLines.push('No fuel sources detected nearby.');
+        farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
+        farpHtml += '<div class="farp-none">No sources nearby</div>';
       }
+      farpHtml += '</div>';
 
-      // Ammo limits section
-      if (parsed.ammoLimits && parsed.ammoLimits.ammo && parsed.ammoLimits.ammo.length) {
-        fuelLines.push('');
-        fuelLines.push('<strong>Ammo' + (parsed.ammoLimits.enabled ? '' : ' (Unlimited)') + ':</strong>');
-        for (var ai = 0; ai < parsed.ammoLimits.ammo.length; ai++) {
-          var a = parsed.ammoLimits.ammo[ai];
-          var countStr = (!parsed.ammoLimits.enabled || a.count < 0) ? 'INF' : String(a.count);
-          fuelLines.push(countStr + 'x ' + String(a.label || a.key));
+      // ── AMMO section ──
+      var _rearm = parsed.farpRearm;
+      g_rearmData = (_rearm && typeof _rearm === 'object' && !Array.isArray(_rearm)) ? _rearm : null;
+      farpHtml += '<div class="farp-section">';
+      if (g_rearmData && g_rearmData.trucks && g_rearmData.trucks.length) {
+        var modeLabels = {0: 'Unlimited', 1: 'Caliber Pool', 2: 'Magazine'};
+        var modeLabel = modeLabels[g_rearmData.mode] || 'Unknown';
+        var ammoTotalStr = g_rearmData.unlimited ? 'Unlimited' : (g_rearmData.totalSupply + ' pts');
+        farpHtml += '<div class="farp-sec-hdr">AMMO <span class="farp-sec-total">' + ammoTotalStr + ' \xB7 ' + modeLabel + '</span></div>';
+        for (var ri = 0; ri < g_rearmData.trucks.length; ri++) {
+          var rs = g_rearmData.trucks[ri];
+          var rsVal = rs.unlimited ? 'Unlimited' : (rs.supply + ' pts');
+          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(rs.name || 'Rearm Source') + '</span><span class="farp-src-val">' + rsVal + '</span></div>';
         }
+      } else {
+        farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
+        farpHtml += '<div class="farp-none">No sources nearby</div>';
       }
+      farpHtml += '</div>';
 
-      // Rearm sources section
-      if (parsed.farpRearm && parsed.farpRearm.length) {
-        fuelLines.push('');
-        fuelLines.push('<strong>Rearm Sources:</strong>');
-        for (var ri = 0; ri < parsed.farpRearm.length; ri++) {
-          var rs = parsed.farpRearm[ri];
-          fuelLines.push(String(rs.name || 'Rearm Source') + ': ' + String(rs.supply || '?'));
-        }
-      }
+      // ── AMMO TYPES — placeholder div updated live by updateAmmoTypes() ──
+      farpHtml += '<div id="ammoTypesSection"></div>';
 
-      farpEl.innerHTML = fuelLines.join('<br>');
+      farpEl.innerHTML = farpHtml;
+      updateAmmoTypes(null); // initial render with full pool (no newCost yet)
     }
 
     updateWeightsAndPerformance();
+    updateAmmoWarnings();
     renderSaveLoadList();
   } catch (err) {
     if (typeof console !== 'undefined' && console.warn) {
@@ -2831,6 +2859,7 @@ window.fza_mplanner_handleEscape = function() {
 };
 
 var initialAircraftState = null;
+var g_rearmData = null;
 
 function dismissLoadingOverlay() {
   var overlay = document.getElementById('loadingOverlay');
@@ -2875,20 +2904,25 @@ function updateConversionWarning() {
   var tailChanged = curState.tailNum !== initialAircraftState.tailNum;
   var msnEquipChanged = curState.msnEquip !== initialAircraftState.msnEquip;
 
-  // Count pylon differences: hellfire at 5s/changed rail; other types at flat 20s/pylon
+  // Count pylon differences: hellfire at 5s/changed rail; type change or non-HF content change = 20s flat
   var pylonChangedSecs = 0;
   if (initialAircraftState.pylons && curState.pylons) {
     for (var pi = 0; pi < 4; pi++) {
       var initP = initialAircraftState.pylons[pi] || { type: 'none' };
       var curP = curState.pylons[pi] || { type: 'none' };
       if (JSON.stringify(initP) === JSON.stringify(curP)) continue;
-      if (initP.type === 'hellfire' || curP.type === 'hellfire') {
+      if (initP.type !== curP.type) {
+        // Pylon type changed — always requires physical unload/reload
+        pylonChangedSecs += 20;
+      } else if (initP.type === 'hellfire') {
+        // Both are hellfire: 5s per individually changed rail
         var initRails = initP.rails || ['', '', '', ''];
         var curRails = curP.rails || ['', '', '', ''];
         for (var ri = 0; ri < 4; ri++) {
           if ((initRails[ri] || '') !== (curRails[ri] || '')) { pylonChangedSecs += 5; }
         }
       } else {
+        // Same non-hellfire type (e.g. rocket zone count/type changed)
         pylonChangedSecs += 20;
       }
     }
@@ -2914,7 +2948,7 @@ function updateConversionWarning() {
 
   var totalSecs = 0;
   if (fcrChanged) totalSecs += 300;
-  if (iafsChanged) totalSecs += 30;
+  if (iafsChanged) totalSecs += 300;
   if (msnEquipChanged) totalSecs += 30;
   if (tailChanged) totalSecs += 10;
   totalSecs += pylonChangedSecs;
@@ -2927,8 +2961,11 @@ function updateConversionWarning() {
     warningEl.textContent = '\u26A0 ~' + totalSecs + 's REARM';
     warningEl.title = 'Estimated total time for this config change';
     warningEl.classList.remove('hidden');
+    if (totalSecs > 120) warningEl.classList.add('rearm-urgent');
+    else warningEl.classList.remove('rearm-urgent');
   } else {
     warningEl.classList.add('hidden');
+    warningEl.classList.remove('rearm-urgent');
   }
 
   if (fcrAlertEl) {
@@ -2986,7 +3023,7 @@ function updateSaveLoadControls() {
 function mapPlannerRocketTypeToLegacy(typeCode) {
   var map = {
     '6PD': 'M151',
-    '6FL': 'M255',
+    '6FL': 'm255a1',
     '6IL': 'M257',
     '6MP': 'M261',
     '6IR': 'M278'
@@ -3006,42 +3043,9 @@ function mapPlannerHellfireCodeToLegacy(code) {
 }
 
 function buildLegacyApplyPayload(state) {
-  // Supply enforcement: track remaining available ammo per key
-  var HF_SUPPLY_KEY = { 'K': 'AGM114K', 'L': 'AGM114L', 'K2A': 'AGM114K2A', 'FA': 'AGM114FA', 'N': 'AGM114N' };
-  var RKT_SUPPLY_KEY = { '6PD': 'M151', '6FL': 'M255A1', '6MP': 'M261', '6IL': 'M257', '6IR': 'M278' };
-  var applyRemaining = null;
-  if (fzaMplanner_ammoLimits && fzaMplanner_ammoLimits.enabled &&
-      fzaMplanner_ammoLimits.ammo && fzaMplanner_ammoLimits.ammo.length) {
-    applyRemaining = {};
-    for (var ai = 0; ai < fzaMplanner_ammoLimits.ammo.length; ai++) {
-      var ae = fzaMplanner_ammoLimits.ammo[ai];
-      applyRemaining[String(ae.key)] = ae.count;
-    }
-  }
-
-  // Returns the code to use (or '' if supply exhausted)
-  function tryAllocHF(code) {
-    if (!code || !applyRemaining) return code;
-    var supKey = HF_SUPPLY_KEY[code];
-    if (!supKey) return code;
-    var rem = applyRemaining[supKey];
-    if (typeof rem !== 'number' || rem < 0) return code; // unlimited
-    if (rem <= 0) return '';
-    applyRemaining[supKey] = rem - 1;
-    return code;
-  }
-
-  // Returns true if zone can be allocated, false if supply insufficient
-  function tryAllocRkt(typeCode, count) {
-    if (!count || !applyRemaining) return true;
-    var supKey = RKT_SUPPLY_KEY[typeCode];
-    if (!supKey) return true;
-    var rem = applyRemaining[supKey];
-    if (typeof rem !== 'number' || rem < 0) return true; // unlimited
-    if (rem < count) return false;
-    applyRemaining[supKey] = rem - count;
-    return true;
-  }
+  // Pass-through helpers — supply enforcement removed for now
+  function tryAllocHF(code) { return code; }
+  function tryAllocRkt(typeCode, count) { return !!count && !!typeCode; }
 
   var payload = {
     fcrInstalled: !!state.fcrActive,
@@ -3059,52 +3063,18 @@ function buildLegacyApplyPayload(state) {
     var out = { type: pylon.type || 'none' };
 
     if (out.type === 'hellfire') {
-      // Allocate in order of selection age: oldest first = highest priority
       var rails = pylon.rails || [];
-      var hfRailKeys = ['tr', 'tl', 'br', 'bl'];
-      var hfRailOrder = [0, 1, 2, 3].sort(function(a, b) {
-        var idA = 'p' + i + '_' + hfRailKeys[a];
-        var idB = 'p' + i + '_' + hfRailKeys[b];
-        return (railSelectionSeq[idA] || 0) - (railSelectionSeq[idB] || 0);
-      });
-      var allocatedRails = ['', '', '', ''];
-      for (var hfsi = 0; hfsi < hfRailOrder.length; hfsi++) {
-        var hfIdx = hfRailOrder[hfsi];
-        allocatedRails[hfIdx] = tryAllocHF(rails[hfIdx] || '');
-      }
-      out.ur = mapPlannerHellfireCodeToLegacy(allocatedRails[0]); // tr → ur slot
-      out.ul = mapPlannerHellfireCodeToLegacy(allocatedRails[1]); // tl → ul slot
-      out.lr = mapPlannerHellfireCodeToLegacy(allocatedRails[2]); // br → lr slot
-      out.ll = mapPlannerHellfireCodeToLegacy(allocatedRails[3]); // bl → ll slot
+      out.ur = mapPlannerHellfireCodeToLegacy(rails[0] || '');
+      out.ul = mapPlannerHellfireCodeToLegacy(rails[1] || '');
+      out.lr = mapPlannerHellfireCodeToLegacy(rails[2] || '');
+      out.ll = mapPlannerHellfireCodeToLegacy(rails[3] || '');
     }
 
     if (out.type === 'rocket') {
-      // Allocate zones in order of selection age: oldest first = highest priority
-      var zoneIds = getZoneIdsForPylon(i);
-      var zoneOrder = [0, 1, 2].sort(function(a, b) {
-        var keyA = 'p' + i + '_' + zoneIds[a][0];
-        var keyB = 'p' + i + '_' + zoneIds[b][0];
-        return (zoneSelectionSeq[keyA] || 0) - (zoneSelectionSeq[keyB] || 0);
-      });
-      var zoneAllocated = [false, false, false];
-      for (var zsi = 0; zsi < zoneOrder.length; zsi++) {
-        var zOrig = zoneOrder[zsi];
-        var zKey = zoneIds[zOrig][0];
-        var cEl = document.getElementById('p' + i + '_' + zKey + '_count');
-        var tEl = document.getElementById('p' + i + '_' + zKey + '_type');
-        if (cEl && tEl) {
-          var zCnt = parseInt(cEl.value || '0', 10) || 0;
-          if (zCnt > 0 && tEl.value) { zoneAllocated[zOrig] = tryAllocRkt(tEl.value, zCnt); }
-        }
-      }
-      // Write results using positional keys (index 0→zoneA, 1→zoneB, 2→zoneE)
-      var zoneOutKeys = ['zoneA', 'zoneB', 'zoneE'];
-      for (var zi3 = 0; zi3 < zoneIds.length; zi3++) {
-        var zId = zoneIds[zi3][0];
-        var cEl3 = document.getElementById('p' + i + '_' + zId + '_count');
-        var tEl3 = document.getElementById('p' + i + '_' + zId + '_type');
-        out[zoneOutKeys[zi3]] = (zoneAllocated[zi3] && cEl3 && tEl3 && parseInt(cEl3.value||'0',10) > 0) ? mapPlannerRocketTypeToLegacy(tEl3.value) : '';
-      }
+      var zones = pylon.zones || [];
+      out.zoneA = (zones[0] && zones[0].count > 0 && zones[0].type) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
+      out.zoneB = (zones[1] && zones[1].count > 0 && zones[1].type) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
+      out.zoneE = (zones[2] && zones[2].count > 0 && zones[2].type) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
     }
 
     payload[pylonKey] = out;
@@ -3596,122 +3566,155 @@ function computeLoadoutWeightMetrics() {
   };
 }
 
+// Returns a map of ammo-key → count for munitions already on the aircraft at planner-open time.
 function updateAmmoWarnings() {
-  // Clear all existing warnings
+  // Clear all supply warnings
   eachNode('.rail-cycle', function(btn) { btn.classList.remove('ammo-warn'); });
   eachNode('.zone-count input', function(inp) { inp.classList.remove('ammo-warn'); });
   eachNode('.zone-type select', function(sel) { sel.classList.remove('ammo-warn'); });
   var cannonEl = document.getElementById('cannonRds');
   if (cannonEl) cannonEl.classList.remove('ammo-warn');
+  var supplyEl = document.getElementById('supplyTally');
+  if (supplyEl) { supplyEl.textContent = ''; supplyEl.className = 'supply-tally'; }
+  var debugEl = document.getElementById('rearmDebug');
+  if (debugEl) debugEl.style.display = 'none';
 
-  if (!fzaMplanner_ammoLimits || !fzaMplanner_ammoLimits.enabled ||
-      !fzaMplanner_ammoLimits.ammo || !fzaMplanner_ammoLimits.ammo.length) return;
-
-  // Build available lookup: key → count (-1 = unlimited)
-  var available = {};
-  for (var ai = 0; ai < fzaMplanner_ammoLimits.ammo.length; ai++) {
-    var entry = fzaMplanner_ammoLimits.ammo[ai];
-    available[String(entry.key)] = entry.count;
+  // Only enforce in mode 1 (caliber pool) or mode 2 (magazine inventory)
+  if (!g_rearmData || !g_rearmData.costs) {
+    updateAmmoTypes(null);
+    if (debugEl) { debugEl.textContent = 'DBG rearm: g_rearmData=' + JSON.stringify(g_rearmData); debugEl.style.display = ''; }
+    return;
+  }
+  if (g_rearmData.unlimited || g_rearmData.mode === 0) {
+    updateAmmoTypes(null);
+    if (debugEl) { debugEl.textContent = 'DBG rearm: mode=' + g_rearmData.mode + ' unlimited=' + g_rearmData.unlimited + ' (no enforcement)'; debugEl.style.display = ''; }
+    return;
+  }
+  if (!g_rearmData.rearmNewPylons) {
+    updateAmmoTypes(null);
+    if (debugEl) { debugEl.textContent = 'DBG rearm: rearmNewPylons=false (ACE handles supply at rearm time)'; debugEl.style.display = ''; }
+    return;
   }
 
-  // Display-name → ammo-key mapping for hellfire
-  var HF_KEY_MAP = {
-    'AGM-114K':   'AGM114K',
-    'AGM-114L':   'AGM114L',
-    'AGM-114K2A': 'AGM114K2A',
-    'AGM-114FA':  'AGM114FA',
-    'AGM-114N':   'AGM114N'
-  };
-  // Zone-type code → ammo-key mapping for rockets
-  var RKT_KEY_MAP = {
-    '6PD': 'M151',
-    '6FL': 'M255A1',
-    '6MP': 'M261',
-    '6IL': 'M257',
-    '6IR': 'M278'
-  };
+  var avail = g_rearmData.totalSupply;
+  var costs = g_rearmData.costs;
+  var state = getPlannerState();
+  // Only charge for items that differ from the initial loaded state
+  var initPylons = (initialAircraftState && initialAircraftState.pylons) ? initialAircraftState.pylons : [];
+  var railKeys = ['tr', 'tl', 'br', 'bl'];
+  var newCost = 0;
+  var debugLines = ['mode=' + g_rearmData.mode + ' avail=' + avail];
 
-  // --- Selection-order allocation: the most recently selected item loses supply first ---
-  // Hellfires: build sorted list of active rails (oldest selection = highest priority)
-  var hfAllRails = [];
-  for (var hpi = 1; hpi <= 4; hpi++) {
-    var hPylonTypeEl = document.getElementById('pylon' + hpi + 'Type');
-    if (!hPylonTypeEl || hPylonTypeEl.value !== 'hellfire') continue;
-    var hfGridEl = document.getElementById('p' + hpi + '_hellfire');
-    if (!hfGridEl || hfGridEl.classList.contains('hidden')) continue;
-    var hRailKeys = ['tr', 'tl', 'br', 'bl'];
-    for (var hri = 0; hri < hRailKeys.length; hri++) {
-      var hSelectEl = document.getElementById('p' + hpi + '_' + hRailKeys[hri]);
-      if (!hSelectEl) continue;
-      var hAmmoKey = HF_KEY_MAP[hSelectEl.value];
-      if (!hAmmoKey) continue; // 'None' — skip
-      hfAllRails.push({ el: hSelectEl, ammoKey: hAmmoKey, seq: railSelectionSeq[hSelectEl.id] || 0 });
+  for (var i = 1; i <= 4; i++) {
+    var pylon = state.pylons[i - 1] || { type: 'none' };
+    var initP = initPylons[i - 1] || { type: 'none' };
+    if (pylon.type === 'hellfire') {
+      var rails = pylon.rails || [];
+      var initRails = (initP.type === 'hellfire') ? (initP.rails || []) : [];
+      for (var ri = 0; ri < rails.length; ri++) {
+        // Only a cost if this rail has a round AND it differs from what was initially loaded
+        var isNew = !!(rails[ri] && rails[ri] !== '' && rails[ri] !== (initRails[ri] || ''));
+        if (isNew) {
+          newCost += (costs.hellfire || 100);
+          debugLines.push('P' + i + 'HF-R' + ri + ' +' + (costs.hellfire || 100) + '=' + newCost);
+          if (newCost > avail) {
+            var railBtn = document.getElementById('p' + i + '_' + railKeys[ri]);
+            if (railBtn) railBtn.classList.add('ammo-warn');
+          }
+        }
+      }
+    } else if (pylon.type === 'rocket') {
+      var zones = pylon.zones || [];
+      var initZones = (initP.type === 'rocket') ? (initP.zones || []) : [];
+      var zoneIds = getZoneIdsForPylon(i);
+      for (var zi = 0; zi < zones.length; zi++) {
+        var zone = zones[zi];
+        var initZone = initZones[zi] || { count: 0, type: '' };
+        var plannedCount = (zone && zone.count > 0) ? zone.count : 0;
+        var initCount = initZone.count || 0;
+        var plannedType = (zone && zone.type) ? zone.type : '';
+        var initType = initZone.type || '';
+        // All rockets on this zone are new if type changed; otherwise only the delta count is new
+        var typeChanged = plannedType !== '' && plannedType !== initType;
+        var newCount = typeChanged ? plannedCount : Math.max(0, plannedCount - initCount);
+        if (newCount > 0) {
+          var zoneCost = costs.rocket || 20; // flat per zone: one magazine swap regardless of rocket count
+          newCost += zoneCost;
+          debugLines.push('P' + i + 'RKT-Z' + zi + ' +' + zoneCost + '=' + newCost);
+          if (newCost > avail) {
+            var zkPair = zoneIds[zi];
+            if (zkPair) {
+              var cntEl = document.getElementById('p' + i + '_' + zkPair[0] + '_count');
+              var typEl = document.getElementById('p' + i + '_' + zkPair[0] + '_type');
+              if (cntEl) cntEl.classList.add('ammo-warn');
+              if (typEl) typEl.classList.add('ammo-warn');
+            }
+          }
+        }
+      }
+    } else if (pylon.type === 'aux') {
+      // Aux tank is only a cost if it wasn't there initially
+      if (initP.type !== 'aux') {
+        newCost += (costs.aux || 50);
+        debugLines.push('P' + i + 'AUX +' + (costs.aux || 50) + '=' + newCost);
+      }
     }
   }
-  hfAllRails.sort(function(a, b) { return a.seq - b.seq; }); // oldest first = highest priority
 
-  var hfRemaining = {};
-  for (var hInitKey in available) { hfRemaining[hInitKey] = available[hInitKey]; }
-  for (var hfi = 0; hfi < hfAllRails.length; hfi++) {
-    var hRailEl = hfAllRails[hfi].el;
-    var hAmmoKey = hfAllRails[hfi].ammoKey;
-    var hRem = hfRemaining[hAmmoKey];
-    if (typeof hRem !== 'number' || hRem < 0) continue; // unlimited
-    if (hRem > 0) {
-      hfRemaining[hAmmoKey] = hRem - 1;
+  // Cannon cost: rounds above initial state, charged in 50-rd batches at costs.cannon pts each
+  var plannedCannon = state.cannonRds || 0;
+  var initCannon = (initialAircraftState && typeof initialAircraftState.cannonRds === 'number') ? initialAircraftState.cannonRds : plannedCannon;
+  var cannonNewRds = Math.max(0, plannedCannon - initCannon);
+  if (cannonNewRds > 0) {
+    var cannonCost = Math.ceil(cannonNewRds / 50) * (costs.cannon || 30);
+    newCost += cannonCost;
+    debugLines.push('cannon +' + cannonNewRds + 'rds cost=' + cannonCost + ' total=' + newCost);
+    if (newCost > avail) {
+      if (cannonEl) cannonEl.classList.add('ammo-warn');
+    }
+  }
+
+  if (supplyEl) {
+    if (avail <= 0) {
+      supplyEl.textContent = 'Supply: no sources nearby' + (newCost > 0 ? ' (' + newCost + ' pts needed for new items)' : '');
+      supplyEl.className = 'supply-tally' + (newCost > 0 ? ' supply-over' : '');
     } else {
-      var hParent = hRailEl.parentNode;
-      var hSelects = hParent.querySelectorAll('.rail-ammo');
-      var hButtons = hParent.querySelectorAll('button.rail-cycle');
-      var hIdx = Array.prototype.indexOf.call(hSelects, hRailEl);
-      var hCycleBtn = hIdx >= 0 ? hButtons[hIdx] : null;
-      if (hCycleBtn) hCycleBtn.classList.add('ammo-warn');
+      supplyEl.textContent = 'Supply: ' + newCost + ' / ' + avail + ' pts (new items only)';
+      supplyEl.className = 'supply-tally ' + (newCost > avail ? 'supply-over' : 'supply-ok');
     }
   }
+  updateAmmoTypes(Math.max(0, avail - newCost));
+  if (debugEl) {
+    debugEl.textContent = 'DBG: ' + debugLines.join(' | ');
+    debugEl.style.display = '';
+  }
+}
 
-  // Rockets: build sorted list of active zones (oldest selection = highest priority)
-  var rktAllZones = [];
-  for (var rpi = 1; rpi <= 4; rpi++) {
-    var rPylonTypeEl = document.getElementById('pylon' + rpi + 'Type');
-    if (!rPylonTypeEl || rPylonTypeEl.value !== 'rocket') continue;
-    var rktZones = getZoneIdsForPylon(rpi);
-    for (var rzi = 0; rzi < rktZones.length; rzi++) {
-      var rzKey = rktZones[rzi][0];
-      var rcEl = document.getElementById('p' + rpi + '_' + rzKey + '_count');
-      var rtEl = document.getElementById('p' + rpi + '_' + rzKey + '_type');
-      if (!rcEl || !rtEl) continue;
-      var rCnt = parseInt(rcEl.value || '0', 10) || 0;
-      if (rCnt <= 0) continue;
-      var rSupplyKey = RKT_KEY_MAP[rtEl.value];
-      if (!rSupplyKey) continue;
-      var rZoneKey = 'p' + rpi + '_' + rzKey;
-      rktAllZones.push({ countEl: rcEl, typeEl: rtEl, supplyKey: rSupplyKey, cnt: rCnt, seq: zoneSelectionSeq[rZoneKey] || 0 });
-    }
+function updateAmmoTypes(remaining) {
+  var el = document.getElementById('ammoTypesSection');
+  if (!el) return;
+  if (!g_rearmData || !g_rearmData.costs) { el.innerHTML = ''; return; }
+  var rc = g_rearmData.costs;
+  var isUnlim = g_rearmData.unlimited || g_rearmData.mode === 0;
+  var hasTrucks = !!(g_rearmData.trucks && g_rearmData.trucks.length);
+  if (!isUnlim && !(g_rearmData.mode === 1 && hasTrucks)) { el.innerHTML = ''; return; }
+  var html = '<div class="farp-section">';
+  html += '<div class="farp-sec-hdr">AMMO TYPES</div>';
+  if (isUnlim) {
+    html += '<div class="farp-src-row"><span class="farp-src-name">Hellfire</span><span class="farp-src-val">INF</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Rockets</span><span class="farp-src-val">INF</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Cannon</span><span class="farp-src-val">INF</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Aux Tank</span><span class="farp-src-val">INF</span></div>';
+  } else {
+    var pts = (remaining !== null && remaining !== undefined) ? remaining : g_rearmData.totalSupply;
+    var hfc = rc.hellfire || 100, rkc = rc.rocket || 20, cnc = rc.cannon || 30, axc = rc.aux || 50;
+    html += '<div class="farp-src-row"><span class="farp-src-name">Hellfire (' + hfc + ' pts ea)</span><span class="farp-src-val">' + Math.floor(pts / hfc) + ' msls</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Rockets (' + rkc + ' pts/pod)</span><span class="farp-src-val">' + Math.floor(pts / rkc) + ' pods</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Cannon (' + cnc + ' pts/50rds)</span><span class="farp-src-val">' + (Math.floor(pts / cnc) * 50) + ' rds</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Aux Tank (' + axc + ' pts ea)</span><span class="farp-src-val">' + Math.floor(pts / axc) + ' tanks</span></div>';
   }
-  rktAllZones.sort(function(a, b) { return a.seq - b.seq; }); // oldest first = highest priority
-
-  var rktRemaining = {};
-  for (var rInitKey in available) { rktRemaining[rInitKey] = available[rInitKey]; }
-  for (var rzi2 = 0; rzi2 < rktAllZones.length; rzi2++) {
-    var rz = rktAllZones[rzi2];
-    var rRem = rktRemaining[rz.supplyKey];
-    if (typeof rRem !== 'number' || rRem < 0) continue; // unlimited
-    if (rRem >= rz.cnt) {
-      rktRemaining[rz.supplyKey] = rRem - rz.cnt;
-    } else {
-      rz.countEl.classList.add('ammo-warn');
-      rz.typeEl.classList.add('ammo-warn');
-    }
-  }
-
-  // Cannon
-  if (cannonEl) {
-    var cannonDemand = parseInt(cannonEl.value || '0', 10) || 0;
-    var cAvail = available['M230'];
-    if (typeof cAvail === 'number' && cAvail >= 0 && cannonDemand > cAvail) {
-      cannonEl.classList.add('ammo-warn');
-    }
-  }
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 function updateWeightsAndPerformance() {
@@ -4125,7 +4128,6 @@ function initHellfireCyclers() {
       setData(cycleBtn, 'index', nextIndex);
       cycleBtn.textContent = nextCode === '' ? '-' : nextCode;
       selectEl.value = hellfireCodeMap[nextCode];
-      railSelectionSeq[selectEl.id] = ++selectionSeq;
       syncSilhouette();
       updateWeightsAndPerformance();
     });
@@ -4291,15 +4293,11 @@ for (var i = 1; i <= 4; i++) {
 eachNode('[id$="_count"]', function(inputEl) {
   inputEl.addEventListener('input', function() {
     sanitizeZoneInput(inputEl);
-    var zKey = (inputEl.id || '').replace(/_count$/, '');
-    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncSilhouette();
     updateWeightsAndPerformance();
   });
   inputEl.addEventListener('blur', function() {
     sanitizeZoneInput(inputEl);
-    var zKey = (inputEl.id || '').replace(/_count$/, '');
-    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncSilhouette();
     updateWeightsAndPerformance();
   });
@@ -4315,8 +4313,6 @@ eachNode('.rail-ammo', function(selectEl) {
 
 eachNode('.zone-type select', function(selectEl) {
   selectEl.addEventListener('change', function() {
-    var zKey = (selectEl.id || '').replace(/_type$/, '');
-    if (zKey) { zoneSelectionSeq[zKey] = ++selectionSeq; }
     syncMatchingRocketZoneTypes(selectEl);
     var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
     if (changedMatch && String(selectEl.value || '').trim() === '') {
@@ -4373,16 +4369,6 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
   var tailNum = state.tailNum !== undefined ? state.tailNum : '';
   var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
   var cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
-  // Cap cannon at available supply
-  if (fzaMplanner_ammoLimits && fzaMplanner_ammoLimits.enabled && fzaMplanner_ammoLimits.ammo) {
-    for (var ci = 0; ci < fzaMplanner_ammoLimits.ammo.length; ci++) {
-      if (fzaMplanner_ammoLimits.ammo[ci].key === 'M230') {
-        var m230Avail = fzaMplanner_ammoLimits.ammo[ci].count;
-        if (typeof m230Avail === 'number' && m230Avail >= 0) { cannonRds = Math.min(cannonRds, m230Avail); }
-        break;
-      }
-    }
-  }
   var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
   callSQF(code);
 });

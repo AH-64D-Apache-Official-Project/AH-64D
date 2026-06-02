@@ -66,29 +66,13 @@ _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
-    // Block ACE rearm truck interactions and ACE pylons "Configure Pylons" dialog.
-    // Rearming is exclusively handled through the Mission Planner.
-    _heli setVariable ["ace_rearm_disabled", true, true];
-    if (!isNil "ace_interact_menu_fnc_removeActionFromClass") then {
-        [typeOf _heli, 0, ["ACE_MainActions", "ace_pylons_loadoutAction"]] call ace_interact_menu_fnc_removeActionFromClass;
+if (!isNil "ace_interact_menu_fnc_removeActionFromClass") then {
+    if (isNil "fza_mplanner_pylonRemoveDone") then { fza_mplanner_pylonRemoveDone = []; };
+    private _typeStr = typeOf _heli;
+    if (!(_typeStr in fza_mplanner_pylonRemoveDone)) then {
+        fza_mplanner_pylonRemoveDone pushBack _typeStr;
+        [_typeStr, 0, ["ACE_MainActions", "ace_pylons_loadoutAction"]] call ace_interact_menu_fnc_removeActionFromClass;
     };
-if (isNil { _heli getVariable "fza_ah64_mplanner_debugAction" }) then {
-    private _debugActionId = _heli addAction [
-        "<t color='#aaffaa'>Mission Planner (DEBUG)</t>",
-        {
-            params ["_target", "_caller", "_actionId", "_arguments"];
-            if (!isNull _caller && {player == _caller}) then {
-                [_target] call fza_mplanner_fnc_open;
-            };
-        },
-        nil,
-        1.5,
-        true,
-        true,
-        "",
-        "alive _target && {vehicle player != _target}"
-    ];
-    _heli setVariable ["fza_ah64_mplanner_debugAction", _debugActionId, true];
 };
 
 if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
