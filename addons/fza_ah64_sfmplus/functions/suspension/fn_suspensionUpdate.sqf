@@ -243,10 +243,15 @@ if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > -0.5} >
     // (multiplier = 0.10 per frame) already damps PhysX-injected pitch noise on its own.
     // Bank correction is kept: roll stability is still desirable in casual mode.
     private _pitchCorr = if (fza_ah64_sfmplusRealismSetting != REALISTIC) then {0.0} else {(_pitch * 0.01745) * 10.0};
+    // Yaw damping: 3.0 when parked (brake on) to resist PhysX spin-up.
+    // 1.5 when taxiing (brake off) — at K=3.0 the damper removes ~324 N·m·s/frame at
+    // typical pedal-turn rates, far exceeding tail rotor authority and halving turn speed.
+    // K=1.5 drops that to ~162 N·m·s, roughly doubling pedal-turn agility.
+    private _yawDampK = if (_heli getVariable ["fza_ah64_toggleParkingBrake", true]) then {3.0} else {1.5};
     _heli setAngularVelocity (_heli vectorModelToWorld [
         (_angVelModel select 0) * (1.0 - (_dt * 25.0)) + _pitchCorr,
         (_angVelModel select 1) * (1.0 - (_dt * 25.0)) - (_bank  * 0.01745) * 10.0,
-        (_angVelModel select 2) * (1.0 - (_dt *  3.0))
+        (_angVelModel select 2) * (1.0 - (_dt * _yawDampK))
     ]);
     diag_log format ["AngDamp | RollRate: %1 PitchRate: %2 | Pitch: %3 Bank: %4",
         (_angVelModel select 1) toFixed 4, (_angVelModel select 0) toFixed 4,
