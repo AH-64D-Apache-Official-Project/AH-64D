@@ -16,17 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-/*
-params ["_heli"];
-
-//_heli enableSimulation false;
-
-systemChat format ["v2.43"];
-//heli----index----suspensionPos----wheelPosComp----wheelPosNonComp----wheelRadius
-[_heli, 0, [ 0.75, 3.12,-1.22], [ 0.25, 0.00,-1.50], [0.25, 0.00,-1.72], 0.37] call fza_sfmplus_fnc_suspension;
-[_heli, 1, [-0.75, 3.12,-1.22], [-0.25, 0.00,-1.50], [0.25, 0.00,-1.72], 0.37] call fza_sfmplus_fnc_suspension;
-[_heli, 2, [ 0.00,-7.40,-2.45], [ 0.00, 0.00,-0.37], [0.00, 0.00,-0.52], 0.18] call fza_sfmplus_fnc_suspension;
-*/
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 params ["_heli"];
 
@@ -73,9 +63,10 @@ if (_groundFrozen) then {
         _heli setVelocity        [0.0, 0.0, 0.0];
         _heli setAngularVelocity [0.0, 0.0, 0.0];
         _heli setVariable ["fza_sfmplus_groundFrozen", false, true];
-        // Settled flags are intentionally preserved — wheels re-enter settled mode immediately,
-        // using frozen K/C. This prevents getCenterOfMass noise from re-triggering bounce.
-        // The airborne branch in fn_suspensionWheel resets settled when wheels fully leave ground.
+        // Settled flags preserved — spring resumes immediately in settled mode (locked K/C).
+        // Reset prevSuspDist to equilibrium so the first resumed frame sees springVel ≈ 0
+        // and the damper is silent (stale pre-freeze dist ≈ 0.20 m would otherwise spike it).
+        _heli setVariable ["fza_sfmplus_wheelPrevSuspDistance", [0.0, 0.0, 0.0], false];
         diag_log format ["GroundFreeze RELEASED | collective: %1", _collective toFixed 3];
         // Fall through — normal physics resumes this frame.
     } else {
@@ -86,20 +77,48 @@ if (_groundFrozen) then {
         _heli setAngularVelocity [0.0, 0.0, 0.0];
     };
 } else {
-    // Not frozen yet — check if all three wheels have settled AND collective is at idle.
-    // Requiring collective < 0.10 provides hysteresis: once released at 0.20 the freeze
-    // cannot re-latch until the pilot has lowered collective back to near-idle.
+    // Not frozen yet — check if front wheels have settled AND collective is at idle.
+    // Tail wheel (2) excluded: its 7.4 m lever arm makes it slave to pitch oscillation;
+    // front-wheel settle is sufficient to eliminate getCenterOfMass noise forcing.
     private _settled      = _heli getVariable "fza_sfmplus_wheelSettled";
     private _collective   = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
     private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
-    if ((_settled select 0) && (_settled select 1) && (_settled select 2) && (_collective < 0.10) && _parkingBrake && (vectorMagnitude (velocity _heli) < 0.3)) then {
+    if ((_settled select 0) && (_settled select 1) && (_collective < 0.10) && _parkingBrake) then {
+        // Compute terrain contact point under each wheel.
+        // prevSuspDistance[i] = compression (positive = underground). Adding it to the
+        // current contact-point world Z gives the terrain Z at that wheel.
+        // max 0.0: if wheel is above terrain, treat terrain as being at contact level.
+        private _dists = _heli getVariable "fza_sfmplus_wheelPrevSuspDistance";
+        // Contact points in model space = wheel centre + [0,0,-radius]
+        private _t0 = (_heli modelToWorldWorld [1.09, 3.13, -3.01]) vectorAdd [0, 0, ((_dists select 0) max 0.0)];
+        private _t1 = (_heli modelToWorldWorld [-1.09, 3.13, -3.01]) vectorAdd [0, 0, ((_dists select 1) max 0.0)];
+        private _t2 = (_heli modelToWorldWorld [0.00, -7.39, -3.00]) vectorAdd [0, 0, ((_dists select 2) max 0.0)];
+        private _tPts = [_t0, _t1, _t2];
+
+        // Fit a plane to the three terrain contact points for the correct resting attitude.
+        private _n = vectorNormalized (((_tPts select 1) vectorDiff (_tPts select 0)) vectorCrossProduct ((_tPts select 2) vectorDiff (_tPts select 0)));
+        if ((_n select 2) < 0) then { _n = [0,0,0] vectorDiff _n; };
+
+        // Align aircraft: up = terrain normal, forward = heading projected onto terrain plane.
+        private _dir    = vectorDir _heli;
+        private _newDir = vectorNormalized (_dir vectorDiff (_n vectorMultiply (_dir vectorDotProduct _n)));
+        _heli setVectorDirAndUp [_newDir, _n];
+
+        // Translate so the average wheel contact point lands on the average terrain surface.
+        // _avgC is the model-space average of the three wheel contact points (pos + [0,0,-radius]).
+        private _avgC = [0.00, -0.377, -3.007];
+        private _avgT = ((_tPts select 0) vectorAdd (_tPts select 1) vectorAdd (_tPts select 2)) vectorMultiply (1.0/3.0);
+        private _dZ   = (_avgT select 2) - ((_heli modelToWorldWorld _avgC) select 2);
+        private _p    = getPosASL _heli;
+        _heli setPosASL [_p select 0, _p select 1, (_p select 2) + _dZ];
+
+        _heli setVelocity        [0.0, 0.0, 0.0];
+        _heli setAngularVelocity [0.0, 0.0, 0.0];
         _heli setVariable ["fza_sfmplus_groundFrozenPos", getPosASL _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenDir", vectorDir _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenUp",  vectorUp  _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozen",    true,            true];
-        _heli setVelocity        [0.0, 0.0, 0.0];
-        _heli setAngularVelocity [0.0, 0.0, 0.0];
-        diag_log "GroundFreeze ACTIVATED";
+        diag_log format ["GroundFreeze ACTIVATED | dZ: %1 m | terrainNormal: %2", _dZ toFixed 3, _n];
     };
 };
 
@@ -113,15 +132,18 @@ private _g         = 9.81;
 
 // Wheel positions (model space coordinates)
 private _wheelPositions = [
-    [ 1.09,  3.39, -2.98],   // Wheel 0 (right front)
-    [-1.09,  3.39, -2.98],   // Wheel 1 (left front)
-    [ 0.00, -7.31, -3.13]    // Wheel 2 (tail)
+    [ 1.09,  3.13, -2.70],   // Wheel 0 (right front)
+    [-1.09,  3.13, -2.70],   // Wheel 1 (left front)
+    [ 0.00, -7.39, -2.84]    // Wheel 2 (tail)
 ];
 
 // Calculate dynamic damper constants based on load distribution
 // Using formula: c = ζ * 2 * sqrt(m * k)
 // Where ζ is target damping ratio (0.45 = slightly underdamped for responsive settling)
-private _dampingRatio = 2.5; // Overdamped to reduce differential spring excitation of roll mode
+// ζ=1.5: still overdamped (no oscillation) but damper C is 40% lower than ζ=2.5.
+// ζ=2.5 made liftoff impossible at normal collective: the damper's downward impulse
+// when rising from compressed contact exceeded what the rotor+spring could overcome.
+private _dampingRatio = 1.5;
 
 // Calculate moment arms and wheel loads
 // Front wheel span (Y coordinate distance)
@@ -215,11 +237,14 @@ if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > -0.5} >
     private _angVelModel = _heli vectorWorldToModel (angularVelocity _heli);
     private _pitch = asin  ((vectorDir _heli) select 2);          // +ve = nose up  (deg)
     private _bank  = asin (-((vectorUp  _heli) select 0));        // +ve = bank left (deg)
-    // Attitude correction: K=10 gives ~0.087 rad/s restoring force at 0.5° — enough to
-    // overcome PhysX-injected roll (~0.02 rad/s) while K×dt_max = 0.33 < 1 (stable).
-    // On sloped terrain, spring torques dominate and still find the correct equilibrium.
+    // Casual mode: remove the pitch attitude correction entirely.  The correction peak is
+    // ~0.22 rad/s at -2.5° — large enough to prevent the pilot from holding -5° nose-down
+    // for rolling takeoff regardless of scaling attempts.  The 25× angular velocity decay
+    // (multiplier = 0.10 per frame) already damps PhysX-injected pitch noise on its own.
+    // Bank correction is kept: roll stability is still desirable in casual mode.
+    private _pitchCorr = if (fza_ah64_sfmplusRealismSetting != REALISTIC) then {0.0} else {(_pitch * 0.01745) * 10.0};
     _heli setAngularVelocity (_heli vectorModelToWorld [
-        (_angVelModel select 0) * (1.0 - (_dt * 25.0)) + (_pitch * 0.01745) * 10.0,
+        (_angVelModel select 0) * (1.0 - (_dt * 25.0)) + _pitchCorr,
         (_angVelModel select 1) * (1.0 - (_dt * 25.0)) - (_bank  * 0.01745) * 10.0,
         (_angVelModel select 2) * (1.0 - (_dt *  3.0))
     ]);

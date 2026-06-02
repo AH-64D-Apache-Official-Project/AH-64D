@@ -314,10 +314,10 @@ private _tqRoCTable =
 private _RoCScalar       = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 private _climbThrust     = _baseThrust * _RoCScalar;
 private _tipLossScalar   = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
-private _totThrust       = (_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar;
+private _totThrust       = ((_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar) * _deltaTime;
 if ([_totThrust] call fza_sfmplus_fnc_isNAN || [_totThrust] call fza_sfmplus_fnc_isINF) then { _totThrust = 0.0; };
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
-private _thrustZ         = _axisZ vectorMultiply (_totThrust * _deltaTime);
+private _thrustZ         = _axisZ vectorMultiply (_totThrust);
 private _inducedVelocity = sqrt(_totThrust / (2 * _dryAirDensity * _rtrArea));
 if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza_sfmplus_fnc_isINF) then { _inducedVelocity = 0.0; };
 _heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
@@ -355,7 +355,25 @@ _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
 _pitchInput               = [_pitchInput, -_retBladeStallVal, 1.0] call BIS_fnc_clamp;
-private _torqueX          = (_pitchTorque * (_pitchInput - _retBladeStallInput)) * _deltaTime; 
+
+// Casual pitch assist — applies only when _pitchInput < 0 (forward/nose-down):
+//   Ground limit  : -5°  (1° soft stop).
+//   Airborne limit: -10° (1° soft stop), fades to no limit as speed reaches 50 kts.
+// Uses a smooth ground-contact FRACTION (0–3 wheels / 3) instead of a binary flag so
+// the limit blends continuously as wheels lift off — no discrete flip, no oscillation.
+if (fza_ah64_sfmplusRealismSetting != REALISTIC && _pitchInput < 0.0) then {
+    private _curPitchDeg = (asin ((vectorDir _heli) select 2)) / 0.01745;
+    private _dists       = _heli getVariable "fza_sfmplus_wheelPrevSuspDistance";
+    private _groundFrac  = ({ _x > -0.5 } count _dists) / 3.0;
+    private _speedFrac   = (_velXYNoWind / 25.72) min 1.0;
+
+    private _groundTaper  = linearConversion [-5.0,  -4.0, _curPitchDeg, 0.0, 1.0, true];
+    private _airborneTaper = _speedFrac + (1.0 - _speedFrac) * (linearConversion [-10.0, -9.0, _curPitchDeg, 0.0, 1.0, true]);
+
+    _pitchInput = _pitchInput * (_groundFrac * _groundTaper + (1.0 - _groundFrac) * _airborneTaper);
+};
+
+private _torqueX          = (_pitchTorque * (_pitchInput - _retBladeStallInput)) * _deltaTime;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,12 +394,16 @@ private _torqueZ         = _rtrTorque * _rtrTorqueScalar * _deltaTime;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Rotor Forces         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
+private _thrustY = _axisY vectorMultiply (_totThrust * _pitchInput);
+
 if (currentPilot _heli == player) then {
     private _mainRtrDamage = _heli getHitPointDamage "HitHRotor";
 
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
-        if ([vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isINF) then { _thrustZ = [0.0, 0.0, 0.0]; };
+        if ([vectorMagnitude _thrustY] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustY] call fza_sfmplus_fnc_isINF) then { _thrustZ = [0.0, 0.0, 0.0]; };
+        _heli addForce  [_heli vectorModelToWorld _thrustY, _rtrPos];
+        //systemChat format ["_thrustY = %1", _thrustY];
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
 
         //Main rotor torque

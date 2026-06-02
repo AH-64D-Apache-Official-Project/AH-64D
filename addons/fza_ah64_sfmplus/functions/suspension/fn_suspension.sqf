@@ -25,7 +25,7 @@ Author:
 
 params ["_heli", "_index", "_suspensionPos", "_wheelPosComp", "_wheelPosNonComp", "_wheelRadius"];
 
-private _grossWeightInKg      = 8006; // 17650 lbs
+private _grossWeightInKg      = getMass _heli; // 17650 lbs
 private _numWheels            = 3;
 private _staticSagRatio       = 0.6;
 private _criticalDampingRatio = 1.2;

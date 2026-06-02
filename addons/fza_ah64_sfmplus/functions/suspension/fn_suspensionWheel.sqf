@@ -1,21 +1,6 @@
 
 
 
-/*
-params ["_heli", "_wheelPos", "_wheelRadius", "_axis"];
-
-private _axisX = [1.0, 0.0, 0.0];
-private _axisY = [0.0, 1.0, 0.0];
-private _axisZ = [0.0, 0.0, 1.0];
-
-#ifdef __A3_DEBUG__
-[_heli, _wheelPos, _wheelPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
-[_heli, _wheelPos, _wheelPos vectorAdd _axisY, "green"] call fza_fnc_debugDrawLine;
-[_heli, _wheelPos, _wheelPos vectorAdd _axisZ, "blue"]  call fza_fnc_debugDrawLine;
-[_heli, 24, _wheelPos, _wheelRadius, _axis, "white"]    call fza_fnc_debugDrawCircle;
-#endif
-*/
-
 params ["_heli", "_num", "_pos", "_radius", "_springConstant", "_damperConstant", "_x_eq", "_frameCount"];
 
 if (_heli getVariable ["fza_sfmplus_suspensionDisabled", false]) exitWith {};
@@ -40,7 +25,9 @@ private _posASL             = _heli modelToWorldWorld (_pos vectorAdd [0.0, 0.0,
 // Ghost zone of 0.25 m keeps wheels in the ray-hit branch during tiny bounces and covers the
 // ~0.18 m natural tail clearance when front wheels sit at Dist=0 on flat ground.
 // Without it, the tail exits the contact branch → -1.0 sentinel → large vel spike on re-entry.
-private _rayCastArray = lineIntersectsSurfaces [_posASL, _posASL vectorAdd [0.0, 0.0, -(_strutHeight + 0.25)], _heli, objNull, true, 1, "GEOM"];
+// Ghost zone extended to 0.50 m so the spring tapers over 0.50 m of rise rather
+// than disappearing abruptly at 0.25 m, which caused a hard vertical bob on liftoff.
+private _rayCastArray = lineIntersectsSurfaces [_posASL, _posASL vectorAdd [0.0, 0.0, -(_strutHeight + 0.50)], _heli, objNull, true, 1, "GEOM"];
 
 if (count _rayCastArray > 0) then {
     _heightOfTerrain    = (_rayCastArray select 0 select 0) select 2;
@@ -51,6 +38,15 @@ if (count _rayCastArray > 0) then {
     // At curSuspDist > 0: spring = K×(pos+x_eq) > gravity → net upward → aircraft rises to 0.
     // Both sides push toward curSuspDist = 0, making the equilibrium fully stable.
     private _effectiveDist = _curSuspDist;
+
+    // Scale spring and damper forces by the wheel's residual load fraction.
+    // At hover power the rotor carries most of the aircraft weight; full spring force on top of
+    // rotor lift causes violent overshoot on any terrain contact (spring + rotor >> gravity).
+    // (1 - collective) ≈ the fraction of weight still on the wheels, so the spring only supplies
+    // the residual support not already provided by the rotor.  At engines-off (collective = 0)
+    // loadScale = 1.0 and the spring behaves exactly as before.
+    private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+    private _loadScale  = (1.0 - _collective) max 0.0;
 
     private _springVel  = 0.0;
     private _damperForce = 0.0;
@@ -72,10 +68,17 @@ if (count _rayCastArray > 0) then {
             // eliminate per-frame getCenterOfMass noise (±15% spikes) that otherwise continuously
             // perturbs forces and prevents the settle timer from holding.  Live compression is kept
             // so roll/pitch tilts still produce corrective spring forces.
-            _springForce = (_settledK * (_effectiveDist + _x_eq)) * _deltaTime;
-            _damperForce = (_settledC * _springVel)               * _deltaTime;
+            _springForce = (_settledK * (_effectiveDist + _x_eq)) * _deltaTime * _loadScale;
+            _damperForce = (_settledC * _springVel)               * _deltaTime * _loadScale;
             private _totalForce = _springForce + _damperForce;
-            if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };  // prevent downward pull in ghost zone
+            if (_effectiveDist <= 0.0) then {
+                // Ghost zone: spring only, tapered linearly to 0 at the -0.50 m boundary.
+                // Without the taper the spring still carries ~50% of equilibrium force at the
+                // boundary edge; when the raycast loses contact, that force vanishes instantly
+                // causing the vertical bob on liftoff.
+                private _gzTaper = (1.0 + _effectiveDist / 0.50) max 0.0;
+                _totalForce = (_springForce * _gzTaper) max 0.0;
+            };
             _heli addForce [[0, 0, _totalForce], _pos];
         } else {
             // Disturbance detected OR not yet settled — run full spring-damper.
@@ -87,20 +90,33 @@ if (count _rayCastArray > 0) then {
                 diag_log format ["Wheel %1 - UNSETTLED | vel: %2", _num, _springVel toFixed 3];
             };
 
-            _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime;
-            _damperForce = (_damperConstant * _springVel)              * _deltaTime;
+            _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime * _loadScale;
+            _damperForce = (_damperConstant * _springVel)              * _deltaTime * _loadScale;
 
-            // Suppress the damper whenever prevSuspDist is not a real compression reading:
-            //   frame 0  → init value 0.0 is meaningless
-            //   re-contact after airborne → sentinel -1.0 makes vel = (dist+1)/dt ≈ 50 m/s
-            // In both cases the velocity is garbage; only the spring fires this frame.
-            // The damper picks up on the very next frame with a real prevSuspDist.
+            // Suppress the damper whenever prevSuspDist is not a trustworthy compression reading:
+            //   frame 0        → init value 0.0 is meaningless
+            //   airborne       → sentinel -1.0 makes vel = (dist+1)/dt ≈ 50 m/s (garbage)
+            //   ghost zone     → prevSuspDist < 0 means the previous frame was in the ghost zone.
+            //                    The velocity is real but the damper at clamped springVel (3 m/s)
+            //                    creates a 2000+ N·s spike that, combined with rotor lift, launches
+            //                    the aircraft upward and sustains the bounce cycle.
+            // In all three cases only the spring fires this frame; damper picks up next frame.
+            // Suppress damper only when prev dist is the -1.0 airborne sentinel.
+            // Ghost-zone values (negative but > -0.5) are valid readings — the damper
+            // must fire on ghost-zone→contact re-entry or the wheel bounces without
+            // energy absorption.
             if (_frameCount == 0 || _prevSuspDist < -0.5) then { _damperForce = 0.0; };
 
-            // Clamp total force to non-negative to prevent the damper from creating
-            // a net downward pull when the spring is in the ghost zone (effectiveDist < 0).
+            // Ghost zone (effectiveDist ≤ 0): apply spring force only, exclude the damper.
+            // Spring force in the ghost zone is always < gravity (by design), so it can never
+            // launch the aircraft upward on its own — the net vertical force stays ≤ 0 aside from
+            // rotor lift, which is the correct physics.  Including the damper here allows it to
+            // add its full impulse on top of rotor lift and exceed gravity, causing the bounce.
             private _totalForce = _springForce + _damperForce;
-            if (_effectiveDist <= 0.0) then { _totalForce = _totalForce max 0.0; };
+            if (_effectiveDist <= 0.0) then {
+                private _gzTaper = (1.0 + _effectiveDist / 0.50) max 0.0;
+                _totalForce = (_springForce * _gzTaper) max 0.0;
+            };
 
             _heli addForce [[0, 0, _totalForce], _pos];
 
@@ -108,11 +124,13 @@ if (count _rayCastArray > 0) then {
                 _num, _curSuspDist toFixed 3, _springForce toFixed 0, _damperForce toFixed 0,
                 _springVel toFixed 3, _frameCount, _settleTime toFixed 2];
 
-            // Accumulate settle time while spring velocity is below 0.12 m/s.
-            // 0.12 tolerates getCenterOfMass noise spikes (~0.07-0.10 m/s) without false resets.
-            if (abs _springVel < 0.12) then {
+            // Accumulate settle time while spring velocity is low.
+            // 0.50 m/s is loose enough to accumulate across the pitch oscillation that
+            // getCenterOfMass noise drives; once K/C locks the excitation ends naturally.
+            // 0.10 s at typical frame rates requires only 2–3 consecutive quiet frames.
+            if (abs _springVel < 0.50) then {
                 _settleTime = _settleTime + _deltaTime;
-                if (_settleTime >= 0.3) then {
+                if (_settleTime >= 0.10) then {
                     [_heli, "fza_sfmplus_wheelSettled",  _num, true,            true] call fza_fnc_setArrayVariable;
                     [_heli, "fza_sfmplus_wheelSettledK", _num, _springConstant, true] call fza_fnc_setArrayVariable;
                     [_heli, "fza_sfmplus_wheelSettledC", _num, _damperConstant, true] call fza_fnc_setArrayVariable;
@@ -136,20 +154,37 @@ if (count _rayCastArray > 0) then {
     private _contactVelY = (_velLocal select 1) - (_oz * _px);  // longitudinal
 
     // Lateral and longitudinal friction applied independently so each axis can carry a different μ.
-    // Lateral   (μ=0.8):  always active — prevents sideways sliding and spin-out.
+    //
+    // Lateral (μ=0.4): prevents sideways sliding. Kept below the theoretical 0.8 because full 0.8
+    //   creates large roll torques (force × wheel-height-below-CG) that excite roll oscillation
+    //   during forward motion faster than the angular damper can suppress.
+    //
     // Longitudinal:
-    //   Parking brake ON  → full braking  (μ=0.8) to decelerate during landing roll-out.
-    //   Parking brake OFF → rolling resistance (μ=0.03) so the aircraft slows naturally after
-    //                       touchdown and can be taxied forward under rotor thrust.
-    // Per-axis clamp at 1/3 of stopping impulse — 3 wheels together can stop the CG in one frame
+    //   Wheel 2 (tail) is a castering wheel — it swivels freely with heading changes.
+    //   Applying longitudinal friction here causes tail drag on pedal turns, so it is always zero.
+    //   Front wheels: parking brake ON → full braking (μ=0.8) for landing roll-out;
+    //                 parking brake OFF → rolling resistance (μ=0.05) so the aircraft decelerates
+    //                 naturally after touchdown while still allowing taxi under rotor thrust.
+    //   Note: _normalForce = _springForce, which already reflects reduced wheel load when the rotor
+    //   is generating lift, so rolling resistance automatically drops during taxi power settings.
+    //
+    // Per-axis clamp at 1/3 of stopping impulse — 3 wheels together stop the CG in one frame
     // without sign-flip overshoot.
     private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
     private _mass         = getMass _heli;
     private _normalForce  = _springForce;
-    private _longMu = if (_parkingBrake) then {0.8} else {0.03};
+    // µ=0.01 (not 0.05) when taxiing: the wheel X-offset from the yaw axis means
+    // longitudinal friction produces a yaw-opposing torque during in-place pedal turns.
+    // 0.01 provides minimal rolling resistance while not significantly impeding yaw.
+    private _longMu = if (_num == 2) then {0.0} else {if (_parkingBrake) then {0.8} else {0.01}};
+    // Tail: castering wheel, zero lateral resistance.
+    // Front parked: µ=0.4 prevents sideways drift.
+    // Front taxi (parking brake off): µ=0 — in-place pedal turns require the front wheels
+    // to slide freely laterally.  Forward path is still controlled by _longMu rolling friction.
+    private _latMu  = if (_num == 2) then {0.0} else {if (_parkingBrake) then {0.4} else {0.0}};
 
-    if (abs _contactVelX > 0.01) then {
-        private _latForce = (_normalForce * 0.8) min (_mass * (abs _contactVelX) / 3.0);
+    if (_latMu > 0.0 && abs _contactVelX > 0.01) then {
+        private _latForce = (_normalForce * _latMu) min (_mass * (abs _contactVelX) / 3.0);
         _heli addForce [_heli vectorModelToWorld [(if (_contactVelX > 0) then {-_latForce} else {_latForce}), 0.0, 0.0], _pos];
     };
     if (abs _contactVelY > 0.01) then {
