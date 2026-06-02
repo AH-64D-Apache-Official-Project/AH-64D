@@ -63,11 +63,17 @@ if (_groundFrozen) then {
         _heli setVelocity        [0.0, 0.0, 0.0];
         _heli setAngularVelocity [0.0, 0.0, 0.0];
         _heli setVariable ["fza_sfmplus_groundFrozen", false, true];
-        // Settled flags preserved — spring resumes immediately in settled mode (locked K/C).
-        // Reset prevSuspDist to equilibrium so the first resumed frame sees springVel ≈ 0
-        // and the damper is silent (stale pre-freeze dist ≈ 0.20 m would otherwise spike it).
-        _heli setVariable ["fza_sfmplus_wheelPrevSuspDistance", [0.0, 0.0, 0.0], false];
-        diag_log format ["GroundFreeze RELEASED | collective: %1", _collective toFixed 3];
+        // Collective release: reset prevSuspDist to 0 — aircraft is leaving the ground
+        // and the pre-freeze compression values are no longer representative.
+        // Parking-brake release: retain pre-freeze prevSuspDist so the first resumed frame
+        // sees springVel ≈ (settled_dist - settled_dist) / dt ≈ 0, keeping the wheels in
+        // settled mode and preventing vertical bob on taxi.
+        // (Resetting to 0 here caused vel = settled_dist / dt ≈ -3 m/s, which exceeded the
+        // 1.5 m/s unsettled threshold and drove the spring-damper into oscillation.)
+        if (_collective >= 0.20) then {
+            _heli setVariable ["fza_sfmplus_wheelPrevSuspDistance", [0.0, 0.0, 0.0], false];
+        };
+        diag_log format ["GroundFreeze RELEASED | collective: %1 | parkingBrake: %2", _collective toFixed 3, _parkingBrake];
         // Fall through — normal physics resumes this frame.
     } else {
         // Maintain lock: override PhysX and skip all spring/damper math.

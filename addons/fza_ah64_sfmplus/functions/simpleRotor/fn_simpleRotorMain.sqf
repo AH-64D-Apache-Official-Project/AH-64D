@@ -394,7 +394,10 @@ private _torqueZ         = _rtrTorque * _rtrTorqueScalar * _deltaTime;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Rotor Forces         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _thrustY = _axisY vectorMultiply (_totThrust * _pitchInput);
+// Wash out forward thrust over 0–40 knots (0–20.58 m/s): full at 0 kts for ground
+// taxi, zero at 40 kts so it doesn't interfere with airborne flight model.
+private _fwdThrustWashOut = linearConversion [0.0, 20.58, _velXYNoWind, 1.0, 0.0, true];
+private _thrustY = _axisY vectorMultiply (_totThrust * _pitchInput * _fwdThrustWashOut);
 
 if (currentPilot _heli == player) then {
     private _mainRtrDamage = _heli getHitPointDamage "HitHRotor";
