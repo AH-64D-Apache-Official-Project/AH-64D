@@ -33,6 +33,10 @@ if (count _rayCastArray > 0) then {
     _heightOfTerrain    = (_rayCastArray select 0 select 0) select 2;
     _heightAboveTerrain = (_posASL select 2) - _heightOfTerrain;
     _curSuspDist = _strutHeight - _heightAboveTerrain;
+    // Cap at physical strut travel: the wheel cannot compress beyond its own diameter.
+    // Prevents runaway spring force when terrain geometry pushes the contact point
+    // deeper than the strut can physically reach (e.g. one wheel on a steep slope).
+    _curSuspDist = _curSuspDist min _strutHeight;
     // effectiveDist = curSuspDist (allowed to be negative in the ghost zone).
     // At curSuspDist < 0: spring = K×(neg+x_eq) < gravity → net downward → aircraft descends to 0.
     // At curSuspDist > 0: spring = K×(pos+x_eq) > gravity → net upward → aircraft rises to 0.
@@ -93,18 +97,7 @@ if (count _rayCastArray > 0) then {
             _springForce = (_springConstant * (_effectiveDist + _x_eq)) * _deltaTime * _loadScale;
             _damperForce = (_damperConstant * _springVel)              * _deltaTime * _loadScale;
 
-            // Suppress the damper whenever prevSuspDist is not a trustworthy compression reading:
-            //   frame 0        → init value 0.0 is meaningless
-            //   airborne       → sentinel -1.0 makes vel = (dist+1)/dt ≈ 50 m/s (garbage)
-            //   ghost zone     → prevSuspDist < 0 means the previous frame was in the ghost zone.
-            //                    The velocity is real but the damper at clamped springVel (3 m/s)
-            //                    creates a 2000+ N·s spike that, combined with rotor lift, launches
-            //                    the aircraft upward and sustains the bounce cycle.
-            // In all three cases only the spring fires this frame; damper picks up next frame.
-            // Suppress damper only when prev dist is the -1.0 airborne sentinel.
-            // Ghost-zone values (negative but > -0.5) are valid readings — the damper
-            // must fire on ghost-zone→contact re-entry or the wheel bounces without
-            // energy absorption.
+            // Suppress the damper whenever prevSuspDist is not a trustworthy reading.
             if (_frameCount == 0 || _prevSuspDist < -0.5) then { _damperForce = 0.0; };
 
             // Ghost zone (effectiveDist ≤ 0): apply spring force only, exclude the damper.

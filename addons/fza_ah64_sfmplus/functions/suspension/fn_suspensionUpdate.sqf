@@ -228,9 +228,26 @@ if ((_heli getVariable "fza_sfmplus_wheelPrevSuspDistance") findIf {_x > -0.5} >
     // typical pedal-turn rates, far exceeding tail rotor authority and halving turn speed.
     // K=1.5 drops that to ~162 N·m·s, roughly doubling pedal-turn agility.
     private _yawDampK = if (_heli getVariable ["fza_ah64_toggleParkingBrake", true]) then {3.0} else {1.5};
+    // While wheels are in contact but not yet settled, clamp roll and pitch rates hard.
+    // Asymmetric spring forces on a slope (one wheel compressed, opposite in ghost zone)
+    // can add more roll rate per frame than the 25× decay removes, causing roll-over before
+    // the springs find equilibrium. Hard-clamp keeps the aircraft stable during this window.
+    private _settled = _heli getVariable "fza_sfmplus_wheelSettled";
+    private _anySettled = (_settled select 0) || (_settled select 1) || (_settled select 2);
+    private _rollRate  = (_angVelModel select 1);
+    private _pitchRate = (_angVelModel select 0);
+    if (!_anySettled) then {
+        _rollRate  = _rollRate  * (1.0 - (_dt * 25.0));
+        _pitchRate = _pitchRate * (1.0 - (_dt * 25.0));
+        _rollRate  = [_rollRate,  -0.05, 0.05] call BIS_fnc_clamp;
+        _pitchRate = [_pitchRate, -0.05, 0.05] call BIS_fnc_clamp;
+    } else {
+        _rollRate  = _rollRate  * (1.0 - (_dt * 25.0));
+        _pitchRate = _pitchRate * (1.0 - (_dt * 25.0));
+    };
     _heli setAngularVelocity (_heli vectorModelToWorld [
-        (_angVelModel select 0) * (1.0 - (_dt * 25.0)) + _pitchCorr,
-        (_angVelModel select 1) * (1.0 - (_dt * 25.0)) - (_bank  * 0.01745) * 10.0,
+        _pitchRate + _pitchCorr,
+        _rollRate,
         (_angVelModel select 2) * (1.0 - (_dt * _yawDampK))
     ]);
     diag_log format ["AngDamp | RollRate: %1 PitchRate: %2 | Pitch: %3 Bank: %4",
