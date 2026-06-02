@@ -90,41 +90,15 @@ if (_groundFrozen) then {
     private _collective   = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
     private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
     if ((_settled select 0) && (_settled select 1) && (_collective < 0.10) && _parkingBrake) then {
-        // Compute terrain contact point under each wheel.
-        // prevSuspDistance[i] = compression (positive = underground). Adding it to the
-        // current contact-point world Z gives the terrain Z at that wheel.
-        // max 0.0: if wheel is above terrain, treat terrain as being at contact level.
-        private _dists = _heli getVariable "fza_sfmplus_wheelPrevSuspDistance";
-        // Contact points in model space = wheel centre + [0,0,-radius]
-        private _t0 = (_heli modelToWorldWorld [1.09, 3.13, -3.01]) vectorAdd [0, 0, ((_dists select 0) max 0.0)];
-        private _t1 = (_heli modelToWorldWorld [-1.09, 3.13, -3.01]) vectorAdd [0, 0, ((_dists select 1) max 0.0)];
-        private _t2 = (_heli modelToWorldWorld [0.00, -7.39, -3.00]) vectorAdd [0, 0, ((_dists select 2) max 0.0)];
-        private _tPts = [_t0, _t1, _t2];
-
-        // Fit a plane to the three terrain contact points for the correct resting attitude.
-        private _n = vectorNormalized (((_tPts select 1) vectorDiff (_tPts select 0)) vectorCrossProduct ((_tPts select 2) vectorDiff (_tPts select 0)));
-        if ((_n select 2) < 0) then { _n = [0,0,0] vectorDiff _n; };
-
-        // Align aircraft: up = terrain normal, forward = heading projected onto terrain plane.
-        private _dir    = vectorDir _heli;
-        private _newDir = vectorNormalized (_dir vectorDiff (_n vectorMultiply (_dir vectorDotProduct _n)));
-        _heli setVectorDirAndUp [_newDir, _n];
-
-        // Translate so the average wheel contact point lands on the average terrain surface.
-        // _avgC is the model-space average of the three wheel contact points (pos + [0,0,-radius]).
-        private _avgC = [0.00, -0.377, -3.007];
-        private _avgT = ((_tPts select 0) vectorAdd (_tPts select 1) vectorAdd (_tPts select 2)) vectorMultiply (1.0/3.0);
-        private _dZ   = (_avgT select 2) - ((_heli modelToWorldWorld _avgC) select 2);
-        private _p    = getPosASL _heli;
-        _heli setPosASL [_p select 0, _p select 1, (_p select 2) + _dZ];
-
+        // Lock the pose exactly as the spring system settled it — each wheel already
+        // found its own terrain contact via individual raycasts in fn_suspensionWheel.
         _heli setVelocity        [0.0, 0.0, 0.0];
         _heli setAngularVelocity [0.0, 0.0, 0.0];
         _heli setVariable ["fza_sfmplus_groundFrozenPos", getPosASL _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenDir", vectorDir _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozenUp",  vectorUp  _heli, true];
         _heli setVariable ["fza_sfmplus_groundFrozen",    true,            true];
-        diag_log format ["GroundFreeze ACTIVATED | dZ: %1 m | terrainNormal: %2", _dZ toFixed 3, _n];
+        diag_log format ["GroundFreeze ACTIVATED | pos: %1", getPosASL _heli];
     };
 };
 

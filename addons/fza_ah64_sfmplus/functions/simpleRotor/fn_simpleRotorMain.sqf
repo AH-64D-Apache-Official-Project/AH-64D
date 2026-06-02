@@ -314,10 +314,10 @@ private _tqRoCTable =
 private _RoCScalar       = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 private _climbThrust     = _baseThrust * _RoCScalar;
 private _tipLossScalar   = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
-private _totThrust       = ((_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar) * _deltaTime;
+private _totThrust       = (_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar;
 if ([_totThrust] call fza_sfmplus_fnc_isNAN || [_totThrust] call fza_sfmplus_fnc_isINF) then { _totThrust = 0.0; };
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
-private _thrustZ         = _axisZ vectorMultiply (_totThrust);
+private _thrustZ         = _axisZ vectorMultiply (_totThrust * _deltaTime);
 private _inducedVelocity = sqrt(_totThrust / (2 * _dryAirDensity * _rtrArea));
 if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza_sfmplus_fnc_isINF) then { _inducedVelocity = 0.0; };
 _heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
@@ -397,7 +397,7 @@ private _torqueZ         = _rtrTorque * _rtrTorqueScalar * _deltaTime;
 // Wash out forward thrust over 0–40 knots (0–20.58 m/s): full at 0 kts for ground
 // taxi, zero at 40 kts so it doesn't interfere with airborne flight model.
 private _fwdThrustWashOut = linearConversion [0.0, 20.58, _velXYNoWind, 1.0, 0.0, true];
-private _thrustY = _axisY vectorMultiply (_totThrust * _pitchInput * _fwdThrustWashOut);
+private _thrustY = _axisY vectorMultiply ((_totThrust * _deltaTime) * _pitchInput * _fwdThrustWashOut);
 
 if (currentPilot _heli == player) then {
     private _mainRtrDamage = _heli getHitPointDamage "HitHRotor";
