@@ -41,7 +41,8 @@ class UserActionGroups {
             "fza_ah64_tadsLHGLmc",
             "fza_ah64_stickyControlInterupt",
             "fza_ah64_forceTrimPanicButton",
-            "fza_ah64_collectiveEmergJett"
+            "fza_ah64_collectiveEmergJett",
+            "fza_ah64_toggleParkingBrake"
         };
     };
     class fza_ah64_cockpit {

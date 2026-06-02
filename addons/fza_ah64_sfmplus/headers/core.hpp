@@ -59,4 +59,8 @@
 
 #define CENTER_TRIM_VAL               0.05
 
+#define SUSPENSION_STIFFNESS   18000   // Spring constant  (N/m)   - tune per vehicle
+#define SUSPENSION_DAMPING      1200   // Damper constant  (N·s/m) - tune per vehicle
+#define SUSPENSION_MAX_FORCE   50000   // Force clamp      (N)     - prevents blow-up
+
 #endif

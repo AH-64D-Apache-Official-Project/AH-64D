@@ -4,6 +4,9 @@ params ["_heli"];
 
 if (isGamePaused || CBA_missionTime < 0.1) exitWith {};
 
+//Suspension
+[_heli] call fza_sfmplus_fnc_suspensionUpdate;
+
 //Main Rotor
 [_heli] call fza_sfmplus_fnc_simpleRotorMain;
 
