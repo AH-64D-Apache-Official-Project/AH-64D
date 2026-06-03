@@ -861,6 +861,7 @@ for (var i = 1; i <= 4; i++) {
     if (!select) return;
     setPylonMode(pylonIndex, select.value);
     select.addEventListener('change', function() {
+      g_pylonOrder['p' + pylonIndex] = ++g_pylonChangeSeq;
       setPylonMode(pylonIndex, select.value);
       syncAuxFuelAvailability();
       calcFuel();

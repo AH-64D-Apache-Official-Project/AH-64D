@@ -154,7 +154,8 @@ function updateAmmoWarnings() {
           var zkPair = zoneIds[zi];
           var rkKey = 'p' + pii + '_' + zkPair[0];
           costItems.push({ type: 'rocket', pylonIdx: pii, zoneIdx: zi,
-            cost: newCount * (costs.rocket || 5), seq: g_itemOrder[rkKey] || 0,
+            cost: newCount * (costs.rocket || 5),
+            seq: Math.max(g_pylonOrder['p' + pii] || 0, g_itemOrder[rkKey] || 0),
             key: rkKey, zkPair: zkPair });
         }
       }
@@ -215,9 +216,9 @@ function updateAmmoTypes(remaining) {
     html += '<div class="farp-src-row"><span class="farp-src-name">Aux Tank</span><span class="farp-src-val">INF</span></div>';
   } else {
     var pts = (remaining !== null && remaining !== undefined) ? remaining : g_rearmData.totalSupply;
-    var hfc = rc.hellfire || 100, rkc = rc.rocket || 20, cnc = rc.cannon || 30, axc = rc.aux || 50;
-    html += '<div class="farp-src-row"><span class="farp-src-name">Hellfire (' + hfc + ' pts ea)</span><span class="farp-src-val">' + Math.floor(pts / hfc) + ' msls</span></div>';
-    html += '<div class="farp-src-row"><span class="farp-src-name">Rockets (' + rkc + ' pts/pod)</span><span class="farp-src-val">' + Math.floor(pts / rkc) + ' pods</span></div>';
+    var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 30, axc = rc.aux || 50;
+    html += '<div class="farp-src-row"><span class="farp-src-name">Hellfire (' + hfc + ' pts/msl)</span><span class="farp-src-val">' + Math.floor(pts / hfc) + ' msls</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Rockets (' + rkc + ' pts/rkt)</span><span class="farp-src-val">' + Math.floor(pts / rkc) + ' rkts</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Cannon (' + cnc + ' pts/50rds)</span><span class="farp-src-val">' + (Math.floor(pts / cnc) * 50) + ' rds</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Aux Tank (' + axc + ' pts ea)</span><span class="farp-src-val">' + Math.floor(pts / axc) + ' tanks</span></div>';
   }
