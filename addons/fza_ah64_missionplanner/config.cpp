@@ -17,17 +17,21 @@ class CfgPatches
 class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {
-        class ACE_Actions;
+        class ACE_Actions {
+            class ACE_MainActions;
+        };
     };
     class fza_ah64base : Helicopter_Base_F {
         class ACE_Actions : ACE_Actions {
-            class fza_MissionPlanner {
-                displayName     = "Mission Planner";
-                condition       = "alive _target";
-                statement       = "[_target] call fza_mplanner_fnc_open;";
-                distance        = 15;
-                showDisabled    = 0;
-                icon            = "";
+            class ACE_MainActions : ACE_MainActions {
+                class fza_MissionPlanner {
+                    displayName     = "Mission Planner";
+                    condition       = "alive _target";
+                    statement       = "[_target] call fza_mplanner_fnc_open;";
+                    distance        = 15;
+                    showDisabled    = 0;
+                    icon            = "";
+                };
             };
         };
     };

@@ -99,24 +99,31 @@ private _hfAmmoMap = [
 ];
 
 private _buildRktZone = {
-    params ["_magName"];
+    params ["_magName", "_slotIdx"];
     if (_magName isEqualTo "") exitWith { '{"count":0,"type":"6PD"}' };
     // Empty pod placeholder — treat as no ammo
     private _cnt0check = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
     if (_cnt0check == 0) exitWith { '{"count":0,"type":"6PD"}' };
+    // Use runtime ammo count so partially-fired pods report correct remaining rounds
+    private _runtimeCount = _heli ammoOnPylon _slotIdx;
+    if (_runtimeCount == 0) exitWith { '{"count":0,"type":"6PD"}' };
     private _ammoClass = toLower getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
-    private _count     = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
+    private _count     = _runtimeCount;
     private _typeCode  = "6PD";
     { if ((_x # 0) isEqualTo _ammoClass) exitWith { _typeCode = _x # 1; }; } forEach _rktAmmoMap;
     format ['{"count":%1,"type":"%2"}', _count, _typeCode]
 };
 
 private _buildHfRail = {
-    params ["_magName"];
+    params ["_magName", "_slotIdx"];
     if (_magName isEqualTo "") exitWith { '""' };
-    // Empty rail placeholder — treat as no ammo
+    // Check config count (catches unloaded magazine classes that have count=0 in config)
     private _cnt0hf = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
     if (_cnt0hf == 0) exitWith { '""' };
+    // Note: we intentionally do NOT exit on ammoOnPylon==0 here. A fired missile leaves
+    // the magazine class in the slot; reporting the type (with 0 ammo) lets the planner
+    // display what was loaded and correctly tracks it as a pre-existing rail rather than
+    // a new item that would cost supply points.
     private _ammoClass = toLower getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
     private _code = "";
     { if ((_x # 0) isEqualTo _ammoClass) exitWith { _code = _x # 1; }; } forEach _hfAmmoMap;
@@ -160,17 +167,19 @@ private _pylonJsonArr = [];
         };
         case "rocket": {
             // base+0 = zoneA, base+1 = zoneB, base+2 = zoneE
-            private _zA = [_slot0] call _buildRktZone;
-            private _zB = [_slot1] call _buildRktZone;
-            private _zE = [_slot2] call _buildRktZone;
+            // Second param = 1-based ammoOnPylon index (0-based slot + 1)
+            private _zA = [_slot0, _baseIdx + 1] call _buildRktZone;
+            private _zB = [_slot1, _baseIdx + 2] call _buildRktZone;
+            private _zE = [_slot2, _baseIdx + 3] call _buildRktZone;
             _pylonJson = format ['{"type":"rocket","zones":[%1,%2,%3]}', _zA, _zB, _zE];
         };
         case "hellfire": {
             // base+0=ul(tl/rails[1]), base+1=ur(tr/rails[0]), base+2=ll(bl/rails[3]), base+3=lr(br/rails[2])
-            private _tr = [_slot1] call _buildHfRail;
-            private _tl = [_slot0] call _buildHfRail;
-            private _br = [_slot3] call _buildHfRail;
-            private _bl = [_slot2] call _buildHfRail;
+            // Second param = 1-based ammoOnPylon index (0-based slot + 1)
+            private _tr = [_slot1, _baseIdx + 2] call _buildHfRail;
+            private _tl = [_slot0, _baseIdx + 1] call _buildHfRail;
+            private _br = [_slot3, _baseIdx + 4] call _buildHfRail;
+            private _bl = [_slot2, _baseIdx + 3] call _buildHfRail;
             _pylonJson = format ['{"type":"hellfire","rails":[%1,%2,%3,%4]}', _tr, _tl, _br, _bl];
         };
     };

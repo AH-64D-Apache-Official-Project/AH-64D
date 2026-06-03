@@ -89,8 +89,8 @@ private _fnCaliberCost = {
     if (_cal <= 0) then { _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_caliber") };
     round _cal
 };
-private _costHellfire = ["fza_agm114k_ul"]    call _fnCaliberCost;
-private _costRocket   = ["fza_275_m151_zoneA"] call _fnCaliberCost;
+private _costHellfire = 50; // 50 pts per missile (ace_caliber=100 is ACE default; we use half rate)
+private _costRocket   = 5; // 5 pts per rocket (charged per round; ace_caliber=20 is per-pod which we override)
 private _costCannon   = ["fza_m230_300"]        call _fnCaliberCost;
 private _costAux      = 50;
 private _costJson     = format ['{"hellfire":%1,"rocket":%2,"cannon":%3,"aux":%4}', _costHellfire, _costRocket, _costCannon, _costAux];

@@ -81,11 +81,14 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         params ["_magClass"];
         if (_magClass isEqualTo "") exitWith { 0 };
         if (_magClass isEqualTo "fza_230gal_auxTank") exitWith { 50 };
-        if (getNumber (configFile >> "CfgMagazines" >> _magClass >> "count") == 0) exitWith { 0 };
+        private _count = getNumber (configFile >> "CfgMagazines" >> _magClass >> "count");
+        if (_count == 0) exitWith { 0 };
         private _ammo = getText (configFile >> "CfgMagazines" >> _magClass >> "ammo");
         if (_ammo isEqualTo "") exitWith { 0 };
         private _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ace_caliber");
         if (_cal <= 0) then { _cal = getNumber (configFile >> "CfgAmmo" >> _ammo >> "ACE_caliber"); };
+        if (_cal == 20) exitWith { _count * 5 }; // rocket pod: charge per round at 5 pts each
+        if (_cal == 100) exitWith { 50 };           // hellfire: half the ACE default rate
         _cal
     };
 
@@ -104,6 +107,22 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             if (_isSource) exitWith { _found = _x; };
         } forEach _nearby;
         _found
+    };
+
+    // Mirrors ACE's ace_rearm_fnc_getSupplyCount: the currentSupply variable is only set on
+    // the truck after the first ACE manual rearm. Until then, fall back to the config value
+    // (ace_rearm_defaultSupply), then 1200. Returning 0 means the truck has no supply.
+    private _fnGetTruckSupply = {
+        params ["_truck"];
+        private _supply = _truck getVariable ["ace_rearm_currentSupply", -1];
+        if (_supply < 0) then {
+            if (isNumber (configOf _truck >> "ace_rearm_defaultSupply")) then {
+                _supply = getNumber (configOf _truck >> "ace_rearm_defaultSupply");
+            } else {
+                _supply = 1200;
+            };
+        };
+        _supply max 0
     };
 
     // Read once here so post-loop deduction can also access it (private inside _applyPylons
@@ -214,25 +233,23 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         if (_rearmNewPylons && { _supplyMode == 1 }) then {
             private _truck = call _fnFindSupplyTruck;
             if (!isNull _truck) then {
-                private _available = _truck getVariable ["ace_rearm_currentSupply", -1];
-                if (_available >= 0) then {
-                    // Reserve points already committed by cannon loading in STEP 1
-                    private _cannonLoadRds = (_targetCannonRds - _curCannonRds) max 0;
-                    private _cannonReserve = ceil (_cannonLoadRds / 50) * _cannonCaliberCost;
-                    private _budget = (_available - _cannonReserve) max 0;
-                    private _trimmedQueue = [];
-                    {
-                        private _mag = _targetPylonMagazines select _x;
-                        private _cost = ([_mag] call _fnMagCaliberCost) max 0;
-                        if (_budget >= _cost || { _cost == 0 }) then {
-                            _trimmedQueue pushBack _x;
-                            _budget = _budget - _cost;
-                        } else {
-                            systemChat format ["Mission Planner: skipping pylon %1 - needs %2 pts, only %3 remain.", _x + 1, _cost, _budget];
-                        };
-                    } forEach _configureQueue;
-                    _configureQueue = _trimmedQueue;
-                };
+                private _available = [_truck] call _fnGetTruckSupply;
+                // Reserve points already committed by cannon loading in STEP 1
+                private _cannonLoadRds = (_targetCannonRds - _curCannonRds) max 0;
+                private _cannonReserve = ceil (_cannonLoadRds / 50) * _cannonCaliberCost;
+                private _budget = (_available - _cannonReserve) max 0;
+                private _trimmedQueue = [];
+                {
+                    private _mag = _targetPylonMagazines select _x;
+                    private _cost = ([_mag] call _fnMagCaliberCost) max 0;
+                    if (_budget >= _cost || { _cost == 0 }) then {
+                        _trimmedQueue pushBack _x;
+                        _budget = _budget - _cost;
+                    } else {
+                        systemChat format ["Mission Planner: skipping pylon %1 - needs %2 pts, only %3 remain.", _x + 1, _cost, _budget];
+                    };
+                } forEach _configureQueue;
+                _configureQueue = _trimmedQueue;
             };
         };
 
@@ -417,27 +434,25 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     if (_rearmNewPylons && { _supplyMode == 1 }) then {
         private _truck = call _fnFindSupplyTruck;
         if (!isNull _truck) then {
-            private _truckSupply = _truck getVariable ["ace_rearm_currentSupply", -1];
-            if (_truckSupply >= 0) then {
-                private _netCost = 0;
-                // Pylon cost: magazine changes since before the pylon step
-                private _postPylonMags = getPylonMagazines _heli;
-                for "_si" from 0 to ((count _postPylonMags) - 1) do {
-                    private _newMag = _postPylonMags # _si;
-                    private _oldMag = _prevPylonMags # _si;
-                    if (_newMag isNotEqualTo _oldMag) then {
-                        _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
-                        _netCost = _netCost - ([_oldMag] call _fnMagCaliberCost);
-                    };
+            private _truckSupply = [_truck] call _fnGetTruckSupply;
+            private _netCost = 0;
+            // Pylon cost: magazine changes since before the pylon step
+            private _postPylonMags = getPylonMagazines _heli;
+            for "_si" from 0 to ((count _postPylonMags) - 1) do {
+                private _newMag = _postPylonMags # _si;
+                private _oldMag = _prevPylonMags # _si;
+                if (_newMag isNotEqualTo _oldMag) then {
+                    _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
+                    _netCost = _netCost - ([_oldMag] call _fnMagCaliberCost);
                 };
-                // Cannon cost: rounds loaded in STEP 1 (50 rds per rearm = _cannonCaliberCost pts)
-                private _cannonNewRds = (_prevCannonRds - _curCannonRds) max 0;
-                if (_cannonNewRds > 0) then {
-                    _netCost = _netCost + (ceil (_cannonNewRds / 50) * _cannonCaliberCost);
-                };
-                if (_netCost != 0) then {
-                    _truck setVariable ["ace_rearm_currentSupply", (_truckSupply - _netCost) max 0, true];
-                };
+            };
+            // Cannon cost: rounds loaded in STEP 1 (50 rds per rearm = _cannonCaliberCost pts)
+            private _cannonNewRds = (_prevCannonRds - _curCannonRds) max 0;
+            if (_cannonNewRds > 0) then {
+                _netCost = _netCost + (ceil (_cannonNewRds / 50) * _cannonCaliberCost);
+            };
+            if (_netCost != 0) then {
+                _truck setVariable ["ace_rearm_currentSupply", (_truckSupply - _netCost) max 0, true];
             };
         };
     };
