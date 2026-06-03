@@ -57,10 +57,6 @@
             <Original>M278 IR Illumination (6IR) count</Original>
             <English>M278 IR Illumination (6IR) count</English>
         </Key>
-        <Key ID="STR_FZA_AH64_MPLANNER_SETTINGS">
-            <Original>Mission Planner</Original>
-            <English>Mission Planner</English>
-        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
             <Original>Cyclic Center Trim Mode</Original>
             <English>Cyclic Center Trim Mode</English>
