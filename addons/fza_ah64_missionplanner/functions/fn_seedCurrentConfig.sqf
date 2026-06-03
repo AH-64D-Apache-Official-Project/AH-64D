@@ -180,7 +180,12 @@ private _pylonJsonArr = [];
             private _tl = [_slot0, _baseIdx + 1] call _buildHfRail;
             private _br = [_slot3, _baseIdx + 4] call _buildHfRail;
             private _bl = [_slot2, _baseIdx + 3] call _buildHfRail;
-            _pylonJson = format ['{"type":"hellfire","rails":[%1,%2,%3,%4]}', _tr, _tl, _br, _bl];
+            // ammoOnPylon per rail: 0 means fired (classname may still be present in slot)
+            private _amoTr = _heli ammoOnPylon (_baseIdx + 2);
+            private _amoTl = _heli ammoOnPylon (_baseIdx + 1);
+            private _amoBr = _heli ammoOnPylon (_baseIdx + 4);
+            private _amoBl = _heli ammoOnPylon (_baseIdx + 3);
+            _pylonJson = format ['{"type":"hellfire","rails":[%1,%2,%3,%4],"ammos":[%5,%6,%7,%8]}', _tr, _tl, _br, _bl, _amoTr, _amoTl, _amoBr, _amoBl];
         };
     };
 

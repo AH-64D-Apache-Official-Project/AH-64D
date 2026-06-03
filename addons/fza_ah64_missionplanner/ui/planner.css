@@ -929,6 +929,7 @@
   .farp-src-val { color: var(--text); text-align: right; flex-shrink: 0; }
   .farp-none { color: var(--text-dim); font-style: italic; font-size: 12px; padding: 1px 4px; }
   .rail-cycle.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
+  .rail-cycle.rail-fired { border-color: var(--yellow); color: var(--yellow); }
   .zone-count input.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   .zone-type select.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   #cannonRds.ammo-warn { color: var(--red-bright) !important; }

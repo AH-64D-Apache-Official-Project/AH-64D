@@ -218,7 +218,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         for "_i" from 0 to ((count _targetPylonMagazines) - 1) do {
             private _desired = [_targetPylonMagazines # _i] call _normaliseSlot;
             private _current = [(getPylonMagazines _heli) # _i] call _normaliseSlot;
-            if (_desired != _current) then {
+            // Also queue slots where classname matches but ammo is 0 (fired; needs refill)
+            if (_desired != _current || {_desired != "" && {(_heli ammoOnPylon (_i + 1)) == 0}}) then {
                 _configureQueue pushBack _i;
             };
         };
@@ -423,6 +424,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     // ── STEP 2: PYLONS ───────────────────────────────────────────────────────
     private _prevPylonMags = getPylonMagazines _heli;
     private _prevCannonRds = _heli ammo "fza_m230";
+    // Capture ammo counts before apply; needed to detect same-classname refills
+    private _prevPylonAmmos = [];
+    for "_ai" from 0 to 15 do { _prevPylonAmmos pushBack (_heli ammoOnPylon (_ai + 1)) };
 
     if (_needsPylons) then {
         call _applyPylons;
@@ -444,6 +448,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 if (_newMag isNotEqualTo _oldMag) then {
                     _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
                     _netCost = _netCost - ([_oldMag] call _fnMagCaliberCost);
+                } else {
+                    if (_newMag isNotEqualTo "" && {(_prevPylonAmmos # _si) == 0}) then {
+                        // Same classname but was fired (ammo=0 before apply); charge refill cost
+                        _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
+                    };
                 };
             };
             // Cannon cost: rounds loaded in STEP 1 (50 rds per rearm = _cannonCaliberCost pts)

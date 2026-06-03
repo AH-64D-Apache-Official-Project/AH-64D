@@ -54,6 +54,9 @@ function updateAmmoWarnings() {
   var debugEl = document.getElementById('rearmDebug');
   if (debugEl) debugEl.style.display = 'none';
 
+  // Highlight fired rails (classname present, ammo=0) that will be rearmed
+  syncFiredRailHighlights();
+
   // Only enforce in mode 1 (caliber pool) or mode 2 (magazine inventory)
   if (!g_rearmData || !g_rearmData.costs) {
     updateAmmoTypes(null);
@@ -89,9 +92,11 @@ function updateAmmoWarnings() {
     var rcInit  = initPylons[rci - 1] || { type: 'none' };
     if (rcInit.type === 'hellfire') {
       var rcInitRails = rcInit.rails || [];
+      var rcInitAmmos = rcInit.ammos || [];
       var rcPlanRails = (rcPylon.type === 'hellfire') ? (rcPylon.rails || []) : [];
       for (var rk = 0; rk < 4; rk++) {
-        if (!!(rcInitRails[rk] && rcInitRails[rk] !== '') && !(rcPlanRails[rk] && rcPlanRails[rk] !== '')) {
+        var rcHadAmmo = typeof rcInitAmmos[rk] === 'undefined' || rcInitAmmos[rk] > 0;
+        if (!!(rcInitRails[rk] && rcInitRails[rk] !== '') && rcHadAmmo && !(rcPlanRails[rk] && rcPlanRails[rk] !== '')) {
           recyclableCredit += (costs.hellfire || 50);
         }
       }
@@ -124,8 +129,10 @@ function updateAmmoWarnings() {
     if (pylon.type === 'hellfire') {
       var rails = pylon.rails || [];
       var initRails = (initP.type === 'hellfire') ? (initP.rails || []) : [];
+      var initAmmos = (initP.type === 'hellfire') ? (initP.ammos || []) : [];
       for (var ri = 0; ri < railKeys.length; ri++) {
-        var wasLoaded = !!(initRails[ri] && initRails[ri] !== '');
+        var hadAmmo = typeof initAmmos[ri] === 'undefined' || initAmmos[ri] > 0;
+        var wasLoaded = !!(initRails[ri] && initRails[ri] !== '') && hadAmmo;
         var isLoaded  = !!(rails[ri]     && rails[ri]     !== '');
         if (isLoaded && !wasLoaded) {
           var hfKey = 'p' + pii + '_' + railKeys[ri];

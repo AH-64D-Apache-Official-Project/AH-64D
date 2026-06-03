@@ -287,3 +287,31 @@ function updateConversionWarning() {
     else iafsAlertEl.classList.add('hidden');
   }
 }
+
+// Highlight cycle buttons yellow when a rail has a missile classname but ammo=0 (fired)
+// and the current plan still has a missile on that rail (i.e. it will be rearmed by Apply).
+function syncFiredRailHighlights() {
+  eachNode('.rail-cycle', function(btn) { btn.classList.remove('rail-fired'); });
+  if (!initialAircraftState || !initialAircraftState.pylons) return;
+  var curPylons = getPlannerState().pylons || [];
+  var railKeys = ['tr', 'tl', 'br', 'bl'];
+  for (var pi = 0; pi < 4; pi++) {
+    var initP = initialAircraftState.pylons[pi];
+    if (!initP || initP.type !== 'hellfire') continue;
+    var ammos = initP.ammos || [];
+    var initRails = initP.rails || [];
+    var curP = curPylons[pi] || {};
+    var curRails = (curP.type === 'hellfire') ? (curP.rails || []) : [];
+    for (var ri = 0; ri < railKeys.length; ri++) {
+      // Rail was fired: classname present in initial state, but ammoOnPylon was 0
+      var wasFired = !!(initRails[ri] && initRails[ri] !== '') &&
+                     (typeof ammos[ri] !== 'undefined' && ammos[ri] === 0);
+      if (!wasFired) continue;
+      // Plan has a missile on this rail — it will be rearmed
+      if (!(curRails[ri] && curRails[ri] !== '')) continue;
+      var railId = 'p' + (pi + 1) + '_' + railKeys[ri];
+      var btn = document.querySelector('button.rail-cycle[data-rail="' + railId + '"]');
+      if (btn) btn.classList.add('rail-fired');
+    }
+  }
+}
