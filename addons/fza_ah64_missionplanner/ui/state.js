@@ -231,6 +231,25 @@ function updateConversionWarning() {
         for (var ri = 0; ri < 4; ri++) {
           if ((initRails[ri] || '') !== (curRails[ri] || '')) { pylonChangedSecs += 5; }
         }
+      } else if (initP.type === 'rocket') {
+        // Same rocket type: 20s per zone where munition type swaps; count-only changes
+        // scale against full pod capacity (19 rockets: 12+4+3) = 20s
+        var initZones = initP.zones || [];
+        var curZones  = curP.zones  || [];
+        var numZones  = Math.max(initZones.length, curZones.length, 3);
+        var rktCountDelta = 0;
+        for (var zi = 0; zi < numZones; zi++) {
+          var iz = initZones[zi] || { count: 0, type: '' };
+          var cz = curZones[zi]  || { count: 0, type: '' };
+          if ((iz.type || '') !== (cz.type || '')) {
+            pylonChangedSecs += 20; // zone munition type changed — full physical swap
+          } else {
+            rktCountDelta += Math.abs((cz.count || 0) - (iz.count || 0));
+          }
+        }
+        if (rktCountDelta > 0) {
+          pylonChangedSecs += Math.ceil(rktCountDelta / 19 * 20);
+        }
       } else {
         // Same non-hellfire type (e.g. rocket zone count/type changed)
         pylonChangedSecs += 20;

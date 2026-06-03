@@ -110,8 +110,81 @@ var SAVE_STORAGE_KEYS = {
   mission: 'fza_mplanner_saves_mission'
 };
 
+var DELETE_TOMBSTONE_KEYS = {
+  own: 'fza_mplanner_deleted_own',
+  mission: 'fza_mplanner_deleted_mission'
+};
+
 function getSaveKey(scope) {
   return SAVE_STORAGE_KEYS[scope] || SAVE_STORAGE_KEYS.own;
+}
+
+// Delete tombstones: track locally-deleted save names so that stale SQF seeds
+// (which read profileNamespace before fn_deleteConfig ran) cannot re-add them.
+// Persisted in localStorage so the filter survives a planner relaunch within
+// the same ArmA 3 session.  Cleared once the seed confirms the name is gone.
+function getTombstones(scope) {
+  var key = DELETE_TOMBSTONE_KEYS[scope] || DELETE_TOMBSTONE_KEYS.own;
+  try {
+    var raw = window.localStorage ? (window.localStorage.getItem(key) || '{}') : '{}';
+    var obj = JSON.parse(raw);
+    return (obj && typeof obj === 'object' && !Array.isArray(obj)) ? obj : {};
+  } catch (e) { return {}; }
+}
+
+function setTombstones(scope, tombstones) {
+  var key = DELETE_TOMBSTONE_KEYS[scope] || DELETE_TOMBSTONE_KEYS.own;
+  try {
+    if (!window.localStorage) return;
+    if (!tombstones || Object.keys(tombstones).length === 0) {
+      window.localStorage.removeItem(key);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(tombstones));
+    }
+  } catch (e) {}
+}
+
+function addTombstone(scope, name) {
+  var tombstones = getTombstones(scope);
+  var normalized = normalizeSaveName(name);
+  tombstones[normalized] = Date.now();
+  setTombstones(scope, tombstones);
+  callSQF('diag_log "[MP tombstone] added scope=' + scope + ' name=' + normalized + ' store=' + JSON.stringify(tombstones).replace(/"/g, "'") + '"');
+}
+
+// Returns [filteredLocalEntries, filteredSeedEntries] after applying tombstones.
+// Tombstones whose name is absent from the seed are dropped (deletion confirmed).
+// The ORIGINAL tombstones set is used for filtering in all cases so that an entry
+// deleted this tick is still excluded even after the tombstone is cleared.
+function applyTombstoneFilter(scope, localEntries, seedEntries) {
+  var tombstones = getTombstones(scope);
+  var tombstoneNames = Object.keys(tombstones);
+  callSQF('diag_log "[MP tombstoneFilter] scope=' + scope + ' tombstones=' + tombstoneNames.join(',') + ' local=' + (localEntries||[]).length + ' seed=' + (seedEntries||[]).length + '"');
+
+  var seedNameSet = {};
+  (seedEntries || []).forEach(function(e) {
+    seedNameSet[normalizeSaveName(e.name)] = true;
+  });
+
+  // Keep only tombstones where name IS still in seed (not yet deleted from SQF side)
+  var updatedTombstones = {};
+  tombstoneNames.forEach(function(tName) {
+    if (seedNameSet[tName]) {
+      updatedTombstones[tName] = tombstones[tName];
+    }
+    // else: not in seed = SQF confirmed deletion; drop tombstone from store
+  });
+  setTombstones(scope, updatedTombstones);
+
+  // Filter using ORIGINAL tombstones so confirmed-deleted entries are still excluded
+  function notTombstoned(e) {
+    return !tombstones[normalizeSaveName(e.name)];
+  }
+
+  var filteredLocal = (localEntries || []).filter(notTombstoned);
+  var filteredSeed  = (seedEntries  || []).filter(notTombstoned);
+  callSQF('diag_log "[MP tombstoneFilter] result scope=' + scope + ' local=' + filteredLocal.length + ' seed=' + filteredSeed.length + ' kept=' + Object.keys(updatedTombstones).join(',') + '"');
+  return [filteredLocal, filteredSeed];
 }
 
 function hydrateSavesFromSqfSeed() {
@@ -161,8 +234,17 @@ function hydrateSavesFromSqfSeed() {
       return out;
     }
 
-    writeSaveStore('own', normalizeSqfEntries(parsed[0]));
-    writeSaveStore('mission', normalizeSqfEntries(parsed[1]));
+    var ownEntries = normalizeSqfEntries(parsed[0]);
+    var msnEntries = normalizeSqfEntries(parsed[1]);
+
+    callSQF('diag_log "[MP hydrate] raw seed own=' + ownEntries.length + ' mission=' + msnEntries.length + '"');
+
+    // Apply tombstone filter so deleted entries are not resurrected on relaunch
+    var ownFiltered  = applyTombstoneFilter('own',     readSaveStoreRaw('own'),     ownEntries);
+    var msnFiltered  = applyTombstoneFilter('mission', readSaveStoreRaw('mission'), msnEntries);
+
+    writeSaveStore('own',     mergeSaveEntries(ownFiltered[0], ownFiltered[1]));
+    writeSaveStore('mission', mergeSaveEntries(msnFiltered[0], msnFiltered[1]));
   } catch (err) {
     if (typeof console !== 'undefined' && console.warn) {
       console.warn('Mission Planner SQF save seed import failed.', err);
@@ -370,8 +452,12 @@ function receiveSqfSaveSeed(payloadText) {
 
     var _ownCount = parsed.own ? parsed.own.length : 0;
     var _missionCount = parsed.mission ? parsed.mission.length : 0;
-    writeSaveStore('own', mergeSaveEntries(readSaveStoreRaw('own'), normalizeSeedList(parsed.own)));
-    writeSaveStore('mission', mergeSaveEntries(readSaveStoreRaw('mission'), normalizeSeedList(parsed.mission)));
+    var _ownSeed = normalizeSeedList(parsed.own);
+    var _msnSeed = normalizeSeedList(parsed.mission);
+    var _ownFiltered = applyTombstoneFilter('own', readSaveStoreRaw('own'), _ownSeed);
+    var _msnFiltered = applyTombstoneFilter('mission', readSaveStoreRaw('mission'), _msnSeed);
+    writeSaveStore('own',     mergeSaveEntries(_ownFiltered[0], _ownFiltered[1]));
+    writeSaveStore('mission', mergeSaveEntries(_msnFiltered[0], _msnFiltered[1]));
     saveLoadState.seedReceived = true;
     callSQF('diag_log "[MP JS] receiveSeed OK - own=' + _ownCount + ' mission=' + _missionCount + '"');
 
@@ -697,6 +783,10 @@ function performDeleteSelectedPlannerState(name) {
   entries.splice(idx, 1);
   // Strip locked presets before writing back
   writeSaveStore(saveLoadState.scope, entries.filter(function(e) { return !e.locked; }));
+  // Tombstone the name so any in-flight SQF seed (read before fn_deleteConfig ran)
+  // cannot re-add this entry to localStorage.
+  addTombstone(saveLoadState.scope, targetName);
+  callSQF('diag_log "[MP JS] delete: firing syncDeleteToSqf scope=' + saveLoadState.scope + ' name=' + targetName.replace(/"/g, "'") + '"');
   syncDeleteToSqf(saveLoadState.scope, targetName);
   saveLoadState.selectedName = '';
   document.getElementById('saveLoadName').value = '';
