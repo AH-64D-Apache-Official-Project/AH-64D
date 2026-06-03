@@ -181,7 +181,10 @@ function clearPylonAmmoOnTypeChange(pylonIndex, mode) {
       if (!railEl) return;
       railEl.value = hellfireCodeMap[''];  // 'None'
       var parent = railEl.parentNode;
-      var cycleBtn = parent ? parent.querySelector('button.rail-cycle') : null;
+      var parentSelects = parent.querySelectorAll('.rail-ammo');
+      var parentCycleBtns = parent.querySelectorAll('button.rail-cycle');
+      var selIdx = Array.prototype.indexOf.call(parentSelects, railEl);
+      var cycleBtn = selIdx >= 0 ? parentCycleBtns[selIdx] : null;
       if (cycleBtn) {
         setData(cycleBtn, 'index', 0);
         cycleBtn.textContent = '-';

@@ -208,7 +208,7 @@ private _payload = format [
     (getPlayerUID player) call _jsonEscape,
     (name player) call _jsonEscape,
     fza_ah64_sfmplusEnvironment,
-    (profileNamespace getVariable ["fza_mplanner_last_loaded_config", ""]) call _jsonEscape,
+    (missionNamespace getVariable ["fza_mplanner_last_loaded_config", ""]) call _jsonEscape,
     [profileNamespace getVariable ["fza_mplanner_saves_own", []]] call _serializeEntries,
     [missionNamespace getVariable ["fza_mplanner_saves_mission", []]] call _serializeEntries,
     _farpFuelJson,

@@ -302,7 +302,7 @@ function syncDeleteToSqf(scope, name) {
 }
 
 function syncSetLastLoadedConfig(name) {
-  var code = 'profileNamespace setVariable ["fza_mplanner_last_loaded_config",' + sqfQuotedString(name) + '];saveProfileNamespace;';
+  var code = 'missionNamespace setVariable ["fza_mplanner_last_loaded_config",' + sqfQuotedString(name) + '];';
   callSQF(code);
 }
 
