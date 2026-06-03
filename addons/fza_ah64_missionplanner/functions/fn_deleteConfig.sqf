@@ -4,11 +4,7 @@ params [
 ];
 
 private _trimmedName = trim _name;
-diag_log format ["[MP deleteConfig] called scope=%1 name=%2 trimmed=%3", _scope, _name, _trimmedName];
-if (_trimmedName isEqualTo "") exitWith {
-    diag_log "[MP deleteConfig] EXIT: empty name";
-    false
-};
+if (_trimmedName isEqualTo "") exitWith {false};
 
 private _isMissionScope = toLower _scope isEqualTo "mission";
 private _key = ["fza_mplanner_saves_own", "fza_mplanner_saves_mission"] select _isMissionScope;
@@ -17,18 +13,6 @@ private _playerUid = getPlayerUID player;
 
 private _entries = +(_namespace getVariable [_key, []]);
 if !(_entries isEqualType []) exitWith {false};
-
-// Debug: log first 5 entry names so we can see what's stored
-private _dbgNames = [];
-{
-    if (_x isEqualType [] && {count _x >= 1}) then {
-        _dbgNames pushBack (str (_x # 0));
-    } else {
-        _dbgNames pushBack format ["<not-array: %1>", typeName _x];
-    };
-    if (count _dbgNames >= 5) exitWith {};
-} forEach _entries;
-diag_log format ["[MP deleteConfig] searching %1 entries, first5names=%2", count _entries, _dbgNames];
 
 private _nextEntries = [];
 private _deleted = false;
@@ -58,15 +42,11 @@ private _deleted = false;
     };
 } forEach _entries;
 
-if (!_deleted) exitWith {
-    diag_log format ["[MP deleteConfig] EXIT: name not found in %1 entries", count _entries];
-    false
-};
+if (!_deleted) exitWith {false};
 
 _namespace setVariable [_key, _nextEntries];
 if (!_isMissionScope) then {
     saveProfileNamespace;
 };
 
-diag_log format ["[MP deleteConfig] OK: deleted '%1' from scope=%2, %3 entries remain", _trimmedName, _scope, count _nextEntries];
 true;

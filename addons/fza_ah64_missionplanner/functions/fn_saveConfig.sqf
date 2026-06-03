@@ -5,15 +5,8 @@ params [
 ];
 
 private _trimmedName = trim _name;
-diag_log format ["[MP saveConfig] called scope=%1 name=%2 stateJsonLen=%3", _scope, _trimmedName, count _stateJson];
-if (_trimmedName isEqualTo "") exitWith {
-    diag_log "[MP saveConfig] EXIT: empty name";
-    false
-};
-if (_stateJson isEqualTo "") exitWith {
-    diag_log "[MP saveConfig] EXIT: empty stateJson";
-    false
-};
+if (_trimmedName isEqualTo "") exitWith {false};
+if (_stateJson isEqualTo "") exitWith {false};
 
 private _isMissionScope = toLower _scope isEqualTo "mission";
 private _key = ["fza_mplanner_saves_own", "fza_mplanner_saves_mission"] select _isMissionScope;
@@ -47,10 +40,8 @@ if (_idx >= 0) then {
 _namespace setVariable [_key, _entries];
 if (!_isMissionScope) then {
     saveProfileNamespace;
-    diag_log format ["[MP saveConfig] OK: saved '%1' to scope=%2, %3 total entries", _trimmedName, _scope, count _entries];
     systemChat format ["Mission Planner: saved '%1' to profile (%2 total saves).", _trimmedName, count _entries];
 } else {
-    diag_log format ["[MP saveConfig] OK: saved '%1' to mission scope, %2 total entries", _trimmedName, count _entries];
     systemChat format ["Mission Planner: saved '%1' to mission namespace.", _trimmedName];
 };
 
