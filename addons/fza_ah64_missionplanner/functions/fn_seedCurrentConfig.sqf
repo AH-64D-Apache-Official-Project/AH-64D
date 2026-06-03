@@ -51,7 +51,7 @@ if !(_tailNum isEqualType "") then { _tailNum = "00000" };
 
 // ── FCR / IAFS ──────────────────────────────────────────────────────────────
 private _fcrActive = (_heli animationPhase "fcr_enable") > 0.5;
-private _fcrJson = if (_fcrActive) then {"true"} else {"false"};
+private _fcrJson = ["false", "true"] select (_fcrActive);
 private _iafsInstalled = _heli getVariable ["fza_ah64_IAFSInstalled", true];
 private _robbieMode = ["magazine", "iafs"] select _iafsInstalled;
 
@@ -80,7 +80,7 @@ private _ctrGal = if (_maxCtrKg > 0) then { (round (_ctrKg / _maxCtrKg * 100)) m
 //   base+0 = zoneA / ul-hellfire    base+1 = zoneB / ur-hellfire
 //   base+2 = zoneE / ll-hellfire    base+3 = empty(rkt) / lr-hellfire / aux
 private _mags = getPylonMagazines _heli;
-diag_log format ["[MP Debug] seedCurrentConfig start: heli=%1, isNull=%2, mags=%3", typeof _heli, isNull _heli, _mags];
+diag_log format ["[MP Debug] seedCurrentConfig start: heli=%1, isNull=%2, mags=%3", typeOf _heli, isNull _heli, _mags];
 
 // Ammo class (toLower) → UI code maps
 private _rktAmmoMap = [
@@ -195,7 +195,7 @@ private _pylonJsonArr = [];
 // ── ASE Equipment ─────────────────────────────────────────────────────────────
 private _msnEquipBritish  = (_heli animationPhase "msn_equip_british")  > 0.5;
 private _msnEquipAmerican = (_heli animationPhase "msn_equip_american") > 0.5;
-private _msnEquipCode = if (_msnEquipBritish) then {"UK"} else {if (_msnEquipAmerican) then {"US"} else {"none"}};
+private _msnEquipCode = if (_msnEquipBritish) then {"UK"} else {["none", "US"] select (_msnEquipAmerican)};
 
 private _stateJson = format [
     '{"version":1,"tailNum":"%1","fcrActive":%2,"robbieMode":"%3","cannonRds":%4,"fuel":{"fwd":%5,"aft":%6,"ctr":%7,"aux":%8},"pylons":[%9],"msnEquip":"%10"}',

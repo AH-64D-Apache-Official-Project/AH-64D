@@ -1114,7 +1114,7 @@
     flex-direction: column;
     gap: 6px;
     color: var(--text-dim);
-    background: rgba(0, 0, 0, 0.40);
+    background: rgba(0, 0, 0, 0.70);
   }
   .tab-sidebar-title {
     color: var(--text-bright);

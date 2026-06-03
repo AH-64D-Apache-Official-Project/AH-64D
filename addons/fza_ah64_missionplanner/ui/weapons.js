@@ -174,6 +174,31 @@ function clearMatchingRocketZoneCounts(zoneLetter) {
 }
 
 
+function clearPylonAmmoOnTypeChange(pylonIndex, mode) {
+  if (mode === 'hellfire') {
+    ['tr', 'tl', 'br', 'bl'].forEach(function(railKey) {
+      var railEl = document.getElementById('p' + pylonIndex + '_' + railKey);
+      if (!railEl) return;
+      railEl.value = hellfireCodeMap[''];  // 'None'
+      var parent = railEl.parentNode;
+      var cycleBtn = parent ? parent.querySelector('button.rail-cycle') : null;
+      if (cycleBtn) {
+        setData(cycleBtn, 'index', 0);
+        cycleBtn.textContent = '-';
+      }
+    });
+  }
+  if (mode === 'rocket') {
+    getZoneIdsForPylon(pylonIndex).forEach(function(zonePair) {
+      var zoneKey = zonePair[0];
+      var countEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_count');
+      var typeEl  = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_type');
+      if (countEl) countEl.value = '0';
+      if (typeEl)  typeEl.value  = '';
+    });
+  }
+}
+
 function setPylonMode(pylonIndex, mode) {
   ['hellfire', 'rocket', 'aux', 'none'].forEach(function(name) {
     var panel = document.getElementById('p' + pylonIndex + '_' + name);

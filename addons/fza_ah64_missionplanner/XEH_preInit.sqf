@@ -8,7 +8,7 @@ private _cat = ["AH-64D Official Project", "Mission Planner"];
 {
     private _key = _x # 0;
     private _str = _x # 1;
-    private _max = if (_key == "M230") then {12000} else {999};
+    private _max = [999, 12000] select (_key == "M230");
     [("fza_mplanner_ammo_" + _key), "SLIDER",
         [(localize _str), (localize "STR_FZA_AH64_MPLANNER_AMMO_DESC")],
         _cat, [-1, _max, -1, 0], 0

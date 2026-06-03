@@ -863,6 +863,7 @@ for (var i = 1; i <= 4; i++) {
     select.addEventListener('change', function() {
       g_pylonOrder['p' + pylonIndex] = ++g_pylonChangeSeq;
       setPylonMode(pylonIndex, select.value);
+      clearPylonAmmoOnTypeChange(pylonIndex, select.value);
       syncAuxFuelAvailability();
       calcFuel();
       syncSilhouette();

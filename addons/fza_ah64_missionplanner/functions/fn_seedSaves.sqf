@@ -174,7 +174,7 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
         _rearmSources pushBack format ['{"name":"%1","supply":%2,"unlimited":%3}',
             (getText (configOf _src >> "displayName")) call _jsonEscape,
             if (_isUnlimited) then {-1} else {_supplyAmt},
-            if (_isUnlimited) then {"true"} else {"false"}
+            ["false", "true"] select (_isUnlimited)
         ];
     } forEach _nearby;
 
@@ -183,7 +183,7 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
             '{"mode":%1,"totalSupply":%2,"unlimited":%3,"rearmNewPylons":%4,"trucks":[%5],"costs":%6}',
             _aceSupplyMode,
             if (_rearmHasUnlimited) then {-1} else {_rearmTotalSupply},
-            if (_rearmHasUnlimited) then {"true"} else {"false"},
+            ["false", "true"] select (_rearmHasUnlimited),
             _rearmNewPylonsStr,
             _rearmSources joinString ',',
             _costJson
