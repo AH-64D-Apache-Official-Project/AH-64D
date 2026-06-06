@@ -100,14 +100,6 @@ class CfgFunctions
             class perfData {R;};
             class perfVariables {R;};
         };
-        class rotor {
-            file = "\fza_ah64_sfmplus\functions\rotor";
-            class rotor {R;};
-            class rotorBlade {R;};
-            class rotorInit {R;};
-            class rotorUpdate {R;};
-            class rotorVariables {R;};
-        };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
             class simpleRotorMain_v2 {R;};

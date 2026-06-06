@@ -211,6 +211,7 @@ if (fza_ah64_sfmPlusAutoPitch) then {
     private _pidAutoPitch      = _heli getVariable "fza_sfmplus_pid_autoPitch";
     private _autoPitchActive   = _heli getVariable "fza_sfmplus_autoPitchActive";
     private _autoPitchTarget   = _heli getVariable "fza_sfmplus_autoPitchTarget";
+    private _autoPitchHoldTimer = _heli getVariable "fza_sfmplus_autoPitchHoldTimer";
     private _prevPitchBreakout = _heli getVariable "fza_sfmplus_autoPitchBreakout";
     private _pitchBreakout     = (abs _cyclicFwdAft) > ATT_HOLD_BREAKOUT_VALUE;
 
@@ -223,15 +224,28 @@ if (fza_ah64_sfmPlusAutoPitch) then {
     private _autoPitchScalar = linearConversion [VEL_ETL * 0.5, VEL_ETL, _velXY, 0.0, 1.0, true];
 
     if (_pitchBreakout) then {
+        // Accumulate timer with sign: forward (_cyclicFwdAft > 0) = positive, aft = negative
+        _autoPitchHoldTimer = _autoPitchHoldTimer + (_deltaTime * (if (_cyclicFwdAft > 0) then { 1 } else { -1 }));
+        _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", _autoPitchHoldTimer];
         _autoPitchActive = false;
         [_pidAutoPitch] call fza_fnc_pidReset;
         _heli setVariable ["fza_sfmplus_autoPitchActive", false];
         _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
     } else {
-        // Capture pitch attitude on the falling edge of breakout (key release)
         if (_prevPitchBreakout) then {
-            _autoPitchTarget = _curPitch;
+            // Key just released — check tap vs hold
+            if ((abs _autoPitchHoldTimer) < 0.1) then {
+                // Tap: forward (positive timer) = nose down = more negative target
+                _autoPitchTarget = _autoPitchTarget - (0.1 * (if (_autoPitchHoldTimer > 0) then { 1 } else { -1 }));
+                _autoPitchTarget = [_autoPitchTarget, -30.0, 30.0] call BIS_fnc_clamp;
+            } else {
+                // Hold: capture live pitch as new target
+                _autoPitchTarget = _curPitch;
+            };
             _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
+            [_pidAutoPitch] call fza_fnc_pidReset;
+            _autoPitchHoldTimer = 0;
+            _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", 0];
         };
         _autoPitchActive = true;
         _heli setVariable ["fza_sfmplus_autoPitchActive", true];
