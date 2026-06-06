@@ -143,7 +143,7 @@ _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.0080, 0.0000, 0.0020, 0.
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0000, 0.0250, 0.0000] call fza_fnc_pidCreate];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500, 0.0010] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.1000, 0.1500, 0.3500, 0.1500] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.5000, 0.3000, 0.3500, 0.3000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 //Auto pitch
 _heli setVariable ["fza_sfmplus_pid_autoPitch",      [0.0500, 0.0200, 0.0100, 5.0000] call fza_fnc_pidCreate];
