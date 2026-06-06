@@ -17,11 +17,9 @@ class CfgFunctions
             class actuatorLag {R;};
             class actuatorVariables {R;};
         };
-        class aero {
-            file = "\fza_ah64_sfmplus\functions\aero";
-            class aeroStabilator {R;};
-            class aeroSurface {R;};
-            class aeroWing {R;};
+        class wing {
+            file = "\fza_ah64_sfmplus\functions\wing";
+            class wing {R;};
         };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
@@ -102,6 +100,14 @@ class CfgFunctions
             class perfData {R;};
             class perfVariables {R;};
         };
+        class rotor {
+            file = "\fza_ah64_sfmplus\functions\rotor";
+            class rotor {R;};
+            class rotorBlade {R;};
+            class rotorInit {R;};
+            class rotorUpdate {R;};
+            class rotorVariables {R;};
+        };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
             class simpleRotorMain_v2 {R;};
@@ -128,7 +134,6 @@ class CfgFunctions
             class getRtrRPM {R;};
             class getSmoothAverage {R;};
             class getVelocities {R;};
-            class getwindDirVel {R;};
             class init {R;};
             class isINF {R;};
             class isNAN {R;};

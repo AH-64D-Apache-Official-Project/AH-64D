@@ -104,6 +104,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusAutoPitch",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH_INFO")],
+    [_projName, "Flight model"],
+    [true],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",
     [(localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK"), (localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK_INFO")],

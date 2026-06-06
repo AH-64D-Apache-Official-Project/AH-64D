@@ -53,15 +53,9 @@ _heli setVariable ["fza_sfmplus_PA",  _altitude];
 _heli setVariable ["fza_sfmplus_FAT", _temperature];
 _heli setVariable ["fza_sfmplus_rho", _dryAirDensity];
 
-//Wind
-private _windDir       = (windDir + 180) mod 360;
-private _windSpeed     = vectorMagnitude wind;
-
-//systemChat format ["_windDir = %1 -- _windSpeed = %2", _windDir toFixed 0, _windSpeed toFixed 0];
-
-private _velWindWorldSpaceX = -(_windSpeed * sin _windDir);
-private _velWindWorldSpaceY = -(_windSpeed * cos _windDir);
-
-private _velWindWorldSpace  = [_velWindWorldSpaceX, _velWindWorldSpaceY, 0.0];
+//Wind world-space velocity vector — direction/speed display is handled in getVelocities
+private _windSpeed         = vectorMagnitude wind;
+private _windDirToward     = (windDir + 180) mod 360;
+private _velWindWorldSpace = [_windSpeed * sin _windDirToward, _windSpeed * cos _windDirToward, 0.0];
 
 _heli setVariable ["fza_sfmplus_velWindWorldSpace", _velWindWorldSpace];

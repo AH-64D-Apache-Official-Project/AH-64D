@@ -204,7 +204,46 @@ if (fza_ah64_sfmPlusAutoPedal) then {
         _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
     };
 };
+/////////////////////////////////////////////////////////////////////////////////////////////
+// KB Auto Pitch        /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+if (fza_ah64_sfmPlusAutoPitch) then {
+    private _pidAutoPitch      = _heli getVariable "fza_sfmplus_pid_autoPitch";
+    private _autoPitchActive   = _heli getVariable "fza_sfmplus_autoPitchActive";
+    private _autoPitchTarget   = _heli getVariable "fza_sfmplus_autoPitchTarget";
+    private _prevPitchBreakout = _heli getVariable "fza_sfmplus_autoPitchBreakout";
+    private _pitchBreakout     = (abs _cyclicFwdAft) > ATT_HOLD_BREAKOUT_VALUE;
 
+    private _curPitch = (_heli call BIS_fnc_getPitchBank) select 0;
+
+    private _velXY = vectorMagnitude [
+        _heli getVariable "fza_sfmplus_velModelSpace" select 0,
+        _heli getVariable "fza_sfmplus_velModelSpace" select 1
+    ];
+    private _autoPitchScalar = linearConversion [VEL_ETL * 0.5, VEL_ETL, _velXY, 0.0, 1.0, true];
+
+    if (_pitchBreakout) then {
+        _autoPitchActive = false;
+        [_pidAutoPitch] call fza_fnc_pidReset;
+        _heli setVariable ["fza_sfmplus_autoPitchActive", false];
+        _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
+    } else {
+        // Capture pitch attitude on the falling edge of breakout (key release)
+        if (_prevPitchBreakout) then {
+            _autoPitchTarget = _curPitch;
+            _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
+        };
+        _autoPitchActive = true;
+        _heli setVariable ["fza_sfmplus_autoPitchActive", true];
+        private _pitchOut = [_pidAutoPitch, _deltaTime, _autoPitchTarget, _curPitch] call fza_fnc_pidRun;
+        _pitchOut         = [_pitchOut, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_ah64_forceTrimPosPitch", -(_pitchOut * _autoPitchScalar), true];
+    };
+    _heli setVariable ["fza_sfmplus_autoPitchBreakout", _pitchBreakout];
+};
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Flight Ctrl Lockout  /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 if (_fltControlLockout) then {
     if (
         (_cyclicFwdAft    < CENTER_TRIM_VAL && _cyclicFwdAft    > -CENTER_TRIM_VAL) &&

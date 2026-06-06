@@ -30,7 +30,7 @@ if (isGamePaused || CBA_missionTime < 0.1) exitWith {};
  ,1.0 
  ,0.0 
  ,0.0 
- ,1.0 ] call fza_sfmplus_fnc_aeroWing;
+ ,1.0 ] call fza_sfmplus_fnc_wing;
 //Left Wing
 [ _heli
  ,[-1.5,1.9,-1.4]
@@ -40,7 +40,7 @@ if (isGamePaused || CBA_missionTime < 0.1) exitWith {};
  ,1.0 
  ,0.0 
  ,0.0 
- ,1.0 ] call fza_sfmplus_fnc_aeroWing;
+ ,1.0 ] call fza_sfmplus_fnc_wing;
 //Vertical fin
 [ _heli
  ,[0.0, -6.3, -0.75]
@@ -50,7 +50,17 @@ if (isGamePaused || CBA_missionTime < 0.1) exitWith {};
  ,0.95
  ,-1.2
  ,0.0
- ,1.0 ] call fza_sfmplus_fnc_aeroWing;
+ ,1.0 ] call fza_sfmplus_fnc_wing;
 
 //Stabilator
-[_heli] call fza_sfmplus_fnc_aeroStabilator;
+[ _heli
+ ,[0.0, -6.45, -1.85]
+ ,0.0
+ ,0.0
+ ,(_heli getVariable "fza_sfmplus_stabWidth")
+ ,(_heli getVariable "fza_sfmplus_stabLength")
+ ,0.0
+ ,0.0
+ ,1.0
+ ,true
+ ] call fza_sfmplus_fnc_wing;

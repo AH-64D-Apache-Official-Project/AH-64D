@@ -44,7 +44,7 @@ private _rot = _armaToModelMat matrixMultiply [[_p], [_y], [_r]];
 _rot         = [_rot # 0 # 0, _rot # 1 # 0, _rot # 2 # 0];
 
 systemChat format ["_rot [%1, %2, %3]", (_rot select 0) toFixed 2, (_rot select 1) toFixed 2, (_rot select 2) toFixed 2];
-
+/*
 private _sinP = sin (_rot # 0);
 private _sinY = sin (_rot # 1);
 private _sinR = sin (_rot # 2);
@@ -53,18 +53,45 @@ private _cosP = cos (_rot # 0);
 private _cosY = cos (_rot # 1);
 private _cosR = cos (_rot # 2);
 
-private _rotMat = 
+private _rotMat =
 [
  [ _sinP * _sinR * _sinY + _cosR * _cosY,  _sinR * _cosP, _sinP * _sinR * _cosY - _sinY * _cosR ]
 ,[ _sinP * _sinY * _cosR - _sinR * _cosY,  _cosP * _cosR, _sinP * _cosR * _cosY + _sinR * _sinY ]
 ,[ _sinY * _cosP,                         -_sinP,         _cosP * _cosY                         ]
 ];
+*/
+// Trig values in Arma 3 axes: X+ right, Y+ forward, Z+ up.
+// P = pitch (rotation about X), Y = yaw (rotation about Z), R = roll (rotation about Y)
+private _sinP = sin P;
+private _sinY = sin Y;
+private _sinR = sin R;
 
+private _cosP = cos P;
+private _cosY = cos Y;
+private _cosR = cos R;
+
+// Rotation matrix in Arma 3 coordinates: X+ right, Y+ forward, Z+ up.
+// Intrinsic rotation order: Yaw (Z) -> Pitch (X) -> Roll (Y)
+// i.e. Ry(roll) * Rx(pitch) * Rz(yaw)
+private _rotMatA3 =
+[
+ [ _cosR * _cosY + _sinR * _sinP * _sinY, -_cosR * _sinY + _sinR * _sinP * _cosY,  _sinR * _cosP ]
+,[ _cosP * _sinY,                          _cosP * _cosY, -_sinP                                 ]
+,[-_sinR * _cosY + _cosR * _sinP * _sinY,  _sinR * _sinY + _cosR * _sinP * _cosY,  _cosR * _cosP ]
+];
+/*
 private _fVec = _rotMat matrixMultiply [[0],[1],[0]];
 _fVec         = [_fVec # 0 # 0, _fVec # 1 # 0, _fVec # 2 # 0];
 private _rVec = _rotMat matrixMultiply [[1],[0],[0]];
 _rVec         = [_rVec # 0 # 0, _rVec # 1 # 0, _rVec # 2 # 0];
 private _uVec = _rotMat matrixMultiply [[0],[0],[1]];
+_uVec         = [_uVec # 0 # 0, _uVec # 1 # 0, _uVec # 2 # 0];
+*/
+private _fVec = _rotMatA3 matrixMultiply [[0],[1],[0]];
+_fVec         = [_fVec # 0 # 0, _fVec # 1 # 0, _fVec # 2 # 0];
+private _rVec = _rotMatA3 matrixMultiply [[1],[0],[0]];
+_rVec         = [_rVec # 0 # 0, _rVec # 1 # 0, _rVec # 2 # 0];
+private _uVec = _rotMatA3 matrixMultiply [[0],[0],[1]];
 _uVec         = [_uVec # 0 # 0, _uVec # 1 # 0, _uVec # 2 # 0];
 
 private _tempPos = [0.0, 0.0, 5.0];
@@ -73,7 +100,7 @@ private _tempPos = [0.0, 0.0, 5.0];
 [_heli, _tempPos, _tempPos vectorAdd _rVec, "red"]   call fza_fnc_debugDrawLine;
 [_heli, _tempPos, _tempPos vectorAdd _uVec, "blue"]  call fza_fnc_debugDrawLine;
 
-private _vehVel = _rotMat matrixMultiply [[velocityModelSpace _heli # 0], [velocityModelSpace _heli # 1], [velocityModelSpace _heli # 2]];
+private _vehVel = _rotMatA3 matrixMultiply [[velocityModelSpace _heli # 0], [velocityModelSpace _heli # 1], [velocityModelSpace _heli # 2]];
 _vehVel         = [_vehVel # 0 # 0, _vehVel # 1 # 0, _vehVel # 2 # 0];
 
 private _vehVelX = _vehVel select 0;
@@ -94,9 +121,9 @@ private _chord  = [0.0, cos (INPUT * 5.0), sin (INPUT * 5.0)];
 private _locVelNorm = vectorNormalized _locVel;
 private _aoa = (_chord # 2 atan2 _chord # 1) - (_locVelNorm # 2 atan2 _locVelNorm # 1);
 
-//systemChat format ["_vehVel [%1, %2, %3]", (velocityModelSpace _heli select 0) toFixed 2, (velocityModelSpace _heli select 1) toFixed 2, (velocityModelSpace _heli select 2) toFixed 2];
-//systemChat format ["_locVel [%1, %2, %3]", (_locVel select 0) toFixed 2, (_locVel select 1) toFixed 2, (_locVel select 2) toFixed 2];
-//systemChat format ["_aoa = %1", _aoa];
+systemChat format ["_vehVel [%1, %2, %3]", (velocityModelSpace _heli select 0) toFixed 2, (velocityModelSpace _heli select 1) toFixed 2, (velocityModelSpace _heli select 2) toFixed 2];
+systemChat format ["_locVel [%1, %2, %3]", (_locVel select 0) toFixed 2, (_locVel select 1) toFixed 2, (_locVel select 2) toFixed 2];
+systemChat format ["_aoa = %1", _aoa];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // END TESTING          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

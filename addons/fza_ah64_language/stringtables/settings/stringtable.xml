@@ -290,6 +290,14 @@
             <Turkish>YAPIŞKAN SAPMA İLE ÇALIŞMAz! Etkinleştirildiğinde, pedallar AI tarafından otomatik olarak yönetilir</Turkish>
             <Dutch>WERKT NIET MET STICKY YAW! Wanneer ingeschakeld, worden de pedalen automatisch beheerd door AI</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH">
+            <Original>Keyboard Auto Pitch</Original>
+            <English>Keyboard Auto Pitch</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH_INFO">
+            <Original>When enabled, automatically holds a -6 degree pitch attitude in forward flight. Disengages when pilot pitch input is detected.</Original>
+            <English>When enabled, automatically holds a -6 degree pitch attitude in forward flight. Disengages when pilot pitch input is detected.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH">
             <Original>Keyboard Sticky Pitch</Original>
             <English>Keyboard Sticky Pitch</English>

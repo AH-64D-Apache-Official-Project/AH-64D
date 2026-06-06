@@ -64,6 +64,8 @@ _heli setVariable ["fza_sfmplus_vel2D",               0.0];
 _heli setVariable ["fza_sfmplus_vel3D",               0.0];
 _heli setVariable ["fza_sfmplus_velWindWorldSpace",   [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velWindModelSpace",   [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_windDirFrom",         0];
+_heli setVariable ["fza_sfmplus_windSpeedKts",        0];
 _heli setVariable ["fza_sfmplus_velModelSpace",       [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceNoWind", [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceX_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
@@ -143,6 +145,11 @@ _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0000, 0.0250, 0.
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500, 0.0010] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.1000, 0.1500, 0.3500, 0.1500] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
+//Auto pitch
+_heli setVariable ["fza_sfmplus_pid_autoPitch",      [0.0500, 0.0200, 0.0100, 5.0000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_autoPitchActive",    true];
+_heli setVariable ["fza_sfmplus_autoPitchTarget",    -6.0];
+_heli setVariable ["fza_sfmplus_autoPitchBreakout",  false];
 
 //Aerodynamic State Variables
 _heli setVariable ["fza_sfmplus_aero_alpha_deg",     0.0];

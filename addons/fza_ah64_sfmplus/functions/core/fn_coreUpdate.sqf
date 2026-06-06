@@ -87,7 +87,7 @@ if (fza_ah64_sfmPlusFmDebug) then {
     \n_cyclicCenterTrimMode = %35
     \n_pedalCenterTrimMode = %36
     \n--------------------
-    \n_mouseAsJoystick = %50    
+    \n_mouseAsJoystick = %44
     \n_kbStickyInterupt = %13
     \n_forceTrimInterupted = %14
     \n--------------------
@@ -116,63 +116,57 @@ if (fza_ah64_sfmPlusFmDebug) then {
     \n_hdgHoldSubMode = %30
     \n--------------------    
     \n_flightControlLockOut = %34
-    \n_autoPedalTimeScalar = %37
-    \nF/B[%41, %42] L/R[%43,%44]
-    \nPL/PR[%45,%46] CR/CL[%47,%48]
     \n--------------------
-    \nPitch = %38 Roll = %39
-    \nYaw = %49  Sideslip = %40
+    \nPitch = %37 Roll = %38
+    \nYaw = %40  Sideslip = %39
+    \n--------------------
+    \nAutoPitch = %41 PitchActive = %42
+    \nAPTarget = %43
     ",
-    _heli getVariable "fza_sfmplus_cyclicFwdAft" toFixed 3,        //1    
-    _heli getVariable "fza_sfmplus_cyclicLeftRight" toFixed 3,     //2    
-    _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 3,      //3    
-    _heli getVariable "fza_sfmplus_collectiveOutput" toFixed 3,    //4    
-    _heli getVariable "fza_ah64_stabilatorPosition" toFixed 3,     //5    
-    ((_heli getVariable "fza_sfmplus_GWT") * 2.20462) toFixed 0,  //6    
-    fza_ah64_sfmPlusSpringlessCyclic,   //7    
-    fza_ah64_sfmPlusSpringlessPedals,   //8    
-    fza_ah64_sfmPlusKeyboardStickyPitch,    //9    
-    fza_ah64_sfmPlusKeyboardStickyRoll,     //10    
-    fza_ah64_sfmPlusKeyboardStickyYaw,      //11    
-    fza_ah64_sfmPlusAutoPedal,  //12    
-    _heli getVariable "fza_sfmplus_kbStickyInterupt",   //13    
-    _heli getVariable "fza_ah64_forceTrimInterupted",  //14    
-    _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut" toFixed 3,  //15    
-    _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut" toFixed 3,   //16    
-    _heli getVariable "fza_sfmplus_fmcHdgHoldPedalYawOut" toFixed 3,  //17    
-    _heli getVariable "fza_sfmplus_fmcAltHoldCollOut" toFixed 3,  //18    
-    _heli getVariable "fza_ah64_forceTrimPosPitch" toFixed 3,  //19    
-    _heli getVariable "fza_ah64_forceTrimPosRoll" toFixed 3,   //20    
-    _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 3,   //21    
-    getCenterOfMass _heli select 0 toFixed 3, //22    
-    getCenterOfMass _heli select 1 toFixed 3, //23    
-    getCenterOfMass _heli select 2 toFixed 3,  //24    
-    _heli getVariable "fza_ah64_attHoldActive", //25    
-    _heli getVariable "fza_ah64_attHoldSubMode", //26    
-    _heli getVariable "fza_ah64_altHoldActive", //27    
-    _heli getVariable "fza_ah64_altHoldSubMode", //28    
-    _heli getVariable "fza_ah64_hdgHoldActive", //29    
-    _heli getVariable "fza_ah64_hdgHoldSubMode", //30    
-    _heli getVariable "fza_sfmplus_fmcSasPitchOut" toFixed 3, //31    
-    _heli getVariable "fza_sfmplus_fmcSasRollOut" toFixed 3, //32    
-    _heli getVariable "fza_sfmplus_fmcSasYawOut" toFixed 3,   //33    
-    _heli getVariable "fza_sfmplus_flightControlLockOut", //34   
-    fza_sfmplus_cyclicCenterTrimMode, //35   
-    fza_sfmplus_pedalCenterTrimMode, //36   
-    fza_ah64_sfmPlusAutoPedalTimeScalar, //37   
-    _heli call BIS_fnc_getPitchBank select 0 toFixed 2, //38   
-    _heli call BIS_fnc_getPitchBank select 1 toFixed 2, //39   
-    _heli getVariable "fza_sfmplus_aero_beta_deg" toFixed 2, //40  
-    _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 2, //41  
-    _heli getVariable "fza_sfmplus_heliCyclicBackwardOut" toFixed 2, //42  
-    _heli getVariable "fza_sfmplus_heliCyclicLeftOut" toFixed 2, //43  
-    _heli getVariable "fza_sfmplus_heliCyclicRightOut" toFixed 2, //44  
-    _heli getVariable "fza_sfmplus_heliRudderLeftOut" toFixed 2, //45  
-    _heli getVariable "fza_sfmplus_heliRudderRightOut" toFixed 2, //46  
-    _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut" toFixed 2, //47  
-    _heli getVariable "fza_sfmplus_heliCollectiveLowerOut" toFixed 2, //48
-    ([player getRelDir _heli] call CBA_fnc_simplifyAngle180)  toFixed 2, //49
-    fza_ah64_sfmPlusMouseAsJoystick //50
+    _heli getVariable "fza_sfmplus_cyclicFwdAft" toFixed 3,        //1
+    _heli getVariable "fza_sfmplus_cyclicLeftRight" toFixed 3,     //2
+    _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 3,      //3
+    _heli getVariable "fza_sfmplus_collectiveOutput" toFixed 3,    //4
+    _heli getVariable "fza_ah64_stabilatorPosition" toFixed 3,     //5
+    ((_heli getVariable "fza_sfmplus_GWT") * 2.20462) toFixed 0,  //6
+    fza_ah64_sfmPlusSpringlessCyclic,   //7
+    fza_ah64_sfmPlusSpringlessPedals,   //8
+    fza_ah64_sfmPlusKeyboardStickyPitch,    //9
+    fza_ah64_sfmPlusKeyboardStickyRoll,     //10
+    fza_ah64_sfmPlusKeyboardStickyYaw,      //11
+    fza_ah64_sfmPlusAutoPedal,  //12
+    _heli getVariable "fza_sfmplus_kbStickyInterupt",   //13
+    _heli getVariable "fza_ah64_forceTrimInterupted",  //14
+    _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut" toFixed 3,  //15
+    _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut" toFixed 3,   //16
+    _heli getVariable "fza_sfmplus_fmcHdgHoldPedalYawOut" toFixed 3,  //17
+    _heli getVariable "fza_sfmplus_fmcAltHoldCollOut" toFixed 3,  //18
+    _heli getVariable "fza_ah64_forceTrimPosPitch" toFixed 3,  //19
+    _heli getVariable "fza_ah64_forceTrimPosRoll" toFixed 3,   //20
+    _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 3,   //21
+    getCenterOfMass _heli select 0 toFixed 3, //22
+    getCenterOfMass _heli select 1 toFixed 3, //23
+    getCenterOfMass _heli select 2 toFixed 3,  //24
+    _heli getVariable "fza_ah64_attHoldActive", //25
+    _heli getVariable "fza_ah64_attHoldSubMode", //26
+    _heli getVariable "fza_ah64_altHoldActive", //27
+    _heli getVariable "fza_ah64_altHoldSubMode", //28
+    _heli getVariable "fza_ah64_hdgHoldActive", //29
+    _heli getVariable "fza_ah64_hdgHoldSubMode", //30
+    _heli getVariable "fza_sfmplus_fmcSasPitchOut" toFixed 3, //31
+    _heli getVariable "fza_sfmplus_fmcSasRollOut" toFixed 3, //32
+    _heli getVariable "fza_sfmplus_fmcSasYawOut" toFixed 3,   //33
+    _heli getVariable "fza_sfmplus_flightControlLockOut", //34
+    fza_sfmplus_cyclicCenterTrimMode, //35
+    fza_sfmplus_pedalCenterTrimMode, //36
+    _heli call BIS_fnc_getPitchBank select 0 toFixed 2, //37
+    _heli call BIS_fnc_getPitchBank select 1 toFixed 2, //38
+    _heli getVariable "fza_sfmplus_aero_beta_deg" toFixed 2, //39
+    ([player getRelDir _heli] call CBA_fnc_simplifyAngle180)  toFixed 2, //40
+    fza_ah64_sfmPlusAutoPitch, //41
+    _heli getVariable "fza_sfmplus_autoPitchActive", //42
+    _heli getVariable "fza_sfmplus_autoPitchTarget" toFixed 1, //43
+    fza_ah64_sfmPlusMouseAsJoystick //44
     ];
 };
 
