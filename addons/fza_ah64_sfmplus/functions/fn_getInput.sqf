@@ -233,9 +233,6 @@ if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) th
         // Accumulate timer with sign: forward (_cyclicFwdAft > 0) = positive, aft = negative
         _autoPitchHoldTimer = _autoPitchHoldTimer + (_deltaTime * (if (_cyclicFwdAft > 0) then { 1 } else { -1 }));
         _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", _autoPitchHoldTimer];
-        // Continuously track live pitch so release captures exactly the current attitude
-        _autoPitchTarget = _curPitch;
-        _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
         _autoPitchActive = false;
         [_pidAutoPitch] call fza_fnc_pidReset;
         _heli setVariable ["fza_sfmplus_autoPitchActive", false];
@@ -243,12 +240,14 @@ if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) th
     } else {
         if (_prevPitchBreakout) then {
             // Key just released — check tap vs hold
-            if ((abs _autoPitchHoldTimer) < 0.1) then {
-                // Tap: forward (positive timer) = nose down = more negative target
+            if ((abs _autoPitchHoldTimer) < 0.15) then {
+                // Tap: increment target by 0.1 in the pressed direction
                 _autoPitchTarget = _autoPitchTarget - (0.1 * (if (_autoPitchHoldTimer > 0) then { 1 } else { -1 }));
                 _autoPitchTarget = [_autoPitchTarget, -30.0, 30.0] call BIS_fnc_clamp;
+            } else {
+                // Hold release: capture live pitch as new target
+                _autoPitchTarget = _curPitch;
             };
-            // Hold release: target already equals live pitch from continuous update above
             _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
             [_pidAutoPitch] call fza_fnc_pidReset;
             _autoPitchHoldTimer = 0;
