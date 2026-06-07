@@ -192,7 +192,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
     _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-    _sideslipError  = [fza_ah64_sideslip - _desiredSlip] call CBA_fnc_simplifyAngle180;
+    _sideslipError  = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
@@ -233,6 +233,9 @@ if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) th
         // Accumulate timer with sign: forward (_cyclicFwdAft > 0) = positive, aft = negative
         _autoPitchHoldTimer = _autoPitchHoldTimer + (_deltaTime * (if (_cyclicFwdAft > 0) then { 1 } else { -1 }));
         _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", _autoPitchHoldTimer];
+        // Continuously track live pitch so release captures exactly the current attitude
+        _autoPitchTarget = _curPitch;
+        _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
         _autoPitchActive = false;
         [_pidAutoPitch] call fza_fnc_pidReset;
         _heli setVariable ["fza_sfmplus_autoPitchActive", false];
@@ -244,10 +247,8 @@ if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) th
                 // Tap: forward (positive timer) = nose down = more negative target
                 _autoPitchTarget = _autoPitchTarget - (0.1 * (if (_autoPitchHoldTimer > 0) then { 1 } else { -1 }));
                 _autoPitchTarget = [_autoPitchTarget, -30.0, 30.0] call BIS_fnc_clamp;
-            } else {
-                // Hold: capture live pitch as new target
-                _autoPitchTarget = _curPitch;
             };
+            // Hold release: target already equals live pitch from continuous update above
             _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
             [_pidAutoPitch] call fza_fnc_pidReset;
             _autoPitchHoldTimer = 0;

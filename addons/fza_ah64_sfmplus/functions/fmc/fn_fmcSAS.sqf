@@ -26,11 +26,17 @@ if (!(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Pitch & Roll SAS
     private _roll  = [_pidSASRoll, _deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
     _roll          = [_roll,  -0.1, 0.1] call BIS_fnc_clamp;
-    private _pitch = [_pidSASPitch, _deltaTime, 0.0, _angVelX] call fza_fnc_pidRun;
-    _pitch         = [_pitch, -0.1, 0.1] call BIS_fnc_clamp;
 
-    _sasPitchOutput = _pitch;
-    _sasRollOutput  = _roll;
+    _sasRollOutput = _roll;
+
+    //Pitch SAS disabled when auto pitch is active (auto pitch manages the axis)
+    if (!fza_ah64_sfmPlusAutoPitch) then {
+        private _pitch = [_pidSASPitch, _deltaTime, 0.0, _angVelX] call fza_fnc_pidRun;
+        _pitch         = [_pitch, -0.1, 0.1] call BIS_fnc_clamp;
+        _sasPitchOutput = _pitch;
+    } else {
+        [_pidSASPitch] call fza_fnc_pidReset;
+    };
 
     //Yaw is fully managed by heading hold (fn_fmcHeadingHold.sqf), which blends heading
     //hold, yaw SAS, and turn coordination across the speed/att-hold envelope internally.
