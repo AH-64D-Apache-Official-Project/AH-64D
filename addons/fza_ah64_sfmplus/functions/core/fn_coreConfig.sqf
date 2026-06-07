@@ -136,14 +136,14 @@ _heli setVariable ["fza_sfmplus_pid_radHold",        [0.0500, 0.0001, 0.0050, 0.
 _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0010, 0.0000, 0.0008, 0.0000] call fza_fnc_pidCreate];
 //Heading Hold
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050, 0.0200] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.5500, 0.0400, 0.2000, 0.0400] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.8500, 0.0600, 0.2000, 0.0600] call fza_fnc_pidCreate];
 //SAS Functions
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.1000, 0.0000, 0.0020, 0.0000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.0080, 0.0000, 0.0020, 0.0000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0000, 0.0250, 0.0000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.3000, 0.0500, 0.0250, 0.0500] call fza_fnc_pidCreate];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500, 0.0010] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.5000, 0.3000, 0.3500, 0.3000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.5000, 0.1000, 0.8000, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 //Auto pitch
 _heli setVariable ["fza_sfmplus_pid_autoPitch",      [0.0500, 0.0200, 0.0100, 5.0000] call fza_fnc_pidCreate];

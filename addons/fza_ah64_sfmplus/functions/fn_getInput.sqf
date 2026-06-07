@@ -177,7 +177,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     private _desiredSlip   = 0.0;
     private _sideslipError = 0.0;
 
-    if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+    if (_yawBreakout || _gndSpeed > POS_HOLD_SPEED_SWITCH) then {
         _desiredHdg       = getDir _heli;
         _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / 0.1) * _deltaTime] call BIS_fnc_lerp;
         _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
@@ -197,17 +197,23 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
+    private _hdgHoldBreakout     = (_pedalLeftRight <= -HDG_HOLD_BREAKOUT_VALUE && _pedalLeftRight < 0.0) || (_pedalLeftRight >= HDG_HOLD_BREAKOUT_VALUE && _pedalLeftRight > 0.0);
+    private _prevHdgHoldBreakout = _heli getVariable ["fza_sfmplus_prevAutoPedalHdgBreakout", false];
     if (_yawBreakout) then {
         [_pidAutoPedalHdg]  call fza_fnc_pidReset;
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
     } else {
+        if (_gndSpeed < POS_HOLD_SPEED_SWITCH && _prevHdgHoldBreakout && !_hdgHoldBreakout) then {
+            _heli setVariable ["fza_sfmPlus_autoPedalHdg", getDir _heli, true];
+        };
         _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
     };
+    _heli setVariable ["fza_sfmplus_prevAutoPedalHdgBreakout", _hdgHoldBreakout];
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // KB Auto Pitch        /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-if (fza_ah64_sfmPlusAutoPitch) then {
+if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) then {
     private _pidAutoPitch      = _heli getVariable "fza_sfmplus_pid_autoPitch";
     private _autoPitchActive   = _heli getVariable "fza_sfmplus_autoPitchActive";
     private _autoPitchTarget   = _heli getVariable "fza_sfmplus_autoPitchTarget";
