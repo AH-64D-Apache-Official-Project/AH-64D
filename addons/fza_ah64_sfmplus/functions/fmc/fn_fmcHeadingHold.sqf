@@ -21,7 +21,7 @@ private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
 private _desiredSlip   = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
-private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+private _sideslipError = [fza_ah64_sideslip - _desiredSlip] call CBA_fnc_simplifyAngle180;
 private _subMode       = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode    = _heli getVariable "fza_ah64_attHoldSubMode";
 private _hdgOutput     = 0.0;
@@ -99,8 +99,8 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     //On transition: reset outgoing PID; capture heading when returning to hdg
     if (_subMode != _targetSubMode) then {
         if (_subMode == "hdg") then { [_pidHdg] call fza_fnc_pidReset; };
-        if (_subMode == "trn") then { [_pidTrn] call fza_fnc_pidReset; };
-        if (_subMode == "yaw" || _subMode == "aut") then { [_pidYaw] call fza_fnc_pidReset; };
+        if (_subMode == "trn" || _subMode == "yaw") then { [_pidTrn] call fza_fnc_pidReset; };
+        if (_subMode == "aut") then { [_pidYaw] call fza_fnc_pidReset; };
         if (_targetSubMode == "hdg") then {
             _heli setVariable ["fza_ah64_hdgHoldDesiredHdg", getDir _heli, true];
         };
@@ -118,7 +118,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
         _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
     if (_subMode == "yaw") then {
-        _yawOutput = [_pidYaw, _deltaTime, _pedalTrim, _angVelZ] call fza_fnc_pidRun;
+        _yawOutput = [_pidTrn, _deltaTime, _sideslipError, 0.0] call fza_fnc_pidRun;
         _yawOutput = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //"aut": auto pedal owns the yaw axis via fza_ah64_forceTrimPosPedal (fn_getInput.sqf).

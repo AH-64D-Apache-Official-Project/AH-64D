@@ -192,7 +192,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
     _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-    _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+    _sideslipError  = [fza_ah64_sideslip - _desiredSlip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
