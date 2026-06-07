@@ -192,12 +192,27 @@ function clearPylonAmmoOnTypeChange(pylonIndex, mode) {
     });
   }
   if (mode === 'rocket') {
+    var pylonSeq = (typeof g_pylonOrder !== 'undefined' && g_pylonOrder['p' + pylonIndex]) || 0;
     getZoneIdsForPylon(pylonIndex).forEach(function(zonePair) {
       var zoneKey = zonePair[0];
       var countEl = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_count');
       var typeEl  = document.getElementById('p' + pylonIndex + '_' + zoneKey + '_type');
       if (countEl) countEl.value = '0';
-      if (typeEl)  typeEl.value  = '';
+      // Copy zone type from the first other rocket pylon that shares this zone key
+      var matchedType = '';
+      for (var srcPii = 1; srcPii <= 4; srcPii++) {
+        if (srcPii === pylonIndex) continue;
+        var srcModeEl = document.getElementById('pylon' + srcPii + 'Type');
+        if (!srcModeEl || srcModeEl.value !== 'rocket') continue;
+        var srcTypeEl = document.getElementById('p' + srcPii + '_' + zoneKey + '_type');
+        if (srcTypeEl && srcTypeEl.value) { matchedType = srcTypeEl.value; break; }
+      }
+      if (typeEl) typeEl.value = matchedType;
+      // Stamp each zone with the pylon-change seq so subsequent per-zone edits
+      // correctly supersede this "bulk creation" timestamp
+      if (typeof g_itemOrder !== 'undefined') {
+        g_itemOrder['p' + pylonIndex + '_' + zoneKey] = pylonSeq;
+      }
     });
   }
 }

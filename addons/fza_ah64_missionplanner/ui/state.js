@@ -232,23 +232,20 @@ function updateConversionWarning() {
           if ((initRails[ri] || '') !== (curRails[ri] || '')) { pylonChangedSecs += 5; }
         }
       } else if (initP.type === 'rocket') {
-        // Same rocket type: 20s per zone where munition type swaps; count-only changes
-        // scale against full pod capacity (19 rockets: 12+4+3) = 20s
+        // Each changed magazine slot = 1 ACE progress bar = ace_pylons_timePerPylon (default 5s).
+        // A zone slot changes when its magazine classname changes: type differs, or one side
+        // is empty (count=0 / no type) while the other is loaded.
         var initZones = initP.zones || [];
         var curZones  = curP.zones  || [];
         var numZones  = Math.max(initZones.length, curZones.length, 3);
-        var rktCountDelta = 0;
         for (var zi = 0; zi < numZones; zi++) {
           var iz = initZones[zi] || { count: 0, type: '' };
           var cz = curZones[zi]  || { count: 0, type: '' };
-          if ((iz.type || '') !== (cz.type || '')) {
-            pylonChangedSecs += 20; // zone munition type changed — full physical swap
-          } else {
-            rktCountDelta += Math.abs((cz.count || 0) - (iz.count || 0));
+          var initActive = (iz.count || 0) > 0 && (iz.type || '') !== '';
+          var planActive = (cz.count || 0) > 0 && (cz.type || '') !== '';
+          if ((iz.type || '') !== (cz.type || '') || initActive !== planActive) {
+            pylonChangedSecs += 5; // one magazine slot swapped
           }
-        }
-        if (rktCountDelta > 0) {
-          pylonChangedSecs += Math.ceil(rktCountDelta / 19 * 20);
         }
       } else {
         // Same non-hellfire type (e.g. rocket zone count/type changed)
@@ -307,6 +304,46 @@ function updateConversionWarning() {
   }
 }
 
+// ── Unsaved-changes tracking ──────────────────────────────────────────────────
+var lastAppliedOrLoadedState = null;
+
+function markConfigClean() {
+  var cur = getPlannerState();
+  lastAppliedOrLoadedState = {
+    fcrActive:  cur.fcrActive,
+    robbieMode: cur.robbieMode,
+    tailNum:    cur.tailNum    || '',
+    msnEquip:   cur.msnEquip   || 'US',
+    cannonRds:  cur.cannonRds  || 0,
+    fuel:   JSON.parse(JSON.stringify(cur.fuel   || {})),
+    pylons: JSON.parse(JSON.stringify(cur.pylons || []))
+  };
+}
+
+function hasPlannerChanges() {
+  var base = lastAppliedOrLoadedState;
+  if (!base) return false;
+  var cur = getPlannerState();
+  if (cur.fcrActive !== base.fcrActive) return true;
+  if ((cur.robbieMode || 'iafs') !== (base.robbieMode || 'iafs')) return true;
+  if ((cur.tailNum    || '')    !== (base.tailNum    || ''))    return true;
+  if ((cur.msnEquip   || 'US')  !== (base.msnEquip   || 'US'))  return true;
+  if ((cur.cannonRds  || 0)     !== (base.cannonRds  || 0))     return true;
+  if (JSON.stringify(cur.fuel   || {}) !== JSON.stringify(base.fuel   || {})) return true;
+  if (JSON.stringify(cur.pylons || []) !== JSON.stringify(base.pylons || [])) return true;
+  return false;
+}
+
+function openCloseConfirmDialog() {
+  var modal = document.getElementById('closeConfirmModal');
+  if (modal) { modal.classList.add('visible'); modal.setAttribute('aria-hidden', 'false'); }
+}
+
+function closeCloseConfirmDialog() {
+  var modal = document.getElementById('closeConfirmModal');
+  if (modal) { modal.classList.remove('visible'); modal.setAttribute('aria-hidden', 'true'); }
+}
+
 // Highlight cycle buttons yellow when a rail has a missile classname but ammo=0 (fired)
 // and the current plan still has a missile on that rail (i.e. it will be rearmed by Apply).
 function syncFiredRailHighlights() {
@@ -328,9 +365,63 @@ function syncFiredRailHighlights() {
       if (!wasFired) continue;
       // Plan has a missile on this rail — it will be rearmed
       if (!(curRails[ri] && curRails[ri] !== '')) continue;
+      // Type was changed — user is requesting a different missile, not rearming the fired one
+      if ((curRails[ri] || '') !== (initRails[ri] || '')) continue;
       var railId = 'p' + (pi + 1) + '_' + railKeys[ri];
       var btn = document.querySelector('button.rail-cycle[data-rail="' + railId + '"]');
       if (btn) btn.classList.add('rail-fired');
     }
   }
+}
+
+// Returns a copy of the current planner state with ammo-warn (red) items stripped so SQF
+// never rearms what the planner flagged as unaffordable.
+// Hellfire rails: reverted to '' — SQF assigns fza_agm114_rail (cost=0, model visible).
+// Rocket zones: reverted to initial zone (pod stays loaded, no new rockets charged).
+// Cannon: reverted to initial round count (no pylon slot involved).
+function getAffordableApplyState() {
+  var state = getPlannerState();
+  var initPylons = (initialAircraftState && initialAircraftState.pylons) ? initialAircraftState.pylons : [];
+  var railKeyOrder = ['tr', 'tl', 'br', 'bl'];
+
+  // Cannon
+  var cannonEl = document.getElementById('cannonRds');
+  if (cannonEl && cannonEl.classList.contains('ammo-warn')) {
+    state.cannonRds = (initialAircraftState && typeof initialAircraftState.cannonRds === 'number')
+      ? initialAircraftState.cannonRds
+      : (state.cannonRds || 0);
+  }
+
+  // Hellfire rails — send '' so SQF loads the empty-rail placeholder (fza_agm114_rail, cost=0).
+  // This ensures the pod model stays visible even when a rail is unaffordable.
+  // ri=0 (tr) is included intentionally so the first slot is always assigned.
+  eachNode('button.rail-cycle.ammo-warn', function(btn) {
+    var railId = getData(btn, 'rail');
+    var m = /^p([1-4])_(tr|tl|br|bl)$/.exec(railId || '');
+    if (!m) return;
+    var pylonIdx = parseInt(m[1], 10) - 1;
+    var ri = railKeyOrder.indexOf(m[2]);
+    if (ri < 0 || !state.pylons[pylonIdx] || !state.pylons[pylonIdx].rails) return;
+    state.pylons[pylonIdx].rails[ri] = '';
+  });
+
+  // Rocket zones — revert to initial zone so the pod stays loaded at its original count.
+  eachNode('.zone-count input.ammo-warn', function(inp) {
+    var m = /^p([1-4])_(z[a-z]+)_count$/.exec(inp.id || '');
+    if (!m) return;
+    var pylonIdx = parseInt(m[1], 10) - 1;
+    var zoneKey = m[2];
+    var zoneIds = getZoneIdsForPylon(parseInt(m[1], 10));
+    var zi = -1;
+    for (var k = 0; k < zoneIds.length; k++) {
+      if (zoneIds[k][0] === zoneKey) { zi = k; break; }
+    }
+    if (zi < 0 || !state.pylons[pylonIdx] || !state.pylons[pylonIdx].zones) return;
+    var initP = initPylons[pylonIdx] || {};
+    var initZones = (initP.type === 'rocket') ? (initP.zones || []) : [];
+    var initZone = initZones[zi] || { count: 0, type: '' };
+    state.pylons[pylonIdx].zones[zi] = { count: initZone.count || 0, type: initZone.type || '' };
+  });
+
+  return state;
 }

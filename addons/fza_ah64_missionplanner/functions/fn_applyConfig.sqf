@@ -206,11 +206,13 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             };
         } forEach _pylonArraycheck;
 
-        // Treat empty-structure magazines (count=0 placeholder) as equivalent to ""
-        // so we don't trigger unnecessary rearms when only the placeholder differs.
+        // Collapse count=0 structural pod placeholders to "" so unchanged rocket pylons
+        // don't get re-queued. fza_agm114_rail is intentionally excluded: it must be
+        // explicitly loaded on every empty hellfire rail slot so the pylon passes
+        // fza_fnc_weaponPylonCheckValid (which clears any pylon with a raw "" slot).
         private _normaliseSlot = {
             params ["_mag"];
-            if (_mag isEqualTo "") exitWith { "" };
+            if (_mag isEqualTo "" || {_mag isEqualTo "fza_agm114_rail"}) exitWith { _mag };
             private _cnt = getNumber (configFile >> "CfgMagazines" >> _mag >> "count");
             if (_cnt == 0) exitWith { "" };
             _mag
@@ -218,8 +220,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         for "_i" from 0 to ((count _targetPylonMagazines) - 1) do {
             private _desired = [_targetPylonMagazines # _i] call _normaliseSlot;
             private _current = [(getPylonMagazines _heli) # _i] call _normaliseSlot;
-            // Also queue slots where classname matches but ammo is 0 (fired; needs refill)
-            if (_desired != _current || {_desired != "" && {(_heli ammoOnPylon (_i + 1)) == 0}}) then {
+            // Queue fired slots for refill, but skip count=0 placeholders (they have no ammo to refill)
+            if (_desired != _current || {_desired != "" && {_desired != "fza_agm114_rail"} && {(_heli ammoOnPylon (_i + 1)) == 0}}) then {
                 _configureQueue pushBack _i;
             };
         };
@@ -239,6 +241,12 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 private _cannonLoadRds = (_targetCannonRds - _curCannonRds) max 0;
                 private _cannonReserve = ceil (_cannonLoadRds / 50) * _cannonCaliberCost;
                 private _budget = (_available - _cannonReserve) max 0;
+                // Pre-credit recycled magazines so in-place swaps (e.g. hellfires→rockets)
+                // don't exhaust the budget before reaching the slots being replaced.
+                {
+                    private _oldMag = (getPylonMagazines _heli) select _x;
+                    _budget = _budget + (([_oldMag] call _fnMagCaliberCost) max 0);
+                } forEach _configureQueue;
                 private _trimmedQueue = [];
                 {
                     private _mag = _targetPylonMagazines select _x;
@@ -251,6 +259,17 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     };
                 } forEach _configureQueue;
                 _configureQueue = _trimmedQueue;
+            };
+        };
+
+        // If ace_pylons_enabledfromammotrucks is set, pylon changes require a supply truck nearby.
+        private _pylonsNeedTruck = missionNamespace getVariable ["ace_pylons_enabledfromammotrucks", false];
+        if !(_pylonsNeedTruck isEqualType true) then { _pylonsNeedTruck = false; };
+        if (_pylonsNeedTruck && (_configureQueue isNotEqualTo [])) then {
+            private _pylonTruck = call _fnFindSupplyTruck;
+            if (isNull _pylonTruck) then {
+                systemChat "Mission Planner: pylon changes require an ammo truck nearby (ace_pylons_enabledfromammotrucks). Pylon changes skipped.";
+                _configureQueue = [];
             };
         };
 
@@ -291,9 +310,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     [_heli, _pylonIndex, _targetMagazine, _status, _rearmNewPylons, _weaponToRemove, _searchDistance],
                     {
                         params [["_args", []]];
-                        _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove"];
+                        _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove", "_searchDistance"];
                         ["ace_pylons_setPylonLoadOutEvent", [_heli, _pylonIndex + 1, _targetMagazine, [], _weaponToRemove]] call CBA_fnc_globalEvent;
-                        // Ammo count: fill if rearmNewPylons=true; else zero (player must ACE-rearm manually)
                         private _count = if (_rearmNewPylons && {_targetMagazine != ""}) then {
                             getNumber (configFile >> "CfgMagazines" >> _targetMagazine >> "count")
                         } else {

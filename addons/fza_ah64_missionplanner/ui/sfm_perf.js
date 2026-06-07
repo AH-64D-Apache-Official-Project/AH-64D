@@ -98,9 +98,55 @@ function readTextFile(path) {
 
 
 function stripHppComments(text) {
-  return String(text || '')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+  var src = String(text || '');
+  var out = [];
+  var i = 0;
+  var len = src.length;
+
+  while (i < len) {
+    var c = src[i];
+
+    // Block comment: /* ... */
+    if (c === '/' && i + 1 < len && src[i + 1] === '*') {
+      i += 2;
+      while (i < len) {
+        if (src[i] === '*' && i + 1 < len && src[i + 1] === '/') { i += 2; break; }
+        i++;
+      }
+      continue;
+    }
+
+    // Line comment: // ...
+    if (c === '/' && i + 1 < len && src[i + 1] === '/') {
+      i += 2;
+      while (i < len && src[i] !== '\n') i++;
+      continue;
+    }
+
+    // String literal: preserve contents so // or /* inside strings are not stripped
+    if (c === '"') {
+      out.push(c);
+      i++;
+      while (i < len) {
+        var sc = src[i];
+        if (sc === '\\') {
+          out.push(sc);
+          i++;
+          if (i < len) { out.push(src[i]); i++; }
+          continue;
+        }
+        out.push(sc);
+        if (sc === '"') { i++; break; }
+        i++;
+      }
+      continue;
+    }
+
+    out.push(c);
+    i++;
+  }
+
+  return out.join('');
 }
 
 function parseHppTableRows(hppText, tableName) {

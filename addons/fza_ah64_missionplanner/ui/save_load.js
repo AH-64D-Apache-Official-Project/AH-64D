@@ -661,6 +661,7 @@ function loadSelectedPlannerState() {
   }
 
   applyPlannerState(entries[idx].state);
+  markConfigClean();
   saveLoadState.selectedName = entries[idx].name;
   document.getElementById('currentConfigName').value = entries[idx].name;
   syncSetLastLoadedConfig(entries[idx].name);

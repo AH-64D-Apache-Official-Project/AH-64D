@@ -100,9 +100,15 @@ private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylo
 if !(_rearmNewPylons isEqualType true) then { _rearmNewPylons = false; };
 private _rearmNewPylonsStr = ["false", "true"] select _rearmNewPylons;
 
+// ── ACE pylons ammo-truck requirement ────────────────────────────────────────
+// When true, pylon configuration requires being near an ammo supply truck.
+private _pylonsNeedTruck = missionNamespace getVariable ["ace_pylons_enabledfromammotrucks", false];
+if !(_pylonsNeedTruck isEqualType true) then { _pylonsNeedTruck = false; };
+private _pylonsNeedTruckStr = ["false", "true"] select _pylonsNeedTruck;
+
 // ── Nearby ACE fuel sources ───────────────────────────────────────────────────
 private _farpFuelJson = "[]";
-private _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"trucks":[],"costs":%2}', _rearmNewPylonsStr, _costJson];
+private _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"pylonsNeedTruck":%2,"trucks":[],"costs":%3}', _rearmNewPylonsStr, _pylonsNeedTruckStr, _costJson];
 private _heliTarget = uiNamespace getVariable ["fza_mplanner_target", objNull];
 if (isNull _heliTarget || {!(_heliTarget isKindOf "Helicopter")}) then {
     _heliTarget = vehicle player;
@@ -155,8 +161,8 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
             _isSource = _cfgSupply > 0;
         };
         if !(_isSource) then {continue};
-        // Get supply amount — only meaningful in limited mode (ace_rearm_supply == 1)
-        private _supplyAmt = -1; // treat as unlimited unless mode 1
+        // Get supply amount — only meaningful for mode 1 (caliber pool)
+        private _supplyAmt = -1; // -1 = unknown / not applicable
         if (_aceSupplyMode == 1) then {
             private _currentSupply = _src getVariable "ace_rearm_currentSupply";
             if (isNil "_currentSupply") then {
@@ -165,10 +171,12 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
             };
             _supplyAmt = round _currentSupply;
         };
-        private _isUnlimited = _supplyAmt < 0;
+        // Mode 0 = no supply limit (unlimited); mode 2 = magazine inventory (finite, not caliber pool)
+        private _isUnlimited = _aceSupplyMode == 0;
         if (_isUnlimited) then {
             _rearmHasUnlimited = true;
-        } else {
+        };
+        if (_aceSupplyMode == 1) then {
             _rearmTotalSupply = _rearmTotalSupply + _supplyAmt;
         };
         _rearmSources pushBack format ['{"name":"%1","supply":%2,"unlimited":%3}',
@@ -180,21 +188,22 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
 
     if (_rearmSources isNotEqualTo []) then {
         _rearmJson = format [
-            '{"mode":%1,"totalSupply":%2,"unlimited":%3,"rearmNewPylons":%4,"trucks":[%5],"costs":%6}',
+            '{"mode":%1,"totalSupply":%2,"unlimited":%3,"rearmNewPylons":%4,"pylonsNeedTruck":%5,"trucks":[%6],"costs":%7}',
             _aceSupplyMode,
             if (_rearmHasUnlimited) then {-1} else {_rearmTotalSupply},
             ["false", "true"] select (_rearmHasUnlimited),
             _rearmNewPylonsStr,
+            _pylonsNeedTruckStr,
             _rearmSources joinString ',',
             _costJson
         ];
     } else {
-        _rearmJson = format ['{"mode":%1,"totalSupply":0,"unlimited":false,"rearmNewPylons":%2,"trucks":[],"costs":%3}', _aceSupplyMode, _rearmNewPylonsStr, _costJson];
+        _rearmJson = format ['{"mode":%1,"totalSupply":0,"unlimited":false,"rearmNewPylons":%2,"pylonsNeedTruck":%3,"trucks":[],"costs":%4}', _aceSupplyMode, _rearmNewPylonsStr, _pylonsNeedTruckStr, _costJson];
     };
 
 } else {
     // No heli target — still provide cost structure with no trucks
-    _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"trucks":[],"costs":%2}', _rearmNewPylonsStr, _costJson];
+    _rearmJson = format ['{"mode":0,"totalSupply":0,"unlimited":true,"rearmNewPylons":%1,"pylonsNeedTruck":%2,"trucks":[],"costs":%3}', _rearmNewPylonsStr, _pylonsNeedTruckStr, _costJson];
 };
 
 // ── Ammo List (always INF — limit enforcement not yet implemented) ──────────

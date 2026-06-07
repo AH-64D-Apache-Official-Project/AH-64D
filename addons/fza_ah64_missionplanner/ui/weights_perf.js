@@ -57,7 +57,16 @@ function updateAmmoWarnings() {
   // Highlight fired rails (classname present, ammo=0) that will be rearmed
   syncFiredRailHighlights();
 
-  // Only enforce in mode 1 (caliber pool) or mode 2 (magazine inventory)
+  // Info: pylon changes will be skipped at apply time if no ammo truck is nearby
+  if (g_rearmData && g_rearmData.pylonsNeedTruck) {
+    var hasTruckNearby = !!(g_rearmData.trucks && g_rearmData.trucks.length);
+    if (!hasTruckNearby && supplyEl) {
+      supplyEl.textContent = 'Note: pylon changes require an ammo truck at apply time';
+      supplyEl.className = 'supply-tally supply-info';
+    }
+  }
+
+  // Only enforce in mode 1 (caliber pool)
   if (!g_rearmData || !g_rearmData.costs) {
     updateAmmoTypes(null);
     if (debugEl) { debugEl.textContent = 'DBG rearm: g_rearmData=' + JSON.stringify(g_rearmData); debugEl.style.display = ''; }
@@ -66,6 +75,12 @@ function updateAmmoWarnings() {
   if (g_rearmData.unlimited || g_rearmData.mode === 0) {
     updateAmmoTypes(null);
     if (debugEl) { debugEl.textContent = 'DBG rearm: mode=' + g_rearmData.mode + ' unlimited=' + g_rearmData.unlimited + ' (no enforcement)'; debugEl.style.display = ''; }
+    return;
+  }
+  if (g_rearmData.mode === 2) {
+    // Magazine inventory: no caliber-point enforcement; just surface the supply mode
+    updateAmmoTypes(null);
+    if (debugEl) { debugEl.textContent = 'DBG rearm: mode=2 (magazine inventory, no caliber enforcement)'; debugEl.style.display = ''; }
     return;
   }
   if (!g_rearmData.rearmNewPylons) {
@@ -114,15 +129,14 @@ function updateAmmoWarnings() {
   var avail = baseSupply + recyclableCredit;
 
   // â”€â”€ 1. Cannon reserve (computed first to match SQF's budget priority) â”€â”€
+  // Build unified item list: cannon + pylons, sorted oldest-first so last-changed goes red
+  var costItems = [];
   var cannonNewRds = Math.max(0, plannedCannon - initCannon);
   var cannonCost = cannonNewRds > 0 ? Math.ceil(cannonNewRds / 50) * (costs.cannon || 30) : 0;
-  var pylonBudget = avail - cannonCost;
-  if (cannonCost > 0 && pylonBudget < 0) {
-    if (cannonEl) cannonEl.classList.add('ammo-warn');
+  if (cannonCost > 0) {
+    costItems.push({ type: 'cannon', pylonIdx: 0, cost: cannonCost,
+      seq: g_itemOrder['cannon'] || 0, key: 'cannon' });
   }
-
-  // â”€â”€ 2. Build flat item list; sort oldest-modification-first so last-changed gets bumped â”€â”€
-  var costItems = [];
   for (var pii = 1; pii <= 4; pii++) {
     var pylon = state.pylons[pii - 1] || { type: 'none' };
     var initP = initPylons[pii - 1] || { type: 'none' };
@@ -155,7 +169,7 @@ function updateAmmoWarnings() {
           var rkKey = 'p' + pii + '_' + zkPair[0];
           costItems.push({ type: 'rocket', pylonIdx: pii, zoneIdx: zi,
             cost: newCount * (costs.rocket || 5),
-            seq: Math.max(g_pylonOrder['p' + pii] || 0, g_itemOrder[rkKey] || 0),
+            seq: g_itemOrder[rkKey] || 0,
             key: rkKey, zkPair: zkPair });
         }
       }
@@ -166,13 +180,15 @@ function updateAmmoWarnings() {
   }
   // Oldest modification = highest priority; most recently changed gets bumped first
   costItems.sort(function(a, b) { return (a.seq - b.seq) || (a.key < b.key ? -1 : 1); });
-  var pylonCost = 0;
+  var spent = 0;
   for (var ci = 0; ci < costItems.length; ci++) {
     var item = costItems[ci];
-    var willFit = item.cost <= (pylonBudget - pylonCost);
-    pylonCost += item.cost;
+    var willFit = item.cost <= (avail - spent);
+    spent += item.cost;
     if (!willFit) {
-      if (item.type === 'hellfire') {
+      if (item.type === 'cannon') {
+        if (cannonEl) cannonEl.classList.add('ammo-warn');
+      } else if (item.type === 'hellfire') {
         var railBtn = document.querySelector('button.rail-cycle[data-rail="' + item.key + '"]');
         if (railBtn) railBtn.classList.add('ammo-warn');
       } else if (item.type === 'rocket') {
@@ -184,7 +200,7 @@ function updateAmmoWarnings() {
     }
   }
 
-  var newCost = cannonCost + pylonCost;
+  var newCost = spent;
   if (supplyEl) {
     if (baseSupply <= 0 && recyclableCredit <= 0) {
       supplyEl.textContent = 'Supply: no sources nearby' + (newCost > 0 ? ' (' + newCost + ' pts needed for new items)' : '');
@@ -206,7 +222,8 @@ function updateAmmoTypes(remaining) {
   var rc = g_rearmData.costs;
   var isUnlim = g_rearmData.unlimited || g_rearmData.mode === 0;
   var hasTrucks = !!(g_rearmData.trucks && g_rearmData.trucks.length);
-  if (!isUnlim && !(g_rearmData.mode === 1 && hasTrucks)) { el.innerHTML = ''; return; }
+  var isMode2 = g_rearmData.mode === 2;
+  if (!isUnlim && !isMode2 && !(g_rearmData.mode === 1 && hasTrucks)) { el.innerHTML = ''; return; }
   var html = '<div class="farp-section">';
   html += '<div class="farp-sec-hdr">AMMO TYPES</div>';
   if (isUnlim) {
@@ -214,6 +231,9 @@ function updateAmmoTypes(remaining) {
     html += '<div class="farp-src-row"><span class="farp-src-name">Rockets</span><span class="farp-src-val">INF</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Cannon</span><span class="farp-src-val">INF</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Aux Tank</span><span class="farp-src-val">INF</span></div>';
+  } else if (isMode2) {
+    html += '<div class="farp-src-row"><span class="farp-src-name">Supply Mode</span><span class="farp-src-val">Mag Inventory</span></div>';
+    html += '<div class="farp-src-row"><span class="farp-src-name">Supply varies per truck</span><span class="farp-src-val"></span></div>';
   } else {
     var pts = (remaining !== null && remaining !== undefined) ? remaining : g_rearmData.totalSupply;
     var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 30, axc = rc.aux || 50;

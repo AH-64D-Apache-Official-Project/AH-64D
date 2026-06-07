@@ -743,6 +743,21 @@
   </div>
 </div>
 
+<div id="closeConfirmModal" class="modal-backdrop confirm-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="closeConfirmTitle">
+    <div class="modal-head">
+      <div id="closeConfirmTitle" class="modal-title">Unsaved Changes</div>
+      <button id="btnCloseConfirmCancel" type="button" class="modal-close">Cancel</button>
+    </div>
+    <div class="modal-body">
+      <div class="confirm-message">Config has been modified but not applied to the aircraft.<br>Close without applying?</div>
+      <div class="confirm-actions">
+        <button id="btnCloseConfirmYes" type="button">Close Without Applying</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="dom_utils.js"></script>
 <script src="sfm_perf.js"></script>
 <script src="save_load.js"></script>
@@ -790,12 +805,20 @@ window.fza_mplanner_handleEscape = function() {
     closeDeleteConfirmDialog();
     return;
   }
+  var closeModal = document.getElementById('closeConfirmModal');
+  if (closeModal && closeModal.classList.contains('visible')) {
+    closeCloseConfirmDialog();
+    return;
+  }
   var saveLoadModal = document.getElementById('saveLoadModal');
   if (saveLoadModal && saveLoadModal.classList.contains('visible')) {
     closeSaveLoadDialog();
     return;
   }
-  // No modal â€” let Arma close the dialog
+  if (hasPlannerChanges()) {
+    openCloseConfirmDialog();
+    return;
+  }
   callSQF('closeDialog 0;');
 };
 
@@ -822,6 +845,7 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
         };
       }
       applyPlannerState(state);
+      markConfigClean();
       updateConversionWarning();
     }
   } catch (err) {
@@ -845,7 +869,11 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
   });
   sanitizeFuelInput(fuelInput);
 });
-document.getElementById('cannonRds').addEventListener('input', syncCannonDisplay);
+document.getElementById('cannonRds').addEventListener('input', function() {
+  g_itemOrder['cannon'] = ++g_pylonChangeSeq;
+  syncCannonDisplay();
+});
+document.getElementById('msnEquip').addEventListener('change', updateConversionWarning);
 document.getElementById('tailNum').addEventListener('input', function() {
   this.value = this.value.replace(/[^0-9 ]/g, '').slice(0, 5);
   updateConversionWarning();
@@ -929,13 +957,15 @@ loadSfmPerfTablesFromConfig().then(function(loaded) {
 });
 
 document.getElementById('btnApplyConfig').addEventListener('click', function() {
-  var state = getPlannerState();
+  updateAmmoWarnings(); // ensure ammo-warn classes are current before reading them
+  var state = getAffordableApplyState();
   var legacy = buildLegacyApplyPayload(state);
   var tailNum = state.tailNum !== undefined ? state.tailNum : '';
   var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
   var cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
   var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
   callSQF(code);
+  markConfigClean();
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
   openSaveLoadDialog('load');
@@ -962,6 +992,11 @@ document.getElementById('btnModalPushMission').addEventListener('click', functio
 });
 document.getElementById('btnModalDelete').addEventListener('click', function() {
   deleteSelectedPlannerState();
+});
+document.getElementById('btnCloseConfirmCancel').addEventListener('click', closeCloseConfirmDialog);
+document.getElementById('btnCloseConfirmYes').addEventListener('click', function() {
+  closeCloseConfirmDialog();
+  callSQF('closeDialog 0;');
 });
 document.getElementById('btnDeleteConfirmClose').addEventListener('click', closeDeleteConfirmDialog);
 document.getElementById('btnDeleteConfirmYes').addEventListener('click', function() {
