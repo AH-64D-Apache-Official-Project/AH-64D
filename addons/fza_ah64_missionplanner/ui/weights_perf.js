@@ -239,7 +239,7 @@ function updateAmmoTypes(remaining) {
     html += '<div class="farp-src-row"><span class="farp-src-name">Supply varies per truck</span><span class="farp-src-val"></span></div>';
   } else {
     var pts = (remaining !== null && remaining !== undefined) ? remaining : g_rearmData.totalSupply;
-    var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 30, axc = rc.aux || 50, fcrc = rc.fcr || 100;
+    var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 20, axc = rc.aux || 50, fcrc = rc.fcr || 100;
     var isFcrChanged = initialAircraftState && (getPlannerState().fcrActive !== initialAircraftState.fcrActive);
     if (isFcrChanged) {
       html += '<div class="farp-src-row"><span class="farp-src-name">FCR toggle (' + fcrc + ' pts)</span><span class="farp-src-val">pending</span></div>';

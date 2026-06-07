@@ -174,7 +174,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         private _zoneKey = _x;
                         private _ammoName = _pylonInfo getVariable [_zoneKey, ""];
                         if (_ammoName in _nameCheck) then {
-                            private _magName = "fza_275_" + _ammoName + "_" + _zoneKey;
+                            private _magName = toLower ("fza_275_" + _ammoName + "_" + _zoneKey);
                             [_magName] call _assignMagazine;
                         } else {
                             ["fza_275_pod"] call _assignMagazine;
@@ -186,10 +186,14 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         private _railKey = _x;
                         private _ammoName = _pylonInfo getVariable [_railKey, ""];
                         if (_ammoName in _nameCheck) then {
-                            private _magName = "fza_" + _ammoName + "_" + _railKey;
+                            private _magName = toLower ("fza_" + _ammoName + "_" + _railKey);
                             [_magName] call _assignMagazine;
                         } else {
-                            ["fza_agm114_rail"] call _assignMagazine;
+                            // ul is the primary slot: fza_agm114_rail (fza_pylonType="hellfire",
+                            // count=0) marks the pylon as hellfire so weaponPylonCheckValid does
+                            // not clear it when other rails are loaded. Non-primary empty slots
+                            // can be "" — only the primary slot is checked for pylon type.
+                            [if (_railKey isEqualTo "ul") then {"fza_agm114_rail"} else {""}] call _assignMagazine;
                         };
                     } forEach _pylonMslCheck;
                 };
@@ -210,7 +214,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             if (_mag isEqualTo "" || {_mag isEqualTo "fza_agm114_rail"}) exitWith { _mag };
             private _cnt = getNumber (configFile >> "CfgMagazines" >> _mag >> "count");
             if (_cnt == 0) exitWith { "" };
-            _mag
+            toLower _mag
         };
         private _currentPylonMags = getPylonMagazines _heli;
         for "_i" from 0 to ((count _targetPylonMagazines) - 1) do {
