@@ -99,22 +99,39 @@ function getPylonSummary(pylonIndex, mode) {
   return 'EMPTY';
 }
 
-function syncSilhouette() {
-  var svg = document.getElementById('apache-svg');
-  if (!svg) return;
+// Approximate position of each pylon's attach point as a fraction of the
+// rendered silhouette image (pilot-perspective: P1=left-outer, P4=right-outer).
+var _PYLON_SIL_FRACTIONS = [
+  { px: 0.12, py: 0.63 },
+  { px: 0.30, py: 0.60 },
+  { px: 0.70, py: 0.60 },
+  { px: 0.88, py: 0.63 }
+];
 
-  svg.setAttribute('data-fcr', document.getElementById('fcrBadge').classList.contains('active') ? 'on' : 'off');
-  svg.setAttribute('data-gun', document.getElementById('robbieMode').value === 'iafs' ? 'on' : 'off');
+// Image files are drawn for a head-on front view (aircraft-left = canvas-right).
+// The planner uses pilot-perspective (pylon 1 = left on screen), so the file
+// assignments are cross-mapped: pylon1↔4 and pylon2↔3.
+var _pylonSilImages = {
+  1: { hellfire: 'img/pylon4_m299_empty.png', rocket: 'img/pylon4_m261.png', aux: 'img/pylon4_auxTank.png' },
+  2: { hellfire: 'img/pylon3_m299.png',       rocket: 'img/pylon3_m261.png', aux: 'img/pylon3_auxTank.png' },
+  3: { hellfire: 'img/pylon2_m299.png',       rocket: 'img/pylon2_m261.png', aux: 'img/pylon2_auxTank.png' },
+  4: { hellfire: 'img/pylon1_m299_empty.png', rocket: 'img/pylon1_m261.png', aux: 'img/pylon1_auxTank.png' }
+};
+
+function syncSilhouette() {
+  var fcrImg = document.getElementById('sil-fcr-img');
+  if (fcrImg) {
+    var fcrActive = document.getElementById('fcrBadge').classList.contains('active');
+    fcrImg.src = fcrActive ? 'img/fcr.png' : '';
+  }
 
   var loadoutParts = [];
   for (var i = 1; i <= 4; i++) {
     var modeSelect = document.getElementById('pylon' + i + 'Type');
     var mode = modeSelect ? modeSelect.value : 'none';
-    svg.setAttribute('data-p' + i + '-mode', mode);
-
-    var summaryEl = document.getElementById('sil-p' + i + '-label');
-    if (summaryEl) {
-      summaryEl.textContent = mode === 'hellfire' ? 'HF' : (mode === 'rocket' ? 'RKT' : (mode === 'aux' ? 'AUX' : 'EMPTY'));
+    var img = document.getElementById('sil-p' + i + '-img');
+    if (img) {
+      img.src = (_pylonSilImages[i] && _pylonSilImages[i][mode]) || '';
     }
     loadoutParts.push('P' + i + ' ' + getPylonSummary(i, mode));
   }
@@ -122,6 +139,66 @@ function syncSilhouette() {
   var loadoutEl = document.getElementById('sil-loadout');
   if (loadoutEl) {
     loadoutEl.textContent = loadoutParts.join('   ');
+  }
+  drawPylonConnectors();
+}
+
+function drawPylonConnectors() {
+  var svg = document.getElementById('pylon-connector-svg');
+  if (!svg) return;
+  var colCenter = document.querySelector('.col-center');
+  if (!colCenter) return;
+  var composite = document.getElementById('apache-sil');
+  if (!composite) return;
+
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+  var colRect = colCenter.getBoundingClientRect();
+  var compositeRect = composite.getBoundingClientRect();
+  var colW = colRect.width, colH = colRect.height;
+  if (!colW || !colH) return;
+  svg.setAttribute('viewBox', '0 0 ' + colW + ' ' + colH);
+
+  // Compute rendered image bounds inside the composite (object-fit: contain, 509×324)
+  var imgAspect = 509 / 324;
+  var cW = compositeRect.width, cH = compositeRect.height;
+  var renderedW, renderedH, imgOffX, imgOffY;
+  if (cW / cH > imgAspect) {
+    renderedH = cH; renderedW = cH * imgAspect;
+    imgOffX = (cW - renderedW) / 2; imgOffY = 0;
+  } else {
+    renderedW = cW; renderedH = cW / imgAspect;
+    imgOffX = 0; imgOffY = (cH - renderedH) / 2;
+  }
+  var imgLeft = compositeRect.left - colRect.left + imgOffX;
+  var imgTop  = compositeRect.top  - colRect.top  + imgOffY;
+
+  var ns = 'http://www.w3.org/2000/svg';
+  for (var i = 1; i <= 4; i++) {
+    var frac = _PYLON_SIL_FRACTIONS[i - 1];
+    var typeEl = document.getElementById('pylon' + i + 'Type');
+    if (!typeEl) continue;
+    var titleRect = typeEl.getBoundingClientRect();
+
+    var x1 = imgLeft + frac.px * renderedW;
+    var y1 = imgTop  + frac.py * renderedH;
+    var x2 = titleRect.left - colRect.left + titleRect.width / 2;
+    var y2 = titleRect.top  - colRect.top;
+
+    var line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    line.setAttribute('stroke', '#2e5e2e');
+    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '5 3');
+    svg.appendChild(line);
+
+    var dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', x1); dot.setAttribute('cy', y1);
+    dot.setAttribute('r', '2.5');
+    dot.setAttribute('fill', '#4cc94c');
+    dot.setAttribute('fill-opacity', '0.7');
+    svg.appendChild(dot);
   }
 }
 

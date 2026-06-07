@@ -76,145 +76,15 @@
         <div id="fcrBadge" class="fcr-badge silhouette-fcr active" title="Toggle FCR">FCR</div>
         <div id="fcrChangeAlert" class="fcr-change-alert hidden" title="FCR change requires ~300s rearm">&#9888; 300s</div>
         <div id="conversionWarning" class="conversion-warning hidden" title="FCR or magazine mode change requires ~300s rearm">&#9888; 300s REARM</div>
-        <svg id="apache-svg" viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg" aria-label="AH-64D front silhouette">
-          <g id="apache-art" transform="translate(-18 -12) scale(1.22)">
-            <ellipse cx="350" cy="304" rx="192" ry="14" fill="rgba(0,0,0,0.18)"/>
-
-            <!-- rotor -->
-            <line x1="50" y1="70" x2="650" y2="70" class="sil-line"/>
-            <ellipse cx="350" cy="70" rx="32" ry="10" class="sil-body"/>
-            <rect x="344" y="44" width="12" height="32" rx="4" class="sil-body"/>
-
-            <!-- FCR -->
-            <g class="fcr-on">
-              <rect x="338" y="24" width="24" height="16" rx="5" class="sil-dark"/>
-              <ellipse cx="350" cy="18" rx="26" ry="11" class="sil-body"/>
-              <line x1="350" y1="10" x2="350" y2="18" class="sil-stroke"/>
-            </g>
-            <g class="fcr-off">
-              <rect x="344" y="26" width="12" height="12" rx="4" class="sil-dark"/>
-              <line x1="350" y1="14" x2="350" y2="26" class="sil-stroke"/>
-              <line x1="342" y1="14" x2="358" y2="14" class="sil-stroke"/>
-            </g>
-
-            <!-- upper body -->
-            <path d="M242 86 L458 86 Q476 100 480 124 L472 150 Q460 168 442 174 L258 174 Q240 168 228 150 L220 124 Q224 100 242 86 Z" class="sil-body"/>
-            <path d="M272 92 Q350 60 428 92 L424 128 Q350 146 276 128 Z" class="sil-light"/>
-            <path d="M290 100 L350 86 L410 100 L404 116 L350 122 L296 116 Z" class="sil-gloss"/>
-            <rect x="268" y="106" width="164" height="10" rx="5" class="sil-mid"/>
-
-            <!-- engine pods -->
-            <rect x="174" y="108" width="72" height="30" rx="10" class="sil-body"/>
-            <rect x="454" y="108" width="72" height="30" rx="10" class="sil-body"/>
-            <ellipse cx="210" cy="122" rx="20" ry="9" class="sil-dark"/>
-            <ellipse cx="490" cy="122" rx="20" ry="9" class="sil-dark"/>
-
-            <!-- cockpit / windows -->
-            <path d="M284 108 L416 108 Q426 118 428 134 L422 158 Q412 170 398 172 L302 172 Q288 170 278 158 L272 134 Q274 118 284 108 Z" class="sil-body"/>
-            <path d="M300 114 L400 114 Q406 120 408 134 L404 152 Q398 158 390 160 L310 160 Q302 158 296 152 L292 134 Q294 120 300 114 Z" class="sil-window"/>
-            <path d="M326 114 L344 114 L342 160 L322 160 Z" class="sil-body"/>
-            <path d="M356 114 L374 114 L378 160 L358 160 Z" class="sil-body"/>
-            <line x1="350" y1="114" x2="350" y2="160" class="sil-window-line"/>
-
-            <!-- shoulders / wings -->
-            <rect x="90" y="168" width="150" height="12" rx="6" class="sil-body"/>
-            <rect x="460" y="168" width="150" height="12" rx="6" class="sil-body"/>
-            <rect x="220" y="164" width="40" height="8" rx="4" class="sil-body"/>
-            <rect x="440" y="164" width="40" height="8" rx="4" class="sil-body"/>
-
-            <!-- pylons + stores -->
-            <g id="sil-p1" transform="translate(120 168)">
-              <rect x="0" y="0" width="52" height="9" rx="4" class="sil-body"/>
-              <g class="store-group p1-hellfire">
-                <rect x="14" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="24" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="14" y="34" width="18" height="6" rx="3" class="sil-body"/>
-              </g>
-              <g class="store-group p1-rocket">
-                <rect x="4" y="11" width="36" height="16" rx="7" class="sil-body"/>
-                <circle cx="22" cy="19" r="3.5" class="sil-light"/>
-              </g>
-              <g class="store-group p1-aux">
-                <rect x="3" y="9" width="38" height="20" rx="10" class="sil-body"/>
-                <rect x="8" y="15" width="28" height="6" rx="3" class="sil-dark"/>
-              </g>
-              <g class="store-group p1-none"><rect x="13" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
-            </g>
-
-            <g id="sil-p2" transform="translate(202 168)">
-              <rect x="0" y="0" width="54" height="9" rx="4" class="sil-body"/>
-              <g class="store-group p2-hellfire">
-                <rect x="15" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="25" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="15" y="34" width="18" height="6" rx="3" class="sil-body"/>
-              </g>
-              <g class="store-group p2-rocket">
-                <rect x="4" y="11" width="40" height="16" rx="7" class="sil-body"/>
-                <circle cx="24" cy="19" r="3.5" class="sil-light"/>
-              </g>
-              <g class="store-group p2-aux">
-                <rect x="3" y="9" width="42" height="20" rx="10" class="sil-body"/>
-                <rect x="8" y="15" width="32" height="6" rx="3" class="sil-dark"/>
-              </g>
-              <g class="store-group p2-none"><rect x="15" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
-            </g>
-
-            <g id="sil-p3" transform="translate(444 168)">
-              <rect x="0" y="0" width="54" height="9" rx="4" class="sil-body"/>
-              <g class="store-group p3-hellfire">
-                <rect x="15" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="25" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="15" y="34" width="18" height="6" rx="3" class="sil-body"/>
-              </g>
-              <g class="store-group p3-rocket">
-                <rect x="4" y="11" width="40" height="16" rx="7" class="sil-body"/>
-                <circle cx="24" cy="19" r="3.5" class="sil-light"/>
-              </g>
-              <g class="store-group p3-aux">
-                <rect x="3" y="9" width="42" height="20" rx="10" class="sil-body"/>
-                <rect x="8" y="15" width="32" height="6" rx="3" class="sil-dark"/>
-              </g>
-              <g class="store-group p3-none"><rect x="15" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
-            </g>
-
-            <g id="sil-p4" transform="translate(534 168)">
-              <rect x="0" y="0" width="52" height="9" rx="4" class="sil-body"/>
-              <g class="store-group p4-hellfire">
-                <rect x="14" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="24" y="10" width="8" height="24" rx="3" class="sil-body"/>
-                <rect x="14" y="34" width="18" height="6" rx="3" class="sil-body"/>
-              </g>
-              <g class="store-group p4-rocket">
-                <rect x="4" y="11" width="36" height="16" rx="7" class="sil-body"/>
-                <circle cx="22" cy="19" r="3.5" class="sil-light"/>
-              </g>
-              <g class="store-group p4-aux">
-                <rect x="3" y="9" width="38" height="20" rx="10" class="sil-body"/>
-                <rect x="8" y="15" width="28" height="6" rx="3" class="sil-dark"/>
-              </g>
-              <g class="store-group p4-none"><rect x="13" y="11" width="18" height="5" rx="2" class="sil-mid"/></g>
-            </g>
-
-            <!-- chin turret -->
-            <g class="gun-on">
-              <rect x="326" y="188" width="48" height="16" rx="6" class="sil-dark"/>
-              <rect x="304" y="194" width="92" height="8" rx="4" class="sil-body"/>
-              <rect x="346" y="180" width="8" height="34" rx="2" class="sil-body"/>
-            </g>
-            <g class="gun-off">
-              <ellipse cx="350" cy="196" rx="11" ry="7" class="sil-dark"/>
-            </g>
-
-            <!-- landing gear -->
-            <line x1="318" y1="168" x2="286" y2="260" class="sil-line"/>
-            <line x1="382" y1="168" x2="414" y2="260" class="sil-line"/>
-            <line x1="274" y1="258" x2="320" y2="258" class="sil-line"/>
-            <line x1="380" y1="258" x2="426" y2="258" class="sil-line"/>
-            <ellipse cx="304" cy="270" rx="12" ry="8" class="sil-body"/>
-            <ellipse cx="396" cy="270" rx="12" ry="8" class="sil-body"/>
-            <ellipse cx="350" cy="230" rx="14" ry="8" class="sil-body"/>
-          </g>
-            </svg>
+        <div id="apache-sil" class="sil-composite">
+          <img class="sil-layer" src="img/empty.png" alt="">
+          <img id="sil-fcr-img" class="sil-layer" src="img/fcr.png" alt="">
+          <img id="sil-p1-img" class="sil-layer" src="" alt="">
+          <img id="sil-p2-img" class="sil-layer" src="" alt="">
+          <img id="sil-p3-img" class="sil-layer" src="" alt="">
+          <img id="sil-p4-img" class="sil-layer" src="" alt="">
+        </div>
+        <div id="sil-loadout" class="sil-loadout-text"></div>
       </div>
 
       <!-- PYLON ROW -->
@@ -417,6 +287,7 @@
         </div>
 
       </div><!-- /pylon-row -->
+      <svg id="pylon-connector-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
     </div><!-- /col-center -->
 
     <!-- RIGHT COLUMN -->
@@ -945,6 +816,10 @@ eachNode('.zone-type select', function(selectEl) {
 });
 
 syncSilhouette();
+requestAnimationFrame(drawPylonConnectors);
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(drawPylonConnectors).observe(document.querySelector('.col-center'));
+}
 
 initHellfireCyclers();
 initRocketTypeOptions();

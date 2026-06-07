@@ -109,6 +109,16 @@
     border-right: 1px solid var(--border);
     overflow: hidden;
     background: transparent;
+    position: relative;
+  }
+
+  #pylon-connector-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
   }
   .col-right {
     width: 320px;
@@ -305,63 +315,41 @@
     min-height: 0;
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.72);
   }
-  #apache-svg {
+
+  /* ── PNG COMPOSITE SILHOUETTE ── */
+  /* .sil-composite fills all flex space; images scale via object-fit: contain  */
+  .sil-composite {
+    position: relative;
+    height: 75%;
     width: 100%;
-    height: 100%;
-    max-width: 100%;
-    opacity: 0.97;
-    pointer-events: none;
+    flex-shrink: 0;
   }
-  #apache-svg .sil-body { fill: #050505; }
-  #apache-svg .sil-dark { fill: #080808; }
-  #apache-svg .sil-mid { fill: #141414; }
-  #apache-svg .sil-light { fill: #b4f0b4; }
-  #apache-svg .sil-line { stroke: #041004; stroke-width: 4; stroke-linecap: round; fill: none; }
-  #apache-svg .sil-stroke { stroke: #103010; stroke-width: 2; stroke-linecap: round; fill: none; }
-  #apache-svg .sil-label {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    fill: #d8ffd8;
-    letter-spacing: 0.5px;
-  }
-  #apache-svg .sil-tag {
-    fill: rgba(0, 0, 0, 0.72);
-    stroke: rgba(120, 232, 120, 0.32);
-    stroke-width: 1;
-  }
-  #apache-svg .sil-gloss { fill: rgba(255, 255, 255, 0.11); }
-  #apache-svg .sil-window { fill: #cfcfcf; }
-  #apache-svg .sil-window-line { stroke: #9f9f9f; stroke-width: 2; stroke-linecap: round; }
-  #apache-svg .store-group { display: none; }
-  #apache-svg .store-none { display: block; }
-  #apache-svg[data-p1-mode='hellfire'] .p1-hellfire,
-  #apache-svg[data-p1-mode='rocket'] .p1-rocket,
-  #apache-svg[data-p1-mode='aux'] .p1-aux,
-  #apache-svg[data-p1-mode='none'] .p1-none,
-  #apache-svg[data-p2-mode='hellfire'] .p2-hellfire,
-  #apache-svg[data-p2-mode='rocket'] .p2-rocket,
-  #apache-svg[data-p2-mode='aux'] .p2-aux,
-  #apache-svg[data-p2-mode='none'] .p2-none,
-  #apache-svg[data-p3-mode='hellfire'] .p3-hellfire,
-  #apache-svg[data-p3-mode='rocket'] .p3-rocket,
-  #apache-svg[data-p3-mode='aux'] .p3-aux,
-  #apache-svg[data-p3-mode='none'] .p3-none,
-  #apache-svg[data-p4-mode='hellfire'] .p4-hellfire,
-  #apache-svg[data-p4-mode='rocket'] .p4-rocket,
-  #apache-svg[data-p4-mode='aux'] .p4-aux,
-  #apache-svg[data-p4-mode='none'] .p4-none {
+  .sil-layer {
     display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
-  #apache-svg[data-fcr='off'] .fcr-on,
-  #apache-svg[data-fcr='on'] .fcr-off,
-  #apache-svg[data-gun='off'] .gun-on,
-  #apache-svg[data-gun='on'] .gun-off {
-    display: none;
+  .sil-layer[src=""] { display: none; }
+  .sil-loadout-text {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: #78e878;
+    text-align: center;
+    padding: 2px 4px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   /* ── PYLON ROW ── */
