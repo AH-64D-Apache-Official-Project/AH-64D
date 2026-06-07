@@ -1,5 +1,10 @@
 private _cat = ["AH-64D Official Project", "Mission Planner"];
 
+["fza_mplanner_instantApply", "CHECKBOX",
+    [(localize "STR_FZA_AH64_MPLANNER_INSTANT_APPLY"), (localize "STR_FZA_AH64_MPLANNER_INSTANT_APPLY_DESC")],
+    _cat, true, 0
+] call CBA_fnc_addSetting;
+
 ["fza_mplanner_ammoLimitEnable", "CHECKBOX",
     [(localize "STR_FZA_AH64_MPLANNER_AMMO_LIMIT_ENABLE"), (localize "STR_FZA_AH64_MPLANNER_AMMO_LIMIT_ENABLE_DESC")],
     _cat, false, 0

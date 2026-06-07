@@ -25,6 +25,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         systemChat "Mission Planner apply failed: invalid payload.";
     };
 
+    private _instantApply = if (!isNil "fza_mplanner_instantApply") then { fza_mplanner_instantApply } else { true };
+    if !(_instantApply isEqualType true) then { _instantApply = true };
+
     private _nameCheck = ["M151", "m255a1", "M257", "M261", "M278", "AGM114FA", "AGM114k", "AGM114K2A", "AGM114L", "AGM114N"];
     private _pylonArraycheck = ["pylon1", "pylon2", "pylon3", "pylon4"];
     private _pylonRktCheck = ["zoneE", "zoneB", "zoneA"];
@@ -92,7 +95,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
     // Find the nearest ACE supply truck (source vehicle for caliber deduction)
     private _fnFindSupplyTruck = {
-        private _nearby = nearestObjects [getPosATL _heli, ["AllVehicles"], 30];
+        private _truckSearchDist = missionNamespace getVariable ["ace_pylons_searchDistance", 15];
+        if !(_truckSearchDist isEqualType 0) then { _truckSearchDist = 15 };
+        private _nearby = nearestObjects [getPosATL _heli, ["AllVehicles"], _truckSearchDist];
         private _found = objNull;
         {
             if (_x == _heli || {!alive _x}) then {continue};
@@ -290,9 +295,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
 
         private _timePerPylon = missionNamespace getVariable ["ace_pylons_timePerPylon", 5];
-        if !(_timePerPylon isEqualType 0) then {
-            _timePerPylon = 5;
-        };
+        if !(_timePerPylon isEqualType 0) then { _timePerPylon = 5 };
+        if (!isNil "fza_mplanner_instantApply" && { fza_mplanner_instantApply }) then { _timePerPylon = 0 };
 
         private _searchDistance = missionNamespace getVariable ["ace_pylons_searchDistance", 15];
         if !(_searchDistance isEqualType 0) then {
@@ -385,6 +389,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     // ── STEP 1: CANNON + IAFS (before pylons, direction-aware) ───────────────
     private _aceRearmDelay = missionNamespace getVariable ["ace_rearm_loadTime", 5];
     if !(_aceRearmDelay isEqualType 0) then { _aceRearmDelay = 5 };
+    if (_instantApply) then { _aceRearmDelay = 0 };
 
     private _currentIafsInstalled = _heli getVariable ["fza_ah64_IAFSInstalled", true];
 
@@ -675,7 +680,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     if (_needsFcr) then {
         private _fcrStatus = [false, false];
         [
-            300,
+            if (_instantApply) then { 0.01 } else { 300 },
             [_heli, _desiredFcrState, _currentFcrState, _fcrStatus],
             {
                 params [["_args", []]];
@@ -713,7 +718,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     if ((_isUK != _curIsUK) || (_isUS != _curIsUS)) then {
         private _msnStatus = [false, false];
         [
-            30,
+            if (_instantApply) then { 0.01 } else { 30 },
             [_heli, _isUK, _isUS, _msnStatus],
             {
                 params [["_args", []]];
@@ -749,7 +754,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         if (_tailNum isNotEqualTo _currentTailNum) then {
             private _tailStatus = [false, false];
             [
-                10,
+                if (_instantApply) then { 0.01 } else { 10 },
                 [_heli, _tailNum, _tailStatus],
                 {
                     params [["_args", []]];

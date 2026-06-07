@@ -20,6 +20,9 @@ class CfgVehicles {
         class ACE_Actions {
             class ACE_MainActions;
         };
+        class ACE_SelfInteractions {
+            class ACE_SelfActions;
+        };
     };
     class fza_ah64base : Helicopter_Base_F {
         class ACE_Actions : ACE_Actions {
@@ -30,6 +33,16 @@ class CfgVehicles {
                     statement       = "[_target] call fza_mplanner_fnc_open;";
                     distance        = 15;
                     showDisabled    = 0;
+                    icon            = "";
+                };
+            };
+        };
+        class ACE_SelfInteractions : ACE_SelfInteractions {
+            class ACE_SelfActions : ACE_SelfActions {
+                class fza_MissionPlannerSelf {
+                    displayName     = "Mission Planner";
+                    condition       = "alive (vehicle player)";
+                    statement       = "[vehicle player] call fza_mplanner_fnc_open;";
                     icon            = "";
                 };
             };

@@ -57,6 +57,14 @@
             <Original>M278 IR Illumination (6IR) count</Original>
             <English>M278 IR Illumination (6IR) count</English>
         </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_INSTANT_APPLY">
+            <Original>Instant Apply</Original>
+            <English>Instant Apply</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_INSTANT_APPLY_DESC">
+            <Original>When enabled, Mission Planner bypasses all rearm timers and applies the configuration instantly.</Original>
+            <English>When enabled, Mission Planner bypasses all rearm timers and applies the configuration instantly.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
             <Original>Cyclic Center Trim Mode</Original>
             <English>Cyclic Center Trim Mode</English>
