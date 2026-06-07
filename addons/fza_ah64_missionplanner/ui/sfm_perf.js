@@ -231,6 +231,7 @@ function loadSfmPerfTablesFromConfig() {
       ENG_FF_TABLE = parsedEngFf;
       sfmPerfDataReady = true;
       sfmPerfDataError = '';
+      weightModelBaseline = null;
       return true;
     })
     .catch(function(err) {

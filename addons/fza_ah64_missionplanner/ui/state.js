@@ -381,14 +381,17 @@ function syncFiredRailHighlights() {
 // Cannon: reverted to initial round count (no pylon slot involved).
 function getAffordableApplyState() {
   var state = getPlannerState();
-  var initPylons = (initialAircraftState && initialAircraftState.pylons) ? initialAircraftState.pylons : [];
+  // Use the most recently seeded heli state for reverts so fired ammo is not re-charged.
+  // initialAircraftState is only set once (on first open) and may be stale.
+  var seedState = lastSeededAircraftState || initialAircraftState;
+  var initPylons = (seedState && seedState.pylons) ? seedState.pylons : [];
   var railKeyOrder = ['tr', 'tl', 'br', 'bl'];
 
   // Cannon
   var cannonEl = document.getElementById('cannonRds');
   if (cannonEl && cannonEl.classList.contains('ammo-warn')) {
-    state.cannonRds = (initialAircraftState && typeof initialAircraftState.cannonRds === 'number')
-      ? initialAircraftState.cannonRds
+    state.cannonRds = (seedState && typeof seedState.cannonRds === 'number')
+      ? seedState.cannonRds
       : (state.cannonRds || 0);
   }
 

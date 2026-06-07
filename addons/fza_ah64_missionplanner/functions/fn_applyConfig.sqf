@@ -69,8 +69,6 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     private _needsCenterStore = (_heli getVariable ["fza_ah64_IAFSInstalled", true]) != _iafsInstalled;
     private _needsFuel = _fuelDeltaKg > 1;
     private _needsCannon = _cannonDelta > 0;
-    private _needsPylons = true;
-
     // ACE rearm supply mode (0=unlimited, 1=caliber pool, 2=magazine-inventory)
     private _supplyMode = missionNamespace getVariable ["ace_rearm_supply", 0];
     if !(_supplyMode isEqualType 0) then { _supplyMode = 0 };
@@ -100,9 +98,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             if (_x == _heli || {!alive _x}) then {continue};
             private _isSource = _x getVariable ["ace_rearm_isSupplyVehicle", false];
             if !(_isSource) then {
-                private _cfgSupply = getNumber (configOf _x >> "ace_rearm_defaultSupply");
-                if (_cfgSupply == 0) then { _cfgSupply = getNumber (configOf _x >> "transportAmmo"); };
-                _isSource = _cfgSupply > 0;
+                _isSource = getNumber (configOf _x >> "ace_rearm_defaultSupply") > 0;
             };
             if (_isSource) exitWith { _found = _x; };
         } forEach _nearby;
@@ -189,7 +185,6 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     {
                         private _railKey = _x;
                         private _ammoName = _pylonInfo getVariable [_railKey, ""];
-                        _ammoName = [_ammoName] call BIS_fnc_filterString;
                         if (_ammoName in _nameCheck) then {
                             private _magName = "fza_" + _ammoName + "_" + _railKey;
                             [_magName] call _assignMagazine;
@@ -217,9 +212,10 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             if (_cnt == 0) exitWith { "" };
             _mag
         };
+        private _currentPylonMags = getPylonMagazines _heli;
         for "_i" from 0 to ((count _targetPylonMagazines) - 1) do {
             private _desired = [_targetPylonMagazines # _i] call _normaliseSlot;
-            private _current = [(getPylonMagazines _heli) # _i] call _normaliseSlot;
+            private _current = [_currentPylonMags # _i] call _normaliseSlot;
             // Queue fired slots for refill, but skip count=0 placeholders (they have no ammo to refill)
             if (_desired != _current || {_desired != "" && {_desired != "fza_agm114_rail"} && {(_heli ammoOnPylon (_i + 1)) == 0}}) then {
                 _configureQueue pushBack _i;
@@ -233,7 +229,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         private _recycleSlots = [];
         private _newLoadSlots = [];
         {
-            if ((getPylonMagazines _heli) select _x != "") then {
+            if (_currentPylonMags select _x != "") then {
                 _recycleSlots pushBack _x;
             } else {
                 _newLoadSlots pushBack _x;
@@ -244,6 +240,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         if (_configureQueue isEqualTo []) exitWith {
             [_heli] call fza_fnc_weaponPylonCheckValid;
         };
+
+        private _targetMagCosts = _targetPylonMagazines apply { ([_x] call _fnMagCaliberCost) max 0 };
+        private _currentMagCosts = _currentPylonMags apply { ([_x] call _fnMagCaliberCost) max 0 };
 
         // ── SUPPLY PRE-CHECK: trim pylon queue to what we can afford ─────────
         // Runs before spawning the progress-bar loop so we never start a pylon
@@ -259,13 +258,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 // Pre-credit recycled magazines so in-place swaps (e.g. hellfires→rockets)
                 // don't exhaust the budget before reaching the slots being replaced.
                 {
-                    private _oldMag = (getPylonMagazines _heli) select _x;
-                    _budget = _budget + (([_oldMag] call _fnMagCaliberCost) max 0);
+                    _budget = _budget + (_currentMagCosts select _x);
                 } forEach _configureQueue;
                 private _trimmedQueue = [];
                 {
-                    private _mag = _targetPylonMagazines select _x;
-                    private _cost = ([_mag] call _fnMagCaliberCost) max 0;
+                    private _cost = _targetMagCosts select _x;
                     if (_budget >= _cost || { _cost == 0 }) then {
                         _trimmedQueue pushBack _x;
                         _budget = _budget - _cost;
@@ -300,21 +297,20 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
         _heli setVariable ["fza_mplanner_rearming", true, true];
 
-        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons, _supplyMode, _fnMagCaliberCost, _fnFindSupplyTruck, _fnGetTruckSupply] spawn {
-            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons", "_supplyMode", "_fnMagCaliberCost", "_fnFindSupplyTruck", "_fnGetTruckSupply"];
+        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons, _supplyMode, _fnMagCaliberCost, _fnFindSupplyTruck, _fnGetTruckSupply, _currentPylonMags, _targetMagCosts, _currentMagCosts] spawn {
+            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons", "_supplyMode", "_fnMagCaliberCost", "_fnFindSupplyTruck", "_fnGetTruckSupply", "_currentPylonMags", "_targetMagCosts", "_currentMagCosts"];
 
+            private _allPylonWeapons = _currentPylonMags apply { getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon") };
+            private _supplyTruck = if (_rearmNewPylons && { _supplyMode == 1 }) then { call _fnFindSupplyTruck } else { objNull };
             {
                 private _pylonIndex = _x;
                 private _targetMagazine = _targetPylonMagazines select _pylonIndex;
                 private _status = [false, false]; // [done, ok]
 
                 private _weaponToRemove = "";
-                private _currentPylonMagazine = (getPylonMagazines _heli) select _pylonIndex;
+                private _currentPylonMagazine = _currentPylonMags select _pylonIndex;
                 private _currentPylonAmmo = _heli ammoOnPylon (_pylonIndex + 1);
                 if (_currentPylonMagazine != "") then {
-                    private _allPylonWeapons = (getPylonMagazines _heli) apply {
-                        getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon")
-                    };
                     private _pylonWeapon = _allPylonWeapons select _pylonIndex;
                     if (({_x == _pylonWeapon} count _allPylonWeapons) == 1) then {
                         _weaponToRemove = _pylonWeapon;
@@ -362,19 +358,16 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 // loaded ones without paying for them.
                 if (_rearmNewPylons && { _supplyMode == 1 }) then {
                     private _slotCost = if (_targetMagazine != _currentPylonMagazine) then {
-                        ([_targetMagazine] call _fnMagCaliberCost) - ([_currentPylonMagazine] call _fnMagCaliberCost)
+                        (_targetMagCosts select _pylonIndex) - (_currentMagCosts select _pylonIndex)
                     } else {
                         // Same classname: charge only if it was fired (ammo=0 before apply)
                         if (_currentPylonAmmo == 0 && { _targetMagazine != "" }) then {
-                            [_targetMagazine] call _fnMagCaliberCost
+                            _targetMagCosts select _pylonIndex
                         } else { 0 }
                     };
-                    if (_slotCost != 0) then {
-                        private _truck = call _fnFindSupplyTruck;
-                        if (!isNull _truck) then {
-                            private _curSupply = [_truck] call _fnGetTruckSupply;
-                            _truck setVariable ["ace_rearm_currentSupply", (_curSupply - _slotCost) max 0, true];
-                        };
+                    if (_slotCost != 0 && { !isNull _supplyTruck }) then {
+                        private _curSupply = [_supplyTruck] call _fnGetTruckSupply;
+                        _supplyTruck setVariable ["ace_rearm_currentSupply", (_curSupply - _slotCost) max 0, true];
                     };
                 };
             } forEach _queue;
@@ -423,6 +416,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 []
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _unloadStatus # 0 };
+            if !(_unloadStatus # 1) exitWith {
+                systemChat "Mission Planner: IAFS install cancelled (cannon unload incomplete).";
+            };
         };
         [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
         _needsCenterStore = false;
@@ -483,11 +479,17 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     private _prevPylonAmmos = [];
     for "_ai" from 0 to 15 do { _prevPylonAmmos pushBack (_heli ammoOnPylon (_ai + 1)) };
 
-    if (_needsPylons) then {
-        call _applyPylons;
-    };
+    call _applyPylons;
 
-    waitUntil { uiSleep 0.1; !(_heli getVariable ["fza_mplanner_rearming", false]) };
+    private _rearmStart = diag_tickTime;
+    waitUntil {
+        uiSleep 0.1;
+        !(_heli getVariable ["fza_mplanner_rearming", false]) || { (diag_tickTime - _rearmStart) > 600 }
+    };
+    if (_heli getVariable ["fza_mplanner_rearming", false]) then {
+        _heli setVariable ["fza_mplanner_rearming", false, true];
+        systemChat "Mission Planner: pylon rearm timed out — flag cleared.";
+    };
 
     // ── SUPPLY DEDUCTION: cannon only ────────────────────────────────────────
     // Pylon costs are charged per-slot inside _applyPylons as each slot completes.
@@ -670,18 +672,18 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         private _fcrStatus = [false, false];
         [
             300,
-            [_heli, _desiredFcrState, _fcrStatus],
+            [_heli, _desiredFcrState, _currentFcrState, _fcrStatus],
             {
                 params [["_args", []]];
-                _args params ["_heli", "_fcrState", "_fcrStatus"];
-                _heli animateSource ["fcr_enable", _fcrState];
+                _args params ["_heli", "_desiredFcrState", "_originalFcrState", "_fcrStatus"];
+                _heli animateSource ["fcr_enable", _desiredFcrState];
                 _fcrStatus set [1, true];
                 _fcrStatus set [0, true];
             },
             {
                 params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
-                _args params ["_heli", "_fcrState", "_fcrStatus"];
-                _heli animateSource ["fcr_enable", _fcrState];
+                _args params ["_heli", "_desiredFcrState", "_originalFcrState", "_fcrStatus"];
+                _heli animateSource ["fcr_enable", _originalFcrState];
                 _fcrStatus set [1, false];
                 _fcrStatus set [0, true];
             },

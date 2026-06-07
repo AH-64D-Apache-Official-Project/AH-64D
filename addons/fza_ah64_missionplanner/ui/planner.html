@@ -823,6 +823,7 @@ window.fza_mplanner_handleEscape = function() {
 };
 
 var initialAircraftState = null;
+var lastSeededAircraftState = null;
 var g_rearmData = null;
 var g_pylonChangeSeq = 0;
 var g_pylonOrder = {};
@@ -833,17 +834,17 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
   try {
     var state = JSON.parse(String(stateJson || '{}'));
     if (state && typeof state === 'object') {
-      if (!initialAircraftState) {
-        initialAircraftState = {
-          fcrActive: !!state.fcrActive,
-          robbieMode: String(state.robbieMode === 'robbie' ? 'magazine' : (state.robbieMode || 'iafs')),
-          tailNum: String(state.tailNum || ''),
-          msnEquip: String(state.msnEquip || 'US'),
-          cannonRds: typeof state.cannonRds === 'number' ? state.cannonRds : 0,
-          pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
-          fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
-        };
-      }
+      var _snap = {
+        fcrActive: !!state.fcrActive,
+        robbieMode: String(state.robbieMode === 'robbie' ? 'magazine' : (state.robbieMode || 'iafs')),
+        tailNum: String(state.tailNum || ''),
+        msnEquip: String(state.msnEquip || 'US'),
+        cannonRds: typeof state.cannonRds === 'number' ? state.cannonRds : 0,
+        pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
+        fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
+      };
+      lastSeededAircraftState = _snap;
+      if (!initialAircraftState) { initialAircraftState = _snap; }
       applyPlannerState(state);
       markConfigClean();
       updateConversionWarning();

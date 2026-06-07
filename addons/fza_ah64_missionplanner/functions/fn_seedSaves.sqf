@@ -1,20 +1,10 @@
 disableSerialization;
-private _m0 = "[MP Debug] seedSaves: called";
-diag_log _m0; systemChat _m0;
 
 private _display = uiNamespace getVariable ["fza_mplanner_display", displayNull];
-if (isNull _display) exitWith {
-    private _mD = "[MP Debug] seedSaves: EXIT - display null";
-    diag_log _mD; systemChat _mD;
-    false
-};
+if (isNull _display) exitWith { false };
 
 private _browser = _display displayCtrl 100;
-if (isNull _browser) exitWith {
-    private _mB = "[MP Debug] seedSaves: EXIT - browser null";
-    diag_log _mB; systemChat _mB;
-    false
-};
+if (isNull _browser) exitWith { false };
 
 private _jsonEscape = {
     params ["_text"];
@@ -156,9 +146,7 @@ if (!isNull _heliTarget && {_heliTarget isKindOf "Helicopter"}) then {
         // Detect ACE rearm sources: explicitly marked or has supply config
         private _isSource = _src getVariable ["ace_rearm_isSupplyVehicle", false];
         if !(_isSource) then {
-            private _cfgSupply = getNumber (configOf _src >> "ace_rearm_defaultSupply");
-            if (_cfgSupply == 0) then { _cfgSupply = getNumber (configOf _src >> "transportAmmo"); };
-            _isSource = _cfgSupply > 0;
+            _isSource = getNumber (configOf _src >> "ace_rearm_defaultSupply") > 0;
         };
         if !(_isSource) then {continue};
         // Get supply amount — only meaningful for mode 1 (caliber pool)
@@ -216,7 +204,7 @@ private _payload = format [
     '{"player":{"uid":"%1","name":"%2"},"environment":%3,"currentConfig":"%4","own":%5,"mission":%6,"farpFuel":%7,"farpRearm":%8,"ammoLimits":%9,"fuelRateLS":%10}',
     (getPlayerUID player) call _jsonEscape,
     (name player) call _jsonEscape,
-    fza_ah64_sfmplusEnvironment,
+    if (isNil "fza_ah64_sfmplusEnvironment" || {!(fza_ah64_sfmplusEnvironment isEqualType "")}) then { "null" } else { fza_ah64_sfmplusEnvironment },
     (missionNamespace getVariable ["fza_mplanner_last_loaded_config", ""]) call _jsonEscape,
     [profileNamespace getVariable ["fza_mplanner_saves_own", []]] call _serializeEntries,
     [missionNamespace getVariable ["fza_mplanner_saves_mission", []]] call _serializeEntries,
@@ -227,11 +215,6 @@ private _payload = format [
 ];
 
 private _jsCode = format ["window.fza_mplanner_receiveSeed && window.fza_mplanner_receiveSeed('%1');", _payload call _jsEscape];
-private _mExec = format ["[MP Debug] seedSaves: calling ExecJS (jsCode len=%1, payload len=%2)", count _jsCode, count _payload];
-diag_log _mExec; systemChat _mExec;
-diag_log format ["[MP Debug] seedSaves: jsCode preview: %1", _jsCode select [0, 200]];
 [_browser, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
-private _mDone = "[MP Debug] seedSaves: ExecJS done";
-diag_log _mDone; systemChat _mDone;
 
 true;

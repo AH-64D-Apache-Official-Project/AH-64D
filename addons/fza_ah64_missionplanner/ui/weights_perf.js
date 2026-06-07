@@ -1,6 +1,11 @@
 // weights_perf.js -- weight metrics, ammo warnings, and fuel calculation
 
 var weightModelBaseline = null;
+var _ammoWarnTimer = null;
+function scheduleUpdateAmmoWarnings() {
+  clearTimeout(_ammoWarnTimer);
+  _ammoWarnTimer = setTimeout(updateAmmoWarnings, 150);
+}
 
 function computeLoadoutWeightMetrics() {
   var rocketCount = 0;
@@ -363,7 +368,7 @@ function updateWeightsAndPerformance() {
   setPerfValueClass('hvrTqOGE', hvrOgeDePct > 100 ? 'warn' : (hvrOgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('powerMarginDE', powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : ''));
   setPerfValueClass('maxRodOGE', maxRodOgeFpm === null ? 'warn' : (powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : '')));
-  updateAmmoWarnings();
+  scheduleUpdateAmmoWarnings();
   updateConversionWarning();
 }
 
@@ -384,28 +389,20 @@ function setFuelFromPercentage() {
 
   var gallonsToAllocate = Math.round((totalCapacity * pct) / 100);
 
-  // Fill FWD + AFT evenly first.
+  // Fill FWD + AFT evenly first (FWD receives the extra gallon when total is odd).
   var fwdMax = getFuelMax('fuelFwd');
   var aftMax = getFuelMax('fuelAft');
   var pairCapacity = fwdMax + aftMax;
   var pairToAllocate = gallonsToAllocate > pairCapacity ? pairCapacity : gallonsToAllocate;
-  var fwd = 0;
-  var aft = 0;
-  var turn = 0;
-
-  while (pairToAllocate > 0) {
-    var canFwd = fwd < fwdMax;
-    var canAft = aft < aftMax;
-    if (!canFwd && !canAft) break;
-
-    if ((turn % 2 === 0 && canFwd) || !canAft) {
-      fwd += 1;
-    } else {
-      aft += 1;
-    }
-
-    pairToAllocate -= 1;
-    turn += 1;
+  var half = Math.floor(pairToAllocate / 2);
+  var fwdIdeal = half + (pairToAllocate % 2);
+  var fwd, aft;
+  if (fwdIdeal <= fwdMax && half <= aftMax) {
+    fwd = fwdIdeal; aft = half;
+  } else if (fwdIdeal > fwdMax) {
+    fwd = fwdMax; aft = Math.min(pairToAllocate - fwd, aftMax);
+  } else {
+    aft = aftMax; fwd = Math.min(pairToAllocate - aft, fwdMax);
   }
 
   document.getElementById('fuelFwd').value = String(fwd);
