@@ -56,9 +56,6 @@ function updateAmmoWarnings() {
   if (cannonEl) cannonEl.classList.remove('ammo-warn');
   var supplyEl = document.getElementById('supplyTally');
   if (supplyEl) { supplyEl.textContent = ''; supplyEl.className = 'supply-tally'; }
-  var debugEl = document.getElementById('rearmDebug');
-  if (debugEl) debugEl.style.display = 'none';
-
   // Highlight fired rails (classname present, ammo=0) that will be rearmed
   syncFiredRailHighlights();
 
@@ -74,29 +71,26 @@ function updateAmmoWarnings() {
   // Only enforce in mode 1 (caliber pool)
   if (!g_rearmData || !g_rearmData.costs) {
     updateAmmoTypes(null);
-    if (debugEl) { debugEl.textContent = 'DBG rearm: g_rearmData=' + JSON.stringify(g_rearmData); debugEl.style.display = ''; }
     return;
   }
   if (g_rearmData.unlimited || g_rearmData.mode === 0) {
     updateAmmoTypes(null);
-    if (debugEl) { debugEl.textContent = 'DBG rearm: mode=' + g_rearmData.mode + ' unlimited=' + g_rearmData.unlimited + ' (no enforcement)'; debugEl.style.display = ''; }
     return;
   }
   if (g_rearmData.mode === 2) {
     // Magazine inventory: no caliber-point enforcement; just surface the supply mode
     updateAmmoTypes(null);
-    if (debugEl) { debugEl.textContent = 'DBG rearm: mode=2 (magazine inventory, no caliber enforcement)'; debugEl.style.display = ''; }
     return;
   }
   if (!g_rearmData.rearmNewPylons) {
     updateAmmoTypes(null);
-    if (debugEl) { debugEl.textContent = 'DBG rearm: rearmNewPylons=false (ACE handles supply at rearm time)'; debugEl.style.display = ''; }
     return;
   }
 
   var baseSupply = g_rearmData.totalSupply;
   var costs = g_rearmData.costs;
   var state = getPlannerState();
+  var fcrChanged = initialAircraftState && (state.fcrActive !== initialAircraftState.fcrActive);
   var initPylons = (initialAircraftState && initialAircraftState.pylons) ? initialAircraftState.pylons : [];
   var railKeys = ['tr', 'tl', 'br', 'bl'];
   var plannedCannon = state.cannonRds || 0;
@@ -183,6 +177,10 @@ function updateAmmoWarnings() {
         cost: costs.aux || 50, seq: g_pylonOrder['p' + pii] || 0, key: 'p' + pii + '_aux' });
     }
   }
+  if (fcrChanged) {
+    var fcrCost = costs.fcr || 100;
+    costItems.push({ type: 'fcr', pylonIdx: 0, cost: fcrCost, seq: -1, key: 'fcr' });
+  }
   // Oldest modification = highest priority; most recently changed gets bumped first
   costItems.sort(function(a, b) { return (a.seq - b.seq) || (a.key < b.key ? -1 : 1); });
   var spent = 0;
@@ -241,7 +239,11 @@ function updateAmmoTypes(remaining) {
     html += '<div class="farp-src-row"><span class="farp-src-name">Supply varies per truck</span><span class="farp-src-val"></span></div>';
   } else {
     var pts = (remaining !== null && remaining !== undefined) ? remaining : g_rearmData.totalSupply;
-    var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 30, axc = rc.aux || 50;
+    var hfc = rc.hellfire || 50, rkc = rc.rocket || 5, cnc = rc.cannon || 30, axc = rc.aux || 50, fcrc = rc.fcr || 100;
+    var isFcrChanged = initialAircraftState && (getPlannerState().fcrActive !== initialAircraftState.fcrActive);
+    if (isFcrChanged) {
+      html += '<div class="farp-src-row"><span class="farp-src-name">FCR toggle (' + fcrc + ' pts)</span><span class="farp-src-val">pending</span></div>';
+    }
     html += '<div class="farp-src-row"><span class="farp-src-name">Hellfire (' + hfc + ' pts/msl)</span><span class="farp-src-val">' + Math.floor(pts / hfc) + ' msls</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Rockets (' + rkc + ' pts/rkt)</span><span class="farp-src-val">' + Math.floor(pts / rkc) + ' rkts</span></div>';
     html += '<div class="farp-src-row"><span class="farp-src-name">Cannon (' + cnc + ' pts/50rds)</span><span class="farp-src-val">' + (Math.floor(pts / cnc) * 50) + ' rds</span></div>';

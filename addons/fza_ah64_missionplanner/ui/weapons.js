@@ -112,18 +112,32 @@ var _PYLON_SIL_FRACTIONS = [
 // Image files are drawn for a head-on front view (aircraft-left = canvas-right).
 // The planner uses pilot-perspective (pylon 1 = left on screen), so the file
 // assignments are cross-mapped: pylon1↔4 and pylon2↔3.
+// Images are embedded as data URIs in sil_data.js to bypass Arma CEF VFS loading.
 var _pylonSilImages = {
-  1: { hellfire: 'img/pylon4_m299_empty.png', rocket: 'img/pylon4_m261.png', aux: 'img/pylon4_auxTank.png' },
-  2: { hellfire: 'img/pylon3_m299.png',       rocket: 'img/pylon3_m261.png', aux: 'img/pylon3_auxTank.png' },
-  3: { hellfire: 'img/pylon2_m299.png',       rocket: 'img/pylon2_m261.png', aux: 'img/pylon2_auxTank.png' },
-  4: { hellfire: 'img/pylon1_m299_empty.png', rocket: 'img/pylon1_m261.png', aux: 'img/pylon1_auxTank.png' }
+  1: { hellfire: _silData.pylon4_m299_empty, rocket: _silData.pylon4_m261, aux: _silData.pylon4_auxTank },
+  2: { hellfire: _silData.pylon3_m299,       rocket: _silData.pylon3_m261, aux: _silData.pylon3_auxTank },
+  3: { hellfire: _silData.pylon2_m299,       rocket: _silData.pylon2_m261, aux: _silData.pylon2_auxTank },
+  4: { hellfire: _silData.pylon1_m299_empty, rocket: _silData.pylon1_m261, aux: _silData.pylon1_auxTank }
 };
 
+function setSilImg(img, src) {
+  if (src) {
+    img.src = src;
+    img.style.display = '';
+  } else {
+    img.src = '';
+    img.style.display = 'none';
+  }
+}
+
 function syncSilhouette() {
+  var baseImg = document.getElementById('sil-base-img');
+  if (baseImg) setSilImg(baseImg, _silData.empty);
+
   var fcrImg = document.getElementById('sil-fcr-img');
   if (fcrImg) {
     var fcrActive = document.getElementById('fcrBadge').classList.contains('active');
-    fcrImg.src = fcrActive ? 'img/fcr.png' : '';
+    setSilImg(fcrImg, fcrActive ? _silData.fcr : '');
   }
 
   for (var i = 1; i <= 4; i++) {
@@ -131,7 +145,7 @@ function syncSilhouette() {
     var mode = modeSelect ? modeSelect.value : 'none';
     var img = document.getElementById('sil-p' + i + '-img');
     if (img) {
-      img.src = (_pylonSilImages[i] && _pylonSilImages[i][mode]) || '';
+      setSilImg(img, (_pylonSilImages[i] && _pylonSilImages[i][mode]) || '');
     }
   }
   drawPylonConnectors();

@@ -273,10 +273,6 @@
   }
   .conversion-warning.hidden { display: none; }
   .fcr-change-alert {
-    position: absolute;
-    top: 8px;
-    right: 58px;
-    z-index: 2;
     background: #3a0000;
     border: 1px solid #cc0000;
     padding: 2px 6px;
@@ -300,12 +296,16 @@
     text-align: center;
   }
   .iafs-change-alert.hidden { display: none; }
-  .silhouette-fcr {
+  .silhouette-fcr-group {
     position: absolute;
     top: 8px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
   }
 
   /* ── SILHOUETTE AREA ── */
@@ -1088,15 +1088,15 @@
     flex-direction: row;
   }
   .tab-sidebar {
-    width: 264px;
-    min-width: 264px;
+    width: 330px;
+    min-width: 330px;
     border-right: 1px solid var(--border);
     padding: 8px 6px;
     display: flex;
     flex-direction: column;
     gap: 6px;
     color: var(--text-dim);
-    background: rgba(0, 0, 0, 0.70);
+    background: #000000;
   }
   .tab-sidebar-title {
     color: var(--text-bright);

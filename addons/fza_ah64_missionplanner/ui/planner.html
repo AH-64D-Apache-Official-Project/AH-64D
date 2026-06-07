@@ -61,7 +61,6 @@
       <div class="farp-list">
         <div class="farp-title">FARP Status:</div>
         <div id="supplyTally" class="supply-tally"></div>
-        <div id="rearmDebug" style="display:none;font-size:0.7em;color:#aaa;word-break:break-all;margin-top:2px;"></div>
         <div id="farpList">
         </div>
       </div>
@@ -73,16 +72,18 @@
 
       <!-- Silhouette -->
       <div class="silhouette-area">
-        <div id="fcrBadge" class="fcr-badge silhouette-fcr active" title="Toggle FCR">FCR</div>
-        <div id="fcrChangeAlert" class="fcr-change-alert hidden" title="FCR change requires ~300s rearm">&#9888; 300s</div>
+        <div class="silhouette-fcr-group">
+          <div id="fcrBadge" class="fcr-badge active" title="Toggle FCR">FCR</div>
+          <div id="fcrChangeAlert" class="fcr-change-alert hidden" title="FCR change requires ~300s rearm">&#9888; 300s</div>
+        </div>
         <div id="conversionWarning" class="conversion-warning hidden" title="FCR or magazine mode change requires ~300s rearm">&#9888; 300s REARM</div>
         <div id="apache-sil" class="sil-composite">
-          <img class="sil-layer" src="img/empty.png" alt="">
-          <img id="sil-fcr-img" class="sil-layer" src="img/fcr.png" alt="">
-          <img id="sil-p1-img" class="sil-layer" src="" alt="">
-          <img id="sil-p2-img" class="sil-layer" src="" alt="">
-          <img id="sil-p3-img" class="sil-layer" src="" alt="">
-          <img id="sil-p4-img" class="sil-layer" src="" alt="">
+          <img id="sil-base-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-fcr-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p1-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p2-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p3-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p4-img" class="sil-layer" style="display:none" src="" alt="">
         </div>
       </div>
 
@@ -651,6 +652,7 @@
 </div>
 
 <script src="dom_utils.js"></script>
+<script src="sil_data.js"></script>
 <script src="sfm_perf.js"></script>
 <script src="save_load.js"></script>
 <script src="state.js"></script>

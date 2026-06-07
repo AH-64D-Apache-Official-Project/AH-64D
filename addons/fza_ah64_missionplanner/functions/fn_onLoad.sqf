@@ -41,8 +41,6 @@ uiNamespace setVariable ["fza_mplanner_ready", false];
 [_display] spawn {
     params ["_display"];
     disableSerialization;
-    private _msg1 = "[MP Debug] onLoad spawn: waiting for browser ready signal";
-    diag_log _msg1; systemChat _msg1;
     private _t0 = diag_tickTime;
     waitUntil {
         uiSleep 0.1;
@@ -50,19 +48,7 @@ uiNamespace setVariable ["fza_mplanner_ready", false];
         || {isNull _display}
         || {(diag_tickTime - _t0) > 5}
     };
-    if (isNull _display) exitWith {
-        private _mNull = "[MP Debug] onLoad spawn: display became null";
-        diag_log _mNull; systemChat _mNull;
-    };
-    if (uiNamespace getVariable ["fza_mplanner_ready", false]) then {
-        private _mReady = "[MP Debug] onLoad spawn: ready signal received, seeding";
-        diag_log _mReady; systemChat _mReady;
-    } else {
-        private _mTimeout = "[MP Debug] onLoad spawn: 5s timeout, seeding anyway";
-        diag_log _mTimeout; systemChat _mTimeout;
-    };
+    if (isNull _display) exitWith {};
     [] call fza_mplanner_fnc_seedSaves;
     [] call fza_mplanner_fnc_seedCurrentConfig;
-    private _mDone = "[MP Debug] onLoad spawn: seeding complete";
-    diag_log _mDone; systemChat _mDone;
 };

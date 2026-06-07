@@ -80,7 +80,6 @@ private _ctrGal = if (_maxCtrKg > 0) then { (round (_ctrKg / _maxCtrKg * 100)) m
 //   base+0 = zoneA / ul-hellfire    base+1 = zoneB / ur-hellfire
 //   base+2 = zoneE / ll-hellfire    base+3 = empty(rkt) / lr-hellfire / aux
 private _mags = getPylonMagazines _heli;
-diag_log format ["[MP Debug] seedCurrentConfig start: heli=%1, isNull=%2, mags=%3", typeOf _heli, isNull _heli, _mags];
 
 // Ammo class (toLower) → UI code maps
 private _rktAmmoMap = [
@@ -215,7 +214,6 @@ private _jsCode = format [
     "window.fza_mplanner_receiveCurrentConfig && window.fza_mplanner_receiveCurrentConfig('%1');",
     _stateJson call _jsEscape
 ];
-diag_log format ["[MP Debug] seedCurrentConfig: sending stateJson (len=%1), msnEquip=%2", count _stateJson, _msnEquipCode];
 [_browser, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
 
 true

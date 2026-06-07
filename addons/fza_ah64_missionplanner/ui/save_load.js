@@ -444,9 +444,6 @@ function receiveSqfSaveSeed(payloadText) {
     if (typeof console !== 'undefined' && console.warn) {
       console.warn('Mission Planner live save seed failed.', err);
     }
-    var _errMsg = err ? String(err.message || err) : 'unknown';
-    _errMsg = _errMsg.replace(/["'\\]/g, '?').substring(0, 80);
-    callSQF('diag_log "[MP JS] receiveSeed ERR: ' + _errMsg + '"');
   }
 }
 
