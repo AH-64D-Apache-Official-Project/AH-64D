@@ -300,6 +300,8 @@ function updateWeightsAndPerformance() {
     document.getElementById('maxRodOGE').textContent = '--';
     document.getElementById('maxRodOGEUnit').textContent = 'fpm';
     document.getElementById('endurance').textContent = '--';
+    var contTqElReset = document.getElementById('contTqDE');
+    if (contTqElReset) contTqElReset.textContent = '--';
     setPerfValueClass('maxEnd', '');
     setPerfValueClass('maxEndPph', '');
     setPerfValueClass('maxRange', '');
@@ -308,6 +310,7 @@ function updateWeightsAndPerformance() {
     setPerfValueClass('vsseAfterJett', '');
     setPerfValueClass('maxTqDE', '');
     setPerfValueClass('maxTqSE', '');
+    setPerfValueClass('contTqDE', '');
     setPerfValueClass('hvrTqIGE', '');
     setPerfValueClass('hvrTqOGE', '');
     setPerfValueClass('powerMarginDE', '');
@@ -317,7 +320,12 @@ function updateWeightsAndPerformance() {
   }
 
   var atmosphere = getPerfAtmosphere();
-  var perf = computeSfmPerformance(currentDisplay, atmosphere.pa, atmosphere.fat);
+
+  var planGWTEl = document.getElementById('planGWT');
+  var planGWTVal = planGWTEl ? parseInt(String(planGWTEl.value || '').replace(/,/g, '').trim(), 10) : NaN;
+  var perfGWT = (!isNaN(planGWTVal) && planGWTVal > 0) ? planGWTVal : currentDisplay;
+
+  var perf = computeSfmPerformance(perfGWT, atmosphere.pa, atmosphere.fat);
   var jettisonStep = Math.round(jettDisplay / 200);
   var maxEnd = Math.round(perf.endTAS);
   var maxEndPph = Math.round(perf.endFF / 10) * 10;
@@ -329,6 +337,7 @@ function updateWeightsAndPerformance() {
 
   var maxTqDePct = Math.round(perf.maxTQ_DE * 100);
   var maxTqSePct = Math.round(perf.maxTQ_SE * 100);
+  var contTqDePct = Math.min(maxTqDePct, 100);
 
   var hvrIgeDePct = Math.round(perf.hvrTQ_IGE * 100);
   var hvrOgeDePct = Math.round(perf.hvrTQ_OGE * 100);
@@ -349,6 +358,8 @@ function updateWeightsAndPerformance() {
 
   document.getElementById('maxTqDE').textContent = formatWhole(maxTqDePct);
   document.getElementById('maxTqSE').textContent = formatWhole(maxTqSePct);
+  var contTqEl = document.getElementById('contTqDE');
+  if (contTqEl) contTqEl.textContent = formatWhole(contTqDePct);
   document.getElementById('hvrTqIGE').textContent = formatWhole(hvrIgeDePct);
   document.getElementById('hvrTqOGE').textContent = formatWhole(hvrOgeDePct);
   document.getElementById('powerMarginDE').textContent = formatWhole(powerMarginDePct);
@@ -364,6 +375,7 @@ function updateWeightsAndPerformance() {
 
   setPerfValueClass('maxTqDE', 'ok');
   setPerfValueClass('maxTqSE', 'ok');
+  setPerfValueClass('contTqDE', contTqDePct >= 100 ? 'ok' : 'caution');
   setPerfValueClass('hvrTqIGE', hvrIgeDePct > 100 ? 'warn' : (hvrIgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('hvrTqOGE', hvrOgeDePct > 100 ? 'warn' : (hvrOgeDePct >= 80 ? 'caution' : ''));
   setPerfValueClass('powerMarginDE', powerMarginDePct <= 0 ? 'warn' : (powerMarginDePct <= 20 ? 'caution' : ''));

@@ -99,13 +99,14 @@ function getPylonSummary(pylonIndex, mode) {
   return 'EMPTY';
 }
 
-// Approximate position of each pylon's attach point as a fraction of the
-// rendered silhouette image (pilot-perspective: P1=left-outer, P4=right-outer).
+// Pylon hardware center-x measured from actual PNG artwork (509×324 canvas).
+// Cross-mapped to pilot-perspective display order (P1=left-outer, P4=right-outer).
+// py is just below the hardware bottom (maxY/324 ≈ 0.796) so dots start beneath, not on, the pylon.
 var _PYLON_SIL_FRACTIONS = [
-  { px: 0.12, py: 0.63 },
-  { px: 0.30, py: 0.60 },
-  { px: 0.70, py: 0.60 },
-  { px: 0.88, py: 0.63 }
+  { px: 0.208, py: 0.80 },  // P1 display (uses pylon4 file, left outer)
+  { px: 0.299, py: 0.80 },  // P2 display (uses pylon3 file, left inner)
+  { px: 0.686, py: 0.80 },  // P3 display (uses pylon2 file, right inner)
+  { px: 0.776, py: 0.80 }   // P4 display (uses pylon1 file, right outer)
 ];
 
 // Image files are drawn for a head-on front view (aircraft-left = canvas-right).
@@ -125,7 +126,6 @@ function syncSilhouette() {
     fcrImg.src = fcrActive ? 'img/fcr.png' : '';
   }
 
-  var loadoutParts = [];
   for (var i = 1; i <= 4; i++) {
     var modeSelect = document.getElementById('pylon' + i + 'Type');
     var mode = modeSelect ? modeSelect.value : 'none';
@@ -133,12 +133,6 @@ function syncSilhouette() {
     if (img) {
       img.src = (_pylonSilImages[i] && _pylonSilImages[i][mode]) || '';
     }
-    loadoutParts.push('P' + i + ' ' + getPylonSummary(i, mode));
-  }
-
-  var loadoutEl = document.getElementById('sil-loadout');
-  if (loadoutEl) {
-    loadoutEl.textContent = loadoutParts.join('   ');
   }
   drawPylonConnectors();
 }
@@ -153,13 +147,13 @@ function drawPylonConnectors() {
 
   while (svg.firstChild) svg.removeChild(svg.firstChild);
 
-  var colRect = colCenter.getBoundingClientRect();
+  var colRect      = colCenter.getBoundingClientRect();
   var compositeRect = composite.getBoundingClientRect();
   var colW = colRect.width, colH = colRect.height;
   if (!colW || !colH) return;
   svg.setAttribute('viewBox', '0 0 ' + colW + ' ' + colH);
 
-  // Compute rendered image bounds inside the composite (object-fit: contain, 509×324)
+  // object-fit: contain math for 509×324 base image
   var imgAspect = 509 / 324;
   var cW = compositeRect.width, cH = compositeRect.height;
   var renderedW, renderedH, imgOffX, imgOffY;
@@ -174,31 +168,57 @@ function drawPylonConnectors() {
   var imgTop  = compositeRect.top  - colRect.top  + imgOffY;
 
   var ns = 'http://www.w3.org/2000/svg';
+  var STROKE = '#4a8c4a';
+  var SW = '1.5';
+
+  function makePoly(pts) {
+    var el = document.createElementNS(ns, 'polyline');
+    el.setAttribute('points', pts.map(function(p) { return p[0] + ',' + p[1]; }).join(' '));
+    el.setAttribute('stroke', STROKE);
+    el.setAttribute('stroke-width', SW);
+    el.setAttribute('fill', 'none');
+    return el;
+  }
+  function makeDot(cx, cy) {
+    var el = document.createElementNS(ns, 'circle');
+    el.setAttribute('cx', cx); el.setAttribute('cy', cy);
+    el.setAttribute('r', '2.5');
+    el.setAttribute('fill', '#4cc94c');
+    el.setAttribute('fill-opacity', '0.8');
+    return el;
+  }
+
+  // ── 4 pylon connectors: down → across → down ──────────────────────────────
   for (var i = 1; i <= 4; i++) {
-    var frac = _PYLON_SIL_FRACTIONS[i - 1];
+    var frac   = _PYLON_SIL_FRACTIONS[i - 1];
     var typeEl = document.getElementById('pylon' + i + 'Type');
     if (!typeEl) continue;
     var titleRect = typeEl.getBoundingClientRect();
 
-    var x1 = imgLeft + frac.px * renderedW;
-    var y1 = imgTop  + frac.py * renderedH;
-    var x2 = titleRect.left - colRect.left + titleRect.width / 2;
-    var y2 = titleRect.top  - colRect.top;
+    var x2   = titleRect.left - colRect.left + titleRect.width / 2;
+    var y2   = titleRect.top  - colRect.top;
+    var x1   = imgLeft + frac.px * renderedW;
+    var y1   = imgTop  + frac.py * renderedH + 20;
+    var range = y2 - y1;
+    var yMid  = (i === 1 || i === 4)
+      ? (y1 + y2) / 2 - range * 0.10   // outer: 10% above midpoint
+      : (y1 + y2) / 2 + range * 0.10;  // inner: 10% below midpoint
 
-    var line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
-    line.setAttribute('stroke', '#2e5e2e');
-    line.setAttribute('stroke-width', '1');
-    line.setAttribute('stroke-dasharray', '5 3');
-    svg.appendChild(line);
+    svg.appendChild(makePoly([[x1, y1], [x1, yMid], [x2, yMid], [x2, y2]]));
+    svg.appendChild(makeDot(x1, y1));
+  }
 
-    var dot = document.createElementNS(ns, 'circle');
-    dot.setAttribute('cx', x1); dot.setAttribute('cy', y1);
-    dot.setAttribute('r', '2.5');
-    dot.setAttribute('fill', '#4cc94c');
-    dot.setAttribute('fill-opacity', '0.7');
-    svg.appendChild(dot);
+  // ── Cannon/center connector: belly → IAFS/Robbie title ────────────────────
+  var robbieEl = document.getElementById('robbieMode');
+  if (robbieEl) {
+    var rRect = robbieEl.getBoundingClientRect();
+    var cx2 = rRect.left - colRect.left + rRect.width / 2;
+    var cy2 = rRect.top  - colRect.top;
+    var cx1 = imgLeft + 0.50 * renderedW;
+    var cy1 = imgTop  + 0.80 * renderedH + 70;
+    var cMid = (cy1 + cy2) / 2;
+    svg.appendChild(makePoly([[cx1, cy1], [cx1, cMid], [cx2, cMid], [cx2, cy2]]));
+    svg.appendChild(makeDot(cx1, cy1));
   }
 }
 

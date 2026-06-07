@@ -421,9 +421,22 @@ function computePerfAtmosphereFromEnvironment() {
 
 function getPerfAtmosphere() {
   var atmosphere = computePerfAtmosphereFromEnvironment();
+
   var paEl = document.getElementById('perfPA');
   var fatEl = document.getElementById('perfFAT');
   if (paEl) paEl.textContent = formatWhole(atmosphere.pa);
   if (fatEl) fatEl.textContent = formatWhole(atmosphere.fat);
-  return { pa: atmosphere.pa, fat: atmosphere.fat };
+
+  var planPAEl  = document.getElementById('planPA');
+  var planFATEl = document.getElementById('planFAT');
+  if (planPAEl)  planPAEl.placeholder  = String(atmosphere.pa);
+  if (planFATEl) planFATEl.placeholder = String(atmosphere.fat);
+
+  var planPAVal  = planPAEl  ? parseInt(String(planPAEl.value  || '').trim(), 10) : NaN;
+  var planFATVal = planFATEl ? parseInt(String(planFATEl.value || '').trim(), 10) : NaN;
+
+  return {
+    pa:  !isNaN(planPAVal)  ? planPAVal  : atmosphere.pa,
+    fat: !isNaN(planFATVal) ? planFATVal : atmosphere.fat
+  };
 }

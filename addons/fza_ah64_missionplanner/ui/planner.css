@@ -91,8 +91,8 @@
 
   /* ── COLUMNS ── */
   .col-left {
-    width: 264px;
-    min-width: 264px;
+    width: 330px;
+    min-width: 330px;
     border-right: 1px solid var(--border);
     padding: 6px 6px;
     display: flex;
@@ -118,11 +118,10 @@
     width: 100%; height: 100%;
     pointer-events: none;
     z-index: 1;
-    overflow: visible;
   }
   .col-right {
-    width: 320px;
-    min-width: 320px;
+    width: 330px;
+    min-width: 330px;
     padding: 6px 6px;
     display: flex;
     flex-direction: column;
@@ -304,7 +303,8 @@
   .silhouette-fcr {
     position: absolute;
     top: 8px;
-    right: 8px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
   }
 
@@ -339,18 +339,6 @@
     object-position: center;
   }
   .sil-layer[src=""] { display: none; }
-  .sil-loadout-text {
-    font-family: 'Courier New', monospace;
-    font-size: 9px;
-    color: #78e878;
-    text-align: center;
-    padding: 2px 4px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-  }
 
   /* ── PYLON ROW ── */
   .pylon-row {
@@ -636,14 +624,13 @@
     font-size: 15px;
     width: 100%;
   }
-  .fuel-stat-label { color: var(--text-dim); min-width: 148px; }
+  .fuel-stat-label { color: var(--text-dim); flex: 1; min-width: 0; }
   .stat-right {
-    margin-left: auto;
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
     gap: 4px;
-    min-width: 0;
+    flex-shrink: 0;
   }
   .fuel-stat-value {
     color: var(--text-bright);
@@ -672,7 +659,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 264px;
+    width: 330px;
     z-index: 4;
     border-top: 2px solid var(--border2);
     border-right: 1px solid var(--border);
@@ -756,8 +743,14 @@
     min-width: 0;
   }
   #panel-config #config-perf .perf-label {
-    min-width: 120px;
+    flex: 1;
+    min-width: 0;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #panel-config #config-perf .perf-right {
+    flex-shrink: 0;
   }
   #panel-config #config-perf .perf-label.compact-line {
     min-width: 78px;
@@ -1125,6 +1118,53 @@
       radial-gradient(circle at 20% 30%, rgba(122,170,112,0.14), transparent 30%),
       radial-gradient(circle at 70% 60%, rgba(122,170,112,0.08), transparent 26%),
       var(--bg2);
+  }
+
+  /* ── PLANNER PARAMS ── */
+  .planner-params-section {
+    border: 1px solid var(--border2);
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .planner-params-title {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    padding: 2px 8px;
+    text-align: center;
+  }
+  .planner-params-grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 4px 6px;
+    padding: 5px 8px;
+    align-items: center;
+  }
+  .planner-params-label {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    white-space: nowrap;
+  }
+  .planner-params-input {
+    width: 68px;
+    height: 22px;
+    border: 1px solid var(--border2);
+    background: var(--input-bg);
+    color: var(--text-bright);
+    text-align: right;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    padding: 0 4px;
+    outline: none;
+  }
+  .planner-params-input:focus { border-color: var(--accent); }
+  .planner-params-unit {
+    color: var(--text-dim);
+    font-size: 13px;
+    min-width: 18px;
   }
 
   /* scrollbar */

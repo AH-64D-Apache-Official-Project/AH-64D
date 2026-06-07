@@ -84,7 +84,6 @@
           <img id="sil-p3-img" class="sil-layer" src="" alt="">
           <img id="sil-p4-img" class="sil-layer" src="" alt="">
         </div>
-        <div id="sil-loadout" class="sil-loadout-text"></div>
       </div>
 
       <!-- PYLON ROW -->
@@ -459,6 +458,13 @@
             </span>
           </div>
           <div class="perf-cell">
+            <span class="perf-label">Continuous Tq DE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="contTqDE">100</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
             <span class="perf-label">Hvr Tq IGE</span>
             <span class="perf-right">
               <span class="perf-value" id="hvrTqIGE">82</span>
@@ -486,6 +492,21 @@
               <span class="perf-unit" id="maxRodOGEUnit">fpm</span>
             </span>
           </div>
+        </div>
+      </div>
+
+      <div class="planner-params-section">
+        <div class="planner-params-title">PLANNER</div>
+        <div class="planner-params-grid">
+          <span class="planner-params-label">Gross Weight</span>
+          <input type="text" id="planGWT" class="planner-params-input" placeholder="auto" inputmode="numeric" maxlength="6">
+          <span class="planner-params-unit">lbs</span>
+          <span class="planner-params-label">Press Alt</span>
+          <input type="text" id="planPA" class="planner-params-input" placeholder="0" inputmode="numeric" maxlength="5">
+          <span class="planner-params-unit">ft</span>
+          <span class="planner-params-label">Free Air Temp</span>
+          <input type="text" id="planFAT" class="planner-params-input" placeholder="20" inputmode="numeric" maxlength="5">
+          <span class="planner-params-unit">&#176;C</span>
         </div>
       </div>
       </div>
@@ -826,6 +847,11 @@ initRocketTypeOptions();
 syncAuxFuelAvailability();
 syncRobbieState();
 updateWeightsAndPerformance();
+['planPA', 'planFAT', 'planGWT'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateWeightsAndPerformance);
+});
+
 loadSfmPerfTablesFromConfig().then(function(loaded) {
   if (loaded) {
     updateWeightsAndPerformance();
