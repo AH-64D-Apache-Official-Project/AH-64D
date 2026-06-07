@@ -226,6 +226,21 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             };
         };
 
+        // Recycle-source slots (those replacing an existing magazine) must run before
+        // pure new-load slots. This ensures refund credits are banked in the truck
+        // before new items are charged, so a cancel mid-rearm cannot leave a player
+        // with both the original magazines and the newly loaded ones.
+        private _recycleSlots = [];
+        private _newLoadSlots = [];
+        {
+            if ((getPylonMagazines _heli) select _x != "") then {
+                _recycleSlots pushBack _x;
+            } else {
+                _newLoadSlots pushBack _x;
+            };
+        } forEach _configureQueue;
+        _configureQueue = _recycleSlots + _newLoadSlots;
+
         if (_configureQueue isEqualTo []) exitWith {
             [_heli] call fza_fnc_weaponPylonCheckValid;
         };
@@ -285,8 +300,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
         _heli setVariable ["fza_mplanner_rearming", true, true];
 
-        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons, _supplyMode, _fnMagCaliberCost] spawn {
-            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons", "_supplyMode", "_fnMagCaliberCost"];
+        [_heli, _configureQueue, _targetPylonMagazines, _timePerPylon, _searchDistance, _rearmNewPylons, _supplyMode, _fnMagCaliberCost, _fnFindSupplyTruck, _fnGetTruckSupply] spawn {
+            params ["_heli", "_queue", "_targetPylonMagazines", "_timePerPylon", "_searchDistance", "_rearmNewPylons", "_supplyMode", "_fnMagCaliberCost", "_fnFindSupplyTruck", "_fnGetTruckSupply"];
 
             {
                 private _pylonIndex = _x;
@@ -295,6 +310,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
                 private _weaponToRemove = "";
                 private _currentPylonMagazine = (getPylonMagazines _heli) select _pylonIndex;
+                private _currentPylonAmmo = _heli ammoOnPylon (_pylonIndex + 1);
                 if (_currentPylonMagazine != "") then {
                     private _allPylonWeapons = (getPylonMagazines _heli) apply {
                         getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon")
@@ -339,6 +355,27 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 waitUntil {uiSleep 0.05; _status # 0};
                 if !(_status # 1) exitWith {
                     systemChat format ["Mission Planner: pylon %1 application cancelled.", _pylonIndex + 1];
+                };
+
+                // Deduct immediately after each successful slot so a disconnect cannot
+                // leave a player holding both the recycled source magazines and the newly
+                // loaded ones without paying for them.
+                if (_rearmNewPylons && { _supplyMode == 1 }) then {
+                    private _slotCost = if (_targetMagazine != _currentPylonMagazine) then {
+                        ([_targetMagazine] call _fnMagCaliberCost) - ([_currentPylonMagazine] call _fnMagCaliberCost)
+                    } else {
+                        // Same classname: charge only if it was fired (ammo=0 before apply)
+                        if (_currentPylonAmmo == 0 && { _targetMagazine != "" }) then {
+                            [_targetMagazine] call _fnMagCaliberCost
+                        } else { 0 }
+                    };
+                    if (_slotCost != 0) then {
+                        private _truck = call _fnFindSupplyTruck;
+                        if (!isNull _truck) then {
+                            private _curSupply = [_truck] call _fnGetTruckSupply;
+                            _truck setVariable ["ace_rearm_currentSupply", (_curSupply - _slotCost) max 0, true];
+                        };
+                    };
                 };
             } forEach _queue;
 
@@ -452,34 +489,16 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
     waitUntil { uiSleep 0.1; !(_heli getVariable ["fza_mplanner_rearming", false]) };
 
-    // ── SUPPLY DEDUCTION: caliber pool, only when pylons were auto-filled ─────
+    // ── SUPPLY DEDUCTION: cannon only ────────────────────────────────────────
+    // Pylon costs are charged per-slot inside _applyPylons as each slot completes.
     if (_rearmNewPylons && { _supplyMode == 1 }) then {
-        private _truck = call _fnFindSupplyTruck;
-        if (!isNull _truck) then {
-            private _truckSupply = [_truck] call _fnGetTruckSupply;
-            private _netCost = 0;
-            // Pylon cost: magazine changes since before the pylon step
-            private _postPylonMags = getPylonMagazines _heli;
-            for "_si" from 0 to ((count _postPylonMags) - 1) do {
-                private _newMag = _postPylonMags # _si;
-                private _oldMag = _prevPylonMags # _si;
-                if (_newMag isNotEqualTo _oldMag) then {
-                    _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
-                    _netCost = _netCost - ([_oldMag] call _fnMagCaliberCost);
-                } else {
-                    if (_newMag isNotEqualTo "" && {(_prevPylonAmmos # _si) == 0}) then {
-                        // Same classname but was fired (ammo=0 before apply); charge refill cost
-                        _netCost = _netCost + ([_newMag] call _fnMagCaliberCost);
-                    };
-                };
-            };
-            // Cannon cost: rounds loaded in STEP 1 (50 rds per rearm = _cannonCaliberCost pts)
-            private _cannonNewRds = (_prevCannonRds - _curCannonRds) max 0;
-            if (_cannonNewRds > 0) then {
-                _netCost = _netCost + (ceil (_cannonNewRds / 50) * _cannonCaliberCost);
-            };
-            if (_netCost != 0) then {
-                _truck setVariable ["ace_rearm_currentSupply", (_truckSupply - _netCost) max 0, true];
+        private _cannonNewRds = (_prevCannonRds - _curCannonRds) max 0;
+        if (_cannonNewRds > 0) then {
+            private _truck = call _fnFindSupplyTruck;
+            if (!isNull _truck) then {
+                private _truckSupply = [_truck] call _fnGetTruckSupply;
+                private _cannonCost = ceil (_cannonNewRds / 50) * _cannonCaliberCost;
+                _truck setVariable ["ace_rearm_currentSupply", (_truckSupply - _cannonCost) max 0, true];
             };
         };
     };
