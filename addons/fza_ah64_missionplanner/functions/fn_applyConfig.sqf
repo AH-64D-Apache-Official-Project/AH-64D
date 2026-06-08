@@ -20,8 +20,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
     if (isNull _heli) exitWith {};
 
+    _heli setVariable ["fza_mplanner_applying", true, true];
+
     private _settings = [_legacyJson] call CBA_fnc_parseJSON;
     if (isNil "_settings") exitWith {
+        _heli setVariable ["fza_mplanner_applying", false, true];
         systemChat "Mission Planner apply failed: invalid payload.";
     };
 
@@ -1076,6 +1079,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
+    _heli setVariable ["fza_mplanner_applying", false, true];
     systemChat "Mission Planner apply complete.";
 };
 

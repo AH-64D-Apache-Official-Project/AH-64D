@@ -28,8 +28,9 @@ private _inDialog           = !dialog;
 private _isZeus             = isNull findDisplay 312;
 private _inMap              = !visibleMap;
 private _inInventory        = isNull findDisplay 602;
+private _mplannerApplying   = _heli getVariable ["fza_mplanner_applying", false];
 
-private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn;
+private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn && !_mplannerApplying;
 
 private _config             = configOf _heli >> "Fza_SfmPlus";
 private _configVehicles     = configOf _heli;
