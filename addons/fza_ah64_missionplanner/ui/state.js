@@ -168,7 +168,7 @@ function applyPlannerState(state) {
       ['tr', 'tl', 'br', 'bl'].forEach(function(railKey, railIndex) {
         var railEl = document.getElementById('p' + i + '_' + railKey);
         if (!railEl) return;
-        var code = pylon.rails[railIndex] || '';
+        var code = normalizeHellfireCode(pylon.rails[railIndex] || '');
         railEl.value = hellfireCodeMap[code] || 'None';
       });
     }

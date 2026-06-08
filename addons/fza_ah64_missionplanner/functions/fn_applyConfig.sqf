@@ -52,7 +52,6 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     private _targetFuelKg = _settings getVariable ["fuel", 0];
     private _targetFuelKgClamped = _targetFuelKg max 0;
 
-    [_heli] call fza_sfmplus_fnc_coreConfig;
     private _sfmPlusCfg = configOf _heli >> "Fza_SfmPlus";
     private _ctrEnabled = [0, 1] select _iafsInstalled;
     private _tankCapacityKg =

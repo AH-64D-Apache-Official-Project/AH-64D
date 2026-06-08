@@ -288,7 +288,7 @@ function updateWeightsAndPerformance() {
   var ammoDisplay = Math.max(0, metrics.ammoWeight);
   var jettDisplay = Math.max(0, metrics.jettisonWeight);
   var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay);
-  var currentDisplay = emptyDisplay + metrics.equipmentWeight + fuelTotalLbs + ammoDisplay;
+  var currentDisplay = emptyDisplay + EST_CREW_LBS + metrics.equipmentWeight + fuelTotalLbs + ammoDisplay;
 
   document.getElementById('ammoWeight').textContent = formatWhole(ammoDisplay);
   document.getElementById('jettisonWeight').textContent = formatWhole(jettDisplay);
