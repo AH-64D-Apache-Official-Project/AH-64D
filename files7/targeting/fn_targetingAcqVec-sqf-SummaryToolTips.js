@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:targeting/fn_targetingAcqVec.sqf",{364:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get a vector from the aircraft to the acquisition source point (in world space)</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:targeting/fn_targetingAcqVec.sqf",{398:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get a vector from the aircraft to the acquisition source point (in world space)</div></div>"});

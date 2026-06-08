@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File30:fn_init.sqf","fn_init.sqf");NDSummary.OnSummaryLoaded("File30:fn_init.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[1,0,1,"Functions","Functions"],[2,0,0,"fza_weapons_fnc_init","fza_weapons_fnc_init"]]);
+﻿NDFramePage.OnPageTitleLoaded("File30:fn_init.sqf","fn_init.sqf");NDSummary.OnSummaryLoaded("File30:fn_init.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[3,0,1,"Functions","Functions"],[4,0,0,"fza_weapons_fnc_init","fza_weapons_fnc_init"]]);

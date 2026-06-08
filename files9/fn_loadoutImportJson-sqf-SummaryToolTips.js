@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File9:fn_loadoutImportJson.sqf",{348:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Import of website heicopter configuration and apply it to the helicopter</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File9:fn_loadoutImportJson.sqf",{346:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Import of website heicopter configuration and apply it to the helicopter</div></div>"});

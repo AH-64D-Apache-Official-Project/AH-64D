@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File25:apu/fn_apu.sqf",{60:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines key values for the simulation.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File25:apu/fn_apu.sqf",{66:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines key values for the simulation.</div></div>"});
