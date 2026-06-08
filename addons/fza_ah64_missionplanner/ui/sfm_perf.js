@@ -5,16 +5,13 @@ var GAL_TO_LBS_AFT = 1474 / 220;  // ~6.700
 var GAL_TO_LBS_CTR = 663  / 100;  // ~6.630
 var GAL_TO_LBS_AUX = 1541 / 230;  // ~6.700
 
-var EST_ROCKET_ROUND_LBS = 11.9;
-var EST_HELLFIRE_LBS = 108;
-var EST_30MM_ROUND_LBS = 1.8;
-var EST_M299_EMPTY_LBS = 130;
-var EST_M261_EMPTY_LBS = 160;
-var EST_AUX_TANK_EMPTY_LBS = 310;
-var EST_FCR_LBS = 140;
+var EST_ROCKET_ROUND_LBS = 22.9;
+var EST_HELLFIRE_LBS = 103;
+var EST_30MM_ROUND_LBS = 0.77;
+var EST_M299_EMPTY_LBS = 143;
+var EST_M261_EMPTY_LBS = 87;
+var EST_AUX_TANK_EMPTY_LBS = 140;
 var EST_CREW_LBS = 500;
-var EST_IAFS_LBS = 120;
-var EST_MAGAZINE_LBS = 220;
 var LBS_PER_KG = 2.20462;
 
 // Fallback values used when environment setting cannot be resolved.

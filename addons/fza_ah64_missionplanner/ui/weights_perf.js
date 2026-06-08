@@ -32,9 +32,7 @@ function computeLoadoutWeightMetrics() {
   var cannonRounds = parseInt(document.getElementById('cannonRds').value || '0', 10) || 0;
   var ammoWeightCalc = (rocketCount * EST_ROCKET_ROUND_LBS) + (hellfireCount * EST_HELLFIRE_LBS) + (cannonRounds * EST_30MM_ROUND_LBS);
 
-  var fcrWeight = document.getElementById('fcrBadge').classList.contains('active') ? EST_FCR_LBS : 0;
-  var centerStoreWeight = document.getElementById('robbieMode').value === 'iafs' ? EST_IAFS_LBS : EST_MAGAZINE_LBS;
-  var equipmentWeightCalc = externalDryWeight + fcrWeight + centerStoreWeight;
+  var equipmentWeightCalc = externalDryWeight;
 
   var auxFuelLbs = parseNumberText(document.getElementById('fuelAuxLbs').textContent);
   var jettisonWeightCalc = externalDryWeight + ammoWeightCalc + (hasAuxTank ? auxFuelLbs : 0);
@@ -287,7 +285,8 @@ function updateWeightsAndPerformance() {
 
   var ammoDisplay = Math.max(0, metrics.ammoWeight);
   var jettDisplay = Math.max(0, metrics.jettisonWeight);
-  var emptyDisplay = Math.max(0, weightModelBaseline.emptyDisplay);
+  var fcrActive = document.getElementById('fcrBadge').classList.contains('active');
+  var emptyDisplay = Math.max(0, fcrActive ? Math.round(EMPTY_MASS_FCR_LBS) : weightModelBaseline.emptyDisplay);
   var currentDisplay = emptyDisplay + EST_CREW_LBS + metrics.equipmentWeight + fuelTotalLbs + ammoDisplay;
 
   document.getElementById('ammoWeight').textContent = formatWhole(ammoDisplay);
