@@ -28,7 +28,7 @@ private _knownTargets = _fcrTargets select {
     ((count _x) < 9 || (_x # 8) == 0)
     && (_fcrScanState == FCR_MODE_OFF || (CBA_missionTime - _lastFullCycle) >= (_x # 7) || count _x > 9)
 };
-if (count _knownTargets == 0) exitWith {
+if (_knownTargets isEqualTo []) exitWith {
     [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0],[]]] call fza_fnc_updateNetworkGlobal;
 };
 

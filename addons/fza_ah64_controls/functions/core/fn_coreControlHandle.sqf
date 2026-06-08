@@ -31,6 +31,11 @@ if (_value) then {
         };
         case "fza_ah64_sightSelectFCR": {
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
+            private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+            if ("fza_agm114l_wep" in _missiles) then {
+                _heli setVariable ["fza_ah64_selectedMissile", "fza_agm114l_wep", true];
+                [_heli] call fza_fnc_weaponUpdateSelected;
+            };
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {

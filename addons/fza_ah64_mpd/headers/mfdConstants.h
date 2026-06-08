@@ -139,6 +139,8 @@
 #define MFD_IND_WPN_PYLON_2_3_FAILURE 17
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
+// 1 when FCR sight is active and type is locked to RF
+#define MFD_IND_WPN_MSL_TYPE_BARRIER 20
 
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0

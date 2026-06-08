@@ -1,5 +1,6 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 
 if (_this call fza_mpd_fnc_WpnTrajHandleControl) exitWith {};
 
@@ -9,7 +10,9 @@ switch (_control) do {
         [_heli] call fza_fnc_controlHandlelaserchange;
     };
     case "r1": {
-        [_heli] call fza_fnc_weaponMissileCycleType;
+        if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {
+            [_heli] call fza_fnc_weaponMissileCycleType;
+        };
     };
 };
 
@@ -27,7 +30,9 @@ switch (_state get "variant") do {
                 }
             };
             case "l3": {
-                [_heli] call fza_fnc_weaponMissileCycleTypeSal;
+                if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {
+                    [_heli] call fza_fnc_weaponMissileCycleTypeSal;
+                };
             };
         };
     };
