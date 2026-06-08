@@ -40,7 +40,7 @@ if (_targetSec > 0 && _elapsed >= _targetSec) then {
     private _fnZulu = {
         params ["_dt"];
         private _h = floor (_dt % 24);
-        format ["%1:%2Z", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
+        format ["%1:%2L", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
     };
 
     [_heli, "fza_fuel_checkRunning", false]     call fza_fnc_updateNetworkGlobal;

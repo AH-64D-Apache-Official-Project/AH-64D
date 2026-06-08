@@ -77,8 +77,18 @@ if (_intercellDir == 2) then {
 };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_XFER_PHASE), _intercellPhase];
 
-private _lAuxOn   = _heli getVariable ["fza_fuel_lAuxOn", false];
-private _rAuxOn   = _heli getVariable ["fza_fuel_rAuxOn", false];
+private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
+private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
+
+if (_lAuxOn && (_heli getVariable ["fza_sfmplus_stn1FuelMass", 0] <= 0) && (_heli getVariable ["fza_sfmplus_stn2FuelMass", 0] <= 0)) then {
+    [_heli, "fza_fuel_lAuxOn", false] call fza_fnc_updateNetworkGlobal;
+    _lAuxOn = false;
+};
+if (_rAuxOn && (_heli getVariable ["fza_sfmplus_stn3FuelMass", 0] <= 0) && (_heli getVariable ["fza_sfmplus_stn4FuelMass", 0] <= 0)) then {
+    [_heli, "fza_fuel_rAuxOn", false] call fza_fnc_updateNetworkGlobal;
+    _rAuxOn = false;
+};
+
 private _anyAuxOn = _lAuxOn || _rAuxOn;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_L_AUX_ON), BOOLTONUM(_lAuxOn)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_R_AUX_ON), BOOLTONUM(_rAuxOn)];

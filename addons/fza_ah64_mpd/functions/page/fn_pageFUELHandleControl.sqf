@@ -18,7 +18,13 @@ switch(_control) do {
             [_heli, "fza_fuel_xferMode", "FWD"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
         } else {
-            [_heli, "fza_fuel_lAuxOn", !(_heli getVariable ["fza_fuel_lAuxOn", false])] call fza_fnc_updateNetworkGlobal;
+            private _lAuxOn   = _heli getVariable ["fza_fuel_lAuxOn", false];
+            private _lHasFuel = (_heli getVariable ["fza_sfmplus_stn1FuelMass", 0] > 0)
+                             || (_heli getVariable ["fza_sfmplus_stn2FuelMass", 0] > 0);
+            // Can turn off freely; can only turn on when a left-side tank has fuel
+            if (_lAuxOn || _lHasFuel) then {
+                [_heli, "fza_fuel_lAuxOn", !_lAuxOn] call fza_fnc_updateNetworkGlobal;
+            };
         };
     };
 
@@ -59,7 +65,13 @@ switch(_control) do {
 
     // r1 — AUX R (stn3 inner-right) on/off
     case "r1": {
-        [_heli, "fza_fuel_rAuxOn", !(_heli getVariable ["fza_fuel_rAuxOn", false])] call fza_fnc_updateNetworkGlobal;
+        private _rAuxOn   = _heli getVariable ["fza_fuel_rAuxOn", false];
+        private _rHasFuel = (_heli getVariable ["fza_sfmplus_stn3FuelMass", 0] > 0)
+                         || (_heli getVariable ["fza_sfmplus_stn4FuelMass", 0] > 0);
+        // Can turn off freely; can only turn on when a right-side tank has fuel
+        if (_rAuxOn || _rHasFuel) then {
+            [_heli, "fza_fuel_rAuxOn", !_rAuxOn] call fza_fnc_updateNetworkGlobal;
+        };
     };
 
     // r2 — CHECK 15 min when setup open; else boost pump toggle

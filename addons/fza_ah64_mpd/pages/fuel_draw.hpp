@@ -575,9 +575,9 @@ class AuxtanksDisplay {
     };
     class ShowStn4Tank {
         condition = C_COND(C_AND(STN4_PRESENT, STN3_PRESENT));
-        type = "line";
-        width = 3;
         class lines {
+            type = "line";
+            width = 3;
             points[] = {
                 {{AUX_STN4_X + 0.000, AUX_RING_CY - AUX_RING_RY}, 1},
                 {{AUX_STN4_X + AUX_RING_RX * 0.36, AUX_RING_CY - AUX_RING_RY * 0.92}, 1},

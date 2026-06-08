@@ -201,7 +201,7 @@ if (_doAftToFwd) then {
 private _lAuxOn = _heli getVariable ["fza_fuel_lAuxOn", false];
 private _rAuxOn = _heli getVariable ["fza_fuel_rAuxOn", false];
 
-private _anyAuxTransferring = (_lAuxOn && (_stn1FuelMass > 4.5 || _stn2FuelMass > 4.5)) || (_rAuxOn && (_stn3FuelMass > 4.5 || _stn4FuelMass > 4.5));
+private _anyAuxTransferring = (_lAuxOn && (_stn1FuelMass > EXT_EMPTY_ADV_THRESH_KG || _stn2FuelMass > EXT_EMPTY_ADV_THRESH_KG)) || (_rAuxOn && (_stn3FuelMass > EXT_EMPTY_ADV_THRESH_KG || _stn4FuelMass > EXT_EMPTY_ADV_THRESH_KG));
 
 private _iafsAftFlowing = false;
 private _iafsFwdFlowing = false;

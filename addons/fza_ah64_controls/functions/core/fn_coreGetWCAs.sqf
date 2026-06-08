@@ -115,10 +115,10 @@ private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 private _pylonMagazines = getPylonMagazines _heli;
 private _fwdFuelMass = _heli getVariable ["fza_sfmplus_fwdFuelMass", 0];
 private _aftFuelMass = _heli getVariable ["fza_sfmplus_aftFuelMass", 0];
-private _auxTank1FuelMass = _heli getVariable "fza_sfmplus_stn1FuelMass";
-private _auxTank2FuelMass = _heli getVariable "fza_sfmplus_stn2FuelMass";
-private _auxTank3FuelMass = _heli getVariable "fza_sfmplus_stn3FuelMass";
-private _auxTank4FuelMass = _heli getVariable "fza_sfmplus_stn4FuelMass";
+private _auxTank1FuelMass = _heli getVariable ["fza_sfmplus_stn1FuelMass", 0];
+private _auxTank2FuelMass = _heli getVariable ["fza_sfmplus_stn2FuelMass", 0];
+private _auxTank3FuelMass = _heli getVariable ["fza_sfmplus_stn3FuelMass", 0];
+private _auxTank4FuelMass = _heli getVariable ["fza_sfmplus_stn4FuelMass", 0];
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -537,16 +537,16 @@ if (_onGnd) then {
 };
 
 //Auxilary Fuel tanks
-if (("auxTank" in (_pylonMagazines select 0))  && _auxTank1FuelMass < 25 && (_heli getVariable ["fza_fuel_ext1EmptyArmed", true])) then {
+if (("auxTank" in (_pylonMagazines select 0))  && _auxTank1FuelMass < EXT_EMPTY_ADV_THRESH_KG && (_heli getVariable ["fza_fuel_ext1EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 1 EMPTY", "EXT1 EMPTY"];
 };
-if (("auxTank" in (_pylonMagazines select 4))  && _auxTank2FuelMass < 25 && (_heli getVariable ["fza_fuel_ext2EmptyArmed", true])) then {
+if (("auxTank" in (_pylonMagazines select 4))  && _auxTank2FuelMass < EXT_EMPTY_ADV_THRESH_KG && (_heli getVariable ["fza_fuel_ext2EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 2 EMPTY", "EXT2 EMPTY"];
 };
-if (("auxTank" in (_pylonMagazines select 8))  && _auxTank3FuelMass < 25 && (_heli getVariable ["fza_fuel_ext3EmptyArmed", true])) then {
+if (("auxTank" in (_pylonMagazines select 8))  && _auxTank3FuelMass < EXT_EMPTY_ADV_THRESH_KG && (_heli getVariable ["fza_fuel_ext3EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 3 EMPTY", "EXT3 EMPTY"];
 };
-if (("auxTank" in (_pylonMagazines select 12)) && _auxTank4FuelMass < 25 && (_heli getVariable ["fza_fuel_ext4EmptyArmed", true])) then {
+if (("auxTank" in (_pylonMagazines select 12)) && _auxTank4FuelMass < EXT_EMPTY_ADV_THRESH_KG && (_heli getVariable ["fza_fuel_ext4EmptyArmed", true])) then {
     _wcas pushBack [WCA_ADVISORY, "EXTERNAL 4 EMPTY", "EXT4 EMPTY"];
 };
 
