@@ -413,7 +413,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         _args params ["_heli", "_pylonIndex", "_targetMagazine", "_status", "_rearmNewPylons", "_weaponToRemove", "_searchDistance"];
                         (vehicle player == _heli) || {player distanceSqr _heli <= (_searchDistance ^ 2)}
                     },
-                    ["isNotInZeus"]
+                    ["isNotInside"]
                 ] call ace_common_fnc_progressBar;
 
                 waitUntil {uiSleep 0.05; _status # 0};
@@ -551,7 +551,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 _args params ["_heli"];
                 (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
             },
-            []
+            ["isNotInside"]
         ] call ace_common_fnc_progressBar;
         waitUntil { uiSleep 0.1; _fcrPreStatus # 0 };
         if !(_fcrPreStatus # 1) exitWith {
@@ -609,7 +609,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _args params ["_heli"];
                     (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                []
+                ["isNotInside"]
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _unloadStatus # 0 };
             if !(_unloadStatus # 1) exitWith {
@@ -684,7 +684,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _args params ["_heli"];
                     (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                []
+                ["isNotInside"]
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _cannonStatus # 0 };
         };
@@ -828,7 +828,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         _args params ["_heli"];
                         (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                     },
-                    []
+                    ["isNotInside"]
                 ] call ace_common_fnc_progressBar;
                 waitUntil { uiSleep 0.1; _noSrcStatus # 0 };
             };
@@ -916,7 +916,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _args params ["_heli"];
                     (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                []
+                ["isNotInside"]
             ] call ace_common_fnc_progressBar;
 
             waitUntil {uiSleep 0.1; _status # 0};
@@ -950,7 +950,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _args params ["_heli"];
                     (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                []
+                ["isNotInside"]
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _defuelStatus # 0 };
         };
@@ -987,7 +987,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 _args params ["_heli"];
                 (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
             },
-            []
+            ["isNotInside"]
         ] call ace_common_fnc_progressBar;
         waitUntil { uiSleep 0.1; _fcrStatus # 0 };
         // FCR change supply deduction (100 pts) on successful completion
@@ -1032,7 +1032,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                 _args params ["_heli"];
                 (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
             },
-            []
+            ["isNotInside"]
         ] call ace_common_fnc_progressBar;
         waitUntil { uiSleep 0.1; _msnStatus # 0 };
     } else {
@@ -1068,7 +1068,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _args params ["_heli"];
                     (vehicle player == _heli) || {player distanceSqr _heli <= (15 ^ 2)}
                 },
-                []
+                ["isNotInside"]
             ] call ace_common_fnc_progressBar;
             waitUntil { uiSleep 0.1; _tailStatus # 0 };
         } else {
