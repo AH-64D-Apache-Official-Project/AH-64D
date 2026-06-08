@@ -83,7 +83,7 @@ private _costHellfire = 50; // 50 pts per missile (ace_caliber=100 is ACE defaul
 private _costRocket   = 5; // 5 pts per rocket (charged per round; ace_caliber=20 is per-pod which we override)
 private _costCannon   = ["fza_m230_300"]        call _fnCaliberCost;
 private _costAux      = 50;
-private _costJson     = format ['{"hellfire":%1,"rocket":%2,"cannon":%3,"aux":%4}', _costHellfire, _costRocket, _costCannon, _costAux];
+private _costJson     = format ['{"hellfire":%1,"rocket":%2,"cannon":%3,"aux":%4,"fcr":100,"iafs":100}', _costHellfire, _costRocket, _costCannon, _costAux];
 
 // ── ACE rearm pylons auto-fill setting ───────────────────────────────────────
 private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylons", false];
@@ -200,8 +200,18 @@ private _ammoLimitJson = '{"enabled":false,"ammo":[{"key":"AGM114K","label":"AGM
 private _seedFuelRate = if (isNil "ace_refuel_rate") then {1} else {ace_refuel_rate};
 if !(_seedFuelRate isEqualType 0 && {_seedFuelRate > 0}) then { _seedFuelRate = 1 };
 
+private _seedRearmMode = if (!isNil "fza_mplanner_rearmMode") then { fza_mplanner_rearmMode } else { 1 };
+if !(_seedRearmMode isEqualType 0) then { _seedRearmMode = 1 };
+_seedRearmMode = _seedRearmMode max 0 min 2;
+
+private _seedNoAmmoSrc = if (!isNil "fza_mplanner_noAmmoSourceRequired") then { fza_mplanner_noAmmoSourceRequired } else { true };
+if !(_seedNoAmmoSrc isEqualType true) then { _seedNoAmmoSrc = true };
+
+private _seedNoFuelSrc = if (!isNil "fza_mplanner_noFuelSourceRequired") then { fza_mplanner_noFuelSourceRequired } else { true };
+if !(_seedNoFuelSrc isEqualType true) then { _seedNoFuelSrc = true };
+
 private _payload = format [
-    '{"player":{"uid":"%1","name":"%2"},"environment":%3,"currentConfig":"%4","own":%5,"mission":%6,"farpFuel":%7,"farpRearm":%8,"ammoLimits":%9,"fuelRateLS":%10}',
+    '{"player":{"uid":"%1","name":"%2"},"environment":%3,"currentConfig":"%4","own":%5,"mission":%6,"farpFuel":%7,"farpRearm":%8,"ammoLimits":%9,"fuelRateLS":%10,"rearmMode":%11,"noAmmoSourceRequired":%12,"noFuelSourceRequired":%13}',
     (getPlayerUID player) call _jsonEscape,
     (name player) call _jsonEscape,
     if (isNil "fza_ah64_sfmplusEnvironment" || {!(fza_ah64_sfmplusEnvironment isEqualType "")}) then { "null" } else { fza_ah64_sfmplusEnvironment },
@@ -211,7 +221,10 @@ private _payload = format [
     _farpFuelJson,
     _rearmJson,
     _ammoLimitJson,
-    _seedFuelRate
+    _seedFuelRate,
+    _seedRearmMode,
+    ["false", "true"] select _seedNoAmmoSrc,
+    ["false", "true"] select _seedNoFuelSrc
 ];
 
 private _jsCode = format ["window.fza_mplanner_receiveSeed && window.fza_mplanner_receiveSeed('%1');", _payload call _jsEscape];

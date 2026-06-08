@@ -1,6 +1,11 @@
 // save_load.js -- save/load persistence, save-seed handling, and save/load dialog
 
 var fzaMplanner_fuelRateLS = 1; // ACE ace_refuel_rate default; updated from SQF seed
+var g_rearmData = null;
+var g_rearmMode = 1;               // 0=Instant, 1=30 Seconds, 2=ACE Settings (CBA default=1)
+var g_noAmmoSourceRequired = true; // updated from SQF seed; default true matches CBA default
+var g_noFuelSourceRequired = true;
+var g_farpFuelSources = [];        // [{name,liters},...] from SQF seed; liters=-1 means unlimited
 
 var saveLoadState = {
   open: false,
@@ -360,6 +365,19 @@ function receiveSqfSaveSeed(payloadText) {
       fzaMplanner_fuelRateLS = parsed.fuelRateLS;
     }
 
+    if (typeof parsed.rearmMode === 'number') {
+      g_rearmMode = Math.max(0, Math.min(2, parsed.rearmMode));
+    }
+    if (typeof parsed.noAmmoSourceRequired === 'boolean') {
+      g_noAmmoSourceRequired = parsed.noAmmoSourceRequired;
+    }
+    if (typeof parsed.noFuelSourceRequired === 'boolean') {
+      g_noFuelSourceRequired = parsed.noFuelSourceRequired;
+    }
+    if (Array.isArray(parsed.farpFuel)) {
+      g_farpFuelSources = parsed.farpFuel;
+    }
+
     if (parsed.currentConfig !== undefined) {
       var cfgName = trimSaveName(parsed.currentConfig);
       document.getElementById('currentConfigName').value = cfgName;
@@ -404,6 +422,9 @@ function receiveSqfSaveSeed(payloadText) {
           var fsVal = fs.liters < 0 ? 'Unlimited' : '~' + Math.round(fs.liters * 0.264172) + ' gal';
           farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(fs.name || 'Fuel Source') + '</span><span class="farp-src-val">' + fsVal + '</span></div>';
         }
+      } else if (g_noFuelSourceRequired) {
+        farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
+        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
       } else {
         farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
         farpHtml += '<div class="farp-none">No sources nearby</div>';
@@ -424,6 +445,9 @@ function receiveSqfSaveSeed(payloadText) {
           var rsVal = rs.unlimited ? 'Unlimited' : (rs.supply + ' pts');
           farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(rs.name || 'Rearm Source') + '</span><span class="farp-src-val">' + rsVal + '</span></div>';
         }
+      } else if (g_noAmmoSourceRequired) {
+        farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
+        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
       } else {
         farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
         farpHtml += '<div class="farp-none">No sources nearby</div>';
@@ -482,7 +506,7 @@ function updateSaveLoadControls() {
   }
   if (pushButton) {
     var isPreset = !!(entry && entry.locked);
-    pushButton.style.display = isPreset ? 'none' : '';
+    pushButton.style.display = (scope !== 'own' || isPreset) ? 'none' : '';
     pushButton.disabled = scope !== 'own' || !entry || isPreset;
   }
 

@@ -49,7 +49,7 @@ function computeLoadoutWeightMetrics() {
 
 function updateAmmoWarnings() {
   // Clear all supply warnings
-  eachNode('.rail-cycle', function(btn) { btn.classList.remove('ammo-warn'); });
+  eachNode('.rail-ammo', function(sel) { sel.classList.remove('ammo-warn'); });
   eachNode('.zone-count input', function(inp) { inp.classList.remove('ammo-warn'); });
   eachNode('.zone-type select', function(sel) { sel.classList.remove('ammo-warn'); });
   var cannonEl = document.getElementById('cannonRds');
@@ -58,6 +58,13 @@ function updateAmmoWarnings() {
   if (supplyEl) { supplyEl.textContent = ''; supplyEl.className = 'supply-tally'; }
   // Highlight fired rails (classname present, ammo=0) that will be rearmed
   syncFiredRailHighlights();
+
+  // No supply enforcement when the no-ammo-source-required setting is on
+  if (g_noAmmoSourceRequired) {
+    if (supplyEl) { supplyEl.textContent = ''; supplyEl.className = 'supply-tally'; }
+    updateAmmoTypes(null);
+    return;
+  }
 
   // Info: pylon changes will be skipped at apply time if no ammo truck is nearby
   if (g_rearmData && g_rearmData.pylonsNeedTruck) {
@@ -125,6 +132,12 @@ function updateAmmoWarnings() {
       recyclableCredit += (costs.aux || 50);
     }
   }
+  // FCR removal refunds supply (must be before avail is locked so pylons can use the credit)
+  var fcrWasActive = initialAircraftState && initialAircraftState.fcrActive;
+  var fcrNowActive = state.fcrActive;
+  if (fcrWasActive && !fcrNowActive) {
+    recyclableCredit += (costs.fcr || 100);
+  }
   var avail = baseSupply + recyclableCredit;
 
   // â”€â”€ 1. Cannon reserve (computed first to match SQF's budget priority) â”€â”€
@@ -178,8 +191,16 @@ function updateAmmoWarnings() {
     }
   }
   if (fcrChanged) {
-    var fcrCost = costs.fcr || 100;
-    costItems.push({ type: 'fcr', pylonIdx: 0, cost: fcrCost, seq: -1, key: 'fcr' });
+    if (!fcrWasActive && fcrNowActive) {
+      // Installing FCR: costs supply
+      costItems.push({ type: 'fcr', pylonIdx: 0, cost: costs.fcr || 100, seq: -1, key: 'fcr' });
+    }
+    // FCR removal credit was already added to recyclableCredit above (before avail was locked)
+  }
+  var iafsChanged = initialAircraftState && (state.robbieMode !== initialAircraftState.robbieMode);
+  if (iafsChanged) {
+    var iafsCost = costs.iafs || 100;
+    costItems.push({ type: 'iafs', pylonIdx: 0, cost: iafsCost, seq: -2, key: 'iafs' });
   }
   // Oldest modification = highest priority; most recently changed gets bumped first
   costItems.sort(function(a, b) { return (a.seq - b.seq) || (a.key < b.key ? -1 : 1); });
@@ -192,8 +213,8 @@ function updateAmmoWarnings() {
       if (item.type === 'cannon') {
         if (cannonEl) cannonEl.classList.add('ammo-warn');
       } else if (item.type === 'hellfire') {
-        var railBtn = document.querySelector('button.rail-cycle[data-rail="' + item.key + '"]');
-        if (railBtn) railBtn.classList.add('ammo-warn');
+        var railSel = document.getElementById(item.key);
+        if (railSel) railSel.classList.add('ammo-warn');
       } else if (item.type === 'rocket') {
         var cntEl = document.getElementById('p' + item.pylonIdx + '_' + item.zkPair[0] + '_count');
         var typEl = document.getElementById('p' + item.pylonIdx + '_' + item.zkPair[0] + '_type');

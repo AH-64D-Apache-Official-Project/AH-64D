@@ -53,8 +53,11 @@ function buildLegacyApplyPayload(state) {
     if (out.type === 'rocket') {
       var zones = pylon.zones || [];
       out.zoneA = (zones[0] && zones[0].count > 0 && zones[0].type) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
+      out.zoneACount = zones[0] ? (parseInt(zones[0].count, 10) || 0) : 0;
       out.zoneB = (zones[1] && zones[1].count > 0 && zones[1].type) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
+      out.zoneBCount = zones[1] ? (parseInt(zones[1].count, 10) || 0) : 0;
       out.zoneE = (zones[2] && zones[2].count > 0 && zones[2].type) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
+      out.zoneECount = zones[2] ? (parseInt(zones[2].count, 10) || 0) : 0;
     }
 
     payload[pylonKey] = out;
@@ -167,18 +170,6 @@ function applyPlannerState(state) {
         if (!railEl) return;
         var code = pylon.rails[railIndex] || '';
         railEl.value = hellfireCodeMap[code] || 'None';
-        // Sync the cycle button by matching select index within its parent
-        var parent = railEl.parentNode;
-        var parentSelects = parent.querySelectorAll('.rail-ammo');
-        var parentCycleBtns = parent.querySelectorAll('button.rail-cycle');
-        var selIdx = Array.prototype.indexOf.call(parentSelects, railEl);
-        var cycleBtn = selIdx >= 0 ? parentCycleBtns[selIdx] : null;
-        if (cycleBtn) {
-          var idx = hellfireCycleOrder.indexOf(code);
-          if (idx < 0) idx = 0;
-          setData(cycleBtn, 'index', idx);
-          cycleBtn.textContent = code === '' ? '-' : code;
-        }
       });
     }
 
@@ -214,94 +205,149 @@ function updateConversionWarning() {
   var tailChanged = curState.tailNum !== initialAircraftState.tailNum;
   var msnEquipChanged = curState.msnEquip !== initialAircraftState.msnEquip;
 
-  // Count pylon differences: hellfire at 5s/changed rail; type change or non-HF content change = 20s flat
-  var pylonChangedSecs = 0;
+  // Track rocket and non-rocket pylon seconds separately so mode-1 can show accurate estimates.
+  // Rockets: 1s per rocket loaded or unloaded per zone.
+  // Non-rocket: flat 5s per hellfire rail change, 20s per type swap.
+  var rocketChangedSecs = 0;
+  var nonRocketChangedSecs = 0;
+  var hasNonRocketPylonChanges = false;
+
   if (initialAircraftState.pylons && curState.pylons) {
     for (var pi = 0; pi < 4; pi++) {
       var initP = initialAircraftState.pylons[pi] || { type: 'none' };
       var curP = curState.pylons[pi] || { type: 'none' };
       if (JSON.stringify(initP) === JSON.stringify(curP)) continue;
       if (initP.type !== curP.type) {
-        // Pylon type changed â€” always requires physical unload/reload
-        pylonChangedSecs += 20;
+        nonRocketChangedSecs += 20;
+        hasNonRocketPylonChanges = true;
       } else if (initP.type === 'hellfire') {
-        // Both are hellfire: 5s per individually changed rail
         var initRails = initP.rails || ['', '', '', ''];
         var curRails = curP.rails || ['', '', '', ''];
         for (var ri = 0; ri < 4; ri++) {
-          if ((initRails[ri] || '') !== (curRails[ri] || '')) { pylonChangedSecs += 5; }
+          if ((initRails[ri] || '') !== (curRails[ri] || '')) {
+            nonRocketChangedSecs += 5;
+            hasNonRocketPylonChanges = true;
+          }
         }
       } else if (initP.type === 'rocket') {
-        // Each changed magazine slot = 1 ACE progress bar = ace_pylons_timePerPylon (default 5s).
-        // A zone slot changes when its magazine classname changes: type differs, or one side
-        // is empty (count=0 / no type) while the other is loaded.
         var initZones = initP.zones || [];
         var curZones  = curP.zones  || [];
         var numZones  = Math.max(initZones.length, curZones.length, 3);
         for (var zi = 0; zi < numZones; zi++) {
           var iz = initZones[zi] || { count: 0, type: '' };
           var cz = curZones[zi]  || { count: 0, type: '' };
-          var initActive = (iz.count || 0) > 0 && (iz.type || '') !== '';
-          var planActive = (cz.count || 0) > 0 && (cz.type || '') !== '';
-          if ((iz.type || '') !== (cz.type || '') || initActive !== planActive) {
-            pylonChangedSecs += 5; // one magazine slot swapped
-          }
+          var initCount = iz.count || 0;
+          var planCount = cz.count || 0;
+          var initType = (iz.type || '').trim().toUpperCase();
+          var planType = (cz.type || '').trim().toUpperCase();
+          var delta = (initType === planType)
+            ? Math.abs(planCount - initCount)
+            : (initCount + planCount);
+          rocketChangedSecs += delta;
         }
       } else {
-        // Same non-hellfire type (e.g. rocket zone count/type changed)
-        pylonChangedSecs += 20;
+        nonRocketChangedSecs += 20;
+        hasNonRocketPylonChanges = true;
       }
     }
   }
 
-  // Fuel time estimate: delta gallons * 3.785 L/gal / ACE rate
+  // Fuel change detection (for anyChange and mode-1 op count)
+  var hasFuelChange = false;
   var fuelTimeSecs = 0;
-  if (initialAircraftState.fuel && curState.fuel) {
+  var noFuelReq = (typeof g_noFuelSourceRequired !== 'undefined') ? g_noFuelSourceRequired : true;
+  if (initialAircraftState && initialAircraftState.fuel && curState.fuel) {
     var initFuelGal = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
     var curFuelGal = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
     var fuelDeltaGal = Math.abs(curFuelGal - initFuelGal);
     if (fuelDeltaGal > 5) {
-      fuelTimeSecs = Math.round(fuelDeltaGal * 3.785 / fzaMplanner_fuelRateLS);
+      hasFuelChange = true;
+      if (!noFuelReq) {
+        fuelTimeSecs = Math.round(fuelDeltaGal * 3.785 / fzaMplanner_fuelRateLS);
+      }
     }
   }
 
-  // Cannon time estimate: ~1s per 50 rounds delta
+  // Cannon time: ~1s per 50 rounds delta
   var cannonTimeSecs = 0;
   if (typeof initialAircraftState.cannonRds === 'number') {
     var cannonDelta = Math.abs((curState.cannonRds || 0) - initialAircraftState.cannonRds);
     if (cannonDelta > 0) { cannonTimeSecs = Math.round(cannonDelta / 10); }
   }
 
-  var totalSecs = 0;
-  if (fcrChanged) totalSecs += 300;
-  if (iafsChanged) totalSecs += 300;
-  if (msnEquipChanged) totalSecs += 30;
-  if (tailChanged) totalSecs += 10;
-  totalSecs += pylonChangedSecs;
-  totalSecs += fuelTimeSecs;
-  totalSecs += cannonTimeSecs;
-
-  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || fuelTimeSecs > 0 || cannonTimeSecs > 0;
+  var pylonChangedSecs = nonRocketChangedSecs + rocketChangedSecs;
+  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || hasFuelChange || cannonTimeSecs > 0;
+  var rearmMode = (typeof g_rearmMode !== 'undefined') ? g_rearmMode : 2;
 
   if (anyChange) {
-    warningEl.textContent = '\u26A0 ~' + totalSecs + 's REARM';
-    warningEl.title = 'Estimated total time for this config change';
+    var warnText, warnTitle, urgent;
+
+    if (rearmMode === 0) {
+      warnText  = '\u26A0 Instant REARM';
+      warnTitle = 'Changes will be applied instantly';
+      urgent    = false;
+    } else if (rearmMode === 1) {
+      warnText  = '\u26A0 ~30s REARM';
+      warnTitle = 'Each change takes 30s \u00F7 total operations (~' + Math.max(1, Math.round(30 / Math.max(1, (fcrChanged ? 1 : 0) + (iafsChanged ? 1 : 0) + (tailChanged ? 1 : 0) + (msnEquipChanged ? 1 : 0) + (cannonTimeSecs > 0 ? 1 : 0) + (hasFuelChange ? 1 : 0) + Math.ceil(nonRocketChangedSecs / 5) + Math.ceil(rocketChangedSecs)))) + 's each)';
+      urgent    = false;
+    } else {
+      var totalSecs = 0;
+      if (fcrChanged)      totalSecs += 300;
+      if (iafsChanged)     totalSecs += 300;
+      if (msnEquipChanged) totalSecs += 30;
+      if (tailChanged)     totalSecs += 10;
+      totalSecs += pylonChangedSecs + fuelTimeSecs + cannonTimeSecs;
+      warnText  = '\u26A0 ~' + totalSecs + 's REARM';
+      warnTitle = 'Estimated total time for this config change';
+      urgent    = totalSecs > 120;
+    }
+
+    warningEl.textContent = warnText;
+    warningEl.title = warnTitle;
     warningEl.classList.remove('hidden');
-    if (totalSecs > 120) warningEl.classList.add('rearm-urgent');
+    if (urgent) warningEl.classList.add('rearm-urgent');
     else warningEl.classList.remove('rearm-urgent');
   } else {
     warningEl.classList.add('hidden');
     warningEl.classList.remove('rearm-urgent');
   }
 
+  // 300s FCR/IAFS alerts only apply in ACE Settings mode; suppressed in Instant and 30 Seconds
+  var showStructuralAlerts = rearmMode === 2;
   if (fcrAlertEl) {
-    if (fcrChanged) fcrAlertEl.classList.remove('hidden');
+    if (fcrChanged && showStructuralAlerts) fcrAlertEl.classList.remove('hidden');
     else fcrAlertEl.classList.add('hidden');
   }
   if (iafsAlertEl) {
-    if (iafsChanged) iafsAlertEl.classList.remove('hidden');
+    if (iafsChanged && showStructuralAlerts) iafsAlertEl.classList.remove('hidden');
     else iafsAlertEl.classList.add('hidden');
   }
+
+  // Fuel source availability warning — red on fuel inputs when a refuel is planned
+  // but no sources are available and one is required
+  var fuelWarnActive = false;
+  var noFuelReqNow = (typeof g_noFuelSourceRequired !== 'undefined') ? g_noFuelSourceRequired : true;
+  if (!noFuelReqNow && initialAircraftState && initialAircraftState.fuel && curState.fuel) {
+    var initFuelGalW = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
+    var curFuelGalW  = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
+    if (curFuelGalW > initFuelGalW + 1) {
+      var farpSources = (typeof g_farpFuelSources !== 'undefined') ? g_farpFuelSources : [];
+      var availL = 0; var unlimFuel = false;
+      for (var fsi = 0; fsi < farpSources.length; fsi++) {
+        if ((farpSources[fsi].liters || 0) < 0) { unlimFuel = true; break; }
+        availL += (farpSources[fsi].liters || 0);
+      }
+      var neededL = (curFuelGalW - initFuelGalW) * 3.785;
+      fuelWarnActive = !unlimFuel && (farpSources.length === 0 || availL < neededL);
+    }
+  }
+  var fuelWarnClass = 'fuel-src-warn';
+  ['fuelFwd','fuelAft','fuelCtr','fuelAux','fuelPct'].forEach(function(fid) {
+    var fel = document.getElementById(fid);
+    if (!fel) return;
+    if (fuelWarnActive) fel.classList.add(fuelWarnClass);
+    else fel.classList.remove(fuelWarnClass);
+  });
 }
 
 // ── Unsaved-changes tracking ──────────────────────────────────────────────────
@@ -344,10 +390,10 @@ function closeCloseConfirmDialog() {
   if (modal) { modal.classList.remove('visible'); modal.setAttribute('aria-hidden', 'true'); }
 }
 
-// Highlight cycle buttons yellow when a rail has a missile classname but ammo=0 (fired)
+// Highlight rail selects yellow when a rail has a missile classname but ammo=0 (fired)
 // and the current plan still has a missile on that rail (i.e. it will be rearmed by Apply).
 function syncFiredRailHighlights() {
-  eachNode('.rail-cycle', function(btn) { btn.classList.remove('rail-fired'); });
+  eachNode('.rail-ammo', function(sel) { sel.classList.remove('rail-fired'); });
   if (!initialAircraftState || !initialAircraftState.pylons) return;
   var curPylons = getPlannerState().pylons || [];
   var railKeys = ['tr', 'tl', 'br', 'bl'];
@@ -359,17 +405,13 @@ function syncFiredRailHighlights() {
     var curP = curPylons[pi] || {};
     var curRails = (curP.type === 'hellfire') ? (curP.rails || []) : [];
     for (var ri = 0; ri < railKeys.length; ri++) {
-      // Rail was fired: classname present in initial state, but ammoOnPylon was 0
       var wasFired = !!(initRails[ri] && initRails[ri] !== '') &&
                      (typeof ammos[ri] !== 'undefined' && ammos[ri] === 0);
       if (!wasFired) continue;
-      // Plan has a missile on this rail — it will be rearmed
       if (!(curRails[ri] && curRails[ri] !== '')) continue;
-      // Type was changed — user is requesting a different missile, not rearming the fired one
       if ((curRails[ri] || '') !== (initRails[ri] || '')) continue;
-      var railId = 'p' + (pi + 1) + '_' + railKeys[ri];
-      var btn = document.querySelector('button.rail-cycle[data-rail="' + railId + '"]');
-      if (btn) btn.classList.add('rail-fired');
+      var railEl = document.getElementById('p' + (pi + 1) + '_' + railKeys[ri]);
+      if (railEl) railEl.classList.add('rail-fired');
     }
   }
 }
@@ -397,10 +439,8 @@ function getAffordableApplyState() {
 
   // Hellfire rails — send '' so SQF loads the empty-rail placeholder (fza_agm114_rail, cost=0).
   // This ensures the pod model stays visible even when a rail is unaffordable.
-  // ri=0 (tr) is included intentionally so the first slot is always assigned.
-  eachNode('button.rail-cycle.ammo-warn', function(btn) {
-    var railId = getData(btn, 'rail');
-    var m = /^p([1-4])_(tr|tl|br|bl)$/.exec(railId || '');
+  eachNode('.rail-ammo.ammo-warn', function(sel) {
+    var m = /^p([1-4])_(tr|tl|br|bl)$/.exec(sel.id || '');
     if (!m) return;
     var pylonIdx = parseInt(m[1], 10) - 1;
     var ri = railKeyOrder.indexOf(m[2]);

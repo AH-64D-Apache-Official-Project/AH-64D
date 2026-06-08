@@ -25,7 +25,6 @@ function normalizeHellfireCode(rawValue) {
 function initHellfireCyclers() {
   eachNode('.rail-ammo', function(selectEl) {
     var selectedCode = normalizeHellfireCode(selectEl.value);
-
     selectEl.innerHTML = '';
     hellfireCycleOrder.forEach(function(code) {
       var option = document.createElement('option');
@@ -34,28 +33,6 @@ function initHellfireCyclers() {
       selectEl.appendChild(option);
     });
     selectEl.value = hellfireCodeMap[selectedCode];
-
-    var cycleBtn = document.createElement('button');
-    cycleBtn.type = 'button';
-    cycleBtn.className = 'rail-cycle';
-    setData(cycleBtn, 'rail', selectEl.id);
-    setData(cycleBtn, 'index', hellfireCycleOrder.indexOf(selectedCode));
-    cycleBtn.textContent = selectedCode === '' ? '-' : selectedCode;
-
-    cycleBtn.addEventListener('click', function() {
-      var nextIndex = (parseInt(getData(cycleBtn, 'index') || '0', 10) + 1) % hellfireCycleOrder.length;
-      var nextCode = hellfireCycleOrder[nextIndex];
-      var pm = /^p([1-4])_/.exec(selectEl.id || '');
-      if (pm) { g_pylonOrder['p' + pm[1]] = ++g_pylonChangeSeq; g_itemOrder[selectEl.id] = g_pylonChangeSeq; }
-      setData(cycleBtn, 'index', nextIndex);
-      cycleBtn.textContent = nextCode === '' ? '-' : nextCode;
-      selectEl.value = hellfireCodeMap[nextCode];
-      syncSilhouette();
-      updateWeightsAndPerformance();
-    });
-
-    selectEl.classList.add('hidden');
-    selectEl.parentNode.appendChild(cycleBtn);
   });
 }
 
@@ -131,6 +108,7 @@ function setSilImg(img, src) {
 }
 
 function syncSilhouette() {
+  if (typeof _silData === 'undefined' || !_silData) return;
   var baseImg = document.getElementById('sil-base-img');
   if (baseImg) setSilImg(baseImg, _silData.empty);
 
@@ -289,17 +267,7 @@ function clearPylonAmmoOnTypeChange(pylonIndex, mode) {
   if (mode === 'hellfire') {
     ['tr', 'tl', 'br', 'bl'].forEach(function(railKey) {
       var railEl = document.getElementById('p' + pylonIndex + '_' + railKey);
-      if (!railEl) return;
-      railEl.value = hellfireCodeMap[''];  // 'None'
-      var parent = railEl.parentNode;
-      var parentSelects = parent.querySelectorAll('.rail-ammo');
-      var parentCycleBtns = parent.querySelectorAll('button.rail-cycle');
-      var selIdx = Array.prototype.indexOf.call(parentSelects, railEl);
-      var cycleBtn = selIdx >= 0 ? parentCycleBtns[selIdx] : null;
-      if (cycleBtn) {
-        setData(cycleBtn, 'index', 0);
-        cycleBtn.textContent = '-';
-      }
+      if (railEl) railEl.value = hellfireCodeMap[''];
     });
   }
   if (mode === 'rocket') {

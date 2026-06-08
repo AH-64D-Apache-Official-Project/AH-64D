@@ -466,24 +466,7 @@
     font-size:15px;
     outline: none;
   }
-  .rail-cycle {
-    width: 58px;
-    height: 24px;
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    color: var(--text-bright);
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    font-size:15px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-  }
-  .rail-cycle:hover {
-    border-color: var(--accent);
-  }
-  .zone-count input::-webkit-outer-spin-button,
+.zone-count input::-webkit-outer-spin-button,
   .zone-count input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -910,11 +893,13 @@
   .farp-src-name { color: var(--text-dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .farp-src-val { color: var(--text); text-align: right; flex-shrink: 0; }
   .farp-none { color: var(--text-dim); font-style: italic; font-size: 12px; padding: 1px 4px; }
-  .rail-cycle.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
-  .rail-cycle.rail-fired { border-color: var(--yellow); color: var(--yellow); }
+  .farp-none.farp-not-req { color: var(--green); font-style: normal; }
+  .rail-ammo.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
+  .rail-ammo.rail-fired { border-color: var(--yellow); color: var(--yellow); }
   .zone-count input.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   .zone-type select.ammo-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
   #cannonRds.ammo-warn { color: var(--red-bright) !important; }
+  .fuel-src-warn { border-color: var(--red-bright) !important; color: var(--red-bright) !important; }
 
   /* ── SAVE / LOAD MODAL ── */
   .modal-backdrop {

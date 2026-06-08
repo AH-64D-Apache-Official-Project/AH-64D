@@ -15,13 +15,12 @@ class CfgPatches
 #include "RscDisplay.hpp"
 
 class CfgVehicles {
-    class Helicopter;
+    class Helicopter {
+        class ACE_SelfActions;
+    };
     class Helicopter_Base_F : Helicopter {
         class ACE_Actions {
             class ACE_MainActions;
-        };
-        class ACE_SelfInteractions {
-            class ACE_SelfActions;
         };
     };
     class fza_ah64base : Helicopter_Base_F {
@@ -37,14 +36,13 @@ class CfgVehicles {
                 };
             };
         };
-        class ACE_SelfInteractions : ACE_SelfInteractions {
-            class ACE_SelfActions : ACE_SelfActions {
-                class fza_MissionPlannerSelf {
-                    displayName     = "Mission Planner";
-                    condition       = "alive (vehicle player)";
-                    statement       = "[vehicle player] call fza_mplanner_fnc_open;";
-                    icon            = "";
-                };
+        class ACE_SelfActions: ACE_SelfActions {
+            class fza_MissionPlannerCrew {
+                displayName     = "Mission Planner";
+                condition       = "_player in crew _target";
+                statement       = "[_target] call fza_mplanner_fnc_open;";
+                showDisabled    = 0;
+                icon            = "";
             };
         };
     };
