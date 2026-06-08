@@ -16,8 +16,11 @@
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
-#define MFD_OFFSET_L 10
-#define MFD_OFFSET_R 50
+#define MFD_TEXT_IND_UFD_FUEL 10
+
+
+#define MFD_OFFSET_L 20
+#define MFD_OFFSET_R 60
 
 //Flight page
 #define MFD_TEXT_IND_FLT_TORQUE       0
@@ -43,19 +46,66 @@
 #define MFD_IND_FLT_VERT_SPEED 10
 
 //Fuel page
-#define MFD_IND_FUEL_IAFS_INSTALLED 0
-#define MFD_IND_FUEL_IAFS_ON        1
+#define MFD_IND_FUEL_IAFS_INSTALLED       0
+#define MFD_IND_FUEL_IAFS_ON              1
+// 1=FWD, 2=NORM, 3=AFT
+#define MFD_IND_FUEL_CROSSFEED            2
+#define MFD_IND_FUEL_BOOST_ON             3
+// 1=OFF, 2=FWD, 3=AFT, 4=AUTO
+#define MFD_IND_FUEL_XFER_MODE            4
+#define MFD_IND_FUEL_FWD_LOW             5
+#define MFD_IND_FUEL_AFT_LOW             6
+#define MFD_IND_FUEL_CHECK_ACTIVE        7
+#define MFD_IND_FUEL_L_AUX_ON            8
+#define MFD_IND_FUEL_R_AUX_ON            9
+#define MFD_IND_FUEL_XFER_MENU          10
+#define MFD_IND_FUEL_XFEED_OPEN         11
+#define MFD_IND_FUEL_INTERCELL_XFER_ACTIVE 12
+#define MFD_IND_FUEL_ENDR_INT_LOW       13
+// 0-3=FWD->AFT, 4-7=AFT->FWD
+#define MFD_IND_FUEL_INTERCELL_XFER_PHASE 14
+#define MFD_IND_FUEL_ENG1_LINE_NEW      15
+#define MFD_IND_FUEL_INTERCELL_LINE_NEW 16
+#define MFD_IND_FUEL_IAFS_LINE_NEW      17
+#define MFD_IND_FUEL_AUX_LINE_NEW       18
+#define MFD_IND_FUEL_ENG2_LINE_NEW      19
+#define MFD_IND_FUEL_L_AUX_FLOWING      20
+#define MFD_IND_FUEL_ENG1_FLOWING       21
+#define MFD_IND_FUEL_ENG2_FLOWING       22
+#define MFD_IND_FUEL_INTERCELL_FLOWING  23
+#define MFD_IND_FUEL_IAFS_EMPTY         24
+#define MFD_IND_FUEL_AUX_EMPTY          25
+#define MFD_IND_FUEL_IAFS_FWD_FLOWING   26
+#define MFD_IND_FUEL_IAFS_AFT_FLOWING   27
+// -1=not present, >=0 mass lbs
+#define MFD_IND_FUEL_STN1_MASS          28
+#define MFD_IND_FUEL_STN2_MASS          29
+#define MFD_IND_FUEL_STN3_MASS          30
+#define MFD_IND_FUEL_STN4_MASS          31
+#define MFD_IND_FUEL_R_AUX_FLOWING      32
+#define MFD_IND_FUEL_ENG1_FIRE_ARMED    33
+#define MFD_IND_FUEL_ENG2_FIRE_ARMED    34
+#define MFD_IND_FUEL_CHECK_RUNNING       35
+#define MFD_IND_FUEL_CHECK_DONE          36
+#define MFD_IND_FUEL_CHECK_MINUTES       37
 
-#define MFD_TEXT_IND_FUEL_FWD 0
-#define MFD_TEXT_IND_FUEL_AFT 1
-#define MFD_TEXT_IND_FUEL_INT 2
-#define MFD_TEXT_IND_FUEL_ENDR_INT 3
-#define MFD_TEXT_IND_FUEL_FLOW_1 4
-#define MFD_TEXT_IND_FUEL_FLOW_2 5
-#define MFD_TEXT_IND_FUEL_FLOW_TOT 6
-#define MFD_TEXT_IND_FUEL_IAFS 7
-#define MFD_TEXT_IND_FUEL_ENDR_TOT 8
-#define MFD_TEXT_IND_FUEL_TOT 9
+#define MFD_TEXT_IND_FUEL_FWD        0
+#define MFD_TEXT_IND_FUEL_AFT        1
+#define MFD_TEXT_IND_FUEL_INT        2
+#define MFD_TEXT_IND_FUEL_ENDR_INT   3
+#define MFD_TEXT_IND_FUEL_FLOW_1     4
+#define MFD_TEXT_IND_FUEL_FLOW_2     5
+#define MFD_TEXT_IND_FUEL_FLOW_TOT   6
+#define MFD_TEXT_IND_FUEL_IAFS       7
+#define MFD_TEXT_IND_FUEL_ENDR_TOT   8
+#define MFD_TEXT_IND_FUEL_TOT        9
+#define MFD_TEXT_IND_FUEL_SFR        10
+#define MFD_TEXT_IND_FUEL_CHK_ELAPSED 11
+#define MFD_TEXT_IND_FUEL_CHK_BURN    12
+#define MFD_TEXT_IND_FUEL_CHK_BURNOUT 13
+#define MFD_TEXT_IND_FUEL_CHK_VFR     14
+#define MFD_TEXT_IND_FUEL_CHK_IFR     15
+#define MFD_TEXT_IND_FUEL_CHK_START   16
 
 //Engine page
 #define MFD_IND_ENG_TORQUE_1 0
