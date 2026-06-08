@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-
-        <!-- ////ANIMATIONS//// -->
-
-        <!-- ////TEXTURES//// -->
-
-        <!-- ////OBJECTS//// -->
         <Key ID="STR_FZA_AH64_1200MAGAZINE">
             <Original>AH-64 1200 Magazine</Original>
             <English>AH-64 1200 Magazine</English>
@@ -92,7 +86,6 @@
             <Turkish>AH-64 Geliştirme Ekibi</Turkish>
             <Dutch>AH-64 Ontwikkelingsteam</Dutch>
         </Key>
-        <!-- ////DMS LOGIC//// -->
         <Key ID="STR_FZA_AH64_DMS">
             <Original>AH-64D DMS</Original>
             <English>AH-64D DMS</English>
@@ -416,7 +409,6 @@
             <Turkish>FCR Montaj (Yangın Kontrol Radarı)</Turkish>
             <Dutch>FCR Installeren (Vuurleidingsradar)</Dutch>
         </Key>
-        <!-- ////OBJECTS//// -->
         <Key ID="STR_FZA_AH64_OBJECT_BASE">
             <Original>Apache Object Base</Original>
             <English>Apache Object Base</English>
@@ -621,7 +613,6 @@
             <Turkish>229e ARB (aşındırılmış)</Turkish>
             <Dutch>229e ARB (verweerd)</Dutch>
         </Key>
-        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_DEFAULT">
             <Original>Default</Original>
             <English>Default</English>
@@ -826,7 +817,6 @@
             <Turkish>Silahcı Kapısı Açkapa</Turkish>
             <Dutch>Schutter Deur Omschakelen</Dutch>
         </Key>
-        <!-- ////ANIMATIONS//// -->
         <Key ID="STR_FZA_AH64_TOGGLE_PILOT_DOOR">
             <Original>Toggle Pilot door</Original>
             <English>Toggle Pilot door</English>

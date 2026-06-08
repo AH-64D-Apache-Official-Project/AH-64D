@@ -1,17 +1,17 @@
-[lints.config]
+[config]
 math_could_be_unquoted = false
 
-[lints.sqf]
+[sqf]
 select_parse_number = false
 
-[lints.sqf.var_all_caps]
+[sqf.var_all_caps]
 options.ignore = [
     "ACE_DEFAULT_LASER_WAVELENGTH",
     "P", "Y", "R",
     "PSI", "INPUT",
 ]
 
-[lints.stringtables.usage]
+[stringtables.usage]
 options.ignore = [
     "str_fza_ah64_activate_keyboard_unit_toggle",
     "str_fza_ah64_armament_panel",
