@@ -79,6 +79,7 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
         if (local _heli) then {
             [_heli, "fza_ah64_fcrState", [_fcrScanState, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
         };
         _heli animateSource ["longbow", _startRad, true];
     };

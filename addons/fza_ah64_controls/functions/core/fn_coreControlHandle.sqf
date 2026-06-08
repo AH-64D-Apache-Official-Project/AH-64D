@@ -80,7 +80,7 @@ if (_value) then {
             // Todo: Implemen target store
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL && ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {
                 [_heli] call fza_fnc_weaponMissileCycle
             };
         };
