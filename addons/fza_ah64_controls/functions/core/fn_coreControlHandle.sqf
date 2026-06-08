@@ -66,7 +66,6 @@ if (_value) then {
                 player action ["ActiveSensorsOn", _heli];
                 [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
-                _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
             };
             player action ["ActiveSensorsOff", _heli];
             _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
@@ -142,26 +141,28 @@ if (_value) then {
             if (_heli getVariable "fza_ah64_fcrMode" == 1) exitWith {};
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
-            _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
 
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
             if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
                 [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
             };
         };
         case "fza_ah64_fcrModeSwitch_down": {
             if (_heli getVariable "fza_ah64_fcrMode" == 2) exitWith {};
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
-            _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
 
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
             if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
                 [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
             };
         };
         case "launchCM": {

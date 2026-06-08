@@ -53,7 +53,6 @@ private _fcrPointCount = 0;
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_range"];
-    private _distance_m = _scanPos distance2D _pos;
 
     //FCR max show
     if (_fcrPointCount >= 16) exitWith {};
@@ -65,7 +64,7 @@ private _fcrPointCount = 0;
     if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
     if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
 
-    private _ident = [_type, _distance_m, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
+    private _ident = [_type, _range, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
     if (_ident == "") then {continue;};
 
     private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
