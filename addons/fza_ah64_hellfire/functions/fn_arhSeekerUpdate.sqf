@@ -4,7 +4,8 @@ Description: Per-tick ARH seeker update for the AGM-114L. Returns the world
     position the missile guides towards this frame.
     seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
     calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
-    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle]
+    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle,
+    dbsOffset, arhLockTypes]
 Parameters:
     _args              - ACE guidance args array
     _seekerStateParams - ARH seeker state array
@@ -29,7 +30,8 @@ _seekerStateParams params [
     "_doesntHaveTarget",
     "_targetType",
     ["_cachedSeekerAngle", -1],
-    ["_dbsOffset", [0, 0, 0]]
+    ["_dbsOffset", [0, 0, 0]],
+    ["_arhLockTypes", []]
 ];
 
 private _resolvedSeekerAngle = [_seekerAngle, _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
@@ -79,8 +81,7 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
                 ]
             };
 
-            // Type-aware class filter: sky targets use Air; ground targets use config-driven list
-            private _searchClasses = getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
+            private _searchClasses = _arhLockTypes;
 
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
 

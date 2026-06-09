@@ -19,9 +19,10 @@ private _dist = _seeker distance _targPos;
 private _seekerAngle = [getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle"), _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
 
 private _inConstraints = [_seeker, _targPos, _seekerAngle] call fza_hellfire_fnc_isTargetInSeekerCone;
-// Short-circuit: second checkLos only runs when the first returns false
-private _canSee = [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos
-               || [_seeker, _targObj, true]  call ace_missileguidance_fnc_checkLos;
+private _canSee = !isNull _targObj && {
+    [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos
+    || [_seeker, _targObj, true] call ace_missileguidance_fnc_checkLos
+};
 
 if (_dist <= 500 && !_inFlight)       exitWith { [false, false] };
 if (!_inConstraints)                   exitWith { [false, false] };

@@ -5,7 +5,8 @@ Description: Initialises the ARH seeker state at launch. Reads FCR NTS data,
     guidance state arrays that drive fn_arhSeekerUpdate each tick.
     seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
     calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
-    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle]
+    lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle,
+    dbsOffset, arhLockTypes]
 Parameters:
     _firedEH      - Full ACE fired-EH array
     _launchParams - ACE launch params (mutated in-place)
@@ -22,9 +23,10 @@ private _heli = vehicle _shooter;
 
 #define SCALE_METERS_KM 0.001
 
-private _seekerAngle = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
+private _seekerAngle   = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
+private _arhLockTypes  = getArray  (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
 
-_heli getVariable "fza_ah64_fcrNts" params ["_targObj", "_targPos", "_fcrData"];
+(_heli getVariable ["fza_ah64_fcrNts", [objNull, [0,0,0], []]]) params ["_targObj", "_targPos", "_fcrData"];
 
 private _handoffSource = "FCR";
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
@@ -103,10 +105,7 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _attackProfile = "hellfire";
     _isActive      = true;
 
-    private _atkProfileState = _stateParams # 2;
-    _atkProfileState pushBack 4;
-    _atkProfileState pushBack 0;
-    _atkProfileState pushBack [getPosASL _projectile select 2, 0];
+    _stateParams set [2, [4, 0, [getPosASL _projectile select 2, 0]]];
 };
 
 [_heli] call fza_fcr_fnc_cycleNTS;
@@ -123,6 +122,7 @@ _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
 _seekerStateParams set [9, _seekerAngle];
 _seekerStateParams set [10, _dbsOffset];
+_seekerStateParams set [11, _arhLockTypes];
 
 _launchParams set [3, _attackProfile];
 _launchParams set [0, _targObj];

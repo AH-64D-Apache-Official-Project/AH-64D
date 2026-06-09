@@ -16,7 +16,7 @@ private _channels   = _heli getVariable "fza_ah64_laserChannelCodes";
 private _hash       = _heli getVariable "fza_ah64_laserChannelIndex";
 private _laserCode  = _hash get (_channels # _index);
 
-private _ammotype      = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedMissile") >> "fza_ammoType");
+private _ammotype      = getText (configFile >> "CfgWeapons" >> (_heli getVariable ["fza_ah64_selectedMissile", ""]) >> "fza_ammoType");
 private _seekerConfig  = configFile >> "CfgAmmo" >> _ammotype >> "ace_missileguidance";
 private _seekerAngle   = getNumber (_seekerConfig >> "seekerAngle");
 private _seekerMaxRange = getNumber (_seekerConfig >> "seekerMaxRange");
