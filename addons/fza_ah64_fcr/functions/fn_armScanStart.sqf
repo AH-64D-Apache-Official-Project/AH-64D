@@ -36,4 +36,5 @@ private _cueDelay   = _angDist / (pi / 3.2);
 [_heli, "fza_ah64_fcrWaitingForStart", true] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrLastFullCycle", 0] call fza_fnc_updateNetworkGlobal;
-[_heli, "fza_ah64_fcrNts",  [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrFullCycleCount", 0]                   call fza_fnc_updateNetworkGlobal;
