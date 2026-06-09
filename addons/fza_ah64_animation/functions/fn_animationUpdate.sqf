@@ -22,6 +22,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (fza_ah64_animControls) then { [_heli] call fza_anim_fnc_controlsAnim };
-if (fza_ah64_animProbes)   then { [_heli] call fza_anim_fnc_probesAnim   };
-if (fza_ah64_animRotor)    then { [_heli] call fza_anim_fnc_rotorAnim    };
+if (fza_ah64_animRotor)   then { [_heli] call fza_anim_fnc_rotorAnim};
+if (fza_ah64_animControls) then { [_heli] call fza_anim_fnc_controlsAnim};
+if (fza_ah64_animProbes)   then { [_heli] call fza_anim_fnc_probesAnim};
