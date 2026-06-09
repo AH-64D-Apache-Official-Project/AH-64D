@@ -111,7 +111,9 @@ class CfgFunctions
             class rotor {R;};
             class rotorBlade {R;};
             class rotorControl {R;};
+            class rotorFlapDynamics {R;};
             class rotorUpdate {R;};
+            class rotorVariables {R;};
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";

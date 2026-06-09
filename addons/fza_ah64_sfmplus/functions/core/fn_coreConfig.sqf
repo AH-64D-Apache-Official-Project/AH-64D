@@ -190,6 +190,7 @@ _heli setVariable ["fza_sfmplus_pid_engine",        [[0.7000, 0.0000, 0.0005, 0.
 
 //Rotors
 [_heli] call fza_sfmplus_fnc_simpleRotorVariables;
+[_heli] call fza_sfmplus_fnc_rotorVariables;
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;

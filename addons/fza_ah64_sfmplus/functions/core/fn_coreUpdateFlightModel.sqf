@@ -44,12 +44,12 @@ if (isGamePaused || CBA_missionTime < 0.1) exitWith {};
  ,1.0 ] call fza_sfmplus_fnc_wing;
 //Vertical fin
 [ _heli
- ,[0.0, -6.3, -0.75]
+ ,[0.0, -7.45, -0.75]
  ,0.0
- ,-90.0
+ ,90.0
  ,2.25
  ,0.95
- ,-1.2
+ ,1.4
  ,0.0
  ,1.0 ] call fza_sfmplus_fnc_wing;
 

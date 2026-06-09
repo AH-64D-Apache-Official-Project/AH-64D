@@ -140,15 +140,6 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
             _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
         };
 
-        //Tail rotor torque
-        private _torque = [0.0, 0.0, 0.0];
-        if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-            _torque = _moment;
-        } else {
-            _torque = [0.0, 0.0, _moment select 2];
-        };
-        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
-        _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 
