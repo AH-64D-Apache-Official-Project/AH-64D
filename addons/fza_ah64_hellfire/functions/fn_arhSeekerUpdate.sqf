@@ -44,8 +44,8 @@ if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitWith {
 
 if (!_isActive) then {
     _seekerStateParams set [0, true];
-    _dbsOffset = [0, 0, 0];
-    _seekerStateParams set [10, _dbsOffset];
+    private _activationDist = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
+    _projectile setVariable ["fza_dbsFadeHalfDist", _activationDist * 0.5];
 };
 
 #define ARH_MIN_SCAN_RADIUS  50
@@ -118,10 +118,6 @@ if !(isNull _target) then {
     _seekerStateParams set [6, CBA_missionTime];
     _seekerStateParams set [7, false];
 
-    // On lock, remove lateral bias so terminal homing is direct to target.
-    _dbsOffset = [0, 0, 0];
-    _seekerStateParams set [10, _dbsOffset];
-
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
 
@@ -137,7 +133,16 @@ if !(isNull _target) then {
     _seekerStateParams set [7, true];
 };
 
-private _returnPos = _expectedTargetPos vectorAdd _dbsOffset;
+private _dbsFadeHalfDist = _projectile getVariable ["fza_dbsFadeHalfDist", -1];
+private _scaledOffset = if (_dbsFadeHalfDist > 0) then {
+    private _positionOffset = if (isNull _target) then { _calculatedSearchPos } else { _expectedTargetPos };
+    private _distToSearch = (getPosASL _projectile) vectorDistance _positionOffset;
+    private _scale = (((_distToSearch - _dbsFadeHalfDist) / _dbsFadeHalfDist) min 1) max 0;
+    _dbsOffset vectorMultiply _scale
+} else {
+    _dbsOffset
+};
+private _returnPos = _expectedTargetPos vectorAdd _scaledOffset;
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _returnPos];
 _seekerStateParams set [2, _expectedTargetPos];
