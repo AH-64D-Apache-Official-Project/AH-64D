@@ -74,8 +74,13 @@ private _thSAS = _szSAS * 0.12;   // SAS cross: bar thickness (+20%)
 private _szAct = _mainH * 0.06;   // actual ring outer diameter (= old FT size)
 private _szFT  = _szAct * 0.5;    // FT ring: half actual diameter; baked-in 2× relative band → same absolute border thickness
 // Aspect ratio correction: ensures rings are circular on any screen/UI-scale combination
-private _res         = getResolution;
-private _circleWAdj  = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
+// Cached in uiNameSpace — resolution cannot change during a mission.
+private _circleWAdj = uiNameSpace getVariable "fza_ah64_ctrlVisCircleW";
+if (isNil "_circleWAdj") then {
+    private _res = getResolution;
+    _circleWAdj  = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
+    uiNameSpace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
+};
 
 // ── Read HeliSim variables ───────────────────────────────────────────────────
 private _cycFwdAft    = _heli getVariable ["fza_sfmplus_cyclicFwdAft",           0.0]; // pitch (-1…1)
@@ -104,70 +109,81 @@ private _sasTotalRoll  = _sasRoll  + _attRoll;
 
 // ── Colour scheme ────────────────────────────────────────────────────────────
 // Index:  0=Default  1=NVG  2=Mono  3=Amber  4=BluFor  5=HiContrast
-//         colAct = actual input  |  colFT = force-trim ref  |  colSAS = SAS/hold
+// Colors are cached in uiNameSpace; tables are only rebuilt when the CBA setting changes.
+// Cache layout: [scheme, colAct, colFT, colSAS, colInactive, bgActive, colDragBg, colDragTxt]
 private _colorScheme = fza_ah64_ctrlVisColor;
-private _colAct = [
-    [0.20,1.00,0.20,1.00],  // 0 Default   – bright green
-    [0.20,1.00,0.20,1.00],  // 1 NVG        – bright green
-    [1.00,1.00,1.00,1.00],  // 2 Mono       – white
-    [1.00,0.75,0.00,1.00],  // 3 Amber      – amber
-    [0.00,0.90,1.00,1.00],  // 4 BluFor     – cyan
-    [1.00,1.00,1.00,1.00]   // 5 HiContrast – white
-] select _colorScheme;
-private _colFT = [
-    [1.00,0.55,0.05,1.00],  // 0 Default   – orange
-    [0.10,0.75,0.10,1.00],  // 1 NVG        – dark green
-    [0.70,0.70,0.70,1.00],  // 2 Mono       – light grey
-    [1.00,0.90,0.20,1.00],  // 3 Amber      – yellow
-    [1.00,0.55,0.05,1.00],  // 4 BluFor     – orange (distinct from cyan actual)
-    [1.00,1.00,0.00,1.00]   // 5 HiContrast – yellow
-] select _colorScheme;
-private _colSAS = [
-    [1.00,0.15,0.15,1.00],  // 0 Default   – red
-    [0.05,0.45,0.05,1.00],  // 1 NVG        – very dark green
-    [0.45,0.45,0.45,1.00],  // 2 Mono       – mid grey
-    [1.00,0.20,0.10,1.00],  // 3 Amber      – red
-    [1.00,1.00,0.00,1.00],  // 4 BluFor     – yellow
-    [1.00,0.15,0.15,1.00]   // 5 HiContrast – red
-] select _colorScheme;
+private _colorCache  = uiNameSpace getVariable ["fza_ah64_ctrlVisColors", []];
 
-// Mode button and drag bar colours — per colour scheme
-// Active text reuses _colAct (same scheme colour); inactive is always dim grey
+if (count _colorCache == 0 || (_colorCache select 0) != _colorScheme) then {
+    private _colAct = [
+        [0.20,1.00,0.20,1.00],  // 0 Default   – bright green
+        [0.20,1.00,0.20,1.00],  // 1 NVG        – bright green
+        [1.00,1.00,1.00,1.00],  // 2 Mono       – white
+        [1.00,0.75,0.00,1.00],  // 3 Amber      – amber
+        [0.00,0.90,1.00,1.00],  // 4 BluFor     – cyan
+        [1.00,1.00,1.00,1.00]   // 5 HiContrast – white
+    ] select _colorScheme;
+    private _colFT = [
+        [1.00,0.55,0.05,1.00],  // 0 Default   – orange
+        [0.10,0.75,0.10,1.00],  // 1 NVG        – dark green
+        [0.70,0.70,0.70,1.00],  // 2 Mono       – light grey
+        [1.00,0.90,0.20,1.00],  // 3 Amber      – yellow
+        [1.00,0.55,0.05,1.00],  // 4 BluFor     – orange (distinct from cyan actual)
+        [1.00,1.00,0.00,1.00]   // 5 HiContrast – yellow
+    ] select _colorScheme;
+    private _colSAS = [
+        [1.00,0.15,0.15,1.00],  // 0 Default   – red
+        [0.05,0.45,0.05,1.00],  // 1 NVG        – very dark green
+        [0.45,0.45,0.45,1.00],  // 2 Mono       – mid grey
+        [1.00,0.20,0.10,1.00],  // 3 Amber      – red
+        [1.00,1.00,0.00,1.00],  // 4 BluFor     – yellow
+        [1.00,0.15,0.15,1.00]   // 5 HiContrast – red
+    ] select _colorScheme;
+    private _colInactive = [
+        [0.60, 0.60, 0.60, 0.70],  // 0 Default
+        [0.35, 0.55, 0.35, 0.70],  // 1 NVG        – muted green-grey
+        [0.60, 0.60, 0.60, 0.70],  // 2 Mono
+        [0.60, 0.50, 0.35, 0.70],  // 3 Amber      – warm grey
+        [0.50, 0.65, 0.75, 0.70],  // 4 BluFor     – blue-grey
+        [0.60, 0.60, 0.60, 0.90]   // 5 HiContrast
+    ] select _colorScheme;
+    private _bgActive = [
+        [0.00, 0.28, 0.00, 0.65],  // 0 Default   – dark green
+        [0.00, 0.18, 0.00, 0.65],  // 1 NVG        – very dark green
+        [0.20, 0.20, 0.20, 0.65],  // 2 Mono       – dark grey
+        [0.28, 0.18, 0.00, 0.65],  // 3 Amber      – dark amber
+        [0.00, 0.10, 0.35, 0.65],  // 4 BluFor     – dark blue
+        [0.15, 0.15, 0.00, 0.90]   // 5 HiContrast – dark yellow
+    ] select _colorScheme;
+    private _colDragBg = [
+        [0.05, 0.20, 0.05, 0.90],  // 0 Default   – dark green
+        [0.02, 0.12, 0.02, 0.90],  // 1 NVG        – very dark green
+        [0.12, 0.12, 0.12, 0.90],  // 2 Mono       – near black
+        [0.18, 0.10, 0.00, 0.90],  // 3 Amber      – dark brown-amber
+        [0.00, 0.06, 0.25, 0.90],  // 4 BluFor     – dark navy
+        [0.00, 0.00, 0.00, 1.00]   // 5 HiContrast – pure black
+    ] select _colorScheme;
+    private _colDragTxt = [
+        [0.70, 1.00, 0.70, 1.00],  // 0 Default   – light green
+        [0.30, 0.80, 0.30, 1.00],  // 1 NVG        – medium green
+        [1.00, 1.00, 1.00, 1.00],  // 2 Mono       – white
+        [1.00, 0.80, 0.20, 1.00],  // 3 Amber      – amber
+        [0.60, 0.90, 1.00, 1.00],  // 4 BluFor     – light cyan
+        [1.00, 1.00, 1.00, 1.00]   // 5 HiContrast – white
+    ] select _colorScheme;
+    _colorCache = [_colorScheme, _colAct, _colFT, _colSAS, _colInactive, _bgActive, _colDragBg, _colDragTxt];
+    uiNameSpace setVariable ["fza_ah64_ctrlVisColors", _colorCache];
+};
+
+private _colAct      = _colorCache select 1;
+private _colFT       = _colorCache select 2;
+private _colSAS      = _colorCache select 3;
 private _colActive   = _colAct;
-private _colInactive = [
-    [0.60, 0.60, 0.60, 0.70],  // 0 Default
-    [0.35, 0.55, 0.35, 0.70],  // 1 NVG        – muted green-grey
-    [0.60, 0.60, 0.60, 0.70],  // 2 Mono
-    [0.60, 0.50, 0.35, 0.70],  // 3 Amber      – warm grey
-    [0.50, 0.65, 0.75, 0.70],  // 4 BluFor     – blue-grey
-    [0.60, 0.60, 0.60, 0.90]   // 5 HiContrast
-] select _colorScheme;
-private _bgActive = [
-    [0.00, 0.28, 0.00, 0.65],  // 0 Default   – dark green
-    [0.00, 0.18, 0.00, 0.65],  // 1 NVG        – very dark green
-    [0.20, 0.20, 0.20, 0.65],  // 2 Mono       – dark grey
-    [0.28, 0.18, 0.00, 0.65],  // 3 Amber      – dark amber
-    [0.00, 0.10, 0.35, 0.65],  // 4 BluFor     – dark blue
-    [0.15, 0.15, 0.00, 0.90]   // 5 HiContrast – dark yellow
-] select _colorScheme;
-private _bgInactive = [0.00, 0.00, 0.00, 0.00];
-
-private _colDragBg = [
-    [0.05, 0.20, 0.05, 0.90],  // 0 Default   – dark green
-    [0.02, 0.12, 0.02, 0.90],  // 1 NVG        – very dark green
-    [0.12, 0.12, 0.12, 0.90],  // 2 Mono       – near black
-    [0.18, 0.10, 0.00, 0.90],  // 3 Amber      – dark brown-amber
-    [0.00, 0.06, 0.25, 0.90],  // 4 BluFor     – dark navy
-    [0.00, 0.00, 0.00, 1.00]   // 5 HiContrast – pure black
-] select _colorScheme;
-private _colDragTxt = [
-    [0.70, 1.00, 0.70, 1.00],  // 0 Default   – light green
-    [0.30, 0.80, 0.30, 1.00],  // 1 NVG        – medium green
-    [1.00, 1.00, 1.00, 1.00],  // 2 Mono       – white
-    [1.00, 0.80, 0.20, 1.00],  // 3 Amber      – amber
-    [0.60, 0.90, 1.00, 1.00],  // 4 BluFor     – light cyan
-    [1.00, 1.00, 1.00, 1.00]   // 5 HiContrast – white
-] select _colorScheme;
+private _colInactive = _colorCache select 4;
+private _bgActive    = _colorCache select 5;
+private _bgInactive  = [0.00, 0.00, 0.00, 0.00];
+private _colDragBg   = _colorCache select 6;
+private _colDragTxt  = _colorCache select 7;
 
 // ── Helper: shortcut to get a control ────────────────────────────────────────
 #define CTRL(idc) (_display displayCtrl (idc))
@@ -288,19 +304,8 @@ CTRL(5134) ctrlSetTextColor _colFT;
 CTRL(5134) ctrlCommit 0;
 
 // Actual physical stick (green ring) – top layer; transparency baked in ring_act_ca.paa
-// Replicates fza_sfmplus_fnc_getInterpInput(_cyclic, _ftTrim):
-//   cyclic=0  → effective = FT trim  (Actual sits on FT)
-//   cyclic=+1 → effective = 1.0      (FT side of travel shrinks, opposite side stretches)
-//   cyclic=-1 → effective = -1.0
-//   in between → lerp between FT and the relevant limit by abs(cyclic)
-private _effPitch = if (_cycFwdAft    == 0) then { _ftPitch } else {
-    private _dir = if (_cycFwdAft    > 0) then { 1.0 } else { -1.0 };
-    _ftPitch + (_dir - _ftPitch) * abs(_cycFwdAft)
-};
-private _effRoll = if (_cycLeftRight == 0) then { _ftRoll } else {
-    private _dir = if (_cycLeftRight > 0) then { 1.0 } else { -1.0 };
-    _ftRoll  + (_dir - _ftRoll)  * abs(_cycLeftRight)
-};
+private _effPitch = [_cycFwdAft,    _ftPitch] call fza_sfmplus_fnc_getInterpInput;
+private _effRoll  = [_cycLeftRight, _ftRoll]  call fza_sfmplus_fnc_getInterpInput;
 private _szActW = _szAct * _circleWAdj;
 private _actX = _cxCtr - _effRoll  * _cxHW;
 private _actY = _cyCtr - _effPitch * _cyHH;
@@ -351,12 +356,9 @@ CTRL(5141) ctrlSetFontHeight _fontSz;
 CTRL(5141) ctrlSetTextColor _colFT;
 CTRL(5141) ctrlCommit 0;
 
-// Actual pedal (green "|") – same getInterpInput logic as cyclic
-private _effPedal = if (_pedal == 0) then { _ftPedal } else {
-    private _dir = if (_pedal > 0) then { 1.0 } else { -1.0 };
-    _ftPedal + (_dir - _ftPedal) * abs(_pedal)
-};
-private _actPedX = _yawCtrX + ([_effPedal, -1.0, 1.0] call BIS_fnc_clamp) * _yawHW - _indW * 0.5;
+// Actual pedal (green "|")
+private _effPedal = [_pedal, _ftPedal] call fza_sfmplus_fnc_getInterpInput;
+private _actPedX  = _yawCtrX + _effPedal * _yawHW - _indW * 0.5;
 private _actPedY = _yawCtrY - _fontSz * 0.50;
 CTRL(5142) ctrlSetPosition [_actPedX, _actPedY, _indW, _indH];
 CTRL(5142) ctrlSetFontHeight _fontSz;

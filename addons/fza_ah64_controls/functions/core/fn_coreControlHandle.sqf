@@ -324,9 +324,13 @@ if !(_value) then {
             _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
             _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
             // Reset keyboard sticky input accumulated values to centre
-            _heli setVariable ["fza_sfmplus_cyclicPitchValue", 0.0];
-            _heli setVariable ["fza_sfmplus_cyclicRollValue",  0.0];
-            _heli setVariable ["fza_sfmplus_pedalYawValue",    0.0];
+            _heli setVariable ["fza_sfmplus_cyclicPitchValue",     0.0];
+            _heli setVariable ["fza_sfmplus_cyclicRollValue",      0.0];
+            _heli setVariable ["fza_sfmplus_pedalYawValue",        0.0];
+            // Reset prev* shadow values used by the sticky-interrupt branch of fn_getInput
+            _heli setVariable ["fza_sfmplus_prevCyclicPitchValue", 0.0];
+            _heli setVariable ["fza_sfmplus_prevCyclicRollValue",  0.0];
+            _heli setVariable ["fza_sfmplus_prevPedalYawValue",    0.0];
         };
     };
 };
