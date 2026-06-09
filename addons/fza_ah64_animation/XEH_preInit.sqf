@@ -1,5 +1,5 @@
 /* fza_ah64_animation – preInit
- * Registers CBA settings and hooks the per-frame animation dispatcher.
+ * Registers per-category CBA animation settings.
  */
 private _projName = "AH-64D Official Project";
 
@@ -19,7 +19,7 @@ private _projName = "AH-64D Official Project";
     [(localize "STR_FZA_AH64_SETTINGS_ANIM_PROBES"), (localize "STR_FZA_AH64_SETTINGS_ANIM_PROBES_INFO")],
     [_projName, "Animations"],
     [true],
-    2
+    0
 ] call CBA_fnc_addSetting;
 
 [
@@ -28,7 +28,5 @@ private _projName = "AH-64D Official Project";
     [(localize "STR_FZA_AH64_SETTINGS_ANIM_ROTOR"), (localize "STR_FZA_AH64_SETTINGS_ANIM_ROTOR_INFO")],
     [_projName, "Animations"],
     [true],
-    2
+    0
 ] call CBA_fnc_addSetting;
-
-

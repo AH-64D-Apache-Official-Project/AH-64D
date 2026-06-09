@@ -14,6 +14,7 @@ class CfgFunctions
             file = "\fza_ah64_animation\functions";
             class animationUpdate  {R;};
             class controlsAnim     {R;};
+            class getEffInput      {R;};
             class probesAnim       {R;};
             class rotorAnim        {R;};
             class updateAnimations {R;};
