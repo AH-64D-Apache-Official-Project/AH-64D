@@ -206,7 +206,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
         if (_gndSpeed < POS_HOLD_SPEED_SWITCH && _prevHdgHoldBreakout && !_hdgHoldBreakout) then {
             _heli setVariable ["fza_sfmPlus_autoPedalHdg", getDir _heli, true];
         };
-        _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
+        _heli setVariable ["fza_ah64_forceTrimPosYaw", _yawOutput, true];
     };
     _heli setVariable ["fza_sfmplus_prevAutoPedalHdgBreakout", _hdgHoldBreakout];
 };

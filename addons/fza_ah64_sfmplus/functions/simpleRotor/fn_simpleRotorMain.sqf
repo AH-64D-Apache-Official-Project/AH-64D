@@ -44,7 +44,9 @@ private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
 private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
 //_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
+private _collectiveOut          = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
+private _fmcCollOut             = _collectiveOut + _altHoldCollOut;
 //private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
@@ -124,8 +126,7 @@ private _Jtot = (_Iy + _Itot) * _rtrNumBlades;
 [_heli, "fza_sfmplus_rtrMoi", 0, _Jtot, true] call fza_fnc_setArrayVariable;
 
 //Thrust produced 
-private _collectiveOutput              = (_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut;
-private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * _collectiveOutput;
+private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * _fmcCollOut;
 private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 //(_heli getVariable "fza_sfmplus_engPctNP")
@@ -147,7 +148,7 @@ private _velXY                     = vectorMagnitude [_velX, _velY] min VEL_VNE;
 if ([_velXY] call fza_sfmplus_fnc_isNAN || [_velXY] call fza_sfmplus_fnc_isINF) then { _velXY = 0.0; };
 if (_isOnGnd) then { _velXY = 0.0; };
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
-//systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+//systemChat format ["_velocityThrustExponent = %1 -- _fmcCollOut = %2", _velocityThrustExponent toFixed 3, _fmcCollOut toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
 
 //Induced flow handler
@@ -184,7 +185,7 @@ private _profile_max = 0.407;
 private _velXYNoWind = vectorMagnitude [_velX, _velY] min VEL_VNE;
 if (_isOnGnd) then { _velXYNoWind = 0.0; };
 
-private _profilePowerCollectiveScalar = [_collectiveOutput / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
+private _profilePowerCollectiveScalar = [_fmcCollOut / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
 private _profile_cur                  = (_profile_min + (((_profile_max * _profilePowerCollectiveScalar) - _profile_min) / VEL_VNE) * _velXYNoWind);
 
 private _inducedPowerVelocityScalarTable = 
@@ -201,7 +202,7 @@ private _inducedPowerVelocityScalarTable =
 ,[72.02, 0.899]
 ];  
 private _inducedPowerVelocityScalar = ([_inducedPowerVelocityScalarTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
-_inducedPowerVelocityScalar         = _inducedPowerVelocityScalar * _collectiveOutput;
+_inducedPowerVelocityScalar         = _inducedPowerVelocityScalar * _fmcCollOut;
 
 private _inducedPowerCollectiveCorrectionTable = 
 [
@@ -235,9 +236,9 @@ private _autorotationTorqueTable =
 ,[  0.00,   0.0]
 ];
 private _inducedPowerCollectiveCorrection = ([_inducedPowerCollectiveCorrectionTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
-private _induced_val                      = [_collectiveOutput / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
+private _induced_val                      = [_fmcCollOut / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
 private _induced_cur                      = _inducedPowerVelocityScalar * _induced_val;
-private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _collectiveOutput] call fza_fnc_linearInterp) select 1;
+private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _fmcCollOut] call fza_fnc_linearInterp) select 1;
 _collectiveTorqueCorrection               = linearConversion[0.0, VEL_ETL, _velXYNoWind, 1.0, _collectiveTorqueCorrection, true];
 private _power_val                        = [(_profile_cur + _induced_cur) * _collectiveTorqueCorrection, -1.0, 2.50] call BIS_fnc_clamp;
 private _power_req                        = _power_val * 2133.0;
@@ -339,7 +340,7 @@ private _retBladeStallCollTable =
 ,[0.7, [_retBladeStallSpeedTable, _velXY] call fza_fnc_linearInterp select 2]
 ];
 
-private _retBladeStallInput = [_retBladeStallCollTable, _collectiveOutput] call fza_fnc_linearInterp select 1;
+private _retBladeStallInput = [_retBladeStallCollTable, _fmcCollOut] call fza_fnc_linearInterp select 1;
 private _retBladeStallVal   = linearConversion [77.16, 102.88, _velXY, 1.0, 0.0, true];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
@@ -386,7 +387,7 @@ if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
         if ([vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isINF) then { _thrustZ = [0.0, 0.0, 0.0]; };
-        _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        //_heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
 
         //Main rotor torque
         private _torque = [0.0, 0.0, 0.0];
@@ -397,7 +398,7 @@ if (currentPilot _heli == player) then {
         };
 
         if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
-        _heli addTorque (_heli vectorModelToWorld _torque);
+        //_heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 /////////////////////////////////////////////////////////////////////////////////////////////

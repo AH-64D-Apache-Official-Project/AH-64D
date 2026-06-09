@@ -81,6 +81,12 @@ class CfgFunctions
             class massUpdateMagazine {R;};
             class massUpdateStation {R;};
         };
+        class math {
+            file = "\fza_ah64_sfmplus\functions\math";
+            class linearInterpFromCenter {R;};
+            class vectorRotate {R;};
+            class vectorRotateAroundAxis {R;};
+        };
         class mathQuaternion {
             file = "\fza_ah64_sfmplus\functions\math\quaternion";
             class quaternion {R;};
@@ -99,6 +105,13 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
             class perfVariables {R;};
+        };
+        class rotor {
+            file = "\fza_ah64_sfmplus\functions\rotor";
+            class rotor {R;};
+            class rotorBlade {R;};
+            class rotorControl {R;};
+            class rotorUpdate {R;};
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";

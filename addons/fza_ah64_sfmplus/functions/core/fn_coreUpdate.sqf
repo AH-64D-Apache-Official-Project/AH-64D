@@ -148,7 +148,7 @@ if (fza_ah64_sfmPlusFmDebug) then {
     _heli getVariable "fza_sfmplus_fmcAltHoldCollOut" toFixed 3,              //23
     _heli getVariable "fza_ah64_forceTrimPosPitch" toFixed 3,                 //24
     _heli getVariable "fza_ah64_forceTrimPosRoll" toFixed 3,                  //25
-    _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 3,                 //26
+    _heli getVariable "fza_ah64_forceTrimPosYaw" toFixed 3,                 //26
     getCenterOfMass _heli select 0 toFixed 3,                                 //27
     getCenterOfMass _heli select 1 toFixed 3,                                 //28
     getCenterOfMass _heli select 2 toFixed 3,                                 //29

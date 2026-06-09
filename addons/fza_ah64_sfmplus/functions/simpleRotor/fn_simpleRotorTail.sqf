@@ -77,7 +77,7 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 //Thrust produced
 private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
 private _pedalLeftRightTrim = 0.0;
-_pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosPedal";
+_pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosYaw";
 
 private _pedalInput         = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcYawOut;
 _pedalInput                 = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;

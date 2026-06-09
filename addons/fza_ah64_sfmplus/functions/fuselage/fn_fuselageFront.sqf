@@ -63,10 +63,6 @@ for "_i" from 0 to (_count - 1) do {
 
     _heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
-    private _deltaPos = _e vectorDiff _heliCom;
-    private _moment   = _dragVector vectorCrossProduct _deltaPos;
-
-    _heli addTorque (_heli vectorModelToWorld _moment);
 
     #ifdef __A3_DEBUG__
     //Draw the wing

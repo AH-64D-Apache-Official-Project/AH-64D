@@ -199,10 +199,6 @@ for "_j" from 0 to (_numElements - 1) do {
     _heli addForce [_heli vectorModelToWorld _liftVector, _e];
     _heli addForce [_heli vectorModelToWorld _dragVector, _e];
 
-    private _deltaPos = _e vectorDiff _heliCOM;
-    private _moment   = _deltaPos vectorCrossProduct _liftVector;
-
-    _heli addTorque (_heli vectorModelToWorld _moment);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Debug                /////////////////////////////////////////////////////////////////////

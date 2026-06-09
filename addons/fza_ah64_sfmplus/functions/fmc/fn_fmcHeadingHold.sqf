@@ -16,7 +16,7 @@ private _pidYaw        = _heli getVariable "fza_sfmplus_pid_sas_yaw";
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _angVelZ       = (_heli getVariable "fza_sfmplus_angVelModelSpace") # 2;
-private _pedalTrim     = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _pedalTrim     = _heli getVariable "fza_ah64_forceTrimPosYaw";
 private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
@@ -121,7 +121,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
         _yawOutput = [_pidTrn, _deltaTime, _sideslipError, 0.0] call fza_fnc_pidRun;
         _yawOutput = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
-    //"aut": auto pedal owns the yaw axis via fza_ah64_forceTrimPosPedal (fn_getInput.sqf).
+    //"aut": auto pedal owns the yaw axis via fza_ah64_forceTrimPosYaw (fn_getInput.sqf).
     //  fn_fmc.sqf zeroes _hdgHoldPedalYawOut when auto pedal is active, so no PID runs here.
     //  This sub-mode exists only to block "yaw" and "trn" from interfering.
 
