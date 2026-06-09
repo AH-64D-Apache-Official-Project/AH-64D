@@ -45,7 +45,11 @@ private _engPctTQ = _eng1TQ max _eng2TQ;
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
 //private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
+// temporarily removed, Custom animation of the rotor disk has issuies due to perf handler of animation
+//will be looked at again after public release and testing shows the rest of the code is stable
+/*
 if (local _heli) then {
+    
     if ((_heli getHitPointDamage "hithrotor") < 1.0) then {
         private _lastRtdUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
         if (cba_missionTime > _lastRtdUpdate + MIN_TIME_BETWEEN_UPDATES) then {
@@ -67,6 +71,7 @@ if (local _heli) then {
         _heli setHitPointDamage ["hithrotor", 0.9];
     };
 };
+*/
 
 if !_apuOn then {
     if (_eng1State == "STARTING") then {

@@ -19,7 +19,7 @@ class AnimationSources
         initPhase = 0;
         animPeriod = 0;
     };
-    ////////ROTOR RPM///////
+    /*////////ROTOR RPM///////
     class mainRotorRPMUser
     {
         source = "user";
@@ -40,7 +40,7 @@ class AnimationSources
         source = "user";
         initPhase = 0;
         animPeriod = 0;
-    };
+    };*/
     ////////RADAR///////
     class fcr_enable
     {
