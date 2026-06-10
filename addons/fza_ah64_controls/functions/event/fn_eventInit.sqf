@@ -66,6 +66,21 @@ _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];
 
+// Defer one frame: CBA fires ACE's "Air init" class EH (which adds the pylon action) in the
+// same init tick as our CfgEventHandlers entry. Running next frame guarantees our removal
+// fires after ACE's addition regardless of EH registration order.
+if (!isNil "ace_interact_menu_fnc_removeActionFromClass") then {
+    [{
+        params ["_heli"];
+        if (isNil "fza_mplanner_pylonRemoveDone") then { fza_mplanner_pylonRemoveDone = []; };
+        private _typeStr = typeOf _heli;
+        if (!(_typeStr in fza_mplanner_pylonRemoveDone)) then {
+            fza_mplanner_pylonRemoveDone pushBack _typeStr;
+            [_typeStr, 0, ["ACE_MainActions", "ace_pylons_loadoutAction"]] call ace_interact_menu_fnc_removeActionFromClass;
+        };
+    }, _heli] call CBA_fnc_execNextFrame;
+};
+
 if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
         waitUntil {cba_missiontime != 0;};

@@ -23,6 +23,8 @@ Author:
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 params["_heli"];
 
+if (_heli getVariable ["fza_mplanner_rearming", false]) exitWith {};
+
 //ensure the pylons are loaded on the gunner
 if (local _heli) then { 
     { 
@@ -36,7 +38,7 @@ if (local _heli) then {
                 _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
             }] remoteExec ["call", crew _heli];
         }; 
-    } foreach getAllPylonsInfo _heli;
+    } forEach getAllPylonsInfo _heli;
 };
 
 _mags = getPylonMagazines _heli;
