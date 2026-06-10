@@ -191,7 +191,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     ["fza_230gal_auxTank"] call _assignMagazine;
                 };
                 case "rocket": {
-                    ["fza_275_pod"] call _assignMagazine;
+                    [""] call _assignMagazine;
                     {
                         private _zoneKey = _x;
                         private _ammoName = _pylonInfo getVariable [_zoneKey, ""];
@@ -200,7 +200,15 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                             private _magName = toLower ("fza_275_" + _ammoName + "_" + _zoneKey);
                             [_magName, _zoneCount] call _assignMagazineCount;
                         } else {
-                            ["fza_275_pod"] call _assignMagazine;
+                            // zoneA (UI "A" on pylons 1/4, "C" on pylons 2/3) is the
+                            // fza_railzone slot — load the empty pod placeholder there
+                            // so an empty rocket pylon is distinguishable from "none".
+                            // Other empty zones stay unloaded.
+                            if (_zoneKey isEqualTo "zoneA") then {
+                                ["fza_275_pod"] call _assignMagazine;
+                            } else {
+                                [""] call _assignMagazine;
+                            };
                         };
                     } forEach _pylonRktCheck;
                 };
@@ -229,12 +237,14 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         } forEach _pylonArraycheck;
 
         // Collapse count=0 structural pod placeholders to "" so unchanged rocket pylons
-        // don't get re-queued. fza_agm114_rail is intentionally excluded: it must be
-        // explicitly loaded on every empty hellfire rail slot so the pylon passes
-        // fza_fnc_weaponPylonCheckValid (which clears any pylon with a raw "" slot).
+        // don't get re-queued. fza_agm114_rail and fza_275_pod are intentionally excluded:
+        // they must be explicitly loaded on their structural slot (hellfire "ul" rail /
+        // rocket zoneA) so the pylon passes fza_fnc_weaponPylonCheckValid (which clears
+        // any pylon with a raw "" slot) and so an empty rocket pylon is distinguishable
+        // from "none".
         private _normaliseSlot = {
             params ["_mag"];
-            if (_mag isEqualTo "" || {_mag isEqualTo "fza_agm114_rail"}) exitWith { _mag };
+            if (_mag isEqualTo "" || {_mag isEqualTo "fza_agm114_rail"} || {_mag isEqualTo "fza_275_pod"}) exitWith { _mag };
             private _cnt = getNumber (configFile >> "CfgMagazines" >> _mag >> "count");
             if (_cnt == 0) exitWith { "" };
             toLower _mag
@@ -247,8 +257,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             private _desiredAmmoHint = _targetPylonAmmos # _i;
             // Queue if classname changed, slot was fired, or user-specified ammo count differs
             if (_desired != _current
-                || {_desired != "" && {_desired != "fza_agm114_rail"} && {_currentAmmo == 0}}
-                || {_desired != "" && {_desired != "fza_agm114_rail"} && {_desiredAmmoHint >= 0} && {_currentAmmo != _desiredAmmoHint}}
+                || {_desired != "" && {_desired != "fza_agm114_rail"} && {_desired != "fza_275_pod"} && {_currentAmmo == 0}}
+                || {_desired != "" && {_desired != "fza_agm114_rail"} && {_desired != "fza_275_pod"} && {_desiredAmmoHint >= 0} && {_currentAmmo != _desiredAmmoHint}}
             ) then {
                 _configureQueue pushBack _i;
             };
@@ -481,7 +491,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     _qTgtMags set [_qIdx - 1, "fza_230gal_auxTank"]; _qIdx = _qIdx - 1;
                 };
                 case "rocket": {
-                    _qTgtMags set [_qIdx - 1, "fza_275_pod"]; _qIdx = _qIdx - 1;
+                    _qTgtMags set [_qIdx - 1, ""]; _qIdx = _qIdx - 1;
                     {
                         private _zKey = _x;
                         private _zA = _pInfo getVariable [_zKey, ""];
@@ -490,7 +500,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                             _qTgtMags set [_qIdx - 1, toLower ("fza_275_" + _zA + "_" + _zKey)];
                             _qTgtAmmos set [_qIdx - 1, _zC];
                         } else {
-                            _qTgtMags set [_qIdx - 1, "fza_275_pod"];
+                            _qTgtMags set [_qIdx - 1, ["", "fza_275_pod"] select (_zKey isEqualTo "zoneA")];
                         };
                         _qIdx = _qIdx - 1;
                     } forEach _pylonRktCheck;
@@ -508,7 +518,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         } forEach _pylonArraycheck;
         private _qNorm = {
             params ["_m"];
-            if (_m isEqualTo "" || {_m isEqualTo "fza_agm114_rail"}) exitWith { _m };
+            if (_m isEqualTo "" || {_m isEqualTo "fza_agm114_rail"} || {_m isEqualTo "fza_275_pod"}) exitWith { _m };
             if (getNumber (configFile >> "CfgMagazines" >> _m >> "count") == 0) exitWith { "" };
             toLower _m
         };
@@ -518,8 +528,8 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
             private _qA = _heli ammoOnPylon (_qi + 1);
             private _qDH = _qTgtAmmos # _qi;
             if (_qD != _qC
-                || {_qD != "" && {_qD != "fza_agm114_rail"} && {_qA == 0}}
-                || {_qD != "" && {_qD != "fza_agm114_rail"} && {_qDH >= 0} && {_qA != _qDH}}
+                || {_qD != "" && {_qD != "fza_agm114_rail"} && {_qD != "fza_275_pod"} && {_qA == 0}}
+                || {_qD != "" && {_qD != "fza_agm114_rail"} && {_qD != "fza_275_pod"} && {_qDH >= 0} && {_qA != _qDH}}
             ) then {
                 _preCount = _preCount + 1;
             };

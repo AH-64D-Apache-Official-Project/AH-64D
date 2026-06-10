@@ -52,11 +52,11 @@ function buildLegacyApplyPayload(state) {
 
     if (out.type === 'rocket') {
       var zones = pylon.zones || [];
-      out.zoneA = (zones[0] && zones[0].count > 0 && zones[0].type) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
+      out.zoneA = (zones[0] && zones[0].type) ? mapPlannerRocketTypeToLegacy(zones[0].type) : '';
       out.zoneACount = zones[0] ? (parseInt(zones[0].count, 10) || 0) : 0;
-      out.zoneB = (zones[1] && zones[1].count > 0 && zones[1].type) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
+      out.zoneB = (zones[1] && zones[1].type) ? mapPlannerRocketTypeToLegacy(zones[1].type) : '';
       out.zoneBCount = zones[1] ? (parseInt(zones[1].count, 10) || 0) : 0;
-      out.zoneE = (zones[2] && zones[2].count > 0 && zones[2].type) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
+      out.zoneE = (zones[2] && zones[2].type) ? mapPlannerRocketTypeToLegacy(zones[2].type) : '';
       out.zoneECount = zones[2] ? (parseInt(zones[2].count, 10) || 0) : 0;
     }
 
