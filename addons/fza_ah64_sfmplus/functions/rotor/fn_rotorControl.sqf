@@ -1,6 +1,6 @@
 #include "\fza_ah64_sfmplus\functions\rotor\rotor.hpp"
 
-params ["_heli", "_type", "_pitchMin", "_pitchMid", "_pitchMax", "_rollMin", "_rollMid", "_rollMax", "_collMin", "_collMid", "_collMax", "_collCone"];
+params ["_heli", "_type", "_pitchMin", "_pitchMid", "_pitchMax", "_rollMin", "_rollMid", "_rollMax", "_collMin", "_collMid", "_collMax"];
 
 private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
 private _collToPitchOut         = 0.0;//_heli getVariable "fza_sfmplus_fmcCollectiveToPitch";
@@ -38,7 +38,7 @@ switch (_type) do {
 		_collFeather   = linearConversion[ 0, 1, _collInput,  _collMin, _collMax, true];
 	};
 	case TAIL: {
-		_collFeather   = [-1, 1, _yawInput,  _collMin, _collMid, _collMax] call fza_sfmplus_fnc_linearInterpFromCenter;
+		_collFeather   = [-1, 1, -_yawInput, _collMin, _collMid, _collMax] call fza_sfmplus_fnc_linearInterpFromCenter;
 	};
 };
 

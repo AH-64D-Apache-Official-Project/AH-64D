@@ -72,13 +72,13 @@ if (_isStab) then {
     _C_wingTipTrailingEdge  = _B_wingTipLeadingEdge  vectorDiff (_vectorForward vectorMultiply _chord);
     _D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff (_vectorForward vectorMultiply _chord);
 
-    private _stabTheta  = _theta * -1.0;
+    private _stabTheta  = _theta;
     private _stabRoot   = _A_wingRootLeadingEdge vectorDiff _D_wingRootTrailingEdge;
-    _stabRoot           = [_stabRoot, _vectorRight, _stabTheta] call fza_sfmplus_fnc_quaternion;
+    _stabRoot           = [_stabRoot, _vectorRight, _stabTheta] call fza_sfmplus_fnc_vectorRotateAroundAxis;
     _D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff _stabRoot;
 
     private _stabTip    = _B_wingTipLeadingEdge vectorDiff _C_wingTipTrailingEdge;
-    _stabTip            = [_stabTip, _vectorRight, _stabTheta] call fza_sfmplus_fnc_quaternion;
+    _stabTip            = [_stabTip, _vectorRight, _stabTheta] call fza_sfmplus_fnc_vectorRotateAroundAxis;
     _C_wingTipTrailingEdge = _B_wingTipLeadingEdge vectorDiff _stabTip;
 
     _airfoilTable = getArray (_sfmPlusConfig >> "airfoilTable01");
@@ -96,7 +96,7 @@ if (_isStab) then {
     _D_wingRootTrailingEdge = _wingRootCenter vectorDiff (_vectorForward vectorMultiply  (_chord * 0.5));
 
     private _wingTip       = _B_wingTipLeadingEdge vectorDiff _C_wingTipTrailingEdge;
-    _wingTip               = [_wingTip, _vectorRight, _twist] call fza_sfmplus_fnc_quaternion;
+    _wingTip               = [_wingTip, _vectorRight, _twist] call fza_sfmplus_fnc_vectorRotateAroundAxis;
     _B_wingTipLeadingEdge  = _wingTipCenter vectorAdd  (_wingTip vectorMultiply 0.5);
     _C_wingTipTrailingEdge = _wingTipCenter vectorDiff (_wingTip vectorMultiply 0.5);
 

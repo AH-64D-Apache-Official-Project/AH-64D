@@ -42,7 +42,7 @@ private _armaToModelMat =
 private _rot = _armaToModelMat matrixMultiply [[_p], [_y], [_r]];
 _rot         = [_rot # 0 # 0, _rot # 1 # 0, _rot # 2 # 0];
 
-systemChat format ["_rot [%1, %2, %3]", (_rot select 0) toFixed 2, (_rot select 1) toFixed 2, (_rot select 2) toFixed 2];
+//systemChat format ["_rot [%1, %2, %3]", (_rot select 0) toFixed 2, (_rot select 1) toFixed 2, (_rot select 2) toFixed 2];
 /*
 private _sinP = sin (_rot # 0);
 private _sinY = sin (_rot # 1);
@@ -120,9 +120,9 @@ private _chord  = [0.0, cos (INPUT * 5.0), sin (INPUT * 5.0)];
 private _locVelNorm = vectorNormalized _locVel;
 private _aoa = (_chord # 2 atan2 _chord # 1) - (_locVelNorm # 2 atan2 _locVelNorm # 1);
 
-systemChat format ["_vehVel [%1, %2, %3]", (velocityModelSpace _heli select 0) toFixed 2, (velocityModelSpace _heli select 1) toFixed 2, (velocityModelSpace _heli select 2) toFixed 2];
-systemChat format ["_locVel [%1, %2, %3]", (_locVel select 0) toFixed 2, (_locVel select 1) toFixed 2, (_locVel select 2) toFixed 2];
-systemChat format ["_aoa = %1", _aoa];
+//systemChat format ["_vehVel [%1, %2, %3]", (velocityModelSpace _heli select 0) toFixed 2, (velocityModelSpace _heli select 1) toFixed 2, (velocityModelSpace _heli select 2) toFixed 2];
+//systemChat format ["_locVel [%1, %2, %3]", (_locVel select 0) toFixed 2, (_locVel select 1) toFixed 2, (_locVel select 2) toFixed 2];
+//systemChat format ["_aoa = %1", _aoa];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // END TESTING          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-params ["_heli", "_index", "_deltaTime", "_numElements", "_numBlades", "_pos", "_uVec", "_omega", "_airfoilTable", "_a_rootPos", "_b_tipPos", "_c_rootLeadingEdge", "_d_tipLeadingEdge", "_e_tipTrailingEdge", "_f_rootTrailingEdge"];
+params ["_heli", "_bladeIndex", "_rotorIndex", "_deltaTime", "_numElements", "_numBlades", "_pos", "_uVec", "_omega", "_airfoilTable", "_a_rootPos", "_b_tipPos", "_c_rootLeadingEdge", "_d_tipLeadingEdge", "_e_tipTrailingEdge", "_f_rootTrailingEdge"];
 
 private _rho              = _heli getVariable "fza_sfmplus_rho";
 private _heliCOM          = getCenterOfMass _heli;
@@ -8,7 +8,7 @@ private _totalFlapMoment  = 0.0;
 // 4 virtual blades always run; scale forces so total matches the real blade count
 private _bladeScale = _numBlades / 4.0;
 
-[_heli, "fza_sfmplus_rotorFlapMoment", _index, 0.0] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_rotorFlapMoment", _rotorIndex, _bladeIndex, 0.0] call fza_fnc_setMultiArrayVariable;
 
 for "_i" from 0 to (_numElements - 1) do {
 	private _spanInboard  =  _i      / _numElements;
@@ -46,6 +46,7 @@ for "_i" from 0 to (_numElements - 1) do {
 
 	private _radialVec  = (_liftPos vectorDiff _pos) vectorDiff (_uVec vectorMultiply ((_liftPos vectorDiff _pos) vectorDotProduct _uVec));
 	private _r          = vectorMagnitude _radialVec;
+	//systemChat format ["%1 - %2 - %3 - %4", _uVec, _spanDir, _r, _omega];
 	private _rotRelWind = (_uVec vectorCrossProduct _spanDir) vectorMultiply (_r * _omega * -1.0);
 
 	private _up = vectorNormalized (_spanDir vectorCrossProduct _chordLine);
@@ -101,4 +102,4 @@ for "_i" from 0 to (_numElements - 1) do {
 	#endif
 };
 
-[_heli, "fza_sfmplus_rotorFlapMoment", _index, _totalFlapMoment] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_rotorFlapMoment", _rotorIndex, _bladeIndex, _totalFlapMoment] call fza_fnc_setMultiArrayVariable;
