@@ -97,18 +97,18 @@ private _hfAmmoMap = [
     ["fza_agm114n",   "N"]
 ];
 
-// A zone with zero rounds is reported as "no munitions" (type "") regardless of
-// whichever magazine classname happens to occupy the slot, so the planner doesn't
-// display/sync a munition type the player never intentionally selected.
+// A truly empty slot or the structural empty-pod placeholder is reported as "no
+// munitions" (type ""). A magazine that's been fired empty still reports its
+// munition type (e.g. "PD" with count 0) so the planner shows "empty PD" rather
+// than silently clearing the player's selection.
 private _buildRktZone = {
     params ["_magName", "_slotIdx"];
     if (_magName isEqualTo "") exitWith { '{"count":0,"type":""}' };
-    // Empty pod placeholder — treat as no ammo
+    // Empty pod placeholder — treat as no munitions
     private _cnt0check = getNumber (configFile >> "CfgMagazines" >> _magName >> "count");
     if (_cnt0check == 0) exitWith { '{"count":0,"type":""}' };
     // Use runtime ammo count so partially-fired pods report correct remaining rounds
     private _runtimeCount = _heli ammoOnPylon _slotIdx;
-    if (_runtimeCount == 0) exitWith { '{"count":0,"type":""}' };
     private _ammoClass = toLower getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
     private _count     = _runtimeCount;
     private _typeCode  = "6PD";
