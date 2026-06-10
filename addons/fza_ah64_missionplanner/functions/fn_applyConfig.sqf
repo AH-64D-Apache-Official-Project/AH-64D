@@ -140,6 +140,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     // would be out of scope after call returns)
     private _rearmNewPylons = missionNamespace getVariable ["ace_pylons_rearmNewPylons", false];
     if !(_rearmNewPylons isEqualType true) then { _rearmNewPylons = false; };
+    // Instant and 30 Seconds modes always rearm new pylons/cannon loads regardless of
+    // the ACE rearmNewPylons setting; only "ACE Settings" mode (_rearmMode==2) honors it.
+    if (_rearmMode != 2) then { _rearmNewPylons = true; };
 
     // Caliber cost per 50-round cannon batch (ACE_caliber from CfgAmmo)
     private _cannonCaliberCost = round (getNumber (configFile >> "CfgAmmo" >> "fza_30x113" >> "ACE_caliber"));
