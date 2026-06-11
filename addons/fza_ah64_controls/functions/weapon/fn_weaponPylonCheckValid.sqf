@@ -23,6 +23,8 @@ Author:
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 params["_heli"];
 
+if (_heli getVariable ["fza_mplanner_rearming", false]) exitWith {};
+
 //ensure the pylons are loaded on the gunner
 if (local _heli) then { 
     { 
@@ -36,7 +38,7 @@ if (local _heli) then {
                 _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
             }] remoteExec ["call", crew _heli];
         }; 
-    } foreach getAllPylonsInfo _heli;
+    } forEach getAllPylonsInfo _heli;
 };
 
 _mags = getPylonMagazines _heli;
@@ -117,8 +119,5 @@ _rocketZones = [_zoneA, _zoneB, _zoneC, _zoneD, _zoneE];
         };
     } forEach _indices;
 } forEach _rocketZones;
-
-//SFM Weight sim
-[_heli] call fza_sfmplus_fnc_fuelSet;
 
 fza_ah64_pylonsLastCheckMags = _mags;

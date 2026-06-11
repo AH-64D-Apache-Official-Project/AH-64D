@@ -58,12 +58,6 @@ class CfgFunctions
             class fmcHoldModesDisable {R;};
             class fmcSAS {R;};
         };
-        class fuel {
-            file = "\fza_ah64_sfmplus\functions\fuel";
-            class fuelSet {R;};
-            class fuelUpdate {R;};
-            class fuelVariables {R;};
-        };
         class fuselage {
             file = "\fza_ah64_sfmplus\functions\fuselage";
             class fuselage {R;};

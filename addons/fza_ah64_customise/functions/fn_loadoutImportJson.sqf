@@ -43,7 +43,7 @@ private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumbe
 _heli setFuel (_fuelKg / _tankCapacityKg);
 
 //SFM Weight sim
-[_heli] call fza_sfmplus_fnc_fuelSet;
+[_heli] call fza_fuel_fnc_fuelSet;
 
 //Loadout settings
 {

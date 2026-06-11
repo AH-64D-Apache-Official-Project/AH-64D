@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED">
+            <Original>No Ammo Source Required</Original>
+            <English>No Ammo Source Required</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED_DESC">
+            <Original>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</Original>
+            <English>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED">
+            <Original>No Fuel Source Required</Original>
+            <English>No Fuel Source Required</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED_DESC">
+            <Original>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</Original>
+            <English>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE">
+            <Original>Rearm Mode</Original>
+            <English>Rearm Mode</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE_DESC">
+            <Original>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</Original>
+            <English>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
             <Original>Cyclic Center Trim Mode</Original>
             <English>Cyclic Center Trim Mode</English>
