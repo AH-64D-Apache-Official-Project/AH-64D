@@ -15,7 +15,8 @@ class CfgPatches
 #include "RscDisplay.hpp"
 
 class CfgVehicles {
-    class Helicopter {
+    class air;
+    class Helicopter: air  {
         class ACE_SelfActions;
     };
     class Helicopter_Base_F : Helicopter {

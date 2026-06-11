@@ -55,6 +55,7 @@ switch _fcrScanState do {
             [_heli, true] call fza_fcr_fnc_update;
         };
         if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * 2)) && _time >= _fcrScanStartTime) exitWith {
+            [_heli, true] call fza_fcr_fnc_update;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             player action ["ActiveSensorsOff", _heli];
