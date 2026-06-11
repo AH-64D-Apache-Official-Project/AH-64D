@@ -1,5 +1,9 @@
 params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
+
+private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_TYPE_BARRIER), BOOLTONUM(_sight == SIGHT_FCR)];
 
 private _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");

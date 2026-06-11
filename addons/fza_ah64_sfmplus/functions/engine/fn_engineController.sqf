@@ -41,6 +41,8 @@ private _rtrRPM  = _heli getVariable "fza_sfmplus_rtrRPM";
 private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
+private _eng1FuelAvail = _heli getVariable ["fza_fuel_eng1FuelAvail", true];
+private _eng2FuelAvail = _heli getVariable ["fza_fuel_eng2FuelAvail", true];
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
 //private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
@@ -106,11 +108,11 @@ if (currentPilot _heli == player || local _heli) then {
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
-if (_no1EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
+if (_no1EngDmg > SYS_ENG_DMG_THRESH || !_eng1FuelAvail) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
+if (_no2EngDmg > SYS_ENG_DMG_THRESH || !_eng2FuelAvail) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 

@@ -21,6 +21,8 @@ class CfgAmmo {
     };
     class fza_agm114base : ACE_Hellfire_AGM114K {
 
+        ace_caliber                 = 100;    // ACE rearm: supply points per missile
+
         ace_frag_enabled            = 1;
         ace_frag_skip               = 0;
         ace_frag_force              = 1;
