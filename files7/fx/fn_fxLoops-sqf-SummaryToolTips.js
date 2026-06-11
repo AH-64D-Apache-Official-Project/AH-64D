@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:fx/fn_fxLoops.sqf",{382:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">loops battery or apu audio</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:fx/fn_fxLoops.sqf",{426:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">loops battery or apu audio</div></div>"});

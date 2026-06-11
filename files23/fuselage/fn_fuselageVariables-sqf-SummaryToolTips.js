@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fuselage/fn_fuselageVariables.sqf",{114:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines core fuselage variables.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:fuselage/fn_fuselageVariables.sqf",{96:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines core fuselage variables.</div></div>"});

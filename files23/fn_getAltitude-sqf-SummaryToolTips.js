@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fn_getAltitude.sqf",{140:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the current AGL and MSL altitude of the helicopter</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:fn_getAltitude.sqf",{134:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the current AGL and MSL altitude of the helicopter</div></div>"});

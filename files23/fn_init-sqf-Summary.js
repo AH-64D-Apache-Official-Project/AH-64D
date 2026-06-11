@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File23:fn_init.sqf","fn_init.sqf");NDSummary.OnSummaryLoaded("File23:fn_init.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[117,0,1,"Functions","Functions"],[118,0,0,"fza_sfmplus_fnc_init","fza_sfmplus_fnc_init"]]);
+﻿NDFramePage.OnPageTitleLoaded("File23:fn_init.sqf","fn_init.sqf");NDSummary.OnSummaryLoaded("File23:fn_init.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[113,0,1,"Functions","Functions"],[114,0,0,"fza_sfmplus_fnc_init","fza_sfmplus_fnc_init"]]);

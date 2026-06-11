@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File16:fn_controller.sqf",{258:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Controls the varius elements of the Ihadss</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File16:fn_controller.sqf",{278:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Controls the varius elements of the Ihadss</div></div>"});

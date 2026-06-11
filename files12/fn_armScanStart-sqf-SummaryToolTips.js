@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File12:fn_armScanStart.sqf",{332:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Arms FCR scan start: computes cue delay then sets the waiting flag so the backend waits for the dish to reach the mode-specific start angle.</div></div>"});

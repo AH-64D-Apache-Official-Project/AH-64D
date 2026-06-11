@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File12:fn_resolveDisplay.sqf",{338:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Runs every frame to produce a display-ready target list from the raw scan data. Applies the sweep reveal gate once here so no draw function needs reveal logic.</div></div>"});

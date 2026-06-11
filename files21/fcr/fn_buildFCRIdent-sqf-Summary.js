@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File21:fcr/fn_buildFCRIdent.sqf","fn_buildFCRIdent.sqf");NDSummary.OnSummaryLoaded("File21:fcr/fn_buildFCRIdent.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[227,0,1,"Functions","Functions"],[228,0,0,"fza_mpd_fnc_buildFCRIdent","fza_mpd_fnc_buildFCRIdent"]]);

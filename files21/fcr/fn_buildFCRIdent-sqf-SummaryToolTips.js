@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File21:fcr/fn_buildFCRIdent.sqf",{228:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Builds a standardised FCR icon ident string from a target record entry.&nbsp; Used by all FCR display contexts: ATM/GTM page draw, TSD page draw, cscope IHADSS, and shot-record functions.</div></div>"});

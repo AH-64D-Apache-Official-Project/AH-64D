@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File12:fn_init.sqf",{318:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">fire control radar event init</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File12:fn_init.sqf",{330:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Initialises FCR variables for the given helicopter. Safe to call multiple times.</div></div>"});
