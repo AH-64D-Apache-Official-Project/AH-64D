@@ -16,6 +16,7 @@ class CfgFunctions
             class arhSeekerUpdate         {RECOMPILE_FLAG;};
             class arhTargetConstraint     {RECOMPILE_FLAG;};
             class isTargetInSeekerCone    {RECOMPILE_FLAG;};
+            class checkLos                {RECOMPILE_FLAG;};
             class trajectoryToAceProfile  {RECOMPILE_FLAG;};
             class init                    {RECOMPILE_FLAG;};
             class salOnFired              {RECOMPILE_FLAG;};

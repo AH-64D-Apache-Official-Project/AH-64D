@@ -135,7 +135,7 @@ if !(isNull _target) then {
 
 private _dbsFadeHalfDist = _projectile getVariable ["fza_dbsFadeHalfDist", -1];
 private _scaledOffset = if (_dbsFadeHalfDist > 0) then {
-    private _positionOffset = if (isNull _target) then { _calculatedSearchPos } else { _expectedTargetPos };
+    private _positionOffset = [_expectedTargetPos, _calculatedSearchPos] select (isNull _target);
     private _distToSearch = (getPosASL _projectile) vectorDistance _positionOffset;
     private _scale = (((_distToSearch - _dbsFadeHalfDist) / _dbsFadeHalfDist) min 1) max 0;
     _dbsOffset vectorMultiply _scale
