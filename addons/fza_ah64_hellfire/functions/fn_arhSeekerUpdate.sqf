@@ -48,18 +48,29 @@ if (!_isActive) then {
     _projectile setVariable ["fza_dbsFadeHalfDist", _activationDist * 0.5];
 };
 
-#define ARH_MIN_SCAN_RADIUS  50
-#define ARH_TERMINAL_RANGE   300
+#define ARH_MIN_SCAN_RADIUS       50
+#define ARH_TERMINAL_RANGE        300
+#define ARH_LOCK_LOSS_GRACE_PERIOD 1
 
 private _target = objNull;
+private _hadTarget = !_doesntHaveTarget;
 
 // Direct-track
 if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
     _target = _lastTarget;
 } else {
+    
+    private _lockLostTime = _projectile getVariable ["fza_lockLostTime", -1];
+    if (_lockLostTime < 0 && _hadTarget) then {
+        _lockLostTime = CBA_missionTime;
+        _projectile setVariable ["fza_lockLostTime", _lockLostTime];
+    };
+
+    private _inGracePeriod = _lockLostTime >= 0 && { (CBA_missionTime - _lockLostTime) < ARH_LOCK_LOSS_GRACE_PERIOD };
+
     private _distMissileToSearch = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
 
-    if (_distMissileToSearch > ARH_TERMINAL_RANGE && _calculatedSearchPos isNotEqualTo [0, 0, 0]) then {
+    if (!_inGracePeriod && _distMissileToSearch > ARH_TERMINAL_RANGE && _calculatedSearchPos isNotEqualTo [0, 0, 0]) then {
 
         // Adaptive poll: 2 Hz > 1500 m, 5 Hz 500-1500 m, 10 Hz < 500 m
         private _pollInterval = [[0.1, 0.2] select (_distMissileToSearch > 500), 0.5] select (_distMissileToSearch > 1500);
@@ -109,6 +120,8 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
 };
 
 if !(isNull _target) then {
+    _projectile setVariable ["fza_lockLostTime", -1];
+
     private _centerOfObject    = getCenterOfMass _target;
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
     _expectedTargetPos = _targetAdjustedPos;
