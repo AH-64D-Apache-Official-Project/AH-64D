@@ -108,7 +108,9 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _stateParams set [2, [4, 0, [getPosASL _projectile select 2, 0]]];
 };
 
-[_heli] call fza_fcr_fnc_cycleNTS;
+if (_handoffSource == "FCR") then {
+    [_heli] call fza_fcr_fnc_cycleNTS;
+};
 
 // Seeker state
 _seekerStateParams set [0, _isActive];
