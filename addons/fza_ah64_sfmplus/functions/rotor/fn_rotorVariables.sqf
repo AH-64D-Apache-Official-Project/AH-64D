@@ -33,6 +33,22 @@ _heli setVariable ["fza_sfmplus_rotorBladeAzimuth",[[0.0,0.0,0.0,0.0]
                                                    ,[0.0,0.0,0.0,0.0]
                                                    ,[0.0,0.0,0.0,0.0]
                                                    ,[0.0,0.0,0.0,0.0]]];
+// Per-element induced inflow velocity (m/s) from previous frame — read during blade loop
+_heli setVariable ["fza_sfmplus_rotorInducedFlow",      [[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]]];
+// Accumulator reset each frame; averaged after blade loop then copied to rotorInducedFlow
+_heli setVariable ["fza_sfmplus_rotorInducedFlowAccum", [[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]
+                                                        ,[0.0,0.0,0.0,0.0]]];
+// Accumulated aerodynamic drag torque reaction on fuselage (N·m), one scalar per rotor
+_heli setVariable ["fza_sfmplus_rotorReactionTorque", [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
 // Fixed-frame flap coefficients (degrees) — updated each frame from decomposed blade moments
 _heli setVariable ["fza_sfmplus_rotorBeta0",       [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]; // collective coning
 _heli setVariable ["fza_sfmplus_rotorA1",          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]; // longitudinal disc tilt

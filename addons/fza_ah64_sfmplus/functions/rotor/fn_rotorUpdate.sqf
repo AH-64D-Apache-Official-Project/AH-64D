@@ -24,8 +24,10 @@ private _mastLength    = [ 0.70
                          ,-0.87];
 private _gearRatio     = [ 72.291
                          , 14.90];
-private _flapTimeConst = [ 2.0
-                         , 0.5];
+private _flapTimeConst = [ [2.0, 3.0]
+                         , [0.5, 0.5]];
+private _inflowAlpha   = [ 0.1
+                         , 0.1];
 private _delta3        = [ 0.5
                          , 0.5];
 private _airfoilTable  = [ getArray (_sfmPlusConfig >> "airfoilTable02")
@@ -56,11 +58,15 @@ private _rollMax       = [  7
 private _collMin       = [  1
                          , -15];
 private _collMid       = [  0
-                         ,  0];
+                         ,  8];
 private _collMax       = [ 19
                          , 27];
 private _animSource    = [ "rotorH"
                          , "rotorV"];
+private _hitPoint      = [ "HitHRotor"
+                         , "hitvrotor"];
+private _dmgThreshold  = [ 0.99
+                         , 0.85];
 
 for "_rotorIndex" from 0 to (_numRotor - 1) do {
     [ _heli
@@ -74,6 +80,7 @@ for "_rotorIndex" from 0 to (_numRotor - 1) do {
     , _mastLength    select _rotorIndex
     , _gearRatio     select _rotorIndex
     , _flapTimeConst select _rotorIndex
+    , _inflowAlpha   select _rotorIndex
     , _delta3        select _rotorIndex
     , _airfoilTable  select _rotorIndex
     , _bladeCutout   select _rotorIndex
@@ -91,5 +98,7 @@ for "_rotorIndex" from 0 to (_numRotor - 1) do {
     , _collMid       select _rotorIndex
     , _collMax       select _rotorIndex
     , _animSource    select _rotorIndex
+    , _hitPoint      select _rotorIndex
+    , _dmgThreshold  select _rotorIndex
     ] call fza_sfmplus_fnc_rotor;
 };
