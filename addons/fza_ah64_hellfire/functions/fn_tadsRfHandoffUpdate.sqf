@@ -14,18 +14,21 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
+#define TADS_RF_HANDOFF_SAMPLE_INTERVAL  0.5
+
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _selectedMissile = _heli getVariable ["fza_ah64_selectedMissile", ""];
 private _laserObj = laserTarget _heli;
 
 private _resetData = {
-    params ["_heliObj"];
-    [_heliObj, "fza_ah64_tadsRfHandoffStart",     -1]      call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffLast",      []]      call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffData",      []]      call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffDelay",     -1]      call fza_fnc_updateNetworkGlobal;
-    [_heliObj, "fza_ah64_tadsRfHandoffLastScanTime", -1]   call fza_fnc_updateNetworkGlobal;
+    params ["_heli"];
+    [_heli, "fza_ah64_tadsRfHandoffStart",     -1]      call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffLast",      []]      call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffData",      []]      call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffDelay",     -1]      call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_tadsRfHandoffLastScanTime", -1]   call fza_fnc_updateNetworkGlobal;
+    _heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
 };
 
 if (isNull _laserObj) exitWith {
@@ -59,23 +62,30 @@ if (_handoffDelay < 0) then {
 };
 
 if (_handoffData isEqualTo []) then {
-    private _avgPos = _pos;
-    private _samples = 1;
-    private _maxSamples = 6;
+    private _lastSampleTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
 
-    if (_lastSample isEqualType [] && {count _lastSample == 2}) then {
-        _lastSample params ["_lastAvgPos", "_lastSamples"];
-        _samples = ((_lastSamples max 1) + 1) min _maxSamples;
-        private _wNew = 1 / _samples;
-        private _wOld = 1 - _wNew;
-        _avgPos = (_lastAvgPos vectorMultiply _wOld) vectorAdd (_pos vectorMultiply _wNew);
-    };
+    // Throttle the position average/broadcast instead of running it every frame.
+    if ((CBA_missionTime - _lastSampleTime) >= TADS_RF_HANDOFF_SAMPLE_INTERVAL) then {
+        _heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", CBA_missionTime];
 
-    [_heli, "fza_ah64_tadsRfHandoffLast", [_avgPos, _samples]] call fza_fnc_updateNetworkGlobal;
+        private _avgPos = _pos;
+        private _samples = 1;
+        private _maxSamples = 6;
 
-    if ((CBA_missionTime - _start) >= _handoffDelay) then {
-        // Freeze handoff package after the randomized handoff delay.
-        [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+        if (_lastSample isEqualType [] && {count _lastSample == 2}) then {
+            _lastSample params ["_lastAvgPos", "_lastSamples"];
+            _samples = ((_lastSamples max 1) + 1) min _maxSamples;
+            private _wNew = 1 / _samples;
+            private _wOld = 1 - _wNew;
+            _avgPos = (_lastAvgPos vectorMultiply _wOld) vectorAdd (_pos vectorMultiply _wNew);
+        };
+
+        [_heli, "fza_ah64_tadsRfHandoffLast", [_avgPos, _samples]] call fza_fnc_updateNetworkGlobal;
+
+        if ((CBA_missionTime - _start) >= _handoffDelay) then {
+            // Freeze handoff package after the randomized handoff delay.
+            [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+        };
     };
 };
 

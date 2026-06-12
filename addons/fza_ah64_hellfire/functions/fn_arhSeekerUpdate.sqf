@@ -98,27 +98,31 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
             };
 
             private _searchClasses = _arhLockTypes;
-
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
 
-            _candidates = _candidates select {
-                ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
-            };
+            private _secondaryTarget = objNull;
+            private _index = 0;
+            private _count = count _candidates;
 
-            if (_candidates isNotEqualTo []) then {
-                private _primaryTargets = _candidates select {
-                    private _targTypeCompare = (_x call BIS_fnc_objectType) # 1;
-                    _targetType isEqualTo _targTypeCompare
-                };
-                private _secondaryTargets = _candidates - _primaryTargets;
+            while {_index < _count && {isNull _target}} do {
+                private _cand = _candidates # _index;
 
-                if (_primaryTargets isNotEqualTo []) then {
-                    _target = [_primaryTargets,   [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
-                } else {
-                    if (_secondaryTargets isNotEqualTo []) then {
-                        _target = [_secondaryTargets, [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
+                if (([_projectile, [getPosASL _cand, speed _cand, _cand], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
+                    private _targTypeCompare = (_cand call BIS_fnc_objectType) # 1;
+                    if (_targetType isEqualTo _targTypeCompare) then {
+                        _target = _cand;
+                    } else {
+                        if (isNull _secondaryTarget) then {
+                            _secondaryTarget = _cand;
+                        };
                     };
                 };
+
+                _index = _index + 1;
+            };
+
+            if (isNull _target) then {
+                _target = _secondaryTarget;
             };
         };
     };
