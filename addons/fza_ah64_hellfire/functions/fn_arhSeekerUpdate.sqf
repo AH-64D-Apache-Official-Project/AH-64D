@@ -49,6 +49,7 @@ if (!_isActive) then {
 };
 
 #define ARH_MIN_SCAN_RADIUS       50
+#define ARH_MAX_SCAN_RADIUS       500
 #define ARH_TERMINAL_RANGE        300
 #define ARH_LOCK_LOSS_GRACE_PERIOD 1
 #define STAGE_ATTACK_TERMINAL      4
@@ -79,9 +80,12 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
         if (CBA_missionTime - _lastTargetPollTime >= _pollInterval) then {
             _seekerStateParams set [4, CBA_missionTime];
 
-            // Cone footprint: tan(halfAngle) * slantDist, capped at FCR_LIMIT_FORCE_LOBL_RANGE
-            private _slantDist    = _distMissileToSearch min FCR_LIMIT_FORCE_LOBL_RANGE;
-            private _coneRadius   = ARH_MIN_SCAN_RADIUS max (_slantDist * tan (_resolvedSeekerAngle / 2));
+            // Cone footprint: tan(halfAngle) * slantDist, rescaled so a seeker at
+            // ARH_REFERENCE_SEEKER_ANGLE naturally reaches ARH_MAX_SCAN_RADIUS at
+            // FCR_LIMIT_FORCE_LOBL_RANGE, then scales down/up from there
+            private _slantDist  = _distMissileToSearch min FCR_LIMIT_FORCE_LOBL_RANGE;
+            private _coneScale  = ARH_MAX_SCAN_RADIUS / (FCR_LIMIT_FORCE_LOBL_RANGE * tan (_cachedSeekerAngle / 2));
+            private _coneRadius = (ARH_MIN_SCAN_RADIUS max (_slantDist * tan (_resolvedSeekerAngle / 2) * _coneScale)) min ARH_MAX_SCAN_RADIUS;
 
             private _searchRadius = if (_doesntHaveTarget) then {
                 _coneRadius
