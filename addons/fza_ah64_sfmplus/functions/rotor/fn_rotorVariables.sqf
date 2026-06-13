@@ -49,6 +49,8 @@ _heli setVariable ["fza_sfmplus_rotorInducedFlowAccum", [[0.0,0.0,0.0,0.0]
                                                         ,[0.0,0.0,0.0,0.0]]];
 // Accumulated aerodynamic drag torque reaction on fuselage (N·m), one scalar per rotor
 _heli setVariable ["fza_sfmplus_rotorReactionTorque", [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+// Accumulated rotor thrust (N) per rotor — sum of all element lift across all blades this frame
+_heli setVariable ["fza_sfmplus_rotorThrustAccum",    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
 // Fixed-frame flap coefficients (degrees) — updated each frame from decomposed blade moments
 _heli setVariable ["fza_sfmplus_rotorBeta0",       [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]; // collective coning
 _heli setVariable ["fza_sfmplus_rotorA1",          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]; // longitudinal disc tilt

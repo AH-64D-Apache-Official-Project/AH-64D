@@ -137,7 +137,7 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
         //Tail rotor thrust force
         if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
             if ([vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isINF) then { _thrustVector = [0.0, 0.0, 0.0]; };
-            //_heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
+            _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
         };
 
     };

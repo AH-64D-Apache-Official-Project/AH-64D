@@ -40,6 +40,7 @@ if (_heli getHitPointDamage _hitPoint < _dmgThreshold && currentPilot _heli == p
 
 // Reset accumulators before blade loop
 [_heli, "fza_sfmplus_rotorReactionTorque", _rotorIndex, 0.0] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_rotorThrustAccum",    _rotorIndex, 0.0] call fza_fnc_setArrayVariable;
 for "_ei" from 0 to (_numElements - 1) do {
     [_heli, "fza_sfmplus_rotorInducedFlowAccum", _rotorIndex, _ei, 0.0] call fza_fnc_setMultiArrayVariable;
 };
@@ -62,6 +63,8 @@ for "_ei" from 0 to (_numElements - 1) do {
 
 // Tail rotor has no flapping hinge — force all flap coefficients to zero
 if (_type == TAIL) then { _beta0 = 0.0; _a1 = 0.0; _b1 = 0.0; };
+
+if (_rotorIndex == 0) then { systemChat format ["a1=%1 b1=%2 pitch=%3 roll=%4", _a1, _b1, _pitchFeather, _rollFeather]; };
 
 private _bladeSpacing = 360.0 / _numBlades;
 for "_bladeIndex" from 0 to (_numBlades - 1) do {
@@ -124,10 +127,24 @@ for "_ei" from 0 to (_numElements - 1) do {
     [_heli, "fza_sfmplus_rotorInducedFlow", _rotorIndex, _ei, ((_viAccum select _ei) / _numBlades)] call fza_fnc_setMultiArrayVariable;
 };
 
+// Feed transmission: required engine torque, rotor thrust, and moment of inertia
+private _reactionTorque = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
+private _reqEngTorque   = if (_gearRatio > 0.0) then { _reactionTorque / _gearRatio } else { 0.0 };
+[_heli, "fza_sfmplus_reqEngTorque", _rotorIndex, _reqEngTorque, true] call fza_fnc_setArrayVariable;
+if (_rotorIndex == 0) then { systemChat format ["reactionTq=%1 reqEngTq=%2 engRefTq=%3 pctTq=%4", _reactionTorque toFixed 0, _reqEngTorque toFixed 1, ((1066.0 * 1000) / 0.105 / 20900) toFixed 1, ((_reqEngTorque / ((1066.0 * 1000) / 0.105 / 20900)) * 100) toFixed 1]; };
+
+private _rotorThrust = (_heli getVariable "fza_sfmplus_rotorThrustAccum") select _rotorIndex;
+[_heli, "fza_sfmplus_rtrThrust", _rotorIndex, _rotorThrust, true] call fza_fnc_setArrayVariable;
+
+private _Icm  = (1.0 / 3.0) * _bladeMass * (_bladeLength * _bladeLength);
+private _Iy   = (1.0 / 12.0) * _bladeMass * (_bladeChord * _bladeChord);
+private _Itot = _Icm;
+private _Jtot = (_Iy + _Itot) * _numBlades;
+[_heli, "fza_sfmplus_rtrMoi", _rotorIndex, _Jtot, true] call fza_fnc_setArrayVariable;
+
 // Apply rotor drag torque reaction to fuselage — main rotor only, opposes rotation direction
 if (_type == MAIN) then {
-    private _reactionTorque = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
-    private _torqueSign     = if (_dir == CW) then { 1.0 } else { -1.0 };
+    private _torqueSign = if (_dir == CW) then { 1.0 } else { -1.0 };
     _heli addTorque (_heli vectorModelToWorld (_uVec vectorMultiply (_reactionTorque * _torqueSign * _deltaTime)));
 };
 

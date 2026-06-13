@@ -222,6 +222,22 @@
             <Turkish>FM sorunlarını gidermek için hata ayıklama çıktısını gösterir</Turkish>
             <Dutch>Geeft debugoutput voor het oplossen van FM-problemen</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL">
+            <Original>Rotor Model</Original>
+            <English>Rotor Model</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_INFO">
+            <Original>Selects the rotor aerodynamic model. Simple is stable and performant. BET (Blade Element Theory) is higher fidelity with induced flow, dissymmetry of lift, and flapping dynamics.</Original>
+            <English>Selects the rotor aerodynamic model. Simple is stable and performant. BET (Blade Element Theory) is higher fidelity with induced flow, dissymmetry of lift, and flapping dynamics.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_SIMPLE">
+            <Original>Simple</Original>
+            <English>Simple</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_BET">
+            <Original>BET [WIP]</Original>
+            <English>BET [WIP]</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM">
             <Original>Aircraft Realism Settings</Original>
             <English>Aircraft Realism Settings</English>

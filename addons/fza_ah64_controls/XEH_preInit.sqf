@@ -158,6 +158,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusRotorModel",
+    "LIST",
+    [(localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL"), (localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_INFO")],
+    [_projName, "Flight model"],
+    [[0, 1], [(localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_SIMPLE"), (localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_BET")], 0],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_volumeMaster",
     "SLIDER",
     [(localize "STR_FZA_AH64_SETTINGS_MASTER_VOLUME"), (localize "STR_FZA_AH64_SETTINGS_MASTER_VOLUME_INFO")],

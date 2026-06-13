@@ -55,6 +55,7 @@ for "_i" from 0 to (_numElements - 1) do {
 	private _up = vectorNormalized (_spanDir vectorCrossProduct _chordLine);
 	if ((_up vectorDotProduct _uVec) < 0.0) then { _up = _up vectorMultiply -1.0; };
 
+
 	// Local in-plane wind at this element before induced flow — used for Glauert inflow
 	private _localWind    = _relWind vectorAdd _localRelWind vectorAdd _rotRelWind;
 	private _localAxial   = _uVec vectorMultiply (_uVec vectorDotProduct _localWind);
@@ -111,16 +112,32 @@ for "_i" from 0 to (_numElements - 1) do {
 	[_heli, "fza_sfmplus_rotorInducedFlowAccum", _rotorIndex, _i, (_viAccum + _viNew)] call fza_fnc_setMultiArrayVariable;
 
 	_totalFlapMoment = _totalFlapMoment + (_lift * _r);
-	_totalDragTorque = _totalDragTorque + (_drag * _r * _bladeScale);
 
 	private _liftVector = _relWindNormalized vectorCrossProduct _up;
 	_liftVector         = _liftVector vectorCrossProduct _relWindNormalized;
-	_liftVector         = (vectorNormalized _liftVector) vectorMultiply (_lift * _deltaTime * _bladeScale);
+	private _liftDir    = vectorNormalized _liftVector;
+	private _dragDir    = vectorNormalized _relWind;
 
-	private _dragVector = (vectorNormalized _relWind) vectorMultiply (_drag * _deltaTime * _bladeScale * -1.0);
+	// Total in-plane torque: project combined aero force onto tangential (rotation) direction.
+	// Negative because the tangential direction points in the direction of blade travel —
+	// both induced drag (lift tilted aft by inflow) and profile drag oppose rotation.
+	private _tangentialDir  = vectorNormalized (_uVec vectorCrossProduct _spanDir);
+	private _inPlaneTorque  = -((_liftDir vectorDotProduct _tangentialDir) * _lift + (_dragDir vectorDotProduct _tangentialDir) * _drag) * _r * _bladeScale;
+	_totalDragTorque = _totalDragTorque + _inPlaneTorque;
+
+	private _thrustAccum = (_heli getVariable "fza_sfmplus_rotorThrustAccum") select _rotorIndex;
+	[_heli, "fza_sfmplus_rotorThrustAccum", _rotorIndex, (_thrustAccum + (_lift * _bladeScale))] call fza_fnc_setArrayVariable;
+
+	_liftVector = _liftDir vectorMultiply (_lift * _deltaTime * _bladeScale);
+
+	private _dragVector = _dragDir vectorMultiply (_drag * _deltaTime * _bladeScale * -1.0);
 
 	_heli addForce [_heli vectorModelToWorld _liftVector, _liftPos];
 	_heli addForce [_heli vectorModelToWorld _dragVector, _liftPos];
+
+	if (_rotorIndex == 1 && _bladeIndex == 0 && _i == 3) then {
+		systemChat format ["tr liftVec=%1 liftPos=%2 worldLift=%3", _liftVector, _liftPos, (_heli vectorModelToWorld _liftVector)];
+	};
 
 	#ifdef __A3_DEBUG__
 	[_heli, _liftPos, _liftPos vectorAdd (_liftVector vectorMultiply (1.0 / 30.0)), "green"] call fza_fnc_debugDrawLine;

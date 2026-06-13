@@ -31,7 +31,7 @@ private _inflowAlpha   = [ 0.1
 private _delta3        = [ 0.5
                          , 0.5];
 private _airfoilTable  = [ getArray (_sfmPlusConfig >> "airfoilTable02")
-                         , getArray (_sfmPlusConfig >> "airfoilTable02")];
+                         , getArray (_sfmPlusConfig >> "airfoilTable01")];
 private _bladeCutout   = [ 1.15
                          , 0.15];
 private _bladeLength   = [ 7.315
@@ -58,7 +58,7 @@ private _rollMax       = [  7
 private _collMin       = [  1
                          , -15];
 private _collMid       = [  0
-                         ,  8];
+                         ,  0];
 private _collMax       = [ 19
                          , 27];
 private _animSource    = [ "rotorH"
@@ -67,6 +67,16 @@ private _hitPoint      = [ "HitHRotor"
                          , "hitvrotor"];
 private _dmgThreshold  = [ 0.99
                          , 0.85];
+
+// Debug: draw CG position as a sphere with crosshair lines
+private _cgPos = getCenterOfMass _heli;
+private _cgR   = 5.0;
+[_heli, 16, _cgPos, _cgR, 0, "red"]   call fza_fnc_debugDrawCircle;
+[_heli, 16, _cgPos, _cgR, 1, "red"]   call fza_fnc_debugDrawCircle;
+[_heli, 16, _cgPos, _cgR, 2, "red"]   call fza_fnc_debugDrawCircle;
+[_heli, _cgPos vectorAdd [-_cgR, 0, 0], _cgPos vectorAdd [_cgR, 0, 0], "white"] call fza_fnc_debugDrawLine;
+[_heli, _cgPos vectorAdd [0, -_cgR, 0], _cgPos vectorAdd [0, _cgR, 0], "white"] call fza_fnc_debugDrawLine;
+[_heli, _cgPos vectorAdd [0, 0, -_cgR], _cgPos vectorAdd [0, 0, _cgR], "white"] call fza_fnc_debugDrawLine;
 
 for "_rotorIndex" from 0 to (_numRotor - 1) do {
     [ _heli

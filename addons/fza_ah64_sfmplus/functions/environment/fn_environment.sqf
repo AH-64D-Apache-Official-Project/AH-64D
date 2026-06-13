@@ -56,6 +56,6 @@ _heli setVariable ["fza_sfmplus_rho", _dryAirDensity];
 //Wind world-space velocity vector — direction/speed display is handled in getVelocities
 private _windSpeed         = vectorMagnitude wind;
 private _windDirToward     = (windDir + 180) mod 360;
-private _velWindWorldSpace = [_windSpeed * sin _windDirToward, _windSpeed * cos _windDirToward, 0.0];
+private _velWindWorldSpace = [0,0,0];//[_windSpeed * sin _windDirToward, _windSpeed * cos _windDirToward, 0.0];
 
 _heli setVariable ["fza_sfmplus_velWindWorldSpace", _velWindWorldSpace];
