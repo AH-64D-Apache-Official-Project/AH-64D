@@ -64,7 +64,6 @@ for "_ei" from 0 to (_numElements - 1) do {
 // Tail rotor has no flapping hinge — force all flap coefficients to zero
 if (_type == TAIL) then { _beta0 = 0.0; _a1 = 0.0; _b1 = 0.0; };
 
-if (_rotorIndex == 0) then { systemChat format ["a1=%1 b1=%2 pitch=%3 roll=%4", _a1, _b1, _pitchFeather, _rollFeather]; };
 
 private _bladeSpacing = 360.0 / _numBlades;
 for "_bladeIndex" from 0 to (_numBlades - 1) do {
@@ -121,17 +120,21 @@ for "_bladeIndex" from 0 to (_numBlades - 1) do {
 	#endif
 };
 
-// Average accumulated inflow across all blades and publish for next frame
+// Average raw viRaw across blades, lerp toward it once, publish for next frame.
 private _viAccum = (_heli getVariable "fza_sfmplus_rotorInducedFlowAccum") select _rotorIndex;
 for "_ei" from 0 to (_numElements - 1) do {
-    [_heli, "fza_sfmplus_rotorInducedFlow", _rotorIndex, _ei, ((_viAccum select _ei) / _numBlades)] call fza_fnc_setMultiArrayVariable;
+    private _viRawAvg = (_viAccum select _ei) / _numBlades;
+    private _viPrev   = ((_heli getVariable "fza_sfmplus_rotorInducedFlow") select _rotorIndex) select _ei;
+    private _viNext   = [_viPrev, _viRawAvg, _inflowAlpha] call BIS_fnc_lerp;
+    [_heli, "fza_sfmplus_rotorInducedFlow", _rotorIndex, _ei, _viNext] call fza_fnc_setMultiArrayVariable;
 };
 
-// Feed transmission: required engine torque, rotor thrust, and moment of inertia
-private _reactionTorque = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
+// Convert accumulated blade power to rotor shaft torque (Q = P / omega),
+// then refer to engine shaft via gear ratio.
+private _totalPower     = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
+private _reactionTorque = if (_omega > 0.0) then { _totalPower / _omega } else { 0.0 };
 private _reqEngTorque   = if (_gearRatio > 0.0) then { _reactionTorque / _gearRatio } else { 0.0 };
 [_heli, "fza_sfmplus_reqEngTorque", _rotorIndex, _reqEngTorque, true] call fza_fnc_setArrayVariable;
-if (_rotorIndex == 0) then { systemChat format ["reactionTq=%1 reqEngTq=%2 engRefTq=%3 pctTq=%4", _reactionTorque toFixed 0, _reqEngTorque toFixed 1, ((1066.0 * 1000) / 0.105 / 20900) toFixed 1, ((_reqEngTorque / ((1066.0 * 1000) / 0.105 / 20900)) * 100) toFixed 1]; };
 
 private _rotorThrust = (_heli getVariable "fza_sfmplus_rotorThrustAccum") select _rotorIndex;
 [_heli, "fza_sfmplus_rtrThrust", _rotorIndex, _rotorThrust, true] call fza_fnc_setArrayVariable;

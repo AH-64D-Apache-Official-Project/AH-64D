@@ -1,10 +1,9 @@
 params ["_heli", "_bladeIndex", "_rotorIndex", "_deltaTime", "_numElements", "_numBlades", "_pos", "_uVec", "_omega", "_airfoilTable", "_bladeCutout", "_bladeLength", "_inflowAlpha", "_a_rootPos", "_b_tipPos", "_c_rootLeadingEdge", "_d_tipLeadingEdge", "_e_tipTrailingEdge", "_f_rootTrailingEdge"];
 
 private _rho              = _heli getVariable "fza_sfmplus_rho";
-private _heliCOM          = getCenterOfMass _heli;
 private _dissymetryOfLift = false;
 private _totalFlapMoment  = 0.0;
-private _totalDragTorque  = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
+private _totalPower       = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
 
 private _bladeScale = 1.0;
 
@@ -42,24 +41,21 @@ for "_i" from 0 to (_numElements - 1) do {
 		[0.0, 0.0, -(_velModel select 2)]
 	};
 
-	private _spanDir             = vectorNormalized (_b vectorDiff _a);
-	private _fromAeroCenterToCOM = _liftPos vectorDiff _heliCOM;
-	private _angularVel          = _heli getVariable "fza_sfmplus_angVelModelSpace";
-	private _localRelWind        = _angularVel vectorCrossProduct _fromAeroCenterToCOM;
+	private _spanDir    = vectorNormalized (_b vectorDiff _a);
 
 	private _radialVec  = (_liftPos vectorDiff _pos) vectorDiff (_uVec vectorMultiply ((_liftPos vectorDiff _pos) vectorDotProduct _uVec));
 	private _r          = vectorMagnitude _radialVec;
-	//systemChat format ["%1 - %2 - %3 - %4", _uVec, _spanDir, _r, _omega];
 	private _rotRelWind = (_uVec vectorCrossProduct _spanDir) vectorMultiply (_r * _omega * -1.0);
 
 	private _up = vectorNormalized (_spanDir vectorCrossProduct _chordLine);
 	if ((_up vectorDotProduct _uVec) < 0.0) then { _up = _up vectorMultiply -1.0; };
 
+	private _localWind   = _relWind vectorAdd _rotRelWind;
 
-	// Local in-plane wind at this element before induced flow — used for Glauert inflow
-	private _localWind    = _relWind vectorAdd _localRelWind vectorAdd _rotRelWind;
-	private _localAxial   = _uVec vectorMultiply (_uVec vectorDotProduct _localWind);
-	private _localLatVel  = vectorMagnitude (_localWind vectorDiff _localAxial);
+	// Freestream axial and lateral for Glauert inflow — freestream only, no rotation.
+	private _vc          = _uVec vectorDotProduct _relWind;
+	private _localAxial  = _uVec vectorMultiply _vc;
+	private _localLatVel = vectorMagnitude (_relWind vectorDiff _localAxial);
 
 	// Apply induced inflow downward through disc (opposes lift direction)
 	private _inducedWind = _uVec vectorMultiply (-_vi);
@@ -93,7 +89,7 @@ for "_i" from 0 to (_numElements - 1) do {
 	private _CD = [_airfoilTable, _AoA] call fza_fnc_linearInterp select 2;
 
 	private _lift = _CL * _q;
-	private _drag = _CD * _q;
+	private _drag = (_CD min 0.15) * _q;
 
 	// Update induced inflow velocity for this element via Glauert inflow model.
 	// Accounts for axial (climb/descent) and lateral (forward flight) freestream,
@@ -101,15 +97,16 @@ for "_i" from 0 to (_numElements - 1) do {
 	private _r_in  = _bladeCutout + (_spanInboard  * (_bladeLength - _bladeCutout));
 	private _r_out = _bladeCutout + (_spanOutboard  * (_bladeLength - _bladeCutout));
 	private _annularArea = pi * ((_r_out * _r_out) - (_r_in * _r_in));
-	private _viNew = if ((_annularArea > 0.0) && (_rho > 0.0)) then {
-		private _T_elem    = (_lift * _bladeScale) max 0.0;
-		private _vc        = _uVec vectorDotProduct _localWind;
-		private _denom     = 2.0 * _rho * _annularArea * (sqrt (((_vc + _vi) * (_vc + _vi)) + (_localLatVel * _localLatVel)));
-		private _viRaw     = if (_denom > 0.0) then { _T_elem / _denom } else { 0.0 };
-		[_vi, _viRaw, _inflowAlpha] call BIS_fnc_lerp
+	// Compute raw inflow for this element and accumulate across blades.
+	// The lerp toward viRaw is applied once in fn_rotor after averaging, not here.
+	private _viRaw = if ((_annularArea > 0.0) && (_rho > 0.0)) then {
+		private _T_elem = _lift * _bladeScale;
+		private _denom  = 2.0 * _rho * _annularArea * (sqrt (((_vc + _vi) * (_vc + _vi)) + (_localLatVel * _localLatVel)));
+		private _raw    = if (_denom > 0.0) then { _T_elem / _denom } else { 0.0 };
+		[_raw, -25.0, 25.0] call BIS_fnc_clamp
 	} else { 0.0 };
 	private _viAccum = ((_heli getVariable "fza_sfmplus_rotorInducedFlowAccum") select _rotorIndex) select _i;
-	[_heli, "fza_sfmplus_rotorInducedFlowAccum", _rotorIndex, _i, (_viAccum + _viNew)] call fza_fnc_setMultiArrayVariable;
+	[_heli, "fza_sfmplus_rotorInducedFlowAccum", _rotorIndex, _i, (_viAccum + _viRaw)] call fza_fnc_setMultiArrayVariable;
 
 	_totalFlapMoment = _totalFlapMoment + (_lift * _r);
 
@@ -118,12 +115,15 @@ for "_i" from 0 to (_numElements - 1) do {
 	private _liftDir    = vectorNormalized _liftVector;
 	private _dragDir    = vectorNormalized _relWind;
 
-	// Total in-plane torque: project combined aero force onto tangential (rotation) direction.
-	// Negative because the tangential direction points in the direction of blade travel —
-	// both induced drag (lift tilted aft by inflow) and profile drag oppose rotation.
-	private _tangentialDir  = vectorNormalized (_uVec vectorCrossProduct _spanDir);
-	private _inPlaneTorque  = -((_liftDir vectorDotProduct _tangentialDir) * _lift + (_dragDir vectorDotProduct _tangentialDir) * _drag) * _r * _bladeScale;
-	_totalDragTorque = _totalDragTorque + _inPlaneTorque;
+	// Power-based rotor load:
+	// Induced power = thrust element * induced inflow velocity (energy spent accelerating air downward)
+	// Profile power = drag force * tangential blade speed (energy spent overcoming blade drag)
+	// Both oppose rotation; sum gives total shaft power consumed by this element.
+	private _vTangential  = _r * _omega;
+	private _P_induced    = _lift * _vi;
+	private _P_profile    = _drag * _vTangential;
+	_totalPower = _totalPower + (_P_induced + _P_profile) * _bladeScale;
+
 
 	private _thrustAccum = (_heli getVariable "fza_sfmplus_rotorThrustAccum") select _rotorIndex;
 	[_heli, "fza_sfmplus_rotorThrustAccum", _rotorIndex, (_thrustAccum + (_lift * _bladeScale))] call fza_fnc_setArrayVariable;
@@ -135,9 +135,6 @@ for "_i" from 0 to (_numElements - 1) do {
 	_heli addForce [_heli vectorModelToWorld _liftVector, _liftPos];
 	_heli addForce [_heli vectorModelToWorld _dragVector, _liftPos];
 
-	if (_rotorIndex == 1 && _bladeIndex == 0 && _i == 3) then {
-		systemChat format ["tr liftVec=%1 liftPos=%2 worldLift=%3", _liftVector, _liftPos, (_heli vectorModelToWorld _liftVector)];
-	};
 
 	#ifdef __A3_DEBUG__
 	[_heli, _liftPos, _liftPos vectorAdd (_liftVector vectorMultiply (1.0 / 30.0)), "green"] call fza_fnc_debugDrawLine;
@@ -149,4 +146,4 @@ for "_i" from 0 to (_numElements - 1) do {
 
 [_heli, "fza_sfmplus_rotorFlapMoment", _rotorIndex, _bladeIndex, _totalFlapMoment] call fza_fnc_setMultiArrayVariable;
 
-[_heli, "fza_sfmplus_rotorReactionTorque", _rotorIndex, _totalDragTorque] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_rotorReactionTorque", _rotorIndex, _totalPower] call fza_fnc_setArrayVariable;

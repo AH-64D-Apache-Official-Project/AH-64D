@@ -35,6 +35,7 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
             class engine2 {R;};
+            class engineBET {R;};
             class engineController {R;};
             class engineVariables {R;};
         };
