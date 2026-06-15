@@ -129,6 +129,12 @@ _seekerStateParams set [11, _arhLockTypes];
 _launchParams set [3, _attackProfile];
 _launchParams set [0, _targObj];
 
+/////SYSTEMS INTERLINK/////
+
+// Firing dumps any cached TADS->RF handoff package; the next shot needs fresh target data.
+[_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
+
+
 // Shot-at file
 private _shotFcrData = [];
 if (_handoffSource == "FCR") then {

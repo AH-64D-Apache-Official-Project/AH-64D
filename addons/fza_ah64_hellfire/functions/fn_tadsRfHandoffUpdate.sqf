@@ -2,8 +2,9 @@
 Function: fza_hellfire_fnc_tadsRfHandoffUpdate
 Description:
     Builds and caches a frozen TADS->RF handoff package after a per-handoff
-    random delay (2.5 to 5.0 seconds) of continuous laser designation.
-    Package resets when the laser is lost/off.
+    random delay (2.5 to 5.0 seconds) of continuous laser designation. The
+    package persists across the laser going on/off and is only dumped on a
+    weapon reselect, leaving TADS, or firing (see fza_hellfire_fnc_arhOnFired).
 Parameters:
     _heli - The helicopter
 Returns:
@@ -18,73 +19,74 @@ params ["_heli"];
 
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _selectedMissile = _heli getVariable ["fza_ah64_selectedMissile", ""];
+private _was = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 private _laserObj = laserTarget _heli;
 
-private _resetData = {
-    params ["_heli"];
-    [_heli, "fza_ah64_tadsRfHandoffStart",     -1]      call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffLast",      []]      call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffData",      []]      call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffDelay",     -1]      call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffLastScanTime", -1]   call fza_fnc_updateNetworkGlobal;
-    _heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
+// Cached handoff package is sticky across laser on/off (gunners routinely
+// release the laser right as they fire). Only dump it once AGM114L+TADS is
+// no longer selected (covers weapon reselect and leaving TADS); firing
+// resets it via fza_hellfire_fnc_arhOnFired.
+if (_selectedMissile != "fza_agm114l_wep" /*|| _sight != SIGHT_TADS*/ || _was != WAS_WEAPON_MSL) exitWith {
+    [_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
 };
 
-if (isNull _laserObj) exitWith {
-    [_heli] call _resetData;
-};
+private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
 
-if (_selectedMissile != "fza_agm114l_wep" || _sight != SIGHT_TADS) exitWith {};
+// With no laser and no frozen package yet, there's nothing to sample or scan from.
+if (isNull _laserObj && {_handoffData isEqualTo []}) exitWith {};
 
 private _start = _heli getVariable ["fza_ah64_tadsRfHandoffStart", -1];
 private _handoffDelay = _heli getVariable ["fza_ah64_tadsRfHandoffDelay", -1];
 private _lastSample = _heli getVariable ["fza_ah64_tadsRfHandoffLast", []];
-private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
-private _pos = getPosASL _laserObj;
 
-if (_start < 0) then {
-    _handoffDelay = 2.5 + random 2.5;
-    [_heli, "fza_ah64_tadsRfHandoffStart", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffLast", [_pos, 1]] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffData", []] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_tadsRfHandoffLastScanTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
-    _start = CBA_missionTime;
-    _lastSample = [_pos, 1];
-    _handoffData = [];
-};
+// Sampling/freezing only makes sense while actively lasing; a frozen package
+// keeps the LOBL validation/scan below running even after the laser is off.
+if (!isNull _laserObj) then {
+    private _pos = getPosASL _laserObj;
 
-if (_handoffDelay < 0) then {
-    // Backward-compat fallback for existing vehicles that lack this runtime var.
-    _handoffDelay = 2.5 + random 2.5;
-    [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
-};
+    if (_start < 0) then {
+        _handoffDelay = 2.5 + random 2.5;
+        [_heli, "fza_ah64_tadsRfHandoffStart", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_tadsRfHandoffLast", [_pos, 1]] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_tadsRfHandoffData", []] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_tadsRfHandoffLastScanTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+        _start = CBA_missionTime;
+        _lastSample = [_pos, 1];
+        _handoffData = [];
+    };
 
-if (_handoffData isEqualTo []) then {
-    private _lastSampleTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
+    if (_handoffDelay < 0) then {
+        // Backward-compat fallback for existing vehicles that lack this runtime var.
+        _handoffDelay = 2.5 + random 2.5;
+        [_heli, "fza_ah64_tadsRfHandoffDelay", _handoffDelay] call fza_fnc_updateNetworkGlobal;
+    };
 
-    // Throttle the position average/broadcast instead of running it every frame.
-    if ((CBA_missionTime - _lastSampleTime) >= TADS_RF_HANDOFF_SAMPLE_INTERVAL) then {
-        _heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", CBA_missionTime];
+    if (_handoffData isEqualTo []) then {
+        private _lastSampleTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
 
-        private _avgPos = _pos;
-        private _samples = 1;
-        private _maxSamples = 6;
+        // Throttle the position average/broadcast instead of running it every frame.
+        if ((CBA_missionTime - _lastSampleTime) >= TADS_RF_HANDOFF_SAMPLE_INTERVAL) then {
+            _heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", CBA_missionTime];
 
-        if (_lastSample isEqualType [] && {count _lastSample == 2}) then {
-            _lastSample params ["_lastAvgPos", "_lastSamples"];
-            _samples = ((_lastSamples max 1) + 1) min _maxSamples;
-            private _wNew = 1 / _samples;
-            private _wOld = 1 - _wNew;
-            _avgPos = (_lastAvgPos vectorMultiply _wOld) vectorAdd (_pos vectorMultiply _wNew);
-        };
+            private _avgPos = _pos;
+            private _samples = 1;
+            private _maxSamples = 6;
 
-        [_heli, "fza_ah64_tadsRfHandoffLast", [_avgPos, _samples]] call fza_fnc_updateNetworkGlobal;
+            if (_lastSample isEqualType [] && {count _lastSample == 2}) then {
+                _lastSample params ["_lastAvgPos", "_lastSamples"];
+                _samples = ((_lastSamples max 1) + 1) min _maxSamples;
+                private _wNew = 1 / _samples;
+                private _wOld = 1 - _wNew;
+                _avgPos = (_lastAvgPos vectorMultiply _wOld) vectorAdd (_pos vectorMultiply _wNew);
+            };
 
-        if ((CBA_missionTime - _start) >= _handoffDelay) then {
-            // Freeze handoff package after the randomized handoff delay.
-            [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_tadsRfHandoffLast", [_avgPos, _samples]] call fza_fnc_updateNetworkGlobal;
+
+            if ((CBA_missionTime - _start) >= _handoffDelay) then {
+                // Freeze handoff package after the randomized handoff delay.
+                [_heli, "fza_ah64_tadsRfHandoffData", [_avgPos, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+            };
         };
     };
 };
