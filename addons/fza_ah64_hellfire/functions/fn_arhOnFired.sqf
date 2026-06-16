@@ -21,7 +21,8 @@ _stateParams params ["", "_seekerStateParams"];
 
 private _heli = vehicle _shooter;
 
-#define SCALE_METERS_KM 0.001
+#define SCALE_METERS_KM      0.001
+#define STAGE_ATTACK_TERMINAL 4
 
 private _seekerAngle = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
 
@@ -102,10 +103,7 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _attackProfile = "hellfire";
     _isActive      = true;
 
-    private _atkProfileState = _stateParams # 2;
-    _atkProfileState pushBack 4;
-    _atkProfileState pushBack 0;
-    _atkProfileState pushBack [getPosASL _projectile select 2, 0];
+    _stateParams set [2, [STAGE_ATTACK_TERMINAL, 0, [getPosASL _projectile select 2, 0]]];
 };
 
 if (_handoffSource == "FCR") then {

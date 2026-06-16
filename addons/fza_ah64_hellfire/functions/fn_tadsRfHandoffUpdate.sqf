@@ -26,7 +26,7 @@ private _laserObj = laserTarget _heli;
 // release the laser right as they fire). Only dump it once AGM114L+TADS is
 // no longer selected (covers weapon reselect and leaving TADS); firing
 // resets it via fza_hellfire_fnc_arhOnFired.
-if (_selectedMissile != "fza_agm114l_wep" /*|| _sight != SIGHT_TADS*/ || _was != WAS_WEAPON_MSL) exitWith {
+if (_selectedMissile != "fza_agm114l_wep" || _sight != SIGHT_TADS || _was != WAS_WEAPON_MSL) exitWith {
     [_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
 };
 
