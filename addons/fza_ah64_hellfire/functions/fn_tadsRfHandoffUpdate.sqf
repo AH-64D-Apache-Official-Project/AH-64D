@@ -26,7 +26,7 @@ private _laserObj = laserTarget _heli;
 // release the laser right as they fire). Only dump it once AGM114L+TADS is
 // no longer selected (covers weapon reselect and leaving TADS); firing
 // resets it via fza_hellfire_fnc_arhOnFired.
-if (_selectedMissile != "fza_agm114l_wep" || _sight != SIGHT_TADS || _was != WAS_WEAPON_MSL) exitWith {
+if (_selectedMissile != "fza_agm114l_wep" /*|| _sight != SIGHT_TADS*/ || _was != WAS_WEAPON_MSL) exitWith {
     [_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
 };
 
@@ -131,9 +131,9 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
 
     if ((CBA_missionTime - _start) < _handoffDelay) exitWith {};
 
-    // Throttle acquisition scan to at most once every 2 seconds.
+    // Throttle acquisition scan to at most once every 0.2 seconds.
     private _lastScanTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastScanTime", -1];
-    if ((CBA_missionTime - _lastScanTime) < 2) exitWith {};
+    if ((CBA_missionTime - _lastScanTime) < 0.2) exitWith {};
     [_heli, "fza_ah64_tadsRfHandoffLastScanTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
 
     // Lock lost or not yet acquired — scan for a new candidate.
