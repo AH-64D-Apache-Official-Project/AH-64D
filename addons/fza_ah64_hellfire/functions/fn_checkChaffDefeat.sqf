@@ -20,7 +20,7 @@ _chaffNearby = _chaffNearby select {
     // 8 = radar blocking (bit 3)
     (([getNumber (configOf _x >> "weaponLockSystem"), 4] call ace_common_fnc_binarizeNumber) select 3)
     && { [_seeker, getPosASLVisual _x, _seekerAngle] call fza_hellfire_fnc_isTargetInSeekerCone }
-    && { [_seeker, _x, false] call ace_missileguidance_fnc_checkLos }
+    && { [_seeker, _x, false] call fza_hellfire_fnc_checkLos }
 };
 
 private _perChaffChance = (RF_CM_PER_CHAFF_CHANCE * _chaffCoef) max 0 min 0.95;
