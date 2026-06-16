@@ -26,8 +26,8 @@ if (!_inConstraints)                   exitWith { [false, false] };
 private _fnCanSee = {
     params ["_seeker", "_targObj"];
     !isNull _targObj && {
-        [_seeker, _targObj, false] call fza_hellfire_fnc_checkLos
-        || [_seeker, _targObj, true] call fza_hellfire_fnc_checkLos
+        [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos
+        || [_seeker, _targObj, true] call ace_missileguidance_fnc_checkLos
     }
 };
 

@@ -6,7 +6,7 @@ Description: Initialises the ARH seeker state at launch. Reads FCR NTS data,
     seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
     calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
     lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle,
-    dbsOffset, arhLockTypes]
+    dbsOffset, lastCmCheckTime, lastDecoyTime]
 Parameters:
     _firedEH      - Full ACE fired-EH array
     _launchParams - ACE launch params (mutated in-place)
@@ -23,10 +23,9 @@ private _heli = vehicle _shooter;
 
 #define SCALE_METERS_KM 0.001
 
-private _seekerAngle   = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
-private _arhLockTypes  = getArray  (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
+private _seekerAngle = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
 
-(_heli getVariable ["fza_ah64_fcrNts", [objNull, [0,0,0], []]]) params ["_targObj", "_targPos", "_fcrData"];
+_heli getVariable "fza_ah64_fcrNts" params ["_targObj", "_targPos", "_fcrData"];
 
 private _handoffSource = "FCR";
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
@@ -58,9 +57,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [2, (getPosASL _heli) distance _targPos];
     _targetData set [3, [0, 0, 0]];
     _targetData set [4, [0, 0, 0]];
-};
 
-if (_targPos isNotEqualTo [0, 0, 0]) then {
     // Time-of-flight lookup table: [range_km, tof_seconds]
     private _hellfireTOF = [[0,0],[1,3],[2,7],[3,10],[4,14],[5,19],[6,24],[7,29],[8,36],[9,44]];
     private _rangeKm     = (_targPos distance _heli) * SCALE_METERS_KM;
@@ -105,12 +102,18 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _attackProfile = "hellfire";
     _isActive      = true;
 
-    _stateParams set [2, [4, 0, [getPosASL _projectile select 2, 0]]];
+    private _atkProfileState = _stateParams # 2;
+    _atkProfileState pushBack 4;
+    _atkProfileState pushBack 0;
+    _atkProfileState pushBack [getPosASL _projectile select 2, 0];
 };
 
 if (_handoffSource == "FCR") then {
     [_heli] call fza_fcr_fnc_cycleNTS;
 };
+
+// Firing dumps any cached TADS->RF handoff package; the next shot needs fresh target data.
+[_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
 
 // Seeker state
 _seekerStateParams set [0, _isActive];
@@ -124,16 +127,11 @@ _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
 _seekerStateParams set [9, _seekerAngle];
 _seekerStateParams set [10, _dbsOffset];
-_seekerStateParams set [11, _arhLockTypes];
+_seekerStateParams set [11, -1];
+_seekerStateParams set [12, -1];
 
 _launchParams set [3, _attackProfile];
 _launchParams set [0, _targObj];
-
-/////SYSTEMS INTERLINK/////
-
-// Firing dumps any cached TADS->RF handoff package; the next shot needs fresh target data.
-[_heli] call fza_hellfire_fnc_tadsRfHandoffReset;
-
 
 // Shot-at file
 private _shotFcrData = [];

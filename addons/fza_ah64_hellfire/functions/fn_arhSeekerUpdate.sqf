@@ -5,7 +5,7 @@ Description: Per-tick ARH seeker update for the AGM-114L. Returns the world
     seekerStateParams: [isActive, timeWhenActive, expectedTargetPos,
     calculatedSearchPos, lastTargetPollTime, lastKnownVelocity,
     lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle,
-    dbsOffset, arhLockTypes]
+    dbsOffset, lastCmCheckTime, lastDecoyTime]
 Parameters:
     _args              - ACE guidance args array
     _seekerStateParams - ARH seeker state array
@@ -31,7 +31,8 @@ _seekerStateParams params [
     "_targetType",
     ["_cachedSeekerAngle", -1],
     ["_dbsOffset", [0, 0, 0]],
-    ["_arhLockTypes", []]
+    ["_lastCmCheckTime", -1],
+    ["_lastDecoyTime", -1]
 ];
 
 private _resolvedSeekerAngle = [_seekerAngle, _cachedSeekerAngle] select (_cachedSeekerAngle >= 0);
@@ -44,8 +45,8 @@ if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitWith {
 
 if (!_isActive) then {
     _seekerStateParams set [0, true];
-    private _activationDist = (getPosASL _projectile) vectorDistance _calculatedSearchPos;
-    _projectile setVariable ["fza_dbsFadeHalfDist", _activationDist * 0.5];
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
 };
 
 #define ARH_MIN_SCAN_RADIUS       50
@@ -56,12 +57,14 @@ if (!_isActive) then {
 
 private _target = objNull;
 private _hadTarget = !_doesntHaveTarget;
+private _canReacquire = (CBA_missionTime - _lastDecoyTime) >= RF_REACQUIRE_DELAY;
 
 // Direct-track
-if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
+if (_canReacquire && {([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1}) then {
     _target = _lastTarget;
 } else {
-    
+    if (!_canReacquire) exitWith {};
+
     private _lockLostTime = _projectile getVariable ["fza_lockLostTime", -1];
     if (_lockLostTime < 0 && _hadTarget) then {
         _lockLostTime = CBA_missionTime;
@@ -97,33 +100,49 @@ if (([_projectile, [getPosASL _lastTarget, speed _lastTarget, _lastTarget], true
                 ]
             };
 
-            private _searchClasses = _arhLockTypes;
+            private _searchClasses = getArray (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "fza_arhLockTypes");
+
             private _candidates = nearestObjects [ASLToAGL _calculatedSearchPos, _searchClasses, _searchRadius, false];
 
-            private _secondaryTarget = objNull;
-            private _index = 0;
-            private _count = count _candidates;
+            _candidates = _candidates select {
+                private _radarSig  = getNumber (configOf _x >> "radarTargetSize");
+                if (_radarSig <= 0) then { _radarSig = 1.0 };
+                private _normRange = ((_x distance (ASLToAGL _calculatedSearchPos)) / FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) min 1;
+                private _detectionProb = _radarSig ^ (1 + _normRange);
+                (random 1 <= _detectionProb) && {
+                    ([_projectile, [getPosASL _x, speed _x, _x], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+                }
+            };
 
-            while {_index < _count && {isNull _target}} do {
-                private _cand = _candidates # _index;
+            if (_candidates isNotEqualTo []) then {
+                private _primaryTargets = _candidates select {
+                    private _targTypeCompare = (_x call BIS_fnc_objectType) # 1;
+                    _targetType isEqualTo _targTypeCompare
+                };
+                private _secondaryTargets = _candidates - _primaryTargets;
 
-                if (([_projectile, [getPosASL _cand, speed _cand, _cand], true, _resolvedSeekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) then {
-                    private _targTypeCompare = (_cand call BIS_fnc_objectType) # 1;
-                    if (_targetType isEqualTo _targTypeCompare) then {
-                        _target = _cand;
-                    } else {
-                        if (isNull _secondaryTarget) then {
-                            _secondaryTarget = _cand;
-                        };
+                if (_primaryTargets isNotEqualTo []) then {
+                    _target = [_primaryTargets,   [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
+                } else {
+                    if (_secondaryTargets isNotEqualTo []) then {
+                        _target = [_secondaryTargets, [], { _x distance _calculatedSearchPos }, "ASCEND"] call BIS_fnc_sortBy select 0;
                     };
                 };
-
-                _index = _index + 1;
             };
+        };
+    };
+};
 
-            if (isNull _target) then {
-                _target = _secondaryTarget;
-            };
+if !(isNull _target) then {
+    private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
+    if ((CBA_missionTime - _lastCmCheckTime) >= RF_CM_CHECK_INTERVAL_SEEKER) then {
+        _seekerStateParams set [11, CBA_missionTime];
+
+        private _chaffDefeated = [_projectile, _target, _resolvedSeekerAngle, _chaffCoef] call fza_hellfire_fnc_checkChaffDefeat;
+        if (_chaffDefeated) then {
+            _target = objNull;
+            _seekerStateParams set [7, true];
+            _seekerStateParams set [12, CBA_missionTime];
         };
     };
 };
@@ -140,10 +159,17 @@ if !(isNull _target) then {
     _seekerStateParams set [6, CBA_missionTime];
     _seekerStateParams set [7, false];
 
+    // On lock, remove lateral bias so terminal homing is direct to target.
+    _dbsOffset = [0, 0, 0];
+    _seekerStateParams set [10, _dbsOffset];
+
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
 
     _launchParams set [0, _target];
+
+    // Publish active missile lock to vanilla threat systems.
+    _projectile setMissileTarget _target;
 
     if (_timestep > 0) then {
         private _acceleration = (velocity _target vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
@@ -162,16 +188,7 @@ if !(isNull _target) then {
     _seekerStateParams set [7, true];
 };
 
-private _dbsFadeHalfDist = _projectile getVariable ["fza_dbsFadeHalfDist", -1];
-private _scaledOffset = if (_dbsFadeHalfDist > 0) then {
-    private _positionOffset = [_expectedTargetPos, _calculatedSearchPos] select (isNull _target);
-    private _distToSearch = (getPosASL _projectile) vectorDistance _positionOffset;
-    private _scale = (((_distToSearch - _dbsFadeHalfDist) / _dbsFadeHalfDist) min 1) max 0;
-    _dbsOffset vectorMultiply _scale
-} else {
-    _dbsOffset
-};
-private _returnPos = _expectedTargetPos vectorAdd _scaledOffset;
+private _returnPos = _expectedTargetPos vectorAdd _dbsOffset;
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _returnPos];
 _seekerStateParams set [2, _expectedTargetPos];

@@ -17,4 +17,6 @@ params ["_heli"];
 [_heli, "fza_ah64_tadsRfHandoffLoblTarget",   objNull] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_tadsRfHandoffDelay",        -1]      call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_tadsRfHandoffLastScanTime", -1]      call fza_fnc_updateNetworkGlobal;
-_heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime", -1];
+_heli setVariable ["fza_ah64_tadsRfHandoffLastSampleTime",    -1];
+_heli setVariable ["fza_ah64_tadsRfHandoffLastCmCheckTime",   -1];
+_heli setVariable ["fza_ah64_tadsRfHandoffLastDecoyTime",     -1];

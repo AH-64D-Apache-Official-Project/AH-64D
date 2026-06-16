@@ -86,8 +86,8 @@ class CfgAmmo {
         class ace_missileguidance: ace_missileguidance {
             enabled = 1;
 
-            pitchRate = 21;
-            yawRate = 21;
+            pitchRate = 18;
+            yawRate = 18;
             seekerAngle = 60;
 
             defaultSeekerType = "fza_SALH";
@@ -183,6 +183,23 @@ class CfgAmmo {
             enabled                             = 1;
         };
     };
+    class fza_agm114n : fza_agm114base
+    {
+        model                       = "\fza_ah64_hellfire\fza_agm114n.p3d";
+        proxyShape                  = "\fza_ah64_hellfire\fza_agm114n.p3d";
+        hit                         = 300;
+        indirecthit                 = 300;
+        indirecthitrange            = 20;
+        explosionEffects            = "HeavyBombExplosion";
+
+        submunitionAmmo             = "";
+
+        //AI usage
+        cost                        = 700;
+        class ace_missileguidance: ace_missileguidance {
+            enabled                 = 1;
+        };
+    };
     class fza_agm114l : fza_agm114base
     {
         fza_salType                 = "rf";
@@ -200,45 +217,25 @@ class CfgAmmo {
         indirectHitRange            = 4;
         
         class ace_missileguidance: ace_missileguidance {
-            enabled                             = 1;
-
-            defaultSeekerType                   = "Fza_ARH";
-            seekerTypes[]                       = { "Fza_ARH" };
-
-            seekerAngle                         = 60; 
-            seekerMaxRange                      = 2500;
-
-            fza_arhLockTypes[]                  = {"LandVehicle", "StaticWeapon", "Air"};
-
-            navigationTypes[]                   = { "Direct", "ZeroEffortMiss" };
+            enabled            = 1;
+            defaultSeekerType  = "Fza_ARH";
+            seekerTypes[]      = { "Fza_ARH" };
+            seekerAngle        = 60; 
+            seekerMaxRange     = 2500;
+            fza_arhLockTypes[] = {"LandVehicle", "StaticWeapon", "Air"};
+            navigationTypes[]  = { "Direct", "ZeroEffortMiss" };
             class navigationStates {
                 class initial {
                     transitionCondition = "ace_hellfire_fnc_midCourseTransition";
-                    navigationType = "Direct";
+                    navigationType      = "Direct";
                 };
                 class terminal {
                     transitionCondition = "";
-                    navigationType = "ZeroEffortMiss";
+                    navigationType      = "ZeroEffortMiss";
                 };
                 states[] = {"initial", "terminal"};
             };
         };
-    };
-    class fza_agm114n : fza_agm114base
-    {
-        model                       = "\fza_ah64_hellfire\fza_agm114n.p3d";
-        proxyShape                  = "\fza_ah64_hellfire\fza_agm114n.p3d";
-        hit                         = 300;
-        indirecthit                 = 300;
-        indirecthitrange            = 20;
-        explosionEffects            = "HeavyBombExplosion";
 
-        submunitionAmmo             = "";
-
-        //AI usage
-        cost                        = 700;
-        class ace_missileguidance: ace_missileguidance {
-            enabled                 = 1;
-        };
     };
 };

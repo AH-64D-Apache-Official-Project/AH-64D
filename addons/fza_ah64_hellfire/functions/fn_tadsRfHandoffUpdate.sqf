@@ -105,15 +105,29 @@ if (_currentHandoffData isEqualType [] && {count _currentHandoffData >= 1}) then
 if (_scanPos isNotEqualTo [0, 0, 0]) then {
     private _seekerAngle  = getNumber (configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance" >> "seekerAngle");
     private _currentLobl  = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
+    private _lastCmCheckTime = _heli getVariable ["fza_ah64_tadsRfHandoffLastCmCheckTime", -1];
+    private _lastDecoyTime   = _heli getVariable ["fza_ah64_tadsRfHandoffLastDecoyTime", -1];
 
-    // Validate existing lock first — keep it if the object is still alive and in cone.
+    private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
+
+    // Validate existing lock first — keep it if still alive, in cone, and not chaff-defeated.
     if (!isNull _currentLobl && {alive _currentLobl} && {
         ([_heli, [getPosASL _currentLobl, speed _currentLobl, _currentLobl], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+    } && {
+        if ((CBA_missionTime - _lastCmCheckTime) < RF_CM_CHECK_INTERVAL_HANDOFF) exitWith { true };
+        _heli setVariable ["fza_ah64_tadsRfHandoffLastCmCheckTime", CBA_missionTime];
+        private _chaffDefeated = [_heli, _currentLobl, _seekerAngle, _chaffCoef] call fza_hellfire_fnc_checkChaffDefeat;
+        if (_chaffDefeated) then {
+            _heli setVariable ["fza_ah64_tadsRfHandoffLastDecoyTime", CBA_missionTime];
+        };
+        !_chaffDefeated
     }) exitWith {};
 
     if (!isNull _currentLobl) then {
         [_heli, "fza_ah64_tadsRfHandoffLoblTarget", objNull] call fza_fnc_updateNetworkGlobal;
     };
+
+    if ((CBA_missionTime - _lastDecoyTime) < RF_REACQUIRE_DELAY) exitWith {};
 
     if ((CBA_missionTime - _start) < _handoffDelay) exitWith {};
 
@@ -127,7 +141,14 @@ if (_scanPos isNotEqualTo [0, 0, 0]) then {
     private _candidates = nearestObjects [ASLToAGL _scanPos, _scanTypes, TADS_RF_LOBL_SCAN_RADIUS];
     private _loblTarget = objNull;
     {
-        if (([_heli, [getPosASL _x, speed _x, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1) exitWith {
+        if (!isNull _loblTarget) exitWith {};
+        private _radarSig  = getNumber (configOf _x >> "radarTargetSize");
+        if (_radarSig <= 0) then { _radarSig = 1.0 };
+        private _normRange = ((_x distance (ASLToAGL _scanPos)) / FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) min 1;
+        private _detectionProb = _radarSig ^ (1 + _normRange);
+        if ((random 1 <= _detectionProb) && {
+            ([_heli, [getPosASL _x, speed _x, _x], true, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint) # 1
+        }) then {
             _loblTarget = _x;
         };
     } forEach _candidates;
