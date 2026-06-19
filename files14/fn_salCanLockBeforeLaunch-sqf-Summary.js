@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File14:fn_salCanLockBeforeLaunch.sqf","fn_salCanLockBeforeLaunch.sqf");NDSummary.OnSummaryLoaded("File14:fn_salCanLockBeforeLaunch.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[297,0,1,"Functions","Functions"],[298,0,0,"fza_hellfire_fnc_salCanLockBeforeLaunch","fza_hellfire_fnc_salCanLockBeforeLaunch"]]);

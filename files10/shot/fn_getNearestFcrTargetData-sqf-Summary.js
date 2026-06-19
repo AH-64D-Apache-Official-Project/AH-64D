@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File10:shot/fn_getNearestFcrTargetData.sqf","fn_getNearestFcrTargetData.sqf");NDSummary.OnSummaryLoaded("File10:shot/fn_getNearestFcrTargetData.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[349,0,1,"Functions","Functions"],[350,0,0,"fza_dms_fnc_getNearestFcrTargetData","fza_dms_fnc_getNearestFcrTargetData"]]);

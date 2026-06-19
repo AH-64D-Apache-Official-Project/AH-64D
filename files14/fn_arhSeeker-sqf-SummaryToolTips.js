@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File14:fn_arhSeeker.sqf",{298:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Using data available upon launch, returns the targets expected positon || caluclated position if LOBL on target utilises Ace millimeterWaveRadar function rewritten to fit purpose</div></div>"});

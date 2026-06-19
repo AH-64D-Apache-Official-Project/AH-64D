@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:interact/fn_interactPowerLever.sqf",{78:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles power lever animation</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:interact/fn_interactPowerLever.sqf",{76:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles power lever animation</div></div>"});

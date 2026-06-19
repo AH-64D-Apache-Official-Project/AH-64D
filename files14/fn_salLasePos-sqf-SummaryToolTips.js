@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File14:fn_salLasePos.sqf",{294:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Fetches the laser position of the currently detected primary laser code</div></div>"});

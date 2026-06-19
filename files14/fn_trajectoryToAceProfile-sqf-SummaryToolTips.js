@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File14:fn_trajectoryToAceProfile.sqf",{308:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Description: Maps the hellfire trajectory mode to the ACE attack profile string.&nbsp; Parameters: _heli - The helicopter Returns: ACE attack profile string, or false if unrecognised Author: Snow(Dryden)</div></div>"});

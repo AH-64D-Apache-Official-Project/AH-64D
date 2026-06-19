@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File14:fn_checkSeekerAngle.sqf","fn_checkSeekerAngle.sqf");NDSummary.OnSummaryLoaded("File14:fn_checkSeekerAngle.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[289,0,1,"Functions","Functions"],[290,0,0,"fza_hellfire_fnc_checkSeekerAngle","fza_hellfire_fnc_checkSeekerAngle"]]);

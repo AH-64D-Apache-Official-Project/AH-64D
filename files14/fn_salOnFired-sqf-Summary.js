@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File14:fn_salOnFired.sqf","fn_salOnFired.sqf");NDSummary.OnSummaryLoaded("File14:fn_salOnFired.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[317,0,1,"Functions","Functions"],[318,0,0,"fza_hellfire_fnc_salOnFired","fza_hellfire_fnc_salOnFired"]]);

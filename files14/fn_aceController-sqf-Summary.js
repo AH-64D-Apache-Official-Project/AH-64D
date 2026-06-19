@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File14:fn_aceController.sqf","fn_aceController.sqf");NDSummary.OnSummaryLoaded("File14:fn_aceController.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[303,0,1,"Functions","Functions"],[304,0,0,"fza_hellfire_fnc_aceController","fza_hellfire_fnc_aceController"]]);

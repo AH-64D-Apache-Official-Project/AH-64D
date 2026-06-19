@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:fn_relativeDirection.sqf",{434:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the direction of an object as a rotation in degrees off the nose of the aircraft</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:fn_relativeDirection.sqf",{450:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the direction of an object as a rotation in degrees off the nose of the aircraft</div></div>"});

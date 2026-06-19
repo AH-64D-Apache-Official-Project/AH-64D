@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File14:fn_trajectoryToAceProfile.sqf","fn_trajectoryToAceProfile.sqf");NDSummary.OnSummaryLoaded("File14:fn_trajectoryToAceProfile.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[307,0,1,"Functions","Functions"],[308,0,0,"fza_hellfire_fnc_trajectoryToAceProfile","fza_hellfire_fnc_trajectoryToAceProfile"]]);

@@ -8,11 +8,11 @@
 
 <script type="text/javascript">var q = window.location.search;if (q.startsWith("?Theme=")){var t = q.slice(7);var e = t.indexOf(";");if (e != -1){  t = t.slice(0, e);  }document.documentElement.classList.add(t + "Theme")}</script>
 
-<a name="Functions"></a><a name="Topic249"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic251"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_mpd_fnc_buildFCRPoints"></a><a name="Topic250"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_mpd_fnc_buildFCRPoints"></a><a name="Topic252"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_mpd_fnc_buildFCRPoints</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Builds the FCR points array for an FCR MFD page from a pre-resolved display target list produced by fn_resolveDisplay. No reveal logic here — targets in _displayTargets are already filtered and have positions resolved.</p><p>Shared by fn_fcrATMDraw and fn_fcrGTMDraw.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The helicopter</p></td></tr><tr><td class="CDLEntry">_displayTargets</td><td class="CDLDefinition"><p>Pre-resolved array from fza_ah64_fcrDisplayTargets Record: [pos, type, moving, obj, aziAngle, range, isGhost]</p></td></tr><tr><td class="CDLEntry">_scanPos</td><td class="CDLDefinition"><p>World position of the helicopter at last scan</p></td></tr><tr><td class="CDLEntry">_ntsIndex</td><td class="CDLDefinition"><p>Index of NTS target in _displayTargets (-1 = none)</p></td></tr><tr><td class="CDLEntry">_antsIndex</td><td class="CDLDefinition"><p>Index of ANTS target in _displayTargets (-1 = none)</p></td></tr><tr><td class="CDLEntry">_scale</td><td class="CDLDefinition"><p>MFD metres-to-screen scale factor</p></td></tr><tr><td class="CDLEntry">_heliCtr</td><td class="CDLDefinition"><p>[x, y] screen-space helicopter centre</p></td></tr><tr><td class="CDLEntry">_systemWas</td><td class="CDLDefinition"><p>fza_ah64_was value</p></td></tr><tr><td class="CDLEntry">_shotATList</td><td class="CDLDefinition"><p>fza_dms_shotAt array</p></td></tr><tr><td class="CDLEntry">_fcrAzBias</td><td class="CDLDefinition"><p>FCR azimuth bias in degrees</p></td></tr><tr><td class="CDLEntry">_halfFov</td><td class="CDLDefinition"><p>Half field-of-view in degrees (used to cull shot-at icons)</p></td></tr><tr><td class="CDLEntry">_filterAirOnly</td><td class="CDLDefinition"><p>(optional, default false) Skip non-air FCR targets when true</p></td></tr></table><div class="CHeading">Returns</div><p>_pointsArray</p><div class="CHeading">Author</div><p>Snow(Dryden)</p></div>
 </div>

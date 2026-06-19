@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:countermeasures/fn_chaff.sqf",{508:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the launching of chaff</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:countermeasures/fn_chaff.sqf",{516:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the launching of chaff</div></div>"});
