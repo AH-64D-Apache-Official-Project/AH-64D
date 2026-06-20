@@ -36,12 +36,6 @@ private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
 private _engLimitTQ = if (_isSingleEng) then { _maxTQ_SE } else { _maxTQ_DE };
 
-// ── Rotor load — this engine's share ─────────────────────────────────────────
-private _totalRotorTqReq  = 0.0;
-{ _totalRotorTqReq = _totalRotorTqReq + _x; } forEach (_heli getVariable "fza_sfmplus_reqEngTorque");
-private _numActive  = if (_isSingleEng) then { 1 } else { 2 };
-private _myShareTq  = _totalRotorTqReq / _numActive;
-
 // ── Outputs ───────────────────────────────────────────────────────────────────
 private _tqOutput = 0.0;
 private _engFF    = _heli getVariable "fza_sfmplus_engFF" select _engNum;
@@ -52,7 +46,7 @@ if (_engState in ["STARTING", "ON"]) then {
 
         if (_engOverspeed) then {
             _engPctNP = [_engPctNP, 1.22, 1.5 * _deltaTime] call BIS_fnc_lerp;
-            _tqOutput = _myShareTq;
+            _tqOutput = 0.0;
             _engPctTQ = _tqOutput / _engRefTq;
 
             if (_engPctNP >= 1.196) then {
@@ -60,49 +54,53 @@ if (_engState in ["STARTING", "ON"]) then {
                 [_heli, "fza_ah64_engineOverspeed", _engNum, false, true] call fza_fnc_setArrayVariable;
             };
         } else {
-            // ── Fuel flow ─────────────────────────────────────────────────────
-            // Base fuel flow from throttle (Ng target), trimmed by collective demand.
-            // Collective increases fuel to meet power turbine load — this is the
-            // FADEC droop governor response to rotor load increases.
-            private _npTrimRef  = _npFlyRef * _designRpm;
-            private _npError    = (_npTrimRef - _xmsnRpm) / _npTrimRef;  // positive = underspeed
-
-            // Governor fuel trim: add fuel when Np droops, reduce when Np overspeeds
-            private _govTrim = [_engPid, _deltaTime, _npTrimRef, _xmsnRpm] call fza_fnc_pidRun;
-            _govTrim = [_govTrim, -0.3, 0.3] call BIS_fnc_clamp;
-
-            // Fuel flow schedule: throttle base + collective demand + governor trim
-            // Collective reflects actual power demand on the power turbine
-            private _wfDemand = 0.18 + (_collectiveOutput * 0.64) + _govTrim;
-            _wfDemand = [_wfDemand, 0.0, 1.0] call BIS_fnc_clamp;
-
-            // Fuel flow in kg/s from table (used for display and Ng drive)
-            _engFF = [getArray (_sfmPlusConfig >> "engFFTable"), _wfDemand] call fza_fnc_linearInterp select 1;
-
             // ── Available shaft power from Ng ─────────────────────────────────
-            // Ng determines how much continuous power the gas generator supplies.
-            // _engLimitTQ is a torque output cap multiplier, NOT a power multiplier —
-            // do not apply it here or available power inflates to 134% of continuous.
             private _ngPowerFraction = [_engPctNG / _ngFlyRef, 0.0, 1.0] call BIS_fnc_clamp;
             private _availablePowerW = _continuousPower * 1000 * _ngPowerFraction;
+            private _omegaGov        = _npFlyRef * _designRpm * 0.10472;
+            private _availTq         = _availablePowerW / _omegaGov;
 
-            // ── Power turbine torque ──────────────────────────────────────────
-            // Available torque at governed Np. Use governed omega so shaft power
-            // is set by fuel/Ng; transmission integration handles RPM drift.
-            private _omegaGov = _npFlyRef * _designRpm * 0.10472;
-            private _availTq  = _availablePowerW / _omegaGov;
+            // ── Load feed-forward — this engine's share of rotor demand ───────
+            // The engine's steady-state torque target is the rotor's actual power
+            // demand referred to the engine shaft (already gently smoothed in
+            // fn_rotor). This is the baseline the governor trims around so NR
+            // holds reference with no standing offset.
+            private _rotorTqReq = 0.0;
+            { _rotorTqReq = _rotorTqReq + _x; } forEach (_heli getVariable "fza_sfmplus_reqEngTorque");
+            private _numActive  = if (_isSingleEng) then { 1 } else { 2 };
+            private _myShareTq  = _rotorTqReq / _numActive;
 
-            // ── Governor output ───────────────────────────────────────────────
-            // Engine follows rotor demand closely, but the isochronous governor
-            // adds a small surplus proportional to Np underspeed (or withdraws
-            // torque on overspeed). This lets NR droop ~1% under load and recover.
-            // _govTrim is already computed above as a PID on Np error.
-            // Map govTrim [-0.3, 0.3] to a torque delta [-15%, +15%] of _availTq.
-            private _govDelta = _govTrim * _availTq * 0.5;
+            // ── Isochronous governor trim ─────────────────────────────────────
+            // Proportional trim on normalised Np error. The feed-forward carries
+            // the bulk of the load; this corrects the residual error that the
+            // spool lag leaves behind.
+            private _npFrac  = _xmsnRpm / (_npFlyRef * _designRpm);  // 1.0 = on-speed
+            private _npErr   = 1.0 - _npFrac;                         // positive = underspeed
+            private _govGain = 6.0;
+            private _govCorr = [_npErr * _govGain, -0.5, 0.5] call BIS_fnc_clamp;
 
-            // Output: demand share + governor correction, clamped to [0, limit]
-            _tqOutput = _myShareTq + _govDelta;
+            // ── Engine spool dynamics ─────────────────────────────────────────
+            // A real turboshaft cannot deliver new power instantly — Ng must
+            // spool. We model that by lagging the ENTIRE torque demand (load
+            // feed-forward + governor trim) through a first-order spool filter.
+            //
+            // This lag is what produces realistic NR behaviour: when cyclic tilts
+            // the disc and rotor demand spikes, the engine lags behind for ~0.5 s,
+            // so NR droops a percent or so, the governor adds trim, and NR
+            // recovers. It also tames the torque response — the raw BET demand
+            // spike from a cyclic input is filtered instead of hitting the
+            // transmission at full magnitude.
+            private _tqTarget = _myShareTq + (_availTq * _govCorr);
+            _tqTarget = [_tqTarget, 0.0, _engRefTq * _engLimitTQ] call BIS_fnc_clamp;
+
+            private _tqPrev  = _heli getVariable "fza_sfmplus_engOutputTq" select _engNum;
+            private _tqAlpha = 1.0 - exp (-_deltaTime / 0.5);
+            _tqOutput = _tqPrev + (_tqTarget - _tqPrev) * _tqAlpha;
             _tqOutput = [_tqOutput, 0.0, _engRefTq * _engLimitTQ] call BIS_fnc_clamp;
+
+            // ── Fuel flow schedule (display) ──────────────────────────────────
+            private _wfDemand = if (_availTq > 0.0) then { [_tqOutput / _availTq, 0.0, 1.0] call BIS_fnc_clamp } else { 0.0 };
+            _engFF = [getArray (_sfmPlusConfig >> "engFFTable"), _wfDemand] call fza_fnc_linearInterp select 1;
 
             _engPctNP = _xmsnRpm / _designRpm;
             _engPctTQ = _tqOutput / _engRefTq;
@@ -110,6 +108,7 @@ if (_engState in ["STARTING", "ON"]) then {
 
     } else {
         // IDLE: engine runs at idle Ng/Np, minimal torque output
+        private _engIdleTQ = getNumber (_sfmPlusConfig >> "engIdleTQ");
         private _npTrimRef = _npIdleRef * _designRpm;
         private _govTrim   = [_engPid, _deltaTime, _npTrimRef, _xmsnRpm] call fza_fnc_pidRun;
         _govTrim   = [_govTrim, 0.0, _engRefTq * 0.15] call BIS_fnc_clamp;

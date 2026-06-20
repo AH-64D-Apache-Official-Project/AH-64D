@@ -134,7 +134,14 @@ for "_ei" from 0 to (_numElements - 1) do {
 private _totalPower     = (_heli getVariable "fza_sfmplus_rotorReactionTorque") select _rotorIndex;
 private _reactionTorque = if (_omega > 0.0) then { _totalPower / _omega } else { 0.0 };
 private _reqEngTorque   = if (_gearRatio > 0.0) then { _reactionTorque / _gearRatio } else { 0.0 };
-[_heli, "fza_sfmplus_reqEngTorque", _rotorIndex, _reqEngTorque, true] call fza_fnc_setArrayVariable;
+
+// Smooth rotor torque demand before publishing — BET produces frame-to-frame
+// noise that would otherwise couple directly into the transmission and governor.
+// 0.1 s time constant keeps physical transients while killing high-freq noise.
+private _tqSmoothed     = (_heli getVariable ["fza_sfmplus_reqEngTorque", [0.0, 0.0]]) select _rotorIndex;
+private _tqAlpha        = 1.0 - exp (-_deltaTime / 0.1);
+_tqSmoothed             = _tqSmoothed + (_reqEngTorque - _tqSmoothed) * _tqAlpha;
+[_heli, "fza_sfmplus_reqEngTorque", _rotorIndex, _tqSmoothed, true] call fza_fnc_setArrayVariable;
 
 private _rotorThrust = (_heli getVariable "fza_sfmplus_rotorThrustAccum") select _rotorIndex;
 [_heli, "fza_sfmplus_rtrThrust", _rotorIndex, _rotorThrust, true] call fza_fnc_setArrayVariable;
@@ -145,10 +152,11 @@ private _Itot = _Icm;
 private _Jtot = (_Iy + _Itot) * _numBlades;
 [_heli, "fza_sfmplus_rtrMoi", _rotorIndex, _Jtot, true] call fza_fnc_setArrayVariable;
 
-// Apply rotor drag torque reaction to fuselage — main rotor only, opposes rotation direction
+// Apply rotor drag torque reaction to fuselage — main rotor only.
+// Use the smoothed value so BET noise doesn't shake the airframe.
 if (_type == MAIN) then {
     private _torqueSign = if (_dir == CW) then { 1.0 } else { -1.0 };
-    _heli addTorque (_heli vectorModelToWorld (_uVec vectorMultiply (_reactionTorque * _torqueSign * _deltaTime)));
+    _heli addTorque (_heli vectorModelToWorld (_uVec vectorMultiply (_tqSmoothed * _gearRatio * _torqueSign * _deltaTime)));
 };
 
 }; // end damage check
