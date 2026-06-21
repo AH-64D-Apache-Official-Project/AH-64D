@@ -64,8 +64,7 @@ if (_gndSpeed > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
     [_heli, "fza_ah64_attHoldSubMode", "att"] call fza_fnc_updateNetworkGlobal;
 };
 
-//If the attitude hold is enabled, and the force trim isn't interupted, then attitude hold is actually active
-if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
+if (_heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Position hold
     if (_subMode == "pos") then {
         private _roll  = [_pidRoll,  _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;

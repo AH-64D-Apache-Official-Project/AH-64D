@@ -344,7 +344,7 @@ if !(_value) then {
         case "fza_ah64_forceTrimPanicButton": {
             _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
             _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];   
-            _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];  
+            _heli setVariable ["fza_ah64_forceTrimPosYaw", 0.0, true];  
         };
     };
 };

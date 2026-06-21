@@ -68,11 +68,11 @@ if !_apuOn then {
     };
 };
 
-if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State in ["STARTING","ON"] && _eng2State in ["STARTING","ON"])) then {
-    _isSingleEng = false;
-} else {
-    _isSingleEng = true;
-};
+// Single engine when: one engine is OFF/damaged, or one power lever is at IDLE
+// while the other is at FLY (lever-induced single engine operation).
+private _eng1Active = (_eng1State in ["STARTING","ON"]) && (_eng1PwrLvrState == "FLY");
+private _eng2Active = (_eng2State in ["STARTING","ON"]) && (_eng2PwrLvrState == "FLY");
+_isSingleEng = !(_eng1Active && _eng2Active);
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 0.1 < time) then {
@@ -101,8 +101,13 @@ if (currentPilot _heli == player || local _heli) then {
     [_heli, 0] call fza_sfmplus_fnc_engine;
     [_heli, 1] call fza_sfmplus_fnc_engine;
 
-    [_heli, 0] call fza_sfmplus_fnc_engine2;
-    [_heli, 1] call fza_sfmplus_fnc_engine2;
+    if (fza_ah64_sfmPlusRotorModel == 1) then {
+        [_heli, 0] call fza_sfmplus_fnc_engineBET;
+        [_heli, 1] call fza_sfmplus_fnc_engineBET;
+    } else {
+        [_heli, 0] call fza_sfmplus_fnc_engine2;
+        [_heli, 1] call fza_sfmplus_fnc_engine2;
+    };
 };
 
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
