@@ -21,7 +21,7 @@ for "_i" from 0 to (_numElements - 1) do {
 	private _e = _f_rootTrailingEdge vectorAdd ((_e_tipTrailingEdge vectorDiff _f_rootTrailingEdge) vectorMultiply _spanOutboard);
 	private _f = _f_rootTrailingEdge vectorAdd ((_e_tipTrailingEdge vectorDiff _f_rootTrailingEdge) vectorMultiply _spanInboard);
 
-	private _liftFraction = if (_numElements == 1) then { 0.75 } else { 0.5 };
+	private _liftFraction = [0.5, 0.75] select (_numElements == 1);
 	private _liftPos      = _a vectorAdd ((_b vectorDiff _a) vectorMultiply _liftFraction);
 
 	private _chordLine = (_c vectorAdd ((_d vectorDiff _c) vectorMultiply 0.5)) vectorDiff (_f vectorAdd ((_e vectorDiff _f) vectorMultiply 0.5));

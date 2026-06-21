@@ -25,7 +25,7 @@ Author:
 params ["_heli"];
 
 // ── Guard conditions ─────────────────────────────────────────────────────────
-private _display = uiNameSpace getVariable ["fza_ah64_ctrlvis", displayNull];
+private _display = uiNamespace getVariable ["fza_ah64_ctrlvis", displayNull];
 if (isNull _display) exitWith {};
 if !(driver _heli == player || gunner _heli == player) exitWith {};
 if !(_heli isKindOf "fza_ah64base") exitWith {};
@@ -75,11 +75,11 @@ private _szAct = _mainH * 0.06;   // actual ring outer diameter (= old FT size)
 private _szFT  = _szAct * 0.5;    // FT ring: half actual diameter; baked-in 2× relative band → same absolute border thickness
 // Aspect ratio correction: ensures rings are circular on any screen/UI-scale combination
 // Cached in uiNameSpace — resolution cannot change during a mission.
-private _circleWAdj = uiNameSpace getVariable "fza_ah64_ctrlVisCircleW";
+private _circleWAdj = uiNamespace getVariable "fza_ah64_ctrlVisCircleW";
 if (isNil "_circleWAdj") then {
     private _res = getResolution;
     _circleWAdj  = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
-    uiNameSpace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
+    uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
 };
 
 // ── Read HeliSim variables ───────────────────────────────────────────────────
@@ -112,7 +112,7 @@ private _sasTotalRoll  = _sasRoll  + _attRoll;
 // Colors are cached in uiNameSpace; tables are only rebuilt when the CBA setting changes.
 // Cache layout: [scheme, colAct, colFT, colSAS, colInactive, bgActive, colDragBg, colDragTxt]
 private _colorScheme = fza_ah64_ctrlVisColor;
-private _colorCache  = uiNameSpace getVariable ["fza_ah64_ctrlVisColors", []];
+private _colorCache  = uiNamespace getVariable ["fza_ah64_ctrlVisColors", []];
 
 if (count _colorCache == 0 || (_colorCache select 0) != _colorScheme) then {
     private _colAct = [
@@ -172,7 +172,7 @@ if (count _colorCache == 0 || (_colorCache select 0) != _colorScheme) then {
         [1.00, 1.00, 1.00, 1.00]   // 5 HiContrast – white
     ] select _colorScheme;
     _colorCache = [_colorScheme, _colAct, _colFT, _colSAS, _colInactive, _bgActive, _colDragBg, _colDragTxt];
-    uiNameSpace setVariable ["fza_ah64_ctrlVisColors", _colorCache];
+    uiNamespace setVariable ["fza_ah64_ctrlVisColors", _colorCache];
 };
 
 private _colAct      = _colorCache select 1;

@@ -22,15 +22,15 @@ if !((vehicle player) getVariable ["fza_ah64_aircraftInitialised", false]) exitW
 private _layer = "fza_ah64_ctrlvis" call BIS_fnc_rscLayer;
 
 // Check whether the display is currently shown
-private _display = uiNameSpace getVariable ["fza_ah64_ctrlvis", displayNull];
+private _display = uiNamespace getVariable ["fza_ah64_ctrlvis", displayNull];
 private _isShown = !isNull _display;
 
 if (_isShown) then {
     // Hide — also clear cached statics so they're recomputed on next open
     _layer cutText ["", "PLAIN", 0, false];
-    uiNameSpace setVariable ["fza_ah64_ctrlvis",        displayNull];
-    uiNameSpace setVariable ["fza_ah64_ctrlVisColors",  []];
-    uiNameSpace setVariable ["fza_ah64_ctrlVisCircleW", nil];
+    uiNamespace setVariable ["fza_ah64_ctrlvis",        displayNull];
+    uiNamespace setVariable ["fza_ah64_ctrlVisColors",  []];
+    uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", nil];
 } else {
     // Show
     _layer cutRsc ["fza_ah64_ctrlvis", "PLAIN", 0, false];
