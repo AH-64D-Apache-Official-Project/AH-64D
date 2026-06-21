@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_updateAnimations
+Function: fza_anim_fnc_updateAnimations
 
 Description:
     helps to reduce the network impact of using animations
@@ -7,14 +7,17 @@ Description:
     the difference
 
 Parameters:
-    ...
+    _heli      - helicopter object
+    _animation - animation source name
+    _value     - target value
+    _speed     - (optional) animation speed [default: false]
 
 Returns:
-    ...
+    Nothing
 
 Examples:
-    [_heli, "animation", 1, 0.1] call fza_fnc_updateAnimations;
-    
+    [_heli, "animation", 1, 0.1] call fza_anim_fnc_updateAnimations;
+
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
