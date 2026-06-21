@@ -78,8 +78,14 @@ private _szFT  = _szAct * 0.5;    // FT ring: half actual diameter; baked-in 2×
 private _circleWAdj = uiNamespace getVariable "fza_ah64_ctrlVisCircleW";
 if (isNil "_circleWAdj") then {
     private _res = getResolution;
-    _circleWAdj  = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
-    uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
+    // getResolution can momentarily report 0 width/height during display init; either one
+    // being 0 makes the divisions below throw "Zero Divisor". Skip caching until both are valid.
+    if ((_res select 0) > 0 && (_res select 1) > 0) then {
+        _circleWAdj = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
+        uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
+    } else {
+        _circleWAdj = 1.0;
+    };
 };
 
 // ── Read HeliSim variables ───────────────────────────────────────────────────
@@ -87,7 +93,7 @@ private _cycFwdAft    = _heli getVariable ["fza_sfmplus_cyclicFwdAft",          
 private _cycLeftRight = _heli getVariable ["fza_sfmplus_cyclicLeftRight",        0.0]; // roll  (-1…1)
 private _ftPitch      = _heli getVariable ["fza_ah64_forceTrimPosPitch",         0.0];
 private _ftRoll       = _heli getVariable ["fza_ah64_forceTrimPosRoll",          0.0];
-private _ftPedal      = _heli getVariable ["fza_ah64_forceTrimPosPedal",         0.0];
+private _ftPedal      = _heli getVariable ["fza_ah64_forceTrimPosYaw",           0.0];
 private _sasPitch     = _heli getVariable ["fza_sfmplus_fmcSasPitchOut",         0.0];
 private _sasRoll      = _heli getVariable ["fza_sfmplus_fmcSasRollOut",          0.0];
 private _sasYaw       = _heli getVariable ["fza_sfmplus_fmcHdgHoldPedalYawOut",  0.0];
@@ -111,79 +117,82 @@ private _sasTotalRoll  = _sasRoll  + _attRoll;
 // Index:  0=Default  1=NVG  2=Mono  3=Amber  4=BluFor  5=HiContrast
 // Colors are cached in uiNameSpace; tables are only rebuilt when the CBA setting changes.
 // Cache layout: [scheme, colAct, colFT, colSAS, colInactive, bgActive, colDragBg, colDragTxt]
+// fza_ah64_ctrlVisColor is a CBA setting that may not be applied yet on the very first
+// Draw3D ticks; an out-of-range/negative index passed to select throws "Zero Divisor".
 private _colorScheme = fza_ah64_ctrlVisColor;
+if (!(_colorScheme isEqualType 0) || {_colorScheme < 0} || {_colorScheme > 5}) then {_colorScheme = 0;};
 private _colorCache  = uiNamespace getVariable ["fza_ah64_ctrlVisColors", []];
 
-if (count _colorCache == 0 || (_colorCache select 0) != _colorScheme) then {
-    private _colAct = [
-        [0.20,1.00,0.20,1.00],  // 0 Default   – bright green
-        [0.20,1.00,0.20,1.00],  // 1 NVG        – bright green
-        [1.00,1.00,1.00,1.00],  // 2 Mono       – white
-        [1.00,0.75,0.00,1.00],  // 3 Amber      – amber
-        [0.00,0.90,1.00,1.00],  // 4 BluFor     – cyan
-        [1.00,1.00,1.00,1.00]   // 5 HiContrast – white
-    ] select _colorScheme;
-    private _colFT = [
-        [1.00,0.55,0.05,1.00],  // 0 Default   – orange
-        [0.10,0.75,0.10,1.00],  // 1 NVG        – dark green
-        [0.70,0.70,0.70,1.00],  // 2 Mono       – light grey
-        [1.00,0.90,0.20,1.00],  // 3 Amber      – yellow
-        [1.00,0.55,0.05,1.00],  // 4 BluFor     – orange (distinct from cyan actual)
-        [1.00,1.00,0.00,1.00]   // 5 HiContrast – yellow
-    ] select _colorScheme;
-    private _colSAS = [
-        [1.00,0.15,0.15,1.00],  // 0 Default   – red
-        [0.05,0.45,0.05,1.00],  // 1 NVG        – very dark green
-        [0.45,0.45,0.45,1.00],  // 2 Mono       – mid grey
-        [1.00,0.20,0.10,1.00],  // 3 Amber      – red
-        [1.00,1.00,0.00,1.00],  // 4 BluFor     – yellow
-        [1.00,0.15,0.15,1.00]   // 5 HiContrast – red
-    ] select _colorScheme;
-    private _colInactive = [
-        [0.60, 0.60, 0.60, 0.70],  // 0 Default
-        [0.35, 0.55, 0.35, 0.70],  // 1 NVG        – muted green-grey
-        [0.60, 0.60, 0.60, 0.70],  // 2 Mono
-        [0.60, 0.50, 0.35, 0.70],  // 3 Amber      – warm grey
-        [0.50, 0.65, 0.75, 0.70],  // 4 BluFor     – blue-grey
-        [0.60, 0.60, 0.60, 0.90]   // 5 HiContrast
-    ] select _colorScheme;
-    private _bgActive = [
-        [0.00, 0.28, 0.00, 0.65],  // 0 Default   – dark green
-        [0.00, 0.18, 0.00, 0.65],  // 1 NVG        – very dark green
-        [0.20, 0.20, 0.20, 0.65],  // 2 Mono       – dark grey
-        [0.28, 0.18, 0.00, 0.65],  // 3 Amber      – dark amber
-        [0.00, 0.10, 0.35, 0.65],  // 4 BluFor     – dark blue
-        [0.15, 0.15, 0.00, 0.90]   // 5 HiContrast – dark yellow
-    ] select _colorScheme;
-    private _colDragBg = [
-        [0.05, 0.20, 0.05, 0.90],  // 0 Default   – dark green
-        [0.02, 0.12, 0.02, 0.90],  // 1 NVG        – very dark green
-        [0.12, 0.12, 0.12, 0.90],  // 2 Mono       – near black
-        [0.18, 0.10, 0.00, 0.90],  // 3 Amber      – dark brown-amber
-        [0.00, 0.06, 0.25, 0.90],  // 4 BluFor     – dark navy
-        [0.00, 0.00, 0.00, 1.00]   // 5 HiContrast – pure black
-    ] select _colorScheme;
-    private _colDragTxt = [
-        [0.70, 1.00, 0.70, 1.00],  // 0 Default   – light green
-        [0.30, 0.80, 0.30, 1.00],  // 1 NVG        – medium green
-        [1.00, 1.00, 1.00, 1.00],  // 2 Mono       – white
-        [1.00, 0.80, 0.20, 1.00],  // 3 Amber      – amber
-        [0.60, 0.90, 1.00, 1.00],  // 4 BluFor     – light cyan
-        [1.00, 1.00, 1.00, 1.00]   // 5 HiContrast – white
-    ] select _colorScheme;
+// count != 8 catches a malformed/stale cache (e.g. leftover from a previous build's
+// cache layout) that would otherwise pass the scheme check and crash every select below.
+if (count _colorCache != 8 || (_colorCache select 0) != _colorScheme) then {
+    // Assigned directly per-scheme (no select-on-literal-array) — avoids a reproducible
+    // "Zero Divisor" crash seen with the previous select-based table lookup on this build.
+    // Initialised to the Default (0) scheme; switch below overrides for schemes 1-5.
+    private _colAct      = [0.20,1.00,0.20,1.00];
+    private _colFT       = [1.00,0.55,0.05,1.00];
+    private _colSAS      = [1.00,0.15,0.15,1.00];
+    private _colInactive = [0.60,0.60,0.60,0.70];
+    private _bgActive    = [0.00,0.28,0.00,0.65];
+    private _colDragBg   = [0.05,0.20,0.05,0.90];
+    private _colDragTxt  = [0.70,1.00,0.70,1.00];
+    switch (_colorScheme) do {
+        case 1: { // NVG
+            _colAct      = [0.20,1.00,0.20,1.00];
+            _colFT       = [0.10,0.75,0.10,1.00];
+            _colSAS      = [0.05,0.45,0.05,1.00];
+            _colInactive = [0.35,0.55,0.35,0.70];
+            _bgActive    = [0.00,0.18,0.00,0.65];
+            _colDragBg   = [0.02,0.12,0.02,0.90];
+            _colDragTxt  = [0.30,0.80,0.30,1.00];
+        };
+        case 2: { // Mono
+            _colAct      = [1.00,1.00,1.00,1.00];
+            _colFT       = [0.70,0.70,0.70,1.00];
+            _colSAS      = [0.45,0.45,0.45,1.00];
+            _colInactive = [0.60,0.60,0.60,0.70];
+            _bgActive    = [0.20,0.20,0.20,0.65];
+            _colDragBg   = [0.12,0.12,0.12,0.90];
+            _colDragTxt  = [1.00,1.00,1.00,1.00];
+        };
+        case 3: { // Amber
+            _colAct      = [1.00,0.75,0.00,1.00];
+            _colFT       = [1.00,0.90,0.20,1.00];
+            _colSAS      = [1.00,0.20,0.10,1.00];
+            _colInactive = [0.60,0.50,0.35,0.70];
+            _bgActive    = [0.28,0.18,0.00,0.65];
+            _colDragBg   = [0.18,0.10,0.00,0.90];
+            _colDragTxt  = [1.00,0.80,0.20,1.00];
+        };
+        case 4: { // BluFor
+            _colAct      = [0.00,0.90,1.00,1.00];
+            _colFT       = [1.00,0.55,0.05,1.00];
+            _colSAS      = [1.00,1.00,0.00,1.00];
+            _colInactive = [0.50,0.65,0.75,0.70];
+            _bgActive    = [0.00,0.10,0.35,0.65];
+            _colDragBg   = [0.00,0.06,0.25,0.90];
+            _colDragTxt  = [0.60,0.90,1.00,1.00];
+        };
+        case 5: { // HiContrast
+            _colAct      = [1.00,1.00,1.00,1.00];
+            _colFT       = [1.00,1.00,0.00,1.00];
+            _colSAS      = [1.00,0.15,0.15,1.00];
+            _colInactive = [0.60,0.60,0.60,0.90];
+            _bgActive    = [0.15,0.15,0.00,0.90];
+            _colDragBg   = [0.00,0.00,0.00,1.00];
+            _colDragTxt  = [1.00,1.00,1.00,1.00];
+        };
+        // 0 Default: already set by the initial values above.
+    };
     _colorCache = [_colorScheme, _colAct, _colFT, _colSAS, _colInactive, _bgActive, _colDragBg, _colDragTxt];
     uiNamespace setVariable ["fza_ah64_ctrlVisColors", _colorCache];
 };
 
-private _colAct      = _colorCache select 1;
-private _colFT       = _colorCache select 2;
-private _colSAS      = _colorCache select 3;
-private _colActive   = _colAct;
-private _colInactive = _colorCache select 4;
-private _bgActive    = _colorCache select 5;
-private _bgInactive  = [0.00, 0.00, 0.00, 0.00];
-private _colDragBg   = _colorCache select 6;
-private _colDragTxt  = _colorCache select 7;
+// params destructures by position without using select — sidesteps a reproducible
+// "Zero Divisor" crash seen on this build when select followed this if/switch block.
+_colorCache params ["_csCached", "_colAct", "_colFT", "_colSAS", "_colInactive", "_bgActive", "_colDragBg", "_colDragTxt"];
+private _colActive  = _colAct;
+private _bgInactive = [0.00, 0.00, 0.00, 0.00];
 
 // ── Helper: shortcut to get a control ────────────────────────────────────────
 #define CTRL(idc) (_display displayCtrl (idc))

@@ -308,6 +308,26 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        case "fza_ah64_ctrlVisToggle": {
+            if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) exitWith {};
+
+            private _layer = "fza_ah64_ctrlvis" call BIS_fnc_rscLayer;
+
+            // Check whether the display is currently shown
+            private _ctrlVisDisplay = uiNamespace getVariable ["fza_ah64_ctrlvis", displayNull];
+            private _ctrlVisIsShown = !isNull _ctrlVisDisplay;
+
+            if (_ctrlVisIsShown) then {
+                // Hide — also clear cached statics so they're recomputed on next open
+                _layer cutText ["", "PLAIN", 0, false];
+                uiNamespace setVariable ["fza_ah64_ctrlvis",        displayNull];
+                uiNamespace setVariable ["fza_ah64_ctrlVisColors",  []];
+                uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", nil];
+            } else {
+                // Show
+                _layer cutRsc ["fza_ah64_ctrlvis", "PLAIN", 0, false];
+            };
+        };
     };
 };
 
@@ -345,7 +365,7 @@ if !(_value) then {
             // Reset force-trim reference positions
             _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
             _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
-            _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
+            _heli setVariable ["fza_ah64_forceTrimPosYaw",   0.0, true];
             // Reset keyboard sticky input accumulated values to centre
             _heli setVariable ["fza_sfmplus_cyclicPitchValue",     0.0];
             _heli setVariable ["fza_sfmplus_cyclicRollValue",      0.0];
@@ -354,9 +374,6 @@ if !(_value) then {
             _heli setVariable ["fza_sfmplus_prevCyclicPitchValue", 0.0];
             _heli setVariable ["fza_sfmplus_prevCyclicRollValue",  0.0];
             _heli setVariable ["fza_sfmplus_prevPedalYawValue",    0.0];
-            
-            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];   
-            _heli setVariable ["fza_ah64_forceTrimPosYaw", 0.0, true];  
         };
     };
 };

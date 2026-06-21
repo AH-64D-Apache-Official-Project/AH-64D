@@ -72,7 +72,8 @@ class UserActionGroups {
             "fza_ah64_collectiveDn",
             //Keyboard Collective
             "fza_ah64_kbCollectiveUp",
-            "fza_ah64_kbCollectiveDn"
+            "fza_ah64_kbCollectiveDn",
+            "fza_ah64_ctrlVisToggle"
         };
     };
 };

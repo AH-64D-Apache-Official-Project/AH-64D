@@ -70,7 +70,6 @@ class CfgFunctions
         {
             file = "\fza_ah64_controls\functions\ui";
             class uiShowIntro    {R;};
-            class ctrlVisToggle  {R;};
             class ctrlVisUpdate  {R;};
         };
         class weapon
