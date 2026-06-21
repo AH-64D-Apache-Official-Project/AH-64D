@@ -115,82 +115,69 @@ private _sasTotalRoll  = _sasRoll  + _attRoll;
 
 // ── Colour scheme ────────────────────────────────────────────────────────────
 // Index:  0=Default  1=NVG  2=Mono  3=Amber  4=BluFor  5=HiContrast
-// Colors are cached in uiNameSpace; tables are only rebuilt when the CBA setting changes.
-// Cache layout: [scheme, colAct, colFT, colSAS, colInactive, bgActive, colDragBg, colDragTxt]
-// fza_ah64_ctrlVisColor is a CBA setting that may not be applied yet on the very first
-// Draw3D ticks; an out-of-range/negative index passed to select throws "Zero Divisor".
+// Recomputed every frame (no uiNamespace cache) — a prior cache-gate here that did
+// `_colorCache select 0` on a possibly-empty array reliably broke on this build,
+// silently skipping the rebuild forever. The table build below is cheap enough
+// to just run unconditionally instead of trying to cache it.
 private _colorScheme = fza_ah64_ctrlVisColor;
-if (!(_colorScheme isEqualType 0) || {_colorScheme < 0} || {_colorScheme > 5}) then {_colorScheme = 0;};
-private _colorCache  = uiNamespace getVariable ["fza_ah64_ctrlVisColors", []];
 
-// count != 8 catches a malformed/stale cache (e.g. leftover from a previous build's
-// cache layout) that would otherwise pass the scheme check and crash every select below.
-if (count _colorCache != 8 || (_colorCache select 0) != _colorScheme) then {
-    // Assigned directly per-scheme (no select-on-literal-array) — avoids a reproducible
-    // "Zero Divisor" crash seen with the previous select-based table lookup on this build.
-    // Initialised to the Default (0) scheme; switch below overrides for schemes 1-5.
-    private _colAct      = [0.20,1.00,0.20,1.00];
-    private _colFT       = [1.00,0.55,0.05,1.00];
-    private _colSAS      = [1.00,0.15,0.15,1.00];
-    private _colInactive = [0.60,0.60,0.60,0.70];
-    private _bgActive    = [0.00,0.28,0.00,0.65];
-    private _colDragBg   = [0.05,0.20,0.05,0.90];
-    private _colDragTxt  = [0.70,1.00,0.70,1.00];
-    switch (_colorScheme) do {
-        case 1: { // NVG
-            _colAct      = [0.20,1.00,0.20,1.00];
-            _colFT       = [0.10,0.75,0.10,1.00];
-            _colSAS      = [0.05,0.45,0.05,1.00];
-            _colInactive = [0.35,0.55,0.35,0.70];
-            _bgActive    = [0.00,0.18,0.00,0.65];
-            _colDragBg   = [0.02,0.12,0.02,0.90];
-            _colDragTxt  = [0.30,0.80,0.30,1.00];
-        };
-        case 2: { // Mono
-            _colAct      = [1.00,1.00,1.00,1.00];
-            _colFT       = [0.70,0.70,0.70,1.00];
-            _colSAS      = [0.45,0.45,0.45,1.00];
-            _colInactive = [0.60,0.60,0.60,0.70];
-            _bgActive    = [0.20,0.20,0.20,0.65];
-            _colDragBg   = [0.12,0.12,0.12,0.90];
-            _colDragTxt  = [1.00,1.00,1.00,1.00];
-        };
-        case 3: { // Amber
-            _colAct      = [1.00,0.75,0.00,1.00];
-            _colFT       = [1.00,0.90,0.20,1.00];
-            _colSAS      = [1.00,0.20,0.10,1.00];
-            _colInactive = [0.60,0.50,0.35,0.70];
-            _bgActive    = [0.28,0.18,0.00,0.65];
-            _colDragBg   = [0.18,0.10,0.00,0.90];
-            _colDragTxt  = [1.00,0.80,0.20,1.00];
-        };
-        case 4: { // BluFor
-            _colAct      = [0.00,0.90,1.00,1.00];
-            _colFT       = [1.00,0.55,0.05,1.00];
-            _colSAS      = [1.00,1.00,0.00,1.00];
-            _colInactive = [0.50,0.65,0.75,0.70];
-            _bgActive    = [0.00,0.10,0.35,0.65];
-            _colDragBg   = [0.00,0.06,0.25,0.90];
-            _colDragTxt  = [0.60,0.90,1.00,1.00];
-        };
-        case 5: { // HiContrast
-            _colAct      = [1.00,1.00,1.00,1.00];
-            _colFT       = [1.00,1.00,0.00,1.00];
-            _colSAS      = [1.00,0.15,0.15,1.00];
-            _colInactive = [0.60,0.60,0.60,0.90];
-            _bgActive    = [0.15,0.15,0.00,0.90];
-            _colDragBg   = [0.00,0.00,0.00,1.00];
-            _colDragTxt  = [1.00,1.00,1.00,1.00];
-        };
-        // 0 Default: already set by the initial values above.
+// Initialised to the Default (0) scheme; switch below overrides for schemes 1-5.
+private _colAct      = [0.20,1.00,0.20,1.00];
+private _colFT       = [1.00,0.55,0.05,1.00];
+private _colSAS      = [1.00,0.15,0.15,1.00];
+private _colInactive = [0.60,0.60,0.60,0.70];
+private _bgActive    = [0.00,0.28,0.00,0.65];
+private _colDragBg   = [0.05,0.20,0.05,0.90];
+private _colDragTxt  = [0.70,1.00,0.70,1.00];
+
+switch (_colorScheme) do {
+    case 1: { // NVG
+        _colAct      = [0.20,1.00,0.20,1.00];
+        _colFT       = [0.10,0.75,0.10,1.00];
+        _colSAS      = [0.05,0.45,0.05,1.00];
+        _colInactive = [0.35,0.55,0.35,0.70];
+        _bgActive    = [0.00,0.18,0.00,0.65];
+        _colDragBg   = [0.02,0.12,0.02,0.90];
+        _colDragTxt  = [0.30,0.80,0.30,1.00];
     };
-    _colorCache = [_colorScheme, _colAct, _colFT, _colSAS, _colInactive, _bgActive, _colDragBg, _colDragTxt];
-    uiNamespace setVariable ["fza_ah64_ctrlVisColors", _colorCache];
+    case 2: { // Mono
+        _colAct      = [1.00,1.00,1.00,1.00];
+        _colFT       = [0.70,0.70,0.70,1.00];
+        _colSAS      = [0.45,0.45,0.45,1.00];
+        _colInactive = [0.60,0.60,0.60,0.70];
+        _bgActive    = [0.20,0.20,0.20,0.65];
+        _colDragBg   = [0.12,0.12,0.12,0.90];
+        _colDragTxt  = [1.00,1.00,1.00,1.00];
+    };
+    case 3: { // Amber
+        _colAct      = [1.00,0.75,0.00,1.00];
+        _colFT       = [1.00,0.90,0.20,1.00];
+        _colSAS      = [1.00,0.20,0.10,1.00];
+        _colInactive = [0.60,0.50,0.35,0.70];
+        _bgActive    = [0.28,0.18,0.00,0.65];
+        _colDragBg   = [0.18,0.10,0.00,0.90];
+        _colDragTxt  = [1.00,0.80,0.20,1.00];
+    };
+    case 4: { // BluFor
+        _colAct      = [0.00,0.90,1.00,1.00];
+        _colFT       = [1.00,0.55,0.05,1.00];
+        _colSAS      = [1.00,1.00,0.00,1.00];
+        _colInactive = [0.50,0.65,0.75,0.70];
+        _bgActive    = [0.00,0.10,0.35,0.65];
+        _colDragBg   = [0.00,0.06,0.25,0.90];
+        _colDragTxt  = [0.60,0.90,1.00,1.00];
+    };
+    case 5: { // HiContrast
+        _colAct      = [1.00,1.00,1.00,1.00];
+        _colFT       = [1.00,1.00,0.00,1.00];
+        _colSAS      = [1.00,0.15,0.15,1.00];
+        _colInactive = [0.60,0.60,0.60,0.90];
+        _bgActive    = [0.15,0.15,0.00,0.90];
+        _colDragBg   = [0.00,0.00,0.00,1.00];
+        _colDragTxt  = [1.00,1.00,1.00,1.00];
+    };
+    // 0 Default: already set by the initial values above.
 };
-
-// params destructures by position without using select — sidesteps a reproducible
-// "Zero Divisor" crash seen on this build when select followed this if/switch block.
-_colorCache params ["_csCached", "_colAct", "_colFT", "_colSAS", "_colInactive", "_bgActive", "_colDragBg", "_colDragTxt"];
 private _colActive  = _colAct;
 private _bgInactive = [0.00, 0.00, 0.00, 0.00];
 
@@ -323,9 +310,11 @@ CTRL(5135) ctrlSetTextColor _colAct;
 CTRL(5135) ctrlCommit 0;
 
 // SAS + ATT hold commanded position (red + cross) – bottom layer
+// Anchored to the FT trim position (matches the backend's trim + SAS/attHold + cyclic sum
+// in fn_rotorControl.sqf) so 0 SAS/attHold output sits on the FT ring, not the display centre.
 // Clamped to ±1 so the indicators never leave the frame.
-private _sasX = _cxCtr - ([_sasTotalRoll,  -1.0, 1.0] call BIS_fnc_clamp) * _cxHW;
-private _sasY = _cyCtr - ([_sasTotalPitch, -1.0, 1.0] call BIS_fnc_clamp) * _cyHH;
+private _sasX = _cxCtr - ([_sasTotalRoll  + _ftRoll,  -1.0, 1.0] call BIS_fnc_clamp) * _cxHW;
+private _sasY = _cyCtr - ([_sasTotalPitch + _ftPitch, -1.0, 1.0] call BIS_fnc_clamp) * _cyHH;
 CTRL(5133) ctrlSetPosition      [_sasX - _szSAS * 0.5, _sasY - _thSAS * 0.5, _szSAS, _thSAS]; // H bar
 CTRL(5133) ctrlSetBackgroundColor _colSAS;
 CTRL(5133) ctrlCommit 0;
@@ -374,8 +363,8 @@ CTRL(5142) ctrlSetFontHeight _fontSz;
 CTRL(5142) ctrlSetTextColor _colAct;
 CTRL(5142) ctrlCommit 0;
 
-// SAS yaw (red "|") — pure SAS correction only, independent of FT pedal
-private _sasYawTotal = [_sasYaw, -1.0, 1.0] call BIS_fnc_clamp;
+// SAS yaw (red "|") — anchored to FT pedal so 0 SAS output sits on the FT marker.
+private _sasYawTotal = [_sasYaw + _ftPedal, -1.0, 1.0] call BIS_fnc_clamp;
 private _sasYawX     = _yawCtrX + _sasYawTotal * _yawHW - _indW * 0.5;
 private _sasYawY     = _yawCtrY - _fontSz * 0.50;
 CTRL(5143) ctrlSetPosition [_sasYawX, _sasYawY, _indW, _indH];
