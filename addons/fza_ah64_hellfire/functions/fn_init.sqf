@@ -39,4 +39,13 @@ if (!(_heli getVariable ["fza_ah64_hellfireInitialised", false]) && local _heli)
         , ["N",1141],["P",1142]
         , ["Q",1143],["R",1144]
         ], true];
+
+    _heli setVariable ["fza_ah64_tadsRfHandoffStart",            -1,      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffDelay",            -1,      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffLast",              [],      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffData",              [],      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffLoblTarget",        objNull, true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffLastScanTime",      -1,      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffLastCmCheckTime",   -1,      true];
+    _heli setVariable ["fza_ah64_tadsRfHandoffLastDecoyTime",     -1,      true];
 };

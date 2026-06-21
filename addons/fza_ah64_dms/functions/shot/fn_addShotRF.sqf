@@ -11,12 +11,27 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, _targetType, _missileType, _triggerTime, _shotPos] call fza_dms_fnc_addShotRF;
+    [_heli, _ident, _triggerTime, _shotPos, _fcrData] call fza_dms_fnc_addShotRF;
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli", "_ident", "_triggerTime", ["_shotPos", [0,0,0]]];
+params ["_heli", ["_ident", ""], "_triggerTime", ["_shotPos", [0,0,0]], ["_fcrData", []]];
+
+if (_ident isEqualTo "") then {
+    _ident = "FCR_UNK_LOAL";
+
+    if (_fcrData isNotEqualTo []) then {
+        _ident = [_fcrData] call fza_dms_fnc_shotIdentFromFcrData;
+    } else {
+        if (_shotPos isNotEqualTo [0, 0, 0]) then {
+            private _closestTarget = [_heli, _shotPos, 200] call fza_dms_fnc_getNearestFcrTargetData;
+            if (_closestTarget isNotEqualTo []) then {
+                _ident = [_closestTarget] call fza_dms_fnc_shotIdentFromFcrData;
+            };
+        };
+    };
+};
 
 private _shotAtArray = _heli getVariable "fza_dms_shotAt";
 private _shotAtArray = _shotAtArray select [0,16];

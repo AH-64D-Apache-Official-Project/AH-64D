@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED">
+            <Original>No Ammo Source Required</Original>
+            <English>No Ammo Source Required</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED_DESC">
+            <Original>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</Original>
+            <English>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED">
+            <Original>No Fuel Source Required</Original>
+            <English>No Fuel Source Required</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED_DESC">
+            <Original>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</Original>
+            <English>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE">
+            <Original>Rearm Mode</Original>
+            <English>Rearm Mode</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE_DESC">
+            <Original>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</Original>
+            <English>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
             <Original>Cyclic Center Trim Mode</Original>
             <English>Cyclic Center Trim Mode</English>
@@ -222,6 +246,22 @@
             <Turkish>FM sorunlarını gidermek için hata ayıklama çıktısını gösterir</Turkish>
             <Dutch>Geeft debugoutput voor het oplossen van FM-problemen</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL">
+            <Original>Rotor Model</Original>
+            <English>Rotor Model</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_INFO">
+            <Original>Selects the rotor aerodynamic model. Simple is stable and performant. BET (Blade Element Theory) is higher fidelity with induced flow, dissymmetry of lift, and flapping dynamics.</Original>
+            <English>Selects the rotor aerodynamic model. Simple is stable and performant. BET (Blade Element Theory) is higher fidelity with induced flow, dissymmetry of lift, and flapping dynamics.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_SIMPLE">
+            <Original>Simple</Original>
+            <English>Simple</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_ROTOR_MODEL_BET">
+            <Original>BET [WIP]</Original>
+            <English>BET [WIP]</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM">
             <Original>Aircraft Realism Settings</Original>
             <English>Aircraft Realism Settings</English>
@@ -289,6 +329,14 @@
             <Chinesesimp>不适用于粘性偏航! 启用后，踏板由AI自动管理</Chinesesimp>
             <Turkish>YAPIŞKAN SAPMA İLE ÇALIŞMAz! Etkinleştirildiğinde, pedallar AI tarafından otomatik olarak yönetilir</Turkish>
             <Dutch>WERKT NIET MET STICKY YAW! Wanneer ingeschakeld, worden de pedalen automatisch beheerd door AI</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH">
+            <Original>Keyboard Auto Pitch</Original>
+            <English>Keyboard Auto Pitch</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH_INFO">
+            <Original>When enabled, automatically holds a -6 degree pitch attitude in forward flight. Disengages when pilot pitch input is detected.</Original>
+            <English>When enabled, automatically holds a -6 degree pitch attitude in forward flight. Disengages when pilot pitch input is detected.</English>
         </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH">
             <Original>Keyboard Sticky Pitch</Original>

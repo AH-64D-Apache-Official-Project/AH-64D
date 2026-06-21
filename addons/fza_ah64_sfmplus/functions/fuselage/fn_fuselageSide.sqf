@@ -65,7 +65,7 @@ for "_i" from 0 to (_count - 1) do {
 
 	private _relWindX    	  = _velModelSpace select 0;
 	private _relWindY    	  = _velModelSpace select 1;
-	private _locRelWindX      = (_angVelModelSpace select 2) * (_deltaPos select 1);
+	private _locRelWindX      = (_angVelModelSpace select 2) * -(_deltaPos select 1);
 
 	private _relWind		  = [_relWindX + _locRelWindX, _relWindY, 0.0];
 
@@ -75,7 +75,7 @@ for "_i" from 0 to (_count - 1) do {
 
     private _relWindNormalized = vectorNormalized _relWind;
 
-	private _aoa = (_relWindNormalized select 0) atan2 (_chordLine select 1);
+	private _aoa = (_relWindNormalized select 0) atan2 (_relWindNormalized select 1);
 
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
@@ -87,7 +87,10 @@ for "_i" from 0 to (_count - 1) do {
     private _CD          =  [_dragCoefTable, _aoa] call fza_fnc_linearInterp select 1;
     private _drag         = _CD * 0.5 * _rho * _area * (_relWindX * _relWindX);
 
-    private _liftVector = _up vectorMultiply (_lift * _deltaTime);
+    private _liftVector = _relWindNormalized vectorCrossProduct _up;
+    _liftVector = _liftVector vectorCrossProduct _relWindNormalized;
+    _liftVector = vectorNormalized _liftVector;
+    _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
     private _dragVector = _relWind;
     _dragVector = (vectorNormalized _dragVector) vectorMultiply -1.0;
@@ -98,17 +101,9 @@ for "_i" from 0 to (_count - 1) do {
     [_heli, _e vectorAdd (_dragVector vectorMultiply _debugLineScale), _e, "red"]   call fza_fnc_debugDrawLine;
     #endif
 
-    //_heli addForce[_heli vectorModelToWorld _liftVector, _e];
-    _heli addForce[_heli vectorModelToWorld _dragVector, _e];
+    _heli addForce [_heli vectorModelToWorld _liftVector, _e];
+    _heli addForce [_heli vectorModelToWorld _dragVector, _e];
 
-    private _moment = _liftVector vectorCrossProduct _deltaPos;
-
-    //private _torque = [0.0, 0.0, 0.0];
-    //if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-    //    _torque = _moment;
-    //};
-
-    _heli addTorque (_heli vectorModelToWorld _moment);//_torque);
 	
     #ifdef __A3_DEBUG__
     //Draw the wing

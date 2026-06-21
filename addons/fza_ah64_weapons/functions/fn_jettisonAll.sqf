@@ -6,7 +6,7 @@ sleep 0.5;
     private _pylonDummyMain = "fza_ah64_pylon_base" createVehicle [0,0,0];
     private _ammo = _heli ammoOnPylon (_pylon);
     private _magazine = (getPylonMagazines _heli) # (_pylon - 1);
-    _pylonDummyMain setPylonLoadOut [1, _magazine, false, []];
+    _pylonDummyMain setPylonLoadout [1, _magazine, false, []];
     [_heli, [_pylon, "", false, []]] remoteExec ["setPylonLoadOut", crew _heli];
     _pylonDummyMain setAmmoOnPylon [1, _ammo];
     _pylonDummyMain allowDamage false;
@@ -20,7 +20,7 @@ sleep 0.5;
 
         private _ammo = _heli ammoOnPylon (_pylon + _i);
         private _magazine = (getPylonMagazines _heli) # (_pylon - 1 + _i);
-        _pylonDummy setPylonLoadOut [1, _magazine, false, []];
+        _pylonDummy setPylonLoadout [1, _magazine, false, []];
         [_heli, [(_pylon + _i), "", false, []]] remoteExec ["setPylonLoadOut", crew _heli];
         _pylonDummy setAmmoOnPylon [1, _ammo];
         _pylonDummy allowDamage false;

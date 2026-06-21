@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ////ANIMATIONS//// -->
+<!-- ////TEXTURES//// -->
 <Project name="FZA">
+    <!-- ////ANIMATIONS//// -->
+    <!-- ////TEXTURES//// -->
     <Package name="AH64">
-
         <!-- ////ANIMATIONS//// -->
-
-        <!-- ////TEXTURES//// -->
-
         <!-- ////OBJECTS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_1200MAGAZINE">
             <Original>AH-64 1200 Magazine</Original>
             <English>AH-64 1200 Magazine</English>
@@ -24,6 +25,8 @@
             <Turkish>AH-64 1200 Dergisi</Turkish>
             <Dutch>AH-64 1200 Magazijn</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_BASE_CLASS">
             <Original>AH-64 Offical Project Base class</Original>
             <English>AH-64 Offical Project Base class</English>
@@ -41,6 +44,8 @@
             <Turkish>AH-64 Resmi Projesi Temel Sınıfı</Turkish>
             <Dutch>AH-64 Officieel Project Basisklasse</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_BLOCK_1_CLASS">
             <Original>AH-64D BLOCK I</Original>
             <English>AH-64D BLOCK I</English>
@@ -58,6 +63,8 @@
             <Turkish>AH-64D BLOK I</Turkish>
             <Dutch>AH-64D BLOK I</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_COCKPIT_CONTROLS">
             <Original>AH-64D Official Project: Cockpit Controls</Original>
             <English>AH-64D Official Project: Cockpit Controls</English>
@@ -75,6 +82,8 @@
             <Turkish>AH-64D Resmi Projesi: Kokpit Kontrolleri</Turkish>
             <Dutch>AH-64D Officieel Project: Cockpit Bediening</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DEVELOPMENT_TEAM">
             <Original>AH-64 Development Team</Original>
             <English>AH-64 Development Team</English>
@@ -92,7 +101,9 @@
             <Turkish>AH-64 Geliştirme Ekibi</Turkish>
             <Dutch>AH-64 Ontwikkelingsteam</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
         <!-- ////DMS LOGIC//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS">
             <Original>AH-64D DMS</Original>
             <English>AH-64D DMS</English>
@@ -110,6 +121,8 @@
             <Turkish>AH-64D DMS</Turkish>
             <Dutch>AH-64D DMS</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_CONTROL_MEASURE">
             <Original>DMS Control Measure</Original>
             <English>DMS Control Measure</English>
@@ -127,6 +140,8 @@
             <Turkish>DMS Kontrol Ölçüsü</Turkish>
             <Dutch>DMS Controlemaatregel</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_CONTROL_MEASURE_INFO">
             <Original>Control Measures are allowed to range from 51-99</Original>
             <English>Control Measures are allowed to range from 51-99</English>
@@ -144,6 +159,8 @@
             <Turkish>Kontrol Ölçüleri 51-99 Aralığında Olabilir</Turkish>
             <Dutch>Controlemaatregelen Mogen Variëren van 51-99</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_POINT_FREE">
             <Original>Point Free Text</Original>
             <English>Point Free Text</English>
@@ -161,6 +178,8 @@
             <Turkish>Nokta Serbest Metni</Turkish>
             <Dutch>Punt Vrije Tekst</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_POINT_FREE_INFO">
             <Original>The 3-character free text describing the point</Original>
             <English>The 3-character free text describing the point</English>
@@ -178,6 +197,8 @@
             <Turkish>Noktayı Tanımlayan 3 Karakterli Serbest Metin</Turkish>
             <Dutch>De 3-Karakters Vrije Tekst Die het Punt Beschrijft</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_POINT_IDENT">
             <Original>Point Ident</Original>
             <English>Point Ident</English>
@@ -195,6 +216,8 @@
             <Turkish>Nokta Tanımlama</Turkish>
             <Dutch>Puntidentificatie</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_POINT_IDENT_INFO">
             <Original>The 2-character IDENT code describing the point</Original>
             <English>The 2-character IDENT code describing the point</English>
@@ -212,6 +235,8 @@
             <Turkish>Noktayı Tanımlayan 2 Karakterli IDENT Kodu</Turkish>
             <Dutch>De 2-Karakters IDENT-Code Die het Punt Beschrijft</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_POINT_INDEX">
             <Original>Point Index</Original>
             <English>Point Index</English>
@@ -229,6 +254,8 @@
             <Turkish>Nokta İndeksi</Turkish>
             <Dutch>Puntindex</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_TARGET_THREAT">
             <Original>DMS Target / Threat</Original>
             <English>DMS Target / Threat</English>
@@ -246,6 +273,8 @@
             <Turkish>DMS Hedef / Tehdit</Turkish>
             <Dutch>DMS Doel / Bedreiging</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_TARGET_THREAT_INFO">
             <Original>Target/Threats are allowed to range from 1-50</Original>
             <English>Target/Threats are allowed to range from 1-50</English>
@@ -263,6 +292,8 @@
             <Turkish>Hedefler/Tehditler 1-50 Aralığında Olabilir</Turkish>
             <Dutch>Doelen/Bedreigingen Mogen Variëren van 1-50</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_WAYPOINT_HAZARD">
             <Original>DMS Waypoint / Hazard</Original>
             <English>DMS Waypoint / Hazard</English>
@@ -280,6 +311,8 @@
             <Turkish>DMS Yön Noktası / Tehlike</Turkish>
             <Dutch>DMS Waypoint / Gevaar</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_DMS_WAYPOINT_HAZARD_INFO">
             <Original>Waypoint/Hazards are allowed to range from 1-50</Original>
             <English>Waypoint/Hazards are allowed to range from 1-50</English>
@@ -297,6 +330,8 @@
             <Turkish>Yön Noktaları/Tehlikeler 1-50 Aralığında Olabilir</Turkish>
             <Dutch>Waypoints/Gevaren Mogen Variëren van 1-50</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_FCR">
             <Original>AH-64 Fire Control Radar</Original>
             <English>AH-64 Fire Control Radar</English>
@@ -314,6 +349,8 @@
             <Turkish>AH-64 Yangın Kontrol Radarı</Turkish>
             <Dutch>AH-64 Vuurleidingsradar</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_IAFS">
             <Original>AH-64 IAFS</Original>
             <English>AH-64 IAFS</English>
@@ -331,6 +368,8 @@
             <Turkish>AH-64 IAFS</Turkish>
             <Dutch>AH-64 IAFS</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_INPUT">
             <Original>AH-64D Official Project: Input</Original>
             <English>AH-64D Official Project: Input</English>
@@ -348,6 +387,8 @@
             <Turkish>AH-64D Resmi Projesi: Giriş</Turkish>
             <Dutch>AH-64D Officieel Project: Invoer</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_LOADOUT">
             <Original>Loadout Config</Original>
             <English>Loadout Config</English>
@@ -365,6 +406,8 @@
             <Turkish>Yük Yapılandırması</Turkish>
             <Dutch>Ladingsconfiguratie</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_LOADOUT_INFO">
             <Original>Loadout in JSON form to export</Original>
             <English>Loadout in JSON form to export</English>
@@ -382,6 +425,8 @@
             <Turkish>Dışa Aktarılacak JSON Biçiminde Yük</Turkish>
             <Dutch>Lading in JSON-vorm om te Exporteren</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_MOUNT_BRITISH_MISSION_EQUIPMENT">
             <Original>Mount British Mission Equipment</Original>
             <English>Mount British Mission Equipment</English>
@@ -399,6 +444,8 @@
             <Turkish>İngiliz Görev Ekipmanı Montaj</Turkish>
             <Dutch>Britse Missiemateriaal Installeren</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_MOUNT_FCR">
             <Original>Mount FCR (Fire Control Radar)</Original>
             <English>Mount FCR (Fire Control Radar)</English>
@@ -416,7 +463,9 @@
             <Turkish>FCR Montaj (Yangın Kontrol Radarı)</Turkish>
             <Dutch>FCR Installeren (Vuurleidingsradar)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
         <!-- ////OBJECTS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_OBJECT_BASE">
             <Original>Apache Object Base</Original>
             <English>Apache Object Base</English>
@@ -434,6 +483,8 @@
             <Turkish>Apache Nesne Tabanı</Turkish>
             <Dutch>Apache Object Base</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_OFFICIAL_PROJECT">
             <Original>AH-64D Official Project</Original>
             <English>AH-64D Official Project</English>
@@ -451,6 +502,8 @@
             <Turkish>AH-64D Resmi Projesi</Turkish>
             <Dutch>AH-64D Officieel Project</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_PILOT">
             <Original>AH-64D Pilot</Original>
             <English>AH-64D Pilot</English>
@@ -468,6 +521,8 @@
             <Turkish>AH-64D Pilotu</Turkish>
             <Dutch>AH-64D Piloot</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_PROJECT_LIBRARY_DESCRIPTION">
             <Original>The AH-64D Block I is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.</Original>
             <English>The AH-64D Block I is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.</English>
@@ -485,6 +540,8 @@
             <Turkish>AH-64D Block I, bir anti-tank saldırı helikopteridir. Belirleyici özellikler şunlardır: Dört kanatlı ana rotor, X şeklinde kuyruk rotoru, yanlarda iki farklı bölümü olan kutu şeklinde kokpit, her biri iki pylon ile iki kısa kanat, iki ana tekerlek ve bir kuyruk tekerleği, çene tarafından monte edilmiş bir kule ve arkasında bir sabitlestirici olan uzun bir yuvarlak gövde. Üretim 1982'de başladı ve ilk birim 1986'da konuşlandırıldı. 1993'e kadar ABD Ordusu 800'den fazla Apache'ye sahipti. Ilk olarak 1989'da Panama işgali sırasında Just Cause Operasyonunda savaşta kullanıldı. 1991 Çöl Fırtınası Operasyonu sırasında Apache'ler Iraklı erken uyarı radarlarını yok ederek çatışmanın ilk saldırısını gerçekleştirdiler. AH-64D, toplam 3392 beygir gücü üreten iki General Electric T700-GE-701C motoru ile donatılmıştır.</Turkish>
             <Dutch>De AH-64D Block I is een antitankhelikopter. Karakteristieke kenmerken zijn: vierbladige hoofdrotor, X-vormige staartrotor, een blokvormige cockpit met twee aparte ruimten aan de zijkanten, twee stompe vleugels met elk twee pylonen, twee hoofdwielen en een staartwiel, een aan de kin gemonteerd torentje, en een lange afgeronde staartboom met een stabilisator aan de achterkant. De productie begon in 1982 en de eerste eenheid werd in 1986 ingezet. In 1993 had het Amerikaanse leger meer dan 800 Apache's in dienst. Het werd voor het eerst in gevecht gebruikt tijdens Operation Just Cause, de invasie van Panama in 1989 waar enkele nadelen werden ondervonden. Tijdens Desert Storm in 1991 voerden Apache's de eerste aanval van dat conflict uit door Iraakse vroeuwaarschuwingsradars te vernietigen. De AH-64D heeft twee General Electric T700-GE-701C-motoren die in totaal 3392 pk produceren. Het is bewapend met een M230 30 mm kettinggew in en AGM-114 HELLFIRE-raketten en HYDRA-70 raketten van 2,75 inch.</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_PYLON">
             <Original>Pylon</Original>
             <English>Pylon</English>
@@ -502,6 +559,8 @@
             <Turkish>Pylon</Turkish>
             <Dutch>Pyloon</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_SWAP_IAFS">
             <Original>Swap IAFS for 1200rnd magazine</Original>
             <English>Swap IAFS for 1200rnd magazine</English>
@@ -519,6 +578,8 @@
             <Turkish>IAFS'yi 1200rnd Dergisiyle Değiştir</Turkish>
             <Dutch>IAFS met 1200rnd Magazine Verwisselen</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TAIL_NUMBER">
             <Original>Custom Tail Numbers</Original>
             <English>Custom Tail Numbers</English>
@@ -536,6 +597,8 @@
             <Turkish>Özel Kuyruk Numaraları</Turkish>
             <Dutch>Aangepaste Staartummers</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TAIL_NUMBER_INFO">
             <Original>Enter a 7 character tail number. Leave a space to skip a position.</Original>
             <English>Enter a 7 character tail number. Leave a space to skip a position.</English>
@@ -553,6 +616,8 @@
             <Turkish>7 Karakterli bir Kuyruk Numarası Girin. Bir Konumu Atlamak için Boşluk Bırakın.</Turkish>
             <Dutch>Voer een Staartummer van 7 Tekens In. Laat een Spatie over om een Positie over te Slaan.</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_211TH_CLEAN">
             <Original>1/211th ARB "The Air Pirates" Utah National Guard</Original>
             <English>1/211th ARB "The Air Pirates" Utah National Guard</English>
@@ -570,6 +635,8 @@
             <Turkish>1/211e ARB "Hava Korsanları" Utah Ulusal Muhafızları</Turkish>
             <Dutch>1/211e ARB "De Luchtpiraten" Utah Nationale Garde</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_211TH_WEATHERED">
             <Original>1/211th ARB "The Air Pirates" Utah National Guard (weathered)</Original>
             <English>1/211th ARB "The Air Pirates" Utah National Guard (weathered)</English>
@@ -587,6 +654,8 @@
             <Turkish>1/211e ARB "Hava Korsanları" Utah Ulusal Muhafızları (aşındırılmış)</Turkish>
             <Dutch>1/211e ARB "De Luchtpiraten" Utah Nationale Garde (verweerd)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_ARB229TH">
             <Original>229th ARB</Original>
             <English>229th ARB</English>
@@ -604,6 +673,8 @@
             <Turkish>229e ARB</Turkish>
             <Dutch>229e ARB</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_ARB229TH_WEATHERED">
             <Original>229th ARB (weathered)</Original>
             <English>229th ARB (weathered)</English>
@@ -621,6 +692,8 @@
             <Turkish>229e ARB (aşındırılmış)</Turkish>
             <Dutch>229e ARB (verweerd)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_DEFAULT">
             <Original>Default</Original>
@@ -639,6 +712,8 @@
             <Turkish>Varsayılan</Turkish>
             <Dutch>Standaard</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_DEFAULT_WEATHERED">
             <Original>Default Weathered</Original>
             <English>Default Weathered</English>
@@ -656,6 +731,8 @@
             <Turkish>Varsayılan Aşındırılmış</Turkish>
             <Dutch>Standaard Verweerd</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_INDIAN_AIR_FORCE">
             <Original>Indian Air Force</Original>
             <English>Indian Air Force</English>
@@ -673,6 +750,8 @@
             <Turkish>Hindistan Hava Kuvvetleri</Turkish>
             <Dutch>Indische Luchtmacht</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_ISRAELI_AIR_FORCE">
             <Original>Israeli Air Force (IAF Saraf)</Original>
             <English>Israeli Air Force (IAF Saraf)</English>
@@ -690,6 +769,8 @@
             <Turkish>İsrail Hava Kuvvetleri (IAF Saraf)</Turkish>
             <Dutch>Israëlische Luchtmacht (IAF Saraf)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_NODUNIT">
             <Original>Kane's Wrath</Original>
             <English>Kane's Wrath</English>
@@ -707,6 +788,8 @@
             <Turkish>Kane'in Öfkesi</Turkish>
             <Dutch>Kanes Toorn</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_RNLAf_DEMO">
             <Original>RNLAF 301 Squadron Demo Team</Original>
             <English>RNLAF 301 Squadron Demo Team</English>
@@ -724,6 +807,8 @@
             <Turkish>RNLAF 301 Filo Demo Takımı</Turkish>
             <Dutch>RNLAF Escadron 301 Demo Team</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_RNLAf_Q_09">
             <Original>RNLAF 301 Squadron Q-09</Original>
             <English>RNLAF 301 Squadron Q-09</English>
@@ -741,6 +826,8 @@
             <Turkish>RNLAF 301 Filo Q-09</Turkish>
             <Dutch>RNLAF Escadron 301 Q-09</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_SHIELD">
             <Original>Shield (Marvel)</Original>
             <English>Shield (Marvel)</English>
@@ -758,6 +845,8 @@
             <Turkish>Kalkan (Marvel)</Turkish>
             <Dutch>Schild (Marvel)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC">
             <Original>United Kingdom Army Air Corps</Original>
             <English>United Kingdom Army Air Corps</English>
@@ -775,6 +864,8 @@
             <Turkish>İngiltere Ordusu Hava Birlikleri</Turkish>
             <Dutch>Britse Leger Luchtmacht</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC_SF">
             <Original>United Kingdom Army Air Corps Special Forces</Original>
             <English>United Kingdom Army Air Corps Special Forces</English>
@@ -792,6 +883,8 @@
             <Turkish>İngiltere Ordusu Hava Birlikleri Özel Kuvvetler</Turkish>
             <Dutch>Britse Leger Luchtmacht Speciale Eenheden</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC_WEATHERED">
             <Original>United Kingdom Army Air Corps (weathered)</Original>
             <English>United Kingdom Army Air Corps (weathered)</English>
@@ -809,6 +902,8 @@
             <Turkish>İngiltere Ordusu Hava Birlikleri (aşındırılmış)</Turkish>
             <Dutch>Britse Leger Luchtmacht (verweerd)</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TOGGLE_GUNNER_DOOR">
             <Original>Toggle Gunner door</Original>
             <English>Toggle Gunner door</English>
@@ -827,6 +922,8 @@
             <Dutch>Schutter Deur Omschakelen</Dutch>
         </Key>
         <!-- ////ANIMATIONS//// -->
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TOGGLE_PILOT_DOOR">
             <Original>Toggle Pilot door</Original>
             <English>Toggle Pilot door</English>
@@ -844,5 +941,9 @@
             <Turkish>Pilot Kapısı Açkapa</Turkish>
             <Dutch>Piloot Deur Omschakelen</Dutch>
         </Key>
+        <!-- ////ANIMATIONS//// -->
+        <!-- ////TEXTURES//// -->
     </Package>
+    <!-- ////ANIMATIONS//// -->
+    <!-- ////TEXTURES//// -->
 </Project>

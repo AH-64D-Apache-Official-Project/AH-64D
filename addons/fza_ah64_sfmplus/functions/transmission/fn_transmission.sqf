@@ -19,7 +19,20 @@ private _engInputTq  = 0.0;
     _engInputTq = _engInputTq + _x;
 } forEach _engOutputTq;
 
-_deltaRpm  = if (_mainRotorMoi == 0.0) then { 0.0; } else { (_engInputTq - _totTq) / (_mainRotorMoi / (_mainRotorGearRatio * _mainRotorGearRatio)); };
+if (fza_ah64_sfmPlusRotorModel == 1) then {
+    // ── BET driveline dynamics ────────────────────────────────────────────────
+    // Lumped at the engine shaft, dimensionally correct and framerate-independent:
+    //   alpha = tau_net / J_eng           [rad/s^2]
+    //   J_eng = J_rotor / GR^2            (rotor inertia referred to engine shaft)
+    //   d(rpm) = alpha * dt * (60 / 2pi)  (rad/s -> rpm over the frame)
+    private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
+    private _jEng      = _mainRotorMoi / (_mainRotorGearRatio * _mainRotorGearRatio);
+    private _alpha     = if (_jEng == 0.0) then { 0.0 } else { (_engInputTq - _totTq) / _jEng };
+    _deltaRpm          = _alpha * _deltaTime * (60.0 / (2.0 * pi));
+} else {
+    // ── Simple rotor model (original behaviour — do not change) ────────────────
+    _deltaRpm = if (_mainRotorMoi == 0.0) then { 0.0; } else { (_engInputTq - _totTq) / (_mainRotorMoi / (_mainRotorGearRatio * _mainRotorGearRatio)); };
+};
 
 if (_outputRpm < 0.0) then {
     _outputRpm = 0.0;
