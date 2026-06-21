@@ -28,8 +28,9 @@ private _inDialog           = !dialog;
 private _isZeus             = isNull findDisplay 312;
 private _inMap              = !visibleMap;
 private _inInventory        = isNull findDisplay 602;
+private _mplannerApplying   = _heli getVariable ["fza_mplanner_applying", false];
 
-private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn;
+private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn && !_mplannerApplying;
 
 private _config             = configOf _heli >> "Fza_SfmPlus";
 private _configVehicles     = configOf _heli;
@@ -177,7 +178,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     private _desiredSlip   = 0.0;
     private _sideslipError = 0.0;
 
-    if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+    if (_yawBreakout || _gndSpeed > POS_HOLD_SPEED_SWITCH) then {
         _desiredHdg       = getDir _heli;
         _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / 0.1) * _deltaTime] call BIS_fnc_lerp;
         _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
@@ -192,19 +193,78 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
     _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-    _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+    _sideslipError  = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
+    private _hdgHoldBreakout     = (_pedalLeftRight <= -HDG_HOLD_BREAKOUT_VALUE && _pedalLeftRight < 0.0) || (_pedalLeftRight >= HDG_HOLD_BREAKOUT_VALUE && _pedalLeftRight > 0.0);
+    private _prevHdgHoldBreakout = _heli getVariable ["fza_sfmplus_prevAutoPedalHdgBreakout", false];
     if (_yawBreakout) then {
         [_pidAutoPedalHdg]  call fza_fnc_pidReset;
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
     } else {
-        _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
+        if (_gndSpeed < POS_HOLD_SPEED_SWITCH && _prevHdgHoldBreakout && !_hdgHoldBreakout) then {
+            _heli setVariable ["fza_sfmPlus_autoPedalHdg", getDir _heli, true];
+        };
+        _heli setVariable ["fza_ah64_forceTrimPosYaw", _yawOutput, true];
     };
+    _heli setVariable ["fza_sfmplus_prevAutoPedalHdgBreakout", _hdgHoldBreakout];
 };
+/////////////////////////////////////////////////////////////////////////////////////////////
+// KB Auto Pitch        /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+if (fza_ah64_sfmPlusAutoPitch && fza_ah64_sfmplusRealismSetting != REALISTIC) then {
+    private _pidAutoPitch      = _heli getVariable "fza_sfmplus_pid_autoPitch";
+    private _autoPitchActive   = _heli getVariable "fza_sfmplus_autoPitchActive";
+    private _autoPitchTarget   = _heli getVariable "fza_sfmplus_autoPitchTarget";
+    private _autoPitchHoldTimer = _heli getVariable "fza_sfmplus_autoPitchHoldTimer";
+    private _prevPitchBreakout = _heli getVariable "fza_sfmplus_autoPitchBreakout";
+    private _pitchBreakout     = (abs _cyclicFwdAft) > ATT_HOLD_BREAKOUT_VALUE;
 
+    private _curPitch = (_heli call BIS_fnc_getPitchBank) select 0;
+
+    private _velXY = vectorMagnitude [
+        _heli getVariable "fza_sfmplus_velModelSpace" select 0,
+        _heli getVariable "fza_sfmplus_velModelSpace" select 1
+    ];
+    private _autoPitchScalar = linearConversion [VEL_ETL * 0.5, VEL_ETL, _velXY, 0.0, 1.0, true];
+
+    if (_pitchBreakout) then {
+        // Accumulate timer with sign: forward (_cyclicFwdAft > 0) = positive, aft = negative
+        _autoPitchHoldTimer = _autoPitchHoldTimer + (_deltaTime * (if (_cyclicFwdAft > 0) then { 1 } else { -1 }));
+        _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", _autoPitchHoldTimer];
+        _autoPitchActive = false;
+        [_pidAutoPitch] call fza_fnc_pidReset;
+        _heli setVariable ["fza_sfmplus_autoPitchActive", false];
+        _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
+    } else {
+        if (_prevPitchBreakout) then {
+            // Key just released — check tap vs hold
+            if ((abs _autoPitchHoldTimer) < 0.15) then {
+                // Tap: increment target by 0.1 in the pressed direction
+                _autoPitchTarget = _autoPitchTarget - (0.1 * (if (_autoPitchHoldTimer > 0) then { 1 } else { -1 }));
+                _autoPitchTarget = [_autoPitchTarget, -30.0, 30.0] call BIS_fnc_clamp;
+            } else {
+                // Hold release: capture live pitch as new target
+                _autoPitchTarget = _curPitch;
+            };
+            _heli setVariable ["fza_sfmplus_autoPitchTarget", _autoPitchTarget];
+            [_pidAutoPitch] call fza_fnc_pidReset;
+            _autoPitchHoldTimer = 0;
+            _heli setVariable ["fza_sfmplus_autoPitchHoldTimer", 0];
+        };
+        _autoPitchActive = true;
+        _heli setVariable ["fza_sfmplus_autoPitchActive", true];
+        private _pitchOut = [_pidAutoPitch, _deltaTime, _autoPitchTarget, _curPitch] call fza_fnc_pidRun;
+        _pitchOut         = [_pitchOut, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_ah64_forceTrimPosPitch", -(_pitchOut * _autoPitchScalar), true];
+    };
+    _heli setVariable ["fza_sfmplus_autoPitchBreakout", _pitchBreakout];
+};
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Flight Ctrl Lockout  /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 if (_fltControlLockout) then {
     if (
         (_cyclicFwdAft    < CENTER_TRIM_VAL && _cyclicFwdAft    > -CENTER_TRIM_VAL) &&

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        
         <Key ID="STR_FZA_AH64_230GAL_AUX_TANK">
             <Original>230gal Aux Tank</Original>
             <English>230gal Aux Tank</English>

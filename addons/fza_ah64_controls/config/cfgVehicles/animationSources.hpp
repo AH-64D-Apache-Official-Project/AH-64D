@@ -9,6 +9,12 @@ class AnimationSources
         initPhase = 0;
         animPeriod = 0.001;
     };
+    class longbow
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
     class Plt_flood
     {
         source = "user";

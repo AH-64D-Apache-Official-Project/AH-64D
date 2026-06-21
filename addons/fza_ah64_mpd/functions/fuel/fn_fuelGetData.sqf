@@ -1,7 +1,6 @@
+#include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_fuel\headers\fuelConstants.hpp"
 params ["_heli"];
-
-#define KGTOLBS 2.20462
-#define FUEL_FLOW_LBS_PER_HOUR 7936.64;
 
 private _fwdCellWeight       = _heli getVariable "fza_sfmplus_fwdFuelMass";
 private _ctrFuelWeight       = _heli getVariable "fza_sfmplus_ctrFuelMass";
@@ -14,11 +13,11 @@ private _stn4FuelWeight      = _heli getVariable "fza_sfmplus_stn4FuelMass";
 
 private _mainFuelCellWeight  = _fwdCellWeight + _aftCellWeight;
 private _totalFuelCellWeight = _fwdCellWeight + _ctrFuelWeight + _aftCellWeight + _stn1FuelWeight + _stn2FuelWeight + _stn3FuelWeight + _stn4FuelWeight;
-_fwdCellWeight   = _fwdCellWeight * KGTOLBS;
-_ctrFuelWeight       = _ctrFuelWeight * KGTOLBS;
-_aftCellWeight       = _aftCellWeight * KGTOLBS;
-_mainFuelCellWeight  = _mainFuelCellWeight * KGTOLBS;
-_totalFuelCellWeight = _totalFuelCellWeight * KGTOLBS;
+_fwdCellWeight   = _fwdCellWeight * KG_TO_LBS;
+_ctrFuelWeight       = _ctrFuelWeight * KG_TO_LBS;
+_aftCellWeight       = _aftCellWeight * KG_TO_LBS;
+_mainFuelCellWeight  = _mainFuelCellWeight * KG_TO_LBS;
+_totalFuelCellWeight = _totalFuelCellWeight * KG_TO_LBS;
 
 private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
@@ -55,4 +54,13 @@ private _totalEnduranceNumber = if(_totalFuelConsumption > 0) then {
     format["%1:%2", _enduranceHours toFixed 0, [_enduranceMinutes, 2] call CBA_fnc_formatNumber];
 } else {"9:99"};
 
-[_fwdCellWeight, _ctrFuelWeight, _aftCellWeight, _mainFuelCellWeight, _totalFuelCellWeight, _eng1FuelCons, _eng2FuelCons, _totalFuelConsumption, _mainEnduranceNumber, _totalEnduranceNumber]
+// Specific Fuel Range (nm per lb): airspeed (kts) / fuel flow (lb/hr)
+// Shown blank when groundspeed < 10 kts or no fuel flow
+private _sfrText = "";
+private _groundspeedKts = _heli getVariable ["fza_sfmplus_gndSpeed", 0];
+if (_groundspeedKts >= 10 && _totalFuelConsumption > 0) then {
+    private _sfr = (_groundspeedKts / _totalFuelConsumption) toFixed 2;
+    _sfrText = if (_sfr select [0, 2] == "0.") then { _sfr select [1] } else { _sfr };
+};
+
+[_fwdCellWeight, _ctrFuelWeight, _aftCellWeight, _mainFuelCellWeight, _totalFuelCellWeight, _eng1FuelCons, _eng2FuelCons, _totalFuelConsumption, _mainEnduranceNumber, _totalEnduranceNumber, _sfrText]

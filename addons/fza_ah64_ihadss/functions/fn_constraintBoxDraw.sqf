@@ -27,23 +27,55 @@ private _conW = 0;
 private _conH = 0;
 private _indicateLobl = false;
 private _vector = [];
-private _allowableAngle = 20;
+private _allowableAngle = 7.5;
 private _constraintBoxUseTads = false;
 
 if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitWith {};
 
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
-	if !isNull _ntsObj then {
-		_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_limaLoblCheck) # 1;
-		_vector = _heli worldToModelVisual (ASLToAGL _ntsPos);
-		if _indicateLobl then {
-			_vector = _heli worldToModelVisual (ASLToAGL getPosASL _ntsObj);
-			_allowableAngle = 5;
+	private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+	if (_sight == SIGHT_TADS) then {
+		private _handoffPos = [0, 0, 0];
+		private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
+		private _handoffLast = _heli getVariable ["fza_ah64_tadsRfHandoffLast", []];
+
+		if (_handoffData isEqualType [] && {count _handoffData >= 1}) then {
+			_handoffPos = _handoffData # 0;
+		} else {
+			if (_handoffLast isEqualType [] && {count _handoffLast >= 1}) then {
+				_handoffPos = _handoffLast # 0;
+			};
+		};
+
+		if (_handoffPos isNotEqualTo [0, 0, 0]) then {
+			private _loblTarget = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
+			private _loblValid = false;
+			if (!isNull _loblTarget) then {
+				_loblValid = ([_heli, [getPosASL _loblTarget, speed _loblTarget, _loblTarget], true] call fza_hellfire_fnc_arhTargetConstraint) # 1;
+			};
+
+			if (_loblValid) then {
+				_vector         = _heli worldToModelVisual (ASLToAGL getPosASL _loblTarget);
+				_indicateLobl   = true;
+				_allowableAngle = 20;
+			} else {
+				_vector         = _heli worldToModelVisual (ASLToAGL _handoffPos);
+				_indicateLobl   = false;
+			};
+		};
+	} else {
+		_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
+		if !isNull _ntsObj then {
+			_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_arhTargetConstraint) # 1;
+			_vector = _heli worldToModelVisual (ASLToAGL _ntsPos);
+			if _indicateLobl then {
+				_vector = _heli worldToModelVisual (ASLToAGL getPosASL _ntsObj);
+				_allowableAngle = 20;
+			};
 		};
 	};
 } else {
-	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+	private _lasePos = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
 	if !isNil "_lasePos" then {
 		_vector = _heli worldToModelVisual (ASLToAGL _lasePos);
 		_indicateLobl = true;
@@ -55,7 +87,7 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 			_vector = [0,1,0]
 		};
 	};
-	if !_indicateLobl then {_allowableAngle = 7.5};
+	if _indicateLobl then {_allowableAngle = 20};
 };
 
 private _angleOffAxis = [];

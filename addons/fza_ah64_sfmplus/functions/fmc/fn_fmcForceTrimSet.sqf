@@ -25,11 +25,11 @@ if (fza_ah64_sfmPlusSpringlessCyclic || fza_ah64_sfmPlusKeyboardStickyRoll) then
 };
 //Pedal trim
 private _curPedalLeftRight  = (_heli getVariable "fza_sfmplus_pedalLeftRight");
-private _prevPedalLeftRight = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _prevPedalLeftRight = _heli getVariable "fza_ah64_forceTrimPosYaw";
 private _pedalTrimVal       = _curPedalLeftRight + _prevPedalLeftRight;
 _pedalTrimVal               = [_pedalTrimVal, -1.0, 1.0] call BIS_fnc_clamp;
 if (fza_ah64_sfmplusSpringlessPedals || fza_ah64_sfmPlusKeyboardStickyYaw) then {
-    _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0];
+    _heli setVariable ["fza_ah64_forceTrimPosYaw", 0.0];
 } else {
-    _heli setVariable ["fza_ah64_forceTrimPosPedal", _pedalTrimVal, true];
+    _heli setVariable ["fza_ah64_forceTrimPosYaw", _pedalTrimVal, true];
 };
