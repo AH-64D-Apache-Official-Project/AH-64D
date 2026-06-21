@@ -29,6 +29,7 @@ class Draw
             sourceIndex = 0;
             scale=1;
             align="right";
+            sourceScale = 1;
             pos[] = {{0, 0}, 1};
             right[] = {{UFD_CHAR_WIDTH_VEC, 0}, 1};
             down[] = {{0, 1/10}, 1};
@@ -50,7 +51,7 @@ class Draw
             right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
             down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
         };
-        class Fuel
+        class Fuel : Line0
         {
             type = "text";
             scale=1;
