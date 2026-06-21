@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File7:laser/fn_laserArm.sqf","fn_laserArm.sqf");NDSummary.OnSummaryLoaded("File7:laser/fn_laserArm.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[391,0,1,"Functions","Functions"],[392,0,0,"fza_fnc_laserArm","fza_fnc_laserArm"]]);
+﻿NDFramePage.OnPageTitleLoaded("File7:laser/fn_laserArm.sqf","fn_laserArm.sqf");NDSummary.OnSummaryLoaded("File7:laser/fn_laserArm.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[389,0,1,"Functions","Functions"],[390,0,0,"fza_fnc_laserArm","fza_fnc_laserArm"]]);

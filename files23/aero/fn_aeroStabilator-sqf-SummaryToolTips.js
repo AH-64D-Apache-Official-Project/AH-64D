@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File23:aero/fn_aeroStabilator.sqf",{74:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Creates a stabilator object which automatically schedules as a function of collective position and airspeed.</div></div>"});

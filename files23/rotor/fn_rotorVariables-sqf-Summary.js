@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File23:rotor/fn_rotorVariables.sqf","fn_rotorVariables.sqf");NDSummary.OnSummaryLoaded("File23:rotor/fn_rotorVariables.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[67,0,1,"Functions","Functions"],[68,0,0,"fza_sfmplus_fnc_rotorVariables","fza_sfmplus_fnc_rotorVariables"]]);

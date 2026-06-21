@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File6:fn_setMultiArrayVariable.sqf","fn_setMultiArrayVariable.sqf");NDSummary.OnSummaryLoaded("File6:fn_setMultiArrayVariable.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[455,0,1,"Functions","Functions"],[456,0,0,"fza_fnc_setMultiArrayVariable","fza_fnc_setMultiArrayVariable"]]);

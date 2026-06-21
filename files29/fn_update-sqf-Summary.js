@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File29:fn_update.sqf","fn_update.sqf");NDSummary.OnSummaryLoaded("File29:fn_update.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[7,0,1,"Functions","Functions"],[8,0,0,"fza_wca_fnc_update","fza_wca_fnc_update"]]);
+﻿NDFramePage.OnPageTitleLoaded("File29:fn_update.sqf","fn_update.sqf");NDSummary.OnSummaryLoaded("File29:fn_update.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[5,0,1,"Functions","Functions"],[6,0,0,"fza_wca_fnc_update","fza_wca_fnc_update"]]);

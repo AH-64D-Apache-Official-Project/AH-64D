@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fn_getWindDirVel.sqf",{});
