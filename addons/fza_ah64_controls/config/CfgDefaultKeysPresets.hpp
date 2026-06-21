@@ -53,6 +53,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_collectiveDn[] = {};
             fza_ah64_kbCollectiveUp[] = {0x2A};
             fza_ah64_kbCollectiveDn[] = {0x1D};
+            fza_ah64_ctrlVisToggle[]  = {0x1D130017};  // Ctrl+I (unassigned by default controls)
             
         };
     };

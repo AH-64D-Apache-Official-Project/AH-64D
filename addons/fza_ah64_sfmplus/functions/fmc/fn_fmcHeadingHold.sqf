@@ -92,7 +92,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
                 _heli setVariable ["fza_ah64_attHoldDesiredAtt", [_desiredAtt # 0, 0.0], true];
             };
 
-            if (_trnCoordActive) then { "trn" } else { "yaw" }
+            ["yaw", "trn"] select (_trnCoordActive)
         }
     };
 

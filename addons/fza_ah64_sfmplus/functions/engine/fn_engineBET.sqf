@@ -34,7 +34,7 @@ private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 // ── Torque limits ─────────────────────────────────────────────────────────────
 private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
-private _engLimitTQ = if (_isSingleEng) then { _maxTQ_SE } else { _maxTQ_DE };
+private _engLimitTQ = [_maxTQ_DE, _maxTQ_SE] select (_isSingleEng);
 
 // ── Outputs ───────────────────────────────────────────────────────────────────
 private _tqOutput = 0.0;
@@ -67,7 +67,7 @@ if (_engState in ["STARTING", "ON"]) then {
             // holds reference with no standing offset.
             private _rotorTqReq = 0.0;
             { _rotorTqReq = _rotorTqReq + _x; } forEach (_heli getVariable "fza_sfmplus_reqEngTorque");
-            private _numActive  = if (_isSingleEng) then { 1 } else { 2 };
+            private _numActive  = [2, 1] select (_isSingleEng);
             private _myShareTq  = _rotorTqReq / _numActive;
 
             // ── Isochronous governor trim ─────────────────────────────────────
