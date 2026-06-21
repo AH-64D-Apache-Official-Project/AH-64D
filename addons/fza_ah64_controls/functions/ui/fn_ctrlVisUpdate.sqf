@@ -30,28 +30,22 @@ if (isNull _display) exitWith {};
 if !(driver _heli == player || gunner _heli == player) exitWith {};
 if !(_heli isKindOf "fza_ah64base") exitWith {};
 
-// ── Layout parameters (position is owned by the Arma layout editor) ─────────
-// We read the background control's current position; we never write it so the
-// layout editor's saved position is always preserved.
-// Note: the #define CTRL(idc) macro is declared below – use the full form here.
 private _bgPos = ctrlPosition (_display displayCtrl 5101);
+if (count _bgPos < 4) exitWith {};
+
 private _x0    = _bgPos select 0;
 private _y0    = _bgPos select 1;
 private _W     = _bgPos select 2;
 private _H     = _bgPos select 3;
 
-// Guard: background not yet positioned (very first frame edge-case)
 if (_W < 0.001) exitWith {};
 
-// Scale is derived from current height relative to the default height
 private _scale = _H / (safeZoneH * 0.240);
 
-// Row heights (fractions of _H)
 private _dragH   = _H * 0.075;   // title / drag bar
 private _modeH   = _H * 0.090;   // mode labels
 private _mainH   = _H * 0.660;   // collective + cyclic area
 private _yawH    = _H * 0.120;   // yaw / heading bar
-// remaining 0.055 is a small bottom margin (legend fits here implicitly)
 
 // Column widths
 private _collW   = _W * 0.155;   // collective bar
@@ -73,13 +67,10 @@ private _szSAS = _mainH * 0.042;  // SAS cross: full arm length
 private _thSAS = _szSAS * 0.12;   // SAS cross: bar thickness (+20%)
 private _szAct = _mainH * 0.06;   // actual ring outer diameter (= old FT size)
 private _szFT  = _szAct * 0.5;    // FT ring: half actual diameter; baked-in 2× relative band → same absolute border thickness
-// Aspect ratio correction: ensures rings are circular on any screen/UI-scale combination
-// Cached in uiNameSpace — resolution cannot change during a mission.
+
 private _circleWAdj = uiNamespace getVariable "fza_ah64_ctrlVisCircleW";
 if (isNil "_circleWAdj") then {
     private _res = getResolution;
-    // getResolution can momentarily report 0 width/height during display init; either one
-    // being 0 makes the divisions below throw "Zero Divisor". Skip caching until both are valid.
     if ((_res select 0) > 0 && (_res select 1) > 0) then {
         _circleWAdj = (safeZoneW / safeZoneH) / ((_res select 0) / (_res select 1));
         uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", _circleWAdj];
@@ -114,11 +105,7 @@ private _sasTotalPitch = _sasPitch + _attPitch;
 private _sasTotalRoll  = _sasRoll  + _attRoll;
 
 // ── Colour scheme ────────────────────────────────────────────────────────────
-// Index:  0=Default  1=NVG  2=Mono  3=Amber  4=BluFor  5=HiContrast
-// Recomputed every frame (no uiNamespace cache) — a prior cache-gate here that did
-// `_colorCache select 0` on a possibly-empty array reliably broke on this build,
-// silently skipping the rebuild forever. The table build below is cheap enough
-// to just run unconditionally instead of trying to cache it.
+
 private _colorScheme = fza_ah64_ctrlVisColor;
 
 // Initialised to the Default (0) scheme; switch below overrides for schemes 1-5.
@@ -284,14 +271,6 @@ CTRL(5132) ctrlSetPosition [_cxCtr - _lineThick * 0.5, _cyCtr - _cyHH, _lineThic
 CTRL(5132) ctrlCommit 0;
 
 // ── Cyclic indicators ────────────────────────────────────────────────────────
-// Mapping:  roll  → X  (left -1, right +1)
-//           pitch → Y  (fwd  +1 = up on display = smaller screen Y)
-
-// ── Cyclic indicators (geometric rectangles – no font, no bias, scale-invariant) ─────────────
-// All sizes are fractions of _H so they scale exactly with the layout editor.
-
-// Force trim reference (orange ring, ½ actual diameter) – middle layer; same absolute ring thickness
-// FT is the origin: all other cyclic indicators are positioned relative to it.
 private _szFTW = _szFT * _circleWAdj;
 private _ftX = _cxCtr - _ftRoll  * _cxHW;
 private _ftY = _cyCtr - _ftPitch * _cyHH;
@@ -309,10 +288,6 @@ CTRL(5135) ctrlSetPosition [_actX - _szActW * 0.5, _actY - _szAct * 0.5, _szActW
 CTRL(5135) ctrlSetTextColor _colAct;
 CTRL(5135) ctrlCommit 0;
 
-// SAS + ATT hold commanded position (red + cross) – bottom layer
-// Anchored to the FT trim position (matches the backend's trim + SAS/attHold + cyclic sum
-// in fn_rotorControl.sqf) so 0 SAS/attHold output sits on the FT ring, not the display centre.
-// Clamped to ±1 so the indicators never leave the frame.
 private _sasX = _cxCtr - ([_sasTotalRoll  + _ftRoll,  -1.0, 1.0] call BIS_fnc_clamp) * _cxHW;
 private _sasY = _cyCtr - ([_sasTotalPitch + _ftPitch, -1.0, 1.0] call BIS_fnc_clamp) * _cyHH;
 CTRL(5133) ctrlSetPosition      [_sasX - _szSAS * 0.5, _sasY - _thSAS * 0.5, _szSAS, _thSAS]; // H bar
