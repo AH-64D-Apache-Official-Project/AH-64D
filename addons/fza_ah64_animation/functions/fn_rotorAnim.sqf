@@ -48,12 +48,13 @@ private _pedal      = _heli getVariable ["fza_sfmplus_pedalLeftRight",   0.0];
 private _ftPedal    = _heli getVariable ["fza_ah64_forceTrimPosPedal",   0.0];
 private _rtrRPM     = _heli getVariable ["fza_sfmplus_rtrRPM",          0.0];
 
-/*
-// ── HeliSim rotor spin ───────────────────────────────────────────────────────
 #define MR_REVS_PER_SEC 4.817
 #define TR_REVS_PER_SEC 21.5
 private _prevRotorPhase = _heli getVariable ["fza_anim_rotorPhase", 0];
 private _rotorPhase = (_prevRotorPhase + MR_REVS_PER_SEC * _rtrRPM * diag_deltaTime) mod 1;
+
+// ── HeliSim rotor spin ───────────────────────────────────────────────────────
+/*
 _heli setVariable ["fza_anim_rotorPhase", _rotorPhase];
 _heli animateSource ["rotorHUser", _rotorPhase, true];
 
