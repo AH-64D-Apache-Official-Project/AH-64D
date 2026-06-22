@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:core/fn_coreConfig.sqf",{64:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines key values for the simulation.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:core/fn_coreConfig.sqf",{66:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines key values for the simulation.</div></div>"});

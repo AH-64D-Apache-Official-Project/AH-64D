@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:damage/fn_damageApply.sqf",{62:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Applies damage within a defined period of time after exceeding aircraft operating limits.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:damage/fn_damageApply.sqf",{64:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Applies damage within a defined period of time after exceeding aircraft operating limits.</div></div>"});

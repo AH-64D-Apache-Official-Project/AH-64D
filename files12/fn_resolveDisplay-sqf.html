@@ -8,11 +8,11 @@
 
 <script type="text/javascript">var q = window.location.search;if (q.startsWith("?Theme=")){var t = q.slice(7);var e = t.indexOf(";");if (e != -1){  t = t.slice(0, e);  }document.documentElement.classList.add(t + "Theme")}</script>
 
-<a name="Functions"></a><a name="Topic347"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic345"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fcr_fnc_resolveDisplay"></a><a name="Topic348"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fcr_fnc_resolveDisplay"></a><a name="Topic346"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fcr_fnc_resolveDisplay</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Runs every frame to produce a display-ready target list from the raw scan data. Applies the sweep reveal gate once here so no draw function needs reveal logic.</p><p>Output variable fza_ah64_fcrDisplayTargets contains only targets that should currently be visible. Positions are already resolved (frozen world/polar for tracked targets before reveal, live positions after). Ghost targets aged past the sweep are excluded.</p><p>Output variable fza_ah64_fcrDisplayCount is the number of live (non-ghost) targets in the display list — used for the FCR target counter on all pages.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The helicopter to act upon</p></td></tr></table><div class="CHeading">Returns</div><p>Nothing. Writes fza_ah64_fcrDisplayTargets and fza_ah64_fcrDisplayCount.</p><p>Record format (7 elements): [pos, type, moving, obj, aziAngle, range, isGhost] 0&nbsp; 1&nbsp; 2&nbsp; 3&nbsp; 4&nbsp; 5&nbsp; 6</p><div class="CHeading">Author</div><p>Snow(Dryden)</p></div>
 </div>

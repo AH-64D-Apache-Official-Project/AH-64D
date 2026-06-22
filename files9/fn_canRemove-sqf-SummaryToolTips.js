@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File9:fn_canRemove.sqf",{368:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Can you add the relevent component</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File9:fn_canRemove.sqf",{366:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Can you add the relevent component</div></div>"});

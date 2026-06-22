@@ -8,11 +8,11 @@
 
 <script type="text/javascript">var q = window.location.search;if (q.startsWith("?Theme=")){var t = q.slice(7);var e = t.indexOf(";");if (e != -1){  t = t.slice(0, e);  }document.documentElement.classList.add(t + "Theme")}</script>
 
-<a name="Functions"></a><a name="Topic103"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic105"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_sfmplus_fnc_rotorFlapDynamics"></a><a name="Topic104"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_sfmplus_fnc_rotorFlapDynamics"></a><a name="Topic106"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_sfmplus_fnc_rotorFlapDynamics</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Computes dynamic blade flapping coefficients (beta0, a1, b1) from per-blade aerodynamic flap moments accumulated by fn_rotorBlade.&nbsp; Returns [beta0, a1, b1] in degrees.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The helicopter [Unit]</p></td></tr><tr><td class="CDLEntry">_deltaTime</td><td class="CDLDefinition"><p>Frame delta time [Number]</p></td></tr><tr><td class="CDLEntry">_numBlades</td><td class="CDLDefinition"><p>Number of rotor blades [Number]</p></td></tr><tr><td class="CDLEntry">_omega</td><td class="CDLDefinition"><p>Rotor angular velocity (rad/s) [Number]</p></td></tr><tr><td class="CDLEntry">_bladeMass</td><td class="CDLDefinition"><p>Single blade mass (kg) [Number]</p></td></tr><tr><td class="CDLEntry">_bladeLength</td><td class="CDLDefinition"><p>Blade radius (m) [Number]</p></td></tr><tr><td class="CDLEntry">_bladeCutout</td><td class="CDLDefinition"><p>Blade root cutout radius (m) [Number]</p></td></tr><tr><td class="CDLEntry">_flapTimeConst</td><td class="CDLDefinition"><p>Disc tilt time constant (s) [Number]</p></td></tr><tr><td class="CDLEntry">_rVec</td><td class="CDLDefinition"><p>Hub right vector [Array]</p></td></tr><tr><td class="CDLEntry">_fVec</td><td class="CDLDefinition"><p>Hub forward vector [Array]</p></td></tr><tr><td class="CDLEntry">_uVec</td><td class="CDLDefinition"><p>Hub up vector [Array]</p></td></tr></table><div class="CHeading">Returns</div><p>[beta0, a1, b1] — collective coning and cyclic tilt angles (degrees)</p></div>
 </div>

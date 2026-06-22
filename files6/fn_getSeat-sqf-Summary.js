@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File6:fn_getSeat.sqf","fn_getSeat.sqf");NDSummary.OnSummaryLoaded("File6:fn_getSeat.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[471,0,1,"Functions","Functions"],[472,0,0,"fza_fnc_getSeat","fza_fnc_getSeat"]]);
+﻿NDFramePage.OnPageTitleLoaded("File6:fn_getSeat.sqf","fn_getSeat.sqf");NDSummary.OnSummaryLoaded("File6:fn_getSeat.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[469,0,1,"Functions","Functions"],[470,0,0,"fza_fnc_getSeat","fza_fnc_getSeat"]]);
