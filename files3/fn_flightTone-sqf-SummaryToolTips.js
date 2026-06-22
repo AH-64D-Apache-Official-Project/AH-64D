@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_flightTone.sqf",{500:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">plays the flight tone in both crew seats</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_flightTone.sqf",{498:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">plays the flight tone in both crew seats</div></div>"});

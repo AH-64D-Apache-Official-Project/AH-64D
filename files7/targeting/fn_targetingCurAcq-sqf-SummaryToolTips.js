@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:targeting/fn_targetingCurAcq.sqf",{420:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get the currently selected acquisition source for a seat in the aircraft</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:targeting/fn_targetingCurAcq.sqf",{422:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get the currently selected acquisition source for a seat in the aircraft</div></div>"});
