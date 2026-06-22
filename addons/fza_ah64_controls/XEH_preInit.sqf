@@ -19,7 +19,7 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_showPopupv2_2",
+    "fza_ah64_showPopupv2_3",
     "CHECKBOX",
     [(localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP"), (localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP_INFO")],
     [_projName, "UI"],

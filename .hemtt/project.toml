@@ -4,9 +4,9 @@ mainprefix = "x"
 
 [version]
 major = 2
-minor = 2
-patch = 9
-build = 2
+minor = 3
+patch = 0
+build = 0
 git_hash = 0
 
 [files]
