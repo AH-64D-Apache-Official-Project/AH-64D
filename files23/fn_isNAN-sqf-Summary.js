@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File23:fn_isNAN.sqf","fn_isNAN.sqf");NDSummary.OnSummaryLoaded("File23:fn_isNAN.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[117,0,1,"Functions","Functions"],[118,0,0,"bmkhs_sfmplus_fnc_isNAN","bmkhs_sfmplus_fnc_isNAN"]]);
+﻿NDFramePage.OnPageTitleLoaded("File23:fn_isNAN.sqf","fn_isNAN.sqf");NDSummary.OnSummaryLoaded("File23:fn_isNAN.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[115,0,1,"Functions","Functions"],[116,0,0,"bmkhs_sfmplus_fnc_isNAN","bmkhs_sfmplus_fnc_isNAN"]]);

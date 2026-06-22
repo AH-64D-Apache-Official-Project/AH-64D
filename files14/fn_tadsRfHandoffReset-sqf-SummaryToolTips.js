@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File14:fn_tadsRfHandoffReset.sqf",{288:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Clears any cached/frozen TADS-&gt;RF handoff package.&nbsp; Parameters: _heli - The helicopter Returns: Nothing Author: Snow(Dryden)</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File14:fn_tadsRfHandoffReset.sqf",{290:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Clears any cached/frozen TADS-&gt;RF handoff package.&nbsp; Parameters: _heli - The helicopter Returns: Nothing Author: Snow(Dryden)</div></div>"});
