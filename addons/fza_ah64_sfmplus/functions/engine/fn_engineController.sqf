@@ -83,7 +83,12 @@ if (local _heli) then {
     };
     if (_eng1State == "OFF" && _eng2State == "OFF" && _rtrRPM < 0.1) then { //prevents player holding shift causing Rotor spinning
         _heli engineOn false;
-        _heli setHitPointDamage ["hithrotor", 0.9];
+        _heli setHitPointDamage ["hithrotor", 0.953283];
+    } else {
+        _damage = _heli getHitPointDamage "hithrotor";
+        if (_damage == 0.953283) then {
+            _heli setHitPointDamage ["hithrotor", 0];
+        };
     };
 };
 
