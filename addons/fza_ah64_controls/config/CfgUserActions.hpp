@@ -75,5 +75,11 @@ class CfgUserActions {
     CfgUserNonAnalogDef(fza_ah64_kbCollectiveDn,"$STR_FZA_AH64_KB_COLLECTIVE_DN","$STR_FZA_AH64_KB_COLLECTIVE_DN");
     CfgUserActionDef(fza_ah64_ctrlVisToggle,"$STR_FZA_AH64_CTRLVIS_TOGGLE","$STR_FZA_AH64_CTRLVIS_TOGGLE_INFO");
 
+    // MPD minigame input - generic up/down/left/right, forwarded to fza_mg_fnc_minigameHandleInput.
+    CfgUserActionDef(fza_minigame_up,"Minigame: Up","MFD minigame up input");
+    CfgUserActionDef(fza_minigame_down,"Minigame: Down","MFD minigame down input");
+    CfgUserActionDef(fza_minigame_left,"Minigame: Left","MFD minigame left input");
+    CfgUserActionDef(fza_minigame_right,"Minigame: Right","MFD minigame right input");
+
     #include "\fza_ah64_controls\headers\controls.hpp"
 };

@@ -308,6 +308,18 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        case "fza_minigame_up": {
+            ["up", true] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_down": {
+            ["down", true] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_left": {
+            ["left", true] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_right": {
+            ["right", true] call fza_mg_fnc_minigameHandleInput;
+        };
         case "fza_ah64_ctrlVisToggle": {
             if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) exitWith {};
 
@@ -336,6 +348,18 @@ if !(_value) then {
     switch (_name) do {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
+        };
+        case "fza_minigame_up": {
+            ["up", false] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_down": {
+            ["down", false] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_left": {
+            ["left", false] call fza_mg_fnc_minigameHandleInput;
+        };
+        case "fza_minigame_right": {
+            ["right", false] call fza_mg_fnc_minigameHandleInput;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (currentPilot _heli != player || !local _heli) exitWith {};

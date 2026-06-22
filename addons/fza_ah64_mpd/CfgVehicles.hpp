@@ -120,6 +120,12 @@ class CfgVehicles {
                     subPageVarPage[] = {1,0};
                 };
             };
+            // Minigame selection menu - DMS page's IBIT (t3) button.
+            // All static labels, no draw function needed.
+            class MINIGAMES {
+                index = MPD_PAGE_MINIGAMES;
+                handleControl = "fza_mpd_fnc_pageMinigamesHandleControl";
+            };
             class DTU {
                 index = MPD_PAGE_DTU;
                 draw  = "fza_mpd_fnc_pageDTUDraw";
@@ -204,6 +210,13 @@ class CfgVehicles {
                     PointSelected = -1;
                     shotatdel = 0;
                 };
+            };
+            // MINIGAMES: needs index, minigameUrl, and minigameClass (display class) - game content lives in fza_ah64_minigames.
+            class ASTEROIDS {
+                index = MPD_PAGE_ASTEROIDS;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\asteroids\game.html";
+                minigameClass = "RscFzaMinigameAsteroids";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
             };
         };
     };

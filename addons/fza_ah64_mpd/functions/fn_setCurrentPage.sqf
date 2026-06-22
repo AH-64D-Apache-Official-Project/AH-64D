@@ -66,6 +66,28 @@ if (_mpdState # _side # 7 == 1) then {
     [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
+// Minigames: any FzaMpdPages entry with a minigameUrl swaps this side's screens to a dedicated per-game browser-only display, and back on the way out.
+private _sideName = ["left", "right"] select _side;
+private _selections = [["plt_pl_mpd_back", "cpg_cl_mpd_back"], ["plt_pr_mpd_back", "cpg_cr_mpd_back"]] select _side;
+private _oldMinigameUrl = (_mpdState # _side) select 8;
+private _minigameUrl = "";
+if (isText (_config >> "minigameUrl")) then {
+    _minigameUrl = getText (_config >> "minigameUrl");
+};
+if (_oldMinigameUrl != _minigameUrl) then {
+    if (_minigameUrl != "") then {
+        private _minigameClass = "RscFzaMinigameBase";
+        if (isText (_config >> "minigameClass")) then {
+            _minigameClass = getText (_config >> "minigameClass");
+        };
+        // Distinct uniqueName ("XGame" not "X") so the engine never confuses this with the canvas display instance.
+        private _gameUniqueId = _sideName + "Game";
+        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _minigameClass + "," + _gameUniqueId + ")"]} forEach _selections;
+    } else {
+        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(RscFzaAH64MPD," + _sideName + ")"]} forEach _selections;
+    };
+};
+
 private _persistState = _mpdState # _side # 5;
 
 private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
@@ -76,7 +98,7 @@ if !(_page in _persistState) then {
 };
 _state set ["side", _side];
 _state set ["page", _page];
-private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons];
+private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons, _minigameUrl];
 
 _heli setUserMFDValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];

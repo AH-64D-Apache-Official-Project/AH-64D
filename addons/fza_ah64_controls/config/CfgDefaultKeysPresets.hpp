@@ -54,7 +54,13 @@ class CfgDefaultKeysPresets {
             fza_ah64_kbCollectiveUp[] = {0x2A};
             fza_ah64_kbCollectiveDn[] = {0x1D};
             fza_ah64_ctrlVisToggle[]  = {0x1D130017};  // Ctrl+I (unassigned by default controls)
-            
+
+            // MPD minigame input - numpad, chosen to minimise collision with existing flight binds
+            fza_minigame_up[]     = {0x48}; // Numpad 8
+            fza_minigame_down[]   = {0x50}; // Numpad 2
+            fza_minigame_left[]   = {0x4B}; // Numpad 4
+            fza_minigame_right[]  = {0x4D}; // Numpad 6
+
         };
     };
     class Arma3: Arma2 {
