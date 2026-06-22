@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File30:pylon/fn_pylonSetOwner.sqf",{2:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates a pylon to be on a respective turret.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File30:pylon/fn_pylonSetOwner.sqf",{4:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates a pylon to be on a respective turret.</div></div>"});
