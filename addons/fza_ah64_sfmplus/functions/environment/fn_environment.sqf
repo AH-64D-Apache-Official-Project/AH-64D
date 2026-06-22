@@ -58,4 +58,8 @@ private _windSpeed         = vectorMagnitude wind;
 private _windDirToward     = (windDir + 180) mod 360;
 private _velWindWorldSpace = [0,0,0];//[_windSpeed * sin _windDirToward, _windSpeed * cos _windDirToward, 0.0];
 
+if (fza_ah64_sfmPlusRotorModel == 0) then {
+    _velWindWorldSpace = [_windSpeed * sin _windDirToward, _windSpeed * cos _windDirToward, 0.0];
+};
+
 _heli setVariable ["fza_sfmplus_velWindWorldSpace", _velWindWorldSpace];
