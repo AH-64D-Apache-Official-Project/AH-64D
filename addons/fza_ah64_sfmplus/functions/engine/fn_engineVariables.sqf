@@ -30,7 +30,6 @@ if(isMultiplayer) then {
 };
 
 _heli setVariable ["fza_sfmplus_shiftLocked",           false];
-
 _heli setVariable ["fza_sfmplus_isSingleEng",           false];
 //_heli setVariable ["fza_sfmplus_isAutorotating",        false];
 
