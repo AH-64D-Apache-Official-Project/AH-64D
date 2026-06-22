@@ -44,6 +44,7 @@ private _engPctTQ = _eng1TQ max _eng2TQ;
 private _eng1FuelAvail = _heli getVariable ["fza_fuel_eng1FuelAvail", true];
 private _eng2FuelAvail = _heli getVariable ["fza_fuel_eng2FuelAvail", true];
 
+private _shiftLocked = _heli getVariable "fza_sfmplus_shiftLocked";
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
 //private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
@@ -84,6 +85,14 @@ if (local _heli) then {
     if (_eng1State == "OFF" && _eng2State == "OFF" && _rtrRPM < 0.1) then { //prevents player holding shift causing Rotor spinning
         _heli engineOn false;
         _heli setHitPointDamage ["hithrotor", 0.9];
+        if (!_shiftLocked) then {
+            _heli setVariable ["fza_sfmplus_shiftLocked", true];
+        };
+    } else {
+        if (_shiftLocked) then {
+            _heli setVariable ["fza_sfmplus_shiftLocked", false];
+            _heli setHitPointDamage ["hithrotor", 0];
+        };
     };
 };
 
