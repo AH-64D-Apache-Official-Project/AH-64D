@@ -81,7 +81,7 @@ if (local _heli) then {
             _heli engineOn false;
         };
     };
-    private _shiftLocked = _heli getVariable ["fza_sfmplus_shiftLocked", false];
+    private _shiftLocked = _heli getVariable "fza_sfmplus_shiftLocked";
     if (_eng1State == "OFF" && _eng2State == "OFF" && _rtrRPM < 0.1) then { //prevents player holding shift causing Rotor spinning
         _heli engineOn false;
         _heli setHitPointDamage ["hithrotor", 0.9];
