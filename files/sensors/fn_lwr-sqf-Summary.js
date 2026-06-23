@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:sensors/fn_lwr.sqf","fn_lwr.sqf");NDSummary.OnSummaryLoaded("File:sensors/fn_lwr.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[525,0,1,"Functions","Functions"],[526,0,0,"fza_ase_fnc_lwr","fza_ase_fnc_lwr"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:sensors/fn_lwr.sqf","fn_lwr.sqf");NDSummary.OnSummaryLoaded("File:sensors/fn_lwr.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[517,0,1,"Functions","Functions"],[518,0,0,"fza_ase_fnc_lwr","fza_ase_fnc_lwr"]]);

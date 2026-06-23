@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:fn_onGround.sqf",{138:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false based on being in contact with the ground.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:fn_onGround.sqf",{136:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns true or false based on being in contact with the ground.</div></div>"});
