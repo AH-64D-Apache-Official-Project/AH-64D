@@ -134,10 +134,13 @@ private _outThrust = [0.0, 0.0, 0.0];
 private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
-        //Tail rotor thrust force
         if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
             if ([vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isINF) then { _thrustVector = [0.0, 0.0, 0.0]; };
             _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
+        } else {
+            private _torque = [0.0, 0.0, _moment select 2];
+            if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
+            _heli addTorque (_heli vectorModelToWorld _torque);
         };
 
     };
