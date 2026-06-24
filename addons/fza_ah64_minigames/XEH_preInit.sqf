@@ -24,9 +24,6 @@ if (isServer) then {
     // Generic 2-player session tracking for net-aware minigames (currently just Pong). Session lives directly on the
     // heli, keyed dynamically by gameId so any future 2-player game gets its own session for free:
     //   _heli getVariable "fza_mg_<gameId>Session" = [hostOwner, hostSeat, guestOwner, guestSeat] ; -1/"" when absent.
-    // fn_coreGetWCAs.sqf's UFD advisory is driven separately, by the per-seat "fza_mg_<gameId>Open_plt/_cpg" flags
-    // set directly in fn_minigameNetJoin/Leave.sqf - simpler and more robust than deriving it from this session,
-    // since it only needs "is this seat's own instance genuinely open", not whether pairing with a peer succeeded.
     // Every handler below is fully self-contained (no shared local helper closures) - CBA_fnc_addEventHandler
     // callbacks do not reliably retain access to private variables from the enclosing XEH_preInit.sqf scope
     // (confirmed via RPT: "Error Type Any, expected String" when a handler tried to call a captured closure).
@@ -161,12 +158,6 @@ if (isServer) then {
                         };
                     };
                 };
-                if (_hostOwner == _disconnectedOwner) then {
-                    _heli setVariable [format ["fza_mg_%1Open_%2", _gameId, _hostSeat], false, true];
-                };
-                if (_guestOwner == _disconnectedOwner) then {
-                    _heli setVariable [format ["fza_mg_%1Open_%2", _gameId, _guestSeat], false, true];
-                };
             } forEach ["pong"];
         } forEach (vehicles select {_x isKindOf "fza_ah64base"});
     }];
@@ -191,26 +182,14 @@ if (isServer) then {
                             ["fza_mg_netPeer", [_heli, _gameId, false, true, ""], _guestUnit] call CBA_fnc_targetEvent;
                         };
                         _heli setVariable [_sessionKey, [-1, "", -1, ""]];
-                        _heli setVariable [format ["fza_mg_%1Open_%2", _gameId, _hostSeat], false, true];
                     } else {
                         if (_guestOwner != -1 && !_guestValid) then {
                             if (_hostValid) then {
                                 ["fza_mg_netPeer", [_heli, _gameId, false, false, ""], _hostUnit] call CBA_fnc_targetEvent;
                             };
                             _heli setVariable [_sessionKey, [_hostOwner, _hostSeat, -1, ""]];
-                            _heli setVariable [format ["fza_mg_%1Open_%2", _gameId, _guestSeat], false, true];
                         };
                     };
-                };
-
-                // Independent of session/pairing state - if a seat's "open" flag is stuck true but that seat is
-                // now genuinely vacant (left the heli entirely, no clean netLeave ever sent), clear it directly,
-                // since a vacant seat obviously isn't showing the game on its own anymore.
-                if ((_heli getVariable [format ["fza_mg_%1Open_plt", _gameId], false]) && isNull (driver _heli)) then {
-                    _heli setVariable [format ["fza_mg_%1Open_plt", _gameId], false, true];
-                };
-                if ((_heli getVariable [format ["fza_mg_%1Open_cpg", _gameId], false]) && isNull (gunner _heli)) then {
-                    _heli setVariable [format ["fza_mg_%1Open_cpg", _gameId], false, true];
                 };
             } forEach ["pong"];
         } forEach (vehicles select {_x isKindOf "fza_ah64base"});
