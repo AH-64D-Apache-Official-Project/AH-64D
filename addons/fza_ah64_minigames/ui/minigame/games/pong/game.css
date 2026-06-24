@@ -41,13 +41,14 @@ html, body {
 }
 
 #recordLeft, #recordRight {
-    font-size: 18px;
+    font-size: 42px;
+    font-weight: bold;
     color: #669966;
 }
 
 #hud {
     position: fixed;
-    top: 50px;
+    top: 110px;
     left: 0;
     right: 0;
     display: flex;
@@ -62,7 +63,8 @@ html, body {
 
 #winTarget {
     align-self: center;
-    font-size: 22px;
+    font-size: 42px;
+    font-weight: bold;
     color: #66cc66;
 }
 

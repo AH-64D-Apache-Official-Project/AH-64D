@@ -15,7 +15,7 @@
         H = canvas.clientHeight || window.innerHeight;
         canvas.width = W;
         canvas.height = H;
-        TOP_MARGIN = H * 0.14;
+        TOP_MARGIN = H * 0.17; // clears the now-taller name/record/score HUD stack at the top
         BOTTOM_MARGIN = H * 0.16;
     }
     window.addEventListener("resize", resize);
@@ -101,6 +101,14 @@
     var ballAuthority = "host";
     var targetPeerPaddleY = 0;
 
+    // Non-authoritative ball rendering: between bounces, the ball's path is fully deterministic (constant
+    // velocity, predictable wall bounces, speedMul barely moves over one network interval) - so rather than
+    // streaming continuous position updates, only the "handoff" event itself (bounce or serve) is ever sent,
+    // and the exact position is recomputed fresh every frame from that single known reference point and how
+    // much real time has passed since - see predictNonAuthoritativeBall below.
+    var groundTruthBall = null;
+    var groundTruthTime = 0;
+
     function updateNames() {
         var elLeft = document.getElementById("nameLeft");
         var elRight = document.getElementById("nameRight");
@@ -175,23 +183,16 @@
             // Either side's own paddle position, for rendering the OTHER paddle only - never used for collision,
             // since collision against a given paddle only ever happens on that same paddle's own side locally.
             targetPeerPaddleY = payload[1];
-        } else if (type === "ballSync") {
-            if (ballAuthority === role) { return; } // I'm authoritative right now, my own simulation is the truth
-            var syncX = payload[1], syncY = payload[2], syncVx = payload[3], syncVy = payload[4], syncSpeedMul = payload[5];
-            if (!ball) {
-                ball = { x: syncX, y: syncY, vx: syncVx, vy: syncVy, speedMul: syncSpeedMul };
-            } else {
-                // Dead-reckoning (see ghostStepBall) already keeps this close between updates since both sides
-                // run identical movement/wall-bounce math - blend in any drift rather than snapping outright.
-                ball.x += (syncX - ball.x) * 0.5;
-                ball.y += (syncY - ball.y) * 0.5;
-                ball.vx = syncVx; ball.vy = syncVy; ball.speedMul = syncSpeedMul;
-            }
         } else if (type === "handoff") {
-            ballAuthority = role;
+            // payload[6] is who's actually authoritative now - NOT necessarily me. This message also gets sent
+            // when authority isn't changing at all (e.g. a fresh serve heading toward the sender's own paddle),
+            // just to give me a ball to render/predict - so it can't just assume receiving it means I take over.
+            ballAuthority = payload[6];
+            groundTruthBall = { x: payload[1], y: payload[2], vx: payload[3], vy: payload[4], speedMul: payload[5] };
+            groundTruthTime = performance.now();
             ball = ball || {};
-            ball.x = payload[1]; ball.y = payload[2];
-            ball.vx = payload[3]; ball.vy = payload[4]; ball.speedMul = payload[5];
+            ball.x = groundTruthBall.x; ball.y = groundTruthBall.y;
+            ball.vx = groundTruthBall.vx; ball.vy = groundTruthBall.vy; ball.speedMul = groundTruthBall.speedMul;
         } else if (type === "scored") {
             // Only ever sent guest -> host: the guest missed on their own half, so the host's score increments.
             if (role !== "host") { return; }
@@ -271,17 +272,30 @@
         return simY;
     }
 
+    // Sends the ball's current state to the other side along with who's actually authoritative for it now - NOT
+    // necessarily them: this also covers telling them about a fresh ball when authority ISN'T changing (e.g. a
+    // serve heading toward my own paddle), since without that the other side never gets a reference at all for
+    // any rally that starts heading away from them, and would render no ball whatsoever until I eventually hit
+    // it back. Also records the same state as MY OWN ground truth when I'm giving authority away, since
+    // predictNonAuthoritativeBall only ever gets a reference from a "handoff" it RECEIVES, never one it sends -
+    // without this, the instant authority changes hands, my own prediction would have nothing to work from.
+    function sendBallState(newAuthority) {
+        window.fzaMinigame.netSend(GAME_ID, ["handoff", ball.x, ball.y, ball.vx, ball.vy, ball.speedMul, newAuthority]);
+        ballAuthority = newAuthority;
+        if (newAuthority !== role) {
+            groundTruthBall = { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy, speedMul: ball.speedMul };
+            groundTruthTime = performance.now();
+        }
+    }
+
     function resetBall(dir) {
         ball = { x: W / 2, y: playAreaCenterY(), vx: 220 * dir, vy: (Math.random() * 160 - 80), speedMul: 1 };
         ballAuthority = "host";
         if (peerConnected) {
             window.fzaMinigame.netSend(GAME_ID, ["score", score1, score2, gameOver]);
-            if (dir > 0) {
-                // Serving toward the guest - hand off immediately rather than waiting for any bounce or position
-                // threshold, giving them the full cross-court travel time to prepare for it.
-                window.fzaMinigame.netSend(GAME_ID, ["handoff", ball.x, ball.y, ball.vx, ball.vy, ball.speedMul]);
-                ballAuthority = "guest";
-            }
+            // Always tell the guest about the fresh ball, whichever way it's headed - if it's heading toward my
+            // own paddle, authority doesn't change, but they still need a reference to render/predict it.
+            sendBallState(dir > 0 ? "guest" : "host");
         }
     }
 
@@ -355,16 +369,31 @@
                 ball.vx *= -1.05;
                 ball.vy += (ball.y - paddleL.y) * 2.5;
                 sfxHit();
-                if (peerConnected) {
-                    window.fzaMinigame.netSend(GAME_ID, ["handoff", ball.x, ball.y, ball.vx, ball.vy, ball.speedMul]);
-                    ballAuthority = "guest";
-                }
+                if (peerConnected) { sendBallState("guest"); }
                 return;
             }
             if (ball.x < -20) {
                 sfxScore();
                 score2 += 1;
                 if (score2 >= WIN_SCORE) { endGame(); } else { resetBall(1); }
+                return;
+            }
+            if (!peerConnected) {
+                // Solo vs AI - there's no guest to ever hand off to, so unlike multiplayer (where the guest takes
+                // over before the ball gets anywhere near their side), I'm responsible for the WHOLE court here,
+                // including the AI's own paddle and the right-edge miss, not just my own half.
+                if (ball.vx > 0 && ball.x >= W - PADDLE_MARGIN - PADDLE_W && ball.x < W - PADDLE_MARGIN + 10 && Math.abs(ball.y - paddleR.y) < PADDLE_H / 2 + 6) {
+                    ball.x = W - PADDLE_MARGIN - PADDLE_W;
+                    ball.vx *= -1.05;
+                    ball.vy += (ball.y - paddleR.y) * 2.5;
+                    sfxHit();
+                    return;
+                }
+                if (ball.x > W + 20) {
+                    sfxScore();
+                    score1 += 1;
+                    if (score1 >= WIN_SCORE) { endGame(); } else { resetBall(-1); }
+                }
             }
         } else {
             if (ball.vx > 0 && ball.x >= W - PADDLE_MARGIN - PADDLE_W && ball.x < W - PADDLE_MARGIN + 10 && Math.abs(ball.y - paddleR.y) < PADDLE_H / 2 + 6) {
@@ -372,28 +401,76 @@
                 ball.vx *= -1.05;
                 ball.vy += (ball.y - paddleR.y) * 2.5;
                 sfxHit();
-                window.fzaMinigame.netSend(GAME_ID, ["handoff", ball.x, ball.y, ball.vx, ball.vy, ball.speedMul]);
-                ballAuthority = "host";
+                sendBallState("host");
                 return;
             }
             if (ball.x > W + 20) {
-                // I missed - I don't own score state, so just report it and wait for the host's authoritative reply.
+                // I missed - I don't own score state, so just report it and wait for the host's authoritative
+                // reply (a fresh "score"/"handoff" for the next rally). The ball is off-screen at this point so
+                // there's nothing visible to predict in the meantime, but set ground truth anyway for consistency.
                 window.fzaMinigame.netSend(GAME_ID, ["scored"]);
                 ballAuthority = "host";
+                groundTruthBall = { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy, speedMul: ball.speedMul };
+                groundTruthTime = performance.now();
             }
         }
     }
 
-    // Non-authoritative side only: dead-reckons the ball forward every frame using its last known velocity (and
-    // the same wall-bounce math the authoritative side uses), so it never visibly stops moving between the
-    // ~18Hz ballSync updates - those just lightly correct any drift (see the "ballSync" netRecv branch) rather
-    // than the ball sitting frozen at a stale position until the next one arrives.
-    function ghostStepBall(dt) {
-        if (!ball || ballAuthority === role) { return; }
-        ball.x += ball.vx * ball.speedMul * dt;
-        ball.y += ball.vy * ball.speedMul * dt;
-        if (ball.y < TOP_MARGIN + 6) { ball.y = TOP_MARGIN + 6; ball.vy *= -1; }
-        if (ball.y > H - BOTTOM_MARGIN - 6) { ball.y = H - BOTTOM_MARGIN - 6; ball.vy *= -1; }
+    // Simulates a ball's position/y-velocity forward by `elapsed` seconds from a known starting state, including
+    // any wall bounces along the way (same approach as predictBallY above, generalized to also return x and the
+    // resulting vy rather than just a final y). speedMul is treated as constant across the window - it ramps up
+    // continuously, but the change over a single network interval is negligible.
+    function simulateForward(from, elapsed) {
+        var x = from.x + from.vx * from.speedMul * elapsed;
+        var y = from.y, vy = from.vy;
+        var top = TOP_MARGIN + 6, bottom = H - BOTTOM_MARGIN - 6;
+        var remaining = elapsed;
+        var guard = 0;
+        while (remaining > 0 && guard < 20) {
+            guard++;
+            if (vy === 0) { break; }
+            var speed = Math.abs(vy) * from.speedMul;
+            var distToWall = vy > 0 ? (bottom - y) : (y - top);
+            var timeToWall = distToWall / speed;
+            if (timeToWall >= remaining) {
+                y += vy * from.speedMul * remaining;
+                remaining = 0;
+            } else {
+                y += vy * from.speedMul * timeToWall;
+                vy *= -1;
+                remaining -= timeToWall;
+            }
+        }
+        return { x: x, y: y, vy: vy };
+    }
+
+    // Non-authoritative side only: recomputes the ball's exact position fresh every frame from the last known
+    // ground truth (set in the "handoff" netRecv branch) and how much time has actually passed - rather than
+    // incrementally stepping forward and periodically blend-correcting, which visibly tugged the ball every
+    // update once any tiny drift crept in. Since the physics is fully deterministic between bounces, there's
+    // nothing to accumulate or correct: each frame's answer is exact given the known starting state.
+    function predictNonAuthoritativeBall() {
+        if (!ball || !groundTruthBall || ballAuthority === role) { return; }
+        // No separate time cap here (deliberately) - the ball can legitimately take multiple seconds to cross
+        // the full court, so capping elapsed at some fixed small value would freeze it partway through every
+        // single rally. The timeToEdge clamp just below already provides the safety net a stalled/paused
+        // authoritative side needs: the ball simply waits at the paddle's edge rather than running away.
+        var elapsed = (performance.now() - groundTruthTime) / 1000;
+        // Never predict the ball past the paddle it's heading toward - I have no way of knowing in advance
+        // whether the other side will actually block it (that's decided locally, with zero latency, on their
+        // end), so projecting straight through would visibly overshoot the paddle and then snap back the
+        // instant their handoff (bounce) or score report (miss) arrives. Clamping the elapsed time itself
+        // (rather than just the resulting x) means x and y both freeze at the same instant - the ball waits
+        // right at the edge rather than sliding vertically along a frozen x while still extrapolating y - so a
+        // bounce handoff lands almost exactly where it's already sitting, no visible correction at all.
+        if (groundTruthBall.vx !== 0) {
+            var paddleEdgeX = groundTruthBall.vx > 0 ? (W - PADDLE_MARGIN - PADDLE_W) : (PADDLE_MARGIN + PADDLE_W);
+            var timeToEdge = (paddleEdgeX - groundTruthBall.x) / (groundTruthBall.vx * groundTruthBall.speedMul);
+            if (timeToEdge >= 0) { elapsed = Math.min(elapsed, timeToEdge); }
+        }
+        var predicted = simulateForward(groundTruthBall, elapsed);
+        ball.x = predicted.x; ball.y = predicted.y;
+        ball.vx = groundTruthBall.vx; ball.vy = predicted.vy; ball.speedMul = groundTruthBall.speedMul;
     }
 
     // Interpolates the peer's paddle (always received over the network, purely for rendering) toward its latest
@@ -422,14 +499,15 @@
             stepBall(dt);
         }
 
+        // Only the paddle position needs continuous broadcasting - the ball's path between bounces is fully
+        // deterministic (constant velocity, predictable wall bounces), so "handoff" alone (sent the instant it
+        // bounces or is served - see stepBall/resetBall) gives the other side everything needed to predict it
+        // exactly with no further updates required, and no periodic re-sync to ever introduce drift/correction.
         netSendTimer -= dt;
         if (netSendTimer <= 0) {
             netSendTimer = NET_SEND_INTERVAL;
             if (peerConnected) {
                 window.fzaMinigame.netSend(GAME_ID, ["paddle", myPaddle.y]);
-                if (ball && ballAuthority === role) {
-                    window.fzaMinigame.netSend(GAME_ID, ["ballSync", ball.x, ball.y, ball.vx, ball.vy, ball.speedMul]);
-                }
             }
         }
     }
@@ -476,7 +554,7 @@
         if (lastTime === null) { lastTime = t; }
         var dt = Math.min(0.05, (t - lastTime) / 1000);
         lastTime = t;
-        if (!autoPaused && !manualPaused) { update(dt); ghostStepBall(dt); interpolatePeerVisuals(dt); }
+        if (!autoPaused && !manualPaused) { update(dt); predictNonAuthoritativeBall(); interpolatePeerVisuals(dt); }
         render();
         requestAnimationFrame(frame);
     }
