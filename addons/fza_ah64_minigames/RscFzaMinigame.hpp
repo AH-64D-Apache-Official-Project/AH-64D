@@ -32,3 +32,21 @@ class RscFzaMinigameAsteroids : RscFzaMinigameBase {
         };
     };
 };
+
+class RscFzaMinigameSpaceInvaders : RscFzaMinigameBase {
+    idd = 23965;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\spaceinvaders\game.html";
+        };
+    };
+};
+
+class RscFzaMinigamePong : RscFzaMinigameBase {
+    idd = 23966;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\pong\game.html";
+        };
+    };
+};

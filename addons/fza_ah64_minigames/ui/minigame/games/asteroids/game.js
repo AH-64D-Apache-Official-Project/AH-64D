@@ -100,6 +100,49 @@
     var score, lives, highScore, started, gameOver, respawnTimer, fireTimer;
     var gameTime; // difficulty ramps up the longer a session runs, capped so it stays playable
 
+    // Kill streak: a few consecutive missed/unspent bullets are forgiven before the streak resets, so one stray
+    // shot doesn't wipe out a long run. Any hit clears the miss counter back to 0. No bonus below the threshold;
+    // beyond it, the multiplier ramps from 1.1x up to a 2.5x cap.
+    var streak, missStreak;
+    var MISS_TOLERANCE = 3;
+    var STREAK_THRESHOLD = 8;
+    var STREAK_RAMP = 0.08;
+    var STREAK_MULT_MIN = 1.1;
+    var STREAK_MULT_MAX = 2.5;
+
+    function currentMultiplier() {
+        if (streak < STREAK_THRESHOLD) { return 1.0; }
+        return Math.min(STREAK_MULT_MAX, STREAK_MULT_MIN + (streak - STREAK_THRESHOLD) * STREAK_RAMP);
+    }
+
+    // UFO - periodic hazard/bonus target that shoots back, mirroring Space Invaders' bonus UFO.
+    var ufo, ufoTimer, ufoBullets;
+    var UFO_LIFETIME = 10;
+    var UFO_FIRE_INTERVAL = 1.8;
+    var UFO_SCORES = [200, 350, 500, 1000];
+
+    function resetUfoTimer() {
+        ufoTimer = 30 + Math.random() * 15;
+    }
+
+    function spawnUfo() {
+        var edge = Math.floor(Math.random() * 4);
+        var x, y;
+        if (edge === 0) { x = 0; y = Math.random() * H; }
+        else if (edge === 1) { x = W; y = Math.random() * H; }
+        else if (edge === 2) { x = Math.random() * W; y = 0; }
+        else { x = Math.random() * W; y = H; }
+        var dir = Math.random() * Math.PI * 2;
+        var speed = 50 * SCALE;
+        ufo = {
+            x: x, y: y,
+            vx: Math.cos(dir) * speed, vy: Math.sin(dir) * speed,
+            radius: 16 * SCALE,
+            life: UFO_LIFETIME,
+            fireTimer: UFO_FIRE_INTERVAL
+        };
+    }
+
     function difficultyMul() {
         return 1 + Math.min(1.5, gameTime / 90);
     }
@@ -166,10 +209,34 @@
         gameTime = 0;
         gameOver = false;
         started = true;
+        streak = 0;
+        missStreak = 0;
+        ufo = null;
+        ufoBullets = [];
+        resetUfoTimer();
         resetShip();
         spawnWave(4);
         document.getElementById("overlay").classList.add("hidden");
     }
+
+    // b4 bezel button - returns to the start screen (does not immediately begin a new game, unlike pressing a key).
+    window.fza_minigame_restart = function () {
+        started = false;
+        gameOver = false;
+        score = 0;
+        lives = 3;
+        streak = 0;
+        missStreak = 0;
+        asteroids = [];
+        bullets = [];
+        particles = [];
+        ufo = null;
+        ufoBullets = [];
+        document.getElementById("score").textContent = "SCORE 0";
+        document.getElementById("lives").textContent = "LIVES 3";
+        document.getElementById("overlaySub").textContent = "press any key to start";
+        document.getElementById("overlay").classList.remove("hidden");
+    };
 
     function endGame() {
         gameOver = true;
@@ -192,18 +259,33 @@
         var ast = asteroids[idx];
         asteroids.splice(idx, 1);
         explode(ast.x, ast.y, 10);
+        streak += 1;
+        missStreak = 0;
+        var mult = currentMultiplier();
         if (ast.radius > 18 * SCALE) {
             sfxExplosionSmall();
-            score += 50;
+            score += Math.round(50 * mult);
             for (var i = 0; i < 2; i++) {
                 var child = makeAsteroid(ast.x, ast.y, ast.radius * 0.55);
                 asteroids.push(child);
             }
         } else {
             sfxExplosionBig();
-            score += 100;
+            score += Math.round(100 * mult);
         }
         if (asteroids.length === 0) { spawnWave(Math.min(8, 4 + Math.floor(score / 1000))); }
+    }
+
+    function killUfo() {
+        explode(ufo.x, ufo.y, 14);
+        sfxExplosionBig();
+        streak += 1;
+        missStreak = 0;
+        var mult = currentMultiplier();
+        var base = UFO_SCORES[Math.floor(Math.random() * UFO_SCORES.length)];
+        score += Math.round(base * mult);
+        ufo = null;
+        resetUfoTimer();
     }
 
     // Update
@@ -237,14 +319,19 @@
             sfxShoot();
         }
 
-        // Bullets
+        // Bullets - a bullet that expires without hitting anything counts as a miss. A few misses are tolerated
+        // before the streak actually resets, so one stray shot doesn't wipe out a long run.
         for (var bi = bullets.length - 1; bi >= 0; bi--) {
             var b = bullets[bi];
             b.x += b.vx * dt;
             b.y += b.vy * dt;
             b.ttl -= dt;
             wrap(b);
-            if (b.ttl <= 0) { bullets.splice(bi, 1); }
+            if (b.ttl <= 0) {
+                bullets.splice(bi, 1);
+                missStreak += 1;
+                if (missStreak >= MISS_TOLERANCE) { streak = 0; missStreak = 0; }
+            }
         }
 
         // Asteroids
@@ -256,6 +343,35 @@
             wrap(a);
         }
 
+        // UFO - periodic hazard that drifts, fires aimed shots at the ship, and despawns after its lifetime.
+        if (ufo) {
+            ufo.x += ufo.vx * dt;
+            ufo.y += ufo.vy * dt;
+            wrap(ufo);
+            ufo.life -= dt;
+            ufo.fireTimer -= dt;
+            if (ufo.fireTimer <= 0) {
+                ufo.fireTimer = UFO_FIRE_INTERVAL;
+                var udx = ship.x - ufo.x, udy = ship.y - ufo.y;
+                var udist = Math.sqrt(udx * udx + udy * udy) || 1;
+                var uspeed = 180;
+                ufoBullets.push({ x: ufo.x, y: ufo.y, vx: (udx / udist) * uspeed, vy: (udy / udist) * uspeed, ttl: 2.5 });
+                sfxShoot();
+            }
+            if (ufo.life <= 0) { ufo = null; resetUfoTimer(); }
+        } else {
+            ufoTimer -= dt;
+            if (ufoTimer <= 0) { spawnUfo(); }
+        }
+        for (var ubi = ufoBullets.length - 1; ubi >= 0; ubi--) {
+            var ub = ufoBullets[ubi];
+            ub.x += ub.vx * dt;
+            ub.y += ub.vy * dt;
+            ub.ttl -= dt;
+            wrap(ub);
+            if (ub.ttl <= 0) { ufoBullets.splice(ubi, 1); }
+        }
+
         // Bullet vs asteroid
         for (bi = bullets.length - 1; bi >= 0; bi--) {
             var bullet = bullets[bi];
@@ -265,6 +381,19 @@
                 if ((dx * dx + dy * dy) < ast.radius * ast.radius) {
                     bullets.splice(bi, 1);
                     splitAsteroid(ai);
+                    break;
+                }
+            }
+        }
+
+        // Bullet vs UFO
+        if (ufo) {
+            for (bi = bullets.length - 1; bi >= 0; bi--) {
+                var ubullet = bullets[bi];
+                var uudx = ubullet.x - ufo.x, uudy = ubullet.y - ufo.y;
+                if ((uudx * uudx + uudy * uudy) < ufo.radius * ufo.radius) {
+                    bullets.splice(bi, 1);
+                    killUfo();
                     break;
                 }
             }
@@ -282,6 +411,29 @@
                     resetShip();
                     break;
                 }
+            }
+        }
+
+        // Ship vs UFO (ramming) and UFO bullets vs ship
+        if (ship.invuln <= 0) {
+            var shipHit = false;
+            if (ufo) {
+                var rdx = ship.x - ufo.x, rdy = ship.y - ufo.y;
+                if ((rdx * rdx + rdy * rdy) < (ufo.radius + ship.radius) * (ufo.radius + ship.radius)) { shipHit = true; }
+            }
+            for (ubi = ufoBullets.length - 1; ubi >= 0; ubi--) {
+                var ubb = ufoBullets[ubi];
+                var bdx = ship.x - ubb.x, bdy = ship.y - ubb.y;
+                if ((bdx * bdx + bdy * bdy) < ship.radius * ship.radius) {
+                    ufoBullets.splice(ubi, 1);
+                    shipHit = true;
+                }
+            }
+            if (shipHit) {
+                explode(ship.x, ship.y, 16);
+                lives -= 1;
+                if (lives <= 0) { endGame(); return; }
+                resetShip();
             }
         }
 
@@ -337,6 +489,21 @@
         ctx.restore();
     }
 
+    function drawUfo() {
+        if (!ufo) { return; }
+        ctx.save();
+        ctx.translate(ufo.x, ufo.y);
+        ctx.strokeStyle = "#ff33ff";
+        ctx.lineWidth = LINE_WIDTH;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, ufo.radius, ufo.radius * 0.55, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(0, -ufo.radius * 0.35, ufo.radius * 0.45, ufo.radius * 0.35, 0, Math.PI, 0);
+        ctx.stroke();
+        ctx.restore();
+    }
+
     function render() {
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, W, H);
@@ -345,11 +512,16 @@
 
         drawShip();
         for (var i = 0; i < asteroids.length; i++) { drawAsteroid(asteroids[i]); }
+        drawUfo();
 
         ctx.fillStyle = "#33ff33";
         var bulletSize = 2 * SCALE;
         for (i = 0; i < bullets.length; i++) {
             ctx.fillRect(bullets[i].x - bulletSize / 2, bullets[i].y - bulletSize / 2, bulletSize, bulletSize);
+        }
+        ctx.fillStyle = "#ff33ff";
+        for (i = 0; i < ufoBullets.length; i++) {
+            ctx.fillRect(ufoBullets[i].x - bulletSize / 2, ufoBullets[i].y - bulletSize / 2, bulletSize, bulletSize);
         }
 
         ctx.strokeStyle = "#226622";
@@ -366,11 +538,17 @@
         document.getElementById("score").textContent = "SCORE " + score;
         document.getElementById("lives").textContent = "LIVES " + Math.max(0, lives);
         document.getElementById("highscore").textContent = "HIGH " + highScore;
+        var mult = currentMultiplier();
+        var streakEl = document.getElementById("streakMult");
+        if (streakEl) {
+            streakEl.textContent = "x" + mult.toFixed(1);
+            streakEl.classList.toggle("active", mult > 1.0);
+        }
     }
 
     // Main loop
     score = 0; lives = 3; highScore = 0; started = false; gameOver = false;
-    asteroids = []; bullets = []; particles = [];
+    asteroids = []; bullets = []; particles = []; streak = 0; missStreak = 0; ufo = null; ufoBullets = [];
 
     var lastTime = null;
     function frame(t) {

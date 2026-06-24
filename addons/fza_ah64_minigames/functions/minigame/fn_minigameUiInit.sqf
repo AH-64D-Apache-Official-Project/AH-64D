@@ -3,6 +3,7 @@ params ["_mode", "_params", "_class"];
 switch _mode do {
     case "onLoad": {
         _params params ["_display", ["_uniqueId",""]];
+        diag_log format ["[fza_mg] onLoad fired: uniqueId=%1", _uniqueId];
         private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
         uiNamespace setVariable ["fza_mpd_minigameDisplay", _loadedMPDs];
         _loadedMPDs set [_uniqueId, _display];
@@ -23,8 +24,7 @@ switch _mode do {
                 true
             }];
         };
-
-        // Pumps CT_WEBBROWSER's CEF output into the texture, and pushes pause state to JS when the ESC menu opens/closes or the player leaves the seat (minigame off-screen).
+        // Per-frame handler to update the display and pause state.
         private _p = [{
             private _display = _this#0;
             displayUpdate _display;
@@ -42,7 +42,10 @@ switch _mode do {
         _display setVariable ["fza_mpd_displayUpdatePfh", _p];
         _display displayAddEventHandler ["Unload", {
             params ["_display"];
+            diag_log format ["[fza_mg] Unload fired: uniqueId=%1", _display getVariable ["fza_mpd_minigameUniqueId", ""]];
             [_display getVariable "fza_mpd_displayUpdatePfh"] call CBA_fnc_removePerFrameHandler;
+            // Net-aware games (currently just Pong) need their session cleaned up when navigated away from - harmless no-op if no session existed.
+            ["pong"] call fza_mg_fnc_minigameNetLeave;
             // Clean up the stale hashmap entry, unless something newer already replaced it.
             private _uniqueId = _display getVariable ["fza_mpd_minigameUniqueId", ""];
             if (_uniqueId != "") then {

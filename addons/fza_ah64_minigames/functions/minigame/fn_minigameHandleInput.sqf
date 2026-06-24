@@ -15,8 +15,8 @@ private _jsCode = format ["if (window.fza_minigame_input) window.fza_minigame_in
 {
     private _minigameUrl = _x select 8;
     if (_minigameUrl != "") then {
-        private _sideName = (["left", "right"] select _forEachIndex) + "Game";
-        private _browserCtrl = (_loadedMPDs getOrDefault [_sideName, displayNull]) displayCtrl 369;
+        private _uniqueId = _x select 9;
+        private _browserCtrl = (_loadedMPDs getOrDefault [_uniqueId, displayNull]) displayCtrl 369;
         if (!isNull _browserCtrl) then {
             [_browserCtrl, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
         };

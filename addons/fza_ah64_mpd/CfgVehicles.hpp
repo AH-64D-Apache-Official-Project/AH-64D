@@ -218,6 +218,18 @@ class CfgVehicles {
                 minigameClass = "RscFzaMinigameAsteroids";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
+            class SPACEINVADERS {
+                index = MPD_PAGE_SPACEINVADERS;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\spaceinvaders\game.html";
+                minigameClass = "RscFzaMinigameSpaceInvaders";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class PONG {
+                index = MPD_PAGE_PONG;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\pong\game.html";
+                minigameClass = "RscFzaMinigamePong";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
         };
     };
 };

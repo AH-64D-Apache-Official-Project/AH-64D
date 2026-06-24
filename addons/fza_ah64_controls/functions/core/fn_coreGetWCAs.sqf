@@ -475,6 +475,12 @@ if  (_heli getVariable "fza_mpd_verMisMatch") then {
     _wcas pushBack [WCA_ADVISORY, "VERSION MISMATCH", "VERS MISM"];
 };
 
+// Exactly one seat's Pong instance is open (the other isn't) - direct per-seat flags, set/cleared the moment each
+// seat's own game genuinely loads/unloads, rather than inferred from host/guest pairing state.
+if ((_heli getVariable ["fza_mg_pongOpen_plt", false]) != (_heli getVariable ["fza_mg_pongOpen_cpg", false])) then {
+    _wcas pushBack [WCA_ADVISORY, "PONG OPEN", "PONG OPEN"];
+};
+
 if (_heli animationPhase "gdoor" > 0 || _heli animationPhase "pdoor" > 0) then {
     _wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY"];
 };

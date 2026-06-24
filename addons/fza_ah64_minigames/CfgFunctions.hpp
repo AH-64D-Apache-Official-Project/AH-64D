@@ -18,6 +18,15 @@ class CfgFunctions
             class minigameUiInit {RECOMPILE_FLAG;};
             class minigamePushScores {RECOMPILE_FLAG;};
             class minigamePlaySfx {RECOMPILE_FLAG;};
+            class minigameNetJoin {RECOMPILE_FLAG;};
+            class minigameNetLeave {RECOMPILE_FLAG;};
+            class minigameNetSend {RECOMPILE_FLAG;};
+            class minigameFindDisplay {RECOMPILE_FLAG;};
+            class minigameOwnerToUnit {RECOMPILE_FLAG;};
+            class minigameRestart {RECOMPILE_FLAG;};
+            class minigameEscapeJsString {RECOMPILE_FLAG;};
+            class minigameReportResult {RECOMPILE_FLAG;};
+            class minigamePushJsToGame {RECOMPILE_FLAG;};
         };
     };
 };

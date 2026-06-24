@@ -30,22 +30,6 @@ html, body {
     pointer-events: none;
 }
 
-/* Kill-streak multiplier - top right, below the main HUD row so it doesn't fight HIGH for the same corner. */
-#streakMult {
-    position: fixed;
-    top: 50px;
-    right: 14px;
-    color: #669966;
-    font-size: 28px;
-    letter-spacing: 1px;
-    pointer-events: none;
-}
-
-#streakMult.active {
-    color: #ffcc33;
-    text-shadow: 0 0 6px #ffcc33;
-}
-
 /* Aligned under the physical b6 bezel button, which toggles mute via fn_minigameHandleControl.sqf. */
 #muteBtn {
     position: fixed;
@@ -119,7 +103,7 @@ html, body {
 
 #overlayText {
     color: #33ff33;
-    font-size: 66px;
+    font-size: 50px;
     letter-spacing: 3px;
     text-align: center;
     line-height: 1.6;

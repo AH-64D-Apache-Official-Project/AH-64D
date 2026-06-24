@@ -1,4 +1,5 @@
-// fza_mg_fnc_minigamePushScores - pushes own high score + global top-10 (pooled from everyone's top-10 lists) into every open minigame browser. Params: _gameId.
+// fza_mg_fnc_minigamePushScores - pushes own high score + global top-10 (pooled from everyone's top-10 lists) into
+// every open browser actually showing this gameId. Params: _gameId.
 disableSerialization;
 params [["_gameId", ""]];
 if (_gameId == "") exitWith {};
@@ -24,10 +25,4 @@ private _top = _sorted select [0, 10 min count _sorted];
 
 // str on an array is already valid JS array literal syntax, so it can be inlined straight into the JS call.
 private _jsCode = format ["if (window.fza_minigame_setScores) window.fza_minigame_setScores(%1, %2);", _myHighScore, str _top];
-private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
-{
-    private _browserCtrl = _x displayCtrl 369;
-    if (!isNull _browserCtrl) then {
-        [_browserCtrl, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
-    };
-} forEach (values _loadedMPDs);
+[_gameId, _jsCode] call fza_mg_fnc_minigamePushJsToGame;
