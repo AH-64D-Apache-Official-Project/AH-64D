@@ -22,21 +22,33 @@ html, body {
     right: 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
+    padding: 0 14px;
     color: #66cc66;
-    font-size: 22px;
+    font-size: 28px;
+    letter-spacing: 1px;
     pointer-events: none;
 }
 
-#rpsTitle {
-    color: #33ff33;
-    letter-spacing: 1px;
+.playerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gameTitle {
+    align-self: center;
+    color: #449944;
+}
+
+#recordLeft, #recordRight {
+    font-size: 38px;
+    font-weight: bold;
+    color: #669966;
 }
 
 #hud {
     position: fixed;
-    top: 34px;
+    top: 100px;
     left: 0;
     right: 0;
     display: flex;

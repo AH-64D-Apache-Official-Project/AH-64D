@@ -30,13 +30,31 @@
         if (btn) { btn.classList.toggle("active", !isMuted); }
     };
 
-    // Pushed by fn_minigameReportResult.sqf - personal win/loss record (per match, not per round).
-    var wins = 0, losses = 0;
+    // My own record, pushed by fn_minigameReportResult.sqf/fn_minigameReady.sqf. Forwarded to a connected peer
+    // immediately, since their machine has no way to read my profileNamespace - see updateRecords() below.
+    var myRecord = { wins: 0, losses: 0 };
+    var peerRecord = { wins: 0, losses: 0 };
     window.fza_minigame_setRecord = function (w, l) {
-        wins = w; losses = l;
-        var recordEl = document.getElementById("recordLeft");
-        if (recordEl) { recordEl.textContent = "W-L " + wins + "-" + losses; }
+        myRecord.wins = w; myRecord.losses = l;
+        updateRecords();
+        if (peerConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", w, l]); }
     };
+
+    function updateRecords() {
+        var elLeft = document.getElementById("recordLeft");
+        var elRight = document.getElementById("recordRight");
+        var myText = "W-L " + myRecord.wins + "-" + myRecord.losses;
+        var peerText = peerConnected ? ("W-L " + peerRecord.wins + "-" + peerRecord.losses) : "—";
+        if (elLeft) { elLeft.textContent = role === "guest" ? peerText : myText; }
+        if (elRight) { elRight.textContent = role === "guest" ? myText : peerText; }
+    }
+
+    function updateNames() {
+        var elLeft = document.getElementById("nameLeft");
+        var elRight = document.getElementById("nameRight");
+        if (elLeft) { elLeft.textContent = (role === "host" ? myName : peerName) || "HOST"; }
+        if (elRight) { elRight.textContent = (role === "host" ? (peerName || "AI") : myName) || "GUEST"; }
+    }
 
     // Generic 2-player session (same heli+seat model the other games use). Unlike the turn-based games, both
     // sides choose at the same time rather than alternating - each side sends its pick the instant it locks one
@@ -44,18 +62,30 @@
     var role = null;
     var peerConnected = false;
     var vsAI = true;
+    var myName = "", peerName = "";
 
     window.fza_minigame_netRecv = function (payload) {
         var tag = payload[0];
         if (tag === "role") {
             role = payload[1];
+            var wasPeerConnected = peerConnected;
             peerConnected = (payload[2] !== -1);
             vsAI = !peerConnected;
+            myName = payload[3] || "";
+            peerName = payload[4] || "";
+            updateNames();
+            updateRecords();
+            if (peerConnected && !wasPeerConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", myRecord.wins, myRecord.losses]); }
         } else if (tag === "peer") {
             var wasConnected = peerConnected;
             var hostLeft = payload[2];
             peerConnected = !!payload[1];
             vsAI = !peerConnected;
+            peerName = payload[3] || "";
+            if (!peerConnected) { peerRecord.wins = 0; peerRecord.losses = 0; }
+            updateNames();
+            updateRecords();
+            if (peerConnected && !wasConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", myRecord.wins, myRecord.losses]); }
             if (hostLeft) {
                 started = false;
                 phase = "menu";
@@ -64,6 +94,9 @@
             } else if (started && phase !== "menu" && phase !== "gameover" && peerConnected !== wasConnected) {
                 startGame();
             }
+        } else if (tag === "record") {
+            peerRecord.wins = payload[1]; peerRecord.losses = payload[2];
+            updateRecords();
         } else if (tag === "pick") {
             peerPick = payload[1];
             tryResolveRound();

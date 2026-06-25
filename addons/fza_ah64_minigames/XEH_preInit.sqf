@@ -163,6 +163,10 @@ if (isServer) then {
     }];
 
     // Per-frame handler to clean up any sessions where the host or guest is no longer valid (e.g. they left the heli).
+    // Requires several consecutive invalid checks (not just one) before tearing a session down - a single bad
+    // frame can happen from a momentary seat-detection hiccup (e.g. right as a page loads or during a brief
+    // animation), and a false-positive here silently breaks the relay for the rest of the match (the cleared
+    // side's clientOwner no longer matches either session slot, so fza_mg_netRelay just drops their messages).
     [{
         {
             private _heli = _x;
@@ -177,19 +181,28 @@ if (isServer) then {
                     private _guestUnit = [_guestOwner] call fza_mg_fnc_minigameOwnerToUnit;
                     private _guestValid = !isNull _guestUnit && {if (_guestSeat == "plt") then {driver _heli == _guestUnit} else {gunner _heli == _guestUnit}};
 
-                    if (_hostOwner != -1 && !_hostValid) then {
+                    private _badStreakKey = format ["fza_mg_%1BadStreak", _gameId];
+                    private _badStreak = _heli getVariable [_badStreakKey, [0, 0]];
+                    _badStreak params ["_hostBad", "_guestBad"];
+                    _hostBad = if (_hostOwner != -1 && !_hostValid) then { _hostBad + 1 } else { 0 };
+                    _guestBad = if (_guestOwner != -1 && !_guestValid) then { _guestBad + 1 } else { 0 };
+
+                    if (_hostBad >= 5) then {
                         if (_guestValid) then {
                             ["fza_mg_netPeer", [_heli, _gameId, false, true, ""], _guestUnit] call CBA_fnc_targetEvent;
                         };
                         _heli setVariable [_sessionKey, [-1, "", -1, ""]];
+                        _hostBad = 0; _guestBad = 0;
                     } else {
-                        if (_guestOwner != -1 && !_guestValid) then {
+                        if (_guestBad >= 5) then {
                             if (_hostValid) then {
                                 ["fza_mg_netPeer", [_heli, _gameId, false, false, ""], _hostUnit] call CBA_fnc_targetEvent;
                             };
                             _heli setVariable [_sessionKey, [_hostOwner, _hostSeat, -1, ""]];
+                            _hostBad = 0; _guestBad = 0;
                         };
                     };
+                    _heli setVariable [_badStreakKey, [_hostBad, _guestBad]];
                 };
             } forEach ["pong", "battleship", "tictactoe", "connectfour", "rockpaperscissors", "checkers"];
         } forEach (vehicles select {_x isKindOf "fza_ah64base"});
@@ -202,10 +215,12 @@ if (isServer) then {
     {[_x] call fza_mg_fnc_minigamePushScores} forEach (keys _allScores);
 }] call CBA_fnc_addEventHandler;
 
-// JIP backfill - ask the server for the current scoreboard once CBA/network is ready.
+// JIP backfill - ask the server for the current scoreboard once CBA/network is ready, and proactively re-report
+// our own existing saved scores so they show up for everyone immediately, not just after we play again this session.
 ["CBA_common_PostInit", {
     if (hasInterface) then {
         ["fza_minigame_requestScores", [clientOwner]] call CBA_fnc_serverEvent;
+        [] call fza_mg_fnc_minigameSyncScores;
     };
 }] call CBA_fnc_addEventHandler;
 

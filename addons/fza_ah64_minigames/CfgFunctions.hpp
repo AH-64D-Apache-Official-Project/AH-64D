@@ -28,6 +28,7 @@ class CfgFunctions
             class minigameEscapeJsString {RECOMPILE_FLAG;};
             class minigameReportResult {RECOMPILE_FLAG;};
             class minigamePushJsToGame {RECOMPILE_FLAG;};
+            class minigameSyncScores {RECOMPILE_FLAG;};
         };
     };
 };

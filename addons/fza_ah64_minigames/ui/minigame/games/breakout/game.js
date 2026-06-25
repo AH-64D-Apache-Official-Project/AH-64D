@@ -18,7 +18,7 @@
         canvas.height = H;
         TOP_MARGIN = H * 0.12;
         BOTTOM_MARGIN = H * 0.2; // keeps the paddle clear of the mute/pause/restart buttons overlaid at the bottom
-        PADDLE_W = 110 * SCALE;
+        PADDLE_W = 85 * SCALE;
         PADDLE_H = 14 * SCALE;
         PADDLE_SPEED = 480 * SCALE;
         BALL_RADIUS = 7 * SCALE;

@@ -16,7 +16,7 @@
         H = canvas.clientHeight || window.innerHeight;
         canvas.width = W;
         canvas.height = H;
-        TOP_MARGIN = H * 0.12;
+        TOP_MARGIN = H * 0.17; // clears the now-taller name/record/status HUD stack at the top
         var boardPixels = Math.min(W * 0.8, (H - TOP_MARGIN) * 0.85);
         CELL = boardPixels / BOARD_SIZE;
         boardX = (W - boardPixels) / 2;
@@ -36,11 +36,31 @@
         if (btn) { btn.classList.toggle("active", !isMuted); }
     };
 
-    // Pushed by fn_minigameReportResult.sqf - personal win/loss record (no points scoreboard for this game).
-    var wins = 0, losses = 0;
+    // My own record, pushed by fn_minigameReportResult.sqf/fn_minigameReady.sqf. Forwarded to a connected peer
+    // immediately, since their machine has no way to read my profileNamespace - see updateRecords() below.
+    var myRecord = { wins: 0, losses: 0 };
+    var peerRecord = { wins: 0, losses: 0 };
     window.fza_minigame_setRecord = function (w, l) {
-        wins = w; losses = l;
+        myRecord.wins = w; myRecord.losses = l;
+        updateRecords();
+        if (peerConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", w, l]); }
     };
+
+    function updateRecords() {
+        var elLeft = document.getElementById("recordLeft");
+        var elRight = document.getElementById("recordRight");
+        var myText = "W-L " + myRecord.wins + "-" + myRecord.losses;
+        var peerText = peerConnected ? ("W-L " + peerRecord.wins + "-" + peerRecord.losses) : "—";
+        if (elLeft) { elLeft.textContent = role === "guest" ? peerText : myText; }
+        if (elRight) { elRight.textContent = role === "guest" ? myText : peerText; }
+    }
+
+    function updateNames() {
+        var elLeft = document.getElementById("nameLeft");
+        var elRight = document.getElementById("nameRight");
+        if (elLeft) { elLeft.textContent = (role === "host" ? myName : peerName) || "HOST"; }
+        if (elRight) { elRight.textContent = (role === "host" ? (peerName || "AI") : myName) || "GUEST"; }
+    }
 
     // Generic 2-player session (same heli+seat model the other games use). No hidden state on either side, so
     // moves are broadcast and applied identically - but unlike Tic-Tac-Toe/Connect Four, a single turn can be
@@ -49,18 +69,30 @@
     var role = null;
     var peerConnected = false;
     var vsAI = true;
+    var myName = "", peerName = "";
 
     window.fza_minigame_netRecv = function (payload) {
         var tag = payload[0];
         if (tag === "role") {
             role = payload[1];
+            var wasPeerConnected = peerConnected;
             peerConnected = (payload[2] !== -1);
             vsAI = !peerConnected;
+            myName = payload[3] || "";
+            peerName = payload[4] || "";
+            updateNames();
+            updateRecords();
+            if (peerConnected && !wasPeerConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", myRecord.wins, myRecord.losses]); }
         } else if (tag === "peer") {
             var wasConnected = peerConnected;
             var hostLeft = payload[2];
             peerConnected = !!payload[1];
             vsAI = !peerConnected;
+            peerName = payload[3] || "";
+            if (!peerConnected) { peerRecord.wins = 0; peerRecord.losses = 0; }
+            updateNames();
+            updateRecords();
+            if (peerConnected && !wasConnected) { window.fzaMinigame.netSend(GAME_ID, ["record", myRecord.wins, myRecord.losses]); }
             if (hostLeft) {
                 started = false;
                 phase = "menu";
@@ -69,6 +101,9 @@
             } else if (started && phase === "playing" && peerConnected !== wasConnected) {
                 startGame();
             }
+        } else if (tag === "record") {
+            peerRecord.wins = payload[1]; peerRecord.losses = payload[2];
+            updateRecords();
         } else if (tag === "move") {
             var capR = payload[5] === -1 ? undefined : payload[5];
             var capC = payload[6] === -1 ? undefined : payload[6];
@@ -78,6 +113,11 @@
             if (checkStalemateForSideAboutToMove(mySymbol)) { return; }
             myTurn = true;
             statusText = "YOUR TURN";
+        } else if (tag === "gameOver") {
+            // The opponent's own move/turn just concluded the match on their end (by elimination or stalemate) -
+            // their turn-ending code paths return early in that case and never send "move"/"endTurn", so this is
+            // the only signal we get; without it our screen would just sit frozen showing "OPPONENT'S TURN" forever.
+            endGame(!payload[1], true);
         }
     };
 
@@ -152,6 +192,10 @@
     var started;
     var board, cursor, selected, legalMoves, midJump;
     var mySymbol, myTurn, statusText, aiTurnTimer;
+    // Pieces always start at rows 5-7 ("X") and 0-2 ("O") in absolute board coordinates, but each player should
+    // see their OWN pieces near the bottom of their own screen - so the "O" side's view is rotated 180 degrees
+    // (both axes) purely for rendering/input purposes; absolute board coordinates never change.
+    var flipped = false;
 
     function inBounds(r, c) { return r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE; }
     function forwardDir(sym) { return sym === "X" ? -1 : 1; }
@@ -217,12 +261,19 @@
     }
 
     function moveCursor(action) {
-        if (action === "up") { cursor.row -= 1; }
-        if (action === "down") { cursor.row += 1; }
-        if (action === "left") { cursor.col -= 1; }
-        if (action === "right") { cursor.col += 1; }
+        var sign = flipped ? -1 : 1; // 180-degree rotation flips the effect of every direction, not just up/down
+        if (action === "up") { cursor.row -= sign; }
+        if (action === "down") { cursor.row += sign; }
+        if (action === "left") { cursor.col -= sign; }
+        if (action === "right") { cursor.col += sign; }
         cursor.row = Math.max(0, Math.min(BOARD_SIZE - 1, cursor.row));
         cursor.col = Math.max(0, Math.min(BOARD_SIZE - 1, cursor.col));
+    }
+
+    function cellScreenPos(r, c) {
+        var sr = flipped ? (BOARD_SIZE - 1 - r) : r;
+        var sc = flipped ? (BOARD_SIZE - 1 - c) : c;
+        return { x: boardX + sc * CELL, y: boardY + sr * CELL };
     }
 
     function handleSelectOrMove() {
@@ -374,6 +425,7 @@
         cursor = { row: 4, col: 1 };
         selected = null; legalMoves = []; midJump = false;
         mySymbol = vsAI ? "X" : (role === "host" ? "X" : "O");
+        flipped = (mySymbol === "O");
         myTurn = (mySymbol === "X");
         phase = "playing";
         statusText = myTurn ? "YOUR TURN" : (vsAI ? "AI THINKING..." : "OPPONENT'S TURN");
@@ -381,8 +433,9 @@
         document.getElementById("overlay").classList.add("hidden");
     }
 
-    function endGame(won) {
+    function endGame(won, fromRemote) {
         phase = "gameover";
+        if (!fromRemote && !vsAI) { window.fzaMinigame.netSend(GAME_ID, ["gameOver", won]); }
         window.fzaMinigame.reportResult(GAME_ID, won);
         if (won) { sfxWin(); } else { sfxLose(); }
         document.getElementById("overlaySub").textContent = (won ? "VICTORY" : "DEFEAT") + " - press any key to restart";
@@ -400,16 +453,17 @@
 
     // Render
     function drawBoard() {
-        var r, c;
+        var r, c, p;
         for (r = 0; r < BOARD_SIZE; r++) {
             for (c = 0; c < BOARD_SIZE; c++) {
-                var x = boardX + c * CELL, y = boardY + r * CELL;
+                p = cellScreenPos(r, c);
                 ctx.fillStyle = (r + c) % 2 === 1 ? "#113311" : "#001a00";
-                ctx.fillRect(x, y, CELL, CELL);
+                ctx.fillRect(p.x, p.y, CELL, CELL);
             }
         }
         legalMoves.forEach(function (m) {
-            var cx = boardX + m.toCol * CELL + CELL / 2, cy = boardY + m.toRow * CELL + CELL / 2;
+            var p2 = cellScreenPos(m.toRow, m.toCol);
+            var cx = p2.x + CELL / 2, cy = p2.y + CELL / 2;
             ctx.fillStyle = m.capRow !== undefined ? "rgba(255,51,51,0.45)" : "rgba(255,204,51,0.4)";
             ctx.beginPath();
             ctx.arc(cx, cy, CELL * 0.15, 0, Math.PI * 2);
@@ -419,7 +473,8 @@
             for (c = 0; c < BOARD_SIZE; c++) {
                 var piece = board[r][c];
                 if (!piece) { continue; }
-                var cx2 = boardX + c * CELL + CELL / 2, cy2 = boardY + r * CELL + CELL / 2;
+                p = cellScreenPos(r, c);
+                var cx2 = p.x + CELL / 2, cy2 = p.y + CELL / 2;
                 ctx.beginPath();
                 ctx.arc(cx2, cy2, CELL * 0.38, 0, Math.PI * 2);
                 ctx.fillStyle = piece.sym === "X" ? "#1a4d1a" : "#4d2a1a";
@@ -436,18 +491,18 @@
             }
         }
         if (selected) {
+            var sp = cellScreenPos(selected.row, selected.col);
             ctx.strokeStyle = "#ffcc33";
             ctx.lineWidth = LINE_WIDTH * 1.3;
-            ctx.strokeRect(boardX + selected.col * CELL + 2, boardY + selected.row * CELL + 2, CELL - 4, CELL - 4);
+            ctx.strokeRect(sp.x + 2, sp.y + 2, CELL - 4, CELL - 4);
         }
+        var cp = cellScreenPos(cursor.row, cursor.col);
         ctx.strokeStyle = "#ffffff";
         ctx.lineWidth = LINE_WIDTH;
-        ctx.strokeRect(boardX + cursor.col * CELL + 4, boardY + cursor.row * CELL + 4, CELL - 8, CELL - 8);
+        ctx.strokeRect(cp.x + 4, cp.y + 4, CELL - 8, CELL - 8);
     }
 
     function updateHud() {
-        var recordEl = document.getElementById("record");
-        if (recordEl) { recordEl.textContent = "W-L " + wins + "-" + losses; }
         var statusEl = document.getElementById("status");
         if (statusEl) { statusEl.textContent = statusText || "CHECKERS"; }
         var piecesEl = document.getElementById("pieces");
