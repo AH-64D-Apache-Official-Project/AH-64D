@@ -84,6 +84,15 @@ if (_minigameUrl != "") then {
     _gameUniqueId = _sideName + "Game_" + _minigameClass;
 };
 if (_oldMinigameUrl != _minigameUrl) then {
+    // Notify the server immediately that we're leaving whichever minigame we were just on (to a different
+    // minigame, or back to a non-minigame page) - don't wait on the old display's "Unload" event, since that
+    // only fires once the engine actually garbage-collects the now-unreferenced ui() display, and that timing
+    // isn't guaranteed. Without this, a peer mid-match could be left waiting on an opponent who already
+    // navigated away, stuck with no way to fall back to AI. Harmless no-op if fza_ah64_minigames isn't loaded
+    // or there was no active session.
+    if (_oldMinigameUrl != "" && !isNil "fza_mg_fnc_minigameNetLeaveAll") then {
+        call fza_mg_fnc_minigameNetLeaveAll;
+    };
     if (_minigameUrl != "") then {
         {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _minigameClass + "," + _gameUniqueId + ")"]} forEach _selections;
     } else {

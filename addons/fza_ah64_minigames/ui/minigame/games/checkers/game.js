@@ -98,12 +98,21 @@
                 phase = "menu";
                 document.getElementById("overlaySub").textContent = "HOST DISCONNECTED - press any key to start";
                 document.getElementById("overlay").classList.remove("hidden");
-            } else if (started && phase === "playing" && peerConnected !== wasConnected) {
-                startGame();
+            } else if (started && phase !== "menu" && peerConnected !== wasConnected) {
+                // Connection state changed mid-match - reset both sides to a neutral start screen rather than
+                // resuming play unilaterally on just this side, which left the OTHER side stuck on their own
+                // untouched menu never having started anything at all (a permanent soft lock, not a transient
+                // one - their game state was simply never initialized for the match this side jumped into).
+                started = false;
+                phase = "menu";
+                document.getElementById("overlaySub").textContent = "press any key to start";
+                document.getElementById("overlay").classList.remove("hidden");
             }
         } else if (tag === "record") {
             peerRecord.wins = payload[1]; peerRecord.losses = payload[2];
             updateRecords();
+        } else if (tag === "start") {
+            startGame();
         } else if (tag === "move") {
             var capR = payload[5] === -1 ? undefined : payload[5];
             var capC = payload[6] === -1 ? undefined : payload[6];
@@ -133,15 +142,23 @@
     }
 
     function handleDirectionPress(action) {
-        if (!started) { startGame(); return; }
-        if (phase === "gameover") { startGame(); return; }
+        if (!started) { beginMatch(); return; }
+        if (phase === "gameover") { beginMatch(); return; }
         if (phase === "playing" && myTurn) { moveCursor(action); }
     }
 
     function triggerConfirm() {
-        if (!started) { startGame(); return; }
-        if (phase === "gameover") { startGame(); return; }
+        if (!started) { beginMatch(); return; }
+        if (phase === "gameover") { beginMatch(); return; }
         if (phase === "playing" && myTurn) { handleSelectOrMove(); }
+    }
+
+    // Starting (or restarting) is broadcast to a connected peer, so both sides begin the exact same fresh match
+    // together rather than just this side - startGame() itself is fully deterministic from each side's own role,
+    // so the peer applying it independently on "start" produces identical state, no parameters needed.
+    function beginMatch() {
+        startGame();
+        if (!vsAI) { window.fzaMinigame.netSend(GAME_ID, ["start"]); }
     }
 
     // "fire" is a press-only action (CfgUserActionDefPress, no key-up event) - every call is a fresh press.

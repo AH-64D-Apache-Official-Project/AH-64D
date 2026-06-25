@@ -20,6 +20,7 @@ class CfgFunctions
             class minigamePlaySfx {RECOMPILE_FLAG;};
             class minigameNetJoin {RECOMPILE_FLAG;};
             class minigameNetLeave {RECOMPILE_FLAG;};
+            class minigameNetLeaveAll {RECOMPILE_FLAG;};
             class minigameNetSend {RECOMPILE_FLAG;};
             class minigameFindDisplay {RECOMPILE_FLAG;};
             class minigameOwnerToUnit {RECOMPILE_FLAG;};
