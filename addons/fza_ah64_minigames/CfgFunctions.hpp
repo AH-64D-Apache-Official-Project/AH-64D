@@ -24,6 +24,7 @@ class CfgFunctions
             class minigameFindDisplay {RECOMPILE_FLAG;};
             class minigameOwnerToUnit {RECOMPILE_FLAG;};
             class minigameRestart {RECOMPILE_FLAG;};
+            class minigameAux {RECOMPILE_FLAG;};
             class minigameEscapeJsString {RECOMPILE_FLAG;};
             class minigameReportResult {RECOMPILE_FLAG;};
             class minigamePushJsToGame {RECOMPILE_FLAG;};

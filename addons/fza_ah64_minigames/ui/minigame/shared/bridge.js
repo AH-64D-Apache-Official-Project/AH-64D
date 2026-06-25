@@ -51,6 +51,7 @@
     window.fza_minigame_setMuted = function () {};
     window.fza_minigame_setPaused = function () {};
     window.fza_minigame_restart = function () {}; // b4 bezel button - games override to force a fresh start regardless of current state
+    window.fza_minigame_aux = function () {}; // b2 bezel button - free for games to repurpose (e.g. Battleship uses it to rotate the ghost ship)
     window.fza_minigame_setScores = function () {}; // (myHighScore, scores) - scores is [name, score] pairs, sorted descending
     window.fza_minigame_setRecord = function () {}; // (wins, losses) - personal win/loss record for games that use reportResult
     window.fza_minigame_input = function () {}; // keybind input forwarded from SQF, since CEF keyboard focus isn't reliable

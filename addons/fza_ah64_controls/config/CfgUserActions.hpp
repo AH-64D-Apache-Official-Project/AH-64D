@@ -6,6 +6,15 @@ class vname {\
     onDeactivate = __EVAL(format["['%1', false] call fza_fnc_coreControlHandle", #vname]);\
 }
 
+// Press-only variant - no onDeactivate, so it fires once on key-down and does nothing on release, for actions
+// that are a single discrete trigger (e.g. a fire/confirm button) rather than a continuous held state.
+#define CfgUserActionDefPress(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName = vdisplayName;\
+    tooltip = vtooltip;\
+    onActivate = __EVAL(format["['%1', true] call fza_fnc_coreControlHandle", #vname]);\
+}
+
 #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving_point) \
 class fza_ah64_cockpit_##system##_##control {\
     displayName = __EVAL(format["%1: %2", (toLowerANSI localize system_name), (toLowerANSI localize control_name)]);\
@@ -80,6 +89,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_minigame_down,"Minigame: Down","MFD minigame down input");
     CfgUserActionDef(fza_minigame_left,"Minigame: Left","MFD minigame left input");
     CfgUserActionDef(fza_minigame_right,"Minigame: Right","MFD minigame right input");
+    CfgUserActionDefPress(fza_minigame_fire,"Minigame: Fire","MFD minigame generic confirm/fire/shoot input");
 
     #include "\fza_ah64_controls\headers\controls.hpp"
 };

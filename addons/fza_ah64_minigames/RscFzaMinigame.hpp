@@ -50,3 +50,30 @@ class RscFzaMinigamePong : RscFzaMinigameBase {
         };
     };
 };
+
+class RscFzaMinigameBreakout : RscFzaMinigameBase {
+    idd = 23967;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\breakout\game.html";
+        };
+    };
+};
+
+class RscFzaMinigameLunarLander : RscFzaMinigameBase {
+    idd = 23968;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\lunarlander\game.html";
+        };
+    };
+};
+
+class RscFzaMinigameBattleship : RscFzaMinigameBase {
+    idd = 23969;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\battleship\game.html";
+        };
+    };
+};

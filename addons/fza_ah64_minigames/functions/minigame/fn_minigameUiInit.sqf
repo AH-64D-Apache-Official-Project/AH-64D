@@ -42,8 +42,8 @@ switch _mode do {
         _display displayAddEventHandler ["Unload", {
             params ["_display"];
             [_display getVariable "fza_mpd_displayUpdatePfh"] call CBA_fnc_removePerFrameHandler;
-            // Net-aware games (currently just Pong) need their session cleaned up when navigated away from - harmless no-op if no session existed.
-            ["pong"] call fza_mg_fnc_minigameNetLeave;
+            // Net-aware games need their session cleaned up when navigated away from - harmless no-op if no session existed.
+            {[_x] call fza_mg_fnc_minigameNetLeave;} forEach ["pong", "battleship"];
             // Clean up the stale hashmap entry, unless something newer already replaced it.
             private _uniqueId = _display getVariable ["fza_mpd_minigameUniqueId", ""];
             if (_uniqueId != "") then {

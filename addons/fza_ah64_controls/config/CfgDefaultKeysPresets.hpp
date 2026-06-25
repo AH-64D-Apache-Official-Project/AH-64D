@@ -60,6 +60,7 @@ class CfgDefaultKeysPresets {
             fza_minigame_down[]   = {0x50}; // Numpad 2
             fza_minigame_left[]   = {0x4B}; // Numpad 4
             fza_minigame_right[]  = {0x4D}; // Numpad 6
+            fza_minigame_fire[]   = {0x39}; // Space - generic confirm/fire/shoot, usable by any minigame
 
         };
     };

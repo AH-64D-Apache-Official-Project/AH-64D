@@ -1,4 +1,4 @@
-// fza_mg_fnc_minigameHandleInput - forwards keybind input to whichever minigame browser(s) are active for the local player's seat. Params: _action ("up"/"down"/"left"/"right"), _isDown.
+// fza_mg_fnc_minigameHandleInput - forwards keybind input to whichever minigame browser(s) are active for the local player's seat. Params: _action ("up"/"down"/"left"/"right"/"fire"), _isDown.
 disableSerialization;
 params [["_action", ""], ["_isDown", false]];
 

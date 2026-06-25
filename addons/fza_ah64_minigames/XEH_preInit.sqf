@@ -158,7 +158,7 @@ if (isServer) then {
                         };
                     };
                 };
-            } forEach ["pong"];
+            } forEach ["pong", "battleship"];
         } forEach (vehicles select {_x isKindOf "fza_ah64base"});
     }];
 
@@ -191,7 +191,7 @@ if (isServer) then {
                         };
                     };
                 };
-            } forEach ["pong"];
+            } forEach ["pong", "battleship"];
         } forEach (vehicles select {_x isKindOf "fza_ah64base"});
     }, 3] call CBA_fnc_addPerFrameHandler;
 };

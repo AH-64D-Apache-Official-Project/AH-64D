@@ -1,9 +1,12 @@
-// fza_mg_fnc_minigameHandleControl - generic bezel-button handler for minigame pages: b4 restarts, b5 toggles pause, b6 toggles mute, b1 exits to the minigame menu. Params: _heli, _mpdIndex, _control.
+// fza_mg_fnc_minigameHandleControl - generic bezel-button handler for minigame pages: b2 is free for games to repurpose, b4 restarts, b5 toggles pause, b6 toggles mute, b1 exits to the minigame menu. Params: _heli, _mpdIndex, _control.
 params ["_heli", "_mpdIndex", "_control"];
 
 switch (_control) do {
     case "b1": {
         [_heli, _mpdIndex, "minigames"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "b2": {
+        [_heli, _mpdIndex] call fza_mg_fnc_minigameAux;
     };
     case "b4": {
         [_heli, _mpdIndex] call fza_mg_fnc_minigameRestart;

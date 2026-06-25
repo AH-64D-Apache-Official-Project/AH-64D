@@ -230,6 +230,24 @@ class CfgVehicles {
                 minigameClass = "RscFzaMinigamePong";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
+            class BREAKOUT {
+                index = MPD_PAGE_BREAKOUT;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\breakout\game.html";
+                minigameClass = "RscFzaMinigameBreakout";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class LUNARLANDER {
+                index = MPD_PAGE_LUNARLANDER;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\lunarlander\game.html";
+                minigameClass = "RscFzaMinigameLunarLander";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class BATTLESHIP {
+                index = MPD_PAGE_BATTLESHIP;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\battleship\game.html";
+                minigameClass = "RscFzaMinigameBattleship";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
         };
     };
 };

@@ -320,6 +320,9 @@ if (_value) then {
         case "fza_minigame_right": {
             ["right", true] call fza_mg_fnc_minigameHandleInput;
         };
+        case "fza_minigame_fire": {
+            ["fire", true] call fza_mg_fnc_minigameHandleInput;
+        };
         case "fza_ah64_ctrlVisToggle": {
             if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) exitWith {};
 
@@ -361,6 +364,7 @@ if !(_value) then {
         case "fza_minigame_right": {
             ["right", false] call fza_mg_fnc_minigameHandleInput;
         };
+        // fza_minigame_fire is a press-only action (CfgUserActionDefPress, no onDeactivate) - nothing fires here on release.
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (currentPilot _heli != player || !local _heli) exitWith {};
 

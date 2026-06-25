@@ -1,6 +1,6 @@
 MPD_TEXT_C(Title, 0.5, 0.105, MPD_TEXT_STATIC("MINI GAMES"))
 
-///////////////// L ///////////////
+///////////////// L /////////////// (single-player)
 //L1
 MPD_ARROW_R(L1,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
 MPD_TEXT_R(L1,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("ASTEROIDS"))
@@ -9,11 +9,20 @@ MPD_ARROW_R(L2,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 3)
 MPD_TEXT_R(L2,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("SPACE INV"))
 //L3
 MPD_ARROW_R(L3,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
-MPD_TEXT_R(L3,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("PONG"))
-//L4-L6: reserved for future minigames
+MPD_TEXT_R(L3,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("BREAKOUT"))
+//L4
+MPD_ARROW_R(L4,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 3)
+MPD_TEXT_R(L4,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("LUNAR LDR"))
+//L5-L6: reserved for future single-player minigames
 
-///////////////// R ///////////////
-//R1-R6: reserved for future minigames
+///////////////// R /////////////// (multiplayer)
+//R1
+MPD_ARROW_L(R1,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, 3)
+MPD_TEXT_L(R1,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("PONG"))
+//R2
+MPD_ARROW_L(R2,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, 3)
+MPD_TEXT_L(R2,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("BATTLESHIP"))
+//R3-R6: reserved for future multiplayer minigames
 
 ///////////////// B ///////////////
 //B1

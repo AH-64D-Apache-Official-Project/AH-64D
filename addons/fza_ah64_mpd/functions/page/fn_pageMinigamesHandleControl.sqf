@@ -8,7 +8,16 @@ switch (_control) do {
         [_heli, _mpdIndex, "SPACEINVADERS"] call fza_mpd_fnc_setCurrentPage;
     };
     case "l3": {
+        [_heli, _mpdIndex, "BREAKOUT"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "l4": {
+        [_heli, _mpdIndex, "LUNARLANDER"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "r1": {
         [_heli, _mpdIndex, "PONG"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "r2": {
+        [_heli, _mpdIndex, "BATTLESHIP"] call fza_mpd_fnc_setCurrentPage;
     };
     case "b1": {
         [_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
