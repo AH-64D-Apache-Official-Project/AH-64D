@@ -248,6 +248,18 @@ class CfgVehicles {
                 minigameClass = "RscFzaMinigameBattleship";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
+            class TICTACTOE {
+                index = MPD_PAGE_TICTACTOE;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\tictactoe\game.html";
+                minigameClass = "RscFzaMinigameTicTacToe";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class CONNECTFOUR {
+                index = MPD_PAGE_CONNECTFOUR;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\connectfour\game.html";
+                minigameClass = "RscFzaMinigameConnectFour";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
         };
     };
 };

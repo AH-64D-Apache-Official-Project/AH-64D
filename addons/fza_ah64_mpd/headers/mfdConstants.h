@@ -488,6 +488,8 @@
 #define MPD_PAGE_BREAKOUT 24
 #define MPD_PAGE_LUNARLANDER 25
 #define MPD_PAGE_BATTLESHIP 26
+#define MPD_PAGE_TICTACTOE 27
+#define MPD_PAGE_CONNECTFOUR 28
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

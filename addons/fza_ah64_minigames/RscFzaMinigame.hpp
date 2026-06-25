@@ -77,3 +77,21 @@ class RscFzaMinigameBattleship : RscFzaMinigameBase {
         };
     };
 };
+
+class RscFzaMinigameTicTacToe : RscFzaMinigameBase {
+    idd = 23970;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\tictactoe\game.html";
+        };
+    };
+};
+
+class RscFzaMinigameConnectFour : RscFzaMinigameBase {
+    idd = 23971;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\connectfour\game.html";
+        };
+    };
+};

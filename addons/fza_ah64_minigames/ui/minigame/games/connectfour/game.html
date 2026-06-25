@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connect Four</title>
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="hud">
+    <span id="record">W-L 0-0</span>
+    <span id="status">CONNECT 4</span>
+    <span id="mark">MARK X</span>
+</div>
+<div id="muteBtn">MUTE</div>
+<div id="pauseBtn">-</div>
+<div id="restartBtn">DROP</div>
+<div id="overlay">
+    <div id="overlayText">CONNECT 4<br><span id="overlaySub">press any key to start</span></div>
+</div>
+<script src="../../shared/bridge.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
