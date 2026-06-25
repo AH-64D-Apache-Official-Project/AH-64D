@@ -260,6 +260,18 @@ class CfgVehicles {
                 minigameClass = "RscFzaMinigameConnectFour";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
+            class ROCKPAPERSCISSORS {
+                index = MPD_PAGE_ROCKPAPERSCISSORS;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\rockpaperscissors\game.html";
+                minigameClass = "RscFzaMinigameRockPaperScissors";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class CHECKERS {
+                index = MPD_PAGE_CHECKERS;
+                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\checkers\game.html";
+                minigameClass = "RscFzaMinigameCheckers";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
         };
     };
 };

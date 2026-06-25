@@ -7,7 +7,7 @@ let minigame_root = HEMTT_VFS
 let shared_dir = minigame_root.join("shared");
 let games_dir = minigame_root.join("games");
 
-let games = ["asteroids", "spaceinvaders", "pong", "breakout", "lunarlander", "battleship", "tictactoe", "connectfour"];
+let games = ["asteroids", "spaceinvaders", "pong", "breakout", "lunarlander", "battleship", "tictactoe", "connectfour", "rockpaperscissors", "checkers"];
 
 for game_name in games {
     let game_dir = games_dir.join(game_name);

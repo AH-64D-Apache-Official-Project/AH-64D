@@ -25,6 +25,12 @@ switch (_control) do {
     case "r4": {
         [_heli, _mpdIndex, "CONNECTFOUR"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "r5": {
+        [_heli, _mpdIndex, "ROCKPAPERSCISSORS"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "r6": {
+        [_heli, _mpdIndex, "CHECKERS"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "b1": {
         [_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
     };

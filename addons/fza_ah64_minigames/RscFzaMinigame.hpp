@@ -95,3 +95,21 @@ class RscFzaMinigameConnectFour : RscFzaMinigameBase {
         };
     };
 };
+
+class RscFzaMinigameRockPaperScissors : RscFzaMinigameBase {
+    idd = 23972;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\rockpaperscissors\game.html";
+        };
+    };
+};
+
+class RscFzaMinigameCheckers : RscFzaMinigameBase {
+    idd = 23973;
+    class Controls : Controls {
+        class gameBrowser : gameBrowser {
+            url = "\fza_ah64_minigames\ui\minigame\games\checkers\game.html";
+        };
+    };
+};
