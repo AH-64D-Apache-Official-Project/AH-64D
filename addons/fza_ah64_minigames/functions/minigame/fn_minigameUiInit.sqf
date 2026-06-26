@@ -42,10 +42,10 @@ switch _mode do {
         _display displayAddEventHandler ["Unload", {
             params ["_display"];
             [_display getVariable "fza_mpd_displayUpdatePfh"] call CBA_fnc_removePerFrameHandler;
-            // Net-aware games need their session cleaned up when navigated away from - harmless no-op if no session existed.
-            // Belt-and-suspenders alongside fn_setCurrentPage.sqf's explicit call: this one fires whenever the display
-            // is actually torn down (e.g. leaving the seat entirely), not just on an ordinary page-to-page navigation.
+            // Belt-and-suspenders alongside fn_setCurrentPage.sqf's explicit call - fires whenever the display is actually torn down, not just on an ordinary page-to-page navigation.
             call fza_mg_fnc_minigameNetLeaveAll;
+            // Stop any looping music left playing from this page - harmless no-op if none was playing. Doom is the only minigame using music so far; list more gameIds here if that changes.
+            ["doom"] call fza_mg_fnc_minigameStopMusic;
             // Clean up the stale hashmap entry, unless something newer already replaced it.
             private _uniqueId = _display getVariable ["fza_mpd_minigameUniqueId", ""];
             if (_uniqueId != "") then {

@@ -18,6 +18,8 @@ class CfgFunctions
             class minigameUiInit {RECOMPILE_FLAG;};
             class minigamePushScores {RECOMPILE_FLAG;};
             class minigamePlaySfx {RECOMPILE_FLAG;};
+            class minigamePlayMusic {RECOMPILE_FLAG;};
+            class minigameStopMusic {RECOMPILE_FLAG;};
             class minigameNetJoin {RECOMPILE_FLAG;};
             class minigameNetLeave {RECOMPILE_FLAG;};
             class minigameNetLeaveAll {RECOMPILE_FLAG;};
@@ -30,6 +32,11 @@ class CfgFunctions
             class minigameReportResult {RECOMPILE_FLAG;};
             class minigamePushJsToGame {RECOMPILE_FLAG;};
             class minigameSyncScores {RECOMPILE_FLAG;};
+            class minigameRequestLargeAsset {RECOMPILE_FLAG;};
+            class minigamePushChunkedString {RECOMPILE_FLAG;};
+            class minigamePersistData {RECOMPILE_FLAG;};
+            class minigamePersistDataChunk {RECOMPILE_FLAG;};
+            class minigameRequestPersistedData {RECOMPILE_FLAG;};
         };
     };
 };

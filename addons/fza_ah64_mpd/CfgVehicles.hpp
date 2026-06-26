@@ -121,9 +121,9 @@ class CfgVehicles {
                 };
             };
             // Minigame selection menu - DMS page's IBIT (t3) button.
-            // All static labels, no draw function needed.
             class MINIGAMES {
                 index = MPD_PAGE_MINIGAMES;
+                draw = "fza_mpd_fnc_pageMinigamesDraw";
                 handleControl = "fza_mpd_fnc_pageMinigamesHandleControl";
             };
             class DTU {
@@ -272,6 +272,8 @@ class CfgVehicles {
                 minigameClass = "RscFzaMinigameCheckers";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
+            // DOOM is intentionally not defined here - it's supplied by the standalone AH-64D-Doom compat
+            // addon (fza_ah64_doomcompat, requiredAddons = this + fza_ah64_doom, skipWhenMissingDependencies)
         };
     };
 };

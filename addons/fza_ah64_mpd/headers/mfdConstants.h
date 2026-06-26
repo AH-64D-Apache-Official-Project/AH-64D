@@ -481,17 +481,22 @@
 #define MPD_PAGE_COORD 19
 
 // MINIGAMES - each minigame gets its own FzaMpdPages entry + index; selected from the DMS page's IBIT button.
-#define MPD_PAGE_MINIGAMES 20
-#define MPD_PAGE_ASTEROIDS 21
-#define MPD_PAGE_SPACEINVADERS 22
-#define MPD_PAGE_PONG 23
-#define MPD_PAGE_BREAKOUT 24
-#define MPD_PAGE_LUNARLANDER 25
-#define MPD_PAGE_BATTLESHIP 26
-#define MPD_PAGE_TICTACTOE 27
-#define MPD_PAGE_CONNECTFOUR 28
-#define MPD_PAGE_ROCKPAPERSCISSORS 29
-#define MPD_PAGE_CHECKERS 30
+//#define MPD_PAGE_DOOM 28 //Reserved for DOOM Compat Addon - see fza_compat_doom
+#define MPD_PAGE_MINIGAMES 29
+#define MPD_PAGE_ASTEROIDS 30
+#define MPD_PAGE_SPACEINVADERS 31
+#define MPD_PAGE_PONG 32
+#define MPD_PAGE_BREAKOUT 33
+#define MPD_PAGE_LUNARLANDER 34
+#define MPD_PAGE_BATTLESHIP 35
+#define MPD_PAGE_TICTACTOE 36
+#define MPD_PAGE_CONNECTFOUR 37
+#define MPD_PAGE_ROCKPAPERSCISSORS 38
+#define MPD_PAGE_CHECKERS 39
+
+//DOOM Availability Selection
+#define MFD_IND_MINIGAMES_DOOM_AVAILABLE 0
+
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

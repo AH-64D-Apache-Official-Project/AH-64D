@@ -34,4 +34,7 @@ switch (_control) do {
     case "b1": {
         [_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "b2": {
+        [_heli, _mpdIndex, "DOOM"] call fza_mpd_fnc_setCurrentPage;
+    };
 };
