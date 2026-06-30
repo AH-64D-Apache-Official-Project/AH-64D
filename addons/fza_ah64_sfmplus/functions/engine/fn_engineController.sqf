@@ -130,7 +130,9 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         "fza_sfmplus_engFF",
         "fza_sfmplus_collectiveOutput",
         "fza_sfmplus_xmsnOutputRpm",
-        "fza_sfmplus_xmsnDeltaRpm"
+        "fza_sfmplus_xmsnDeltaRpm",
+        "fza_sfmplus_vrsVelocityMin",
+        "fza_sfmplus_vrsVelocityMax"
     ];
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };
