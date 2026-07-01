@@ -8,11 +8,11 @@
 
 <script type="text/javascript">var q = window.location.search;if (q.startsWith("?Theme=")){var t = q.slice(7);var e = t.indexOf(";");if (e != -1){  t = t.slice(0, e);  }document.documentElement.classList.add(t + "Theme")}</script>
 
-<a name="Functions"></a><a name="Topic311"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic309"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_hellfire_fnc_arhOnFired"></a><a name="Topic312"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_hellfire_fnc_arhOnFired"></a><a name="Topic310"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_hellfire_fnc_arhOnFired</div>
  <div class="CBody"><p>Description: Initialises the ARH seeker state at launch. Reads FCR NTS data, evaluates engagement constraints, computes TOF, and populates the ACE guidance state arrays that drive fn_arhSeekerUpdate each tick.&nbsp; seekerStateParams: [isActive, timeWhenActive, expectedTargetPos, calculatedSearchPos, lastTargetPollTime, lastKnownVelocity, lastTimeSeen, doesntHaveTarget, targetType, cachedSeekerAngle, dbsOffset, lastCmCheckTime, lastDecoyTime] Parameters: _firedEH&nbsp; - Full ACE fired-EH array _launchParams - ACE launch params (mutated in-place) _stateParams&nbsp; - ACE state wrapper; index 1 holds seekerStateParams Returns: Nothing Author: Snow(Dryden)</p></div>
 </div>

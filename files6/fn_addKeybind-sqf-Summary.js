@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File6:fn_addKeybind.sqf","fn_addKeybind.sqf");NDSummary.OnSummaryLoaded("File6:fn_addKeybind.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[471,0,1,"Functions","Functions"],[472,0,0,"fza_fnc_addKeybind","fza_fnc_addKeybind"]]);
+﻿NDFramePage.OnPageTitleLoaded("File6:fn_addKeybind.sqf","fn_addKeybind.sqf");NDSummary.OnSummaryLoaded("File6:fn_addKeybind.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[469,0,1,"Functions","Functions"],[470,0,0,"fza_fnc_addKeybind","fza_fnc_addKeybind"]]);

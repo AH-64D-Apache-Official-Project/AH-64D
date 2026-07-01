@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File13:fn_handlePanel.sqf",{324:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Arms or disarms the fire panel</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File13:fn_handlePanel.sqf",{322:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Arms or disarms the fire panel</div></div>"});
