@@ -166,8 +166,8 @@ if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
 
 //Blue force tracker points
-private _reportingUnits =  listRemoteTargets side player;
-private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
+private _reportingUnits = listRemoteTargets playerSide select {side (_x#0) == playerSide};
+private _showFriendly   = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
 {
     _x params ["_Object"];
     if (_object isEqualTo _heli) then {continue;};
