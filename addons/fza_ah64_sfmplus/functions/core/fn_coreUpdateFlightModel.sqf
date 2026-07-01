@@ -9,7 +9,6 @@ if (fza_ah64_sfmPlusRotorModel == 1) then {
     [_heli] call fza_sfmplus_fnc_rotorUpdate;
 } else {
     // Simple rotor model
-    [_heli] call fza_sfmplus_fnc_simpleRotorCamShake;
     [_heli] call fza_sfmplus_fnc_simpleRotorMain;
     [_heli] call fza_sfmplus_fnc_simpleRotorTail;
 };
