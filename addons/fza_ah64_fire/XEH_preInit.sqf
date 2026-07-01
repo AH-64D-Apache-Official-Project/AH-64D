@@ -1,10 +1,5 @@
 ["fza_engineFire", {
     params ["_heli", "_location"];
-    [_heli] spawn fza_aiCrew_fnc_fireControl;
-}] call CBA_fnc_addEventHandler;
-
-["fza_engineFire", {
-    params ["_heli", "_location"];
 
     //If the effects are already present, don't overwrite
     if (_heli getVariable [format ["fza_ah64_fire_%1_fx", _location], []] isNotEqualTo []) exitWith {};

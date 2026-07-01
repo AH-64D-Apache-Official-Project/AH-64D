@@ -44,9 +44,10 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
     if (_ident == "") exitWith {};
 
     private _identParts = _ident splitString "_";
+    private _texSuffix = if (_identParts # 1 == "FLYER") then {""} else {_identParts # 2};
     private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa",
         toLower (_identParts # 1),
-        _identParts # 2
+        _texSuffix
     ];
     
     if (count _guiPos < 1) then {

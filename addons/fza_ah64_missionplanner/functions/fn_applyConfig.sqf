@@ -1092,6 +1092,12 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
+    // ── STEP 9: FLARE RESTOCK ────────────────────────────────────────────────
+    // swapFlares only fires via onPhaseChanged when equipment type switches.
+    // Force it here so flares are always restocked to full even when the same
+    // equipment is reapplied (e.g. UK→UK after expending flares).
+    [_heli, animationPhase _heli "msn_equip_british"] remoteExec ["fza_ase_fnc_swapFlares", _heli];
+
     _heli setVariable ["fza_mplanner_applying", false, true];
     systemChat "Mission Planner apply complete.";
 };
