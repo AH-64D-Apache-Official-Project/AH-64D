@@ -1,0 +1,139 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+#canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#nameRow {
+    position: fixed;
+    top: 4px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 14px;
+    color: #66cc66;
+    font-size: 28px;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+.playerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gameTitle {
+    align-self: center;
+    color: #449944;
+}
+
+#recordLeft, #recordRight {
+    font-size: 38px;
+    font-weight: bold;
+    color: #669966;
+}
+
+#hud {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    color: #33ff33;
+    font-size: 38px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px #003300;
+    pointer-events: none;
+}
+
+/* Aligned under the physical b6 bezel button, which toggles mute via fn_minigameHandleControl.sqf. */
+#muteBtn {
+    position: fixed;
+    bottom: 3%;
+    right: 16%;
+    transform: translate(50%, 50%);
+    color: #ff3333;
+    font-size: 33px;
+    letter-spacing: 1px;
+    border: 4px solid #ff3333;
+    padding: 4px 10px;
+    text-shadow: 0 0 6px #ff3333;
+}
+
+#muteBtn.active {
+    color: #33ff33;
+    border-color: #33ff33;
+    text-shadow: 0 0 6px #33ff33;
+}
+
+/* Aligned under the physical b5 bezel button - unused by this game (nothing meaningful to pause between rounds). */
+#pauseBtn {
+    position: fixed;
+    bottom: 3%;
+    right: 30%;
+    transform: translate(50%, 50%);
+    color: #555555;
+    font-size: 33px;
+    letter-spacing: 1px;
+    border: 4px solid #555555;
+    padding: 4px 10px;
+}
+
+/* Aligned under the physical b4 bezel button - repurposed by game.js to lock in the highlighted choice (same action as the generic fire keybind). */
+#restartBtn {
+    position: fixed;
+    bottom: 3%;
+    right: 43%;
+    transform: translate(50%, 50%);
+    color: #ffcc33;
+    font-size: 33px;
+    letter-spacing: 1px;
+    border: 4px solid #ffcc33;
+    padding: 4px 10px;
+    text-shadow: 0 0 6px #ffcc33;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+#overlay.hidden {
+    display: none;
+}
+
+#overlayText {
+    color: #33ff33;
+    font-size: 48px;
+    letter-spacing: 3px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+#overlaySub {
+    font-size: 32px;
+    color: #66cc66;
+}

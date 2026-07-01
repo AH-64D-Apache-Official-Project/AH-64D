@@ -84,6 +84,8 @@ class CfgFunctions
             class pageFUELDraw {RECOMPILE_FLAG;};
             class pageFUELHandleControl {RECOMPILE_FLAG;};
             class pageMENUHandleControl {RECOMPILE_FLAG;};
+            class pageMinigamesDraw {RECOMPILE_FLAG;};
+            class pageMinigamesHandleControl {RECOMPILE_FLAG;};
             class pageTSDDraw {RECOMPILE_FLAG;};
             class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};
