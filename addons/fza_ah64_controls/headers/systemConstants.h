@@ -42,4 +42,11 @@
 #define FCR_TYPE_WHEELED    4
 #define FCR_TYPE_ADU        5
 
+// FCR display mode
+#define FCR_DISP_MODE_OFF   0
+#define FCR_DISP_MODE_GTM   1
+#define FCR_DISP_MODE_ATM   2
+#define FCR_DISP_MODE_RMAP  3
+#define FCR_DISP_MODE_TPM   4
+
 #endif

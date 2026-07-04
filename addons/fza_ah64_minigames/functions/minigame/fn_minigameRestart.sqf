@@ -2,7 +2,7 @@
 params ["_heli", "_mpdIndex"];
 
 private _uniqueId = ((_heli getVariable ["fza_mpd_mpdState", []]) # _mpdIndex) select 9;
-private _display = (uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
+private _display = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
 if (isNull _display) exitWith {};
 
 private _browserCtrl = _display displayCtrl 369;

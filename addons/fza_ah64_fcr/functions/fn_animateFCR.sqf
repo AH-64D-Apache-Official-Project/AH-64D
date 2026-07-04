@@ -63,10 +63,15 @@ if (_fcrScanState == FCR_MODE_OFF || _fcrScanState == FCR_MODE_FAULT) exitWith {
 
 // Cueing: step toward scan start position
 if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
-    private _startDeg = if (_fcrMode == 1) then {
-        _fcrAzBias - _gtmHalfFov   // GTM: left edge of scan sector
+    private _startDeg = if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
+        _fcrAzBias - _gtmHalfFov   // GTM/RMAP: left edge of scan sector
     } else {
-        _fcrAzBias                 // ATM: boresight / front
+        if (_fcrMode == FCR_DISP_MODE_TPM) then {
+            private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+            _fcrAzBias - _tpmHalfFov   // TPM: left edge of scan sector
+        } else {
+            _fcrAzBias                 // ATM: boresight / front
+        }
     };
     private _startRad = [(_startDeg * (pi / 180))] call _applyModeSign;
 
@@ -90,8 +95,8 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
 // Active scan: track bar position each frame
 private _targetDeg = 0;
 
-if (_fcrMode == 1) then {
-    // GTM 3.2 s cycle: near bar L→R (0–1.6 s), far bar R→L (1.6–3.2 s)
+if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
+    // GTM/RMAP 3.2 s cycle: near bar L→R (0–1.6 s), far bar R→L (1.6–3.2 s)
     private _t = _fcrScanDeltaTime % 3.2;
     _targetDeg = if (_t <= 1.6) then {
         (_fcrAzBias - _gtmHalfFov) + (_t / 1.6) * (_gtmHalfFov * 2)
@@ -99,11 +104,21 @@ if (_fcrMode == 1) then {
         (_fcrAzBias + _gtmHalfFov) - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
     };
 } else {
-    // ATM 6.4 s cycle: full 360° revolution
-    // Value goes 0→360° (not normalised to ±180°) so the wrap occurs at the front
-    // where both sides are visually identical — avoids the ±π blend artifact
-    private _t = _fcrScanDeltaTime % 6.4;
-    _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
+    if (_fcrMode == FCR_DISP_MODE_TPM) then {
+        // TPM: sweep ±halfFov (90° wide mode, 45° narrow mode per groundspeed submode)
+        private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+        private _t = _fcrScanDeltaTime % 3.2;
+        _targetDeg = if (_t <= 1.6) then {
+            (_fcrAzBias - _tpmHalfFov) + (_t / 1.6) * (_tpmHalfFov * 2)
+        } else {
+            (_fcrAzBias + _tpmHalfFov) - ((_t - 1.6) / 1.6) * (_tpmHalfFov * 2)
+        };
+    } else {
+        // ATM 6.4 s cycle: full 360° revolution
+        // Value goes 0→360° so the wrap occurs at the front, avoiding the ±π blend artifact
+        private _t = _fcrScanDeltaTime % 6.4;
+        _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
+    };
 };
 
 private _targetRad = [(_targetDeg * (pi / 180))] call _applyModeSign;

@@ -29,8 +29,10 @@ class CfgDefaultKeysPresets {
             fza_ah64_wasGun[] = {0x02}; // 1
             fza_ah64_wasRkt[] = {0x03}; // 2
             fza_ah64_wasMsl[] = {0x04}; // 3
-            fza_ah64_fcrModeSwitch_up[] = {0x2A130023}; //Shift+H
-            fza_ah64_fcrModeSwitch_down[] = {0x1D130023}; //Ctrl+H
+            fza_ah64_fcrModeGTM[]  = {0x2A130023}; //Shift+H
+            fza_ah64_fcrModeATM[]  = {0x1D130023}; //Ctrl+H
+            fza_ah64_fcrModeRMAP[] = {};
+            fza_ah64_fcrModeTPM[]  = {};
             fza_ah64_flare[] = {0x13}; // R
             fza_ah64_tadsLHGFov_W[] = {0x38130002};
             fza_ah64_tadsLHGFov_M[] = {0x38130003};

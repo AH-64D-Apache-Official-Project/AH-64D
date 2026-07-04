@@ -318,6 +318,7 @@
 #define MFD_IND_FCR_PREV_CENTER 14
 #define MFD_IND_FCR_COMMAND_HEADING  15
 #define MFD_IND_FCR_ALTERNATE_SENSOR 16
+#define MFD_IND_FCR_TPM_WIDE         17
 
 #define MFD_IND_FCR_INSTALLED 19
 
@@ -329,6 +330,11 @@
 #define MFD_TEXT_IND_FCR_WC    4
 #define MFD_TEXT_IND_FCR_ACQ_SRC 5
 #define MFD_TEXT_IND_FCR_WS    6
+// TPM-specific text slots (slots 7-9, only used when MFD_IND_FCR_MODE == FCR_DISP_MODE_TPM)
+#define MFD_TEXT_IND_FCR_TPM_PROF  7
+#define MFD_TEXT_IND_FCR_TPM_CLR   8
+#define MFD_TEXT_IND_FCR_TPM_OBS   9
+#define MFD_TEXT_IND_FCR_TPM_LINES 10
 
 //ASE Indices
 #define MFD_IND_ASE_CHAFF_STATE  0
@@ -479,6 +485,8 @@
 #define MPD_PAGE_ABR 17
 #define MPD_PAGE_VER 18
 #define MPD_PAGE_COORD 19
+#define MPD_PAGE_FCRRMAP 20
+#define MPD_PAGE_FCRTPM  21
 
 // MINIGAMES - each minigame gets its own FzaMpdPages entry + index; selected from the DMS page's IBIT button.
 //#define MPD_PAGE_DOOM 28 //Reserved for DOOM Compat Addon - see fza_compat_doom

@@ -144,6 +144,21 @@ class CfgVehicles {
                     subPageVarPage[] = {5,0};
                 };
             };
+            class FCRRMAP {
+                index = MPD_PAGE_FCRRMAP;
+                htmlUrl   = "\fza_ah64_fcr\ui\rmap\rmap.html";
+                htmlClass = "RscFzaFCRRmap";
+                usesIcons = 1;
+                draw          = "fza_mpd_fnc_fcrRMAPDraw";
+                handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
+            };
+            class FCRTPM {
+                index = MPD_PAGE_FCRTPM;
+                htmlUrl   = "\fza_ah64_fcr\ui\tpm\tpm.html";
+                htmlClass = "RscFzaFCRTpm";
+                draw          = "fza_mpd_fnc_fcrTPMDraw";
+                handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
+            };
             class ASE {
                 index = MPD_PAGE_ASE;
                 draw  = "fza_mpd_fnc_pageASEDraw";
@@ -211,65 +226,65 @@ class CfgVehicles {
                     shotatdel = 0;
                 };
             };
-            // MINIGAMES: needs index, minigameUrl, and minigameClass (display class) - game content lives in fza_ah64_minigames.
+            // MINIGAMES: needs index, htmlUrl, and htmlClass (display class) - game content lives in fza_ah64_minigames.
             class ASTEROIDS {
                 index = MPD_PAGE_ASTEROIDS;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\asteroids\game.html";
-                minigameClass = "RscFzaMinigameAsteroids";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\asteroids\game.html";
+                htmlClass = "RscFzaMinigameAsteroids";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class SPACEINVADERS {
                 index = MPD_PAGE_SPACEINVADERS;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\spaceinvaders\game.html";
-                minigameClass = "RscFzaMinigameSpaceInvaders";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\spaceinvaders\game.html";
+                htmlClass = "RscFzaMinigameSpaceInvaders";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class PONG {
                 index = MPD_PAGE_PONG;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\pong\game.html";
-                minigameClass = "RscFzaMinigamePong";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\pong\game.html";
+                htmlClass = "RscFzaMinigamePong";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class BREAKOUT {
                 index = MPD_PAGE_BREAKOUT;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\breakout\game.html";
-                minigameClass = "RscFzaMinigameBreakout";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\breakout\game.html";
+                htmlClass = "RscFzaMinigameBreakout";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class LUNARLANDER {
                 index = MPD_PAGE_LUNARLANDER;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\lunarlander\game.html";
-                minigameClass = "RscFzaMinigameLunarLander";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\lunarlander\game.html";
+                htmlClass = "RscFzaMinigameLunarLander";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class BATTLESHIP {
                 index = MPD_PAGE_BATTLESHIP;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\battleship\game.html";
-                minigameClass = "RscFzaMinigameBattleship";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\battleship\game.html";
+                htmlClass = "RscFzaMinigameBattleship";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class TICTACTOE {
                 index = MPD_PAGE_TICTACTOE;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\tictactoe\game.html";
-                minigameClass = "RscFzaMinigameTicTacToe";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\tictactoe\game.html";
+                htmlClass = "RscFzaMinigameTicTacToe";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class CONNECTFOUR {
                 index = MPD_PAGE_CONNECTFOUR;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\connectfour\game.html";
-                minigameClass = "RscFzaMinigameConnectFour";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\connectfour\game.html";
+                htmlClass = "RscFzaMinigameConnectFour";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class ROCKPAPERSCISSORS {
                 index = MPD_PAGE_ROCKPAPERSCISSORS;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\rockpaperscissors\game.html";
-                minigameClass = "RscFzaMinigameRockPaperScissors";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\rockpaperscissors\game.html";
+                htmlClass = "RscFzaMinigameRockPaperScissors";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             class CHECKERS {
                 index = MPD_PAGE_CHECKERS;
-                minigameUrl = "\fza_ah64_minigames\ui\minigame\games\checkers\game.html";
-                minigameClass = "RscFzaMinigameCheckers";
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\checkers\game.html";
+                htmlClass = "RscFzaMinigameCheckers";
                 handleControl = "fza_mg_fnc_minigameHandleControl";
             };
             // DOOM is intentionally not defined here - it's supplied by the standalone AH-64D-Doom compat

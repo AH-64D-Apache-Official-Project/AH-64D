@@ -9,7 +9,7 @@ if (driver _heli != player && {gunner _heli != player}) exitWith {};
 private _mpdState = _heli getVariable ["fza_mpd_mpdState", []];
 if (count _mpdState != 2) exitWith {};
 
-private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
+private _loadedMPDs = uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap];
 private _jsCode = format ["if (window.fza_minigame_input) window.fza_minigame_input('%1', %2);", _action, _isDown];
 
 {

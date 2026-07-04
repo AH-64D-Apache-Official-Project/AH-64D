@@ -1,18 +1,3 @@
-/* ----------------------------------------------------------------------------
-Function: fza_fcr_fnc_stateControl
-
-Description:
-    Manages FCR scan state transitions. Called each frame from fn_controller.
-
-Parameters:
-    _heli - The helicopter to act on
-
-Returns:
-    Nothing
-
-Author:
-    Snow(Dryden)
----------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli"];
@@ -47,6 +32,8 @@ switch _fcrScanState do {
         if _armaRadarOn then {
             [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+            _heli setVariable ["fza_ah64_fcrTPMHardClear",  true];
+            _heli setVariable ["fza_ah64_fcrRMAPHardClear", true];
         };
     };
     case FCR_MODE_ON_SINGLE: {

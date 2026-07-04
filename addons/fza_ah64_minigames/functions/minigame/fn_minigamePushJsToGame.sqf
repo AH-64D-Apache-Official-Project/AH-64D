@@ -9,7 +9,7 @@ private _heli = vehicle player;
 if (!(_heli isKindOf "fza_ah64base")) exitWith {};
 
 private _mpdState = _heli getVariable ["fza_mpd_mpdState", []];
-private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
+private _loadedMPDs = uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap];
 {
     private _minigameUrl = _x select 8;
     if (_minigameUrl != "" && {(_minigameUrl find ("\" + _gameId + "\")) != -1}) then {

@@ -15,16 +15,22 @@ Returns:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_scanState"];
 
 private _fcrMode    = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-private _startDeg = if (_fcrMode == 1) then {
+private _startDeg = if (_fcrMode == FCR_DISP_MODE_GTM || _fcrMode == FCR_DISP_MODE_RMAP) then {
     _fcrAzBias - _gtmHalfFov
 } else {
-    _fcrAzBias
+    if (_fcrMode == FCR_DISP_MODE_TPM) then {
+        private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+        _fcrAzBias - _tpmHalfFov
+    } else {
+        _fcrAzBias
+    }
 };
 
 private _currentRad = _heli animationPhase "longbow";

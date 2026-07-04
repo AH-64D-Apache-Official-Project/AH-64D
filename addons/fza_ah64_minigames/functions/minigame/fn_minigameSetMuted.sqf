@@ -9,7 +9,7 @@ saveProfileNamespace;
 if (_muted) then { ["doom"] call fza_mg_fnc_minigameStopMusic; };
 
 private _jsCode = format ["if (window.fza_minigame_setMuted) window.fza_minigame_setMuted(%1);", _muted];
-private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
+private _loadedMPDs = uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap];
 
 {
     private _browserCtrl = _x displayCtrl 369;

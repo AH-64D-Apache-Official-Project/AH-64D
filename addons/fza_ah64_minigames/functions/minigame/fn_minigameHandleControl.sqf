@@ -13,7 +13,7 @@ switch (_control) do {
     };
     case "b5": {
         private _uniqueId = ((_heli getVariable ["fza_mpd_mpdState", []]) # _mpdIndex) select 9;
-        private _display = (uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
+        private _display = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
         if (!isNull _display) then {
             [_display, !(_display getVariable ["fza_mpd_minigameManualPaused", false])] call fza_mg_fnc_minigameSetPaused;
         };

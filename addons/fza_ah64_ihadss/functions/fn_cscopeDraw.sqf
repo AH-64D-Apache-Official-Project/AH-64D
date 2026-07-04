@@ -1,23 +1,3 @@
-/* ----------------------------------------------------------------------------
-Function: fza_ihadss_fnc_cscopeDraw
-
-Description:
-    Controlls and draws the Cscope of the Ihadss
-
-Parameters:
-    _heli - The apache
-
-Returns:
-    Nothing
-
-Examples:
-    --- Code
-    [_heli] call fza_ihadss_fnc_cscopeDraw
-    ---
-
-Author:
-    Snow(Dryden)
----------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli"];
@@ -37,6 +17,7 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
     };
 
     _x params ["_pos", "_type", "_moving"];
+    if (count _pos < 3) then { continue; };
     private _distance_m = _scanPos distance2D _pos;
     private _guiPos     = worldToScreen ASLToAGL _pos;
 
@@ -78,7 +59,6 @@ if (_fcrcount > 1 && _ntsIndex != -1) then {
 };
 
 if (_heli getVariable "fza_ah64_fcrcscope") then {
-    // Position is already resolved by fn_resolveDisplay — just use index 0 directly
     private _fnGetPos = { params ["_rec"]; _rec # 0 };
 
     if (_ntsIndex != -1) then {

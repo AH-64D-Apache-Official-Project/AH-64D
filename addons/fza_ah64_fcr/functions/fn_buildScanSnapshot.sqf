@@ -1,21 +1,3 @@
-/*----------------------------------------------------------------------------
-Function: fza_fcr_fnc_buildScanSnapshot
-
-Description:
-    Processes raw sensor tracks into FCR target records with range, azimuth,
-    elevation, type, and sweep reveal offset.
-
-Parameters:
-    _heli      - The helicopter
-    _fcrMode   - Current FCR mode (1=GTM, 2=ATM)
-    _fcrAzBias - Azimuth bias in degrees
-
-Returns:
-    Array of target records [pos, type, moving, obj, relAzi, elevAngle, range, revealOffset]
-
-Author:
-    BradMick, Snow(Dryden)
----------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_fcrMode", "_fcrAzBias"];
 
@@ -35,7 +17,6 @@ private _fcrTargets = [];
     private _targetPos   = getPosASL _target;
     private _targetSpeed = vectorMagnitude velocity _target;
 
-    // Sensor and range validity
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
@@ -43,20 +24,17 @@ private _fcrTargets = [];
         then { continue; };
     if (count _fcrTargets > 256) exitWith {};
 
-    // Angles relative to the helicopter
     private _targDir   = _heliPos vectorFromTo _targetPos;
     private _zdist     = _targDir vectorDotProduct vectorDir _heli;
     private _ydist     = _targDir vectorDotProduct vectorUp  _heli;
     private _elevAngle = _ydist atan2 _zdist;
     private _relAzi    = [([_heli getRelDir _target] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
 
-    // Elevation and azimuth FOV filter
-    if (_elevAngle > _gtmElevMax  && _fcrMode == 1) then { continue; };
+    if (_elevAngle > _gtmElevMax  && _fcrMode in [1, 3]) then { continue; };
     if (_elevAngle < _atmElevMin  && _fcrMode == 2) then { continue; };
-    if ((abs _relAzi) > _gtmHalfFov && _fcrMode == 1) then { continue; };
+    if ((abs _relAzi) > _gtmHalfFov && _fcrMode in [1, 3]) then { continue; };
     if ((abs _relAzi) > _atmHalfFov && _fcrMode == 2) then { continue; };
 
-    // Target type
     private _type = FCR_TYPE_UNKNOWN;
     if (_target isKindOf "tank")       then { _type = FCR_TYPE_TRACKED; };
     if (_target isKindOf "car")        then { _type = FCR_TYPE_WHEELED; };
@@ -64,13 +42,11 @@ private _fcrTargets = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_ase_fnc_targetIsAda) then { _type = FCR_TYPE_ADU; };
 
-    // ATM only shows moving air targets
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then { continue; };
 
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
 
-    // Sweep reveal offset
-    private _revealOffset = if (_fcrMode == 1) then {
+    private _revealOffset = if (_fcrMode in [1, 3]) then {
         if (_range < 4000) then {
             ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * 1.6
         } else {

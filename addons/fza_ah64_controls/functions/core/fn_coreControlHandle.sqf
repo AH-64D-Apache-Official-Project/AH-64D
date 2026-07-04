@@ -142,12 +142,11 @@ if (_value) then {
 
             [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
-        case "fza_ah64_fcrModeSwitch_up": {
-            if (_heli getVariable "fza_ah64_fcrMode" == 1) exitWith {};
-            _heli setVariable ["fza_ah64_fcrMode", 1, true];
+        case "fza_ah64_fcrModeGTM": {
+            diag_log format ["[FCR mode] selecting GTM (%1)", FCR_DISP_MODE_GTM];
+            _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_GTM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
-
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
             if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
@@ -156,12 +155,37 @@ if (_value) then {
                 [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
             };
         };
-        case "fza_ah64_fcrModeSwitch_down": {
-            if (_heli getVariable "fza_ah64_fcrMode" == 2) exitWith {};
-            _heli setVariable ["fza_ah64_fcrMode", 2, true];
+        case "fza_ah64_fcrModeRMAP": {
+            diag_log format ["[FCR mode] selecting RMAP (%1)", FCR_DISP_MODE_RMAP];
+            _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_RMAP, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
-
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+            };
+        };
+        case "fza_ah64_fcrModeATM": {
+            diag_log format ["[FCR mode] selecting ATM (%1)", FCR_DISP_MODE_ATM];
+            _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_ATM, true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+            };
+        };
+        case "fza_ah64_fcrModeTPM": {
+            diag_log format ["[FCR mode] selecting TPM (%1)", FCR_DISP_MODE_TPM];
+            _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_TPM, true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
             if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {

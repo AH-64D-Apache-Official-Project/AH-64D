@@ -3,10 +3,10 @@ params ["_mode", "_params", "_class"];
 switch _mode do {
     case "onLoad": {
         _params params ["_display", ["_uniqueId",""]];
-        private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
-        uiNamespace setVariable ["fza_mpd_minigameDisplay", _loadedMPDs];
+        private _loadedMPDs = uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap];
+        uiNamespace setVariable ["fza_mpd_htmlDisplay", _loadedMPDs];
         _loadedMPDs set [_uniqueId, _display];
-        _display setVariable ["fza_mpd_minigameUniqueId", _uniqueId];
+        _display setVariable ["fza_mpd_htmlUniqueId", _uniqueId];
 
         // JS->SQF bridge via A3API.SendAlert (see bridge.js) - window.confirm() gets rejected by the _isConfirmDialog guard below.
         private _eventName = ["JS", "Dialog"] joinString "";
@@ -47,9 +47,9 @@ switch _mode do {
             // Stop any looping music left playing from this page - harmless no-op if none was playing. Doom is the only minigame using music so far; list more gameIds here if that changes.
             ["doom"] call fza_mg_fnc_minigameStopMusic;
             // Clean up the stale hashmap entry, unless something newer already replaced it.
-            private _uniqueId = _display getVariable ["fza_mpd_minigameUniqueId", ""];
+            private _uniqueId = _display getVariable ["fza_mpd_htmlUniqueId", ""];
             if (_uniqueId != "") then {
-                private _loadedMPDs = uiNamespace getVariable ["fza_mpd_minigameDisplay", createHashMap];
+                private _loadedMPDs = uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap];
                 if ((_loadedMPDs getOrDefault [_uniqueId, objNull]) isEqualTo _display) then {
                     _loadedMPDs deleteAt _uniqueId;
                 };

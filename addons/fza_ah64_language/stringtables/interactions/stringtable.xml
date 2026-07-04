@@ -137,7 +137,7 @@
             <Turkish>Döngüsel Sağ</Turkish>
             <Dutch>Cyclisch Rechts</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN">
+        <Key ID="STR_FZA_AH64_FCR_MODE_ATM">
             <Original>Air Targeting Mode (ATM)</Original>
             <English>Air Targeting Mode (ATM)</English>
             <Czech>Režim Cílení Vzduchu (ATM)</Czech>
@@ -154,7 +154,7 @@
             <Turkish>Hava Hedefleme Modu (ATM)</Turkish>
             <Dutch>Luchttargetering Modus (ATM)</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO">
+        <Key ID="STR_FZA_AH64_FCR_MODE_ATM_INFO">
             <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
             <English>Sets the Fire Control Radar To Air Targeting Mode</English>
             <Czech>Nastaví radar řízení palby na režim cílení vzduchu</Czech>
@@ -171,7 +171,7 @@
             <Turkish>Ateş Kontrol Radarını Hava Hedefleme Moduna Ayarla</Turkish>
             <Dutch>Stelt de vuurregel radar in op luchttargetering modus</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP">
+        <Key ID="STR_FZA_AH64_FCR_MODE_GTM">
             <Original>Ground Targeting Mode (GTM)</Original>
             <English>Ground Targeting Mode (GTM)</English>
             <Czech>Režim Cílení Země (GTM)</Czech>
@@ -188,7 +188,7 @@
             <Turkish>Yer Hedefleme Modu (GTM)</Turkish>
             <Dutch>Grondrichtingsmodus (GTM)</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO">
+        <Key ID="STR_FZA_AH64_FCR_MODE_GTM_INFO">
             <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
             <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
             <Czech>Nastaví radar řízení palby na režim cílení země</Czech>
@@ -204,6 +204,22 @@
             <Chinesesimp>将火力管制雷达设置为地面瞄准模式</Chinesesimp>
             <Turkish>Ateş Kontrol Radarını Yer Hedefleme Moduna Ayarla</Turkish>
             <Dutch>Stelt de vuurregel radar in op grondrichtingsmodus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_RMAP">
+            <Original>Radar Map Mode (RMAP)</Original>
+            <English>Radar Map Mode (RMAP)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_RMAP_INFO">
+            <Original>Sets the Fire Control Radar To Radar Map Mode</Original>
+            <English>Sets the Fire Control Radar To Radar Map Mode</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_TPM">
+            <Original>Terrain Profiles Mode (TPM)</Original>
+            <English>Terrain Profiles Mode (TPM)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_TPM_INFO">
+            <Original>Sets the Fire Control Radar To Terrain Profiles Mode</Original>
+            <English>Sets the Fire Control Radar To Terrain Profiles Mode</English>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
             <Original>FCR Single Scan</Original>

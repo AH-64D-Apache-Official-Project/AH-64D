@@ -35,6 +35,8 @@ class CfgFunctions
             class buildFCRPoints {RECOMPILE_FLAG;};
             class fcrATMDraw {RECOMPILE_FLAG;};
             class fcrGTMDraw {RECOMPILE_FLAG;};
+            class fcrRMAPDraw {RECOMPILE_FLAG;};
+            class fcrTPMDraw {RECOMPILE_FLAG;};
         };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";
@@ -77,6 +79,8 @@ class CfgFunctions
             class pageENGHandleControl {RECOMPILE_FLAG;};
             class pageFCRDraw {RECOMPILE_FLAG;};
             class pageFCRHandleControl {RECOMPILE_FLAG;};
+            class pageFCRRMAPHandleControl {RECOMPILE_FLAG;};
+            class pageFCRTPMHandleControl {RECOMPILE_FLAG;};
             class pageFLTDraw {RECOMPILE_FLAG;};
             class pageFLTHandleControl {RECOMPILE_FLAG;};
             class pageFREQDraw {RECOMPILE_FLAG;};

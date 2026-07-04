@@ -66,35 +66,35 @@ if (_mpdState # _side # 7 == 1) then {
     [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
-// Minigames: any FzaMpdPages entry with a minigameUrl swaps this side's screens to a dedicated per-game browser-only display, and back on the way out.
+// HTML pages: any FzaMpdPages entry with an htmlUrl swaps this side's screens to a dedicated browser-only display, and back on the way out.
 private _sideName = ["left", "right"] select _side;
 private _selections = [["plt_pl_mpd_back", "cpg_cl_mpd_back"], ["plt_pr_mpd_back", "cpg_cr_mpd_back"]] select _side;
-private _oldMinigameUrl = (_mpdState # _side) select 8;
-private _minigameUrl = "";
-if (isText (_config >> "minigameUrl")) then {
-    _minigameUrl = getText (_config >> "minigameUrl");
+private _oldHtmlUrl = (_mpdState # _side) select 8;
+private _htmlUrl = "";
+if (isText (_config >> "htmlUrl")) then {
+    _htmlUrl = getText (_config >> "htmlUrl");
 };
-// If the minigameUrl has changed, update the heli's textures to either the new minigame display or back to the default MPD display.
+// If the htmlUrl has changed, update the heli's textures to either the new HTML display or back to the default MPD display.
 private _gameUniqueId = "";
-private _minigameClass = "RscFzaMinigameBase";
-if (_minigameUrl != "") then {
-    if (isText (_config >> "minigameClass")) then {
-        _minigameClass = getText (_config >> "minigameClass");
+private _htmlClass = "RscFzaMinigameBase";
+if (_htmlUrl != "") then {
+    if (isText (_config >> "htmlClass")) then {
+        _htmlClass = getText (_config >> "htmlClass");
     };
-    _gameUniqueId = _sideName + "Game_" + _minigameClass;
+    _gameUniqueId = _sideName + "Game_" + _htmlClass;
 };
-if (_oldMinigameUrl != _minigameUrl) then {
-    // Notify the server immediately that we're leaving whichever minigame we were just on (to a different
-    // minigame, or back to a non-minigame page) - don't wait on the old display's "Unload" event, since that
+if (_oldHtmlUrl != _htmlUrl) then {
+    // Notify the server immediately that we're leaving whichever HTML page we were just on (to a different
+    // HTML page, or back to a non-HTML page) - don't wait on the old display's "Unload" event, since that
     // only fires once the engine actually garbage-collects the now-unreferenced ui() display, and that timing
     // isn't guaranteed. Without this, a peer mid-match could be left waiting on an opponent who already
     // navigated away, stuck with no way to fall back to AI. Harmless no-op if fza_ah64_minigames isn't loaded
     // or there was no active session.
-    if (_oldMinigameUrl != "" && !isNil "fza_mg_fnc_minigameNetLeaveAll") then {
+    if (_oldHtmlUrl != "" && !isNil "fza_mg_fnc_minigameNetLeaveAll") then {
         call fza_mg_fnc_minigameNetLeaveAll;
     };
-    if (_minigameUrl != "") then {
-        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _minigameClass + "," + _gameUniqueId + ")"]} forEach _selections;
+    if (_htmlUrl != "") then {
+        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _htmlClass + "," + _gameUniqueId + ")"]} forEach _selections;
     } else {
         {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(RscFzaAH64MPD," + _sideName + ")"]} forEach _selections;
     };
@@ -110,7 +110,7 @@ if !(_page in _persistState) then {
 };
 _state set ["side", _side];
 _state set ["page", _page];
-private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons, _minigameUrl, _gameUniqueId];
+private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons, _htmlUrl, _gameUniqueId];
 
 _heli setUserMFDValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];

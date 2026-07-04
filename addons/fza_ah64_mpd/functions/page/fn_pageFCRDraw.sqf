@@ -25,9 +25,18 @@ switch _fcrMode do {
         _this call fza_mpd_fnc_fcrATMDraw;
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 2];
     };
+    case FCR_DISP_MODE_RMAP: {
+        diag_log format ["[FCR page] mode=%1, navigating to fcrrmap", _fcrMode];
+        [_heli, _mpdIndex, "fcrrmap"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case FCR_DISP_MODE_TPM: {
+        diag_log format ["[FCR page] mode=%1, navigating to fcrtpm", _fcrMode];
+        [_heli, _mpdIndex, "fcrtpm"] call fza_mpd_fnc_setCurrentPage;
+    };
 };
 
-//Sight Select Status
+if (_fcrMode in [FCR_DISP_MODE_RMAP, FCR_DISP_MODE_TPM]) exitWith {};
+
 private _sight        = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _sightSelStat = "HMD";
 switch (_sight) do {
@@ -46,7 +55,6 @@ switch (_sight) do {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
-//Command Heading Chevron
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 if (isNil "_nextPointPos") then {
@@ -56,14 +64,12 @@ if (isNil "_nextPointPos") then {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection];
 };
 
-//Alternate Sensor Bearing
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
-//FCR CenterLine
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"]; 
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"];
 private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 if (_heli animationPhase "fcr_enable" != 1) then {
@@ -73,11 +79,9 @@ if (_heli animationPhase "fcr_enable" != 1) then {
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 
-//TADS POS
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
 
-//Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;
 private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqVec;
@@ -87,7 +91,6 @@ private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
 
-//Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
 private _nts     = _nts # 0;
 private _rngSrce = format["R%1", ((_heli distance _nts) / 1000) toFixed 1];
@@ -101,10 +104,8 @@ if (!isNull laserTarget _heli) then {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
 
-//Sight Status
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
-//Weapon Control
 private _wasState = _heli getVariable "fza_ah64_was";
 private _mslTraj  = _heli getVariable "fza_ah64_hellfireTrajectory";
 private _wpnCtrl  = "";
@@ -152,7 +153,6 @@ switch (_wasState) do {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
 
-//Weapon Status
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
 
