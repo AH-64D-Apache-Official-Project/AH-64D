@@ -76,11 +76,11 @@ class Draw
     };
     class FCRRMAP{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP));
-        #include "pages\rmap_draw.hpp"
+        #include "pages\fcr\rmap.hpp"
     };
     class FCRTPM{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRTPM));
-        #include "pages\tpm_draw.hpp"
+        #include "pages\fcr\tpm.hpp"
     };
     class ASE{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASE));

@@ -187,8 +187,8 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 
     if (!_alreadySampled && (_colIdx != _lastColIdx || _hardClear)) then {
         private _heliPosASL = getPosASL _heli;
-        private _FCRpos     = _heliPosASL vectorAdd [0, 0, 3];
-        private _FCRposZ    = _FCRpos # 2;
+        private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
+        private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { (_heliPosASL#2) + 3 } else { (_heliPosASL#2) + (_FCRpos#2) };
 
         private _startRange = [_nearMaxRange, 0] select _isNearPhase;
         private _stepSize   = [_farRangeStep, _nearRangeStep] select _isNearPhase;
