@@ -7,7 +7,6 @@ params ["_heli", "_mpdIndex", "_state", "_persistState"];
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 
 if (_fcrMode != FCR_DISP_MODE_RMAP) exitWith {
-    diag_log format ["[FCR RMAP] mode changed to %1, auto-nav back to fcr", _fcrMode];
     [_heli, _mpdIndex, "fcr"] call fza_mpd_fnc_setCurrentPage;
 };
 
@@ -152,7 +151,6 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     private _scanHeading = _heli getVariable ["fza_ah64_fcrRMAPScanHeading", _dir];
 
     private _lastColIdx = _heli getVariable ["fza_ah64_fcrRMAPLastColIdx", -1];
-    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _colIdx];
 
     private _fillFrom = _colIdx;
     private _fillTo   = _colIdx;
@@ -166,6 +164,8 @@ if (_fcrScanState != FCR_MODE_OFF) then {
         };
         if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
     };
+
+    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _colIdx];
 
     if (_colIdx != _lastColIdx || _hardClear) then {
         private _heliPosASL = getPosASL _heli;
@@ -185,10 +185,9 @@ if (_fcrScanState != FCR_MODE_OFF) then {
             private _sinAzi   = sin _worldAzi;
             private _cosAzi   = cos _worldAzi;
 
-            private _prevTerrainZ = getTerrainHeightASL [_heliPosASL # 0, _heliPosASL # 1, 0];
+            private _prevTerrainZ = getTerrainHeightASL [_heliPosASL#0 + _sinAzi * (_startRange max _stepSize), _heliPosASL#1 + _cosAzi * (_startRange max _stepSize), 0];
             private _colLevels    = [];
             private _horizonSlope = -9999;
-            private _inShadow     = false;
 
             for "_ri" from 0 to (_stepCount - 1) do {
                 private _range      = _startRange + (_ri + 0.5) * _stepSize;
@@ -198,41 +197,28 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                 private _level      = 0;
 
                 if (_terrainASL > -1000) then {
-                    private _cellSlope     = (_terrainASL + 1 - _FCRposZ) / _range;
-                    private _classifySlope = false;
+                    private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
 
-                    if (_range < 500) then {
-                        // Skip shadow check within minimum range — guaranteed LOS avoids false shadow entry
-                        if (_cellSlope > _horizonSlope) then { _horizonSlope = _cellSlope; };
-                        _classifySlope = true;
-                    } else {
-                        if (_inShadow) then {
-                            if (_cellSlope > _horizonSlope) then {
-                                if !(terrainIntersectASL [_FCRpos, [_cellX, _cellY, _terrainASL + 1]]) then {
-                                    _inShadow      = false;
-                                    _horizonSlope  = _cellSlope;
-                                    _classifySlope = true;
-                                } else {
-                                    if (_cellSlope > _horizonSlope) then { _horizonSlope = _cellSlope; };
-                                };
-                            };
-                        } else {
-                            if (_cellSlope <= _horizonSlope) then {
-                                _inShadow = true;
-                            } else {
-                                if (terrainIntersectASL [_FCRpos, [_cellX, _cellY, _terrainASL + 1]]) then {
-                                    _inShadow     = true;
-                                    _horizonSlope = _cellSlope;
-                                } else {
-                                    _horizonSlope  = _cellSlope;
-                                    _classifySlope = true;
-                                };
-                            };
-                        };
-                    };
+                    if (_cellSlope > _horizonSlope) then {
+                        _horizonSlope = _cellSlope;
 
-                    if (_classifySlope) then {
-                        private _slopeAngle = atan (abs(_terrainASL - _prevTerrainZ) / _stepSize);
+                        // Surface normal from 4-neighbour finite difference
+                        private _hN = getTerrainHeightASL [_cellX,          _cellY + _stepSize, 0];
+                        private _hS = getTerrainHeightASL [_cellX,          _cellY - _stepSize, 0];
+                        private _hE = getTerrainHeightASL [_cellX + _stepSize, _cellY,          0];
+                        private _hW = getTerrainHeightASL [_cellX - _stepSize, _cellY,          0];
+                        private _nX  = -(_hE - _hW);
+                        private _nY  = -(_hN - _hS);
+                        private _nZ  = 2 * _stepSize;
+                        private _nLen = sqrt(_nX*_nX + _nY*_nY + _nZ*_nZ);
+                        // Boresight vector from FCR to cell
+                        private _bX  = _cellX - (_heliPosASL#0);
+                        private _bY  = _cellY - (_heliPosASL#1);
+                        private _bZ  = _terrainASL - _FCRposZ;
+                        private _bLen = sqrt(_bX*_bX + _bY*_bY + _bZ*_bZ);
+                        // Aspect: 1.0 = face-on, 0.0 = grazing
+                        private _aspect = abs((_nX*_bX + _nY*_bY + _nZ*_bZ) / ((_nLen * _bLen) max 0.001));
+
                         private _surfOffset = 0;
                         private _surf = toLower (surfaceType [_cellX, _cellY]);
                         // Hard/dense surfaces — strong return
@@ -255,10 +241,13 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                             _surf find "soil"    >= 0 || _surf find "bog"      >= 0) then {
                             _surfOffset = -1;
                         };
+                        // Aspect nudges level up on face-on surfaces; never dims below base (no blanking)
+                        private _aspectOffset = if (_aspect > 0.7) then { 1 } else { 0 };
+                        private _slopeAngle = atan (abs(_terrainASL - _prevTerrainZ) / _stepSize);
                         _level = if (_slopeAngle < 1)  then { 1 }
                             else { if (_slopeAngle < 15) then { 2 }
                             else { [4, 3] select (_slopeAngle < 35) } };
-                        _level = (_level + _surfOffset) max 0 min 4;
+                        _level = (_level + _surfOffset + _aspectOffset) max 1 min 4;
                     };
                 };
 
@@ -293,7 +282,7 @@ private _json = format[
 
 private _uniqueId    = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
 private _rmapDisplay = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
-if (!isNull _rmapDisplay) then {
+if (!isNull _rmapDisplay && _colJson != "") then {
     [_rmapDisplay displayCtrl 369, format ["fzaFCRRmap.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
 };
 

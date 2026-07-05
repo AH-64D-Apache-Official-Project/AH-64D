@@ -23,8 +23,9 @@ private _ghostedCount = 0;
 private _purgedCount  = 0;
 {
     _x params ["_pos", "_type", "_moving", "_obj"];
-    if ((_fcrTargets findIf { (_x # 3) isEqualTo _obj }) == -1) then {
-        private _lastSeen = if (count _x > 12) then { _x # 12 } else { _now - 31 };
+    private _searchObj = _obj;
+    if ((_fcrTargets findIf { (_x # 3) isEqualTo _searchObj }) == -1) then {
+        private _lastSeen = if (count _x >= 13) then { _x # 12 } else { _now - 31 };
         if ((_now - _lastSeen) < 30) then {
             private _ghost = +_x;
             _ghost set [8, 1]; // mark as ghost
@@ -35,7 +36,5 @@ private _purgedCount  = 0;
         };
     };
 } forEach _prevTargets;
-
-diag_log format ["[FCR mergeTargets] fresh=%1 ghosted=%2 purged=%3", count _fcrTargets - _ghostedCount, _ghostedCount, _purgedCount];
 
 _fcrTargets

@@ -26,11 +26,9 @@ switch _fcrMode do {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 2];
     };
     case FCR_DISP_MODE_RMAP: {
-        diag_log format ["[FCR page] mode=%1, navigating to fcrrmap", _fcrMode];
         [_heli, _mpdIndex, "fcrrmap"] call fza_mpd_fnc_setCurrentPage;
     };
     case FCR_DISP_MODE_TPM: {
-        diag_log format ["[FCR page] mode=%1, navigating to fcrtpm", _fcrMode];
         [_heli, _mpdIndex, "fcrtpm"] call fza_mpd_fnc_setCurrentPage;
     };
 };

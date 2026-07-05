@@ -7,7 +7,6 @@ switch _mode do {
         uiNamespace setVariable ["fza_mpd_htmlDisplay", _m];
         _m set [_uniqueId, _display];
         _display setVariable ["fza_mpd_htmlUniqueId", _uniqueId];
-        diag_log format ["[FCR displayUiInit] registered display uniqueId=%1 displayNull=%2", _uniqueId, isNull _display];
 
         // Register into fza_mpd_display so drawIcons targets the visible HTML display
         private _side = ["left", "right"] select ((_uniqueId find "right") == 0);
@@ -38,7 +37,6 @@ switch _mode do {
                 private _nativeDisp = uiNamespace getVariable ["RscFzaAH64MPD_" + _side2, displayNull];
                 if (!isNull _nativeDisp) then { _nmpd set [_side2, _nativeDisp]; };
             };
-            diag_log format ["[FCR displayUiInit] unregistered display uniqueId=%1", _uid];
         }];
     };
 };

@@ -99,8 +99,6 @@
                 var v00 = col[ri];  var v10 = col1[ri];
                 var v01 = col[ri1]; var v11 = col1[ri1];
 
-                if (!terrainGrid[ai1]) { v10 = v00; v11 = v01; }
-
                 var top = v00 + (v10 - v00) * aiFrac;
                 var bot = v01 + (v11 - v01) * aiFrac;
                 var val = top + (bot - top) * riFrac;

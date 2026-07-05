@@ -5,7 +5,7 @@ if ((_heli getVariable ["fza_ah64_fcrDisplayFrame", -1]) == diag_frameNo) exitWi
 _heli setVariable ["fza_ah64_fcrDisplayFrame", diag_frameNo];
 
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
-private _fcrTargets    = _heli getVariable "fza_ah64_fcrTargets";
+private _fcrTargets    = _heli getVariable ["fza_ah64_fcrTargets", []];
 private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
 private _displayTargets = [];
@@ -16,7 +16,7 @@ private _liveCount      = 0;
              ["_frozenAzi", 0], ["_frozenRange", 0], ["_frozenPos", []], ["_lastSeenTime", 0]];
 
     private _isGhost      = (_isGhostFlag > 0);
-    private _beforeReveal = (_fcrScanState != FCR_MODE_OFF && (CBA_missionTime - _lastFullCycle) < _revealOffset);
+    private _beforeReveal = (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS] && (CBA_missionTime - _lastFullCycle) < _revealOffset);
 
     if (_isGhost && ((CBA_missionTime - _lastSeenTime) >= 30) && !_beforeReveal) then { continue; };
 

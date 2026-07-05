@@ -7,7 +7,6 @@ params ["_heli", "_mpdIndex", "_state", "_persistState"];
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 
 if (_fcrMode != FCR_DISP_MODE_TPM) exitWith {
-    diag_log format ["[FCR TPM] mode changed to %1, auto-nav back to fcr", _fcrMode];
     [_heli, _mpdIndex, "fcr"] call fza_mpd_fnc_setCurrentPage;
 };
 
@@ -86,7 +85,6 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
 };
 
-private _linesOption = _heli getVariable ["fza_ah64_fcrTpmLines", 4];
 private _linesOption = 4; // TEMP: forced until Cscope line display is implemented
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_LINES), str _linesOption];
 
@@ -149,7 +147,9 @@ if (_fcrScanState != FCR_MODE_OFF) then {
         private _heliWheelZ = (_heliPosASL)#2;
         private _clearanceM = ([20, 50, 100, 200] select _clearanceFt) * 0.3048;
         private _safeHeight = _heliWheelZ - _clearanceM;
-        private _FCRpos     = _heliPosASL vectorAdd [0, 0, 3];
+        private _FCRpos     = _heli selectionPosition ["sensor_fcr", "Memory"] vectorAdd [0, 0, 0];
+        if (_FCRpos isEqualTo [0,0,0]) then { _FCRpos = _heliPosASL vectorAdd [0, 0, 3]; };
+        private _FCRposZ    = _FCRpos#2;
 
         private _sampledCols = [];
 
@@ -158,48 +158,23 @@ if (_fcrScanState != FCR_MODE_OFF) then {
             private _worldAzi = _scanHeading + _relAzi;
 
             private _colLevels    = [];
-            private _inShadow     = false;
             private _horizonSlope = -9999;
-            private _FCRposZ      = _FCRpos#2;
+            private _sinAzi       = sin _worldAzi;
+            private _cosAzi       = cos _worldAzi;
 
             for "_ri" from 0 to (_rangeSteps - 1) do {
                 private _range = (_ri + 0.5) * _rangeStep;
-                private _dx = sin _worldAzi * _range;
-                private _dy = cos _worldAzi * _range;
+                private _dx = _sinAzi * _range;
+                private _dy = _cosAzi * _range;
                 private _terrainASL = getTerrainHeightASL [_heliPosASL#0 + _dx, _heliPosASL#1 + _dy, 0];
                 private _level = 2;
                 if (_terrainASL > -1000) then {
                     private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
-                    if (_inShadow) then {
-                        if (_cellSlope > _horizonSlope) then {
-                            private _samplePos = [_heliPosASL#0 + _dx, _heliPosASL#1 + _dy, _terrainASL + 1];
-                            if !(terrainIntersectASL [_FCRpos, _samplePos]) then {
-                                _inShadow = false;
-                                _horizonSlope = _cellSlope;
-                                if (_terrainASL < _safeHeight) then { _level = 0; } else {
-                                    if (_terrainASL >= _heliWheelZ) then { _level = 3; } else { _level = 1; };
-                                };
-                            } else {
-                                if (_cellSlope > _horizonSlope) then { _horizonSlope = _cellSlope; };
-                            };
-                        };
+                    if (_cellSlope <= _horizonSlope) then {
+                        _level = 2;
                     } else {
-                        if (_terrainASL < _safeHeight) then {
-                            _level = 0;
-                        } else {
-                            if (_cellSlope <= _horizonSlope) then {
-                                _inShadow = true;
-                            } else {
-                                private _samplePos = [_heliPosASL#0 + _dx, _heliPosASL#1 + _dy, _terrainASL + 1];
-                                if (terrainIntersectASL [_FCRpos, _samplePos]) then {
-                                    _inShadow = true;
-                                    _horizonSlope = _cellSlope;
-                                } else {
-                                    _horizonSlope = _cellSlope;
-                                    if (_terrainASL >= _heliWheelZ) then { _level = 3; } else { _level = 1; };
-                                };
-                            };
-                        };
+                        _horizonSlope = _cellSlope;
+                        _level = if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) };
                     };
                 };
                 _colLevels pushBack _level;
@@ -220,14 +195,15 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 };
 
 private _json = format[
-    "{""mode"":4,""halfFov"":%1,""aziSteps"":%2,""rangeSteps"":%3,""profMode"":%4,""linesOption"":%5,""clearanceFt"":%6,""newScan"":%7%8}",
+    "{""mode"":4,""halfFov"":%1,""aziSteps"":%2,""rangeSteps"":%3,""profMode"":%4,""linesOption"":%5,""clearanceFt"":%6,""hardClear"":%7,""fovChange"":%8%9}",
     _halfFov,
     _aziSteps,
     _rangeSteps,
     _profMode,
     _linesOption,
     ([20, 50, 100, 200] select _clearanceFt),
-    ["false","true"] select _newScan,
+    ["false","true"] select _hardClear,
+    ["false","true"] select _fovChange,
     if (_colJson != "") then { format[",""columns"":%1", _colJson] } else { "" }
 ];
 

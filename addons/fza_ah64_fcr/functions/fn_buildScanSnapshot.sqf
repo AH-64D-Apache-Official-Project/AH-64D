@@ -8,12 +8,12 @@ private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov",   168];
 
 private _fcrTracks  = getSensorTargets _heli;
 private _fcrTargets = [];
+private _heliPos    = getPosASL _heli;
 
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
 
     private _range       = _heli distance2D _target;
-    private _heliPos     = getPosASL _heli;
     private _targetPos   = getPosASL _target;
     private _targetSpeed = vectorMagnitude velocity _target;
 
@@ -22,7 +22,7 @@ private _fcrTargets = [];
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         _targetSpeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE)
         then { continue; };
-    if (count _fcrTargets > 256) exitWith {};
+    if (count _fcrTargets >= 256) exitWith {};
 
     private _targDir   = _heliPos vectorFromTo _targetPos;
     private _zdist     = _targDir vectorDotProduct vectorDir _heli;

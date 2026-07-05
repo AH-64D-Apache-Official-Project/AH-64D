@@ -29,5 +29,4 @@ if (_heliPosASL distance2D _lastObsPos > 200) then {
     } forEach _nearObjs;
 
     _heli setVariable ["fza_ah64_fcrTPMObstacles", _obstacles];
-    diag_log format ["[FCR TPM buildData] obstacles=%1 halfFov=%2", count _obstacles, _currentHalfFov];
 };

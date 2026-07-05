@@ -20,7 +20,7 @@ if (_armaRadarOn) then {
         [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_FAULT, _fcrScanStartTime]] call fza_fnc_updateNetworkGlobal;
     };
-    if (((!_acBusOn || !_dcBusOn) && _onGnd) || (!_gndOrideOn && _onGnd)) exitWith {
+    if (((!_acBusOn || !_dcBusOn) || !_gndOrideOn) && _onGnd) exitWith {
         [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _fcrScanStartTime]] call fza_fnc_updateNetworkGlobal;
         player action ["ActiveSensorsOff", _heli];
@@ -47,7 +47,7 @@ switch _fcrScanState do {
             [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             player action ["ActiveSensorsOff", _heli];
         };
-        player action ["ActiveSensorsOn", _heli];
+        if (!_armaRadarOn) then { player action ["ActiveSensorsOn", _heli]; };
     };
     case FCR_MODE_ON_CONTINUOUS: {
         if _armaRadarOn exitWith {
@@ -68,7 +68,7 @@ switch _fcrScanState do {
         };
         if (_acBusOn && _dcBusOn && _fcrDamage < SYS_FCR_DMG_THRESH) then {
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _time]] call fza_fnc_updateNetworkGlobal;
+            [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
         };
     };
 };
