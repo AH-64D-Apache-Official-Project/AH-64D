@@ -151,6 +151,7 @@ class CfgVehicles {
                 usesIcons = 1;
                 draw          = "fza_mpd_fnc_fcrRMAPDraw";
                 handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
+                usesIcons = 1;
             };
             class FCRTPM {
                 index = MPD_PAGE_FCRTPM;
@@ -158,6 +159,7 @@ class CfgVehicles {
                 htmlClass = "RscFzaFCRTpm";
                 draw          = "fza_mpd_fnc_fcrTPMDraw";
                 handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
+                usesIcons = 1;
             };
             class ASE {
                 index = MPD_PAGE_ASE;

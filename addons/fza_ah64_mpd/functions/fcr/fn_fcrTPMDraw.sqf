@@ -147,7 +147,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
         private _heliWheelZ = (_heliPosASL)#2;
         private _clearanceM = ([20, 50, 100, 200] select _clearanceFt) * 0.3048;
         private _safeHeight = _heliWheelZ - _clearanceM;
-        private _FCRpos     = _heli selectionPosition ["sensor_fcr", "Memory"] vectorAdd [0, 0, 0];
+        private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"] vectorAdd [0, 0, 0];
         if (_FCRpos isEqualTo [0,0,0]) then { _FCRpos = _heliPosASL vectorAdd [0, 0, 3]; };
         private _FCRposZ    = _FCRpos#2;
 

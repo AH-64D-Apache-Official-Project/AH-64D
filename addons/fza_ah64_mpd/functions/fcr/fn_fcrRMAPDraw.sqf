@@ -109,6 +109,16 @@ private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _fcrAzBias      = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov     = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
+private _surfHard = createHashMapFromArray [
+    ["metal",1],["steel",1],["rock",1],["stone",1],["concrete",1],["asphalt",1],
+    ["gravel",1],["rubble",1],["ruin",1],["building",1],["road",1],["runway",1],
+    ["tarmac",1],["cobble",1]
+];
+private _surfSoft = createHashMapFromArray [
+    ["grass",1],["forest",1],["leaves",1],["water",1],["lake",1],["sea",1],
+    ["sand",1],["beach",1],["snow",1],["ice",1],["mud",1],["dirt",1],["soil",1],["bog",1]
+];
+
 private _aziSteps     = 200;
 private _nearSteps    = 100;
 private _farSteps     = 100;
@@ -168,7 +178,14 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 
     _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _colIdx];
 
-    if (_colIdx != _lastColIdx || _hardClear) then {
+    private _lastSampleTime = _heli getVariable ["fza_ah64_fcrRMAPLastSampleTime", -1];
+    private _alreadySampled = (_lastSampleTime == CBA_missionTime);
+
+    if (_alreadySampled) then {
+        _colJson = _heli getVariable ["fza_ah64_fcrRMAPLastColJson", ""];
+    };
+
+    if (!_alreadySampled && (_colIdx != _lastColIdx || _hardClear)) then {
         private _heliPosASL = getPosASL _heli;
         private _FCRpos     = _heliPosASL vectorAdd [0, 0, 3];
         private _FCRposZ    = _FCRpos # 2;
@@ -213,25 +230,12 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                             else { if (_slope < 0.268)  then { 3 }
                             else { if (_slope < 0.466)  then { 4 }
                             else { [6, 5] select (_slope < 0.700) } } } };
-                        private _surf = toLower (surfaceType [_cellX, _cellY]);
-                        if (_surf find "metal"   >= 0 || _surf find "steel"    >= 0 ||
-                            _surf find "rock"    >= 0 || _surf find "stone"    >= 0 ||
-                            _surf find "concrete">= 0 || _surf find "asphalt"  >= 0 ||
-                            _surf find "gravel"  >= 0 || _surf find "rubble"   >= 0 ||
-                            _surf find "ruin"    >= 0 || _surf find "building" >= 0 ||
-                            _surf find "road"    >= 0 || _surf find "runway"   >= 0 ||
-                            _surf find "tarmac"  >= 0 || _surf find "cobble"   >= 0) then {
-                            _level = (_level + 1) min 6;
-                        };
-                        if (_surf find "grass"   >= 0 || _surf find "forest"   >= 0 ||
-                            _surf find "leaves"  >= 0 || _surf find "water"    >= 0 ||
-                            _surf find "lake"    >= 0 || _surf find "sea"      >= 0 ||
-                            _surf find "sand"    >= 0 || _surf find "beach"    >= 0 ||
-                            _surf find "snow"    >= 0 || _surf find "ice"      >= 0 ||
-                            _surf find "mud"     >= 0 || _surf find "dirt"     >= 0 ||
-                            _surf find "soil"    >= 0 || _surf find "bog"      >= 0) then {
-                            _level = (_level - 1) max 1;
-                        };
+                        private _surfMod = 0;
+                        {
+                            if (_surfHard getOrDefault [_x, 0] == 1) exitWith { _surfMod =  1; };
+                            if (_surfSoft getOrDefault [_x, 0] == 1) exitWith { _surfMod = -1; };
+                        } forEach (toLower (surfaceType [_cellX, _cellY]) splitString "#_");
+                        _level = (_level + _surfMod) min 6 max 1;
                     };
                 };
 
@@ -260,6 +264,8 @@ if (_fcrScanState != FCR_MODE_OFF) then {
             { if (_forEachIndex > 0) then { _colJson = _colJson + ","; }; _colJson = _colJson + _x; } forEach _sampledCols;
             _colJson = _colJson + "]";
         };
+        _heli setVariable ["fza_ah64_fcrRMAPLastColJson",    _colJson];
+        _heli setVariable ["fza_ah64_fcrRMAPLastSampleTime", CBA_missionTime];
     };
 };
 
