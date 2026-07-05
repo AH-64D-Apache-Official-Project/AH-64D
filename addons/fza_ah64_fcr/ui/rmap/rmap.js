@@ -1,12 +1,14 @@
 (function () {
     "use strict";
 
-    // Level 0=shadow, 1–4 = increasing radar return strength
+    // Level 0=shadow, 1–6 = increasing radar return strength
     var LEVEL_RGB = [
         [0,   0,   0  ],
+        [42,  42,  42 ],
         [85,  85,  85 ],
-        [148, 148, 148],
-        [200, 200, 200],
+        [128, 128, 128],
+        [170, 170, 170],
+        [212, 212, 212],
         [255, 255, 255]
     ];
 
@@ -98,9 +100,19 @@
                 var col = isNear ? nearGrid[ai] : farGrid[ai];
                 if (!col) { continue; }
 
-                var lv  = col[ri];
+                var lv = col[ri];
+                // Blend across near/far boundary to remove hard seam
+                var boundaryFrac = (rangeM - NEAR_MAX_M) / stepM;
+                if (isNear && ri === nearSteps - 1) {
+                    var farCol = farGrid[ai];
+                    if (farCol) { lv = lv * 0.5 + farCol[0] * 0.5; }
+                } else if (!isNear && ri === 0) {
+                    var nearCol = nearGrid[ai];
+                    if (nearCol) { lv = lv * 0.5 + nearCol[nearSteps - 1] * 0.5; }
+                }
+                lv = Math.round(lv);
                 if (lv < 0) { lv = 0; }
-                if (lv > 4) { lv = 4; }
+                if (lv > 6) { lv = 6; }
                 var c   = LEVEL_RGB[lv];
                 var idx = (y * W + x) * 4;
                 px[idx    ] = c[0];

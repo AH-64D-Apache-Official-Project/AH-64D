@@ -120,8 +120,9 @@ private _aziStepD     = (_gtmHalfFov * 2) / _aziSteps;
 
 private _hardClear = _heli getVariable ["fza_ah64_fcrRMAPHardClear", false];
 if (_hardClear) then {
-    _heli setVariable ["fza_ah64_fcrRMAPHardClear",  false];
-    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",  -1];
+    _heli setVariable ["fza_ah64_fcrRMAPHardClear",       false];
+    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",       -1];
+    _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes",    []];
 };
 
 private _colJson = "";
@@ -177,7 +178,11 @@ if (_fcrScanState != FCR_MODE_OFF) then {
         private _stepCount  = [_farSteps, _nearSteps] select _isNearPhase;
         private _isNearStr  = ["false","true"] select _isNearPhase;
 
-        private _sampledCols = [];
+        private _sampledCols  = [];
+        private _heliX        = _heliPosASL#0;
+        private _heliY        = _heliPosASL#1;
+        private _savedSlopes  = _heli getVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
+        private _newSlopes    = +_savedSlopes;
 
         for "_ci" from _fillFrom to _fillTo do {
             private _relAzi   = -_gtmHalfFov + (_ci + 0.5) * _aziStepD;
@@ -185,14 +190,14 @@ if (_fcrScanState != FCR_MODE_OFF) then {
             private _sinAzi   = sin _worldAzi;
             private _cosAzi   = cos _worldAzi;
 
-            private _prevTerrainZ = getTerrainHeightASL [_heliPosASL#0 + _sinAzi * (_startRange max _stepSize), _heliPosASL#1 + _cosAzi * (_startRange max _stepSize), 0];
+            private _prevTerrainZ = getTerrainHeightASL [_heliX + _sinAzi * (_startRange max _stepSize), _heliY + _cosAzi * (_startRange max _stepSize), 0];
             private _colLevels    = [];
-            private _horizonSlope = -9999;
+            private _horizonSlope = if (_isNearPhase) then { -9999 } else { _savedSlopes param [_ci, -9999] };
 
             for "_ri" from 0 to (_stepCount - 1) do {
                 private _range      = _startRange + (_ri + 0.5) * _stepSize;
-                private _cellX      = _heliPosASL # 0 + _sinAzi * _range;
-                private _cellY      = _heliPosASL # 1 + _cosAzi * _range;
+                private _cellX      = _heliX + _sinAzi * _range;
+                private _cellY      = _heliY + _cosAzi * _range;
                 private _terrainASL = getTerrainHeightASL [_cellX, _cellY, 0];
                 private _level      = 0;
 
@@ -201,26 +206,13 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 
                     if (_cellSlope > _horizonSlope) then {
                         _horizonSlope = _cellSlope;
-
-                        // Surface normal from 4-neighbour finite difference
-                        private _hN = getTerrainHeightASL [_cellX,          _cellY + _stepSize, 0];
-                        private _hS = getTerrainHeightASL [_cellX,          _cellY - _stepSize, 0];
-                        private _hE = getTerrainHeightASL [_cellX + _stepSize, _cellY,          0];
-                        private _hW = getTerrainHeightASL [_cellX - _stepSize, _cellY,          0];
-                        // Horizontal surface normal — Z dropped so flat ground = near-zero, face-on slope = high
-                        private _nX  = -(_hE - _hW);
-                        private _nY  = -(_hN - _hS);
-                        private _nLen = sqrt(_nX*_nX + _nY*_nY) max 0.001;
-                        // Horizontal boresight only — aspect measures how much slope faces the radar
-                        private _bX  = _cellX - (_heliPosASL#0);
-                        private _bY  = _cellY - (_heliPosASL#1);
-                        private _bLen = sqrt(_bX*_bX + _bY*_bY) max 0.001;
-                        // Aspect: 1.0 = slope faces radar, 0.0 = flat or perpendicular
-                        private _aspect = abs((_nX*_bX + _nY*_bY) / (_nLen * _bLen));
-
-                        // Aspect 0.0–1.0 mapped to base levels 1–4
-                        _level = 1 + floor (_aspect * 3.99);
-                        private _surfOffset = 0;
+                        // tan thresholds avoid atan: tan(1°)=0.0175 tan(5°)=0.0875 tan(15°)=0.268 tan(25°)=0.466 tan(35°)=0.700
+                        private _slope = abs(_terrainASL - _prevTerrainZ) / _stepSize;
+                        _level = if (_slope < 0.0175) then { 1 }
+                            else { if (_slope < 0.0875) then { 2 }
+                            else { if (_slope < 0.268)  then { 3 }
+                            else { if (_slope < 0.466)  then { 4 }
+                            else { [6, 5] select (_slope < 0.700) } } } };
                         private _surf = toLower (surfaceType [_cellX, _cellY]);
                         if (_surf find "metal"   >= 0 || _surf find "steel"    >= 0 ||
                             _surf find "rock"    >= 0 || _surf find "stone"    >= 0 ||
@@ -229,7 +221,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                             _surf find "ruin"    >= 0 || _surf find "building" >= 0 ||
                             _surf find "road"    >= 0 || _surf find "runway"   >= 0 ||
                             _surf find "tarmac"  >= 0 || _surf find "cobble"   >= 0) then {
-                            _surfOffset = 1;
+                            _level = (_level + 1) min 6;
                         };
                         if (_surf find "grass"   >= 0 || _surf find "forest"   >= 0 ||
                             _surf find "leaves"  >= 0 || _surf find "water"    >= 0 ||
@@ -238,9 +230,8 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                             _surf find "snow"    >= 0 || _surf find "ice"      >= 0 ||
                             _surf find "mud"     >= 0 || _surf find "dirt"     >= 0 ||
                             _surf find "soil"    >= 0 || _surf find "bog"      >= 0) then {
-                            _surfOffset = -1;
+                            _level = (_level - 1) max 1;
                         };
-                        _level = (_level + _surfOffset) max 1 min 4;
                     };
                 };
 
@@ -248,10 +239,20 @@ if (_fcrScanState != FCR_MODE_OFF) then {
                 _colLevels pushBack _level;
             };
 
+            // Accumulate near-phase horizon slopes locally — flushed once after column loop
+            if (_isNearPhase) then {
+                while {count _newSlopes <= _ci} do { _newSlopes pushBack -9999; };
+                _newSlopes set [_ci, _horizonSlope];
+            };
+
             private _levJson = "[";
             { if (_forEachIndex > 0) then { _levJson = _levJson + ","; }; _levJson = _levJson + str _x; } forEach _colLevels;
             _levJson = _levJson + "]";
             _sampledCols pushBack format ["{""i"":%1,""near"":%2,""d"":%3}", _ci, _isNearStr, _levJson];
+        };
+
+        if (_isNearPhase && count _newSlopes > 0) then {
+            _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", _newSlopes];
         };
 
         if (_sampledCols isNotEqualTo []) then {
