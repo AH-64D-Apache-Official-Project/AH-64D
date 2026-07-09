@@ -100,6 +100,18 @@ if (_oldHtmlUrl != _htmlUrl) then {
     };
 };
 
+// Re-point fza_mpd_display every page change — the browser ui() display is engine-cached and may never fire Unload
+private _dispMap = uiNamespace getVariable ["fza_mpd_display", createHashMap];
+uiNamespace setVariable ["fza_mpd_display", _dispMap];
+if (_htmlUrl != "") then {
+    private _htmlDisp = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_gameUniqueId, displayNull];
+    // If the display doesn't exist yet, fn_displayUiInit registers it on first load
+    if (!isNull _htmlDisp) then { _dispMap set [_sideName, _htmlDisp]; };
+} else {
+    private _nativeDisp = uiNamespace getVariable ["RscFzaAH64MPD_" + _sideName, displayNull];
+    if (!isNull _nativeDisp) then { _dispMap set [_sideName, _nativeDisp]; };
+};
+
 private _persistState = _mpdState # _side # 5;
 
 private _state = (_config >> "InitState") call fza_fnc_configToHashMap;

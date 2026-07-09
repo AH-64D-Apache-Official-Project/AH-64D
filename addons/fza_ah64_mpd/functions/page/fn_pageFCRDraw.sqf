@@ -15,7 +15,17 @@ switch _fcrMode do {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0];
         _heli setVariable ["fza_ah64_fcrTargets", [], true];
         _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
-        [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
+        // Targets live on the scope HTML canvas now — push an empty picture
+        private _uniqueId = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
+        private _display  = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
+        if (!isNull _display) then {
+            private _browserCtrl = _display displayCtrl 369;
+            private _json = '{"mode":1,"targets":[],"shots":[]}';
+            if ((_browserCtrl getVariable ["fza_fcrScopeLastJson", ""]) != _json) then {
+                _browserCtrl setVariable ["fza_fcrScopeLastJson", _json];
+                [_browserCtrl, format ["fzaFCRScope.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+            };
+        };
     };
     case 1: { //Gtm
         _this call fza_mpd_fnc_fcrGTMDraw;

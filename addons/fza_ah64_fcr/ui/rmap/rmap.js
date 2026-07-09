@@ -19,14 +19,21 @@
     var RADAR_TOP    = 0.1316;
     var RADAR_BOTTOM = 0.8947;
 
+    // Native MPD icons are 0.09 of display height; the browser covers 0.95 of it
+    var ICON_FRAC = 0.09 / 0.95;
+
     var canvas, ctx, W, H;
+    var overlay, octx;
 
     var nearGrid = [];
     var farGrid  = [];
     var hasData  = false;
 
-    // Repaint bookkeeping: full repaints only on clear/resize/FOV change,
-    // otherwise only the x-band of newly received columns is recomputed+blitted.
+    var targets      = [];
+    var shots        = [];
+    var targetsDirty = false;
+
+    // Full repaints only on clear/resize/FOV change, else just the dirty column x-band
     var fullDirty   = true;
     var dirtyColMin = -1;
     var dirtyColMax = -1;
@@ -36,7 +43,8 @@
         halfFov:   45,
         aziSteps:  120,
         nearSteps: 80,
-        farSteps:  80
+        farSteps:  80,
+        video:     true
     };
 
     function markCol(i) {
@@ -60,8 +68,10 @@
     }
 
     function init() {
-        canvas = document.getElementById("canvas");
-        ctx    = canvas.getContext("2d");
+        canvas  = document.getElementById("canvas");
+        ctx     = canvas.getContext("2d");
+        overlay = document.getElementById("overlay");
+        octx    = overlay.getContext("2d");
         resize();
         clearGrid(params.aziSteps);
         window.addEventListener("resize", resize);
@@ -71,12 +81,14 @@
     function resize() {
         W = canvas.width  = canvas.offsetWidth  || 512;
         H = canvas.height = canvas.offsetHeight || 512;
+        overlay.width  = W;
+        overlay.height = H;
         resetBuffer();
-        fullDirty = true;
+        fullDirty    = true;
+        targetsDirty = true;
     }
 
-    // B-scope pixel fill for x in [xFrom, xTo] — bottom=near (0m), top=far (8000m).
-    // Writes into the persistent buffer; unscanned columns stay black.
+    // B-scope pixel fill for x in [xFrom, xTo] — bottom = 0m, top = 8000m; unscanned stays black
     function paintPixels(xFrom, xTo) {
         var halfFov   = params.halfFov;
         var aziSteps  = params.aziSteps;
@@ -145,6 +157,45 @@
         }
     }
 
+    // Symbols on the overlay canvas above the terrain; redrawn only on new payload
+    function drawTargets() {
+        octx.clearRect(0, 0, W, H);
+
+        var rLeft   = RADAR_LEFT   * W;
+        var rW      = (RADAR_RIGHT - RADAR_LEFT) * W;
+        var rTop    = RADAR_TOP    * H;
+        var rH      = (RADAR_BOTTOM - RADAR_TOP) * H;
+        var sizePx  = ICON_FRAC * H;
+        var allDrawn = true;
+
+        // Shot-at markers MPD green; TM 4.44.6: o 0 = under targets, 1 = over
+        function drawShots(overlayPass) {
+            for (var i = 0; i < shots.length; i++) {
+                var s = shots[i];
+                if ((s.o === 1) !== overlayPass) { continue; }
+                if (s.a < -1 || s.a > 1 || s.r < 0 || s.r > 1) { continue; }
+                var sx = rLeft + (s.a * 0.5 + 0.5) * rW;
+                var sy = rTop + rH - s.r * rH;
+                if (!window.fzaFCRIconLayer.draw(octx, "shotat", sx, sy, sizePx, 1, "#00ff80")) { allDrawn = false; }
+            }
+        }
+
+        drawShots(false);
+        for (var i = 0; i < targets.length; i++) {
+            var t = targets[i];
+            if (t.a < -1 || t.a > 1 || t.r < 0 || t.r > 1) { continue; }
+            var x = rLeft + (t.a * 0.5 + 0.5) * rW;
+            var y = rTop + rH - t.r * rH;
+            var alpha = t.stale ? 0.5 : 1;
+            if (!window.fzaFCRIconLayer.draw(octx, t.icon, x, y, sizePx, alpha)) { allDrawn = false; }
+            if (t.ov) {
+                if (!window.fzaFCRIconLayer.draw(octx, t.ov, x, y, sizePx, alpha)) { allDrawn = false; }
+            }
+        }
+        drawShots(true);
+        return allDrawn;
+    }
+
     function renderLoop() {
         requestAnimationFrame(renderLoop);
 
@@ -169,6 +220,11 @@
         fullDirty   = false;
         dirtyColMin = -1;
         dirtyColMax = -1;
+
+        if (targetsDirty) {
+            // Stay dirty until every sprite has finished its async decode
+            targetsDirty = !drawTargets();
+        }
     }
 
     window.fzaFCRRmap = {
@@ -176,6 +232,11 @@
             if (data.halfFov !== undefined && data.halfFov !== params.halfFov) {
                 params.halfFov = data.halfFov;
                 fullDirty = true; // azimuth mapping changed — remap everything
+            }
+            // Video underlay toggle — grid kept, only canvas visibility changes
+            if (data.video !== undefined && data.video !== params.video) {
+                params.video = data.video;
+                canvas.style.display = params.video ? "block" : "none";
             }
             if (data.aziSteps   !== undefined) { params.aziSteps   = data.aziSteps;   }
             if (data.nearSteps  !== undefined) { params.nearSteps  = data.nearSteps;  }
@@ -194,6 +255,12 @@
                     markCol(col.i);
                 }
                 hasData = true;
+            }
+
+            if (data.targets !== undefined) {
+                targets      = data.targets;
+                shots        = data.shots || [];
+                targetsDirty = true;
             }
         }
     };

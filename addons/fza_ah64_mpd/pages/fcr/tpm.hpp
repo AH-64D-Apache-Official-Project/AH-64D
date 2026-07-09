@@ -1,15 +1,11 @@
-// Native MFD overlay for FCRTPM page.
-// Renders on top of the HTML terrain profile browser texture.
-// Buttons per TM: T1=C-SCP, T6=UTIL, L1=PROF, L2=LINES, R1=CLRNC, R2=ELEV
+// Native MFD overlay for the FCRTPM page, drawn above the HTML browser texture
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\mpd_defines.hpp"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 
 class root {
 
-    // 1. SCAN BAR
-    // Wide: near bar L->R (ANIM 0-3.2s), far bar R->L (ANIM 3.2-6.4s).
-    // Narrow: near bar L->R (ANIM 0-1.6s), far bar R->L (ANIM 1.6-3.2s).
+    // 1. SCAN BAR — L->R then R->L, wide 6.4s cycle / narrow 3.2s
     class lines_tpmScanBar {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
 
@@ -55,13 +51,7 @@ class root {
         };
     };
 
-    // 2. BLACKOUT MASK
-    // Black polygons covering everything outside the TPM sector footprint.
-    // HTML canvas black background handles the curved interior regions.
-    // Top/bottom masks are always active. Mode-gated masks trace the exact footprint
-    // boundary: the 2500m arc is covered by convex trapezoid strips built from the
-    // SAME points as lines_tpmGeometry_* (chord-for-chord match), the narrow radials
-    // by rect+triangle pairs (concave polygons fan-fill unreliably in MFD configs).
+    // 2. BLACKOUT MASK — arc covered by convex strips matching lines_tpmGeometry_* chords (concave polygons fan-fill unreliably)
     class tpmBlackoutMask_Always {
         color[] = {0, 0, 0, 1};
         class MaskTop {
@@ -88,8 +78,7 @@ class root {
         };
     };
 
-    // Wide mode mask (TPM_WIDE=1): side strips at the x=0.080/0.920 border verticals,
-    // plus trapezoid strips filling the region between the 2500m wide arc and y=0.270.
+    // Wide mode mask (TPM_WIDE=1)
     class tpmBlackoutMask_Wide {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TPM_WIDE), 1));
         class lines {
@@ -141,9 +130,7 @@ class root {
         };
     };
 
-    // Narrow mode mask (TPM_WIDE=0): everything outside the +-45 deg V and the 2500m arc.
-    // -45 deg radial: ownship (0.500,0.870) -> tip (0.076,0.446); +45 deg mirrored at 0.924.
-    // Side coverage split into convex rect + radial triangle per side.
+    // Narrow mode mask (TPM_WIDE=0): convex rect + radial triangle per side
     class tpmBlackoutMask_Narrow {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TPM_WIDE), 0));
         class lines {
@@ -194,7 +181,18 @@ class root {
             {{0.38, 0.894}, 1}, {},
             MPD_POINTS_BOX("Null", 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
             MPD_POINTS_BOX("Null", 0.78-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
-            MPD_POINTS_BOX("Null", 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
+        };
+    };
+
+    // TM 4.35.17: obstacle count window appears only when obstacles are detected
+    class linesObsCountBox {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TPM_OBS_SHOW), 1));
+        class box {
+            type = "line";
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX("Null", 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
+            };
         };
     };
 
@@ -263,9 +261,7 @@ class root {
         MPD_BOX_L(ELEV_ValBox,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 4)
     };
 
-    // 6. TPM ARC GEOMETRY
-    // Ownship at (0.5, 0.870). Scale: r=0.600 HPP = 2500 m.
-    // x = 0.5 + r*sin(az),  y = 0.870 - r*cos(az)
+    // 6. TPM ARC GEOMETRY — ownship (0.5, 0.870), r=0.600 HPP = 2500 m
 
     // Wide geometry: full +-90 deg arcs. Shown when speed <45kts (TPM_WIDE=1).
     class lines_tpmGeometry_Wide {

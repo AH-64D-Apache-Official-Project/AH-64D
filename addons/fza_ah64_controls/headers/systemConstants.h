@@ -23,6 +23,13 @@
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6
+#define FCR_STALE_MOVING_SEC             5    //TM 4.44.4: moving target symbols go partial intensity 5s after last detection
+#define FCR_STALE_STATIC_SEC             30   //TM 4.44.4: stationary target symbols go partial intensity after 30s
+
+//--TPM obstacle derivation (TM 4.15.3c: towers/vertical items + RCS + minimum height)
+#define FCR_OBST_TOWER_RATIO             1.5  //tower-like: height at least this x the widest footprint dimension
+#define FCR_OBST_TOWER_MIN_HEIGHT_M      8    //tower-like structures qualify at this height (lamps, masts, pylons)
+#define FCR_OBST_TALL_HEIGHT_M           13   //any shape this tall qualifies (control towers, hangars)
 
 // TADS->RF handoff LOBL scan radius (metres around handoff position)
 #define TADS_RF_LOBL_SCAN_RADIUS         3.5

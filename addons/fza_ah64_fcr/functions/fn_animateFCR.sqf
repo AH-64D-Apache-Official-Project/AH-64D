@@ -114,8 +114,7 @@ if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
             (_fcrAzBias + _tpmHalfFov) - ((_t - 1.6) / 1.6) * (_tpmHalfFov * 2)
         };
     } else {
-        // ATM 6.4 s cycle: full 360° revolution
-        // Value goes 0→360° so the wrap occurs at the front, avoiding the ±π blend artifact
+        // ATM 6.4s cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
         private _t = _fcrScanDeltaTime % 6.4;
         _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
     };

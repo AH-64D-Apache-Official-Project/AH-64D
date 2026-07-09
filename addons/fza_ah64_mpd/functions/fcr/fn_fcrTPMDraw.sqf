@@ -88,6 +88,11 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 private _linesOption = 4; // TEMP: forced until Cscope line display is implemented
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_LINES), str _linesOption];
 
+// TM 4.35.17: OBS window appears only when obstacles are detected (value drives text + box condition)
+private _tpmObsCount = count (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
+_heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_OBS), ["", str _tpmObsCount] select (_tpmObsCount > 0)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TPM_OBS_SHOW), parseNumber (_tpmObsCount > 0)];
+
 // Constant 1.5°/column at both FOVs — narrow (±45°) needs half the columns of wide (±90°)
 private _aziSteps   = [60, 120] select (_halfFov >= 90);
 private _rangeSteps = 150;
@@ -95,24 +100,32 @@ private _maxRange   = 2500;
 private _aziStepD   = (_halfFov * 2) / _aziSteps;
 private _rangeStep  = _maxRange / _rangeSteps;
 
-// Dual-screen guard: with TPM open on both MPDs this draw runs twice per frame.
-// Only the first call consumes the hard-clear/FOV flags and samples terrain;
-// the second call reuses the cached results so both screens get identical data.
-private _frameCache = _heli getVariable ["fza_ah64_fcrTPMFrameCache", [-1, false, false, ""]];
+// Dual-screen guard: first call per frame samples and consumes flags, second reuses the cache
+private _frameCache = _heli getVariable ["fza_ah64_fcrTPMFrameCache", [-1, false, false, "", ""]];
 private _sameFrame  = (_frameCache#0) == CBA_missionTime;
 
 private _hardClear = false;
 private _fovChange = false;
 private _colJson   = "";
+private _obsJson   = "";
 
 if (_sameFrame) then {
     _hardClear = _frameCache#1;
     _fovChange = _frameCache#2;
     _colJson   = _frameCache#3;
+    _obsJson   = _frameCache param [4, ""];
 } else {
     private _prevHalfFov = _heli getVariable ["fza_ah64_fcrTPMPrevHalfFov", -1];
     _hardClear = _heli getVariable ["fza_ah64_fcrTPMHardClear", false];
-    if (_hardClear) then { _heli setVariable ["fza_ah64_fcrTPMHardClear", false]; };
+    if (_hardClear) then {
+        _heli setVariable ["fza_ah64_fcrTPMHardClear", false];
+        _heli setVariable ["fza_ah64_fcrTPMObsDisplay", []];
+    };
+    // TM 4.15.3c: obstacles are not presented if FCR data is not valid (fault); a stopped healthy radar keeps its picture
+    if (_fcrScanState == FCR_MODE_FAULT && (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]) isNotEqualTo []) then {
+        _heli setVariable ["fza_ah64_fcrTPMObsDisplay", []];
+        _obsJson = "[]";
+    };
     _fovChange = (!_hardClear && _halfFov != _prevHalfFov && _fcrScanState != FCR_MODE_OFF);
     private _newScan = _hardClear || _fovChange;
     _heli setVariable ["fza_ah64_fcrTPMPrevHalfFov", _halfFov];
@@ -156,8 +169,7 @@ if (_sameFrame) then {
             if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
         };
 
-        // Cap columns sampled per frame — a frame stutter otherwise backfills the whole
-        // gap in one frame. Progress is stored so the remainder carries to the next frame.
+        // Cap columns per frame; progress carries so stutter backfill spreads over frames
         private _progressIdx = _colIdx;
         if (_fillTo - _fillFrom + 1 > 16) then {
             if (_sweepLtoR) then {
@@ -199,10 +211,7 @@ if (_sameFrame) then {
                     if (_terrainASL > -1000) then {
                         private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
                         if (_cellSlope <= _horizonSlope) then {
-                            // Shadowed: hidden terrain lies below the grazing ray. While the ray
-                            // is at/above the clearance plane the hidden terrain could still
-                            // penetrate it -> unknown (grey). Once the ray drops below the plane,
-                            // everything hidden is provably below it too -> safe (black).
+                            // Shadowed: grey while the grazing ray is above the clearance plane (hidden terrain could pierce it), black once below
                             _level = [0, 2] select (_FCRposZ + _horizonSlope * _range >= _safeHeight);
                         } else {
                             _horizonSlope = _cellSlope;
@@ -219,13 +228,48 @@ if (_sameFrame) then {
                 _colJson = "[" + (_sampledCols joinString ",") + "]";
             };
         };
+
+        // TM fig 4-55: obstacles display all at once per completed half sweep (each pass covers the full sector)
+        [_heli] call fza_fcr_fnc_buildTPMData;
+        private _curHalf  = floor (_t / _halfSweepDuration);
+        private _prevHalf = _heli getVariable ["fza_ah64_fcrTPMPrevHalf", -1];
+        if (_newScan) then {
+            _heli setVariable ["fza_ah64_fcrTPMPrevHalf", _curHalf];
+        } else {
+            if (_curHalf != _prevHalf && _prevHalf != -1) then {
+                private _heliPosNow = getPosASL _heli;
+                private _snapFCRpos = _heli selectionPosition ["sensorPos", "Memory"];
+                private _sensorPos  = [_heliPosNow#0, _heliPosNow#1,
+                    (_heliPosNow#2) + ([3, _snapFCRpos#2] select (_snapFCRpos isNotEqualTo [0,0,0]))];
+                private _snapSafeHeight = (_heliPosNow#2) - (([20, 50, 100, 200] select _clearanceFt) * 0.3048);
+
+                private _obsParts   = [];
+                private _obsDisplay = [];
+                {
+                    _x params ["_ox", "_oy", ["_oTopZ", 1e9]];
+                    private _oPos   = [_ox, _oy, 0];
+                    private _oRange = _heliPosNow distance2D _oPos;
+                    private _oAzi   = [(_heliPosNow getDir _oPos) - _scanHeading] call CBA_fnc_simplifyAngle180;
+                    if ((abs _oAzi) > _halfFov || _oRange > _maxRange) then { continue; };
+                    // Only structures penetrating the clearance plane, with radar LOS to their top
+                    if (_oTopZ < _snapSafeHeight) then { continue; };
+                    if (terrainIntersectASL [_sensorPos, [_ox, _oy, _oTopZ - 0.5]]) then { continue; };
+
+                    _obsParts   pushBack format ['{"a":%1,"r":%2}', _oAzi toFixed 1, (_oRange / _maxRange) toFixed 4];
+                    _obsDisplay pushBack [_ox, _oy, _oTopZ];
+                } forEach (_heli getVariable ["fza_ah64_fcrTPMObstacles", []]);
+                _obsJson = "[" + (_obsParts joinString ",") + "]";
+                _heli setVariable ["fza_ah64_fcrTPMObsDisplay", _obsDisplay];
+            };
+            _heli setVariable ["fza_ah64_fcrTPMPrevHalf", _curHalf];
+        };
     };
 
-    _heli setVariable ["fza_ah64_fcrTPMFrameCache", [CBA_missionTime, _hardClear, _fovChange, _colJson]];
+    _heli setVariable ["fza_ah64_fcrTPMFrameCache", [CBA_missionTime, _hardClear, _fovChange, _colJson, _obsJson]];
 };
 
 private _json = format[
-    "{""mode"":4,""halfFov"":%1,""aziSteps"":%2,""rangeSteps"":%3,""profMode"":%4,""linesOption"":%5,""clearanceFt"":%6,""hardClear"":%7,""fovChange"":%8%9}",
+    "{""mode"":4,""halfFov"":%1,""aziSteps"":%2,""rangeSteps"":%3,""profMode"":%4,""linesOption"":%5,""clearanceFt"":%6,""hardClear"":%7,""fovChange"":%8%9%10}",
     _halfFov,
     _aziSteps,
     _rangeSteps,
@@ -234,19 +278,18 @@ private _json = format[
     ([20, 50, 100, 200] select _clearanceFt),
     ["false","true"] select _hardClear,
     ["false","true"] select _fovChange,
-    if (_colJson != "") then { format[",""columns"":%1", _colJson] } else { "" }
+    if (_colJson != "") then { format[",""columns"":%1", _colJson] } else { "" },
+    // Only present on the completion frame — JS keeps the picture in between
+    if (_obsJson != "") then { format[",""obstacles"":%1", _obsJson] } else { "" }
 ];
 
 private _uniqueId = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
 private _display  = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
 if (!isNull _display) then {
-    // Skip the browser push when nothing changed for this display (idle FCR-off frames).
-    // Keyed on the browser control so the cache dies with the display on page close.
+    // Skip push when unchanged; keyed on the control so the cache dies with the display
     private _browserCtrl = _display displayCtrl 369;
     if ((_browserCtrl getVariable ["fza_fcrTpmLastJson", ""]) != _json) then {
         _browserCtrl setVariable ["fza_fcrTpmLastJson", _json];
         [_browserCtrl, format ["fzaFCRTpm.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
     };
 };
-
-// TODO: obstacle drawing — re-enable once terrain display is stable

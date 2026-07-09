@@ -143,7 +143,6 @@ if (_value) then {
             [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
         case "fza_ah64_fcrModeGTM": {
-            diag_log format ["[FCR mode] selecting GTM (%1)", FCR_DISP_MODE_GTM];
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_GTM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
@@ -156,8 +155,13 @@ if (_value) then {
             };
         };
         case "fza_ah64_fcrModeRMAP": {
-            diag_log format ["[FCR mode] selecting RMAP (%1)", FCR_DISP_MODE_RMAP];
+            // TM 4.41: re-selecting RMAP toggles the video underlay, symbols and scan untouched
+            if (_heli getVariable "fza_ah64_fcrMode" == FCR_DISP_MODE_RMAP) exitWith {
+                private _vid = !(_heli getVariable ["fza_ah64_fcrRmapVideo", true]);
+                _heli setVariable ["fza_ah64_fcrRmapVideo", _vid, true];
+            };
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_RMAP, true];
+            _heli setVariable ["fza_ah64_fcrRmapVideo", true, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
@@ -169,7 +173,6 @@ if (_value) then {
             };
         };
         case "fza_ah64_fcrModeATM": {
-            diag_log format ["[FCR mode] selecting ATM (%1)", FCR_DISP_MODE_ATM];
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_ATM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
@@ -182,7 +185,6 @@ if (_value) then {
             };
         };
         case "fza_ah64_fcrModeTPM": {
-            diag_log format ["[FCR mode] selecting TPM (%1)", FCR_DISP_MODE_TPM];
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_TPM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;

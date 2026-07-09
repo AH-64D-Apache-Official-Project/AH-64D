@@ -108,6 +108,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _fcrAzBias      = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov     = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
+// TM 4.41: RMAP re-select toggles the video underlay; sampling skipped while off, JS keeps the grid
+private _rmapVideo      = _heli getVariable ["fza_ah64_fcrRmapVideo", true];
 
 private _aziSteps     = 300;
 private _nearSteps    = 150;
@@ -118,9 +120,7 @@ private _nearRangeStep = _nearMaxRange / _nearSteps;
 private _farRangeStep  = (_maxRange - _nearMaxRange) / _farSteps;
 private _aziStepD     = (_gtmHalfFov * 2) / _aziSteps;
 
-// Dual-screen guard: with RMAP open on both MPDs this draw runs twice per frame.
-// Only the first call consumes the hard-clear flag and samples terrain; the second
-// reuses the cached results so both screens get identical data (incl. the flag).
+// Dual-screen guard: first call per frame samples and consumes flags, second reuses the cache
 private _frameCache = _heli getVariable ["fza_ah64_fcrRMAPFrameCache", [-1, false, ""]];
 private _sameFrame  = (_frameCache#0) == CBA_missionTime;
 
@@ -138,7 +138,7 @@ if (_sameFrame) then {
         _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
     };
 
-    if (_fcrScanState != FCR_MODE_OFF) then {
+    if (_fcrScanState != FCR_MODE_OFF && _rmapVideo) then {
         private _t = (_fcrScanDeltaTime max 0) % 3.2;
         private _isNearPhase = (_t <= 1.6);
 
@@ -176,8 +176,7 @@ if (_sameFrame) then {
             if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
         };
 
-        // Cap columns sampled per frame — a frame stutter otherwise backfills the whole
-        // gap in one frame. Progress is stored so the remainder carries to the next frame.
+        // Cap columns per frame; progress carries so stutter backfill spreads over frames
         private _progressIdx = _colIdx;
         if (_fillTo - _fillFrom + 1 > 24) then {
             if (_isNearPhase) then {
@@ -200,10 +199,7 @@ if (_sameFrame) then {
             private _stepCount  = [_farSteps, _nearSteps] select _isNearPhase;
             private _isNearStr  = ["false","true"] select _isNearPhase;
 
-            // Surface classification memo — surfaceType returns CamelCase class names
-            // with no separators (e.g. "#GdtGrassGreen"), so keyword matching must be
-            // substring find. Done once per unique surface name, then cached: per cell
-            // this is a single hashmap lookup.
+            // Surface memo — substring find once per unique surfaceType, hashmap lookup per cell
             private _surfCache = uiNamespace getVariable "fza_fcr_surfModCache";
             if (isNil "_surfCache") then {
                 _surfCache = createHashMap;
@@ -290,24 +286,7 @@ if (_sameFrame) then {
     _heli setVariable ["fza_ah64_fcrRMAPFrameCache", [CBA_missionTime, _hardClear, _colJson]];
 };
 
-private _json = format[
-    "{""mode"":3,""halfFov"":%1,""aziSteps"":%2,""nearSteps"":%3,""farSteps"":%4,""hardClear"":%5,""scanActive"":%6%7}",
-    _gtmHalfFov,
-    _aziSteps,
-    _nearSteps,
-    _farSteps,
-    ["false","true"] select _hardClear,
-    ["false","true"] select (_fcrScanState != FCR_MODE_OFF),
-    if (_colJson != "") then { format[",""columns"":%1", _colJson] } else { "" }
-];
-
-private _uniqueId    = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
-private _rmapDisplay = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
-if (!isNull _rmapDisplay && _colJson != "") then {
-    [_rmapDisplay displayCtrl 369, format ["fzaFCRRmap.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
-};
-
-// ---- Draw FCR targets via drawIcons ----
+// ---- FCR targets / shot-at markers → HTML canvas (shared builder) ----
 
 private _ntsIndex  = if (!isNull _nts) then { _displayTargets findIf {_x # 3 == _nts} } else { -1 };
 private _antsIndex = -1;
@@ -315,40 +294,34 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
-private _bsW           = 0.64;
-private _bsH           = 0.725;
-private _pointsArray   = [];
-private _fcrPointCount = 0;
+// "a" normalised to -1..1 by halfFov — the RMAP B-scope x axis
+([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _wasState,
+    _gtmHalfFov, _maxRange, _dir, _fcrAzBias, _gtmHalfFov, false
+] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
 
-{
-    if (_fcrPointCount >= 16) exitWith {};
-    _x params ["_tgtPos", "_type", "_moving", "_target", "_aziAngle", "_range", "_isGhost"];
+private _json = format[
+    '{"mode":3,"halfFov":%1,"aziSteps":%2,"nearSteps":%3,"farSteps":%4,"hardClear":%5,"scanActive":%6,"video":%7,"targets":[%8],"shots":[%9]%10}',
+    _gtmHalfFov,
+    _aziSteps,
+    _nearSteps,
+    _farSteps,
+    ["false","true"] select _hardClear,
+    ["false","true"] select (_fcrScanState != FCR_MODE_OFF),
+    ["false","true"] select _rmapVideo,
+    _tgtJson,
+    _shotJson,
+    if (_colJson != "") then { format[',"columns":%1', _colJson] } else { "" }
+];
 
-    private _selStatus = 0;
-    if (_forEachIndex == _ntsIndex)  then { _selStatus = 1; };
-    if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
-    private _ident = [_type, _range, _moving, _selStatus, _wasState == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
-    if (_ident == "") then { continue; };
-
-    private _bsX = 0.18 + ((_aziAngle / _gtmHalfFov) * 0.5 + 0.5) * _bsW;
-    private _bsY = 0.875 - (_range / _maxRange) * _bsH;
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_bsX, _bsY, 0], "", POINT_TYPE_FCR, _forEachIndex, _ident];
-    _fcrPointCount = _fcrPointCount + 1;
-} forEach (_displayTargets select [0, (count _displayTargets) min 16]);
-
-{
-    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
-    if (_x isEqualTo -1) then { continue; };
-    private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
-    if ((abs _shotRelAzi) > _gtmHalfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then { continue; };
-    private _bsX = 0.18 + ((_shotRelAzi / _gtmHalfFov) * 0.5 + 0.5) * _bsW;
-    private _bsY = 0.875 - (_shotRange / _maxRange) * _bsH;
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_bsX, _bsY, 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} forEach (_heli getVariable ["fza_dms_shotAt", []]);
-
-private _rmapScale = 0.08125 * 8 / 8000;
-private _bsCtr     = [0.5, 0.875];
-[_heli, _pointsArray, _mpdIndex, _rmapScale, _bsCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;
+private _uniqueId    = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
+private _rmapDisplay = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
+if (!isNull _rmapDisplay) then {
+    // Skip push when unchanged; keyed on the control so the cache dies with the display
+    private _browserCtrl = _rmapDisplay displayCtrl 369;
+    if ((_browserCtrl getVariable ["fza_fcrRmapLastJson", ""]) != _json) then {
+        _browserCtrl setVariable ["fza_fcrRmapLastJson", _json];
+        [_browserCtrl, format ["fzaFCRRmap.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+    };
+};
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];

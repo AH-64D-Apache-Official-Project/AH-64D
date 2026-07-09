@@ -15,12 +15,19 @@
     var DEG = Math.PI / 180;
 
     var canvas, ctx, W, H;
+    var overlay, octx;
     var OX, OY, SCALE;
+
+    // Native MPD icons are 0.09 of display height; the browser covers 0.95 of it
+    var ICON_FRAC = 0.09 / 0.95;
 
     var terrainGrid = [];
     var hasData     = false;
     var dirty       = true;   // repaint only when data/geometry changed — not every RAF tick
     var imgData     = null;   // persistent pixel buffer, reallocated only on resize
+
+    var obstacles      = [];
+    var obstaclesDirty = false;
 
     var params = {
         halfFov:    90,
@@ -46,8 +53,10 @@
     }
 
     function init() {
-        canvas = document.getElementById("canvas");
-        ctx    = canvas.getContext("2d");
+        canvas  = document.getElementById("canvas");
+        ctx     = canvas.getContext("2d");
+        overlay = document.getElementById("overlay");
+        octx    = overlay.getContext("2d");
         resize();
         clearGrid(params.aziSteps);
         window.addEventListener("resize", resize);
@@ -57,11 +66,30 @@
     function resize() {
         W = canvas.width  = canvas.offsetWidth  || 512;
         H = canvas.height = canvas.offsetHeight || 512;
+        overlay.width  = W;
+        overlay.height = H;
         OX    = W / 2;
         OY    = H * 0.890;  // HPP ownship y=0.870 mapped to canvas
         SCALE = (H * 0.6316) / MAX_RANGE_M;
         resetBuffer();
-        dirty = true;
+        dirty          = true;
+        obstaclesDirty = true;
+    }
+
+    // TM fig 4-55 obstacle symbols — all-at-once picture, static until the next snapshot
+    function drawObstacles() {
+        octx.clearRect(0, 0, W, H);
+        var sizePx   = ICON_FRAC * H;
+        var allDrawn = true;
+        for (var i = 0; i < obstacles.length; i++) {
+            var o = obstacles[i];
+            if (o.r < 0 || o.r > 1) { continue; }
+            var rM = o.r * MAX_RANGE_M;
+            var x  = OX + Math.sin(o.a * DEG) * rM * SCALE;
+            var y  = OY - Math.cos(o.a * DEG) * rM * SCALE;
+            if (!window.fzaFCRIconLayer.draw(octx, "fcrobstacle", x, y, sizePx, 1)) { allDrawn = false; }
+        }
+        return allDrawn;
     }
 
 
@@ -135,6 +163,11 @@
         var oh = canvas.offsetHeight || 512;
         if (W !== ow || H !== oh) { resize(); }
 
+        if (obstaclesDirty) {
+            // Stay dirty until the sprite has finished its async decode
+            obstaclesDirty = !drawObstacles();
+        }
+
         if (!dirty) { return; }
         dirty = false;
 
@@ -157,6 +190,8 @@
 
             if (data.hardClear) {
                 clearGrid(params.aziSteps);
+                obstacles      = [];
+                obstaclesDirty = true;
             }
             // FOV change: resize to new column count, existing data stays visible until overwritten
             if (data.fovChange) {
@@ -171,6 +206,12 @@
                 }
                 hasData = true;
                 dirty   = true;
+            }
+
+            // Present only on scan-cycle completion frames — replaces the whole picture
+            if (data.obstacles !== undefined) {
+                obstacles      = data.obstacles;
+                obstaclesDirty = true;
             }
         }
     };

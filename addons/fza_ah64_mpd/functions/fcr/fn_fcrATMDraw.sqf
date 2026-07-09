@@ -27,7 +27,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
 };
 
-//FCR page draw
+//FCR page draw — symbols on the scope HTML canvas (browser occludes native siblings), rest stays native MFD
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
 private _antsIndex = -1;
@@ -35,15 +35,25 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
-private _scale      = (0.040625 * 8 / 8000);
-private _heliCtr    = [0.5, 0.5];
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
 
-private _pointsArray = [_heli, _displayTargets, _scanPos,
-    _ntsIndex, _antsIndex, _scale, _heliCtr, _systemWas,
-    _heli getVariable "fza_dms_shotAt", _fcrAzBias, _atmHalfFov, true
-] call fza_mpd_fnc_buildFCRPoints;
+// "a" in degrees (divisor 1) — the polar circle trig happens in scope.js
+([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _systemWas,
+    _atmHalfFov, 8000, _dir, _fcrAzBias, 1, true
+] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
+
+private _json = format ['{"mode":2,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson];
+
+private _uniqueId = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
+private _display  = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
+if (!isNull _display) then {
+    // Skip push when unchanged; keyed on the control so the cache dies with the display
+    private _browserCtrl = _display displayCtrl 369;
+    if ((_browserCtrl getVariable ["fza_fcrScopeLastJson", ""]) != _json) then {
+        _browserCtrl setVariable ["fza_fcrScopeLastJson", _json];
+        [_browserCtrl, format ["fzaFCRScope.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+    };
+};
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];
-[_heli, _pointsArray, _mpdIndex, _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

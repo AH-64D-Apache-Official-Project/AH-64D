@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_fcrTargets", ["_isFullCycle", true]];
 
 private _prevTargets = _heli getVariable "fza_ah64_fcrTargets";
@@ -14,25 +15,31 @@ private _now = CBA_missionTime;
         if (_isFullCycle) then {
             _fcrTargets set [_forEachIndex, _x + [0, _prev # 4, _prev # 6, _prev # 0, _now]];
         } else {
-            _fcrTargets set [_forEachIndex, +_prev];
+            private _rec = +_prev;
+            if ((_rec param [8, 0]) > 0) then { _rec set [8, 0]; }; // redetected ghost is live again
+            _fcrTargets set [_forEachIndex, _rec];
         };
     };
 } forEach _fcrTargets;
 
-private _ghostedCount = 0;
-private _purgedCount  = 0;
+// TM 4.44.2/.3: a non-redetected symbol lives until the next reveal sweep re-covers its azimuth — stamp that removal time, resolveDisplay hides per frame
+private _fullCycleLen  = [3.2, 6.4] select ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_ATM);
+private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
+
 {
     _x params ["_pos", "_type", "_moving", "_obj"];
     private _searchObj = _obj;
     if ((_fcrTargets findIf { (_x # 3) isEqualTo _searchObj }) == -1) then {
-        private _lastSeen = if (count _x >= 13) then { _x # 12 } else { _now - 31 };
-        if ((_now - _lastSeen) < 30) then {
-            private _ghost = +_x;
-            _ghost set [8, 1]; // mark as ghost
-            _fcrTargets pushBack _ghost;
-            _ghostedCount = _ghostedCount + 1;
+        private _removeTime = if ((_x param [8, 0]) > 0) then {
+            _x param [13, 0]   // already a ghost — keep its stamped removal time
         } else {
-            _purgedCount = _purgedCount + 1;
+            _lastFullCycle + _fullCycleLen + (_x param [7, 0])
+        };
+        if (_now < _removeTime) then {
+            private _ghost = +_x;
+            _ghost set [8, 1];            // mark as ghost
+            _ghost set [13, _removeTime]; // wiper re-covers its azimuth at this time
+            _fcrTargets pushBack _ghost;
         };
     };
 } forEach _prevTargets;

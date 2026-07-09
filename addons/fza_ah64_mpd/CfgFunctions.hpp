@@ -33,6 +33,7 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\fcr";
             class buildFCRIdent {RECOMPILE_FLAG;};
             class buildFCRPoints {RECOMPILE_FLAG;};
+            class buildFCRTargetsJson {RECOMPILE_FLAG;};
             class fcrATMDraw {RECOMPILE_FLAG;};
             class fcrGTMDraw {RECOMPILE_FLAG;};
             class fcrRMAPDraw {RECOMPILE_FLAG;};

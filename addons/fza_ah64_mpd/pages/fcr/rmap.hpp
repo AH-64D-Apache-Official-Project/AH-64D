@@ -1,6 +1,4 @@
-// Native MFD overlay for FCRRMAP page.
-// Renders on top of the HTML B-scope browser texture.
-// Buttons are identical to GTM (TM §4.35.5): T1=C-SCP, T6=UTIL, L1=NTS, L2=←, L4=TGT, L5=ELEV, R1=ZOOM, R2=→, R4=RFHO, R6=ACQ
+// Native MFD overlay for the FCRRMAP page, drawn above the HTML browser texture
 // Painter order: scan bar → blackout mask → geometry/text (so mask clips scan bar at B-scope edges,
 // and all HPP geometry/text appears on top of the mask).
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
@@ -9,8 +7,7 @@
 
 class root {
 
-    // ── 1. CUED LOS ─────────────────────────────────────────────────────────
-    // Before mask: clipped to B-scope area by the mask below.
+    // 1. CUED LOS — before mask so it clips to the B-scope area
     class polys_CuedLOS {
         class Polygon {
             type = "polygon";
@@ -25,11 +22,7 @@ class root {
         };
     };
 
-    // ── 2. SCAN BAR (bone-driven, before mask) ───────────────────────────────
-    // FCR_RMAP_NearBar/FarBar are linear bones that translate the bar X position.
-    // Near phase (0–1.6 s): bar sweeps left (0.18) → right (0.82), Y spans 0–4 km.
-    // Far  phase (1.6–3.2 s): bar sweeps right (0.82) → left (0.18), Y spans 4–8 km.
-    // B-scope Y scale: y=0.875 (0 km near) → y=0.150 (8 km far); 4 km = y=0.513.
+    // 2. SCAN BAR — bone-driven, before mask; near L->R spans 0-4km, far R->L spans 4-8km
     class lines_show {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
         class lines_continuous {
@@ -85,10 +78,7 @@ class root {
         };
     };
 
-    // ── 3. BLACKOUT MASK ─────────────────────────────────────────────────────
-    // Four black rectangles covering everything outside the B-scope border
-    // (x=0.18–0.82, y=0.150–0.875).  Drawn AFTER scan bar so the mask clips it.
-    // All subsequent HPP elements (geometry, text, buttons) draw on top of the mask.
+    // 3. BLACKOUT MASK — after the scan bar so it clips it, everything below draws on top
     class rmapBlackoutMask {
         color[] = {0, 0, 0, 1};
         class MaskLeft {
@@ -161,7 +151,7 @@ class root {
         };
     };
 
-    // ── 5. HEADING TAPE ──────────────────────────────────────────────────────
+    // 5. HEADING TAPE
     #include "..\common\fcrHeadingTape.hpp"
     class Obscurants {
         color[] = {0,0,0,1};
@@ -188,9 +178,7 @@ class root {
         };
     };
 
-    // ── 6. B-SCOPE DISPLAY GEOMETRY (on top of mask) ─────────────────────────
-    // Static B-scope display border — matches HTML canvas RADAR_* bounds.
-    // Bounds: (0.18, 0.150) to (0.82, 0.875).
+    // 6. B-SCOPE GEOMETRY — border matches HTML canvas RADAR_* bounds (0.18,0.150)-(0.82,0.875)
     class lines_bscopeOutline {
         type = "line";
         width = 2;
@@ -199,8 +187,7 @@ class root {
         };
     };
 
-    // Range markers: full-width lines at 2/4/6 km; edge tic marks at 1/3/5/7 km.
-    // Y-scale: 0.150 (8 km far) to 0.875 (0 km near) = 0.725 / 8 km = 0.090625/km.
+    // Range lines at 2/4/6 km, edge tics at 1/3/5/7 km; 0.090625 HPP/km
     class lines_bscopeRangeMarkers {
         type = "line";
         width = 1;

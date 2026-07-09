@@ -137,9 +137,11 @@ class CfgVehicles {
             };
             class FCR {
                 index = MPD_PAGE_FCR;
+                htmlUrl   = "\fza_ah64_fcr\ui\scope\scope.html";
+                htmlClass = "RscFzaFCRScope";
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
-                usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {5,0};
                 };
@@ -148,7 +150,7 @@ class CfgVehicles {
                 index = MPD_PAGE_FCRRMAP;
                 htmlUrl   = "\fza_ah64_fcr\ui\rmap\rmap.html";
                 htmlClass = "RscFzaFCRRmap";
-                usesIcons = 1;
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw          = "fza_mpd_fnc_fcrRMAPDraw";
                 handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
             };

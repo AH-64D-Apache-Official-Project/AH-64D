@@ -8,6 +8,12 @@ private _fcrTargets  = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _cScopeCount = 0;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 
+// TPM: C-scope shows the obstacle snapshot at structure tops (nearest-first), no NTS/ANTS
+private _isTpm = (_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_TPM;
+if (_isTpm) then {
+    _fcrTargets = (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]) apply { [_x] };
+};
+
 {
     if (_cScopeCount > 15) exitWith {};
     if !(_heli getVariable "fza_ah64_fcrcscope") exitWith {
@@ -18,19 +24,26 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 
     _x params ["_pos", "_type", "_moving"];
     if (count _pos < 3) then { continue; };
-    private _distance_m = _scanPos distance2D _pos;
-    private _guiPos     = worldToScreen ASLToAGL _pos;
+    private _guiPos = worldToScreen ASLToAGL _pos;
 
-    private _ident = [_type, _distance_m, _moving] call fza_mpd_fnc_buildFCRIdent;
-    if (_ident == "") exitWith {};
+    private _tex = "\fza_ah64_mpd\tex\fcrIcons\fcrObstacle_ca.paa";
+    if (!_isTpm) then {
+        private _distance_m = _scanPos distance2D _pos;
+        private _ident = [_type, _distance_m, _moving] call fza_mpd_fnc_buildFCRIdent;
+        if (_ident == "") then {
+            _tex = "";
+        } else {
+            private _identParts = _ident splitString "_";
+            private _texSuffix = if (_identParts # 1 == "FLYER") then {""} else {_identParts # 2};
+            _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa",
+                toLower (_identParts # 1),
+                _texSuffix
+            ];
+        };
+    };
+    if (_tex == "") exitWith {};
 
-    private _identParts = _ident splitString "_";
-    private _texSuffix = if (_identParts # 1 == "FLYER") then {""} else {_identParts # 2};
-    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa",
-        toLower (_identParts # 1),
-        _texSuffix
-    ];
-    
+
     if (count _guiPos < 1) then {
         _guiPos = [-100, -100];
     };
@@ -51,10 +64,10 @@ for "_i" from _cScopeCount to 15 do
 
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
+private _ntsIndex  = if (_isTpm) then { -1 } else { _fcrTargets findIf {_x # 3 == _nts} };
 private _fcrcount = count _fcrTargets;
 private _antsIndex = -1;
-if (_fcrcount > 1 && _ntsIndex != -1) then {
+if (!_isTpm && _fcrcount > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (_fcrcount min 16);
 };
 
