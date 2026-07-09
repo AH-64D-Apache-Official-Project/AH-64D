@@ -88,110 +88,140 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 private _linesOption = 4; // TEMP: forced until Cscope line display is implemented
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_LINES), str _linesOption];
 
-private _aziSteps   = 120;
+// Constant 1.5°/column at both FOVs — narrow (±45°) needs half the columns of wide (±90°)
+private _aziSteps   = [60, 120] select (_halfFov >= 90);
 private _rangeSteps = 150;
 private _maxRange   = 2500;
 private _aziStepD   = (_halfFov * 2) / _aziSteps;
 private _rangeStep  = _maxRange / _rangeSteps;
 
-private _prevHalfFov = _heli getVariable ["fza_ah64_fcrTPMPrevHalfFov", -1];
-private _hardClear   = _heli getVariable ["fza_ah64_fcrTPMHardClear",   false];
-if (_hardClear) then { _heli setVariable ["fza_ah64_fcrTPMHardClear", false]; };
-private _fovChange   = (!_hardClear && _halfFov != _prevHalfFov && _fcrScanState != FCR_MODE_OFF);
-private _newScan     = _hardClear || _fovChange;
-_heli setVariable ["fza_ah64_fcrTPMPrevHalfFov", _halfFov];
-if (_newScan) then { _heli setVariable ["fza_ah64_fcrTPMLastColIdx", -1]; };
+// Dual-screen guard: with TPM open on both MPDs this draw runs twice per frame.
+// Only the first call consumes the hard-clear/FOV flags and samples terrain;
+// the second call reuses the cached results so both screens get identical data.
+private _frameCache = _heli getVariable ["fza_ah64_fcrTPMFrameCache", [-1, false, false, ""]];
+private _sameFrame  = (_frameCache#0) == CBA_missionTime;
 
-private _colJson = "";
-private _colIdx  = -1;
+private _hardClear = false;
+private _fovChange = false;
+private _colJson   = "";
 
-if (_fcrScanState != FCR_MODE_OFF) then {
-    private _t = (_fcrScanDeltaTime max 0) % _cycleDuration;
-    private _scanBearingAzi = if (_t <= _halfSweepDuration) then {
-        -_halfFov + (_t / _halfSweepDuration) * (_halfFov * 2)
-    } else {
-        _halfFov - ((_t - _halfSweepDuration) / _halfSweepDuration) * (_halfFov * 2)
-    };
+if (_sameFrame) then {
+    _hardClear = _frameCache#1;
+    _fovChange = _frameCache#2;
+    _colJson   = _frameCache#3;
+} else {
+    private _prevHalfFov = _heli getVariable ["fza_ah64_fcrTPMPrevHalfFov", -1];
+    _hardClear = _heli getVariable ["fza_ah64_fcrTPMHardClear", false];
+    if (_hardClear) then { _heli setVariable ["fza_ah64_fcrTPMHardClear", false]; };
+    _fovChange = (!_hardClear && _halfFov != _prevHalfFov && _fcrScanState != FCR_MODE_OFF);
+    private _newScan = _hardClear || _fovChange;
+    _heli setVariable ["fza_ah64_fcrTPMPrevHalfFov", _halfFov];
+    if (_newScan) then { _heli setVariable ["fza_ah64_fcrTPMLastColIdx", -1]; };
 
-    _colIdx = ((floor ((_scanBearingAzi + _halfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
-
-    // Lock heading at each half-sweep flip so columns stay world-aligned
-    private _prevSweepLtoR = _heli getVariable ["fza_ah64_fcrTPMPrevSweepLtoR", -1];
-    private _curSweepLtoR  = parseNumber (_t <= _halfSweepDuration);
-    if (_newScan || _prevSweepLtoR != _curSweepLtoR) then {
-        _heli setVariable ["fza_ah64_fcrTPMScanHeading",   getDir _heli];
-        _heli setVariable ["fza_ah64_fcrTPMPrevSweepLtoR", _curSweepLtoR];
-        _heli setVariable ["fza_ah64_fcrTPMLastColIdx",    -1];
-    };
-    private _scanHeading = _heli getVariable ["fza_ah64_fcrTPMScanHeading", getDir _heli];
-
-    private _lastColIdx = _heli getVariable ["fza_ah64_fcrTPMLastColIdx", -1];
-    private _sweepLtoR  = (_t <= _halfSweepDuration);
-    private _fillFrom = if (_newScan || _lastColIdx < 0) then {
-        if (_sweepLtoR) then { 0 } else { _aziSteps - 1 }
-    } else {
-        if (_sweepLtoR) then {
-            ((_lastColIdx + 1) min _colIdx) max 0
+    if (_fcrScanState != FCR_MODE_OFF) then {
+        private _t = (_fcrScanDeltaTime max 0) % _cycleDuration;
+        private _scanBearingAzi = if (_t <= _halfSweepDuration) then {
+            -_halfFov + (_t / _halfSweepDuration) * (_halfFov * 2)
         } else {
-            (_colIdx max 0) min (_lastColIdx - 1)
-        }
-    };
-    private _fillTo = _colIdx;
-    if (_fillFrom > _fillTo) then {
-        private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp;
-    };
-    _heli setVariable ["fza_ah64_fcrTPMLastColIdx", _colIdx];
+            _halfFov - ((_t - _halfSweepDuration) / _halfSweepDuration) * (_halfFov * 2)
+        };
 
-    if (_colIdx != _lastColIdx || _newScan) then {
-        private _heliPosASL = getPosASL _heli;
-        private _heliWheelZ = (_heliPosASL)#2;
-        private _clearanceM = ([20, 50, 100, 200] select _clearanceFt) * 0.3048;
-        private _safeHeight = _heliWheelZ - _clearanceM;
-        private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"] vectorAdd [0, 0, 0];
-        if (_FCRpos isEqualTo [0,0,0]) then { _FCRpos = _heliPosASL vectorAdd [0, 0, 3]; };
-        private _FCRposZ    = _FCRpos#2;
+        private _colIdx = ((floor ((_scanBearingAzi + _halfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
 
-        private _sampledCols = [];
+        // Lock heading at each half-sweep flip so columns stay world-aligned
+        private _prevSweepLtoR = _heli getVariable ["fza_ah64_fcrTPMPrevSweepLtoR", -1];
+        private _curSweepLtoR  = parseNumber (_t <= _halfSweepDuration);
+        if (_newScan || _prevSweepLtoR != _curSweepLtoR) then {
+            _heli setVariable ["fza_ah64_fcrTPMScanHeading",   getDir _heli];
+            _heli setVariable ["fza_ah64_fcrTPMPrevSweepLtoR", _curSweepLtoR];
+            _heli setVariable ["fza_ah64_fcrTPMLastColIdx",    -1];
+        };
+        private _scanHeading = _heli getVariable ["fza_ah64_fcrTPMScanHeading", getDir _heli];
 
-        for "_ci" from _fillFrom to _fillTo do {
-            private _relAzi   = -_halfFov + (_ci + 0.5) * _aziStepD;
-            private _worldAzi = _scanHeading + _relAzi;
+        private _lastColIdx = _heli getVariable ["fza_ah64_fcrTPMLastColIdx", -1];
+        private _sweepLtoR  = (_t <= _halfSweepDuration);
 
-            private _colLevels    = [];
-            private _horizonSlope = -9999;
-            private _sinAzi       = sin _worldAzi;
-            private _cosAzi       = cos _worldAzi;
+        private _fillFrom = _colIdx;
+        private _fillTo   = _colIdx;
+        if (_newScan || _lastColIdx < 0) then {
+            // Fresh sweep: backfill from the sweep-start edge up to the wiper
+            if (_sweepLtoR) then { _fillFrom = 0; } else { _fillTo = _aziSteps - 1; };
+        } else {
+            // Continue from last progress: L→R fills (last+1..col), R→L fills (col..last-1)
+            if (_sweepLtoR) then {
+                _fillFrom = ((_lastColIdx + 1) min _colIdx) max 0;
+            } else {
+                _fillTo = ((_lastColIdx - 1) max 0) min (_aziSteps - 1);
+            };
+            if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
+        };
 
-            for "_ri" from 0 to (_rangeSteps - 1) do {
-                private _range = (_ri + 0.5) * _rangeStep;
-                private _dx = _sinAzi * _range;
-                private _dy = _cosAzi * _range;
-                private _terrainASL = getTerrainHeightASL [_heliPosASL#0 + _dx, _heliPosASL#1 + _dy, 0];
-                private _level = 2;
-                if (_terrainASL > -1000) then {
-                    private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
-                    if (_cellSlope <= _horizonSlope) then {
-                        _level = 2;
-                    } else {
-                        _horizonSlope = _cellSlope;
-                        _level = if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) };
+        // Cap columns sampled per frame — a frame stutter otherwise backfills the whole
+        // gap in one frame. Progress is stored so the remainder carries to the next frame.
+        private _progressIdx = _colIdx;
+        if (_fillTo - _fillFrom + 1 > 16) then {
+            if (_sweepLtoR) then {
+                _fillTo      = _fillFrom + 15;
+                _progressIdx = _fillTo;
+            } else {
+                _fillFrom    = _fillTo - 15;
+                _progressIdx = _fillFrom;
+            };
+        };
+        _heli setVariable ["fza_ah64_fcrTPMLastColIdx", _progressIdx];
+
+        if (_colIdx != _lastColIdx || _newScan) then {
+            private _heliPosASL = getPosASL _heli;
+            private _heliX      = _heliPosASL#0;
+            private _heliY      = _heliPosASL#1;
+            private _heliWheelZ = _heliPosASL#2;
+            private _clearanceM = ([20, 50, 100, 200] select _clearanceFt) * 0.3048;
+            private _safeHeight = _heliWheelZ - _clearanceM;
+            // selectionPosition is model-space — world ASL Z = heli ASL Z + sensor Z offset
+            private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
+            private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { _heliWheelZ + 3 } else { _heliWheelZ + (_FCRpos#2) };
+
+            private _sampledCols = [];
+
+            for "_ci" from _fillFrom to _fillTo do {
+                private _relAzi   = -_halfFov + (_ci + 0.5) * _aziStepD;
+                private _worldAzi = _scanHeading + _relAzi;
+
+                private _colLevels    = [];
+                private _horizonSlope = -9999;
+                private _sinAzi       = sin _worldAzi;
+                private _cosAzi       = cos _worldAzi;
+
+                for "_ri" from 0 to (_rangeSteps - 1) do {
+                    private _range = (_ri + 0.5) * _rangeStep;
+                    private _terrainASL = getTerrainHeightASL [_heliX + _sinAzi * _range, _heliY + _cosAzi * _range, 0];
+                    private _level = 2;
+                    if (_terrainASL > -1000) then {
+                        private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
+                        if (_cellSlope <= _horizonSlope) then {
+                            // Shadowed: hidden terrain lies below the grazing ray. While the ray
+                            // is at/above the clearance plane the hidden terrain could still
+                            // penetrate it -> unknown (grey). Once the ray drops below the plane,
+                            // everything hidden is provably below it too -> safe (black).
+                            _level = [0, 2] select (_FCRposZ + _horizonSlope * _range >= _safeHeight);
+                        } else {
+                            _horizonSlope = _cellSlope;
+                            _level = if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) };
+                        };
                     };
+                    _colLevels pushBack _level;
                 };
-                _colLevels pushBack _level;
+
+                _sampledCols pushBack format ["{""i"":%1,""d"":[%2]}", _ci, _colLevels joinString ","];
             };
 
-            private _levJson = "[";
-            { if (_forEachIndex > 0) then { _levJson = _levJson + ","; }; _levJson = _levJson + str _x; } forEach _colLevels;
-            _levJson = _levJson + "]";
-            _sampledCols pushBack format ["{""i"":%1,""d"":%2}", _ci, _levJson];
-        };
-
-        if (_sampledCols isNotEqualTo []) then {
-            _colJson = "[";
-            { if (_forEachIndex > 0) then { _colJson = _colJson + ","; }; _colJson = _colJson + _x; } forEach _sampledCols;
-            _colJson = _colJson + "]";
+            if (_sampledCols isNotEqualTo []) then {
+                _colJson = "[" + (_sampledCols joinString ",") + "]";
+            };
         };
     };
+
+    _heli setVariable ["fza_ah64_fcrTPMFrameCache", [CBA_missionTime, _hardClear, _fovChange, _colJson]];
 };
 
 private _json = format[
@@ -210,7 +240,13 @@ private _json = format[
 private _uniqueId = (_heli getVariable "fza_mpd_mpdState") # _mpdIndex # 9;
 private _display  = (uiNamespace getVariable ["fza_mpd_htmlDisplay", createHashMap]) getOrDefault [_uniqueId, displayNull];
 if (!isNull _display) then {
-    [_display displayCtrl 369, format ["fzaFCRTpm.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+    // Skip the browser push when nothing changed for this display (idle FCR-off frames).
+    // Keyed on the browser control so the cache dies with the display on page close.
+    private _browserCtrl = _display displayCtrl 369;
+    if ((_browserCtrl getVariable ["fza_fcrTpmLastJson", ""]) != _json) then {
+        _browserCtrl setVariable ["fza_fcrTpmLastJson", _json];
+        [_browserCtrl, format ["fzaFCRTpm.update(%1)", _json]] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+    };
 };
 
 // TODO: obstacle drawing — re-enable once terrain display is stable

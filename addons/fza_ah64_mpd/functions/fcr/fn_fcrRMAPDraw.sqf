@@ -109,164 +109,185 @@ private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _fcrAzBias      = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov     = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-private _surfHard = createHashMapFromArray [
-    ["metal",1],["steel",1],["rock",1],["stone",1],["concrete",1],["asphalt",1],
-    ["gravel",1],["rubble",1],["ruin",1],["building",1],["road",1],["runway",1],
-    ["tarmac",1],["cobble",1]
-];
-private _surfSoft = createHashMapFromArray [
-    ["grass",1],["forest",1],["leaves",1],["water",1],["lake",1],["sea",1],
-    ["sand",1],["beach",1],["snow",1],["ice",1],["mud",1],["dirt",1],["soil",1],["bog",1]
-];
-
-private _aziSteps     = 200;
-private _nearSteps    = 100;
-private _farSteps     = 100;
+private _aziSteps     = 300;
+private _nearSteps    = 150;
+private _farSteps     = 150;
 private _maxRange     = 8000;
 private _nearMaxRange = 4000;
 private _nearRangeStep = _nearMaxRange / _nearSteps;
 private _farRangeStep  = (_maxRange - _nearMaxRange) / _farSteps;
 private _aziStepD     = (_gtmHalfFov * 2) / _aziSteps;
 
-private _hardClear = _heli getVariable ["fza_ah64_fcrRMAPHardClear", false];
-if (_hardClear) then {
-    _heli setVariable ["fza_ah64_fcrRMAPHardClear",       false];
-    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",       -1];
-    _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes",    []];
-};
+// Dual-screen guard: with RMAP open on both MPDs this draw runs twice per frame.
+// Only the first call consumes the hard-clear flag and samples terrain; the second
+// reuses the cached results so both screens get identical data (incl. the flag).
+private _frameCache = _heli getVariable ["fza_ah64_fcrRMAPFrameCache", [-1, false, ""]];
+private _sameFrame  = (_frameCache#0) == CBA_missionTime;
 
-private _colJson = "";
-private _colIdx  = -1;
+private _hardClear = false;
+private _colJson   = "";
 
-if (_fcrScanState != FCR_MODE_OFF) then {
-    private _t = (_fcrScanDeltaTime max 0) % 3.2;
-    private _isNearPhase = (_t <= 1.6);
-
-    // Near sweeps L→R (0–4000m), far sweeps R→L (4000–8000m)
-    private _scanBearingAzi = if (_isNearPhase) then {
-        -_gtmHalfFov + (_t / 1.6) * (_gtmHalfFov * 2)
-    } else {
-        _gtmHalfFov - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
+if (_sameFrame) then {
+    _hardClear = _frameCache#1;
+    _colJson   = _frameCache#2;
+} else {
+    _hardClear = _heli getVariable ["fza_ah64_fcrRMAPHardClear", false];
+    if (_hardClear) then {
+        _heli setVariable ["fza_ah64_fcrRMAPHardClear",    false];
+        _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",    -1];
+        _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
     };
 
-    _colIdx = ((floor ((_scanBearingAzi + _gtmHalfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
+    if (_fcrScanState != FCR_MODE_OFF) then {
+        private _t = (_fcrScanDeltaTime max 0) % 3.2;
+        private _isNearPhase = (_t <= 1.6);
 
-    // Lock heading to _dir at each phase flip to prevent misalignment mid-turn
-    private _prevSweepIsNear = _heli getVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", -1];
-    private _curPhaseNum     = parseNumber _isNearPhase;
-    if (_hardClear || _prevSweepIsNear != _curPhaseNum) then {
-        _heli setVariable ["fza_ah64_fcrRMAPScanHeading",     _dir];
-        _heli setVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", _curPhaseNum];
-        _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",      -1];
-    };
-    private _scanHeading = _heli getVariable ["fza_ah64_fcrRMAPScanHeading", _dir];
-
-    private _lastColIdx = _heli getVariable ["fza_ah64_fcrRMAPLastColIdx", -1];
-
-    private _fillFrom = _colIdx;
-    private _fillTo   = _colIdx;
-    if (!_hardClear && _lastColIdx >= 0) then {
-        if (_isNearPhase) then {
-            _fillFrom = ((_lastColIdx + 1) max 0) min (_aziSteps - 1);
-            _fillTo   = _colIdx;
+        // Near sweeps L→R (0–4000m), far sweeps R→L (4000–8000m)
+        private _scanBearingAzi = if (_isNearPhase) then {
+            -_gtmHalfFov + (_t / 1.6) * (_gtmHalfFov * 2)
         } else {
-            _fillFrom = _colIdx;
-            _fillTo   = ((_lastColIdx - 1) max 0) min (_aziSteps - 1);
+            _gtmHalfFov - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
         };
-        if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
-    };
 
-    _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _colIdx];
+        private _colIdx = ((floor ((_scanBearingAzi + _gtmHalfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
 
-    private _lastSampleTime = _heli getVariable ["fza_ah64_fcrRMAPLastSampleTime", -1];
-    private _alreadySampled = (_lastSampleTime == CBA_missionTime);
+        // Lock heading to _dir at each phase flip to prevent misalignment mid-turn
+        private _prevSweepIsNear = _heli getVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", -1];
+        private _curPhaseNum     = parseNumber _isNearPhase;
+        if (_hardClear || _prevSweepIsNear != _curPhaseNum) then {
+            _heli setVariable ["fza_ah64_fcrRMAPScanHeading",     _dir];
+            _heli setVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", _curPhaseNum];
+            _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",      -1];
+        };
+        private _scanHeading = _heli getVariable ["fza_ah64_fcrRMAPScanHeading", _dir];
 
-    if (_alreadySampled) then {
-        _colJson = _heli getVariable ["fza_ah64_fcrRMAPLastColJson", ""];
-    };
+        private _lastColIdx = _heli getVariable ["fza_ah64_fcrRMAPLastColIdx", -1];
 
-    if (!_alreadySampled && (_colIdx != _lastColIdx || _hardClear)) then {
-        private _heliPosASL = getPosASL _heli;
-        private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
-        private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { (_heliPosASL#2) + 3 } else { (_heliPosASL#2) + (_FCRpos#2) };
+        private _fillFrom = _colIdx;
+        private _fillTo   = _colIdx;
+        if (!_hardClear && _lastColIdx >= 0) then {
+            if (_isNearPhase) then {
+                _fillFrom = ((_lastColIdx + 1) max 0) min (_aziSteps - 1);
+                _fillTo   = _colIdx;
+            } else {
+                _fillFrom = _colIdx;
+                _fillTo   = ((_lastColIdx - 1) max 0) min (_aziSteps - 1);
+            };
+            if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
+        };
 
-        private _startRange = [_nearMaxRange, 0] select _isNearPhase;
-        private _stepSize   = [_farRangeStep, _nearRangeStep] select _isNearPhase;
-        private _stepCount  = [_farSteps, _nearSteps] select _isNearPhase;
-        private _isNearStr  = ["false","true"] select _isNearPhase;
+        // Cap columns sampled per frame — a frame stutter otherwise backfills the whole
+        // gap in one frame. Progress is stored so the remainder carries to the next frame.
+        private _progressIdx = _colIdx;
+        if (_fillTo - _fillFrom + 1 > 24) then {
+            if (_isNearPhase) then {
+                _fillTo      = _fillFrom + 23;
+                _progressIdx = _fillTo;
+            } else {
+                _fillFrom    = _fillTo - 23;
+                _progressIdx = _fillFrom;
+            };
+        };
+        _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _progressIdx];
 
-        private _sampledCols  = [];
-        private _heliX        = _heliPosASL#0;
-        private _heliY        = _heliPosASL#1;
-        private _savedSlopes  = _heli getVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
-        private _newSlopes    = +_savedSlopes;
+        if (_colIdx != _lastColIdx || _hardClear) then {
+            private _heliPosASL = getPosASL _heli;
+            private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
+            private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { (_heliPosASL#2) + 3 } else { (_heliPosASL#2) + (_FCRpos#2) };
 
-        for "_ci" from _fillFrom to _fillTo do {
-            private _relAzi   = -_gtmHalfFov + (_ci + 0.5) * _aziStepD;
-            private _worldAzi = _scanHeading + _relAzi;
-            private _sinAzi   = sin _worldAzi;
-            private _cosAzi   = cos _worldAzi;
+            private _startRange = [_nearMaxRange, 0] select _isNearPhase;
+            private _stepSize   = [_farRangeStep, _nearRangeStep] select _isNearPhase;
+            private _stepCount  = [_farSteps, _nearSteps] select _isNearPhase;
+            private _isNearStr  = ["false","true"] select _isNearPhase;
 
-            private _prevTerrainZ = getTerrainHeightASL [_heliX + _sinAzi * (_startRange max _stepSize), _heliY + _cosAzi * (_startRange max _stepSize), 0];
-            private _colLevels    = [];
-            private _horizonSlope = if (_isNearPhase) then { -9999 } else { _savedSlopes param [_ci, -9999] };
+            // Surface classification memo — surfaceType returns CamelCase class names
+            // with no separators (e.g. "#GdtGrassGreen"), so keyword matching must be
+            // substring find. Done once per unique surface name, then cached: per cell
+            // this is a single hashmap lookup.
+            private _surfCache = uiNamespace getVariable "fza_fcr_surfModCache";
+            if (isNil "_surfCache") then {
+                _surfCache = createHashMap;
+                uiNamespace setVariable ["fza_fcr_surfModCache", _surfCache];
+            };
 
-            for "_ri" from 0 to (_stepCount - 1) do {
-                private _range      = _startRange + (_ri + 0.5) * _stepSize;
-                private _cellX      = _heliX + _sinAzi * _range;
-                private _cellY      = _heliY + _cosAzi * _range;
-                private _terrainASL = getTerrainHeightASL [_cellX, _cellY, 0];
-                private _level      = 0;
+            private _sampledCols  = [];
+            private _heliX        = _heliPosASL#0;
+            private _heliY        = _heliPosASL#1;
+            private _savedSlopes  = _heli getVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
+            private _newSlopes    = +_savedSlopes;
 
-                if (_terrainASL > -1000) then {
-                    private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
+            for "_ci" from _fillFrom to _fillTo do {
+                private _relAzi   = -_gtmHalfFov + (_ci + 0.5) * _aziStepD;
+                private _worldAzi = _scanHeading + _relAzi;
+                private _sinAzi   = sin _worldAzi;
+                private _cosAzi   = cos _worldAzi;
 
-                    if (_cellSlope > _horizonSlope) then {
-                        _horizonSlope = _cellSlope;
-                        // tan thresholds avoid atan: tan(1°)=0.0175 tan(5°)=0.0875 tan(15°)=0.268 tan(25°)=0.466 tan(35°)=0.700
-                        private _slope = abs(_terrainASL - _prevTerrainZ) / _stepSize;
-                        _level = if (_slope < 0.0175) then { 1 }
-                            else { if (_slope < 0.0875) then { 2 }
-                            else { if (_slope < 0.268)  then { 3 }
-                            else { if (_slope < 0.466)  then { 4 }
-                            else { [6, 5] select (_slope < 0.700) } } } };
-                        private _surfMod = 0;
-                        {
-                            if (_surfHard getOrDefault [_x, 0] == 1) exitWith { _surfMod =  1; };
-                            if (_surfSoft getOrDefault [_x, 0] == 1) exitWith { _surfMod = -1; };
-                        } forEach (toLower (surfaceType [_cellX, _cellY]) splitString "#_");
-                        _level = (_level + _surfMod) min 6 max 1;
+                private _prevTerrainZ = getTerrainHeightASL [_heliX + _sinAzi * (_startRange max _stepSize), _heliY + _cosAzi * (_startRange max _stepSize), 0];
+                private _colLevels    = [];
+                private _horizonSlope = if (_isNearPhase) then { -9999 } else { _savedSlopes param [_ci, -9999] };
+
+                for "_ri" from 0 to (_stepCount - 1) do {
+                    private _range      = _startRange + (_ri + 0.5) * _stepSize;
+                    private _cellX      = _heliX + _sinAzi * _range;
+                    private _cellY      = _heliY + _cosAzi * _range;
+                    private _terrainASL = getTerrainHeightASL [_cellX, _cellY, 0];
+                    private _level      = 0;
+
+                    if (_terrainASL > -1000) then {
+                        private _cellSlope = (_terrainASL + 1 - _FCRposZ) / _range;
+
+                        if (_cellSlope > _horizonSlope) then {
+                            _horizonSlope = _cellSlope;
+                            // tan thresholds avoid atan: tan(1°)=0.0175 tan(5°)=0.0875 tan(15°)=0.268 tan(25°)=0.466 tan(35°)=0.700
+                            private _slope = abs(_terrainASL - _prevTerrainZ) / _stepSize;
+                            _level = if (_slope < 0.0175) then { 1 }
+                                else { if (_slope < 0.0875) then { 2 }
+                                else { if (_slope < 0.268)  then { 3 }
+                                else { if (_slope < 0.466)  then { 4 }
+                                else { [6, 5] select (_slope < 0.700) } } } };
+                            private _surfType = surfaceType [_cellX, _cellY];
+                            private _surfMod  = _surfCache getOrDefault [_surfType, -2];
+                            if (_surfMod == -2) then {
+                                private _s = toLower _surfType;
+                                _surfMod = 0;
+                                {
+                                    if ((_s find _x) >= 0) exitWith { _surfMod = 1; };
+                                } forEach ["metal","steel","rock","stone","concrete","asphalt","gravel","rubble","ruin","building","road","runway","tarmac","cobble"];
+                                if (_surfMod == 0) then {
+                                    {
+                                        if ((_s find _x) >= 0) exitWith { _surfMod = -1; };
+                                    } forEach ["grass","forest","leaves","water","lake","sea","sand","beach","snow","ice","mud","dirt","soil","bog"];
+                                };
+                                _surfCache set [_surfType, _surfMod];
+                            };
+                            _level = (_level + _surfMod) min 6 max 1;
+                        };
                     };
+
+                    _prevTerrainZ = _terrainASL;
+                    _colLevels pushBack _level;
                 };
 
-                _prevTerrainZ = _terrainASL;
-                _colLevels pushBack _level;
+                // Accumulate near-phase horizon slopes locally — flushed once after column loop
+                if (_isNearPhase) then {
+                    while {count _newSlopes <= _ci} do { _newSlopes pushBack -9999; };
+                    _newSlopes set [_ci, _horizonSlope];
+                };
+
+                _sampledCols pushBack format ["{""i"":%1,""near"":%2,""d"":[%3]}", _ci, _isNearStr, _colLevels joinString ","];
             };
 
-            // Accumulate near-phase horizon slopes locally — flushed once after column loop
-            if (_isNearPhase) then {
-                while {count _newSlopes <= _ci} do { _newSlopes pushBack -9999; };
-                _newSlopes set [_ci, _horizonSlope];
+            if (_isNearPhase && count _newSlopes > 0) then {
+                _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", _newSlopes];
             };
 
-            private _levJson = "[";
-            { if (_forEachIndex > 0) then { _levJson = _levJson + ","; }; _levJson = _levJson + str _x; } forEach _colLevels;
-            _levJson = _levJson + "]";
-            _sampledCols pushBack format ["{""i"":%1,""near"":%2,""d"":%3}", _ci, _isNearStr, _levJson];
+            if (_sampledCols isNotEqualTo []) then {
+                _colJson = "[" + (_sampledCols joinString ",") + "]";
+            };
         };
-
-        if (_isNearPhase && count _newSlopes > 0) then {
-            _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", _newSlopes];
-        };
-
-        if (_sampledCols isNotEqualTo []) then {
-            _colJson = "[";
-            { if (_forEachIndex > 0) then { _colJson = _colJson + ","; }; _colJson = _colJson + _x; } forEach _sampledCols;
-            _colJson = _colJson + "]";
-        };
-        _heli setVariable ["fza_ah64_fcrRMAPLastColJson",    _colJson];
-        _heli setVariable ["fza_ah64_fcrRMAPLastSampleTime", CBA_missionTime];
     };
+
+    _heli setVariable ["fza_ah64_fcrRMAPFrameCache", [CBA_missionTime, _hardClear, _colJson]];
 };
 
 private _json = format[

@@ -19,6 +19,8 @@
 
     var terrainGrid = [];
     var hasData     = false;
+    var dirty       = true;   // repaint only when data/geometry changed — not every RAF tick
+    var imgData     = null;   // persistent pixel buffer, reallocated only on resize
 
     var params = {
         halfFov:    90,
@@ -29,16 +31,25 @@
         clearanceFt: 50
     };
 
+    function resetBuffer() {
+        if (!ctx) { return; }
+        imgData = ctx.createImageData(W, H);
+        var px = imgData.data;
+        for (var i = 3; i < px.length; i += 4) { px[i] = 255; } // opaque black
+    }
+
     function clearGrid(aziSteps) {
         terrainGrid = new Array(aziSteps).fill(null);
-        hasData = false;
+        hasData     = false;
+        resetBuffer();
+        dirty       = true;
     }
 
     function init() {
         canvas = document.getElementById("canvas");
         ctx    = canvas.getContext("2d");
-        clearGrid(params.aziSteps);
         resize();
+        clearGrid(params.aziSteps);
         window.addEventListener("resize", resize);
         requestAnimationFrame(renderLoop);
     }
@@ -49,12 +60,13 @@
         OX    = W / 2;
         OY    = H * 0.890;  // HPP ownship y=0.870 mapped to canvas
         SCALE = (H * 0.6316) / MAX_RANGE_M;
+        resetBuffer();
+        dirty = true;
     }
 
 
+    // Polar pixel fill into the persistent buffer; unscanned wedges stay black.
     function drawTerrain() {
-        if (!hasData) { return; }
-
         var halfFov    = params.halfFov;
         var aziSteps   = params.aziSteps;
         var rangeSteps = params.rangeSteps;
@@ -65,8 +77,7 @@
         minR2 *= minR2;
         maxR2 *= maxR2;
 
-        var imgData = ctx.createImageData(W, H);
-        var px      = imgData.data;
+        var px = imgData.data;
 
         for (var y = 0; y < H; y++) {
             var dy = y - OY; // canvas Y relative to ownship (positive = down = behind)
@@ -114,8 +125,6 @@
                 px[i + 3] = 255;
             }
         }
-
-        ctx.putImageData(imgData, 0, 0);
     }
 
 
@@ -126,18 +135,20 @@
         var oh = canvas.offsetHeight || 512;
         if (W !== ow || H !== oh) { resize(); }
 
-        ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, W, H);
+        if (!dirty) { return; }
+        dirty = false;
 
-        if (!hasData) { return; }
-
-        drawTerrain();
+        if (hasData) { drawTerrain(); }
+        ctx.putImageData(imgData, 0, 0);
     }
 
     window.fzaFCRTpm = {
         update: function (data) {
-            if (data.halfFov    !== undefined) { params.halfFov    = data.halfFov;    }
+            if (data.halfFov !== undefined && data.halfFov !== params.halfFov) {
+                params.halfFov = data.halfFov;
+                resetBuffer(); // geometry remap — old sector pixels must not linger
+                dirty = true;
+            }
             if (data.aziSteps   !== undefined) { params.aziSteps   = data.aziSteps;   }
             if (data.rangeSteps !== undefined) { params.rangeSteps = data.rangeSteps; }
             if (data.profMode   !== undefined) { params.profMode   = data.profMode;   }
@@ -151,6 +162,7 @@
             if (data.fovChange) {
                 while (terrainGrid.length < params.aziSteps) { terrainGrid.push(null); }
                 if (terrainGrid.length > params.aziSteps) { terrainGrid.length = params.aziSteps; }
+                dirty = true;
             }
 
             if (data.columns) {
@@ -158,6 +170,7 @@
                     terrainGrid[data.columns[c].i] = data.columns[c].d;
                 }
                 hasData = true;
+                dirty   = true;
             }
         }
     };

@@ -58,9 +58,10 @@ class root {
     // 2. BLACKOUT MASK
     // Black polygons covering everything outside the TPM sector footprint.
     // HTML canvas black background handles the curved interior regions.
-    // Top/bottom masks are always active. Side masks are mode-gated:
-    //   Wide  (TPM_WIDE=1): straight vertical strips at x=0.080/0.920.
-    //   Narrow (TPM_WIDE=0): same strips PLUS triangular corners outside the +-45 deg V.
+    // Top/bottom masks are always active. Mode-gated masks trace the exact footprint
+    // boundary: the 2500m arc is covered by convex trapezoid strips built from the
+    // SAME points as lines_tpmGeometry_* (chord-for-chord match), the narrow radials
+    // by rect+triangle pairs (concave polygons fan-fill unreliably in MFD configs).
     class tpmBlackoutMask_Always {
         color[] = {0, 0, 0, 1};
         class MaskTop {
@@ -87,7 +88,8 @@ class root {
         };
     };
 
-    // Wide mode mask: vertical side strips only. Active when TPM_WIDE=1.
+    // Wide mode mask (TPM_WIDE=1): side strips at the x=0.080/0.920 border verticals,
+    // plus trapezoid strips filling the region between the 2500m wide arc and y=0.270.
     class tpmBlackoutMask_Wide {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TPM_WIDE), 1));
         class lines {
@@ -114,14 +116,34 @@ class root {
                     }
                 };
             };
+            // One convex strip per arc chord — points match lines_tpmGeometry_Wide 2500m arc
+            class MaskArcTop {
+                type = "polygon";
+                points[] = {
+                    { {{0.080, 0.442}, 1}, {{0.124, 0.403}, 1}, {{0.124, 0.270}, 1}, {{0.080, 0.270}, 1} },
+                    { {{0.124, 0.403}, 1}, {{0.171, 0.369}, 1}, {{0.171, 0.270}, 1}, {{0.124, 0.270}, 1} },
+                    { {{0.171, 0.369}, 1}, {{0.221, 0.339}, 1}, {{0.221, 0.270}, 1}, {{0.171, 0.270}, 1} },
+                    { {{0.221, 0.339}, 1}, {{0.273, 0.315}, 1}, {{0.273, 0.270}, 1}, {{0.221, 0.270}, 1} },
+                    { {{0.273, 0.315}, 1}, {{0.328, 0.295}, 1}, {{0.328, 0.270}, 1}, {{0.273, 0.270}, 1} },
+                    { {{0.328, 0.295}, 1}, {{0.384, 0.281}, 1}, {{0.384, 0.270}, 1}, {{0.328, 0.270}, 1} },
+                    { {{0.384, 0.281}, 1}, {{0.442, 0.273}, 1}, {{0.442, 0.270}, 1}, {{0.384, 0.270}, 1} },
+                    { {{0.442, 0.273}, 1}, {{0.500, 0.270}, 1}, {{0.442, 0.270}, 1} },
+                    { {{0.500, 0.270}, 1}, {{0.558, 0.273}, 1}, {{0.558, 0.270}, 1} },
+                    { {{0.558, 0.273}, 1}, {{0.616, 0.281}, 1}, {{0.616, 0.270}, 1}, {{0.558, 0.270}, 1} },
+                    { {{0.616, 0.281}, 1}, {{0.672, 0.295}, 1}, {{0.672, 0.270}, 1}, {{0.616, 0.270}, 1} },
+                    { {{0.672, 0.295}, 1}, {{0.727, 0.315}, 1}, {{0.727, 0.270}, 1}, {{0.672, 0.270}, 1} },
+                    { {{0.727, 0.315}, 1}, {{0.779, 0.339}, 1}, {{0.779, 0.270}, 1}, {{0.727, 0.270}, 1} },
+                    { {{0.779, 0.339}, 1}, {{0.829, 0.369}, 1}, {{0.829, 0.270}, 1}, {{0.779, 0.270}, 1} },
+                    { {{0.829, 0.369}, 1}, {{0.876, 0.403}, 1}, {{0.876, 0.270}, 1}, {{0.829, 0.270}, 1} },
+                    { {{0.876, 0.403}, 1}, {{0.920, 0.442}, 1}, {{0.920, 0.270}, 1}, {{0.876, 0.270}, 1} }
+                };
+            };
         };
     };
 
-    // Narrow mode mask: single polygon per side covering everything outside the +-45 deg V-shape.
-    // Coordinates match the footprint radial lines exactly — footprint geometry draws on top.
-    // -45 deg radial: ownship (0.500,0.870) -> tip (0.076,0.446) at 2500m.
-    // +45 deg radial: ownship (0.500,0.870) -> tip (0.924,0.446) at 2500m.
-    // Active when TPM_WIDE=0.
+    // Narrow mode mask (TPM_WIDE=0): everything outside the +-45 deg V and the 2500m arc.
+    // -45 deg radial: ownship (0.500,0.870) -> tip (0.076,0.446); +45 deg mirrored at 0.924.
+    // Side coverage split into convex rect + radial triangle per side.
     class tpmBlackoutMask_Narrow {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TPM_WIDE), 0));
         class lines {
@@ -129,25 +151,29 @@ class root {
             class MaskNarrowLeft {
                 type = "polygon";
                 points[] = {
-                    {
-                        {{0.000, 0.270}, 1},
-                        {{0.076, 0.270}, 1},
-                        {{0.076, 0.446}, 1},
-                        {{0.500, 0.870}, 1},
-                        {{0.000, 0.870}, 1}
-                    }
+                    { {{0.000, 0.270}, 1}, {{0.076, 0.270}, 1}, {{0.076, 0.870}, 1}, {{0.000, 0.870}, 1} },
+                    { {{0.076, 0.446}, 1}, {{0.500, 0.870}, 1}, {{0.076, 0.870}, 1} }
                 };
             };
             class MaskNarrowRight {
                 type = "polygon";
                 points[] = {
-                    {
-                        {{0.924, 0.270}, 1},
-                        {{1.000, 0.270}, 1},
-                        {{1.000, 0.870}, 1},
-                        {{0.500, 0.870}, 1},
-                        {{0.924, 0.446}, 1}
-                    }
+                    { {{0.924, 0.270}, 1}, {{1.000, 0.270}, 1}, {{1.000, 0.870}, 1}, {{0.924, 0.870}, 1} },
+                    { {{0.924, 0.446}, 1}, {{0.924, 0.870}, 1}, {{0.500, 0.870}, 1} }
+                };
+            };
+            // One convex strip per arc chord — points match lines_tpmGeometry_Narrow 2500m arc
+            class MaskArcTop {
+                type = "polygon";
+                points[] = {
+                    { {{0.076, 0.446}, 1}, {{0.167, 0.371}, 1}, {{0.167, 0.270}, 1}, {{0.076, 0.270}, 1} },
+                    { {{0.167, 0.371}, 1}, {{0.271, 0.316}, 1}, {{0.271, 0.270}, 1}, {{0.167, 0.270}, 1} },
+                    { {{0.271, 0.316}, 1}, {{0.383, 0.282}, 1}, {{0.383, 0.270}, 1}, {{0.271, 0.270}, 1} },
+                    { {{0.383, 0.282}, 1}, {{0.500, 0.270}, 1}, {{0.383, 0.270}, 1} },
+                    { {{0.500, 0.270}, 1}, {{0.617, 0.282}, 1}, {{0.617, 0.270}, 1} },
+                    { {{0.617, 0.282}, 1}, {{0.729, 0.316}, 1}, {{0.729, 0.270}, 1}, {{0.617, 0.270}, 1} },
+                    { {{0.729, 0.316}, 1}, {{0.833, 0.371}, 1}, {{0.833, 0.270}, 1}, {{0.729, 0.270}, 1} },
+                    { {{0.833, 0.371}, 1}, {{0.924, 0.446}, 1}, {{0.924, 0.270}, 1}, {{0.833, 0.270}, 1} }
                 };
             };
         };
@@ -173,7 +199,7 @@ class root {
     };
 
     // 4. HEADING TAPE
-    #include "common\fcrHeadingTape.hpp"
+    #include "..\common\fcrHeadingTape.hpp"
     class Obscurants {
         color[] = {0,0,0,1};
         class HeadingTape {

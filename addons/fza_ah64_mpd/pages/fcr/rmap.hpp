@@ -162,7 +162,7 @@ class root {
     };
 
     // ── 5. HEADING TAPE ──────────────────────────────────────────────────────
-    #include "common\fcrHeadingTape.hpp"
+    #include "..\common\fcrHeadingTape.hpp"
     class Obscurants {
         color[] = {0,0,0,1};
         class HeadingTape {

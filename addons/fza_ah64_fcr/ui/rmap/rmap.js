@@ -25,6 +25,13 @@
     var farGrid  = [];
     var hasData  = false;
 
+    // Repaint bookkeeping: full repaints only on clear/resize/FOV change,
+    // otherwise only the x-band of newly received columns is recomputed+blitted.
+    var fullDirty   = true;
+    var dirtyColMin = -1;
+    var dirtyColMax = -1;
+    var imgData     = null;  // persistent pixel buffer, reallocated only on resize
+
     var params = {
         halfFov:   45,
         aziSteps:  120,
@@ -32,17 +39,31 @@
         farSteps:  80
     };
 
+    function markCol(i) {
+        if (dirtyColMin < 0 || i < dirtyColMin) { dirtyColMin = i; }
+        if (i > dirtyColMax) { dirtyColMax = i; }
+    }
+
+    function resetBuffer() {
+        if (!ctx) { return; }
+        imgData = ctx.createImageData(W, H);
+        var px = imgData.data;
+        for (var i = 3; i < px.length; i += 4) { px[i] = 255; } // opaque black
+    }
+
     function clearGrid(aziSteps) {
-        nearGrid = new Array(aziSteps).fill(null);
-        farGrid  = new Array(aziSteps).fill(null);
-        hasData  = false;
+        nearGrid  = new Array(aziSteps).fill(null);
+        farGrid   = new Array(aziSteps).fill(null);
+        hasData   = false;
+        resetBuffer();
+        fullDirty = true;
     }
 
     function init() {
         canvas = document.getElementById("canvas");
         ctx    = canvas.getContext("2d");
-        clearGrid(params.aziSteps);
         resize();
+        clearGrid(params.aziSteps);
         window.addEventListener("resize", resize);
         requestAnimationFrame(renderLoop);
     }
@@ -50,12 +71,13 @@
     function resize() {
         W = canvas.width  = canvas.offsetWidth  || 512;
         H = canvas.height = canvas.offsetHeight || 512;
+        resetBuffer();
+        fullDirty = true;
     }
 
-    // B-scope pixel fill — bottom=near (0m), top=far (8000m)
-    function drawTerrain() {
-        if (!hasData) { return; }
-
+    // B-scope pixel fill for x in [xFrom, xTo] — bottom=near (0m), top=far (8000m).
+    // Writes into the persistent buffer; unscanned columns stay black.
+    function paintPixels(xFrom, xTo) {
         var halfFov   = params.halfFov;
         var aziSteps  = params.aziSteps;
         var nearSteps = params.nearSteps;
@@ -72,8 +94,10 @@
         var nearStepM = NEAR_MAX_M / nearSteps;
         var farStepM  = (MAX_RANGE_M - NEAR_MAX_M) / farSteps;
 
-        var imgData = ctx.createImageData(W, H);
-        var px      = imgData.data;
+        if (xFrom < rLeft)  { xFrom = Math.ceil(rLeft);   }
+        if (xTo   > rRight) { xTo   = Math.floor(rRight); }
+
+        var px = imgData.data;
 
         for (var y = 0; y < H; y++) {
             if (y < rTop || y > rBottom) { continue; }
@@ -88,9 +112,8 @@
             if (ri < 0)         { ri = 0; }
             if (ri >= maxSteps) { ri = maxSteps - 1; }
 
-            for (var x = 0; x < W; x++) {
-                if (x < rLeft || x > rRight) { continue; }
-
+            var rowIdx = y * W * 4;
+            for (var x = xFrom; x <= xTo; x++) {
                 var aziFrac = (x - rLeft) / rW;
                 var aziDeg  = (aziFrac - 0.5) * halfFov * 2;
                 var ai      = Math.floor((aziDeg + halfFov) / aziStepD);
@@ -102,7 +125,6 @@
 
                 var lv = col[ri];
                 // Blend across near/far boundary to remove hard seam
-                var boundaryFrac = (rangeM - NEAR_MAX_M) / stepM;
                 if (isNear && ri === nearSteps - 1) {
                     var farCol = farGrid[ai];
                     if (farCol) { lv = lv * 0.5 + farCol[0] * 0.5; }
@@ -114,15 +136,13 @@
                 if (lv < 0) { lv = 0; }
                 if (lv > 6) { lv = 6; }
                 var c   = LEVEL_RGB[lv];
-                var idx = (y * W + x) * 4;
+                var idx = rowIdx + x * 4;
                 px[idx    ] = c[0];
                 px[idx + 1] = c[1];
                 px[idx + 2] = c[2];
                 px[idx + 3] = 255;
             }
         }
-
-        ctx.putImageData(imgData, 0, 0);
     }
 
     function renderLoop() {
@@ -132,16 +152,31 @@
         var oh = canvas.offsetHeight || 512;
         if (W !== ow || H !== oh) { resize(); }
 
-        ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, W, H);
-
-        if (hasData) { drawTerrain(); }
+        if (fullDirty) {
+            if (hasData) { paintPixels(0, W - 1); }
+            ctx.putImageData(imgData, 0, 0);
+        } else if (dirtyColMin >= 0) {
+            // Repaint only the x-band spanned by the newly received columns (±1 px margin)
+            var rLeft = RADAR_LEFT  * W;
+            var rW    = (RADAR_RIGHT - RADAR_LEFT) * W;
+            var bx0   = Math.max(0,     Math.floor(rLeft + (dirtyColMin       / params.aziSteps) * rW) - 1);
+            var bx1   = Math.min(W - 1, Math.ceil (rLeft + ((dirtyColMax + 1) / params.aziSteps) * rW) + 1);
+            paintPixels(bx0, bx1);
+            var yTop = Math.max(0, Math.floor(RADAR_TOP * H));
+            var yH   = Math.min(H, Math.ceil(RADAR_BOTTOM * H) + 1) - yTop;
+            ctx.putImageData(imgData, 0, 0, bx0, yTop, bx1 - bx0 + 1, yH);
+        }
+        fullDirty   = false;
+        dirtyColMin = -1;
+        dirtyColMax = -1;
     }
 
     window.fzaFCRRmap = {
         update: function (data) {
-            if (data.halfFov    !== undefined) { params.halfFov    = data.halfFov;    }
+            if (data.halfFov !== undefined && data.halfFov !== params.halfFov) {
+                params.halfFov = data.halfFov;
+                fullDirty = true; // azimuth mapping changed — remap everything
+            }
             if (data.aziSteps   !== undefined) { params.aziSteps   = data.aziSteps;   }
             if (data.nearSteps  !== undefined) { params.nearSteps  = data.nearSteps;  }
             if (data.farSteps   !== undefined) { params.farSteps   = data.farSteps;   }
@@ -156,6 +191,7 @@
                     } else {
                         farGrid[col.i]  = col.d;
                     }
+                    markCol(col.i);
                 }
                 hasData = true;
             }
