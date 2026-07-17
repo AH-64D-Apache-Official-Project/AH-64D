@@ -196,6 +196,27 @@ if (_value) then {
                 [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
             };
         };
+        // TM 4.5.4: scan size switch active only when FCR is the selected sight; adopted at next scan start
+        case "fza_ah64_fcrScanSize_W": {
+            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
+                _heli setVariable ["fza_ah64_fcrScanSize", 0, true];
+            };
+        };
+        case "fza_ah64_fcrScanSize_M": {
+            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
+                _heli setVariable ["fza_ah64_fcrScanSize", 1, true];
+            };
+        };
+        case "fza_ah64_fcrScanSize_N": {
+            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
+                _heli setVariable ["fza_ah64_fcrScanSize", 2, true];
+            };
+        };
+        case "fza_ah64_fcrScanSize_Z": {
+            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
+                _heli setVariable ["fza_ah64_fcrScanSize", 3, true];
+            };
+        };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;
         };

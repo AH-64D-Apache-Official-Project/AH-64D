@@ -27,15 +27,7 @@ switch _control do {
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "r1": {
-        // ZOOM — cycle scan size (WIDE → MED → NRW → ZOOM)
-        private _halfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
-        private _newFov = switch (round _halfFov) do {
-            case 45:  { 22.5 };  // WIDE -> MED
-            case 22:  { 11.25 }; // MED  -> NRW
-            case 11:  { 5.625 }; // NRW  -> ZOOM
-            default   { 45 };    // ZOOM -> WIDE
-        };
-        _heli setVariable ["fza_ah64_fcrGtmHalfFov", _newFov, true];
+        // ZOOM — TM 4.42.3 6:1 display zoom, not implemented; scan size is the grip switch
     };
     case "r2": {
         // Right arrow — shift azimuth scan centerline right

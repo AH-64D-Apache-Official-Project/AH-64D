@@ -62,6 +62,10 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_fcrModeRMAP,"$STR_FZA_AH64_FCR_MODE_RMAP","$STR_FZA_AH64_FCR_MODE_RMAP_INFO");
     CfgUserActionDef(fza_ah64_fcrModeATM,"$STR_FZA_AH64_FCR_MODE_ATM","$STR_FZA_AH64_FCR_MODE_ATM_INFO");
     CfgUserActionDef(fza_ah64_fcrModeTPM,"$STR_FZA_AH64_FCR_MODE_TPM","$STR_FZA_AH64_FCR_MODE_TPM_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_W,"$STR_FZA_AH64_FCR_SCAN_SIZE_W","$STR_FZA_AH64_FCR_SCAN_SIZE_W_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_M,"$STR_FZA_AH64_FCR_SCAN_SIZE_M","$STR_FZA_AH64_FCR_SCAN_SIZE_M_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_N,"$STR_FZA_AH64_FCR_SCAN_SIZE_N","$STR_FZA_AH64_FCR_SCAN_SIZE_N_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_Z,"$STR_FZA_AH64_FCR_SCAN_SIZE_Z","$STR_FZA_AH64_FCR_SCAN_SIZE_Z_INFO");
     CfgUserActionDef(fza_ah64_flare,"$STR_FZA_AH64_FLARE","$STR_FZA_AH64_FLARE_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGFov_W,"$STR_FZA_AH64_TADS_LHG_FOV_W","$STR_FZA_AH64_TADS_LHG_FOV_W_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGFov_M,"$STR_FZA_AH64_TADS_LHG_FOV_M","$STR_FZA_AH64_TADS_LHG_FOV_M_INFO");

@@ -33,6 +33,10 @@ class CfgDefaultKeysPresets {
             fza_ah64_fcrModeATM[]  = {0x1D130023}; //Ctrl+H
             fza_ah64_fcrModeRMAP[] = {};
             fza_ah64_fcrModeTPM[]  = {};
+            fza_ah64_fcrScanSize_W[] = {};
+            fza_ah64_fcrScanSize_M[] = {};
+            fza_ah64_fcrScanSize_N[] = {};
+            fza_ah64_fcrScanSize_Z[] = {};
             fza_ah64_flare[] = {0x13}; // R
             fza_ah64_tadsLHGFov_W[] = {0x38130002};
             fza_ah64_tadsLHGFov_M[] = {0x38130003};

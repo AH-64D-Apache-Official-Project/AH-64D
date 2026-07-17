@@ -38,10 +38,12 @@ switch _fcrScanState do {
     };
     case FCR_MODE_ON_SINGLE: {
         private _fullCycle = _updateDelay * 2;
+        // TM 4.42.2a: scans per single scanburst W2/M2/N3/Z4 (GTM/RMAP)
+        private _burstScans = [[2, 2, 3, 4] select (_heli getVariable ["fza_ah64_fcrScanSize", 0]), 2] select (_fcrMode == 2);
         if (CBA_missionTime >= _fcrScanStartTime + _fullCycle && _time < _fcrScanStartTime) exitWith {
             [_heli, true] call fza_fcr_fnc_update;
         };
-        if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * 2)) && _time >= _fcrScanStartTime) exitWith {
+        if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * _burstScans)) && _time >= _fcrScanStartTime) exitWith {
             [_heli, true] call fza_fcr_fnc_update;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;

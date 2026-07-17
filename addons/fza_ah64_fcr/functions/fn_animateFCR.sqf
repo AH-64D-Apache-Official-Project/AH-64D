@@ -70,7 +70,9 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
             private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
             _fcrAzBias - _tpmHalfFov   // TPM: left edge of scan sector
         } else {
-            _fcrAzBias                 // ATM: boresight / front
+            // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front
+            private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
+            _fcrAzBias - ([0, _atmHalfFov] select (_atmHalfFov < 168))
         }
     };
     private _startRad = [(_startDeg * (pi / 180))] call _applyModeSign;
@@ -114,9 +116,19 @@ if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
             (_fcrAzBias + _tpmHalfFov) - ((_t - 1.6) / 1.6) * (_tpmHalfFov * 2)
         };
     } else {
-        // ATM 6.4s cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
+        private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
         private _t = _fcrScanDeltaTime % 6.4;
-        _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
+        _targetDeg = if (_atmHalfFov >= 168) then {
+            // ATM wide 6.4s cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
+            _fcrAzBias + (_t / 6.4) * 360
+        } else {
+            // ATM M/N/Z: back-and-forth sector sweep
+            if (_t <= 3.2) then {
+                (_fcrAzBias - _atmHalfFov) + (_t / 3.2) * (_atmHalfFov * 2)
+            } else {
+                (_fcrAzBias + _atmHalfFov) - ((_t - 3.2) / 3.2) * (_atmHalfFov * 2)
+            }
+        };
     };
 };
 

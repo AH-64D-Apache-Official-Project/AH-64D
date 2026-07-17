@@ -266,3 +266,75 @@ class ATM_Circle_500M {
         };
     };
 };
+// TM 4.35.10a: ATM sectors W 360 / M 180 / N 90 / Z 45 — selected full intensity, larger partial
+class atmSectorSides {
+    class medFull {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.4797, 0.5000}, 1}, {{0.1750, 0.5000}, 1}, {},
+                {{0.5203, 0.5000}, 1}, {{0.8250, 0.5000}, 1}, {},
+            };
+        };
+    };
+    class medPartial {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
+        color[] = {0.2, 1, 0, 0.5};
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.4797, 0.5000}, 1}, {{0.1750, 0.5000}, 1}, {},
+                {{0.5203, 0.5000}, 1}, {{0.8250, 0.5000}, 1}, {},
+            };
+        };
+    };
+    class nrwFull {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 2));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.4856, 0.4856}, 1}, {{0.2702, 0.2702}, 1}, {},
+                {{0.5144, 0.4856}, 1}, {{0.7298, 0.2702}, 1}, {},
+            };
+        };
+    };
+    class nrwPartial {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
+        color[] = {0.2, 1, 0, 0.5};
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.4856, 0.4856}, 1}, {{0.2702, 0.2702}, 1}, {},
+                {{0.5144, 0.4856}, 1}, {{0.7298, 0.2702}, 1}, {},
+            };
+        };
+    };
+    class zoomFull {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.4922, 0.4812}, 1}, {{0.3756, 0.1997}, 1}, {},
+                {{0.5078, 0.4812}, 1}, {{0.6244, 0.1997}, 1}, {},
+            };
+        };
+    };
+    // TM 4.43.2: ATM centerline symbol, partial-intensity line first arc to outer arc, M/N/Z only
+    class centerlineSymbol {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
+        color[] = {0.2, 1, 0, 0.5};
+        class lines {
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.5000, 0.4797}, 1}, {{0.5000, 0.1750}, 1}, {},
+            };
+        };
+    };
+};

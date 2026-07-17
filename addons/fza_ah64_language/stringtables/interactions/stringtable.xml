@@ -221,6 +221,38 @@
             <Original>Sets the Fire Control Radar To Terrain Profiles Mode</Original>
             <English>Sets the Fire Control Radar To Terrain Profiles Mode</English>
         </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_M">
+            <Original>FCR Scan Size Medium (M)</Original>
+            <English>FCR Scan Size Medium (M)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_M_INFO">
+            <Original>Selects the medium FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the medium FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_N">
+            <Original>FCR Scan Size Narrow (N)</Original>
+            <English>FCR Scan Size Narrow (N)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_N_INFO">
+            <Original>Selects the narrow FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the narrow FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_W">
+            <Original>FCR Scan Size Wide (W)</Original>
+            <English>FCR Scan Size Wide (W)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_W_INFO">
+            <Original>Selects the wide FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the wide FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_Z">
+            <Original>FCR Scan Size Zoom (Z)</Original>
+            <English>FCR Scan Size Zoom (Z)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_Z_INFO">
+            <Original>Selects the zoom FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the zoom FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
             <Original>FCR Single Scan</Original>
             <English>FCR Single Scan</English>

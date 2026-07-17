@@ -43,6 +43,8 @@ if (_isFullCycle) then {
 
     // lastFullCycle updated after cycleNTS so reveal-offset filter sees the previous cycle's elapsed time
     [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+
+    [_heli] call fza_fcr_fnc_applyScanSize;
 };
 
 [_heli] call fza_dms_fnc_ageShot;

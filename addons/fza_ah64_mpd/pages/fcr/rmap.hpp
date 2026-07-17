@@ -306,6 +306,55 @@ class root {
         MPD_BOX_BAR_R(ELEV, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
     };
 
+    // TM 4.35.5: azimuth tic marks for the smaller scan sizes, relative to the current B-scope width
+    class scanSizeTicks {
+        class wideSelected {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    //Medium
+                    {{0.3400, 0.150}, 1}, {{0.3400, 0.172}, 1}, {},
+                    {{0.6600, 0.150}, 1}, {{0.6600, 0.172}, 1}, {},
+                    //Narrow
+                    {{0.3933, 0.150}, 1}, {{0.3933, 0.172}, 1}, {},
+                    {{0.6067, 0.150}, 1}, {{0.6067, 0.172}, 1}, {},
+                    //Zoom
+                    {{0.4467, 0.150}, 1}, {{0.4467, 0.172}, 1}, {},
+                    {{0.5533, 0.150}, 1}, {{0.5533, 0.172}, 1}, {},
+                };
+            };
+        };
+        class medSelected {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    //Narrow
+                    {{0.2867, 0.150}, 1}, {{0.2867, 0.172}, 1}, {},
+                    {{0.7133, 0.150}, 1}, {{0.7133, 0.172}, 1}, {},
+                    //Zoom
+                    {{0.3933, 0.150}, 1}, {{0.3933, 0.172}, 1}, {},
+                    {{0.6067, 0.150}, 1}, {{0.6067, 0.172}, 1}, {},
+                };
+            };
+        };
+        class nrwSelected {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 2));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    //Zoom
+                    {{0.3400, 0.150}, 1}, {{0.3400, 0.172}, 1}, {},
+                    {{0.6600, 0.150}, 1}, {{0.6600, 0.172}, 1}, {},
+                };
+            };
+        };
+    };
+
     class fcrOffsetArrows {
         class leftArrowHollow {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));

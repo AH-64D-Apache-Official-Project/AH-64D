@@ -8,6 +8,7 @@ private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE), _heli getVariable ["fza_ah64_fcrScanSize", 0]];
 if (_heli animationPhase "fcr_enable" == 0) then {_fcrMode = 0;};
 
 switch _fcrMode do {

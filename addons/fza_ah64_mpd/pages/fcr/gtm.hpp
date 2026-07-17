@@ -9,12 +9,6 @@ class fcr_draw {
         type = "line";
         width = 3;
         points[] = {
-            //Left side
-            {{0.040, 0.410}, 1}, 
-            {{0.465, 0.835}, 1}, {},
-            //Right side
-            {{0.960, 0.410}, 1}, 
-            {{0.535, 0.835}, 1}, {},
             //8km line
             {{0.040, 0.410}, 1}, 
             {{0.088, 0.368}, 1},
@@ -128,6 +122,89 @@ class fcr_draw {
             //Right 22.5 tick mark
             {{0.749, 0.269}, 1},
             {{0.743, 0.283}, 1}, {},
+        };
+    };
+    // TM 4.35.4: selected scan sector full intensity, larger sectors partial intensity
+    class sectorSides {
+        class wideFull {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.040, 0.410}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.960, 0.410}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class widePartial {
+            condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
+            color[] = {0.2, 1, 0, 0.5};
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.040, 0.410}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.960, 0.410}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class medFull {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.251, 0.269}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.749, 0.269}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class medPartial {
+            condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
+            color[] = {0.2, 1, 0, 0.5};
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.251, 0.269}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.749, 0.269}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class nrwFull {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 2));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.332, 0.242}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.668, 0.242}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class nrwPartial {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
+            color[] = {0.2, 1, 0, 0.5};
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.332, 0.242}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.668, 0.242}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
+        };
+        class zoomFull {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
+            class lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{0.415, 0.226}, 1}, {{0.465, 0.835}, 1}, {},
+                    {{0.585, 0.226}, 1}, {{0.535, 0.835}, 1}, {},
+                };
+            };
         };
     };
     class lines_show {

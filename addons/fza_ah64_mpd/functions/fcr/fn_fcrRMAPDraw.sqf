@@ -52,6 +52,7 @@ private _fcrHeading  = [(_dir     - direction _heli) mod 360] call CBA_fnc_simpl
 private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE),  _fcrHeading];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE),   _heli getVariable ["fza_ah64_fcrScanSize", 0]];
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
