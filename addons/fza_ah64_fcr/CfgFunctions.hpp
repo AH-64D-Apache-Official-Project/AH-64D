@@ -21,6 +21,7 @@ class CfgFunctions
             class update {RECOMPILE_FLAG;};
             class buildTPMData {RECOMPILE_FLAG;};
             class applyScanSize {RECOMPILE_FLAG;};
+            class getScanTiming {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
         };
     };

@@ -25,7 +25,7 @@ private _waitingForStart = _heli getVariable ["fza_ah64_fcrWaitingForStart", fal
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias",    0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-private _dishSpeed  = pi / 3.2;
+private _dishSpeed  = FCR_SCAN_RATE_DEGS * (pi / 180);
 
 private _applyModeSign = {
     params ["_rad"];
@@ -97,36 +97,38 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
 // Active scan: track bar position each frame
 private _targetDeg = 0;
 
+([_heli] call fza_fcr_fnc_getScanTiming) params ["_barTime", "_cycleTime"];
+
 if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
-    // GTM/RMAP 3.2 s cycle: near bar L→R (0–1.6 s), far bar R→L (1.6–3.2 s)
-    private _t = _fcrScanDeltaTime % 3.2;
-    _targetDeg = if (_t <= 1.6) then {
-        (_fcrAzBias - _gtmHalfFov) + (_t / 1.6) * (_gtmHalfFov * 2)
+    // Near bar L→R then far bar R→L, one scan-width per bar at the constant antenna rate
+    private _t = _fcrScanDeltaTime % _cycleTime;
+    _targetDeg = if (_t <= _barTime) then {
+        (_fcrAzBias - _gtmHalfFov) + (_t / _barTime) * (_gtmHalfFov * 2)
     } else {
-        (_fcrAzBias + _gtmHalfFov) - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
+        (_fcrAzBias + _gtmHalfFov) - ((_t - _barTime) / _barTime) * (_gtmHalfFov * 2)
     };
 } else {
     if (_fcrMode == FCR_DISP_MODE_TPM) then {
         // TPM: sweep ±halfFov (90° wide mode, 45° narrow mode per groundspeed submode)
         private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
-        private _t = _fcrScanDeltaTime % 3.2;
-        _targetDeg = if (_t <= 1.6) then {
-            (_fcrAzBias - _tpmHalfFov) + (_t / 1.6) * (_tpmHalfFov * 2)
+        private _t = _fcrScanDeltaTime % _cycleTime;
+        _targetDeg = if (_t <= _barTime) then {
+            (_fcrAzBias - _tpmHalfFov) + (_t / _barTime) * (_tpmHalfFov * 2)
         } else {
-            (_fcrAzBias + _tpmHalfFov) - ((_t - 1.6) / 1.6) * (_tpmHalfFov * 2)
+            (_fcrAzBias + _tpmHalfFov) - ((_t - _barTime) / _barTime) * (_tpmHalfFov * 2)
         };
     } else {
         private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
-        private _t = _fcrScanDeltaTime % 6.4;
+        private _t = _fcrScanDeltaTime % _cycleTime;
         _targetDeg = if (_atmHalfFov >= 168) then {
-            // ATM wide 6.4s cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
-            _fcrAzBias + (_t / 6.4) * 360
+            // ATM wide: full rotation per cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
+            _fcrAzBias + (_t / _cycleTime) * 360
         } else {
             // ATM M/N/Z: back-and-forth sector sweep
-            if (_t <= 3.2) then {
-                (_fcrAzBias - _atmHalfFov) + (_t / 3.2) * (_atmHalfFov * 2)
+            if (_t <= _barTime) then {
+                (_fcrAzBias - _atmHalfFov) + (_t / _barTime) * (_atmHalfFov * 2)
             } else {
-                (_fcrAzBias + _atmHalfFov) - ((_t - 3.2) / 3.2) * (_atmHalfFov * 2)
+                (_fcrAzBias + _atmHalfFov) - ((_t - _barTime) / _barTime) * (_atmHalfFov * 2)
             }
         };
     };

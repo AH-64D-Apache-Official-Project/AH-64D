@@ -127,10 +127,10 @@
             var rowIdx = y * W * 4;
             for (var x = xFrom; x <= xTo; x++) {
                 var aziFrac = (x - rLeft) / rW;
-                var aziDeg  = (aziFrac - 0.5) * halfFov * 2;
+                // Display axis fixed at wide +-45 (TM fig 4-35): smaller scans paint a centre strip
+                var aziDeg  = (aziFrac - 0.5) * 90;
                 var ai      = Math.floor((aziDeg + halfFov) / aziStepD);
-                if (ai < 0)         { ai = 0; }
-                if (ai >= aziSteps) { ai = aziSteps - 1; }
+                if (ai < 0 || ai >= aziSteps) { continue; }
 
                 var col = isNear ? nearGrid[ai] : farGrid[ai];
                 if (!col) { continue; }
@@ -208,10 +208,13 @@
             ctx.putImageData(imgData, 0, 0);
         } else if (dirtyColMin >= 0) {
             // Repaint only the x-band spanned by the newly received columns (±1 px margin)
-            var rLeft = RADAR_LEFT  * W;
-            var rW    = (RADAR_RIGHT - RADAR_LEFT) * W;
-            var bx0   = Math.max(0,     Math.floor(rLeft + (dirtyColMin       / params.aziSteps) * rW) - 1);
-            var bx1   = Math.min(W - 1, Math.ceil (rLeft + ((dirtyColMax + 1) / params.aziSteps) * rW) + 1);
+            var rLeft  = RADAR_LEFT  * W;
+            var rW     = (RADAR_RIGHT - RADAR_LEFT) * W;
+            var stepD  = (params.halfFov * 2) / params.aziSteps;
+            var azFrom = -params.halfFov + dirtyColMin * stepD;
+            var azTo   = -params.halfFov + (dirtyColMax + 1) * stepD;
+            var bx0    = Math.max(0,     Math.floor(rLeft + ((azFrom + 45) / 90) * rW) - 1);
+            var bx1    = Math.min(W - 1, Math.ceil (rLeft + ((azTo   + 45) / 90) * rW) + 1);
             paintPixels(bx0, bx1);
             var yTop = Math.max(0, Math.floor(RADAR_TOP * H));
             var yH   = Math.min(H, Math.ceil(RADAR_BOTTOM * H) + 1) - yTop;

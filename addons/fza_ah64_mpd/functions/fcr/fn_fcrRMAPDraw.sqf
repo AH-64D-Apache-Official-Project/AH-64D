@@ -16,8 +16,17 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), FCR_DISP_MODE_RMAP];
 
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-if (_fcrScanState != FCR_MODE_OFF) then {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (_fcrScanDeltaTime max 0) % 3.2];
+private _barTime = ((_heli getVariable ["fza_ah64_fcrGtmHalfFov", 45]) * 2) / FCR_SCAN_RATE_DEGS;
+// Wiper hidden while the dish cues to the sector edge — the bar only ever appears at the sweep start
+private _cueingRmap = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
+if (_fcrScanState != FCR_MODE_OFF && !_cueingRmap) then {
+    // Bars ride the fixed +-45 display axis — remap wiper bearing into the bone's 0..3.2 range
+    private _t  = (_fcrScanDeltaTime max 0) % (_barTime * 2);
+    private _h  = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
+    private _b  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    private _az = _b + ([-_h + (_t / _barTime) * (_h * 2), _h - ((_t - _barTime) / _barTime) * (_h * 2)] select (_t > _barTime));
+    private _anim = [0.8 * (1 + _az / 45), 2.4 - 0.8 * _az / 45] select (_t > _barTime);
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _anim];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
 } else {
@@ -112,7 +121,8 @@ private _gtmHalfFov     = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 // TM 4.41: RMAP re-select toggles the video underlay; sampling skipped while off, JS keeps the grid
 private _rmapVideo      = _heli getVariable ["fza_ah64_fcrRmapVideo", true];
 
-private _aziSteps     = 300;
+// Constant 0.3 deg/column at all sizes — wide 300, med 150, nrw 100, zoom 50
+private _aziSteps     = round ((_gtmHalfFov * 2) / 0.3);
 private _nearSteps    = 150;
 private _farSteps     = 150;
 private _maxRange     = 8000;
@@ -140,14 +150,14 @@ if (_sameFrame) then {
     };
 
     if (_fcrScanState != FCR_MODE_OFF && _rmapVideo) then {
-        private _t = (_fcrScanDeltaTime max 0) % 3.2;
-        private _isNearPhase = (_t <= 1.6);
+        private _t = (_fcrScanDeltaTime max 0) % (_barTime * 2);
+        private _isNearPhase = (_t <= _barTime);
 
         // Near sweeps L→R (0–4000m), far sweeps R→L (4000–8000m)
         private _scanBearingAzi = if (_isNearPhase) then {
-            -_gtmHalfFov + (_t / 1.6) * (_gtmHalfFov * 2)
+            -_gtmHalfFov + (_t / _barTime) * (_gtmHalfFov * 2)
         } else {
-            _gtmHalfFov - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
+            _gtmHalfFov - ((_t - _barTime) / _barTime) * (_gtmHalfFov * 2)
         };
 
         private _colIdx = ((floor ((_scanBearingAzi + _gtmHalfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
@@ -166,7 +176,10 @@ if (_sameFrame) then {
 
         private _fillFrom = _colIdx;
         private _fillTo   = _colIdx;
-        if (!_hardClear && _lastColIdx >= 0) then {
+        if (_hardClear || _lastColIdx < 0) then {
+            // Fresh sweep: backfill from the sweep-start edge so fast (small-sector) bars leave no gap
+            if (_isNearPhase) then { _fillFrom = 0; } else { _fillTo = _aziSteps - 1; };
+        } else {
             if (_isNearPhase) then {
                 _fillFrom = ((_lastColIdx + 1) max 0) min (_aziSteps - 1);
                 _fillTo   = _colIdx;
@@ -297,7 +310,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 
 // "a" normalised to -1..1 by halfFov — the RMAP B-scope x axis
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _wasState,
-    _gtmHalfFov, _maxRange, _dir, _fcrAzBias, _gtmHalfFov, false
+    _gtmHalfFov, _maxRange, _dir, _fcrAzBias, 45, false
 ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
 
 private _json = format[

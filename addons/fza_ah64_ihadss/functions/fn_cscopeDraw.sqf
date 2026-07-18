@@ -20,18 +20,26 @@ if !(_heli getVariable "fza_ah64_fcrcscope") then { _fcrTargets = [] };
 // display recreation nulls the cached controls, which forces a rebuild
 private _ctrls = uiNamespace getVariable ["fza_ah64_cscopeCtrls", []];
 if (count _ctrls < 64 || { isNull (_ctrls#0) } || { isNull (_ctrls#63) }) then {
-    private _grp = ctrlParentControlsGroup (_disp displayCtrl 190);
     _ctrls = [];
-    for "_i" from 0 to 15 do { _ctrls pushBack (_disp displayCtrl (190 + _i)) };
-    for "_i" from 16 to 63 do {
-        private _c = _disp ctrlCreate ["RscPicture", -1, _grp];
-        _c ctrlSetPosition [-100, -100, 0.0576, 0.0768];
-        _c ctrlCommit 0;
-        _ctrls pushBack _c;
+    private _base = _disp displayCtrl 190;
+    if (!isNull _base) then {
+        private _grp = ctrlParentControlsGroup _base;
+        for "_i" from 0 to 15 do { _ctrls pushBack (_disp displayCtrl (190 + _i)) };
+        for "_i" from 16 to 63 do {
+            private _c = _disp ctrlCreate ["RscPicture", -1, _grp];
+            if (isNil "_c" || { isNull _c }) exitWith { _ctrls = []; };
+            _c ctrlSetPosition [-100, -100, 0.0576, 0.0768];
+            _c ctrlCommit 0;
+            _ctrls pushBack _c;
+        };
     };
-    uiNamespace setVariable ["fza_ah64_cscopeCtrls", _ctrls];
-    uiNamespace setVariable ["fza_ah64_cscopePrevN", 64];
+    if (count _ctrls == 64) then {
+        uiNamespace setVariable ["fza_ah64_cscopeCtrls", _ctrls];
+        uiNamespace setVariable ["fza_ah64_cscopePrevN", 64];
+    };
 };
+// Display mid-recreation: control set incomplete this frame, retry on the next
+if (count _ctrls < 64) exitWith {};
 
 // FCR target formats stay at the TM 16-target display cap; obstacles run to 64
 private _cap = [16, 64] select _isTpm;

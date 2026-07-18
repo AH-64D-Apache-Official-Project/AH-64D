@@ -17,28 +17,35 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE), _heli getVariabl
 
 //FCR wiper — Fcr_ATMBar maps ANIM 0..6.4 linearly to 0..360, so feed the wiper bearing scaled to that range
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-if (_fcrScanState != FCR_MODE_OFF) then {
+// Wiper hidden while the dish cues to the sector edge — the bar only ever appears at the sweep start
+private _cueing = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
+if (_fcrScanState != FCR_MODE_OFF && !_cueing) then {
     private _animDelta = _fcrScanDeltaTime max 0;
-    private _cycleT    = _animDelta % 6.4;
+    private _barTime   = [(_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS, 180 / FCR_SCAN_RATE_DEGS] select _atmWide;
+    private _cycle     = _barTime * 2;
+    private _cycleT    = _animDelta % _cycle;
     private _wiperAz   = if (_atmWide) then {
-        (_cycleT / 6.4) * 360
+        (_cycleT / _cycle) * 360
     } else {
         _fcrAzBias + ([
-            -_atmHalfFov + (_cycleT / 3.2) * (_atmHalfFov * 2),
-            _atmHalfFov - ((_cycleT - 3.2) / 3.2) * (_atmHalfFov * 2)
-        ] select (_cycleT > 3.2))
+            -_atmHalfFov + (_cycleT / _barTime) * (_atmHalfFov * 2),
+            _atmHalfFov - ((_cycleT - _barTime) / _barTime) * (_atmHalfFov * 2)
+        ] select (_cycleT > _barTime))
     };
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (((_wiperAz mod 360) + 360) mod 360) / 360 * 6.4];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), [0,1] select (_atmWide && (CBA_missionTime - _fcrScanStartTime) >= 2.93)];
-    if (!_atmWide || _cycleT < 2.96 || _cycleT > 3.44) then {
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), [0,1] select (_atmWide && _animDelta >= _cycle * 0.458)];
+    // Tail blank window (+-13.5 deg around 180) — wiper hidden while the radar cannot see
+    if (!_atmWide || _cycleT < _cycle * 0.4625 || _cycleT > _cycle * 0.5375) then {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
     };
 } else {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
+    if (_fcrScanState == FCR_MODE_OFF) then {
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
+    };
 };
 
 //FCR page draw — symbols on the scope HTML canvas (browser occludes native siblings), rest stays native MFD

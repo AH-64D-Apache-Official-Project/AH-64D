@@ -11,8 +11,17 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 
 //FCR wiper
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-if (_fcrScanState != FCR_MODE_OFF) then {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (_fcrScanDeltaTime max 0) % 3.2];
+// Wiper hidden while the dish cues to the sector edge — the bar only ever appears at the sweep start
+private _cueing = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
+if (_fcrScanState != FCR_MODE_OFF && !_cueing) then {
+    // Wiper bones map ANIM 0..3.2 linearly across +-45 — remap so sector scans sweep only their wedge
+    private _h   = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
+    private _b   = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    private _bar = (_h * 2) / FCR_SCAN_RATE_DEGS;
+    private _t   = (_fcrScanDeltaTime max 0) % (_bar * 2);
+    private _az  = _b + ([-_h + (_t / _bar) * (_h * 2), _h - ((_t - _bar) / _bar) * (_h * 2)] select (_t > _bar));
+    private _anim = [0.8 * (1 + _az / 45), 2.4 - 0.8 * _az / 45] select (_t > _bar);
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _anim];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
 } else {

@@ -42,18 +42,30 @@ private _heliPos    = getPosASL _heli;
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_ase_fnc_targetIsAda) then { _type = FCR_TYPE_ADU; };
 
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then { continue; };
+    // ATM: air targets only, and they must be moving — nothing else enters the list,
+    // so the target count matches what the format displays
+    if (_fcrMode == 2) then {
+        if !(_type in [FCR_TYPE_FLYER, FCR_TYPE_HELICOPTER]) then { continue; };
+        if (_targetSpeed < 5) then { continue; };
+    };
 
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
 
     private _revealOffset = if (_fcrMode in [1, 3]) then {
+        private _bar = (_gtmHalfFov * 2) / FCR_SCAN_RATE_DEGS;
         if (_range < 4000) then {
-            ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * 1.6
+            ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * _bar
         } else {
-            1.6 + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * 1.6
+            _bar + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * _bar
         }
     } else {
-        (6.4 - (([_relAzi, _relAzi + 360] select (_relAzi < 0)) / 360 * 6.4)) % 6.4
+        if (_atmHalfFov >= 168) then {
+            // Wide rotation starts at the nose and sweeps clockwise through 360
+            (([_relAzi, _relAzi + 360] select (_relAzi < 0)) / FCR_SCAN_RATE_DEGS)
+        } else {
+            // Sector sweep reveals on the first (L→R) pass
+            ((_relAzi + _atmHalfFov) / (_atmHalfFov * 2)) * ((_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS)
+        }
     };
 
     _fcrTargets pushBack [

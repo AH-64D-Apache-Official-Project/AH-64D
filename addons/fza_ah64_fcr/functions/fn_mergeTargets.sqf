@@ -23,7 +23,7 @@ private _now = CBA_missionTime;
 } forEach _fcrTargets;
 
 // TM 4.44.2/.3: a non-redetected symbol lives until the next reveal sweep re-covers its azimuth — stamp that removal time, resolveDisplay hides per frame
-private _fullCycleLen  = [3.2, 6.4] select ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_ATM);
+private _fullCycleLen  = ([_heli] call fza_fcr_fnc_getScanTiming) # 1;
 private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
 {

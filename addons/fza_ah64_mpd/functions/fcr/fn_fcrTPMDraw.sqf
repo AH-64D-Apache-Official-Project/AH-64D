@@ -74,11 +74,15 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TPM_WIDE), parseNumber (_hal
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 
-// Wide ±90°: 3.2s half-sweep / 6.4s cycle. Narrow ±45°: 1.6s / 3.2s.
-private _halfSweepDuration = [1.6, 3.2] select (_halfFov >= 90);
+// One sweep covers the sector width at the TPM antenna rate; cycle = there and back
+private _halfSweepDuration = (_halfFov * 2) / FCR_TPM_SCAN_RATE_DEGS;
 private _cycleDuration = _halfSweepDuration * 2;
-if (_fcrScanState != FCR_MODE_OFF) then {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      (_fcrScanDeltaTime max 0) % _cycleDuration];
+private _tpmCueing = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
+if (_fcrScanState != FCR_MODE_OFF && !_tpmCueing) then {
+    // Wiper bones are calibrated in the legacy time-base (wide 0..6.4, narrow 0..3.2) —
+    // normalize the real phase into bone-time so bars and dish stay in sync at any scan rate
+    private _boneCycle = [3.2, 6.4] select (_halfFov >= 90);
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      ((_fcrScanDeltaTime max 0) % _cycleDuration) / _cycleDuration * _boneCycle];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
 } else {
