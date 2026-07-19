@@ -29,7 +29,7 @@ private _dishSpeed  = FCR_SCAN_RATE_DEGS * (pi / 180);
 
 private _applyModeSign = {
     params ["_rad"];
-    // GTM axis is mirrored; ATM aligns with positive rotation
+    // GTM/RMAP/TPM dish axis is mirrored; ATM aligns with positive rotation
     _rad * ([-1, 1] select (_fcrMode == 2))
 };
 
@@ -70,9 +70,10 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
             private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
             _fcrAzBias - _tpmHalfFov   // TPM: left edge of scan sector
         } else {
-            // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front
+            // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front.
+            // Bias negated to match the MFD wedge (which uses -bias) and the active-sweep centre.
             private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
-            _fcrAzBias - ([0, _atmHalfFov] select (_atmHalfFov < 168))
+            (-_fcrAzBias) - ([0, _atmHalfFov] select (_atmHalfFov < 168))
         }
     };
     private _startRad = [(_startDeg * (pi / 180))] call _applyModeSign;
@@ -124,11 +125,12 @@ if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
             // ATM wide: full rotation per cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
             _fcrAzBias + (_t / _cycleTime) * 360
         } else {
-            // ATM M/N/Z: back-and-forth sector sweep
+            // ATM M/N/Z: back-and-forth sector sweep. Bias negated so the dish centres on the
+            // same side as the MFD wedge (which uses -bias); sweep direction unchanged.
             if (_t <= _barTime) then {
-                (_fcrAzBias - _atmHalfFov) + (_t / _barTime) * (_atmHalfFov * 2)
+                (-_fcrAzBias - _atmHalfFov) + (_t / _barTime) * (_atmHalfFov * 2)
             } else {
-                (_fcrAzBias + _atmHalfFov) - ((_t - _barTime) / _barTime) * (_atmHalfFov * 2)
+                (-_fcrAzBias + _atmHalfFov) - ((_t - _barTime) / _barTime) * (_atmHalfFov * 2)
             }
         };
     };

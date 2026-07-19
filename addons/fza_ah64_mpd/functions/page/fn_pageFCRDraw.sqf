@@ -64,6 +64,17 @@ switch (_sight) do {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
+// TM 4.35.6d: centerline arrows only while FCR is the selected sight; solid = offset commanded that side
+private _arrowL = 0;
+private _arrowR = 0;
+if (_sight == SIGHT_FCR) then {
+    private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    _arrowL = [1, 2] select (_azBias < -0.5);
+    _arrowR = [1, 2] select (_azBias >  0.5);
+};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_L), _arrowL];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_R), _arrowR];
+
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 if (isNil "_nextPointPos") then {
@@ -85,6 +96,9 @@ if (_heli animationPhase "fcr_enable" != 1) then {
     _fcrHeading = -1000;
     _lastHeading = -1000;
 };
+// Carets present only within the displayed portion of the heading scale (+-90)
+if (abs _fcrHeading > 95)  then { _fcrHeading  = -1000; };
+if (abs _lastHeading > 95) then { _lastHeading = -1000; };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 

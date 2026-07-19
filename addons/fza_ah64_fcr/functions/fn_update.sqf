@@ -22,8 +22,10 @@ if (count _fcrTargets > 16) then {
     _fcrTargets = _fcrTargets select [0, 16];
 };
 
+// Stored bearing is the scan CENTERLINE (heading + azimuth bias) — carets and the
+// B-scope terrain frame both reference it, so slewed sectors line up with the world
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir"];
-[_heli, "fza_ah64_fcrLastScan", [direction _heli, getPosASL _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrLastScan", [(direction _heli + _fcrAzBias + 360) mod 360, getPosASL _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
 
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
 

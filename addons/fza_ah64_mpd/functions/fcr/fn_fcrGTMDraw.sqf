@@ -14,12 +14,12 @@ private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 // Wiper hidden while the dish cues to the sector edge — the bar only ever appears at the sweep start
 private _cueing = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
 if (_fcrScanState != FCR_MODE_OFF && !_cueing) then {
-    // Wiper bones map ANIM 0..3.2 linearly across +-45 — remap so sector scans sweep only their wedge
+    // Wiper bones map ANIM 0..3.2 linearly across +-45 — remap so sector scans sweep only their wedge.
+    // Display is centerline-referenced: the wedge stays centered, so the wiper ignores azimuth bias
     private _h   = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
-    private _b   = _heli getVariable ["fza_ah64_fcrAzBias", 0];
     private _bar = (_h * 2) / FCR_SCAN_RATE_DEGS;
     private _t   = (_fcrScanDeltaTime max 0) % (_bar * 2);
-    private _az  = _b + ([-_h + (_t / _bar) * (_h * 2), _h - ((_t - _bar) / _bar) * (_h * 2)] select (_t > _bar));
+    private _az  = [-_h + (_t / _bar) * (_h * 2), _h - ((_t - _bar) / _bar) * (_h * 2)] select (_t > _bar);
     private _anim = [0.8 * (1 + _az / 45), 2.4 - 0.8 * _az / 45] select (_t > _bar);
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _anim];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
@@ -36,12 +36,11 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
-private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
 // "a" in degrees (divisor 1) — the polar wedge trig happens in scope.js
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _systemWas,
-    _gtmHalfFov, 8000, _dir, _fcrAzBias, 1, false
+    _gtmHalfFov, 8000, _dir, 1, false
 ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
 
 private _json = format ['{"mode":1,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson];

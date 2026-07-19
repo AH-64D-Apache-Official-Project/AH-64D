@@ -16,11 +16,17 @@ private _now = CBA_missionTime;
             _fcrTargets set [_forEachIndex, _x + [0, _prev # 4, _prev # 6, _prev # 0, _now]];
         } else {
             private _rec = +_prev;
-            if ((_rec param [8, 0]) > 0) then { _rec set [8, 0]; }; // redetected ghost is live again
+            // A ghost must NOT resurrect on a per-bar update just because the Arma sensor still
+            // reports the target — it only becomes live again when the wiper re-sweeps its
+            // azimuth, which is resolved on the full-cycle merge. Keep ghosts as ghosts here.
             _fcrTargets set [_forEachIndex, _rec];
         };
     };
 } forEach _fcrTargets;
+
+// TM 4.35.11: ATM purges priority target data at the start of each scan — no ghost
+// persistence at all, so drop the carry-over entirely in ATM mode.
+if ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_ATM) exitWith { _fcrTargets };
 
 // TM 4.44.2/.3: a non-redetected symbol lives until the next reveal sweep re-covers its azimuth — stamp that removal time, resolveDisplay hides per frame
 private _fullCycleLen  = ([_heli] call fza_fcr_fnc_getScanTiming) # 1;

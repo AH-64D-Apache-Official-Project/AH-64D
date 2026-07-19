@@ -321,6 +321,7 @@
 #define MFD_IND_FCR_TPM_WIDE         17
 #define MFD_IND_FCR_SCAN_SIZE        18
 #define MFD_IND_FCR_TPM_OBS_SHOW     20
+#define MFD_IND_FCR_ATM_SECTOR_ROT   21
 
 #define MFD_IND_FCR_INSTALLED 19
 

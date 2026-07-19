@@ -31,15 +31,28 @@ private _atmChanged = _atmHalf != (_heli getVariable ["fza_ah64_fcrAtmHalfFov", 
 if (_gtmChanged) then {
     _heli setVariable ["fza_ah64_fcrGtmHalfFov", _gtmHalf, true];
     _heli setVariable ["fza_ah64_fcrRMAPHardClear", true];
-    private _azBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-    private _clamped = (_azBias min (90 - _gtmHalf)) max (_gtmHalf - 90);
-    if (_clamped != _azBias) then {
-        _heli setVariable ["fza_ah64_fcrAzBias", _clamped, true];
-    };
 };
 
 if (_atmChanged) then {
     _heli setVariable ["fza_ah64_fcrAtmHalfFov", _atmHalf, true];
+};
+
+// Slew offset re-steps to the new size when the ACTIVE sector changes: keep the slew
+// DIRECTION, re-snap the magnitude to the new half-FOV (the size's one-step offset).
+// e.g. Zoom +22.5 right -> Medium +90 right. Re-anchor the stabilized world centerline
+// so the per-frame heading-stabilization holds the new offset instead of the old one.
+private _fcrModeC = _heli getVariable "fza_ah64_fcrMode";
+if ((_gtmChanged && _fcrModeC != FCR_DISP_MODE_ATM) || (_atmChanged && _fcrModeC == FCR_DISP_MODE_ATM)) then {
+    private _lim    = [_gtmHalf, _atmHalf] select (_fcrModeC == FCR_DISP_MODE_ATM);
+    private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    // Slewed if non-zero — re-step to +-lim in the same direction; centred stays centred
+    private _restep = if (_azBias > 0.001) then { _lim } else { if (_azBias < -0.001) then { -_lim } else { 0 } };
+    if (_restep != _azBias) then {
+        _heli setVariable ["fza_ah64_fcrAzBias", _restep, true];
+        if ((_heli getVariable ["fza_ah64_fcrCenterlineWorld", -1]) >= 0) then {
+            _heli setVariable ["fza_ah64_fcrCenterlineWorld", (direction _heli + _restep + 360) mod 360, true];
+        };
+    };
 };
 
 if (_noRecue) exitWith {};

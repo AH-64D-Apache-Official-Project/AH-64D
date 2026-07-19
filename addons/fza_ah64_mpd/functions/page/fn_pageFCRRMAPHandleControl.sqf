@@ -16,11 +16,7 @@ switch _control do {
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "l2": {
-        // Left arrow — shift azimuth scan centerline left
-        private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-        private _halfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
-        _azBias = (_azBias - 15) max -(_halfFov);
-        _heli setVariable ["fza_ah64_fcrAzBias", _azBias, true];
+        [_heli, -1] call fza_fcr_fnc_slewCenterline;
     };
     case "l4": {
         // TGT — designate NTS as acquisition source (same as existing FCR TGT behavior)
@@ -30,11 +26,7 @@ switch _control do {
         // ZOOM — TM 4.42.3 6:1 display zoom, not implemented; scan size is the grip switch
     };
     case "r2": {
-        // Right arrow — shift azimuth scan centerline right
-        private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-        private _halfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
-        _azBias = (_azBias + 15) min _halfFov;
-        _heli setVariable ["fza_ah64_fcrAzBias", _azBias, true];
+        [_heli, 1] call fza_fcr_fnc_slewCenterline;
     };
     case "r4": {
         // RFHO — RF handover (fire to LOBL transition)

@@ -81,6 +81,20 @@ class Fcr_ATMBar {
     center[] = {0.5,0.5};
 };
 
+// ATM sector wedge rotates on the PPI to the slewed bearing (TM fig 4-46).
+// The ATM PPI has a 180 deg base rotation, so -y geometry renders aft at value 0; the
+// +180 base offset here brings the wedge round to the nose. Per-unit rotation and the
+// +bias direction feed (fn_fcrATMDraw) are unchanged, so left/right slew stays correct.
+class Fcr_ATMSector {
+    type = "rotational";
+    MPD_NUM_USER(MFD_IND_FCR_ATM_SECTOR_ROT)
+    min=0;
+    max=6.4;
+    minAngle=180;
+    maxAngle=-180;
+    center[] = {0.5,0.5};
+};
+
 class FCR_CommandHeading {
     type = "linear";
     MPD_NUM_USER(MFD_IND_FCR_COMMAND_HEADING)
@@ -96,10 +110,11 @@ class FCR_AltSensorBearing : FCR_CommandHeading {
 class FCRCenterline : FCR_CommandHeading {
     MPD_NUM_USER(MFD_IND_FCR_CENTERLINE)
 };
+// FOR box scale is 0.001/deg (sides 0.38/0.62 = +-120, tics 0.410/0.590 = +-90)
 class FCR_Fov_Centerline : FCRCenterline {
     MPD_NUM_USER(MFD_IND_FCR_CENTERLINE)
-    maxPos[] = {0.39, 0.939};
-    minPos[] = {0.61, 0.939};
+    maxPos[] = {0.410, 0.939};
+    minPos[] = {0.590, 0.939};
 };
 class FCR_Fov_PrevCenter : FCR_Fov_Centerline {
     MPD_NUM_USER(MFD_IND_FCR_PREV_CENTER)

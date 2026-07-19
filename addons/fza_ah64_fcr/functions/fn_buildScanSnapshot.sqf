@@ -25,15 +25,20 @@ private _heliPos    = getPosASL _heli;
     if (count _fcrTargets >= 256) exitWith {};
 
     private _targDir   = _heliPos vectorFromTo _targetPos;
-    private _zdist     = _targDir vectorDotProduct vectorDir _heli;
-    private _ydist     = _targDir vectorDotProduct vectorUp  _heli;
-    private _elevAngle = _ydist atan2 _zdist;
+    private _ydist     = _targDir vectorDotProduct vectorUp _heli;
+    // Elevation above the antenna plane — valid at every azimuth (an atan2 against the
+    // forward axis blows up to +-90/180 for targets abeam or behind a slewed sector)
+    private _elevAngle = asin ((_ydist max -1) min 1);
     private _relAzi    = [([_heli getRelDir _target] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
 
     if (_elevAngle > _gtmElevMax  && _fcrMode in [1, 3]) then { continue; };
     if (_elevAngle < _atmElevMin  && _fcrMode == 2) then { continue; };
     if ((abs _relAzi) > _gtmHalfFov && _fcrMode in [1, 3]) then { continue; };
-    if ((abs _relAzi) > _atmHalfFov && _fcrMode == 2) then { continue; };
+    if (_fcrMode == 2) then {
+        // Tail boom blanks ~12 deg either side of dead astern regardless of scan centerline
+        if (abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180) > 168) then { continue; };
+        if (_atmHalfFov < 168 && (abs _relAzi) > _atmHalfFov) then { continue; };
+    };
 
     private _type = FCR_TYPE_UNKNOWN;
     if (_target isKindOf "tank")       then { _type = FCR_TYPE_TRACKED; };
@@ -60,18 +65,26 @@ private _heliPos    = getPosASL _heli;
         }
     } else {
         if (_atmHalfFov >= 168) then {
-            // Wide rotation starts at the nose and sweeps clockwise through 360
-            (([_relAzi, _relAzi + 360] select (_relAzi < 0)) / FCR_SCAN_RATE_DEGS)
+            // Wide rotation starts at the nose and sweeps counter-clockwise (matches the
+            // display wiper); a target's reveal offset = its CCW angle from the nose
+            private _ccw = (-_relAzi + 360) mod 360;
+            _ccw / FCR_SCAN_RATE_DEGS
         } else {
-            // Sector sweep reveals on the first (L→R) pass
-            ((_relAzi + _atmHalfFov) / (_atmHalfFov * 2)) * ((_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS)
+            // Display mirrors the bearing math, so the visible first pass runs R→L: a target
+            // at the right edge (+halfFov) reveals at t=0, the left edge (-halfFov) at t=bar
+            ((_atmHalfFov - _relAzi) / (_atmHalfFov * 2)) * ((_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS)
         }
     };
+
+    // ATM draws nose-relative on a rotating PPI; store the nose-relative bearing frozen at
+    // scan time so a later slew doesn't swing the symbol until the next scan refreshes it.
+    // GTM/RMAP stay centerline-relative (their wedge is fixed forward).
+    private _storeAzi = [_relAzi, _relAzi + _fcrAzBias] select (_fcrMode == 2);
 
     _fcrTargets pushBack [
         [round (_targetPos#0), round (_targetPos#1), round (_targetPos#2)],
         _type, _moving, _target,
-        [_relAzi,    1] call BIS_fnc_cutDecimals,
+        [_storeAzi,  1] call BIS_fnc_cutDecimals,
         [_elevAngle, 1] call BIS_fnc_cutDecimals,
         _range, _revealOffset
     ];

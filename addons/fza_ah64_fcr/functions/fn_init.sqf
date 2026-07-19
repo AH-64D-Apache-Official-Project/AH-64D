@@ -32,6 +32,7 @@ if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_tofCountDown", [], true];
     _heli setVariable ["fza_ah64_fcrMode", 1, true];
     _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+    _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
     _heli setVariable ["fza_ah64_fcrScanSize", 0, true];
     _heli setVariable ["fza_ah64_fcrGtmHalfFov", 45, true];
     _heli setVariable ["fza_ah64_fcrAtmHalfFov", 168, true];

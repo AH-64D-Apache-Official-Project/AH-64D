@@ -32,9 +32,10 @@ private _startDeg = if (_fcrMode == FCR_DISP_MODE_GTM || _fcrMode == FCR_DISP_MO
         private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
         _fcrAzBias - _tpmHalfFov
     } else {
-        // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front
+        // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front.
+        // Bias negated so the physical dish cues to the same side as the MFD wedge (which uses -bias).
         private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
-        _fcrAzBias - ([0, _atmHalfFov] select (_atmHalfFov < 168))
+        (-_fcrAzBias) - ([0, _atmHalfFov] select (_atmHalfFov < 168))
     }
 };
 
@@ -47,6 +48,9 @@ private _cueDelay   = _angDist / (FCR_SCAN_RATE_DEGS * (pi / 180));
 [_heli, "fza_ah64_fcrWaitingForStart", true] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrLastFullCycle", 0] call fza_fnc_updateNetworkGlobal;
+// Restart the phase-wrap tracker so a mid-scan re-cue (size change) doesn't leave a stale
+// phase that desyncs the dish, wiper and reveal timer from the new cycle length
+_heli setVariable ["fza_ah64_fcrPrevCyclePhase", 0, true];
 
 if (_preserve) exitWith {};
 [_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;

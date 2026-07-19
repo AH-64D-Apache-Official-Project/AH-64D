@@ -19,9 +19,9 @@ Parameters:
     _wasState       - fza_ah64_was value
     _halfFov        - Half field-of-view in degrees (culls shot-at markers)
     _maxRange       - Display max range in metres (normalises "r" to 0..1)
-    _scanDir        - Heading at last scan update (markers hold screen position
-                      between scan updates instead of sliding with live yaw)
-    _fcrAzBias      - FCR azimuth bias in degrees
+    _scanDir        - Scan centerline world bearing at last update (markers hold
+                      screen position between scan updates instead of sliding
+                      with live yaw)
     _aziDivisor     - Azimuth divisor for the "a" field: pass _halfFov to send
                       a normalised -1..1 (RMAP B-scope x axis), or 1 to send
                       degrees (GTM/ATM polar scopes do the trig in JS)
@@ -36,8 +36,8 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_displayTargets", "_scanPos", "_ntsIndex", "_antsIndex",
-        "_wasState", "_halfFov", "_maxRange", "_scanDir", "_fcrAzBias",
-        "_aziDivisor", ["_filterAirOnly", false]];
+        "_wasState", "_halfFov", "_maxRange", "_scanDir",
+        "_aziDivisor", ["_filterAirOnly", false], ["_aziOffset", 0]];
 
 // ident → [iconKey, overlayKey] memo; mission-scoped because uiNamespace outlives mission restarts and served stale keys
 private _iconKeys = missionNamespace getVariable "fza_fcr_identIconKeys";
@@ -77,8 +77,10 @@ private _tgtParts = [];
     // TM 4.44.4: stale = 5s movers / 30s static since last painted; scanning re-stamps every cycle
     private _stale = (CBA_missionTime - _lastPainted) >= ([FCR_STALE_STATIC_SEC, FCR_STALE_MOVING_SEC] select _moving);
 
+    // ATM's PPI wedge rotates to the slewed bearing, so symbols sit at nose-relative
+    // azimuth (centerline-relative angle + bias); GTM/RMAP pass 0 and stay centerline-referenced
     _tgtParts pushBack format ['{"a":%1,"r":%2,"icon":"%3","ov":"%4","stale":%5}',
-        (_aziAngle / _aziDivisor) toFixed 3,
+        ((_aziAngle + _aziOffset) / _aziDivisor) toFixed 3,
         (_range / _maxRange) toFixed 4,
         _keys # 0,
         _keys # 1,
@@ -92,11 +94,11 @@ private _shotParts = [];
     _x params ["_index", "_shotIdent", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
     // Scan-time reference frame so markers hold screen position between scan updates
     private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [(_scanPos getDir _shotPos) - _scanDir - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    private _shotRelAzi = [(_scanPos getDir _shotPos) - _scanDir] call CBA_fnc_simplifyAngle180;
     if ((abs _shotRelAzi) > _halfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then { continue; };
     // TM 4.44.6: o 0 = under targets (pre-launch), 1 = over (post-launch)
     _shotParts pushBack format ['{"a":%1,"r":%2,"o":%3}',
-        (_shotRelAzi / _aziDivisor) toFixed 3,
+        ((_shotRelAzi + _aziOffset) / _aziDivisor) toFixed 3,
         (_shotRange / _maxRange) toFixed 4,
         _overlay
     ];

@@ -9,11 +9,16 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 
-private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
 private _atmWide    = _atmHalfFov >= 168;
+private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE), _heli getVariable ["fza_ah64_fcrScanSize", 0]];
+
+// TM fig 4-46: the ATM wedge rotates on the PPI to the slewed bearing (unlike GTM/RMAP,
+// whose wedge stays forward). Base orientation is set by the bone's +180; the direction is
+// -bias so a right (+) slew rotates the wedge right.
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_SECTOR_ROT), (((-_fcrAzBias mod 360) + 360) mod 360) / 360 * 6.4];
 
 //FCR wiper — Fcr_ATMBar maps ANIM 0..6.4 linearly to 0..360, so feed the wiper bearing scaled to that range
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
@@ -24,10 +29,14 @@ if (_fcrScanState != FCR_MODE_OFF && !_cueing) then {
     private _barTime   = [(_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS, 180 / FCR_SCAN_RATE_DEGS] select _atmWide;
     private _cycle     = _barTime * 2;
     private _cycleT    = _animDelta % _cycle;
+    // Sector rotates with the slew, so the wiper carries the bias too (wide rotation is
+    // unbiased). Bias enters as -bias to match the wedge; the wiper bone's zero is already
+    // forward (unlike the wedge geometry), so no 180 offset here.
     private _wiperAz   = if (_atmWide) then {
         (_cycleT / _cycle) * 360
     } else {
-        _fcrAzBias + ([
+        // bias negated to match the wedge
+        -_fcrAzBias + ([
             -_atmHalfFov + (_cycleT / _barTime) * (_atmHalfFov * 2),
             _atmHalfFov - ((_cycleT - _barTime) / _barTime) * (_atmHalfFov * 2)
         ] select (_cycleT > _barTime))
@@ -56,12 +65,11 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
-private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
-
-// "a" in degrees (divisor 1) — the polar circle trig happens in scope.js
+// "a" in degrees (divisor 1) — the polar circle trig happens in scope.js.
+// The stored ATM bearing is already nose-relative (frozen at scan time), so no live
+// bias offset — the symbol holds its screen position through a slew until re-scanned.
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _systemWas,
-    _atmHalfFov, 8000, _dir, _fcrAzBias, 1, true
+    _atmHalfFov, 8000, _dir, 1, true, 0
 ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
 
 private _json = format ['{"mode":2,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson];

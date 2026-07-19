@@ -20,11 +20,11 @@ private _barTime = ((_heli getVariable ["fza_ah64_fcrGtmHalfFov", 45]) * 2) / FC
 // Wiper hidden while the dish cues to the sector edge — the bar only ever appears at the sweep start
 private _cueingRmap = _fcrScanDeltaTime < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] };
 if (_fcrScanState != FCR_MODE_OFF && !_cueingRmap) then {
-    // Bars ride the fixed +-45 display axis — remap wiper bearing into the bone's 0..3.2 range
+    // Bars ride the fixed +-45 display axis — remap wiper bearing into the bone's 0..3.2 range.
+    // Display is centerline-referenced: the sector stays centered, so the wiper ignores azimuth bias
     private _t  = (_fcrScanDeltaTime max 0) % (_barTime * 2);
     private _h  = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
-    private _b  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-    private _az = _b + ([-_h + (_t / _barTime) * (_h * 2), _h - ((_t - _barTime) / _barTime) * (_h * 2)] select (_t > _barTime));
+    private _az = [-_h + (_t / _barTime) * (_h * 2), _h - ((_t - _barTime) / _barTime) * (_h * 2)] select (_t > _barTime);
     private _anim = [0.8 * (1 + _az / 45), 2.4 - 0.8 * _az / 45] select (_t > _barTime);
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _anim];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
@@ -43,6 +43,17 @@ switch _sight do {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
+// TM 4.35.6d: centerline arrows only while FCR is the selected sight; solid = offset commanded that side
+private _arrowL = 0;
+private _arrowR = 0;
+if (_sight == 0) then {
+    private _arrowBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    _arrowL = [1, 2] select (_arrowBias < -0.5);
+    _arrowR = [1, 2] select (_arrowBias >  0.5);
+};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_L), _arrowL];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_R), _arrowR];
+
 private _nextPoint    = (_heli getVariable "fza_dms_routeNext") # 0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 if (isNil "_nextPointPos") then {
@@ -59,6 +70,9 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _altSenso
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time", "_lastDir"];
 private _fcrHeading  = [(_dir     - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+// Carets present only within the displayed portion of the heading scale (+-90)
+if (abs _fcrHeading > 95)  then { _fcrHeading  = -1000; };
+if (abs _lastHeading > 95) then { _lastHeading = -1000; };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE),  _fcrHeading];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE),   _heli getVariable ["fza_ah64_fcrScanSize", 0]];
@@ -116,7 +130,6 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
 [_heli] call fza_fcr_fnc_resolveDisplay;
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
-private _fcrAzBias      = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov     = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 // TM 4.41: RMAP re-select toggles the video underlay; sampling skipped while off, JS keeps the grid
 private _rmapVideo      = _heli getVariable ["fza_ah64_fcrRmapVideo", true];
@@ -162,7 +175,8 @@ if (_sameFrame) then {
 
         private _colIdx = ((floor ((_scanBearingAzi + _gtmHalfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
 
-        // Lock heading to _dir at each phase flip to prevent misalignment mid-turn
+        // Lock to _dir (scan centerline world bearing, includes azimuth bias) at each
+        // phase flip — column azimuths stay in the scan-data frame mid-turn and mid-slew
         private _prevSweepIsNear = _heli getVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", -1];
         private _curPhaseNum     = parseNumber _isNearPhase;
         if (_hardClear || _prevSweepIsNear != _curPhaseNum) then {
@@ -310,7 +324,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 
 // "a" normalised to -1..1 by halfFov — the RMAP B-scope x axis
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _wasState,
-    _gtmHalfFov, _maxRange, _dir, _fcrAzBias, 45, false
+    _gtmHalfFov, _maxRange, _dir, 45, false
 ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
 
 private _json = format[

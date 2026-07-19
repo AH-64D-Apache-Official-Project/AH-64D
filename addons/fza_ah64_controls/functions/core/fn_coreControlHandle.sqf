@@ -31,6 +31,16 @@ if (_value) then {
         };
         case "fza_ah64_sightSelectFCR": {
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
+            // TM 4.35.6c NOTE: FCR sight select commands the centerline back to the acquisition LOS
+            if ((_heli getVariable ["fza_ah64_fcrAzBias", 0]) != 0) then {
+                _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+                _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
+                _heli setVariable ["fza_ah64_fcrRMAPHardClear", true];
+                _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState"];
+                if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                    [_heli, _fcrScanState, true] call fza_fcr_fnc_armScanStart;
+                };
+            };
             private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
             if ("fza_agm114l_wep" in _missiles) then {
                 _heli setVariable ["fza_ah64_selectedMissile", "fza_agm114l_wep", true];
@@ -145,6 +155,7 @@ if (_value) then {
         case "fza_ah64_fcrModeGTM": {
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_GTM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
@@ -163,6 +174,7 @@ if (_value) then {
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_RMAP, true];
             _heli setVariable ["fza_ah64_fcrRmapVideo", true, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
@@ -175,6 +187,7 @@ if (_value) then {
         case "fza_ah64_fcrModeATM": {
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_ATM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
@@ -187,6 +200,7 @@ if (_value) then {
         case "fza_ah64_fcrModeTPM": {
             _heli setVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_TPM, true];
             _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
             [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _stateMode = _fcrState # 0;
