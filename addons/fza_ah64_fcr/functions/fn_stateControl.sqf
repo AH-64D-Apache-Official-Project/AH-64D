@@ -65,7 +65,10 @@ switch _fcrScanState do {
         if _armaRadarOn exitWith {
             private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
             private _minStartDelay = [_updateDelay, _fullCycle] select (_time < _fcrScanStartTime);
-            private _isFullCycle = (CBA_missionTime - _lastFullCycle) >= _fullCycle;
+            // ATM scans the full azimuth+range on every bar (rebound), so each bar is a
+            // complete scan — treat every bar as a full cycle for update/merge/reveal.
+            private _cycleRef    = [_fullCycle, _updateDelay] select (_fcrMode == FCR_DISP_MODE_ATM);
+            private _isFullCycle = (CBA_missionTime - _lastFullCycle) >= _cycleRef;
             if (CBA_missionTime >= _time + _updateDelay && CBA_missionTime >= _fcrScanStartTime + _minStartDelay) then {
                 [_heli, _isFullCycle] call fza_fcr_fnc_update;
             };

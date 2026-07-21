@@ -6,16 +6,14 @@ _heli setVariable ["fza_ah64_fcrDisplayFrame", diag_frameNo];
 
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 private _fcrTargets    = _heli getVariable ["fza_ah64_fcrTargets", []];
-private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
 private _displayTargets = [];
 private _liveCount      = 0;
 private _scanning       = _fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS];
-// Reveal progress freezes at the moment the scan stops (state stamp) — targets the wiper
-// never reached stay hidden instead of popping in when the scan is cancelled
-private _revealRefTime  = [_fcrScanStartTime, CBA_missionTime] select _scanning;
 
-// Commanded footprint — symbols outside it clear immediately (TM is silent; crew decision)
+// Reveal is resolved in fn_mergeTargets: each target's DISPLAYED record (fields 9-11) is only
+// updated once the wiper crosses its azimuth, so here we just render the committed picture.
+// A target with an empty committed pos has never been swept yet — keep it hidden.
 private _fcrMode  = _heli getVariable "fza_ah64_fcrMode";
 private _isAtm    = _fcrMode == FCR_DISP_MODE_ATM;
 private _scanSize = _heli getVariable ["fza_ah64_fcrScanSize", 0];
@@ -24,30 +22,27 @@ private _halfCmd  = [[45, 22.5, 15, 7.5] select _scanSize, [180, 90, 45, 22.5] s
 
 {
     _x params ["_pos", "_type", "_moving", "_obj", "_aziAngle", "_elevAngle", "_range", "_revealOffset", "_isGhostFlag",
-             ["_frozenAzi", 0], ["_frozenRange", 0], ["_frozenPos", []], ["_lastSeenTime", 0], ["_ghostRemoveTime", 0]];
+             ["_dispAzi", 0], ["_dispRange", 0], ["_dispPos", []], ["_lastSeenTime", 0], ["_ghostRemoveTime", 0]];
 
-    private _isGhost      = (_isGhostFlag > 0);
-    private _beforeReveal = (_revealRefTime - _lastFullCycle) < _revealOffset;
+    private _isGhost = (_isGhostFlag > 0);
 
     // No time purge — radar off persists the picture; scanning drops each ghost as the wiper re-covers it (removal time from mergeTargets)
     if (_isGhost && _scanning && CBA_missionTime >= _ghostRemoveTime) then { continue; };
     // TM 4.35.11: ATM target data is purged at the start of each scan — no ghost persistence
     if (_isGhost && _scanning && _isAtm) then { continue; };
-    // Outside the commanded scan sector: clear instantly
+
+    // Never swept yet this scan — no committed picture, stay hidden
+    if (_dispPos isEqualTo []) then { continue; };
+
+    // Render the committed (revealed) position, not the live scan sample
+    _pos      = _dispPos;
+    _aziAngle = _dispAzi;
+    _range    = _dispRange;
+
+    // Outside the commanded scan sector: clear instantly (crew decision — TM silent)
     if (_halfCmd < 180) then {
         private _relNow = [(_heli getRelDir _pos) - _azBias] call CBA_fnc_simplifyAngle180;
         if (abs _relNow > _halfCmd + 1) then { continue; };
-    };
-
-    if (!_isGhost && _beforeReveal) then {
-        // Only targets that completed a previous cycle have frozen data — fresh ones stay hidden until revealed
-        if (_frozenPos isNotEqualTo []) then {
-            _aziAngle = _frozenAzi;
-            _range    = _frozenRange;
-            _pos      = _frozenPos;
-        } else {
-            continue;
-        };
     };
 
     // Field 7 = time the wiper painted the symbol (merge stamp + reveal offset) so stale dimming staggers per TM 4.44.4

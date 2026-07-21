@@ -52,6 +52,13 @@ private _cueDelay   = _angDist / (FCR_SCAN_RATE_DEGS * (pi / 180));
 // phase that desyncs the dish, wiper and reveal timer from the new cycle length
 _heli setVariable ["fza_ah64_fcrPrevCyclePhase", 0, true];
 
+// TM 4.42.3: "When a new scan is commanded, the FCR will clear its target file." A re-cue
+// (scan start, size change, slew) is a new scan — clear the file so nothing persists through
+// the cue; targets re-derive only as the wiper sweeps the new footprint.
+[_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+_heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
+_heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
+
 if (_preserve) exitWith {};
 [_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrFullCycleCount", 0]                   call fza_fnc_updateNetworkGlobal;
