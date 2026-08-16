@@ -120,6 +120,12 @@ class CfgVehicles {
                     subPageVarPage[] = {1,0};
                 };
             };
+            // Minigame selection menu - DMS page's IBIT (t3) button.
+            class MINIGAMES {
+                index = MPD_PAGE_MINIGAMES;
+                draw = "fza_mpd_fnc_pageMinigamesDraw";
+                handleControl = "fza_mpd_fnc_pageMinigamesHandleControl";
+            };
             class DTU {
                 index = MPD_PAGE_DTU;
                 draw  = "fza_mpd_fnc_pageDTUDraw";
@@ -131,12 +137,30 @@ class CfgVehicles {
             };
             class FCR {
                 index = MPD_PAGE_FCR;
+                htmlUrl   = "\fza_ah64_fcr\ui\scope\scope.html";
+                htmlClass = "RscFzaFCRScope";
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
-                usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {5,0};
                 };
+            };
+            class FCRRMAP {
+                index = MPD_PAGE_FCRRMAP;
+                htmlUrl   = "\fza_ah64_fcr\ui\rmap\rmap.html";
+                htmlClass = "RscFzaFCRRmap";
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
+                draw          = "fza_mpd_fnc_fcrRMAPDraw";
+                handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
+            };
+            class FCRTPM {
+                index = MPD_PAGE_FCRTPM;
+                htmlUrl   = "\fza_ah64_fcr\ui\tpm\tpm.html";
+                htmlClass = "RscFzaFCRTpm";
+                draw          = "fza_mpd_fnc_fcrTPMDraw";
+                handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
+                usesIcons = 1;
             };
             class ASE {
                 index = MPD_PAGE_ASE;
@@ -205,6 +229,69 @@ class CfgVehicles {
                     shotatdel = 0;
                 };
             };
+            // MINIGAMES: needs index, htmlUrl, and htmlClass (display class) - game content lives in fza_ah64_minigames.
+            class ASTEROIDS {
+                index = MPD_PAGE_ASTEROIDS;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\asteroids\game.html";
+                htmlClass = "RscFzaMinigameAsteroids";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class SPACEINVADERS {
+                index = MPD_PAGE_SPACEINVADERS;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\spaceinvaders\game.html";
+                htmlClass = "RscFzaMinigameSpaceInvaders";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class PONG {
+                index = MPD_PAGE_PONG;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\pong\game.html";
+                htmlClass = "RscFzaMinigamePong";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class BREAKOUT {
+                index = MPD_PAGE_BREAKOUT;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\breakout\game.html";
+                htmlClass = "RscFzaMinigameBreakout";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class LUNARLANDER {
+                index = MPD_PAGE_LUNARLANDER;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\lunarlander\game.html";
+                htmlClass = "RscFzaMinigameLunarLander";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class BATTLESHIP {
+                index = MPD_PAGE_BATTLESHIP;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\battleship\game.html";
+                htmlClass = "RscFzaMinigameBattleship";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class TICTACTOE {
+                index = MPD_PAGE_TICTACTOE;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\tictactoe\game.html";
+                htmlClass = "RscFzaMinigameTicTacToe";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class CONNECTFOUR {
+                index = MPD_PAGE_CONNECTFOUR;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\connectfour\game.html";
+                htmlClass = "RscFzaMinigameConnectFour";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class ROCKPAPERSCISSORS {
+                index = MPD_PAGE_ROCKPAPERSCISSORS;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\rockpaperscissors\game.html";
+                htmlClass = "RscFzaMinigameRockPaperScissors";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            class CHECKERS {
+                index = MPD_PAGE_CHECKERS;
+                htmlUrl = "\fza_ah64_minigames\ui\minigame\games\checkers\game.html";
+                htmlClass = "RscFzaMinigameCheckers";
+                handleControl = "fza_mg_fnc_minigameHandleControl";
+            };
+            // DOOM is intentionally not defined here - it's supplied by the standalone AH-64D-Doom compat
+            // addon (fza_ah64_doomcompat, requiredAddons = this + fza_ah64_doom, skipWhenMissingDependencies)
         };
     };
 };

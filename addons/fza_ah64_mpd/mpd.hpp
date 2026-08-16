@@ -62,6 +62,10 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
         #include "pages\dms_draw.hpp"
     };
+    class Minigames{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_MINIGAMES));
+        #include "pages\minigames_draw.hpp"
+    };
     class DTU{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DTU));
         #include "pages\dtu_draw.hpp"
@@ -69,6 +73,14 @@ class Draw
     class FCR{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR));
         #include "pages\fcr_draw.hpp"
+    };
+    class FCRRMAP{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP));
+        #include "pages\fcr\rmap.hpp"
+    };
+    class FCRTPM{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRTPM));
+        #include "pages\fcr\tpm.hpp"
     };
     class ASE{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASE));
@@ -105,5 +117,9 @@ class Draw
     class COORD{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_COORD));
         #include "pages\coord_draw.hpp"
+    };
+    class ASTEROIDS{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASTEROIDS));
+        //#include "pages\asteroids_draw.hpp"
     };
 };

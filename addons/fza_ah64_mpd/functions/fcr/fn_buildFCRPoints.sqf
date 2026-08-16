@@ -22,6 +22,11 @@ Parameters:
     _fcrAzBias      - FCR azimuth bias in degrees
     _halfFov        - Half field-of-view in degrees (used to cull shot-at icons)
     _filterAirOnly  - (optional, default false) Skip non-air FCR targets when true
+    _scanDir        - (optional) Heading at last scan update (fza_ah64_fcrLastScan).
+                      Shot-at bearings are computed in this scan-time reference frame
+                      so markers hold their screen position between scan updates
+                      instead of sliding with live aircraft yaw. Falls back to the
+                      live heading when not supplied.
 
 Returns:
     _pointsArray
@@ -35,7 +40,9 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_displayTargets", "_scanPos", "_ntsIndex", "_antsIndex",
         "_scale", "_heliCtr", "_systemWas", "_shotATList", "_fcrAzBias",
-        "_halfFov", ["_filterAirOnly", false]];
+        "_halfFov", ["_filterAirOnly", false], ["_scanDir", -1]];
+
+if (_scanDir == -1) then { _scanDir = direction _heli; };
 
 private _pointsArray   = [];
 private _fcrPointCount = 0;
@@ -46,7 +53,7 @@ private _fcrPointCount = 0;
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 0) then {continue;};
     private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    private _shotRelAzi = [(_scanPos getDir _shotPos) - _scanDir - _fcrAzBias] call CBA_fnc_simplifyAngle180;
     if ((abs _shotRelAzi) > _halfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
@@ -79,7 +86,7 @@ private _fcrPointCount = 0;
     if (_x isEqualTo -1) then {continue;};
     if (_overlay != 1) then {continue;};
     private _shotRange  = _scanPos distance2D _shotPos;
-    private _shotRelAzi = [([_heli getRelDir _shotPos] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
+    private _shotRelAzi = [(_scanPos getDir _shotPos) - _scanDir - _fcrAzBias] call CBA_fnc_simplifyAngle180;
     if ((abs _shotRelAzi) > _halfFov || _shotRange > FCR_LIMIT_MOVING_RANGE) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_heliCtr#0 + sin _shotRelAzi * (_shotRange * _scale), _heliCtr#1 - cos _shotRelAzi * (_shotRange * _scale), 0], "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;

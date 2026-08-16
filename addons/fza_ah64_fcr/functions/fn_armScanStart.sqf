@@ -8,6 +8,7 @@ Description:
 Parameters:
     _heli       - The helicopter
     _scanState  - FCR_MODE_ON_SINGLE or FCR_MODE_ON_CONTINUOUS
+    _preserve   - keep NTS and cycle count (mid-scan re-cue, e.g. size change)
 
 Returns:
     Nothing
@@ -15,26 +16,49 @@ Returns:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli", "_scanState"];
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params ["_heli", "_scanState", ["_preserve", false]];
+
+[_heli, true] call fza_fcr_fnc_applyScanSize;
 
 private _fcrMode    = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-private _startDeg = if (_fcrMode == 1) then {
+private _startDeg = if (_fcrMode == FCR_DISP_MODE_GTM || _fcrMode == FCR_DISP_MODE_RMAP) then {
     _fcrAzBias - _gtmHalfFov
 } else {
-    _fcrAzBias
+    if (_fcrMode == FCR_DISP_MODE_TPM) then {
+        private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+        _fcrAzBias - _tpmHalfFov
+    } else {
+        // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front.
+        // Bias negated so the physical dish cues to the same side as the MFD wedge (which uses -bias).
+        private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
+        (-_fcrAzBias) - ([0, _atmHalfFov] select (_atmHalfFov < 168))
+    }
 };
 
 private _currentRad = _heli animationPhase "longbow";
 private _startRad   = (_startDeg * (pi / 180)) * ([-1, 1] select (_fcrMode == 2));
 private _angDist    = abs (_currentRad - _startRad);
 if (_angDist > pi) then { _angDist = (2 * pi) - _angDist; };
-private _cueDelay   = _angDist / (pi / 3.2);
+private _cueDelay   = _angDist / (FCR_SCAN_RATE_DEGS * (pi / 180));
 
 [_heli, "fza_ah64_fcrWaitingForStart", true] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrLastFullCycle", 0] call fza_fnc_updateNetworkGlobal;
+// Restart the phase-wrap tracker so a mid-scan re-cue (size change) doesn't leave a stale
+// phase that desyncs the dish, wiper and reveal timer from the new cycle length
+_heli setVariable ["fza_ah64_fcrPrevCyclePhase", 0, true];
+
+// TM 4.42.3: "When a new scan is commanded, the FCR will clear its target file." A re-cue
+// (scan start, size change, slew) is a new scan — clear the file so nothing persists through
+// the cue; targets re-derive only as the wiper sweeps the new footprint.
+[_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+_heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
+_heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
+
+if (_preserve) exitWith {};
 [_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrFullCycleCount", 0]                   call fza_fnc_updateNetworkGlobal;

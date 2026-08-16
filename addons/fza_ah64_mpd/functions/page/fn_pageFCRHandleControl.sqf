@@ -11,5 +11,11 @@ switch(_control) do {
     case "l1": {
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
+    case "l2": {
+        [_heli, -1] call fza_fcr_fnc_slewCenterline;
+    };
+    case "r2": {
+        [_heli, 1] call fza_fcr_fnc_slewCenterline;
+    };
 };
  

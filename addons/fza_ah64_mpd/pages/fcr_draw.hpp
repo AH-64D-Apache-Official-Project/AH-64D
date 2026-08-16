@@ -453,4 +453,12 @@ class root {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 2));
         #include "fcr\atm.hpp"
     };
+    class RMAP {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), FCR_DISP_MODE_RMAP));
+        #include "fcr\rmap.hpp"
+    };
+    class TPM {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), FCR_DISP_MODE_TPM));
+        #include "fcr\tpm.hpp"
+    };
 };

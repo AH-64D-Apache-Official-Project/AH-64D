@@ -27,9 +27,6 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_type", "_distance_m", "_moving", ["_selStatus", 0], ["_wasWeaponNone", false]];
 
-// Out-of-range: signal caller to skip this target
-if (_distance_m < FCR_LIMIT_MIN_RANGE || _distance_m > FCR_LIMIT_STATIONARY_RANGE) exitWith { "" };
-
 // Resolve unit type string
 private _unitType = switch (_type) do {
     case FCR_TYPE_HELICOPTER: { "HELI" };
@@ -39,6 +36,11 @@ private _unitType = switch (_type) do {
     case FCR_TYPE_ADU:        { "ADU" };
     default                   { "UNK" };
 };
+
+// Out-of-range: signal caller to skip. Moving and air targets are valid to 8 km
+// (FCR_LIMIT_MOVING_RANGE); stationary ground only to 6 km (FCR_LIMIT_STATIONARY_RANGE).
+private _maxRange = [FCR_LIMIT_STATIONARY_RANGE, FCR_LIMIT_MOVING_RANGE] select (_moving || _unitType == "FLYER" || _unitType == "HELI");
+if (_distance_m < FCR_LIMIT_MIN_RANGE || _distance_m > _maxRange) exitWith { "" };
 
 // Resolve engagement status
 private _unitStatus = if ((_moving && _distance_m <= FCR_LIMIT_MOVING_RANGE) || _unitType == "FLYER") then {

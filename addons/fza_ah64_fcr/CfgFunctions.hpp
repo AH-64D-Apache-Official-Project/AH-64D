@@ -19,6 +19,11 @@ class CfgFunctions
             class resolveDisplay {RECOMPILE_FLAG;};
             class stateControl {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
+            class buildTPMData {RECOMPILE_FLAG;};
+            class applyScanSize {RECOMPILE_FLAG;};
+            class getScanTiming {RECOMPILE_FLAG;};
+            class slewCenterline {RECOMPILE_FLAG;};
+            class displayUiInit {RECOMPILE_FLAG;};
         };
     };
 };

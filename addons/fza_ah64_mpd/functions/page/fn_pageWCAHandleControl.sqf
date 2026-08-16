@@ -4,6 +4,9 @@ switch(_control) do {
     case "t1": {
         [_heli, _mpdIndex, "dtu"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "t3": {
+        [_heli, _mpdIndex, "minigames"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
