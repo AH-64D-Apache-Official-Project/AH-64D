@@ -158,6 +158,12 @@ if ($allPresent -and -not $SkipUpdateCheck) {
     if ($updateResponse -eq '' -or $updateResponse -match '^[Yy]') {
         $script:checkUpdates = $true
         Write-Host "  Update check enabled." -ForegroundColor Cyan
+        if (Test-Command "winget") {
+            # winget's local source cache can lag behind the real feed for hours;
+            # without this, "upgrade" below can report "up to date" against stale metadata.
+            Write-Host "    Refreshing winget sources..." -ForegroundColor DarkGray
+            & winget source update *> $null
+        }
     } else {
         Write-Host "  Skipping update check." -ForegroundColor DarkGray
     }
@@ -549,7 +555,19 @@ if (Test-Command "hemtt") {
         if (([string]$hemttver).Trim() -ne ([string]$hemttverBefore).Trim()) {
             Write-OK "HEMTT updated: $hemttver"
             $script:updates.Add(("HEMTT          {0,-20} ->  {1}" -f ([string]$hemttverBefore).Trim(), ([string]$hemttver).Trim()))
-        } else { Write-OK "HEMTT up to date: $hemttver" }
+        } else {
+            Write-OK "HEMTT up to date via winget: $hemttver"
+            # winget's manifest repo lags GitHub releases by hours to days; check the
+            # real upstream so we don't silently sit behind an available release.
+            try {
+                $ErrorActionPreference = "Continue"
+                $latest = Invoke-RestMethod -Uri "https://api.github.com/repos/BrettMayson/HEMTT/releases/latest" -UseBasicParsing
+                $latestTag = ($latest.tag_name -replace '^v', '').Trim()
+                if ($latestTag -and ($hemttver -notmatch [regex]::Escape($latestTag))) {
+                    Write-Warn "HEMTT $latestTag is on GitHub but not yet in winget's feed. Get it manually: https://github.com/BrettMayson/HEMTT/releases"
+                }
+            } catch { }
+        }
     } else {
         $hemttver = & { $ErrorActionPreference = "Continue"; hemtt --version 2>&1 } | Select-Object -First 1
         Write-OK "Found: $hemttver"
