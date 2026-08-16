@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File6:fn_getArea.sqf",{466:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the area of a four point polygon.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File6:fn_getArea.sqf",{468:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the area of a four point polygon.</div></div>"});

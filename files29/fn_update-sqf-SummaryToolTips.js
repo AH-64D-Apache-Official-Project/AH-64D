@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File29:fn_update.sqf",{8:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">handles the wca buttons</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File29:fn_update.sqf",{6:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">handles the wca buttons</div></div>"});

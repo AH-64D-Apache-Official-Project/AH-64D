@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fn_swapFlares.sqf","fn_swapFlares.sqf");NDSummary.OnSummaryLoaded("File:fn_swapFlares.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[535,0,1,"Functions","Functions"],[536,0,0,"fza_ase_fnc_swapFlares","fza_ase_fnc_swapFlares"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fn_swapFlares.sqf","fn_swapFlares.sqf");NDSummary.OnSummaryLoaded("File:fn_swapFlares.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[533,0,1,"Functions","Functions"],[534,0,0,"fza_ase_fnc_swapFlares","fza_ase_fnc_swapFlares"]]);

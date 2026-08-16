@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:core/fn_coreGetWCAs.sqf",{438:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Retrieves a list of the warnings, cautions and advisories for the helicopter returned</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:core/fn_coreGetWCAs.sqf",{436:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Retrieves a list of the warnings, cautions and advisories for the helicopter returned</div></div>"});

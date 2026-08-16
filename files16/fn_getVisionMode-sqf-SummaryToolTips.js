@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File16:fn_getVisionMode.sqf",{272:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">returns the vision mode of tads</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File16:fn_getVisionMode.sqf",{270:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">returns the vision mode of tads</div></div>"});

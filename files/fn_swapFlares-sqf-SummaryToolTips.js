@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_swapFlares.sqf",{536:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Adds and removes the flares</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_swapFlares.sqf",{534:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Adds and removes the flares</div></div>"});

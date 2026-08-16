@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File25:electrical/fn_electricalGenerator1.sqf",{22:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates all of the modules core functions.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File25:electrical/fn_electricalGenerator1.sqf",{26:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates all of the modules core functions.</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File7:engine/fn_engineHandleControl.sqf",{414:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any engine-related cockpit controls.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File7:engine/fn_engineHandleControl.sqf",{408:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any engine-related cockpit controls.</div></div>"});
