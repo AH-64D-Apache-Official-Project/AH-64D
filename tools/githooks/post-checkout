@@ -1,0 +1,25 @@
+#!/bin/sh
+# Removes addons/*/ folders left behind by a branch switch that contain
+# nothing but the gitignored version.hpp (HEMTT pre-build artifact). Such a
+# folder isn't tracked on the branch just checked out and has no
+# $PBOPREFIX$, which crashes `scons` (getPboInfo) until removed manually.
+prev="$1"
+new="$2"
+is_branch_checkout="$3"
+
+[ "$is_branch_checkout" = "1" ] || exit 0
+[ -d addons ] || exit 0
+
+for dir in addons/*/; do
+    dir="${dir%/}"
+    [ -d "$dir" ] || continue
+    entries=$(find "$dir" -mindepth 1)
+    [ -z "$entries" ] && continue
+    only_version_hpp=$(printf '%s\n' "$entries" | grep -vx "$dir/version.hpp")
+    if [ -z "$only_version_hpp" ]; then
+        echo "post-checkout: removing stale $dir (only contained version.hpp)"
+        rm -rf "$dir"
+    fi
+done
+
+exit 0

@@ -68,9 +68,8 @@ for dir in candidates {
 
         if file.move(dst) {
             renamed += 1;
-            info("normalize_pbo_names: " + name + " -> " + new_name + " (" + dir.to_string() + ")");
         } else {
-            warn("normalize_pbo_names: failed to rename " + name + " in " + dir.to_string());
+            warn("normalize_pbo_names: failed to rename " + name + " -> " + new_name + " in " + dir.to_string());
         }
     }
 }
