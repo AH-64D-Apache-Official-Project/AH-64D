@@ -44,7 +44,9 @@ private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
 private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
 //_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
+private _collectiveOut          = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
+private _fmcCollOut             = _collectiveOut + _altHoldCollOut;
 //private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
@@ -108,6 +110,7 @@ private _velocityThrustExponentTable =
 
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;
+private _isOnGnd                = [_heli] call fza_sfmplus_fnc_onGround;
 
 private _pitchTorqueScalar      = 2.50 * 1.3;
 private _rollTorqueScalar       = 0.75 * 1.3;
@@ -123,8 +126,7 @@ private _Jtot = (_Iy + _Itot) * _rtrNumBlades;
 [_heli, "fza_sfmplus_rtrMoi", 0, _Jtot, true] call fza_fnc_setArrayVariable;
 
 //Thrust produced 
-private _collectiveOutput              = (_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut;
-private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * _collectiveOutput;
+private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * _fmcCollOut;
 private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 //(_heli getVariable "fza_sfmplus_engPctNP")
@@ -142,15 +144,11 @@ private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
 private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
-private _velWindY                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 1;
-private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 0;
-if (_velWindY < 0.0) then {
-    _velWindY = 0.0;
-};
-private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
+private _velXY                     = vectorMagnitude [_velX, _velY] min VEL_VNE;
 if ([_velXY] call fza_sfmplus_fnc_isNAN || [_velXY] call fza_sfmplus_fnc_isINF) then { _velXY = 0.0; };
+if (_isOnGnd) then { _velXY = 0.0; };
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
-//systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+//systemChat format ["_velocityThrustExponent = %1 -- _fmcCollOut = %2", _velocityThrustExponent toFixed 3, _fmcCollOut toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
 
 //Induced flow handler
@@ -184,11 +182,10 @@ private _rtrArea                   = pi * _bladeRadius^2;
 private _profile_min = 0.180;
 private _profile_max = 0.407;
 
-private _velXNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 0;
-private _velYNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 1;
-private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind];
+private _velXYNoWind = vectorMagnitude [_velX, _velY] min VEL_VNE;
+if (_isOnGnd) then { _velXYNoWind = 0.0; };
 
-private _profilePowerCollectiveScalar = [_collectiveOutput / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
+private _profilePowerCollectiveScalar = [_fmcCollOut / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
 private _profile_cur                  = (_profile_min + (((_profile_max * _profilePowerCollectiveScalar) - _profile_min) / VEL_VNE) * _velXYNoWind);
 
 private _inducedPowerVelocityScalarTable = 
@@ -205,7 +202,7 @@ private _inducedPowerVelocityScalarTable =
 ,[72.02, 0.899]
 ];  
 private _inducedPowerVelocityScalar = ([_inducedPowerVelocityScalarTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
-_inducedPowerVelocityScalar         = _inducedPowerVelocityScalar * _collectiveOutput;
+_inducedPowerVelocityScalar         = _inducedPowerVelocityScalar * _fmcCollOut;
 
 private _inducedPowerCollectiveCorrectionTable = 
 [
@@ -239,9 +236,9 @@ private _autorotationTorqueTable =
 ,[  0.00,   0.0]
 ];
 private _inducedPowerCollectiveCorrection = ([_inducedPowerCollectiveCorrectionTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
-private _induced_val                      = [_collectiveOutput / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
+private _induced_val                      = [_fmcCollOut / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
 private _induced_cur                      = _inducedPowerVelocityScalar * _induced_val;
-private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _collectiveOutput] call fza_fnc_linearInterp) select 1;
+private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _fmcCollOut] call fza_fnc_linearInterp) select 1;
 _collectiveTorqueCorrection               = linearConversion[0.0, VEL_ETL, _velXYNoWind, 1.0, _collectiveTorqueCorrection, true];
 private _power_val                        = [(_profile_cur + _induced_cur) * _collectiveTorqueCorrection, -1.0, 2.50] call BIS_fnc_clamp;
 private _power_req                        = _power_val * 2133.0;
@@ -323,6 +320,29 @@ if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza
 _heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
 _heli setVariable ["fza_sfmplus_vrsVelocityMax", _inducedVelocity * 1.25];
 /////////////////////////////////////////////////////////////////////////////////////////////
+// Retreating Blade Stall ///////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _retBladeStallSpeedTable = 
+[
+ [  0.00, 0.00, 0.00]   //0ktas
+,[ 77.16, 0.00, 0.00]   //150ktas
+,[ 82.30, 0.04, 0.20]   //160ktas
+,[ 87.45, 0.12, 0.50]   //170ktas
+,[ 92.59, 0.25, 0.90]   //180ktas
+,[ 97.74, 0.50, 1.40]   //190ktas
+,[100.31, 0.70, 1.70]   //195ktas
+,[102.88, 1.00, 2.00]   //200ktas
+];
+
+private _retBladeStallCollTable =
+[
+ [0.0, [_retBladeStallSpeedTable, _velXY] call fza_fnc_linearInterp select 1]
+,[0.7, [_retBladeStallSpeedTable, _velXY] call fza_fnc_linearInterp select 2]
+];
+
+private _retBladeStallInput = [_retBladeStallCollTable, _fmcCollOut] call fza_fnc_linearInterp select 1;
+private _retBladeStallVal   = linearConversion [77.16, 102.88, _velXY, 1.0, 0.0, true];
+/////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft     = _heli getVariable "fza_sfmplus_cyclicFwdAft";
@@ -331,8 +351,12 @@ _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
-_pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _torqueX          = _pitchTorque * _pitchInput * _deltaTime; 
+_pitchInput               = [_pitchInput, -_retBladeStallVal, 1.0] call BIS_fnc_clamp;
+if (_pitchInput < 0.0) then {
+    _pitchInput = _pitchInput * (1.0 - _retBladeStallInput);
+};
+private _retBladeStallPitchBias = _retBladeStallInput * 3.0;
+private _torqueX                = (_pitchTorque * (_pitchInput - _retBladeStallPitchBias)) * _deltaTime;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,9 +365,13 @@ private _cyclicLeftRightTrim = 0.0;
 _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
-_rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
-private _torqueY             = _rollTorque * _rollInput * _deltaTime;
+_rollInput                   = [_rollInput, -1.0, _retBladeStallVal] call BIS_fnc_clamp;
+if (_rollInput > 0.0) then {
+    _rollInput = _rollInput * (1.0 - _retBladeStallInput);
+};
+private _rollTorque            = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
+private _retBladeStallRollBias = _retBladeStallInput * 3.0;
+private _torqueY               = (_rollTorque * (_rollInput + _retBladeStallRollBias)) * _deltaTime;
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw Torque           /////////////////////////////////////////////////////////////////////
@@ -378,7 +406,7 @@ if (currentPilot _heli == player) then {
 /////////////////////////////////////////////////////////////////////////////////////////////
 if (cameraView == "INTERNAL") then {
     //Camera shake effect for ETL (16 to 24 knots)
-    if (_velXYNoWind > 8.23 && _velXYNoWind < 12.35) then {
+    if (_velXYNoWind > 8.23 && _velXYNoWind < 12.35 && !_isOnGnd) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
         addCamShake       [0.9, 0.4, 6.2];
@@ -389,9 +417,57 @@ if (cameraView == "INTERNAL") then {
     } else {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };
+    //Camera shake effect 130kts to 140kts
+    private _vel2d = (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS;
+    if (_vel2d >= 66.87 && _vel2d < 72.02) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
+        addCamShake       [2.5, 1, 5];
+        enableCamShake false;
 
+        setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+        setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
+    //Camera shake effect 140kts to 150kts
+    if (_vel2d >= 72.02 && _vel2d < 77.16) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
+            addCamShake       [3, 1, 5.5];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
+    //Camera shake effect 150kts to 160kts
+    if (_vel2d >= 77.16 && _vel2d < 82.30) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
+            addCamShake       [3.5, 1, 6.0];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };   
+    //Camera shake effect >160kts
+    if (_vel2d >= 82.30) then {
+            enableCamShake true;
+            setCamShakeParams [0.0, 1.0, 0.0, 2.0, true];
+            addCamShake       [4.0, 1, 6.5];
+            enableCamShake false;
+
+            setCustomSoundController[_heli, "CustomSoundController3", 6.4];
+            setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+    } else {
+        setCustomSoundController[_heli, "CustomSoundController4", 0.0];
+    };
     //Camera shake effect for vortex ring sate
-    if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround)) then {  //must be less than ETL
+    if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !_isOnGnd) then {  //must be less than ETL
         //2000 fpm to 2933fpm
         if (_velZ < -(_vrsVelMax * 0.40) && _velZ > -(_vrsVelMax * 0.60)) then {
             enableCamShake true;

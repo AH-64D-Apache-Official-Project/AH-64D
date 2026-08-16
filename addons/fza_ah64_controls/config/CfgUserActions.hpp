@@ -73,5 +73,7 @@ class CfgUserActions {
     CfgUserAnalogDef(fza_ah64_collectiveDn,"$STR_FZA_AH64_COLLECTIVE_DN","$STR_FZA_AH64_COLLECTIVE_DN");
     CfgUserNonAnalogDef(fza_ah64_kbCollectiveUp,"$STR_FZA_AH64_KB_COLLECTIVE_UP","$STR_FZA_AH64_KB_COLLECTIVE_UP");
     CfgUserNonAnalogDef(fza_ah64_kbCollectiveDn,"$STR_FZA_AH64_KB_COLLECTIVE_DN","$STR_FZA_AH64_KB_COLLECTIVE_DN");
+    CfgUserActionDef(fza_ah64_ctrlVisToggle,"$STR_FZA_AH64_CTRLVIS_TOGGLE","$STR_FZA_AH64_CTRLVIS_TOGGLE_INFO");
+
     #include "\fza_ah64_controls\headers\controls.hpp"
 };

@@ -19,6 +19,7 @@ Author:
 params ["_heli"];
 
 private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+if (_deltaTime < 0.0001) exitWith {};
 
 private _velX_prev  = _heli getVariable "fza_sfmplus_velX_prev";
 private _accelX     = _heli getVariable "fza_sfmplus_accelX";

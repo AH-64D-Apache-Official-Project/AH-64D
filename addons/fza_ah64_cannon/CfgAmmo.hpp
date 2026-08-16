@@ -2,7 +2,7 @@ class CfgAmmo {
     class B_30mm_HE;
     class fza_30x113: B_30mm_HE {
         //Ace Cfg
-        ACE_caliber = 30.00;
+        ACE_caliber = 20.00;
         ACE_bulletLength = 104;
         ACE_bulletMass = 234;
         ACE_muzzleVelocityVariationSD = 0.37;

@@ -33,7 +33,7 @@ private _pylonsToUpdate = getAllPylonsInfo _heli select
 
 private _turretsToUpdate = (_pylonsToUpdate apply {_x # 2}) arrayIntersect (_pylonsToUpdate apply {_x # 2});
 
-if (count _turretsToUpdate == 0) exitWith {};
+if (_turretsToUpdate isEqualTo []) exitWith {};
 assert (count _turretsToUpdate == 1);
 
 private _turretToUpdate = _turretsToUpdate # 0;

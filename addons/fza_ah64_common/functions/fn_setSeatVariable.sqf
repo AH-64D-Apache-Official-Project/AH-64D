@@ -21,6 +21,6 @@ Examples:
 Author:
   mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_key", "_value", "_seat", "_swap"];
+params ["_heli", "_key", "_value", ["_seat", player], ["_swap", false]];
 
 _heli setVariable [format["%1_%2", _key, [_heli, _seat, _swap] call fza_fnc_getSeat], _value];

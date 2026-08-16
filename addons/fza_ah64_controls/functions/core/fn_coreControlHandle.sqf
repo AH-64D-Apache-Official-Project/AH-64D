@@ -31,6 +31,11 @@ if (_value) then {
         };
         case "fza_ah64_sightSelectFCR": {
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
+            private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+            if ("fza_agm114l_wep" in _missiles) then {
+                _heli setVariable ["fza_ah64_selectedMissile", "fza_agm114l_wep", true];
+                [_heli] call fza_fnc_weaponUpdateSelected;
+            };
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {
@@ -64,18 +69,18 @@ if (_value) then {
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
                 player action ["ActiveSensorsOn", _heli];
-                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, CBA_missionTime], true];
+                [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
-                _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
             };
             player action ["ActiveSensorsOff", _heli];
+            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
         };
         case "fza_ah64_targetStoreUpdate": {
             // Todo: Implemen target store
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL && ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {
                 [_heli] call fza_fnc_weaponMissileCycle
             };
         };
@@ -138,14 +143,32 @@ if (_value) then {
             [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
         case "fza_ah64_fcrModeSwitch_up": {
+            if (_heli getVariable "fza_ah64_fcrMode" == 1) exitWith {};
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
-            _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+            };
         };
         case "fza_ah64_fcrModeSwitch_down": {
+            if (_heli getVariable "fza_ah64_fcrMode" == 2) exitWith {};
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
-            _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
+            _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
+            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _stateMode = _fcrState # 0;
+            if (_stateMode in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
+                [_heli, _stateMode] call fza_fcr_fnc_armScanStart;
+            } else {
+                [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+            };
         };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;
@@ -285,6 +308,26 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        case "fza_ah64_ctrlVisToggle": {
+            if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) exitWith {};
+
+            private _layer = "fza_ah64_ctrlvis" call BIS_fnc_rscLayer;
+
+            // Check whether the display is currently shown
+            private _ctrlVisDisplay = uiNamespace getVariable ["fza_ah64_ctrlvis", displayNull];
+            private _ctrlVisIsShown = !isNull _ctrlVisDisplay;
+
+            if (_ctrlVisIsShown) then {
+                // Hide — also clear cached statics so they're recomputed on next open
+                _layer cutText ["", "PLAIN", 0, false];
+                uiNamespace setVariable ["fza_ah64_ctrlvis",        displayNull];
+                uiNamespace setVariable ["fza_ah64_ctrlVisColors",  []];
+                uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", nil];
+            } else {
+                // Show
+                _layer cutRsc ["fza_ah64_ctrlvis", "PLAIN", 0, false];
+            };
+        };
     };
 };
 
@@ -319,9 +362,18 @@ if !(_value) then {
             _heli setVariable ["fza_sfmplus_kbStickyInterupt", false];
         };
         case "fza_ah64_forceTrimPanicButton": {
+            // Reset force-trim reference positions
             _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
-            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];   
-            _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];  
+            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
+            _heli setVariable ["fza_ah64_forceTrimPosYaw",   0.0, true];
+            // Reset keyboard sticky input accumulated values to centre
+            _heli setVariable ["fza_sfmplus_cyclicPitchValue",     0.0];
+            _heli setVariable ["fza_sfmplus_cyclicRollValue",      0.0];
+            _heli setVariable ["fza_sfmplus_pedalYawValue",        0.0];
+            // Reset prev* shadow values used by the sticky-interrupt branch of fn_getInput
+            _heli setVariable ["fza_sfmplus_prevCyclicPitchValue", 0.0];
+            _heli setVariable ["fza_sfmplus_prevCyclicRollValue",  0.0];
+            _heli setVariable ["fza_sfmplus_prevPedalYawValue",    0.0];
         };
     };
 };

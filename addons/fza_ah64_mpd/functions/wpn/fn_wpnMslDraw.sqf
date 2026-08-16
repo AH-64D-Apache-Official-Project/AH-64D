@@ -1,5 +1,9 @@
 params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
+
+private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_TYPE_BARRIER), BOOLTONUM(_sight == SIGHT_FCR)];
 
 private _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");
@@ -21,7 +25,7 @@ if (_seekerType != "rf") then { //Sal1, sal2
 
     if (_pri != -1) then {
         _priCode = _chanCodes # _pri;
-        private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+        private _lasePos = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
         if !isNil "_lasePos" then {
             _textLine1 = toUpper _priCode;
             _textLine2 = "T";
@@ -51,7 +55,7 @@ if (_seekerType != "rf") then { //Sal1, sal2
 
 if (_seekerType == "rf") then { //RF
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
-    _indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_limaLoblCheck) # 1;
+    _indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_arhTargetConstraint) # 1;
     if (_indicateLobl && !isNull _ntsObj)  then {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), ""];
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), "T"];

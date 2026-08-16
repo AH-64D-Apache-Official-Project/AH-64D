@@ -20,11 +20,11 @@ class CfgFunctions
             class padString {R;};
             class rotateVector {R;};
             class setArrayVariable {R;};
+            class setMultiArrayVariable {R;};
             class setSeatVariable {R;};
             class sign {R;};
             class currentTurret {R;};
             class updateNetworkGlobal {R;};
-            class updateAnimations {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";

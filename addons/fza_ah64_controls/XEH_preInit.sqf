@@ -1,7 +1,25 @@
 private _projName = "AH-64D Official Project";
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+
+// ── Control Input Visualiser ──────────────────────────────────────────────────
 [
-    "fza_ah64_showPopupv2_2",
+    "fza_ah64_ctrlVisColor",
+    "LIST",
+    [(localize "STR_FZA_AH64_CTRLVIS_COLOR"), (localize "STR_FZA_AH64_CTRLVIS_COLOR_INFO")],
+    [_projName, "UI"],
+    [[0, 1, 2, 3, 4, 5], [
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_DEFAULT"),
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_NVG"),
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_MONO"),
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_AMBER"),
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_BLUEFOR"),
+        (localize "STR_FZA_AH64_CTRLVIS_COLOR_HICONTRAST")
+    ], 0],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_showPopupv2_3",
     "CHECKBOX",
     [(localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP"), (localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP_INFO")],
     [_projName, "UI"],
@@ -104,6 +122,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusAutoPitch",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PITCH_INFO")],
+    [_projName, "Flight model"],
+    [true],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",
     [(localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK"), (localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK_INFO")],
@@ -146,6 +173,15 @@ private _projName = "AH-64D Official Project";
     [_projName, "Flight model"],
     [false],
     2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusRotorModel",
+    "LIST",
+    [(localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL"), (localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_INFO")],
+    [_projName, "Flight model"],
+    [[0, 1], [(localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_SIMPLE"), (localize "STR_FZA_AH64_SETTINGS_ROTOR_MODEL_BET")], 0],
+    0
 ] call CBA_fnc_addSetting;
 
 [
@@ -206,9 +242,9 @@ fza_ah64_tadsFOVs = [
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
+fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData, fza_fnc_ctrlVisUpdate];
 fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_cannon_fnc_update, fza_systems_fnc_repair];
-fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes, fza_sfmplus_fnc_coreUpdate, fza_sfmplus_fnc_coreUpdateFlightModel];
+fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_coreUpdate, fza_sfmplus_fnc_coreUpdateFlightModel, fza_anim_fnc_animationUpdate];
 
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3D", {

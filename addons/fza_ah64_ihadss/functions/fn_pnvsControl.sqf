@@ -31,12 +31,12 @@ private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
 //Pnvs Stowed
 if ((_pnvsControl == 0) || !_acBusOn || !_dcBusOn || _monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitWith {
-    [_heli, "pnvs", -120] call fza_fnc_updateAnimations;
-    [_heli, "pnvs_vert", 0] call fza_fnc_updateAnimations;
+    [_heli, "pnvs", -120] call fza_anim_fnc_updateAnimations;
+    [_heli, "pnvs_vert", 0] call fza_anim_fnc_updateAnimations;
 };
 if (_pnvsControl == 1) exitWith {
-    [_heli, "pnvs", 0] call fza_fnc_updateAnimations;
-    [_heli, "pnvs_vert", 0] call fza_fnc_updateAnimations;
+    [_heli, "pnvs", 0] call fza_anim_fnc_updateAnimations;
+    [_heli, "pnvs_vert", 0] call fza_anim_fnc_updateAnimations;
 };
 
 (( _heli vectorWorldToModelVisual getCameraViewDirection player) call CBA_fnc_vect2Polar) params ["_mag", "_az", "_el"];
@@ -55,5 +55,5 @@ private _elCorTbl =
 private _elCor = [_elCorTbl, _az] call fza_fnc_linearInterp select 1;
 private _el    = [([_el + _elCor] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
 
-[_heli, "pnvs", rad _az, true] call fza_fnc_updateAnimations;
-[_heli, "pnvs_vert", rad _el, true] call fza_fnc_updateAnimations;
+[_heli, "pnvs", rad _az, true] call fza_anim_fnc_updateAnimations;
+[_heli, "pnvs_vert", rad _el, true] call fza_anim_fnc_updateAnimations;

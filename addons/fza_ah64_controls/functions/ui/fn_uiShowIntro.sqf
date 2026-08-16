@@ -17,27 +17,32 @@ params ["_display"];
 fza_ah64_introShownThisScenario = true;
 
 private _content = parseText
-"<t align='center' size='2'>AH-64D Official Project V2.2</t><br/>
+"<t align='center' size='2'>AH-64D Official Project V2.3</t><br/>
 <br/>
 <t align='center'><img size='10' image='\fza_ah64_model\tex\intro.jpg'/></t><br/>
 <br/>
-After over three years of development, we are happy to announce V2.2. This has been a large release with changes ranging from the displays being rewritten, to a new flight model and damage handling being implemented.<br/>
+V2.3 is here, building on the V2.2 flight model and displays overhaul with a round of refinements, new systems and bug fixes across HeliSim, the MPDs and multiplayer.<br/>
 <br/>
 <t align='center' size='1.5'>Documentation</t><br/>
-To support the new release, we have revised and rewritten all of our documentation, which can be still found at <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
-<br/>
-<t align='center' size='1.5'>Displays</t><br/>
-We have rewritten all the MPDs using a combination of Arma's MFD config system, and the new UI to texture system. This has given us the ability to have increased fidelity for our displays, both in improving existing pages and also adding new ones. All pages are also available on both MPDs. We also have a functional UFD and KU, along with other buttons in the cockpit like the ARM/SAFE and caution lights working as expected<br/>
+Our documentation continues to be maintained at <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
 <br/>
 <t align='center' size='1.5'>Helisim</t><br/>
-SFM+ has been replaced with a full new custom flight model with SFM fully disabled. It accurately simulates phenomena like Ground Effect, Main Rotor Torque Effect, ETL, and VRS in a variety of situations. The CG and mass of the aircraft are updated and correctly simulated.<br/>
-A Flight Management Computer with Force Trim, Hold Modes (Heading, Altitude, Attitude), CAS and SAS has been added, to give you a smoother ride.
+The flight model has received another major pass. Retreating Blade Stall has been added and tuned, autorotations are more forgiving, and the rotor and fuselage code has been reworked for more accurate velocity and wind handling. Auto pedal and auto pitch logic have been retuned, heading hold and yaw SAS bugs have been fixed, and several rotor controller issues have been resolved.<br/>
 <br/>
-<t align='center' size='1.5'>Damage model</t><br/>
-Our damage model is better tied into the aircraft's systems, you can expect to lose certain abilities depending on what damage you take.<br/>
+<t align='center' size='1.5'>Fuel system</t><br/>
+A new dynamic fuel system has been added, matching the -10 fuel page logic. Each tank is independently simulated, with crossfeed, automatic fuel balancing, fuel leaks and auxiliary tank logic all modeled, and represented on a new MPD fuel page showing live fuel line flow.<br/>
 <br/>
-<t align='center' size='1.5'>Audio update</t><br/>
-The audio you encounter in the aircraft has been improved, so you will get better audible feedback from systems in the aircraft<br/>
+<t align='center' size='1.5'>Mission Planner</t><br/>
+A brand new pre-flight Mission Planner has been added, giving you a full browser-based loadout and systems editor before you ever start the mission. Configure pylon loadouts, fuel state and FCR settings, then save and load your configurations between missions.<br/>
+<br/>
+<t align='center' size='1.5'>FCR</t><br/>
+The Fire Control Radar has been reworked under the hood, the FCR will now perform sweeping reveals of targets and the FCR dome will animate accordingly, this may naturaly cause delays in a scan start whilst the FCR positions itself correctly for the scan. The MPD's ATM and GTM radar pages and the TSD page have all been redrawn to take advantage of this, giving more accurate and reliable target data.<br/>
+<br/>
+<t align='center' size='1.5'>Hellfire</t><br/>
+The Hellfire ARH seeker has been substantially rewritten, with dedicated logic for line-of-sight checks, target seeker cone validation, target constraints and chaff/countermeasure defeat. Combined with FCR target data now being fed directly to the missile, Remote Fire and SAL engagements should feel noticeably more realistic.<br/>
+<br/>
+<t align='center' size='1.5'>Multiplayer &amp; stability</t><br/>
+A number of multiplayer-specific bugs have been fixed, including pylon validity checks, customise add/remove desync and jettison-all behaviour. translations have been improved, And most notisably, a sweeping array of logic bugs that could cause the airframe to be unstable have now been fixes<br/>
 <br/>
 Fly safe! <br/>
 <br/>

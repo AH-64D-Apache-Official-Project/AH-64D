@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AH-64D Mission Planning Tool</title>
+<link rel="stylesheet" href="planner.css">
+</head>
+<body>
+<div id="loadingOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;color:#9ad79a;font-size:20px;letter-spacing:3px;font-family:'Courier New',Courier,monospace;">LOADING...</div>
+<div id="app">
+
+  <!-- TITLE BAR -->
+  <div id="titlebar">AH-64D AIRCRAFT MISSION PLANNING TOOL</div>
+
+  <!-- TAB ROW -->
+  <div id="tabs">
+    <div class="tab active"   data-tab="config">Configuration</div>
+    <div class="tab"          data-tab="comms">Communications</div>
+    <div class="tab"          data-tab="wp">Waypoint/Hazards</div>
+    <div class="tab"          data-tab="cm">Control Measures</div>
+    <div class="tab"          data-tab="tt">Target/Threats</div>
+    <div class="tab"          data-tab="az">Areas/Zones</div>
+    <div class="tab"          data-tab="lines">Lines</div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       CONFIGURATION TAB
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="tab-panel active" id="panel-config">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+
+      <label class="field-row">
+        <span class="lbl">Msn Equip</span>
+        <select id="msnEquip">
+          <option value="US">US Army</option>
+          <option value="UK">UK Army</option>
+        </select>
+      </label>
+
+      <label class="field-row">
+        <span class="lbl">Tail #</span>
+        <input type="text" id="tailNum" value="" maxlength="5">
+      </label>
+
+      <label class="field-row" id="currentConfigRow">
+        <span class="lbl" style="color:var(--text);font-size:15px">Current Config</span>
+        <input type="text" id="currentConfigName" value="" readonly style="font-size:15px" placeholder="">
+      </label>
+
+      <div class="row2btn">
+        <button id="btnApplyConfig">Apply Config</button>
+        <button id="btnSaveConfig">Open Configs</button>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="farp-list">
+        <div class="farp-title">FARP Status:</div>
+        <div id="supplyTally" class="supply-tally"></div>
+        <div id="farpList">
+        </div>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <!-- CENTER COLUMN -->
+    <div class="col-center">
+
+      <!-- Silhouette -->
+      <div class="silhouette-area">
+        <div class="silhouette-fcr-group">
+          <div id="fcrBadge" class="fcr-badge active" title="Toggle FCR">FCR</div>
+          <div id="fcrChangeAlert" class="fcr-change-alert hidden" title="FCR change requires ~300s rearm">&#9888; 300s</div>
+        </div>
+        <div id="conversionWarning" class="conversion-warning hidden" title="FCR or magazine mode change requires ~300s rearm">&#9888; 300s REARM</div>
+        <div id="apache-sil" class="sil-composite">
+          <img id="sil-base-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-fcr-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p1-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p2-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p3-img" class="sil-layer" style="display:none" src="" alt="">
+          <img id="sil-p4-img" class="sil-layer" style="display:none" src="" alt="">
+        </div>
+      </div>
+
+      <!-- PYLON ROW -->
+      <div class="pylon-row">
+
+        <!-- Pylon 1 - Left Outer -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon1Type" title="Pylon 1 (Left Outer)">
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket">M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+            <div class="hellfire-grid" id="p1_hellfire">
+              <div class="rail-labels"><span>TR</span><span>TL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p1_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p1_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+              <div class="rail-labels"><span>BR</span><span>BL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p1_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p1_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+            </div>
+            <div class="zone-grid hidden" id="p1_rocket">
+              <div class="zone-row"><span class="zone-label">ZONE A (max 12)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_za_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_za_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE B (max 4)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_zb_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_zb_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p1_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p1_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+            </div>
+            <div class="aux-note hidden" id="p1_aux"></div>
+            <div class="none-note hidden" id="p1_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Pylon 2 - Left Inner -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon2Type" title="Pylon 2 (Left Inner)">
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket">M-261</option>
+              <option value="aux" selected>230 Aux</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+            <div class="hellfire-grid hidden" id="p2_hellfire">
+              <div class="rail-labels"><span>TR</span><span>TL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p2_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p2_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+              <div class="rail-labels"><span>BR</span><span>BL</span></div>
+              <div class="rail-row">
+                <select class="rail-ammo" id="p2_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+                <select class="rail-ammo" id="p2_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              </div>
+            </div>
+            <div class="zone-grid hidden" id="p2_rocket">
+              <div class="zone-row"><span class="zone-label">ZONE C (max 12)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_zc_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_zc_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE D (max 4)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_zd_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_zd_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+              <div class="zone-row"><span class="zone-label">ZONE E (max 3)</span></div>
+              <div class="zone-row"><div class="zone-count"><input type="text" id="p2_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div><span class="zone-x">x</span><div class="zone-type"><select id="p2_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div></div>
+            </div>
+            <div class="aux-note" id="p2_aux"></div>
+            <div class="none-note hidden" id="p2_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Cannon (center) -->
+        <div class="pylon-block cannon-block">
+          <div class="pylon-title" style="width:100%">
+            <select id="robbieMode" class="center-store-select" title="Center Pylon Store">
+              <option value="iafs" selected>IAFS</option>
+              <option value="magazine">MAGAZINE</option>
+            </select>
+            <div id="iafsChangeAlert" class="iafs-change-alert hidden" title="IAFS/Magazine change requires ~300s rearm">&#9888; 300s REARM</div>
+          </div>
+          <div class="pylon-sub-label">30mm MAX <span id="cannonMaxRds">300</span></div>
+          <div class="cannon-count-box" id="cannonCountBox">
+            <input type="text" id="cannonRds" value="300" inputmode="numeric" maxlength="4" max="1200"
+              style="width:56px;text-align:center;border:none;background:transparent;font-size:19.5px;font-weight:bold;color:var(--text-bright);outline:none">
+          </div>
+        </div>
+
+        <!-- Pylon 3 - Right Inner -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon3Type" title="Pylon 3 (Right Inner)">
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket" selected>M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+          <div class="hellfire-grid hidden" id="p3_hellfire">
+            <div class="rail-labels"><span>TR</span><span>TL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p3_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p3_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+            <div class="rail-labels"><span>BR</span><span>BL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p3_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p3_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+          </div>
+          <div class="zone-grid" id="p3_rocket">
+            <div class="zone-row">
+              <span class="zone-label">ZONE C (max 12)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_zc_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_zc_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE D (max 4)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_zd_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_zd_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE E (max 3)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p3_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p3_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+          </div>
+          <div class="aux-note hidden" id="p3_aux"></div>
+          <div class="none-note hidden" id="p3_none">No Store</div>
+          </div>
+        </div>
+
+        <!-- Pylon 4 - Right Outer -->
+        <div class="pylon-block">
+          <div class="pylon-title">
+            <select id="pylon4Type" title="Pylon 4 (Right Outer)">
+              <option value="hellfire">M-299 HML</option>
+              <option value="rocket" selected>M-261</option>
+              <option value="aux">230 Aux</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div class="pylon-content">
+          <div class="hellfire-grid hidden" id="p4_hellfire">
+            <div class="rail-labels"><span>TR</span><span>TL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p4_tr"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p4_tl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+            <div class="rail-labels"><span>BR</span><span>BL</span></div>
+            <div class="rail-row">
+              <select class="rail-ammo" id="p4_br"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+              <select class="rail-ammo" id="p4_bl"><option>None</option><option>AGM-114K</option><option>AGM-114L</option><option>AGM-114FA</option></select>
+            </div>
+          </div>
+          <div class="zone-grid" id="p4_rocket">
+            <div class="zone-row">
+              <span class="zone-label">ZONE A (max 12)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_za_count" value="12" inputmode="numeric" maxlength="2" data-max="12"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_za_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE B (max 4)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_zb_count" value="4" inputmode="numeric" maxlength="2" data-max="4"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_zb_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+            <div class="zone-row">
+              <span class="zone-label">ZONE E (max 3)</span>
+            </div>
+            <div class="zone-row">
+              <div class="zone-count"><input type="text" id="p4_ze_count" value="3" inputmode="numeric" maxlength="2" data-max="3"></div>
+              <span class="zone-x">x</span>
+              <div class="zone-type"><select id="p4_ze_type"><option>6PD</option><option>6FL</option><option>6MP</option><option>6IL</option></select></div>
+            </div>
+          </div>
+          <div class="aux-note hidden" id="p4_aux"></div>
+          <div class="none-note hidden" id="p4_none">No Store</div>
+          </div>
+        </div>
+
+      </div><!-- /pylon-row -->
+      <svg id="pylon-connector-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div><!-- /col-center -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <div class="fuel-section-header">
+        <span class="title">Fuel</span>
+        <div class="fuel-pct-input">
+          <input type="text" id="fuelPct" value="100" inputmode="numeric" maxlength="3" data-max="100" style="width:44px;text-align:right;font-size:19.5px;font-weight:bold;color:var(--text-bright)">
+          <span style="color:var(--text-dim);font-size:16.5px">%</span>
+        </div>
+      </div>
+
+      <div class="fuel-cards">
+        <div class="fuel-card">
+          <div class="fuel-card-title">Fwd Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (155)</span>
+            <input type="text" id="fuelFwd" class="fuel-gal-input" value="155" inputmode="numeric" maxlength="3" data-max="155">
+            <span>gal,</span>
+            <span id="fuelFwdLbs" class="fuel-lbs-value">1043</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card">
+          <div class="fuel-card-title">Aft Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (220)</span>
+            <input type="text" id="fuelAft" class="fuel-gal-input" value="220" inputmode="numeric" maxlength="3" data-max="220">
+            <span>gal,</span>
+            <span id="fuelAftLbs" class="fuel-lbs-value">1474</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card" id="fuelCtrRow">
+          <div class="fuel-card-title">Ctr Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (100)</span>
+            <input type="text" id="fuelCtr" class="fuel-gal-input" value="100" inputmode="numeric" maxlength="3" data-max="100">
+            <span>gal,</span>
+            <span id="fuelCtrLbs" class="fuel-lbs-value">663</span>
+            <span>lbs</span>
+          </div>
+        </div>
+        <div class="fuel-card" id="fuelAuxRow">
+          <div class="fuel-card-title">Aux Fuel</div>
+          <div class="fuel-card-line">
+            <span>Gal (<span id="fuelAuxMax">230</span>)</span>
+            <input type="text" id="fuelAux" class="fuel-gal-input" value="230" inputmode="numeric" maxlength="3" data-max="230">
+            <span>gal,</span>
+            <span id="fuelAuxLbs" class="fuel-lbs-value">1541</span>
+            <span>lbs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fuel-total-row">
+        <span class="total-lbs" id="fuelTotalLbs">4721</span>
+        <span class="total-unit">lbs</span>
+      </div>
+
+      <div class="perf-box">
+      <div class="perf-box-title">Performance Data:</div>
+      <div class="fuel-stats">
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Ammo Weight</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="ammoWeight">945</span>
+            <span class="perf-unit">lbs</span>
+          </span>
+        </div>
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Jettison Weight</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="jettisonWeight">2395</span>
+            <span class="perf-unit">lbs</span>
+            <span class="fuel-stat-pct" id="jettisonPct">-12 %</span>
+          </span>
+        </div>
+        <div class="fuel-stat-row">
+          <span class="fuel-stat-label">Endurance @ Max Range</span>
+          <span class="stat-right">
+            <span class="fuel-stat-value" id="endurance">3+55</span>
+          </span>
+        </div>
+      </div>
+
+      <div id="config-perf">
+      <!-- Row 1 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label compact-line">Press Alt / Free Air Temp</span>
+            <span class="perf-right atm-right">
+              <span class="perf-value atm-value" id="perfPA">0</span>
+              <span class="perf-unit atm-unit">ft</span>
+              <span class="sep atm-sep"> / </span>
+              <span class="perf-value atm-value" id="perfFAT">20</span>
+              <span class="perf-unit atm-unit">C</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Empty GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="emptyGWT">14,539</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Maximum GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxGWT">20260</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Current GWT</span>
+            <span class="perf-right">
+              <span class="perf-value" id="currentGWT">19400</span>
+              <span class="perf-unit">lbs</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label">Max End</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxEnd">70</span>
+              <span class="perf-unit dual-unit">ktas /</span>
+              <span class="perf-value" id="maxEndPph">900</span>
+              <span class="perf-unit pph-unit">pph</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Max Range</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxRange">118</span>
+              <span class="perf-unit dual-unit">ktas /</span>
+              <span class="perf-value" id="maxRangePph">1200</span>
+              <span class="perf-unit pph-unit">pph</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">VSSE KTAS Cur/Jett</span>
+            <span class="perf-right">
+              <span class="perf-value" id="vsse">40</span>
+              <span class="sep"> / </span>
+              <span class="perf-value" id="vsseAfterJett">40</span>
+              <span class="perf-unit">ktas</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="bottom-row">
+        <div class="perf-grid">
+          <div class="perf-cell">
+            <span class="perf-label">Max Tq DE / SE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxTqDE">133</span>
+              <span class="sep"> / </span>
+              <span class="perf-value" id="maxTqSE">137</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Continuous Tq DE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="contTqDE">100</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Hvr Tq IGE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="hvrTqIGE">82</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Hvr Tq OGE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="hvrTqOGE">117</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Power Margin DE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="powerMarginDE">0</span>
+              <span class="perf-unit">%</span>
+            </span>
+          </div>
+          <div class="perf-cell">
+            <span class="perf-label">Max Rate of Descent OGE</span>
+            <span class="perf-right">
+              <span class="perf-value" id="maxRodOGE">0</span>
+              <span class="perf-unit" id="maxRodOGEUnit">fpm</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="planner-params-section">
+        <div class="planner-params-title">PLANNER</div>
+        <div class="planner-params-grid">
+          <span class="planner-params-label">Gross Weight</span>
+          <input type="text" id="planGWT" class="planner-params-input" placeholder="auto" inputmode="numeric" maxlength="6">
+          <span class="planner-params-unit">lbs</span>
+          <span class="planner-params-label">Press Alt</span>
+          <input type="text" id="planPA" class="planner-params-input" placeholder="0" inputmode="numeric" maxlength="5">
+          <span class="planner-params-unit">ft</span>
+          <span class="planner-params-label">Free Air Temp</span>
+          <input type="text" id="planFAT" class="planner-params-input" placeholder="20" inputmode="numeric" maxlength="5">
+          <span class="planner-params-unit">&#176;C</span>
+        </div>
+      </div>
+      </div>
+
+      </div><!-- /perf-box -->
+
+    </div><!-- /col-right -->
+
+  </div><!-- /panel-config -->
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       PLACEHOLDER TABS
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="tab-panel placeholder-panel" id="panel-comms">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Communications</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-wp">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Waypoint / Hazards</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-cm">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Control Measures</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-tt">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Target / Threats</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-az">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Areas / Zones</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-lines">
+    <div class="tab-sidebar">
+      <div class="tab-sidebar-title">Lines</div>
+      <div>[ TAB INFO PLACEHOLDER ]</div>
+    </div>
+    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       BOTTOM STRIP
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div id="bottom-strip">
+    <div id="dtc-box">
+      <div class="dtc-title">DTC</div>
+      <button id="btnLoadDTC">Load DTC</button>
+      <button id="btnSaveDTC">Save DTC</button>
+      <label class="dtc-current">
+        <span>Current Loaded</span>
+        <input type="text" id="dtcName" value="MYMSNV01" maxlength="12" readonly
+          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright);cursor:default;">
+      </label>
+      <div class="dtc-wip">&#9888; WORK IN PROGRESS</div>
+    </div>
+
+  </div><!-- /bottom-strip -->
+
+</div><!-- /app -->
+
+<div id="saveLoadModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="saveLoadTitle">
+    <div class="modal-head">
+      <div id="saveLoadTitle" class="modal-title">Loadout Saves</div>
+      <button id="btnCloseSaveLoad" type="button" class="modal-close">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="scope-tabs">
+        <div class="scope-tab active" data-scope="own">OWN</div>
+        <div class="scope-tab" data-scope="mission">MISSION</div>
+      </div>
+      <div class="modal-form-row">
+        <span class="label">Save Name</span>
+        <input type="text" id="saveLoadName" maxlength="28" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="modal-panel active" data-scope-panel="own">
+        <div class="save-list" id="saveListOwn"></div>
+      </div>
+      <div class="modal-panel" data-scope-panel="mission">
+        <div class="save-list" id="saveListMission"></div>
+      </div>
+      <div class="modal-actions">
+        <div class="left">
+          <button id="btnModalSave" type="button">Save</button>
+          <button id="btnModalLoad" type="button">Load</button>
+          <button id="btnModalPushMission" type="button">Push to Mission</button>
+          <button id="btnModalDelete" type="button">Delete</button>
+        </div>
+        <div class="right">
+          <button id="btnModalRefresh" type="button">Refresh</button>
+        </div>
+      </div>
+      <div class="modal-hint" id="saveLoadHint">Select a save to load it into the planner, or type a name to create/overwrite a save in the active scope.</div>
+    </div>
+  </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal-backdrop confirm-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
+    <div class="modal-head">
+      <div id="deleteConfirmTitle" class="modal-title">Confirm Delete</div>
+      <button id="btnDeleteConfirmClose" type="button" class="modal-close">Cancel</button>
+    </div>
+    <div class="modal-body">
+      <div id="deleteConfirmMessage" class="confirm-message"></div>
+      <div class="confirm-actions">
+        <button id="btnDeleteConfirmYes" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="closeConfirmModal" class="modal-backdrop confirm-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="closeConfirmTitle">
+    <div class="modal-head">
+      <div id="closeConfirmTitle" class="modal-title">Unsaved Changes</div>
+      <button id="btnCloseConfirmCancel" type="button" class="modal-close">Cancel</button>
+    </div>
+    <div class="modal-body">
+      <div class="confirm-message">Config has been modified but not applied to the aircraft.<br>Close without applying?</div>
+      <div class="confirm-actions">
+        <button id="btnCloseConfirmYes" type="button">Close Without Applying</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="dom_utils.js"></script>
+<script src="sil_data.js"></script>
+<script src="sfm_perf.js"></script>
+<script src="save_load.js"></script>
+<script src="state.js"></script>
+<script src="weapons.js"></script>
+<script src="weights_perf.js"></script>
+<script>
+// â”€â”€ TAB SWITCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function setActiveTabState(tabName) {
+  var app = document.getElementById('app');
+  if (!app) return;
+  if (tabName === 'config') {
+    app.classList.remove('non-config-tab');
+  } else {
+    app.classList.add('non-config-tab');
+  }
+}
+
+eachNode('.tab', function(tab) {
+  tab.addEventListener('click', function() {
+    eachNode('.tab', function(t) { t.classList.remove('active'); });
+    eachNode('.tab-panel', function(p) { p.classList.remove('active'); });
+    tab.classList.add('active');
+    var tabName = getData(tab, 'tab');
+    var panel = document.getElementById('panel-' + tabName);
+    if (panel) panel.classList.add('active');
+    setActiveTabState(tabName);
+  });
+});
+
+setActiveTabState('config');
+
+// â”€â”€ FCR TOGGLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+document.getElementById('fcrBadge').addEventListener('click', function() {
+  this.classList.toggle('active');
+  syncSilhouette();
+  updateWeightsAndPerformance();
+  updateConversionWarning();
+});
+// Called by the display-level KeyDown event handler (via ExecJS) when ESC is pressed.
+// Closes the innermost visible modal; if none open, closes the whole dialog via SQF.
+window.fza_mplanner_handleEscape = function() {
+  var deleteModal = document.getElementById('deleteConfirmModal');
+  if (deleteModal && deleteModal.classList.contains('visible')) {
+    closeDeleteConfirmDialog();
+    return;
+  }
+  var closeModal = document.getElementById('closeConfirmModal');
+  if (closeModal && closeModal.classList.contains('visible')) {
+    closeCloseConfirmDialog();
+    return;
+  }
+  var saveLoadModal = document.getElementById('saveLoadModal');
+  if (saveLoadModal && saveLoadModal.classList.contains('visible')) {
+    closeSaveLoadDialog();
+    return;
+  }
+  if (hasPlannerChanges()) {
+    openCloseConfirmDialog();
+    return;
+  }
+  callSQF('closeDialog 0;');
+};
+
+var initialAircraftState = null;
+var lastSeededAircraftState = null;
+var g_rearmData = null;
+var g_pylonChangeSeq = 0;
+var g_pylonOrder = {};
+var g_itemOrder = {};
+
+window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
+  dismissLoadingOverlay();
+  try {
+    var state = JSON.parse(String(stateJson || '{}'));
+    if (state && typeof state === 'object') {
+      var _snap = {
+        fcrActive: !!state.fcrActive,
+        robbieMode: String(state.robbieMode === 'robbie' ? 'magazine' : (state.robbieMode || 'iafs')),
+        tailNum: String(state.tailNum || ''),
+        msnEquip: String(state.msnEquip || 'US'),
+        cannonRds: typeof state.cannonRds === 'number' ? state.cannonRds : 0,
+        pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
+        fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
+      };
+      lastSeededAircraftState = _snap;
+      if (!initialAircraftState) { initialAircraftState = _snap; }
+      applyPlannerState(state);
+      markConfigClean();
+      updateConversionWarning();
+    }
+  } catch (err) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Mission Planner receiveCurrentConfig failed.', err);
+    }
+  }
+};
+
+['fuelPct','fuelFwd','fuelAft','fuelCtr','fuelAux'].forEach(function(id) {
+  var fuelInput = document.getElementById(id);
+  if (!fuelInput) return;
+  fuelInput.addEventListener('input', function() {
+    sanitizeFuelInput(fuelInput);
+    if (id === 'fuelPct') setFuelFromPercentage();
+  });
+  fuelInput.addEventListener('blur', function() {
+    sanitizeFuelInput(fuelInput);
+    if (id === 'fuelPct') setFuelFromPercentage();
+    else calcFuel();
+  });
+  sanitizeFuelInput(fuelInput);
+});
+document.getElementById('cannonRds').addEventListener('input', function() {
+  g_itemOrder['cannon'] = ++g_pylonChangeSeq;
+  syncCannonDisplay();
+});
+document.getElementById('msnEquip').addEventListener('change', updateConversionWarning);
+document.getElementById('tailNum').addEventListener('input', function() {
+  this.value = this.value.replace(/[^0-9 ]/g, '').slice(0, 5);
+  updateConversionWarning();
+});
+document.getElementById('robbieMode').addEventListener('change', function() {
+  syncRobbieState();
+  updateConversionWarning();
+});
+
+for (var i = 1; i <= 4; i++) {
+  (function(pylonIndex) {
+    var select = document.getElementById('pylon' + pylonIndex + 'Type');
+    if (!select) return;
+    setPylonMode(pylonIndex, select.value);
+    select.addEventListener('change', function() {
+      g_pylonOrder['p' + pylonIndex] = ++g_pylonChangeSeq;
+      setPylonMode(pylonIndex, select.value);
+      clearPylonAmmoOnTypeChange(pylonIndex, select.value);
+      syncAuxFuelAvailability();
+      calcFuel();
+      syncSilhouette();
+      updateWeightsAndPerformance();
+    });
+  })(i);
+}
+
+eachNode('[id$="_count"]', function(inputEl) {
+  inputEl.addEventListener('input', function() {
+    var _pm = /^p([1-4])_(z[a-z]+)_count$/i.exec(inputEl.id || '');
+    if (_pm) { g_pylonOrder['p' + _pm[1]] = ++g_pylonChangeSeq; g_itemOrder['p' + _pm[1] + '_' + _pm[2].toLowerCase()] = g_pylonChangeSeq; }
+    sanitizeZoneInput(inputEl);
+    syncSilhouette();
+    updateWeightsAndPerformance();
+  });
+  inputEl.addEventListener('blur', function() {
+    sanitizeZoneInput(inputEl);
+    syncSilhouette();
+    updateWeightsAndPerformance();
+  });
+  sanitizeZoneInput(inputEl);
+});
+
+eachNode('.rail-ammo', function(selectEl) {
+  selectEl.addEventListener('change', function() {
+    syncSilhouette();
+    updateWeightsAndPerformance();
+  });
+});
+
+eachNode('.zone-type select', function(selectEl) {
+  selectEl.addEventListener('change', function() {
+    var _pm = /^p([1-4])_(z[a-z]+)_type$/i.exec(selectEl.id || '');
+    if (_pm) { g_pylonOrder['p' + _pm[1]] = ++g_pylonChangeSeq; g_itemOrder['p' + _pm[1] + '_' + _pm[2].toLowerCase()] = g_pylonChangeSeq; }
+    syncMatchingRocketZoneTypes(selectEl);
+    var changedMatch = /^p[1-4]_z([a-z])_type$/i.exec(selectEl.id || '');
+    if (changedMatch && String(selectEl.value || '').trim() === '') {
+      // Only clear the count on this specific pylon, not across all pylons.
+      var pylonMatch = /^(p[1-4])_z[a-z]_type$/i.exec(selectEl.id || '');
+      var countId = pylonMatch ? pylonMatch[1] + '_z' + changedMatch[1].toLowerCase() + '_count' : null;
+      if (countId) {
+        var countEl = document.getElementById(countId);
+        if (countEl) countEl.value = '0';
+      }
+    }
+    syncSilhouette();
+    updateWeightsAndPerformance();
+  });
+});
+
+syncSilhouette();
+requestAnimationFrame(drawPylonConnectors);
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(drawPylonConnectors).observe(document.querySelector('.col-center'));
+}
+
+initHellfireCyclers();
+initRocketTypeOptions();
+syncAuxFuelAvailability();
+syncRobbieState();
+updateWeightsAndPerformance();
+['planPA', 'planFAT', 'planGWT'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateWeightsAndPerformance);
+});
+
+loadSfmPerfTablesFromConfig().then(function(loaded) {
+  if (loaded) {
+    updateWeightsAndPerformance();
+  }
+});
+
+document.getElementById('btnApplyConfig').addEventListener('click', function() {
+  updateAmmoWarnings(); // ensure ammo-warn classes are current before reading them
+  var state = getAffordableApplyState();
+  var legacy = buildLegacyApplyPayload(state);
+  var tailNum = state.tailNum !== undefined ? state.tailNum : '';
+  var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
+  var cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
+  var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
+  callSQF(code);
+  markConfigClean();
+});
+document.getElementById('btnSaveConfig').addEventListener('click', function() {
+  openSaveLoadDialog('load');
+});
+document.getElementById('btnLoadDTC').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_loadDTC');
+});
+document.getElementById('btnSaveDTC').addEventListener('click', function() {
+  callSQF('[] call fza_mplanner_fnc_saveDTC');
+});
+
+document.getElementById('btnCloseSaveLoad').addEventListener('click', closeSaveLoadDialog);
+document.getElementById('btnModalRefresh').addEventListener('click', function() {
+  scheduleSaveSeedRefresh();
+});
+document.getElementById('btnModalSave').addEventListener('click', function() {
+  saveCurrentPlannerState();
+});
+document.getElementById('btnModalLoad').addEventListener('click', function() {
+  loadSelectedPlannerState();
+});
+document.getElementById('btnModalPushMission').addEventListener('click', function() {
+  pushSelectedPlannerStateToMission();
+});
+document.getElementById('btnModalDelete').addEventListener('click', function() {
+  deleteSelectedPlannerState();
+});
+document.getElementById('btnCloseConfirmCancel').addEventListener('click', closeCloseConfirmDialog);
+document.getElementById('btnCloseConfirmYes').addEventListener('click', function() {
+  closeCloseConfirmDialog();
+  callSQF('closeDialog 0;');
+});
+document.getElementById('btnDeleteConfirmClose').addEventListener('click', closeDeleteConfirmDialog);
+document.getElementById('btnDeleteConfirmYes').addEventListener('click', function() {
+  var callback = deleteConfirmState.onConfirm;
+  closeDeleteConfirmDialog();
+  if (typeof callback === 'function') callback();
+});
+document.getElementById('saveLoadName').addEventListener('input', function() {
+  saveLoadState.selectedName = trimSaveName(this.value);
+  renderSaveLoadList();
+});
+eachNode('.scope-tab', function(tab) {
+  tab.addEventListener('click', function() {
+    setSaveLoadScope(getData(tab, 'scope'));
+  });
+});
+
+renderSaveLoadList();
+hydrateSavesFromSqfSeed();
+scheduleSaveSeedRefresh();
+renderSaveLoadList();
+// Page init complete â€” signal fn_onLoad's waitUntil spawn so it can seed
+// saves and current config from its own scheduled context.
+callSQF('uiNamespace setVariable ["fza_mplanner_ready", true];');
+
+// Fallback: dismiss loading overlay if receiveCurrentConfig never fires (e.g. out-of-game browser)
+setTimeout(dismissLoadingOverlay, 7000);
+</script>
+</body>
+</html>

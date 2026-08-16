@@ -77,7 +77,7 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 //Thrust produced
 private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
 private _pedalLeftRightTrim = 0.0;
-_pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosPedal";
+_pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosYaw";
 
 private _pedalInput         = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcYawOut;
 _pedalInput                 = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
@@ -100,7 +100,7 @@ private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModel
 if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
-private _velYZ                     = vectorMagnitude [_velY + _velWindY, _velZ];
+private _velYZ                     = vectorMagnitude [_velY + _velWindY, _velZ] min VEL_VNE;
 private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
@@ -134,21 +134,15 @@ private _outThrust = [0.0, 0.0, 0.0];
 private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
-        //Tail rotor thrust force
         if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
             if ([vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isINF) then { _thrustVector = [0.0, 0.0, 0.0]; };
             _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
+        } else {
+            private _torque = [0.0, 0.0, _moment select 2];
+            if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
+            _heli addTorque (_heli vectorModelToWorld _torque);
         };
 
-        //Tail rotor torque
-        private _torque = [0.0, 0.0, 0.0];
-        if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-            _torque = _moment;
-        } else {
-            _torque = [0.0, 0.0, _moment select 2];
-        };
-        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
-        _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 

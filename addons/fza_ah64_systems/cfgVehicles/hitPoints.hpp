@@ -147,28 +147,28 @@ class HitPoints
         radius = 0.05;
     };
     class hit_fuel_aft {
-        armor = 1.44 * ARMOR_SCALAR;
+        armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = MIN_HIT;
-        explosionShielding = 0.15;
+        minimalHit = MIN_HIT * 3;
+        explosionShielding = 0.30;
         name = "hit_fuel_aft";
         material = 51;
         passThrough = 0;
     };
     class hit_fuel_forward {
-        armor = 1.44 * ARMOR_SCALAR;
+        armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = MIN_HIT;
-        explosionShielding = 0.15;
+        minimalHit = MIN_HIT * 3;
+        explosionShielding = 0.30;
         name = "hit_fuel_forward";
         material = 51;
         passThrough = 0;
     };
     class hit_msnEquip_magandrobbie {
-        armor = 1.44 * ARMOR_SCALAR;
+        armor = 3.60 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = MIN_HIT;
-        explosionShielding = 0.15;
+        minimalHit = MIN_HIT * 3;
+        explosionShielding = 0.30;
         name = "hit_msnEquip_magandrobbie";
         material = 51;
         passThrough = 0;

@@ -78,6 +78,10 @@ class CfgVehicles {
                 index = MPD_PAGE_FUEL;
                 draw = "fza_mpd_fnc_pageFUELDraw";
                 handleControl = "fza_mpd_fnc_pageFUELHandleControl";
+                class InitState {
+                    checkActive = 0;
+                    xferMenuOpen = 0;
+                };
             };
             class WPN {
                 index = MPD_PAGE_WPN;

@@ -17,11 +17,9 @@ class CfgFunctions
             class actuatorLag {R;};
             class actuatorVariables {R;};
         };
-        class aero {
-            file = "\fza_ah64_sfmplus\functions\aero";
-            class aeroStabilator {R;};
-            class aeroSurface {R;};
-            class aeroWing {R;};
+        class wing {
+            file = "\fza_ah64_sfmplus\functions\wing";
+            class wing {R;};
         };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
@@ -37,6 +35,7 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
             class engine2 {R;};
+            class engineBET {R;};
             class engineController {R;};
             class engineVariables {R;};
         };
@@ -58,12 +57,6 @@ class CfgFunctions
             class fmcHoldModesDisable {R;};
             class fmcSAS {R;};
         };
-        class fuel {
-            file = "\fza_ah64_sfmplus\functions\fuel";
-            class fuelSet {R;};
-            class fuelUpdate {R;};
-            class fuelVariables {R;};
-        };
         class fuselage {
             file = "\fza_ah64_sfmplus\functions\fuselage";
             class fuselage {R;};
@@ -83,6 +76,12 @@ class CfgFunctions
             class massUpdateMagazine {R;};
             class massUpdateStation {R;};
         };
+        class math {
+            file = "\fza_ah64_sfmplus\functions\math";
+            class linearInterpFromCenter {R;};
+            class vectorRotate {R;};
+            class vectorRotateAroundAxis {R;};
+        };
         class mathQuaternion {
             file = "\fza_ah64_sfmplus\functions\math\quaternion";
             class quaternion {R;};
@@ -101,6 +100,15 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
             class perfVariables {R;};
+        };
+        class rotor {
+            file = "\fza_ah64_sfmplus\functions\rotor";
+            class rotor {R;};
+            class rotorBlade {R;};
+            class rotorControl {R;};
+            class rotorFlapDynamics {R;};
+            class rotorUpdate {R;};
+            class rotorVariables {R;};
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
@@ -128,7 +136,6 @@ class CfgFunctions
             class getRtrRPM {R;};
             class getSmoothAverage {R;};
             class getVelocities {R;};
-            class getwindDirVel {R;};
             class init {R;};
             class isINF {R;};
             class isNAN {R;};

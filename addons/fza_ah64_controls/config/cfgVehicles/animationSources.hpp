@@ -1,10 +1,57 @@
 class AnimationSources
 {
+    ////////CONTROLS///////
+    class plt_cyclic_pitch
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_cyclic_bank
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    class plt_collective
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    /*////////ROTOR RPM///////
+    class mainRotorRPMUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    // Drives mainRotor rotation (replaces vanilla rotorH source) so HeliSim RPM
+    // controls the visual spin speed rather than the RTD engine.
+    class rotorHUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
+    // Drives tailRotor rotation (replaces vanilla rotorV source).
+    class rotorVUser
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };*/
     ////////RADAR///////
     class fcr_enable
     {
         displayName = "$STR_FZA_AH64_MOUNT_FCR";
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class longbow
+    {
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
@@ -40,7 +87,7 @@ class AnimationSources
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         forceAnimatePhase = 1;
-        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
+        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};[_this#0, _this # 1] remoteExec [""fza_ase_fnc_swapFlares"", _this#0];";//Future Note:force deselect all other ase equipment upon british == 1
         forceAnimate[] = {"msn_equip_american", 0,"fcr_enable", 1};
         initPhase = 0;
         animPeriod = 0.001;

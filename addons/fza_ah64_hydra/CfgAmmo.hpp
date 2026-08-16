@@ -15,6 +15,8 @@ class CfgAmmo {
         manualControl               = 0;
         maxControlRange             = 0;
 
+        ace_caliber                 = 20;    // ACE rearm: supply points per rocket pod
+
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
