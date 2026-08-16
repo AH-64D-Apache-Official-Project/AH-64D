@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File25:interact/fn_interactBattSwitch.sqf",{14:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets button state for the APU sim.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File25:interact/fn_interactBattSwitch.sqf",{26:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets button state for the APU sim.</div></div>"});
