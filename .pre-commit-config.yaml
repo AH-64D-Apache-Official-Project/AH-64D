@@ -41,7 +41,7 @@ repos:
       - id: hemtt-lint
         name: HEMTT lint (SQF + config)
         description: Run HEMTT's static analysis on all SQF and config files
-        entry: hemtt lint
+        entry: hemtt check
         language: system
         pass_filenames: false
         # Only run when SQF, HPP, or config files have changed

@@ -668,6 +668,16 @@ if (-not (Test-Path ".git")) {
     }
 }
 
+# ---------------------------------------------------------------------------
+# post-checkout hook — prunes addons/*/ folders left behind by a branch
+# switch that contain only the gitignored version.hpp, which otherwise
+# crash `scons` (missing $PBOPREFIX$) until removed manually
+# ---------------------------------------------------------------------------
+if (Test-Path ".git\hooks") {
+    Copy-Item "tools\githooks\post-checkout" ".git\hooks\post-checkout" -Force
+    Write-OK "post-checkout hook installed (prunes stale addon folders on branch switch)"
+}
+
 
 # ---------------------------------------------------------------------------
 # Final verification

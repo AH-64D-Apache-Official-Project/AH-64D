@@ -60,7 +60,11 @@ def getPboInfo(settings):
         pboInfo = Object()
         pboInfo.name = name
         pboInfo.folder = os.path.join(settings["addonsFolder"], name)
-        with open(os.path.join(pboInfo.folder,"$PBOPREFIX$"), "r") as file:
+        prefix_file = os.path.join(pboInfo.folder, "$PBOPREFIX$")
+        if not os.path.isfile(prefix_file):
+            print(f"Warning: {pboInfo.folder} has no $PBOPREFIX$ file — skipping (stale/incomplete addon folder?)")
+            return None
+        with open(prefix_file, "r") as file:
             pboInfo.pboPrefix = file.readline().strip()
         try:
             pboInfo.a3symlink = os.path.join(arma3Path(),pboInfo.pboPrefix)
@@ -70,7 +74,8 @@ def getPboInfo(settings):
         if (name in settings["excludePboSymlinks"]):
             pboInfo.a3symlink = None
         return pboInfo
-    return list(map(addInfo,filter(lambda x: os.path.isdir(os.path.join(settings["addonsFolder"], x)), os.listdir(settings["addonsFolder"]))))
+    names = filter(lambda x: os.path.isdir(os.path.join(settings["addonsFolder"], x)), os.listdir(settings["addonsFolder"]))
+    return [info for info in map(addInfo, names) if info is not None]
 
 # Symlink management for file patching
 def commandsToRemoveSymlink(pbo):
