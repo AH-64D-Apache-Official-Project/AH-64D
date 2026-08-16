@@ -11,6 +11,9 @@ options.ignore = [
     "PSI", "INPUT",
 ]
 
+[stringtables]
+sorted = false
+
 [stringtables.usage]
 options.ignore = [
     "str_fza_ah64_activate_keyboard_unit_toggle",
