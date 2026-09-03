@@ -53,9 +53,6 @@ switch(_control) do {
                 // [_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
             };
         };
-
-        //- Play APU Sound
-        [_heli,"apu"] spawn fza_fnc_fxLoops;
     };
     case "power": {
         if (_battSwitchOn) then {
@@ -67,9 +64,6 @@ switch(_control) do {
             // [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"]; //- Cut off Sound
             playsound "fza_ah64_battery";
         };
-
-        //- Play Battery Sound
-        [_heli,"batt"] spawn fza_fnc_fxLoops;
     };
     
     case "rtrbraketoggle": {
