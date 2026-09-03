@@ -57,7 +57,7 @@ switch (_type) do {
 
     //- Power Lever
     case "powerLever": {
-        private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
+        private _deltaTime = 0.017; //- 60 fps
         private _engState_OLD = _heli getVariable ["fza_sfmplus_engState", ["OFF","OFF"]];
         private _engPowerLeverState_OLD = _heli getVariable ["fza_sfmplus_engPowerLeverState", ["OFF","OFF"]];
 
