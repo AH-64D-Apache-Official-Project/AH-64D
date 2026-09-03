@@ -47,11 +47,11 @@ switch (_variableName) do {
     setCustomSoundController [_heli, _Snd_Ctrl, _toValue];
     
     //- Update power sound
-    [_heli, "powerLever"] call fza_fnc_fxLoops;
+    [_heli, "powerLever"] spawn fza_fnc_fxLoops;
   };
-  
+
   case "fza_sfmplus_engPowerLeverState": {
-    private _engState = _heli getVariable "fza_sfmplus_engState" select _index;
+    private _engState = (_heli getVariable ["fza_sfmplus_engState", ["OFF","OFF"]]) select _index;
 
     // #NOTE - Catch lever when the engine isn't started yet
     if (_engState == "OFF" && _value != "OFF") exitWith {}; //- Exit
@@ -72,7 +72,7 @@ switch (_variableName) do {
     ];
 
     //- Update power sound
-    [_heli, "powerLever"] call fza_fnc_fxLoops;
+    [_heli, "powerLever"] spawn fza_fnc_fxLoops;
   };
 
   default {
@@ -82,5 +82,5 @@ switch (_variableName) do {
 
 //- Raises a CBA event on all machines, except the local one.
 if (_triggerEvent) then {
-  ["fza_updateArrayVariable", _this] call CBA_fnc_remoteEvent;
+  ["fza_audio_updateArrayVariable", _this] call CBA_fnc_remoteEvent;
 };

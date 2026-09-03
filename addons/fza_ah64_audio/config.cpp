@@ -15,6 +15,12 @@ class CfgPatches
 #include "cfgSounds.hpp"
 #include "extendedEventHandlers.hpp"
 
+class Extended_PreInit_EventHandlers {
+    class fza_audio_ah64_PreInits {
+        init = "call compile preprocessFileLineNumbers 'fza_ah64_audio\XEH_preInit.sqf';";
+    };
+};
+
 //- Heli Sounds (Engine + Surrounding)
 #include "CfgSoundShapes.hpp"
 #include "cfgDistanceFilters.hpp"

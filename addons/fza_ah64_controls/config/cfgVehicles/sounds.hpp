@@ -43,7 +43,7 @@ class Sounds
         "fza_ah64_Starter_Ext_Left_SoundSet",
         "fza_ah64_Starter_Ext_Right_SoundSet",
         "fza_ah64_Turbine_Starter_Ext_Left_SoundSet",
-        "fza_ah64_Turbine_Starter_Ext_Left_SoundSet",
+        "fza_ah64_Turbine_Starter_Ext_Right_SoundSet",
         // "fza_ah64_Startup_Ext_Left_SoundSet",
         // "fza_ah64_Startup_Ext_Right_SoundSet",
         "fza_ah64_Shutdown_Ext_Left_SoundSet",
