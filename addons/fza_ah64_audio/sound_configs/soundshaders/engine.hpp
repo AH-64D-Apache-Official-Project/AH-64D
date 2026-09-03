@@ -133,7 +133,7 @@ class fza_ah64_Starter_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Starter",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Starter.wss",
 			1
 		}
 	};
@@ -254,7 +254,7 @@ class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int",
+			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int.wss",
 			1
 		}
 	};
@@ -263,7 +263,7 @@ class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 };
 
 // -APU
-class fza_ApuSoundLoop_Int_SoundShader: fza_ApuSoundLoop_Ext_SoundShader
+class fza_APUSoundLoop_Int_SoundShader: fza_APUSoundLoop_Ext_SoundShader
 {
 	samples[]=
 	{
@@ -275,7 +275,7 @@ class fza_ApuSoundLoop_Int_SoundShader: fza_ApuSoundLoop_Ext_SoundShader
 	};
 	volume="camInt*CustomSoundController1*(CustomSoundController16+1)";
 };
-class fza_BattLoop_Int_SoundShader: fza_ApuSoundLoop_Int_SoundShader
+class fza_BattLoop_Int_SoundShader: fza_APUSoundLoop_Int_SoundShader
 {
 	samples[]=
 	{
