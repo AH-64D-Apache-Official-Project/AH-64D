@@ -26,7 +26,7 @@ params ["_heli", "_variableName", "_index", "_value", ["_public", false]];
 
 //- Must be public variables
 if (!_public) exitWith {};
-private _triggerEvent = true;
+private _triggerEvent = local _heli;
 
 switch (_variableName) do {
   case "fza_sfmplus_engState": {
