@@ -7,7 +7,7 @@ class fza_Empty_SoundShader
 	{
 
 		{
-			"a3\sounds_f\dummysound",
+			"a3\sounds_f\dummysound.wss",
 			1
 		}
 	};
@@ -28,7 +28,7 @@ class fza_Alarm_Damage_Ext_SoundShader_Base
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out",
+			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out.wss",
 			1
 		}
 	};
@@ -59,7 +59,7 @@ class fza_ScrubTree_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\scrubTreeExt",
+			"A3\Sounds_F\vehicles\air\noises\scrubTreeExt.wss",
 			1
 		}
 	};
@@ -74,7 +74,7 @@ class fza_TransmissionDamage_Ext_phase1_SoundShader_Base
 	{
 
 		{
-			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_ext_1",
+			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_ext_1.wss",
 			1
 		}
 	};
@@ -88,7 +88,7 @@ class fza_TransmissionDamage_Ext_phase2_SoundShader_Base: fza_TransmissionDamage
 	{
 
 		{
-			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_ext_2",
+			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_ext_2.wss",
 			1
 		}
 	};
@@ -102,7 +102,7 @@ class fza_SlingLoadDown_Ext_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineDownEXT",
+			"A3\Sounds_F\vehicles\air\noises\SL_engineDownEXT.wss",
 			1
 		}
 	};
@@ -116,7 +116,7 @@ class fza_SlingLoadUp_Ext_SoundShader_Base: fza_SlingLoadDown_Ext_SoundShader_Ba
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineUpEXT",
+			"A3\Sounds_F\vehicles\air\noises\SL_engineUpEXT.wss",
 			1
 		}
 	};
@@ -130,7 +130,7 @@ class fza_Rain_Ext_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\noises\rain1_ext",
+			"A3\Sounds_F\vehicles\noises\rain1_ext.wss",
 			1
 		}
 	};
@@ -169,7 +169,7 @@ class fza_Rotor_Stress_Ext_SoundShader_Base
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\Share\BladeSlap_ext",
+			"\fza_ah64_audio\audio\Engine\Env\Share\BladeSlap_ext.wss",
 			1
 		}
 	};
@@ -194,7 +194,7 @@ class fza_Alarm_Damage_Int_SoundShader_Base
 
 		{
 			//"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor",
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out",
+			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out.wss",
 			1
 		}
 	};
@@ -224,7 +224,7 @@ class fza_ScrubLand_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\wheelsInt",
+			"A3\Sounds_F\vehicles\air\noises\wheelsInt.wss",
 			1
 		}
 	};
@@ -240,7 +240,7 @@ class fza_ScrubTree_Int_SoundShader_Base: fza_ScrubLand_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\wheelsInt",
+			"A3\Sounds_F\vehicles\air\noises\wheelsInt.wss",
 			1
 		}
 	};
@@ -254,7 +254,7 @@ class fza_TransmissionDamage_Int_phase1_SoundShader_Base
 	{
 
 		{
-			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_int_1",
+			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_int_1.wss",
 			1
 		}
 	};
@@ -270,7 +270,7 @@ class fza_TransmissionDamage_Int_phase2_SoundShader_Base
 	{
 
 		{
-			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_int_2",
+			"a3\sounds_f\vehicles\air\noises\heli_damage_transmission_int_2.wss",
 			1
 		}
 	};
@@ -286,7 +286,7 @@ class fza_TransmissionDamage_Int_phase3_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\noises\vehicle_stress3",
+			"A3\Sounds_F\vehicles\noises\vehicle_stress3.wss",
 			1
 		}
 	};
@@ -302,7 +302,7 @@ class fza_SlingLoadDown_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineDownINT",
+			"A3\Sounds_F\vehicles\air\noises\SL_engineDownINT.wss",
 			1
 		}
 	};
@@ -316,7 +316,7 @@ class fza_SlingLoadUp_Int_SoundShader_Base: fza_SlingLoadDown_Int_SoundShader_Ba
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineUpINT",
+			"A3\Sounds_F\vehicles\air\noises\SL_engineUpINT.wss",
 			1
 		}
 	};
@@ -331,7 +331,7 @@ class fza_Rain_Int_SoundShader_Base: fza_Rain_Ext_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\noises\rain1_int",
+			"A3\Sounds_F\vehicles\noises\rain1_int.wss",
 			1
 		}
 	};
@@ -344,7 +344,7 @@ class fza_Wind_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\wind_closed",
+			"A3\Sounds_F\vehicles\air\noises\wind_closed.wss",
 			1
 		}
 	};
@@ -369,7 +369,7 @@ class fza_FrameStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 	samples[]=
 	{
 		{
-			"A3\Sounds_F\vehicles\noises\vehicle_stress2c",
+			"A3\Sounds_F\vehicles\noises\vehicle_stress2c.wss",
 			1
 		}
 	};
@@ -381,7 +381,7 @@ class fza_GStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\Share\BladeSlap",
+			"\fza_ah64_audio\audio\Engine\Env\Share\BladeSlap.wss",
 			1
 		}
 	};
@@ -394,7 +394,7 @@ class fza_SpeedStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\noises\vehicle_stress3",
+			"A3\Sounds_F\vehicles\noises\vehicle_stress3.wss",
 			1
 		}
 	};
@@ -408,7 +408,7 @@ class fza_ETL_VRS_Shake_01_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 };
 class fza_ETL_VRS_Shake_02_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {
-	sound[]   = {"A3\Sounds_F\vehicles\noises\vehicle_stress3", 1, 1};
+	sound[]   = {"A3\Sounds_F\vehicles\noises\vehicle_stress3.wss", 1, 1};
 	frequency = "CustomSoundController3";
 	volume    = "camInt*rotorSpeed*CustomSoundController4";
 };
