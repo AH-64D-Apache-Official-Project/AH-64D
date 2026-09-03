@@ -18,4 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_systems_apuBtnOn", !(_heli getVariable "fza_systems_apuBtnOn"), true];
+private _state = !(_heli getVariable "fza_systems_apuBtnOn");
+_heli setVariable ["fza_systems_apuBtnOn", _state, true];
+
+//- Fire up GlobalEvent
+["fza_updateAPU_State", [_heli, _state]] call CBA_fnc_GlobalEvent;
