@@ -26,7 +26,6 @@ class CfgVehicles {
         #include "cfgVehicles\reflectors.hpp"
         #include "cfgVehicles\sfmplus.hpp"
         #include "cfgVehicles\sounds.hpp"
-        #include "cfgVehicles\soundsExt.hpp"
         #include "cfgVehicles\textureSources.hpp"
         #include "cfgVehicles\turrets.hpp"
         #include "hiddenSelections.hpp"

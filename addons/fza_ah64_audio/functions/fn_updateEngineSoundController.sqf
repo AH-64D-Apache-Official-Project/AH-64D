@@ -33,11 +33,9 @@ switch (_variableName) do {
     // systemChat str [format ["Engine Set POS (%1)", _value], time];
 
     private _Snd_Ctrl_BaseID = 5; //- CustomSoundController 5
-    private _toValue = call {
-      if (_value == "ON") exitWith {-1};
-      if (_value == "STARTING") exitWith {1};
-      0
-    };
+
+    private _engStateToCtrlValue = createHashMapFromArray [["OFF", 0], ["STARTING", 1], ["ON", -1]];
+    private _toValue = _engStateToCtrlValue getOrDefault [_value, 0];
 
     private _Snd_Ctrl = format ["CustomSoundController%1", _Snd_Ctrl_BaseID + _index];
     private _cur_Snd_Ctrl = getCustomSoundController [_heli, _Snd_Ctrl];
