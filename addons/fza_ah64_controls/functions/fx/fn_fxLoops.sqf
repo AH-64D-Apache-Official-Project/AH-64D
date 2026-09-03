@@ -21,11 +21,8 @@ if (!canSuspend) exitWith {
     _this spawn fza_fnc_fxLoops;
 };
 
-systemChat str ["fx LOOP", _type ,time];
-
 switch (_type) do {
     case "apu": {
-        // #define PREP_FREQ_OFFSET 1.15
 
         private _apuBtnOn_OLD = _heli getVariable ["fza_systems_apuBtnOn", false];
         private _apuRPM_pct_TargetNum = parseNumber _apuBtnOn_OLD; // (0/1)
