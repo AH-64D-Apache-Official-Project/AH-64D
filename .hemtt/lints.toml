@@ -3,6 +3,7 @@ math_could_be_unquoted = false
 
 [sqf]
 select_parse_number = false
+direct_private = false
 
 [sqf.var_all_caps]
 options.ignore = [

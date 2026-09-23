@@ -27,6 +27,7 @@ class Draw
             type = "text";
             source = "userText";
             sourceIndex = 0;
+            sourceScale = 1;
             scale=1;
             align="right";
             pos[] = {{0, 0}, 1};

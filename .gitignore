@@ -20,6 +20,7 @@ venv/
 *.biprivatekey
 *.hemttprivatekey
 addons/*/version.hpp
+addons/fza_ah64_missionplanner/ui/planner.built.html
 
 # SCons
 .sconsign.dblite
