@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:rotor/fn_rotorVariables.sqf",{92:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines core rotor variables.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:rotor/fn_rotorVariables.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Defines core rotor variables.</div></div>"});

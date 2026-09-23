@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:sensors/fn_lwr.sqf",{516:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Proccessor function for the LASER WARNING RECIEVER</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:sensors/fn_lwr.sqf",{520:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Proccessor function for the LASER WARNING RECIEVER</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File23:simpleRotor/fn_simpleRotorNewtRaphSolver.sqf",{70:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">This newton raphson solver calculates the true induced flow of the simple rotor.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File23:simpleRotor/fn_simpleRotorNewtRaphSolver.sqf",{72:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">This newton raphson solver calculates the true induced flow of the simple rotor.</div></div>"});
