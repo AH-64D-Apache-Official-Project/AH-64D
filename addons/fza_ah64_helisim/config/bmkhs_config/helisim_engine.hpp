@@ -51,3 +51,105 @@
 
     //Governor PID, {kp, ki, kd, ki_clamp} - one per engine
     pidEngine[]    = {0.7000, 0.0000, 0.0005, 0.0000};
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Engines - the gas turbine model  /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //Runs beside the flat scalars above until the old model is deleted at 1.1.0's switchover.
+    numEngines = 2;
+
+    class Engines {
+        class Engine01 {
+            name            = "eng01";
+            damageRole      = "engines";
+            damageRoleIndex = 0;
+
+            engineType  = "turboShaftEngine";   //dispatches to bmkhs_fnc_turboShaftEngine
+            designRpm   = 20900;                //100% Np, the shaft reference
+            npFly       = 1.01;                 //governed Np in FLY, as a fraction of designRpm
+            maxFuelFlow = 0.12;                 //kg/s at full fuel - the gauge boundary
+
+            //These three together hold TGT within 6 deg C from 5.5% to 129% torque.
+            spoolInertia   = 5.0;    //sets the start DURATION
+            compressorLoad = 1.7;    //what the compressor absorbs, as cl * ng^2
+            massFlowExp    = 1.7;    //mass flow rises faster than speed, as ng^this
+            tgtK           = 276;    //deg C per unit of fuel-to-massflow ratio
+
+            //COASTING only - a compressor running down against no combustion is what stops
+            //the spool, not bearing friction.
+            unfiredDragMult = 3.0;   //compressor drag multiplier with the fire out
+            unfiredFriction = 0.10;  //stops the last of it - ng^2 alone only asymptotes
+
+            thermalMass    = 0.30;   //how fast TGT chases its target
+            cooling        = 0.70;   //how fast it sheds heat, sized on the shutdown
+            soak           = 0.0012; //still-air convection once the spool has stopped
+
+            //The rotor at flat pitch is a real load, so these are operating points.
+            idleTq = 0.055;
+            flyTq  = 0.18;
+
+            //Minimum fuel the power lever schedules; the governor trims around it. Each is
+            //compressorLoad * ng^2 + tq / ptEfficiency at that detent.
+            fuelIdle = 0.844;        //settles Ng at 0.679
+            fuelFly  = 1.378;        //settles Ng at 0.834
+
+            ffwdGain     = 0.30;     //collective anticipation
+            ptEfficiency = 0.92;     //gas power reaching the shaft
+
+            //Start thresholds - discrete events the model branches on.
+            lightOffNg = 0.15;      //fuel introduced
+            selfSustNg = 0.52;      //starter cuts out
+            startTgt   = 851;       //deg C - the transient START limit, not the expected peak
+            startMinTgt = 80;       //deg C - below this before the power lever is moved
+
+            //How violently an un-purged engine runs away. Latched from TGT when the lever
+            //moves, fading out as Ng reaches idle.
+            hotStartCarry = 0.003;
+
+            //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
+            startFuelBase = 0.42;
+
+            //Np governor, {kp, ki, kd, ki_clamp}.
+            pid[] = {0.7000, 0.0000, 0.0005, 0.0000};
+
+            //Air turbine or electric, and what it needs available before the spool turns.
+            class Starter {
+                type   = "pneumatic";
+                torque = 0.30;                  //what it puts on the spool, normalised
+                gate[] = {{"PNEU", 0.85}};      //the pneumatic circuit's own minValue
+            };
+
+            //Author-named tiers, worst-first. The first is the torque reference everything
+            //scales from.
+            class PowerRatings {
+                class MaximumContinuous {
+                    displayName = "MC";
+                    powerKw     = 1066;
+                    maxTgt      = 810;
+                    maxNg       = 0.950;
+                    maxOilPsi   = 0.91;
+                    timeLimit   = 1800;     //30 min
+                };
+                class DualEngine : MaximumContinuous {
+                    displayName = "MTA DE";
+                    maxTgt      = 867;
+                    maxNg       = 0.990;
+                    maxOilPsi   = 0.94;
+                    timeLimit   = 600;      //10 min
+                };
+                class SingleEngine : MaximumContinuous {
+                    displayName   = "MTA SE";
+                    powerKw       = 1447;
+                    maxTgt        = 896;
+                    maxNg         = 0.997;
+                    maxOilPsi     = 0.99;
+                    timeLimit     = 150;    //2.5 min
+                    unlockBelowTq = 0.51;   //unlocks when a sibling falls below 51% torque
+                };
+            };
+        };
+        class Engine02 : Engine01 {
+            name            = "eng02";
+            damageRoleIndex = 1;
+        };
+    };
