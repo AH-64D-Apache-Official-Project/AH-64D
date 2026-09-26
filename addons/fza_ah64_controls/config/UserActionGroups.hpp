@@ -73,7 +73,13 @@ class UserActionGroups {
             //Keyboard Collective
             "fza_ah64_kbCollectiveUp",
             "fza_ah64_kbCollectiveDn",
-            "fza_ah64_ctrlVisToggle"
+            "fza_ah64_ctrlVisToggle",
+            //MPD Minigame
+            "fza_minigame_up",
+            "fza_minigame_down",
+            "fza_minigame_left",
+            "fza_minigame_right",
+            "fza_minigame_fire"
         };
     };
 };

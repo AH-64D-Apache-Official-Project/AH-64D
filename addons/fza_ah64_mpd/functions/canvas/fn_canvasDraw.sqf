@@ -1,13 +1,12 @@
-params ["_p", "_side"];
-_p params ["_ctrl"];
+params ["_ctrl"];
 
 private _heli = vehicle player;
 
 if ((driver _heli != player && gunner _heli != player) || !(_heli isKindOf "fza_ah64base")) exitWith {};
 
-private _xOffset = [0,0.5] select (_side == "right");
+private _side = displayUniqueName (ctrlParent _ctrl);
 
-_ctrl ctrlMapSetPosition [_xOffset,0,0.5,0.5];
+_ctrl ctrlMapSetPosition [0,0,1,1];
 _ctrl ctrlMapAnimAdd [0, 0.000, [-1000,-1000]];
 ctrlMapAnimCommit _ctrl;
 _ctrl ctrlCommit 0;
