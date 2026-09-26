@@ -6,6 +6,10 @@ class BMKHS_HeliSim {
     //Off means vanilla behaviour and Core's optional-input defaults.
     useSystems = 1;
 
+    //How many engines, when no hitpoint declares them. This airframe's hitpoints do, so the
+    //count comes from there and this is the fallback.
+    numEngines = 2;
+
     //Drivetrain ratings for useSystems = 0, worst first: {fraction of rated torque, seconds
     //it will hold there, divisor}. 0 seconds damages immediately; the divisor sets how fast
     //once it does. SE sets are used single-engine. With systems on the components carry

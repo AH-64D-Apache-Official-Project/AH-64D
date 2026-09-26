@@ -56,8 +56,8 @@
     // Engines - the gas turbine model  /////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
     //Runs beside the flat scalars above until the old model is deleted at 1.1.0's switchover.
-    numEngines = 2;
-
+    //numEngines is declared at the top of bmkhs_ah64_config.hpp, beside useSystems - it is
+    //the airframe's count, not an engine's property.
     class Engines {
         class Engine01 {
             name            = "eng01";
@@ -80,9 +80,9 @@
             unfiredDragMult = 3.0;   //compressor drag multiplier with the fire out
             unfiredFriction = 0.10;  //stops the last of it - ng^2 alone only asymptotes
 
-            thermalMass    = 0.30;   //how fast TGT chases its target
-            cooling        = 0.70;   //how fast it sheds heat, sized on the shutdown
-            soak           = 0.0012; //still-air convection once the spool has stopped
+            thermalMassCoef = 0.30;  //how fast TGT chases its target when heating
+            coolingCoef     = 0.70;  //and when cooling, sized on the shutdown
+            stillAirFlow    = 0.0012;//airflow floor once the spool has stopped
 
             //The rotor at flat pitch is a real load, so these are operating points.
             idleTq = 0.055;
@@ -104,10 +104,20 @@
 
             //How violently an un-purged engine runs away. Latched from TGT when the lever
             //moves, fading out as Ng reaches idle.
-            hotStartCarry = 0.003;
+            residualHeatGain = 0.003;
 
             //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
             startFuelBase = 0.42;
+
+            //THE PHYSICAL CEILING - what the engine is built not to do. Torque is never
+            //clamped; it is where the engine tops out once fuel stops going up, which is
+            //lower on a hot, high day because thin air reaches maxTgt at less fuel.
+            maxTgt = 867;           //deg C - the hot section's limit
+            maxNg  = 1.022;         //the speed the compressor cannot exceed, whatever the day
+            //The compressor Mach limit, straight off the Ng Physical Speed Limit chart:
+            //0.938 at -40 C rising to the 1.022 knee at +4 C, flat above it.
+            ngLimitBase  = 1.01436; //Ng ceiling at 0 C
+            ngLimitSlope = 0.0019091;//per deg C
 
             //Np governor, {kp, ki, kd, ki_clamp}.
             pid[] = {0.7000, 0.0000, 0.0005, 0.0000};
