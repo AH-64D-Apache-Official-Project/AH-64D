@@ -561,7 +561,7 @@ if ( !(_heli getVariable "bmkhs_attHoldActive") || _heli getVariable "bmkhs_forc
 };
 private _dist           = _heli distance2D _desiredPos;
 private _attHoldSubMode =_heli getVariable "bmkhs_attHoldSubMode";
-if (_dist >= 14.630 && _attHoldSubMode == "POS") then {
+if (_dist >= 14.630 && _attHoldSubMode == "pos") then {
     _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];
 };
 if (_heli getVariable "bmkhs_altHoldActive") then {
