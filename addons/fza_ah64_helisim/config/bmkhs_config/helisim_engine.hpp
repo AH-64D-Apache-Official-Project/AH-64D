@@ -91,10 +91,12 @@
             //Minimum fuel the power lever schedules; the governor trims around it. Each is
             //compressorLoad * ng^2 + tq / ptEfficiency at that detent.
             fuelIdle = 0.844;        //settles Ng at 0.679
-            fuelFly  = 1.378;        //settles Ng at 0.834
+            fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
 
             ffwdGain     = 0.30;     //collective anticipation
             ptEfficiency = 0.92;     //gas power reaching the shaft
+            stallTqMult  = 2.50;     //torque ceiling at zero Np, x refTq
+            ptIdleExtract = 0.05;    //share the turbine takes with the gas generator idling
 
             //Start thresholds - discrete events the model branches on.
             lightOffNg = 0.15;      //fuel introduced
