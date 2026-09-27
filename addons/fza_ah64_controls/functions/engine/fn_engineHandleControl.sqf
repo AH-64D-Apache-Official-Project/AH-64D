@@ -85,6 +85,9 @@ switch(_control) do {
     case (localize "STR_FZA_AH64_ENGINE_ONE_START"): {
         ["eng1StartSw", 2, _heli] call bmkhs_fnc_controlSet;
     };
+    case (localize "STR_FZA_AH64_ENGINE_ONE_OFF"): {
+        ["eng1StartSw", 1, _heli] call bmkhs_fnc_controlSet;
+    };
     case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE"): {
         ["eng1StartSw", 0, _heli] call bmkhs_fnc_controlSet;
     };
@@ -123,6 +126,9 @@ switch(_control) do {
     //Start Switch
     case (localize "STR_FZA_AH64_ENGINE_TWO_START"): {
         ["eng2StartSw", 2, _heli] call bmkhs_fnc_controlSet;
+    };
+    case (localize "STR_FZA_AH64_ENGINE_TWO_OFF"): {
+        ["eng2StartSw", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE"): {
         ["eng2StartSw", 0, _heli] call bmkhs_fnc_controlSet;

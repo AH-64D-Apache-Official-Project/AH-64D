@@ -64,65 +64,78 @@
             damageRole      = "engines";
             damageRoleIndex = 0;
 
+            //Whole-assembly properties - not owned by any one section.
             engineType  = "turboShaftEngine";   //dispatches to bmkhs_fnc_turboShaftEngine
             designRpm   = 20900;                //100% Np, the shaft reference
             npFly       = 1.01;                 //governed Np in FLY, as a fraction of designRpm
             maxFuelFlow = 0.12;                 //kg/s at full fuel - the gauge boundary
 
-            //These three together hold TGT within 6 deg C from 5.5% to 129% torque.
-            spoolInertia   = 5.0;    //sets the start DURATION
-            compressorLoad = 1.7;    //what the compressor absorbs, as cl * ng^2
-            massFlowExp    = 1.7;    //mass flow rises faster than speed, as ng^this
-            tgtK           = 276;    //deg C per unit of fuel-to-massflow ratio
+            //Hard shutdowns - both CUT FUEL rather than restricting it.
+            maxNg = 1.10;                       //mechanical fly weights
+            maxNp = 1.196;                      //electrical trip
 
-            //COASTING only - a compressor running down against no combustion is what stops
-            //the spool, not bearing friction.
-            unfiredDragMult = 3.0;   //compressor drag multiplier with the fire out
-            unfiredFriction = 0.10;  //stops the last of it - ng^2 alone only asymptotes
+            //Compressor and spool - Ng from a torque balance.
+            class ColdSection {
+                compressorInertia = 5.0; //how fast Ng answers a torque change
+                compressorLoad    = 1.7; //what the compressor absorbs, as cl * ng^2
+                airCoef           = 0.1219;//cold air it pushes over the power turbine
 
-            thermalMassCoef = 0.30;  //how fast TGT chases its target when heating
-            coolingCoef     = 0.70;  //and when cooling, sized on the shutdown
-            stillAirFlow    = 0.0012;//airflow floor once the spool has stopped
+                //Spooling down only - an unfired compressor is pure load, and that stops it.
+                compDragMult  = 3.0;     //compressor drag multiplier with the fire out
+                compDragFloor = 0.10;    //finishes the stop - ng^2 alone only asymptotes
 
-            //The rotor at flat pitch is a real load, so these are operating points.
-            idleTq = 0.055;
-            flyTq  = 0.18;
+                //Start thresholds - discrete events the model branches on.
+                lightOffNg = 0.15;       //fuel introduced
+                selfSustNg = 0.52;       //starter cuts out
+                //Where the start fuel ramp reaches full and residual heat has faded. Raise it
+                //to hold fuel lean longer and peak cooler.
+                idleNg     = 0.679;
+            };
 
-            //Minimum fuel the power lever schedules; the governor trims around it. Each is
-            //compressorLoad * ng^2 + tq / ptEfficiency at that detent.
-            fuelIdle = 0.844;        //settles Ng at 0.679
-            fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
+            //Combustor - fuel burn, TGT as state, gas power out.
+            class HotSection {
+                massFlowExp = 1.772;     //mass flow rises faster than speed, as ng^this
+                tgtK        = 288.6;     //deg C per unit of fuel-to-massflow ratio
 
-            ffwdGain     = 0.30;     //collective anticipation
-            ptEfficiency = 0.92;     //gas power reaching the shaft
-            stallTqMult  = 2.50;     //torque ceiling at zero Np, x refTq
-            ptIdleExtract = 0.05;    //share the turbine takes with the gas generator idling
+                thermalMassCoef = 0.30;  //how fast TGT chases its target when heating
+                coolingCoef     = 0.70;  //and when cooling, sized on the shutdown
+                stillAirFlow    = 0.0012;//airflow floor once the spool has stopped
+                ramAirCoef      = 0.00065;//ram cooling per m/s of forward speed
 
-            //Start thresholds - discrete events the model branches on.
-            lightOffNg = 0.15;      //fuel introduced
-            selfSustNg = 0.52;      //starter cuts out
-            startTgt   = 851;       //deg C - the transient START limit, not the expected peak
-            startMinTgt = 80;       //deg C - below this before the power lever is moved
+                maxTgt      = 867;      //deg C - the hot section's limit
+                startTgt    = 851;       //deg C - the transient START limit, not the peak
+                startMinTgt = 80;        //deg C - below this before the power lever is moved
 
-            //How violently an un-purged engine runs away. Latched from TGT when the lever
-            //moves, fading out as Ng reaches idle.
-            residualHeatGain = 0.003;
+                //How violently an un-purged engine runs away, latched from TGT at the lever.
+                residualHeatGain = 0.003;
+            };
 
-            //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
-            startFuelBase = 0.42;
+            //The free turbine - Np is state with its own torque balance.
+            class PowerTurbine {
+                ptEfficiency  = 0.92;    //gas power reaching the shaft
+                ptIdleExtract = 0.05;    //share taken with the gas generator idling
+                ptInertia     = 0.60;    //the free turbine's own inertia
+                ptDrag        = 0.60;    //drag on a released turbine, as ptDrag * np^2
+                ptDragFloor   = 0.05;    //finishes the stop - windmilling only
+            };
 
-            //THE PHYSICAL CEILING - what the engine is built not to do. Torque is never
-            //clamped; it is where the engine tops out once fuel stops going up, which is
-            //lower on a hot, high day because thin air reaches maxTgt at less fuel.
-            maxTgt = 867;           //deg C - the hot section's limit
-            maxNg  = 1.022;         //the speed the compressor cannot exceed, whatever the day
-            //The compressor Mach limit, straight off the Ng Physical Speed Limit chart:
-            //0.938 at -40 C rising to the 1.022 knee at +4 C, flat above it.
-            ngLimitBase  = 1.01436; //Ng ceiling at 0 C
-            ngLimitSlope = 0.0019091;//per deg C
+            //The ECU - what it schedules, and the ceilings it will not pass.
+            class Governor {
+                //Minimum fuel the power lever schedules. Each is
+                //compressorLoad * ng^2 + tq / ptEfficiency at that detent.
+                fuelIdle = 0.784;        //settles Ng at 0.679
+                fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
 
-            //Np governor, {kp, ki, kd, ki_clamp}.
-            pid[] = {0.7000, 0.0000, 0.0005, 0.0000};
+                //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
+                startFuelBase = 0.22;
+
+                ffwdGain = 0.30;         //collective anticipation
+
+                //Np governor, {kp, ki, kd, ki_clamp}.
+                pid[] = {0.7000, 0.0000, 0.0005, 0.0000};
+
+                gate[] = {};             //what the ECU needs to keep metering fuel
+            };
 
             //Air turbine or electric, and what it needs available before the spool turns.
             class Starter {
