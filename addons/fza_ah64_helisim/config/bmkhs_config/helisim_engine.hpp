@@ -113,7 +113,6 @@
             //The free turbine - Np is state with its own torque balance.
             class PowerTurbine {
                 ptEfficiency  = 0.92;    //gas power reaching the shaft
-                ptIdleExtract = 0.05;    //share taken with the gas generator idling
                 ptInertia     = 0.60;    //the free turbine's own inertia
                 ptDrag        = 0.60;    //drag on a released turbine, as ptDrag * np^2
                 ptDragFloor   = 0.05;    //finishes the stop - windmilling only
