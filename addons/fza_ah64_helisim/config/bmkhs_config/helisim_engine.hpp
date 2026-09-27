@@ -80,6 +80,10 @@
                 compressorLoad    = 1.7; //what the compressor absorbs, as cl * ng^2
                 airCoef           = 0.1219;//cold air it pushes over the power turbine
 
+                //Running only - the load the spool settles against, cl * compRunMult * ng^compRunExp.
+                compRunMult = 1.7132;
+                compRunExp  = 3.3898;
+
                 //Spooling down only - an unfired compressor is pure load, and that stops it.
                 compDragMult  = 3.0;     //compressor drag multiplier with the fire out
                 compDragFloor = 0.10;    //finishes the stop - ng^2 alone only asymptotes
@@ -126,12 +130,12 @@
                 fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
 
                 //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
-                startFuelBase = 0.22;
+                startFuelBase = 0.42;
 
-                ffwdGain = 0.30;         //collective anticipation
+                ffwdGain = 1.00;         //collective anticipation - the load demand spindle
 
                 //Np governor, {kp, ki, kd, ki_clamp}.
-                pid[] = {0.7000, 0.0000, 0.0005, 0.0000};
+                pid[] = {10.0000, 40.0000, 0.0000, 0.0750};
 
                 gate[] = {};             //what the ECU needs to keep metering fuel
             };
