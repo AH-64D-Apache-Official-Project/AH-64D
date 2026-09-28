@@ -44,7 +44,7 @@
             variableName = "xmsnDrive";
             drivenBy[]   = {"Nr"};        //any rotation; the pumps set their own floor
             rampSeconds  = 0;             //no nominal: it carries whatever Nr is doing
-            torqueFrom   = "bmkhs_engPctTQ";
+            torqueFrom   = "bmkhs_engPctTq";
             torqueSum    = 1;
             tqLimits[]   = {{2.30, 0, 20}, {2.00, 6, 10}};
             jittersTorque = 1;
@@ -102,7 +102,7 @@
             damageRole   = "noseGearboxes";   //two hitpoints -> noseGearbox1, 2
             variableName = "noseGearbox";
             input[]      = {"Nr"};
-            torqueFrom      = "bmkhs_engPctTQ";  //per member, so engine 2 feeds gearbox 2
+            torqueFrom      = "bmkhs_engPctTq";  //per member, so engine 2 feeds gearbox 2
             //Single-engine ratings: a nose gearbox only carries enough to hurt it when
             //one engine is doing the work of two.
             tqLimitsSE[]    = {{1.25, 0, 40}, {1.22, 6, 20}, {1.10, 150, 10}};

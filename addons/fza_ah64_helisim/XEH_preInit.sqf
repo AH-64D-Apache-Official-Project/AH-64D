@@ -1,10 +1,10 @@
 //HeliSim raises events; the aircraft decides what they mean. Audio and cockpit
 //animation are mod business, not Core's.
 
-//How fast a CLICKED power lever travels. A multiplier on the animation's own animPeriod of
-//1 second, so this is the whole sweep - slow enough that the rotor follows the lever rather
-//than surging with it. An axis-bound lever ignores this and tracks the player's hand.
-#define PWRLVR_CLICK_SPEED 0.125
+//The power lever's IDLE (0.25) to FLY (1.0) sweep, as animation phase. A clicked lever going to FLY
+//covers it in the engine's leverTravelTime - the same time the fuel ramp and Np take - so the
+//lever and the engine stay in step. An axis-bound lever ignores this and tracks the hand.
+#define PWRLVR_IDLE_TO_FLY 0.75
 
 //This pack's airframe, from its own CfgPatches entry. Every installed pack schedules and
 //hears only its own aircraft, so two packs loaded together never touch each other's.
@@ -27,14 +27,13 @@ fza_ah64_helisim_baseClass = getText (configFile >> "CfgPatches" >> "fza_ah64_he
         case "controlMoved": {
             _data params ["_name", "_idx", "_prevIdx", "_value", "_posName"];
             switch (_name) do {
-                //Only the sweep to FLY is deliberately slow, so the rotor follows the lever
-                //rather than surging with it. Everything else moves at the animation's rate.
+                //Only the sweep to FLY travels, with the engine; every other move snaps, as the fuel does.
                 case "eng1PwrLvr";
                 case "eng2PwrLvr": {
                     private _anim = ["fza_ah64_powerLever1", "fza_ah64_powerLever2"]
                                         select (_name == "eng2PwrLvr");
                     if (_value == 1.0) then {
-                        [_heli, _anim, _value, PWRLVR_CLICK_SPEED] call fza_fnc_animSetValue;
+                        [_heli, _anim, _value, PWRLVR_IDLE_TO_FLY / (((_heli getVariable "bmkhs_engines") # 0) get "leverTravelTime")] call fza_fnc_animSetValue;
                     } else {
                         [_heli, _anim, _value] call fza_fnc_animSetValue;
                     };
@@ -59,7 +58,7 @@ fza_ah64_helisim_baseClass = getText (configFile >> "CfgPatches" >> "fza_ah64_he
             _data params ["_engNum", "_value"];
             private _anim = format ["fza_ah64_powerLever%1", _engNum + 1];
             if (_value == 1.0) then {
-                [_heli, _anim, _value, PWRLVR_CLICK_SPEED] call fza_fnc_animSetValue;
+                [_heli, _anim, _value, PWRLVR_IDLE_TO_FLY / (((_heli getVariable "bmkhs_engines") # 0) get "leverTravelTime")] call fza_fnc_animSetValue;
             } else {
                 [_heli, _anim, _value] call fza_fnc_animSetValue;
             };

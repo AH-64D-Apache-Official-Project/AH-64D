@@ -2,60 +2,8 @@
 // Engine ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Engine Data      /////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    engSimTime  = 8.0;
-
-    engIdleTQ   = 0.055;
-    engFlyTQ    = 0.18;
-    engMaxTQ    = 1.50;
-    engOvrspdTQ = 1.50;
-
-    engStartNG  = 0.23;
-    engIdleNG   = 0.679;
-    engFlyNG    = 0.834;
-    engMaxNG    = 1.04;
-
-    engStartNP  = 0.10;
-    engIdleNP   = 0.57;
-    engFlyNP    = 1.01;
-    engOvrspdNP = 1.196;
-
-    //--------------------0-NG-----1-TGT----2-TQ----3-NP----4-Oil
-    //Power, governing and limits used by the engine2 / BET models
-    engContPwrKW   = 1066.0;   //kW per engine, continuous
-    engCntgncyPwrKW= 1447.0;   //kW per engine, single-engine contingency
-    engDesignRPM   = 20900;    //100% Np
-    engFriction    = 0.0;
-    engGovGain     = 6.0;      //governor response rate
-    engRunNG       = 0.52;     //Ng above which the engine is running
-    engMaxTGT_DE   = 867;      //deg C, dual engine
-    engMaxTGT_SE   = 896;      //deg C, single engine
-
-    engBaseTable[] =    {{0.000,      0,    0.00,     0.00,    0.00}, //Off - 0 sec
-                         {0.010,      0,    0.00,     0.00,    0.00}, //5 sec
-                         {0.178,      0,    0.00,     0.00,    0.00}, //10 sec
-                         {0.240,     95,    0.00,     0.00,    0.01}, //15 sec
-                         {0.317,    390,    0.00,     0.00,    0.08}, //20 sec
-                         {0.395,    515,    0.00,     0.02,    0.22}, //25 sec
-                         {0.584,    656,    0.00,     0.08,    0.48}, //31 sec
-                         {0.670,    487,    0.00,     0.18,    0.73}, //35 sec
-                         {0.671,    478,    0.00,     0.33,    0.90}, //45 sec
-                         {0.672,    474,    0.11,     0.43,    0.87}, //60 sec
-                         {0.674,    460,    0.06,     0.58,    0.54}, //Idle - 120 sec
-                         {0.688,    459,    0.06,     0.58,    0.54},
-                         {0.752,    501,    0.07,     0.59,    0.56},
-                         {0.792,    508,    0.13,     0.61,    0.58},
-                         {0.837,    521,    0.27,     0.70,    0.63},
-                         {0.856,    532,    0.18,     1.01,    0.69}}; //Fly
-
-    //Governor PID, {kp, ki, kd, ki_clamp} - one per engine
-    pidEngine[]    = {0.7000, 0.0000, 0.0005, 0.0000};
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     // Engines - the gas turbine model  /////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    //Runs beside the flat scalars above until the old model is deleted at 1.1.0's switchover.
     //numEngines is declared at the top of bmkhs_ah64_config.hpp, beside useSystems - it is
     //the airframe's count, not an engine's property.
     class Engines {
@@ -68,7 +16,7 @@
             engineType  = "turboShaftEngine";   //dispatches to bmkhs_fnc_turboShaftEngine
             designRpm   = 20900;                //100% Np, the shaft reference
             npFly       = 1.01;                 //governed Np in FLY, as a fraction of designRpm
-            maxFuelFlow = 0.12;                 //kg/s at full fuel - the gauge boundary
+            maxFuelFlow = 0.033;                //kg/s per unit of fuel - the gauge boundary
 
             //Hard shutdowns - both CUT FUEL rather than restricting it.
             maxNg = 1.10;                       //mechanical fly weights
@@ -118,7 +66,7 @@
             class PowerTurbine {
                 ptEfficiency  = 0.92;    //gas power reaching the shaft
                 ptInertia     = 0.60;    //the free turbine's own inertia
-                ptDrag        = 0.60;    //drag on a released turbine, as ptDrag * np^2
+                ptDrag        = 0.06;    //drag on a released turbine, as ptDrag * np^2
                 ptDragFloor   = 0.05;    //finishes the stop - windmilling only
             };
 
@@ -133,6 +81,9 @@
                 startFuelBase = 0.42;
 
                 ffwdGain = 1.00;         //collective anticipation - the load demand spindle
+
+                leverTravelTime = 8.0;   //seconds, idle to fly - the fuel ramp, Np and the lever animation
+                loadShareGain   = 8.0;   //how hard an engine below its matched partners trims up to them
 
                 //Np governor, {kp, ki, kd, ki_clamp}.
                 pid[] = {10.0000, 40.0000, 0.0000, 0.0750};

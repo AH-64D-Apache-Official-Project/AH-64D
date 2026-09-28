@@ -4,11 +4,11 @@ params ["_heli", "_mpdIndex"];
 
 
 // #region ENGINE 1
-private _e1np   = (_heli getVariable "bmkhs_engPctNP" select 0) * 100;
-private _e1ng   = (_heli getVariable "bmkhs_engPctNG" select 0) * 1000;
-private _e1tgt  = _heli getVariable "bmkhs_engTGT" select 0;
-private _e1trq  = (_heli getVariable "bmkhs_engPctTQ" select 0) * 100;
-private _e1opsi = (_heli getVariable "bmkhs_engOilPSI" select 0) * 100;
+private _e1np   = (_heli getVariable "bmkhs_engPctNp" select 0) * 100;
+private _e1ng   = (_heli getVariable "bmkhs_engPctNg" select 0) * 1000;
+private _e1tgt  = _heli getVariable "bmkhs_engTgt" select 0;
+private _e1trq  = (_heli getVariable "bmkhs_engPctTq" select 0) * 100;
+private _e1opsi = (_heli getVariable "bmkhs_engOilPsi" select 0) * 100;
 if (_e1np <= (0.37 * 100)) then {
     _e1trq = 0;
 };
@@ -26,11 +26,11 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_1), (_e1ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_1), _e1opsi toFixed 0];
 
 // #region ENGINE 2
-private _e2np   = (_heli getVariable "bmkhs_engPctNP" select 1) * 100;
-private _e2ng   = (_heli getVariable "bmkhs_engPctNG" select 1) * 1000;
-private _e2tgt  = _heli getVariable "bmkhs_engTGT" select 1;
-private _e2trq  = (_heli getVariable "bmkhs_engPctTQ" select 1) * 100;
-private _e2opsi = (_heli getVariable "bmkhs_engOilPSI" select 1) * 100;
+private _e2np   = (_heli getVariable "bmkhs_engPctNp" select 1) * 100;
+private _e2ng   = (_heli getVariable "bmkhs_engPctNg" select 1) * 1000;
+private _e2tgt  = _heli getVariable "bmkhs_engTgt" select 1;
+private _e2trq  = (_heli getVariable "bmkhs_engPctTq" select 1) * 100;
+private _e2opsi = (_heli getVariable "bmkhs_engOilPsi" select 1) * 100;
 if (_e2np <= (0.37 * 100)) then {
     _e2trq = 0;
 };

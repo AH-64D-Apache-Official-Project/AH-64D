@@ -73,13 +73,13 @@ private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
 private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 //--Engine 1
 private _eng1PwrLvrState = _heli getVariable "bmkhs_engPowerLeverState" select 0;
-private _eng1Ng          = _heli getVariable "bmkhs_engPctNG" select 0;
-private _eng1Np          = _heli getVariable "bmkhs_engPctNP" select 0;
+private _eng1Ng          = _heli getVariable "bmkhs_engPctNg" select 0;
+private _eng1Np          = _heli getVariable "bmkhs_engPctNp" select 0;
 private _eng1State       = _heli getVariable "bmkhs_engState" select 0;
 //--Engine 2
 private _eng2PwrLvrState = _heli getVariable "bmkhs_engPowerLeverState" select 1;
-private _eng2Ng          = _heli getVariable "bmkhs_engPctNG" select 1;
-private _eng2Np          = _heli getVariable "bmkhs_engPctNP" select 1;
+private _eng2Ng          = _heli getVariable "bmkhs_engPctNg" select 1;
+private _eng2Np          = _heli getVariable "bmkhs_engPctNp" select 1;
 private _eng2State       = _heli getVariable "bmkhs_engState" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
