@@ -10,13 +10,6 @@ class BMKHS_HeliSim {
     //count comes from there and this is the fallback.
     numEngines = 2;
 
-    //Drivetrain ratings for useSystems = 0, worst first: {fraction of rated torque, seconds
-    //it will hold there, divisor}. 0 seconds damages immediately; the divisor sets how fast
-    //once it does. SE sets are used single-engine. With systems on the components carry
-    //their own and these are not read.
-    xmsnTqLimits[]   = {{2.30, 0, 20}, {2.00, 6, 10}};
-    ngbTqLimitsSE[]  = {{1.25, 0, 40}, {1.22, 6, 20}, {1.10, 150, 10}};
-
     #include "bmkhs_config\helisim_airfoils.hpp"
     #include "bmkhs_config\helisim_components.hpp"
     #include "bmkhs_config\helisim_controls.hpp"

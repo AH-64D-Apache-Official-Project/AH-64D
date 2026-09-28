@@ -17,10 +17,20 @@
             designRpm   = 20900;                //100% Np, the shaft reference
             npFly       = 1.01;                 //governed Np in FLY, as a fraction of designRpm
             maxFuelFlow = 0.033;                //kg/s per unit of fuel - the gauge boundary
+            powerKw     = 1066;                 //maximum continuous - the torque reference, refTq
 
             //Hard shutdowns - both CUT FUEL rather than restricting it.
             maxNg = 1.10;                       //mechanical fly weights
             maxNp = 1.196;                      //electrical trip
+
+            //Book limits, low to high {limit, seconds, divisor}. Se sets apply single engine.
+            //Torque rates the drivetrain, not the engine.
+            ngLimits[]    = {{1.022, 12, 10}, {1.051, 0, 20}};
+            npLimits[]    = {{1.05, 12, 10}, {1.21, 0, 20}};
+            tqLimits[]    = {{1.00, 6, 5}, {1.15, 0, 10}};
+            tgtLimits[]   = {{810, 1800, 1000}, {870, 600, 0}, {878, 0, 0}, {949, 0, 2000}};
+            tqLimitsSe[]  = {{1.10, 150, 10}, {1.22, 6, 2}, {1.25, 0, 4}};
+            tgtLimitsSe[] = {{810, 1800, 1000}, {870, 600, 0}, {878, 150, 0}, {896, 12, 0}, {949, 0, 2000}};
 
             //Compressor and spool - Ng from a torque balance.
             class ColdSection {
@@ -42,6 +52,11 @@
                 //Where the start fuel ramp reaches full and residual heat has faded. Raise it
                 //to hold fuel lean longer and peak cooler.
                 idleNg     = 0.679;
+
+                //Ng limiter - ngLimitMax min (ngLimitBase + ngLimitSlope * FAT).
+                ngLimitMax   = 1.022;
+                ngLimitBase  = 1.01436;
+                ngLimitSlope = 0.0019091;
             };
 
             //Combustor - fuel burn, TGT as state, gas power out.
@@ -54,7 +69,8 @@
                 stillAirFlow    = 0.0012;//airflow floor once the spool has stopped
                 ramAirCoef      = 0.00065;//ram cooling per m/s of forward speed
 
-                maxTgt      = 867;      //deg C - the hot section's limit
+                maxTgt      = 867;      //deg C - TGT limiter, twin engine
+                maxTgtSe    = 896;      //deg C - TGT limiter, single engine
                 startTgt    = 851;       //deg C - the transient START limit, not the peak
                 startMinTgt = 80;        //deg C - below this before the power lever is moved
 
@@ -96,35 +112,6 @@
                 type   = "pneumatic";
                 torque = 0.30;                  //what it puts on the spool, normalised
                 gate[] = {{"PNEU", 0.85}};      //the pneumatic circuit's own minValue
-            };
-
-            //Author-named tiers, worst-first. The first is the torque reference everything
-            //scales from.
-            class PowerRatings {
-                class MaximumContinuous {
-                    displayName = "MC";
-                    powerKw     = 1066;
-                    maxTgt      = 810;
-                    maxNg       = 0.950;
-                    maxOilPsi   = 0.91;
-                    timeLimit   = 1800;     //30 min
-                };
-                class DualEngine : MaximumContinuous {
-                    displayName = "MTA DE";
-                    maxTgt      = 867;
-                    maxNg       = 0.990;
-                    maxOilPsi   = 0.94;
-                    timeLimit   = 600;      //10 min
-                };
-                class SingleEngine : MaximumContinuous {
-                    displayName   = "MTA SE";
-                    powerKw       = 1447;
-                    maxTgt        = 896;
-                    maxNg         = 0.997;
-                    maxOilPsi     = 0.99;
-                    timeLimit     = 150;    //2.5 min
-                    unlockBelowTq = 0.51;   //unlocks when a sibling falls below 51% torque
-                };
             };
         };
         class Engine02 : Engine01 {

@@ -46,7 +46,7 @@
             rampSeconds  = 0;             //no nominal: it carries whatever Nr is doing
             torqueFrom   = "bmkhs_engPctTq";
             torqueSum    = 1;
-            tqLimits[]   = {{2.30, 0, 20}, {2.00, 6, 10}};
+            tqLimitsFrom = "tqLimits";    //rated to the engines' twin limits, times their count
             jittersTorque = 1;
             breaksOnFailure[] = {"mainRotor", "tailRotor", "generators", "priPump", "utilPump"};
             class Outputs {
@@ -105,8 +105,8 @@
             torqueFrom      = "bmkhs_engPctTq";  //per member, so engine 2 feeds gearbox 2
             //Single-engine ratings: a nose gearbox only carries enough to hurt it when
             //one engine is doing the work of two.
-            tqLimitsSE[]    = {{1.25, 0, 40}, {1.22, 6, 20}, {1.10, 150, 10}};
-            jittersTorque   = 1;              //and a damaged gearbox wanders its own
+            tqLimitsSeFrom  = "tqLimitsSe";   //its own engine's single-engine limits
+            jittersTorque   = 1;              //a damaged gearbox slips its engine's clutch
             //A gearbox that has come apart overspeeds the engine driving it.
             breaksOnFailure[] = {"bmkhs_engineOverspeed"};
         };
