@@ -317,7 +317,7 @@
 #define AUTOPEDAL_AERO_DEADBAND_G     0.004
 #define AUTOPEDAL_NTT_DEADBAND_DEG    0.750
 //Keyboard pedal fade, in and back out. A key is on or off; the pedal it drives is not.
-#define AUTOPEDAL_KB_FADE_TIME        1.000
+#define AUTOPEDAL_KB_FADE_TIME        2.000
 //Forward speed at which the pedals hand over from heading hold to nose-to-tail trim
 #define AUTOPEDAL_NTT_SPD             5.144   //10kt forward
 

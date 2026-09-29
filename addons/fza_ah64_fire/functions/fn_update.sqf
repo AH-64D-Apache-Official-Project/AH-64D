@@ -15,6 +15,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 params ["_heli"];
 
 private _battBusOn          = _heli getVariable "bmkhs_battBusOn";
@@ -39,6 +40,24 @@ if (_engineTwoArm && _engineTwoArmTimer <= CBA_missionTime - 2) then {
 };
 if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
     [_heli, "bmkhs_apuBtnOn", false] call fza_fnc_updateNetworkGlobal;
+};
+
+//An oil-starved engine failing rolls once for fire; a repair clears the roll.
+if (local _heli) then {
+    private _rolled = _heli getVariable "fza_ah64_oilFireRolled";
+    {
+        private _failed = (_heli getVariable "bmkhs_engFailed") select _forEachIndex;
+        if (!_failed) then {
+            _rolled set [_forEachIndex, false];
+        } else {
+            if ((_heli getVariable "bmkhs_lowOilPsiFailure") select _forEachIndex && {!(_rolled select _forEachIndex)}) then {
+                _rolled set [_forEachIndex, true];
+                if (random 1 < SYS_ENG_OIL_FIRE_CHANCE) then {
+                    [_heli, _x, true] spawn fza_fire_fnc_damageEngineFire;
+                };
+            };
+        };
+    } forEach ["left", "right"];
 };
 
 //Fire test switch

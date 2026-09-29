@@ -48,6 +48,8 @@
 //  how they vary with speed - that is what the transmission feels.
 
     numSimpleRotors = 2;
+    //Rotor limits, Nr - {normal low, normal high, high rotor, maximum}; below and above normal is transient.
+    nrLimits[] = {0.95, 1.05, 1.06, 1.10};
     class SimpleRotors {
         class SimpleRotor01 {
             type             = "main";

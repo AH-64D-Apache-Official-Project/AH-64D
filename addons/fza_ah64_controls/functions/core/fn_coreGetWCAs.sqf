@@ -81,6 +81,11 @@ private _eng2PwrLvrState = _heli getVariable "bmkhs_engPowerLeverState" select 1
 private _eng2Ng          = _heli getVariable "bmkhs_engPctNg" select 1;
 private _eng2Np          = _heli getVariable "bmkhs_engPctNp" select 1;
 private _eng2State       = _heli getVariable "bmkhs_engState" select 1;
+//--Engine oil and chips
+private _engChips        = _heli getVariable "bmkhs_engChips";
+private _engOilPsiLow    = _heli getVariable "bmkhs_engOilPsiLow";
+private _engNgMin        = (_heli getVariable "bmkhs_engines") apply {_x get "ngMin"};
+private _engFailed       = _heli getVariable "bmkhs_engFailed";
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
 private _onGnd           = [_heli] call bmkhs_fnc_stateOnGround;
@@ -89,6 +94,7 @@ if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
 };
 
 private _rtrRPM     = [_heli] call bmkhs_fnc_stateRtrRPM;
+private _nrLimits   = _heli getVariable "bmkhs_nrLimits";
 //--Transmission
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";
 //--Tail rotor & Intermediate gearboxes
@@ -146,13 +152,13 @@ private _eng1Cmd = _heli getVariable ["bmkhs_eng1Ran", false];
 private _eng2Cmd = _heli getVariable ["bmkhs_eng2Ran", false];
 if (_eng1State == "OFF") then { _eng1Cmd = false };
 if (_eng2State == "OFF") then { _eng2Cmd = false };
-if (_eng1State == "ON" && {_eng1Ng >= 0.63}) then { _eng1Cmd = true };
-if (_eng2State == "ON" && {_eng2Ng >= 0.63}) then { _eng2Cmd = true };
+if (_eng1State == "ON" && {_eng1Ng >= (_engNgMin select 0)}) then { _eng1Cmd = true };
+if (_eng2State == "ON" && {_eng2Ng >= (_engNgMin select 1)}) then { _eng2Cmd = true };
 _heli setVariable ["bmkhs_eng1Ran", _eng1Cmd];
 _heli setVariable ["bmkhs_eng2Ran", _eng2Cmd];
 
 //--Engine 1 Out
-if (_eng1Cmd && _eng1Ng < 0.63 && _eng1PwrLvrState == "FLY") then {
+if ((_eng1Cmd && _eng1Ng < (_engNgMin select 0) && _eng1PwrLvrState == "FLY") || (_engFailed select 0)) then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
 
@@ -179,7 +185,7 @@ if (_eng1Np >= 1.15) then {
     [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
-if (_eng2Cmd && _eng2Ng < 0.63 && _eng2PwrLvrState == "FLY") then {
+if ((_eng2Cmd && _eng2Ng < (_engNgMin select 1) && _eng2PwrLvrState == "FLY") || (_engFailed select 1)) then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
 
@@ -211,7 +217,7 @@ if (_eng2Np >= 1.15) then {
     [_activeWarn, "ENG2 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Rotor RPM Low
-if (!_onGnd && (_rtrRPM < 0.95)) then {
+if (!_onGnd && (_rtrRPM < (_nrLimits select 0))) then {
     ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
 
@@ -224,7 +230,7 @@ if (!_onGnd && (_rtrRPM < 0.95)) then {
     };
 };
 //--Rotor RPM High
-if (_rtrRPM > 1.06) then {
+if (_rtrRPM >= (_nrLimits select 2)) then {
     ([_heli, _activeWarn, "HIGH ROTOR RPM", "HIGH RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_high", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
 
@@ -371,6 +377,44 @@ if (_xmsnDamage >= 0.75) then {
     _wcas pushBack _wcaAddCaution;
 } else {
     [_activeCaut, "XMSN CHIPS"] call fza_wca_fnc_wcaDelCaution;
+};
+//--Engine 1
+if (_engChips select 0) then {
+    ([_heli, _activeCaut, "ENGINE 1 CHIPS", "ENG1 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "ENG1 CHIPS"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_engOilPsiLow select 0) then {
+    ([_heli, _activeCaut, "ENG 1 OIL PSI LOW", "ENG1 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "ENG1 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+//--Engine 2
+if (_engChips select 1) then {
+    ([_heli, _activeCaut, "ENGINE 2 CHIPS", "ENG2 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "ENG2 CHIPS"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_engOilPsiLow select 1) then {
+    ([_heli, _activeCaut, "ENG 2 OIL PSI LOW", "ENG2 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "ENG2 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Fuel low cautions
 if (_fwdFuelMass < (_heli getVariable "bmkhs_fwdTankLow")) then {

@@ -19,10 +19,10 @@ Examples:
 Author:
     Snow(dryden), Mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli","_eng"];
+params ["_heli","_eng", ["_rolled", false]];
 
 _rand = floor random 100;
-if (_rand > 1) exitWith {};
+if (!_rolled && {_rand > 1}) exitWith {};
 
 private _componentId = "";
 switch _eng do {

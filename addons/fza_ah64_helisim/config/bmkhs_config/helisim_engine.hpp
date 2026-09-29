@@ -23,14 +23,15 @@
             maxNg = 1.10;                       //mechanical fly weights
             maxNp = 1.196;                      //electrical trip
 
-            //Book limits, low to high {limit, seconds, divisor}. Se sets apply single engine.
-            //Torque rates the drivetrain, not the engine.
-            ngLimits[]    = {{1.022, 12, 10}, {1.051, 0, 20}};
-            npLimits[]    = {{1.05, 12, 10}, {1.21, 0, 20}};
-            tqLimits[]    = {{1.00, 6, 5}, {1.15, 0, 10}};
-            tgtLimits[]   = {{810, 1800, 1000}, {870, 600, 0}, {878, 0, 0}, {949, 0, 2000}};
-            tqLimitsSe[]  = {{1.10, 150, 10}, {1.22, 6, 2}, {1.25, 0, 4}};
-            tgtLimitsSe[] = {{810, 1800, 1000}, {870, 600, 0}, {878, 150, 0}, {896, 12, 0}, {949, 0, 2000}};
+            //Engine limits
+            oilPsiLimits[] = {0.23, 1.20};
+            ngMin          = 0.63;
+            ngLimits[]     = {{1.022, 12, 10}, {1.051, 0, 20}};
+            npLimits[]     = {{1.05, 12, 10}, {1.21, 0, 20}};
+            tqLimits[]     = {{1.00, 6, 5}, {1.15, 0, 10}};
+            tgtLimits[]    = {{810, 1800, 1000}, {870, 600, 0}, {878, 0, 0}, {949, 0, 2000}};
+            tqLimitsSe[]   = {{1.10, 150, 10}, {1.22, 6, 2}, {1.25, 0, 4}};
+            tgtLimitsSe[]  = {{810, 1800, 1000}, {870, 600, 0}, {878, 150, 0}, {896, 12, 0}, {949, 0, 2000}};
 
             //Compressor and spool - Ng from a torque balance.
             class ColdSection {
