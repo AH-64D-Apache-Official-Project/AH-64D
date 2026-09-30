@@ -16,9 +16,6 @@
 #define TANK_LEAK_MAX_RATE_KGS      0.0168  // ~133.3 lb/hr per tank; ~400 lb/hr total for 3 tanks at full damage
 #define EXT_EMPTY_ADV_THRESH_KG     10      // kg below which EXT# EMPTY advisory fires
 
-// Seconds a consumer may run dry before it is reported starved
-#define FUEL_STARVE_GRACE_SEC   2
-
 // FUEL CHECK reserve margins, in hours before dry tanks. Regulatory minimums rather than
 // aircraft figures, so they are Core's: the check is a service the aircraft opts into.
 #define FUEL_CHECK_VFR_RESERVE_HR   (20/60)     // 20 min day VFR

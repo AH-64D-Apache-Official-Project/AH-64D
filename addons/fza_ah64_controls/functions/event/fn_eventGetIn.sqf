@@ -32,7 +32,3 @@ if (fza_ah64_showPopupv2_3 && !fza_ah64_introShownThisScenario && _unit == playe
 [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0];
 _heli setVariable ["fza_ah64_monocleinbox", true];
-
-bmkhs_lastFrameGetIn = true;
-
-_heli setVariable ["bmkhs_previousTime", diag_tickTime];

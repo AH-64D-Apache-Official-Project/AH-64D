@@ -75,7 +75,6 @@ fza_ah64_overallticker          = 0;
 fza_ah64_sideslip               = 0;
 fza_ah64_tadsLockCheckRunning   = false;
 fza_ah64_introShownThisScenario = false;
-bmkhs_lastFrameGetIn         = false;
 private _fovConfig              = configFile >> "CfgVehicles" >> "fza_ah64base" >> "Turrets" >> "MainTurret" >> "OpticsIn";
 fza_ah64_tadsFOVs = [
     "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom", "Dvo_Wide", "Dvo_Narrow"

@@ -26,6 +26,13 @@ private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
 
 if !_battBusOn exitWith {};
 
+//Core owns the handle; the panel only presses it.
+private _ctrl = (createHashMapFromArray [["eng1", "eng1FireHandle"], ["eng2", "eng2FireHandle"], ["apu", "apuFireHandle"]]) get _engine;
+private _mine = [_engineOneArm, _engineTwoArm, _apuArm] select (["eng1", "eng2", "apu"] find _engine);
+if (_value || {_mine isEqualTo _crewStation}) then {
+    [_ctrl, [0, 1] select _value, _heli] call bmkhs_fnc_controlSet;
+};
+
 switch(_engine) do {
     case "eng1": {
         if _value then {

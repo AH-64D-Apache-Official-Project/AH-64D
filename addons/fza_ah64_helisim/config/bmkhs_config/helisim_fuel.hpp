@@ -32,21 +32,16 @@
     //A tank leaks when the hitpoint claiming role "fuelTanks" at its index is damaged;
     //see helisim_hitpoints.hpp. A tank with no such hitpoint cannot leak.
 
-    //CROSSFEED positions - which main tank each engine feeds from in each valve position.
-    //Mains are referenced by position in the "main" tanks declared in helisim_fuel.hpp, so
-    //nothing here means forward or aft; the aircraft's labels are its own.
+    //CROSSFEED positions - which tank each engine feeds from in each valve position.
     //  position     - the value bmkhs_crossfeedMode carries for this setting
-    //  engSources[] - main index per engine, in engine order
+    //  engSources[] - tank variableName per engine, in engine order
     //The first entry is the default the valve starts in.
     numCrossfeedModes = 3;
     class CrossfeedModes {
-        class Norm { position = "NORM"; engSources[] = {0, 1}; };   //each engine its own main
-        class Fwd  { position = "FWD";  engSources[] = {0, 0}; };   //both from the first main
-        class Aft  { position = "AFT";  engSources[] = {1, 1}; };   //both from the second
+        class Norm { position = "NORM"; engSources[] = {"fwdTank", "aftTank"}; };
+        class Fwd  { position = "FWD";  engSources[] = {"fwdTank", "fwdTank"}; };
+        class Aft  { position = "AFT";  engSources[] = {"aftTank", "aftTank"}; };
     };
-
-    //Which main tank the APU draws from. Independent of the crossfeed valve.
-    apuFuelSource = 1;
 
     //XFER pump destinations, in main order. The pump moves fuel INTO the main whose label
     //the crew selected, so this maps the cockpit's labels onto the mains above. Core never

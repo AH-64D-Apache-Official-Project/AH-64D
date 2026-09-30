@@ -18,6 +18,8 @@
             stateName    = "apuOn";       //running once it is up to speed
             stateAbove   = 0.85;
             networked    = 1;
+            fuelSource   = "aftTank";     //tank variableName it draws from
+            fuelFlow     = 175;           //lb/h while running
             class Outputs {
                 class Drive {
                     circuit          = "ACCESSORY_DRIVE";

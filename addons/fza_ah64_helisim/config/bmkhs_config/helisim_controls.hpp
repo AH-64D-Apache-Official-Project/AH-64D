@@ -98,4 +98,38 @@ class Controls {
                          inhibitedBy[] = {"bmkhs_rotorBrakeOn"}; };
         };
     };
+
+    //Latched. Armed shuts off that engine's (or the APU's) fuel while DC is up.
+    class Eng1FireHandle {
+        variableName = "eng1FireHandle";
+        rest         = 0;
+        wraps        = 1;
+        networked    = 1;
+        class Positions {
+            class Off   { displayName = "Engine 1 Fire - Disarm"; value = 0; };
+            class Armed { displayName = "Engine 1 Fire - Arm";    value = 1; };
+        };
+    };
+
+    class Eng2FireHandle {
+        variableName = "eng2FireHandle";
+        rest         = 0;
+        wraps        = 1;
+        networked    = 1;
+        class Positions {
+            class Off   { displayName = "Engine 2 Fire - Disarm"; value = 0; };
+            class Armed { displayName = "Engine 2 Fire - Arm";    value = 1; };
+        };
+    };
+
+    class ApuFireHandle {
+        variableName = "apuFireHandle";
+        rest         = 0;
+        wraps        = 1;
+        networked    = 1;
+        class Positions {
+            class Off   { displayName = "APU Fire - Disarm"; value = 0; };
+            class Armed { displayName = "APU Fire - Arm";    value = 1; };
+        };
+    };
 };

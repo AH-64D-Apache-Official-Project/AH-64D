@@ -19,28 +19,30 @@ Author:
 params ["_heli"];
 
 private _battBusOn          = _heli getVariable "bmkhs_battBusOn";
+
+//Core holds the handles; the panel mirrors them, whoever pressed them.
+{
+    _x params ["_var", "_ctrl"];
+    private _armed = _heli getVariable _var;
+    private _core  = _heli getVariable _ctrl;
+    if (local _heli && {(_armed select 0) isNotEqualTo _core}) then {
+        _heli setVariable [_var, [_core, _armed select 1, CBA_missionTime], true];
+    };
+} forEach [
+    ["fza_ah64_fireArmed1",   "bmkhs_eng1FireHandleOn"],
+    ["fza_ah64_fireArmed2",   "bmkhs_eng2FireHandleOn"],
+    ["fza_ah64_fireArmedApu", "bmkhs_apuFireHandleOn"]
+];
+
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") #0;
-private _engineOneArmTimer  = (_heli getVariable "fza_ah64_fireArmed1") #2;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") #0;
-private _engineTwoArmTimer  = (_heli getVariable "fza_ah64_fireArmed2") #2;
 private _apuArm             = (_heli getVariable "fza_ah64_fireArmedApu") #0;
-private _apuArmTimer        = (_heli getVariable "fza_ah64_fireArmedApu") #2;
 private _primaryFB          = _heli getVariable "fza_ah64_firepdisch";
 private _reserveFB          = _heli getVariable "fza_ah64_firerdisch";
 private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
 private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
 private _apuFire            = _heli getVariable "fza_ah64_apu_fire";
 private _mstrWarnLighton    = _heli getVariable "fza_ah64_mstrWarnLightOn";
-
-if (_engineOneArm && _engineOneArmTimer <= CBA_missionTime - 2) then {
-    [_heli, "bmkhs_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
-};
-if (_engineTwoArm && _engineTwoArmTimer <= CBA_missionTime - 2) then {
-    [_heli, "bmkhs_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
-};
-if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
-    [_heli, "bmkhs_apuBtnOn", false] call fza_fnc_updateNetworkGlobal;
-};
 
 //An oil-starved engine failing rolls once for fire; a repair clears the roll.
 if (local _heli) then {
@@ -78,9 +80,6 @@ if ((_heli getVariable "fza_ah64_firetest") == 2) then {
 };
 
 if !_battBusOn then {
-    [_heli, "fza_ah64_fireArmed1", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_fireArmed2", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
-    [_heli, "fza_ah64_fireArmedApu", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
     _engineOneArm  = false;
     _engineTwoArm  = false;
     _apuArm        = false;
