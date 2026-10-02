@@ -27,7 +27,7 @@ params ["_heli"];
 // Only the pilot drives the probes (avoids duplicate network traffic)
 if (player != currentPilot _heli) exitWith {};
 
-private _realRPM    = [_heli] call bmkhs_fnc_stateRtrRPM;
+private _realRPM    = [_heli] call bmkhs_fnc_stateRtrRpm;
 private _collective = _heli getVariable ["bmkhs_collectiveOutput", 0.0];
 
 // Rotor induced downwash in model space (positive Z = down in Arma model coords)

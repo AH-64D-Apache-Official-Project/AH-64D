@@ -61,7 +61,7 @@ private _playCautAudio = false;
 //--APU
 private _apuBtnOn    = _heli getVariable "bmkhs_apuBtnOn";
 private _apuOn       = _heli getVariable "bmkhs_apuOn";
-private _apuRPM_pct  = _heli getVariable "bmkhs_apuRPM_pct";
+private _apuRPM_pct  = _heli getVariable "bmkhs_apuRpm_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
 private _fcrState    = _heli getVariable "fza_ah64_fcrState";
@@ -93,7 +93,7 @@ if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
     _pwrLvrAtFly = true;
 };
 
-private _rtrRPM     = [_heli] call bmkhs_fnc_stateRtrRPM;
+private _rtrRPM     = [_heli] call bmkhs_fnc_stateRtrRpm;
 private _nrLimits   = _heli getVariable "bmkhs_nrLimits";
 //--Transmission
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";

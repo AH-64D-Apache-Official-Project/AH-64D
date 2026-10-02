@@ -46,7 +46,7 @@ private _ftRoll     = _heli getVariable ["bmkhs_forceTrimPosRoll",    0.0];
 private _collective = _heli getVariable ["bmkhs_collectiveOutput", 0.0];
 private _pedal      = _heli getVariable ["bmkhs_pedalLeftRight",   0.0];
 private _ftPedal    = _heli getVariable ["bmkhs_forceTrimPosYaw",        0.0];
-private _rtrRPM     = _heli getVariable ["bmkhs_rtrRPM",          0.0];
+private _rtrRPM     = _heli getVariable ["bmkhs_rtrRpm",          0.0];
 
 #define MR_REVS_PER_SEC 4.817
 #define TR_REVS_PER_SEC 21.5

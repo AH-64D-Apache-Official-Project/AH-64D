@@ -126,8 +126,8 @@ switch(_control) do {
                 [_heli, "bmkhs_checkElapsedSec",  0]     call fza_fnc_updateNetworkGlobal;
                 [_heli, "bmkhs_checkBurnRate",    0]     call fza_fnc_updateNetworkGlobal;
                 [_heli, "bmkhs_checkBurnoutZulu", ""]    call fza_fnc_updateNetworkGlobal;
-                [_heli, "bmkhs_checkVFRZulu",     ""]    call fza_fnc_updateNetworkGlobal;
-                [_heli, "bmkhs_checkIFRZulu",     ""]    call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkVfrZulu",     ""]    call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkIfrZulu",     ""]    call fza_fnc_updateNetworkGlobal;
             };
             private _dh = floor dayTime;
             private _dm = floor ((dayTime - _dh) * 60);
@@ -154,8 +154,8 @@ switch(_control) do {
             [_heli, "bmkhs_checkElapsedSec",  _elapsed] call fza_fnc_updateNetworkGlobal;
             [_heli, "bmkhs_checkBurnRate",    _burnRate] call fza_fnc_updateNetworkGlobal;
             [_heli, "bmkhs_checkBurnoutZulu", [dayTime + _burnoutHours]        call _fnZulu] call fza_fnc_updateNetworkGlobal;
-            [_heli, "bmkhs_checkVFRZulu",     [dayTime + _burnoutHours - 20/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
-            [_heli, "bmkhs_checkIFRZulu",     [dayTime + _burnoutHours - 30/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkVfrZulu",     [dayTime + _burnoutHours - 20/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkIfrZulu",     [dayTime + _burnoutHours - 30/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
         };
         if (!_chkActive && !(_heli getVariable ["bmkhs_boostOn", false])) then {
             [_heli, "bmkhs_crossfeedMode", "AFT"] call fza_fnc_updateNetworkGlobal;

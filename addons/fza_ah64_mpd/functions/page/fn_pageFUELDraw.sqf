@@ -126,11 +126,11 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_LINE_NEW), BOOLTO
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_INTERCELL_FLOWING), BOOLTONUM(_intercellActive)];
 
 // IAFS: flash when centre tank transfer turns on
-if (_IAFSOn && !(_heli getVariable ["bmkhs_prevIAFSOn", _IAFSOn])) then {
-    _heli setVariable ["bmkhs_iAFSLineOpenTime", CBA_missionTime];
+if (_IAFSOn && !(_heli getVariable ["bmkhs_prevIafsOn", _IAFSOn])) then {
+    _heli setVariable ["bmkhs_iafsLineOpenTime", CBA_missionTime];
 };
-_heli setVariable ["bmkhs_prevIAFSOn", _IAFSOn];
-private _iAFSLineNew = _IAFSOn && ((CBA_missionTime - (_heli getVariable ["bmkhs_iAFSLineOpenTime", -99])) < 3);
+_heli setVariable ["bmkhs_prevIafsOn", _IAFSOn];
+private _iAFSLineNew = _IAFSOn && ((CBA_missionTime - (_heli getVariable ["bmkhs_iafsLineOpenTime", -99])) < 3);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FUEL_IAFS_LINE_NEW), BOOLTONUM(_iAFSLineNew)];
 
 // Aux: flash when any aux transfer first activates
@@ -211,8 +211,8 @@ if (_checkRunning || _checkDone) then {
 
 if (_checkDone) then {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURNOUT), _heli getVariable ["bmkhs_checkBurnoutZulu", ""]];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     _heli getVariable ["bmkhs_checkVFRZulu",     ""]];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_IFR),     _heli getVariable ["bmkhs_checkIFRZulu",     ""]];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     _heli getVariable ["bmkhs_checkVfrZulu",     ""]];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_IFR),     _heli getVariable ["bmkhs_checkIfrZulu",     ""]];
 } else {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_BURNOUT), ""];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FUEL_CHK_VFR),     ""];
