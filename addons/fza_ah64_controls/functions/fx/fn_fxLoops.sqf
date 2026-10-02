@@ -2,7 +2,7 @@
 Function: fza_fnc_fxLoops
 
 Description:
-    loops battery or apu audio
+    Update loops for sound effects
 
 Parameters:
 
@@ -10,51 +10,92 @@ Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_fxLoops;
+    [_heli,"batt"] spawn fza_fnc_fxLoops;
 
 Author:
     Unknown
 ---------------------------------------------------------------------------- */
-params["_heli"];
+params["_heli","_type"];
 
-private _timed_apu = cba_missiontime + 24;
-private _timed_bat = cba_missiontime;
-
-private _apuOn     = _heli getVariable "fza_systems_apuOn";
-private _battBusOn = _heli getVariable "fza_systems_battBusOn";
-
-if (_apuOn) then {
-    private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;
-    _apu attachTo[_heli, [0, 0, 0]];
-    hideObjectGlobal _apu;
-    
-    while {
-        _apuOn && alive _heli;
-    }
-    do {
-        if (cba_missiontime > _timed_apu) then {
-            _timed_apu = cba_missiontime + 60;
-            [_apu, ["fza_ah64_apu_loop_3D", 100]] remoteExec["say3D"];
-        };
-        sleep 1;
-    };
-    deleteVehicle _apu;
+if (!canSuspend) exitWith {
+    _this spawn fza_fnc_fxLoops;
 };
 
-if (_battBusOn) then {
-    private _bat = "Land_ClutterCutter_small_F" createVehicle[0, 0, 0];
-    _bat attachTo[_heli, [0, 5, 0]];
-    hideObjectGlobal _bat;
+private _deltaTime = 0.017; //- 60 fps
 
-    while {
-        _battBusOn && alive _heli;
-    }
-    do {
-        if (cba_missiontime > _timed_bat) then {
-            _timed_bat = cba_missiontime + 13;
-            [_bat, ["fza_ah64_bat_loop_3D", 10]] remoteExec["say3D"];
+switch (_type) do {
+    case "apu": {
+        //- Toggle APU startup sound (0/1)
+        setCustomSoundController [_heli, "CustomSoundController9", parseNumber (_heli getVariable ["fza_systems_apuBtnOn", false])];
+
+        if (_heli getVariable ["fza_audio_apuLoopActive", false]) exitWith {};
+        _heli setVariable ["fza_audio_apuLoopActive", true];
+
+        private _apuRPM_pct_PREV = -1;
+
+        while {
+            private _apuRPM_pct_toValue = parseNumber (_heli getVariable ["fza_systems_apuBtnOn", false]);
+            private _apuRPM_pct = _heli getVariable ["fza_systems_apuRPM_pct", 0];
+
+            alive _heli &&
+            (
+                abs(_apuRPM_pct_toValue - _apuRPM_pct) > 0.01 ||
+                abs(_apuRPM_pct - _apuRPM_pct_PREV) > 0.0005
+            )
+        } do {
+            private _apuRPM_pct = _heli getVariable ["fza_systems_apuRPM_pct", 0];
+            setCustomSoundController [_heli,"CustomSoundController1", _apuRPM_pct];
+            _apuRPM_pct_PREV = _apuRPM_pct;
+            sleep _deltaTime;
         };
-        sleep 1;
+
+        if (!isNull _heli) then {
+            _heli setVariable ["fza_audio_apuLoopActive", false];
+        };
     };
-    deleteVehicle _bat;
+
+    //- Battery sound
+    case "batt": {
+        sleep _deltaTime;
+
+        if (alive _heli) then {
+            private _battBusOn = _heli getVariable ["fza_systems_battBusOn", false];
+            setCustomSoundController [_heli,"CustomSoundController2", parseNumber _battBusOn];
+        };
+    };
+
+    //- Power Lever
+    case "powerLever": {
+        if (_heli getVariable ["fza_audio_powerLeverLoopActive", false]) exitWith {};
+        _heli setVariable ["fza_audio_powerLeverLoopActive", true];
+
+        private _engMaxNG = getNumber (configOf _heli >> "Fza_SfmPlus" >> "engMaxNG");
+        private _engPct_toValue_PREV = -1;
+
+        while {
+            private _engPctNG = _heli getVariable ["fza_sfmplus_engPctNG", [0.0, 0.0]];
+            private _engPct = getCustomSoundController [_heli, "CustomSoundController15"];
+            private _engPct_toValue = ((_engPctNG # 0) + (_engPctNG # 1)) / (_engMaxNG * 2);
+
+            alive _heli &&
+            (
+                abs(_engPct - _engPct_toValue) > 0.001 ||
+                abs(_engPct_toValue - _engPct_toValue_PREV) > 0.0005
+            )
+        } do {
+            private _engPctNG = _heli getVariable ["fza_sfmplus_engPctNG", [0.0, 0.0]];
+            private _engPct_toValue = ((_engPctNG # 0) + (_engPctNG # 1)) / (_engMaxNG * 2);
+            private _engPct = getCustomSoundController [_heli, "CustomSoundController15"];
+
+            _engPct = [_engPct, _engPct_toValue, _deltaTime / 1.5] call BIS_fnc_lerp;
+
+            setCustomSoundController [_heli,"CustomSoundController15", _engPct];
+            _engPct_toValue_PREV = _engPct_toValue;
+            sleep _deltaTime;
+        };
+
+        if (!isNull _heli) then {
+            _heli setVariable ["fza_audio_powerLeverLoopActive", false];
+        };
+    };
 };

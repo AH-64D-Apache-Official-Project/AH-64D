@@ -26,7 +26,6 @@ class CfgVehicles {
         #include "cfgVehicles\reflectors.hpp"
         #include "cfgVehicles\sfmplus.hpp"
         #include "cfgVehicles\sounds.hpp"
-        #include "cfgVehicles\soundsExt.hpp"
         #include "cfgVehicles\textureSources.hpp"
         #include "cfgVehicles\turrets.hpp"
         #include "hiddenSelections.hpp"
@@ -166,10 +165,10 @@ class CfgVehicles {
         soundBushCrash[]         = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
         soundDammage[]           = {"\fza_ah64_controls\data\audio\Crash.ogg", 3.162278, 1, 100};
         soundCrashes[]           = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
-        soundEngineOffExt[]      = {"fza_ah64_controls\data\audio\Ext_Off.ogg",1,0.6,300};
+        soundEngineOffExt[]      = {"emptySound",0,0.6,300};
         soundEngineOffInt[]      = {"emptySound", 0};
-        soundEngineOnExt[]       = {"fza_ah64_controls\data\audio\Ext_Start.ogg",1,0.6,300};
-        soundEngineOnInt[]       = {"fza_ah64_controls\data\audio\Int_Start.ogg",1,0.6};
+        soundEngineOnExt[]       = {"emptySound",0,0.6,300};
+        soundEngineOnInt[]       = {"emptySound", 0};
         soundenviron[]           = {"", 1, 1};
         soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1.wss", 1.000000, 1, 10};
         soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2.wss", 1.000000, 1, 10};
@@ -266,7 +265,6 @@ class CfgVehicles {
             };
         };
     };
-
     
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;

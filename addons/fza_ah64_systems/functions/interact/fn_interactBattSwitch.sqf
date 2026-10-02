@@ -18,4 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_systems_battSwitchOn",  !(_heli getVariable "fza_systems_battSwitchOn"), true];
+private _state = !(_heli getVariable "fza_systems_battSwitchOn");
+_heli setVariable ["fza_systems_battSwitchOn", _state, true];
+
+//- Fire up GlobalEvent
+["fza_audio_updateBatt_State", [_heli, _state]] call CBA_fnc_GlobalEvent;

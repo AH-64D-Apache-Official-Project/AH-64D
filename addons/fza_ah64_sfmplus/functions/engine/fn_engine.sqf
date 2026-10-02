@@ -98,7 +98,7 @@ switch (_engState) do {
 	case "ON": {
 		if (_engPowerLeverState == "OFF") then {
 			_engState = "OFF";
-			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_fnc_setArrayVariable;
+			[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
 		};
 		//Ng
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * _collectiveOutput;

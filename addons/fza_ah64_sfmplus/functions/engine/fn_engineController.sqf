@@ -114,8 +114,14 @@ _isSingleEng = !(_eng1Active && _eng2Active);
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 0.1 < time) then {
+    private _lastBroadcast = _heli getVariable ["fza_sfmplus_lastBroadcastValues", createHashMap];
+
     {
-        _heli setVariable [_x, _heli getVariable _x, true];
+        private _value = _heli getVariable _x;
+        if ((_lastBroadcast getOrDefault [_x, objNull]) isNotEqualTo _value) then {
+            _heli setVariable [_x, _value, true];
+            _lastBroadcast set [_x, _value];
+        };
     } forEach [
         "fza_systems_apuRPM_pct",
         "fza_sfmplus_engFF",
@@ -127,11 +133,12 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         "fza_sfmplus_engBaseOilPSI",
         "fza_sfmplus_engOilPSI",
         "fza_sfmplus_engState",
-        "fza_sfmplus_engFF",
         "fza_sfmplus_collectiveOutput",
         "fza_sfmplus_xmsnOutputRpm",
         "fza_sfmplus_xmsnDeltaRpm"
     ];
+
+    _heli setVariable ["fza_sfmplus_lastBroadcastValues", _lastBroadcast];
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };
 
@@ -151,11 +158,11 @@ if (currentPilot _heli == player || local _heli) then {
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
-if (_no1EngDmg > SYS_ENG_DMG_THRESH || !_eng1FuelAvail) then {
+if (_eng1State != "OFF" && (_no1EngDmg > SYS_ENG_DMG_THRESH || !_eng1FuelAvail)) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_no2EngDmg > SYS_ENG_DMG_THRESH || !_eng2FuelAvail) then {
+if (_eng2State != "OFF" && (_no2EngDmg > SYS_ENG_DMG_THRESH || !_eng2FuelAvail)) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
