@@ -4,7 +4,7 @@ These are copies of HeliSim Core's headers, committed here so the AH-64D builds
 with nothing but `hemtt build` - no submodule, no junction, no setup step. It is
 the same arrangement as `include/x/cba` and `include/z/ace` beside it.
 
-**Matches HeliSim Core 1.0.2.0** (copied at 1.0.1.0; 1.0.2.0 changed no headers).
+**Matches HeliSim Core 1.1.0.0** (copied at 1.0.1.0; 1.0.2.0 and 1.1.0.0 changed none of these headers).
 
 **Do not edit these files here.** Change them in HeliSim Core, then copy them
 back over. The procedure, and why it is done this way, is in HeliSim Core's
