@@ -33,19 +33,30 @@
             tqLimitsSe[]   = {{1.10, 150, 10}, {1.22, 6, 2}, {1.25, 0, 4}};
             tgtLimitsSe[]  = {{810, 1800, 1000}, {870, 600, 0}, {878, 150, 0}, {896, 12, 0}, {949, 0, 2000}};
 
-            //Compressor and spool - Ng from a torque balance.
-            class ColdSection {
-                compressorInertia = 5.0; //how fast Ng answers a torque change
-                compressorLoad    = 1.7; //what the compressor absorbs, as cl * ng^2
-                airCoef           = 0.1219;//cold air it pushes over the power turbine
-
-                //Running only - the load the spool settles against, cl * compRunMult * ng^compRunExp.
-                compRunMult = 1.7132;
-                compRunExp  = 3.3898;
+            //Compressor - stations 2 -> 3.
+            class Compressor {
+                pressureRatio = 17.0;    //at Ng 1.0
+                massFlow      = 4.6;     //kg/s at Ng 1.0, standard day
+                inletDiameter = 0.396;   //m - for inlet losses, not yet modelled
+                ramRecovery   = 1.0;     //share of the ram pressure rise the inlet keeps
 
                 //Spooling down only - an unfired compressor is pure load, and that stops it.
-                compDragMult  = 3.0;     //compressor drag multiplier with the fire out
+                compDrag      = 3.4;     //as compDrag * ng^2
                 compDragFloor = 0.10;    //finishes the stop - ng^2 alone only asymptotes
+
+                //Airflow trim by FAT, {FAT, multiplier} - dials the engine onto its charts.
+                airflowTable[] = {
+                     {-40, 0.9430}
+                    ,{-30, 0.9486}
+                    ,{-20, 0.9456}
+                    ,{-10, 0.9482}
+                    ,{  0, 0.9156}
+                    ,{ 10, 0.9543}
+                    ,{ 15, 1.0000}
+                    ,{ 20, 1.0567}
+                    ,{ 30, 1.1648}
+                    ,{ 40, 1.2354}
+                };
 
                 //Start thresholds - discrete events the model branches on.
                 lightOffNg = 0.15;       //fuel introduced
@@ -60,15 +71,10 @@
                 ngLimitSlope = 0.0019091;
             };
 
-            //Combustor - fuel burn, TGT as state, gas power out.
-            class HotSection {
-                massFlowExp = 1.772;     //mass flow rises faster than speed, as ng^this
-                tgtK        = 288.6;     //deg C per unit of fuel-to-massflow ratio
-
-                thermalMassCoef = 0.30;  //how fast TGT chases its target when heating
-                coolingCoef     = 0.70;  //and when cooling, sized on the shutdown
-                stillAirFlow    = 0.0012;//airflow floor once the spool has stopped
-                ramAirCoef      = 0.00065;//ram cooling per m/s of forward speed
+            //Combustor - stations 3 -> 4.
+            class Combustor {
+                fuelLhv             = 43000;    //kJ/kg - JP-8
+                combustorEfficiency = 0.99;
 
                 maxTgt      = 867;      //deg C - TGT limiter, twin engine
                 maxTgtSe    = 896;      //deg C - TGT limiter, single engine
@@ -79,9 +85,15 @@
                 residualHeatGain = 0.003;
             };
 
-            //The free turbine - Np is state with its own torque balance.
+            //Compressor turbine - stations 4 -> 4.5. Drives the compressor, steps Ng; TGT is read here.
+            class CompressorTurbine {
+                turbineEfficiency = 0.88;
+                spoolInertia      = 5.0; //how fast Ng answers a torque change
+            };
+
+            //The free turbine - stations 4.5 -> 5. Np is state with its own torque balance.
             class PowerTurbine {
-                ptEfficiency  = 0.92;    //gas power reaching the shaft
+                ptEfficiency  = 0.88;    //isentropic efficiency
                 ptInertia     = 0.60;    //the free turbine's own inertia
                 ptDrag        = 0.06;    //drag on a released turbine, as ptDrag * np^2
                 ptDragFloor   = 0.05;    //finishes the stop - windmilling only
@@ -89,13 +101,12 @@
 
             //The ECU - what it schedules, and the ceilings it will not pass.
             class Governor {
-                //Minimum fuel the power lever schedules. Each is
-                //compressorLoad * ng^2 + tq / ptEfficiency at that detent.
+                //Minimum fuel the power lever schedules.
                 fuelIdle = 0.784;        //settles Ng at 0.679
                 fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
 
                 //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
-                startFuelBase = 0.42;
+                startFuelBase = 0.50;
 
                 ffwdGain = 1.00;         //collective anticipation - the load demand spindle
 
@@ -103,7 +114,7 @@
                 loadShareGain   = 8.0;   //how hard an engine below its matched partners trims up to them
 
                 //Np governor, {kp, ki, kd, ki_clamp}.
-                pid[] = {10.0000, 40.0000, 0.0000, 0.0750};
+                pid[] = {80.0000, 40.0000, 0.0000, 0.0750};
 
                 gate[] = {};             //what the ECU needs to keep metering fuel
             };
@@ -111,7 +122,8 @@
             //Air turbine or electric, and what it needs available before the spool turns.
             class Starter {
                 type   = "pneumatic";
-                torque = 0.30;                  //what it puts on the spool, normalised
+                torque    = 0.45;               //stalled, on the spool, normalised
+                runawayNg = 0.25;               //no torque left - where motoring settles
                 gate[] = {{"PNEU", 0.85}};      //the pneumatic circuit's own minValue
             };
         };
