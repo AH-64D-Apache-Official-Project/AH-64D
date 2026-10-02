@@ -33,7 +33,7 @@ if (_apuBtnOn && _battBusOn && _apuFuelAvail) then {
 } else {
     _apuRPM_pct = [_apuRPM_pct, 0.0, _deltaTime] call BIS_fnc_lerp;
 };
-_heli setVariable ["fza_systems_apuRPM_pct", _apuRPM_pct];
+_heli setVariable ["fza_systems_apuRPM_pct", _apuRPM_pct, true];
 
 //Set the APU state
 if (_apuRPM_pct <= SYS_MIN_RPM) then {

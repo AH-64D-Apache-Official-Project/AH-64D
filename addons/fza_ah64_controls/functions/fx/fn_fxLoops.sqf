@@ -34,10 +34,14 @@ switch (_type) do {
         private _apuRPM_pct_PREV = -1;
 
         while {
+            private _apuRPM_pct_toValue = parseNumber (_heli getVariable ["fza_systems_apuBtnOn", false]);
             private _apuRPM_pct = _heli getVariable ["fza_systems_apuRPM_pct", 0];
 
             alive _heli &&
-            abs(_apuRPM_pct - _apuRPM_pct_PREV) > 0.0005
+            (
+                abs(_apuRPM_pct_toValue - _apuRPM_pct) > 0.01 ||
+                abs(_apuRPM_pct - _apuRPM_pct_PREV) > 0.0005
+            )
         } do {
             private _apuRPM_pct = _heli getVariable ["fza_systems_apuRPM_pct", 0];
             setCustomSoundController [_heli,"CustomSoundController1", _apuRPM_pct];
