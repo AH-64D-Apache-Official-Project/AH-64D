@@ -16,12 +16,12 @@ Examples:
 Author:
     BradMick, Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 #include "\fza_ah64_ase\headers\ase.h"
 
 params ["_heli", "_deltaTime"];
 
-private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
+private _dcBusOn    = _heli getVariable "bmkhs_dcBusOn";
 private _irJamPwr   = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 private _msnEquipUs = _heli animationPhase "msn_equip_american";
 private _irJamData  = _heli getVariable "fza_ah64_ase_irJamState";

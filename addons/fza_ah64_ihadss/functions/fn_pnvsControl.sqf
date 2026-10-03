@@ -18,13 +18,13 @@ Examples:
 Author:
     Unknown
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 params["_heli"];
 
 if (player != driver _heli && (_heli animationPhase "plt_nvsmode" == 0 && (_heli animationPhase "cpg_nvsmode" != 0))) exitWith {};
 
-private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
+private _acBusOn        = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn        = _heli getVariable "bmkhs_dcBusOn";
 private _pnvsControl    = _heli getVariable "fza_ah64_ihadss_pnvs_cam";
 private _monocle        = _heli getVariable "fza_ah64_monocleinbox";
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
@@ -43,10 +43,10 @@ if (_pnvsControl == 1) exitWith {
 
 private _az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_clamp;
 
-private _elCorTbl = 
+private _elCorTbl =
 [
  [-90.0,  2.2]
-,[-45.0, -1.7] 
+,[-45.0, -1.7]
 ,[  0.0, -2.7]
 ,[ 45.0, -1.7]
 ,[ 90.0,  2.2]

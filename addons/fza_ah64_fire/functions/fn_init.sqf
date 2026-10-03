@@ -26,7 +26,7 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_firepdisch",    false, true];
     _heli setVariable ["fza_ah64_firerdisch",    false, true];
     _heli setVariable ["fza_ah64_firetest",      0,     true];
-    
+
     _heli setVariable ["fza_ah64_fireArmed1",    [false, 0, 0], true];
     _heli setVariable ["fza_ah64_fireArmed2",    [false, 0, 0], true];
     _heli setVariable ["fza_ah64_fireArmedApu",  [false, 0, 0], true];
@@ -36,4 +36,7 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fire_apu_fx",   [], true];
 
     _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
+
+    //Each engine's oil-starvation fire roll, taken.
+    _heli setVariable ["fza_ah64_oilFireRolled",  [false, false], true];
 };

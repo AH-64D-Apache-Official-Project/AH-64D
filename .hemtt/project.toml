@@ -20,6 +20,24 @@ include = [
     "LICENSE",
     "Readme.md",
 ]
+# DEV-ONLY: keeps precompiled SQF bytecode out of the packed PBO so -filePatching works.
+# Arma prefers a .sqfc over its matching .sqf at the same path (CfgFunctions resolves via
+# compileScript, which has that precedence), so a PBO carrying bytecode SILENTLY ignores
+# loose source edits - the addon junctions look correct, patching is on, and nothing
+# happens, with no error to explain why.
+#
+# This has to live here rather than in a hook: pre_build runs before the compiler writes
+# the .sqfc files, post_build runs after packing, and only [files] exclude filters during
+# the pack itself. HEMTT has no per-command exclude and no option to stop GENERATING
+# bytecode (no such setting exists in any version) - the compiler still runs, so SQF
+# lints are unaffected either way.
+#
+# [files] exclude is GLOBAL, so this would also strip bytecode from build/release and
+# cost shipped PBOs their performance. hooks/pre_release/guard_sqfc.rhai ABORTS a release
+# while this line is present - comment it out to ship.
+#exclude = [
+#    "**/*.sqfc",
+#]
 
 [hemtt.release]
 sign = true

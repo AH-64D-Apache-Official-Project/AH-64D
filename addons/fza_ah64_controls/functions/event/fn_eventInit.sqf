@@ -32,13 +32,10 @@ params["_heli"];
 [_heli] call fza_hellfire_fnc_init;
 [_heli] call fza_ihadss_fnc_init;
 [_heli] call fza_light_fnc_init;
-[_heli] call fza_sfmplus_fnc_init;
 [_heli] call fza_wca_fnc_init;
 [_heli] spawn fza_weapons_fnc_init;
 
-//flight setup
-[_heli] call fza_sfmplus_fnc_coreConfig;
-[_heli] call fza_systems_fnc_coreVariables;
+//No flight setup call: the HeliSim pack starts itself from its own init handler.
 
 if (!(isNil "fza_ah64_noinit")) exitWith {};
 _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
@@ -47,14 +44,15 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
 
     _heli setVariable ["fza_ah64_rtrbrake", false, true];
+    _heli setVariable ["bmkhs_rotorBrakeOn", false, true];
     _heli setVariable ["fza_ah64_powerLever1", 0, true];
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
 
-    _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
-    _heli setVariable ["fza_ah64_IAFSOn", false, true];
+    _heli setVariable ["bmkhs_ctrTankInstalled", true, true];
+    _heli setVariable ["bmkhs_ctrTankXferOn", false, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]

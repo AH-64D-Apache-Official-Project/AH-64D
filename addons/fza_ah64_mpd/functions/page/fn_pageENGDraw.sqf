@@ -4,11 +4,11 @@ params ["_heli", "_mpdIndex"];
 
 
 // #region ENGINE 1
-private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
-private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
-private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
-private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
-private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
+private _e1np   = (_heli getVariable "bmkhs_engPctNp" select 0) * 100;
+private _e1ng   = (_heli getVariable "bmkhs_engPctNg" select 0) * 1000;
+private _e1tgt  = _heli getVariable "bmkhs_engTgt" select 0;
+private _e1trq  = (_heli getVariable "bmkhs_engPctTq" select 0) * 100;
+private _e1opsi = (_heli getVariable "bmkhs_engOilPsi" select 0) * 100;
 if (_e1np <= (0.37 * 100)) then {
     _e1trq = 0;
 };
@@ -26,11 +26,11 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_1), (_e1ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_1), _e1opsi toFixed 0];
 
 // #region ENGINE 2
-private _e2np   = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
-private _e2ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
-private _e2tgt  = _heli getVariable "fza_sfmplus_engTGT" select 1;
-private _e2trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
-private _e2opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
+private _e2np   = (_heli getVariable "bmkhs_engPctNp" select 1) * 100;
+private _e2ng   = (_heli getVariable "bmkhs_engPctNg" select 1) * 1000;
+private _e2tgt  = _heli getVariable "bmkhs_engTgt" select 1;
+private _e2trq  = (_heli getVariable "bmkhs_engPctTq" select 1) * 100;
+private _e2opsi = (_heli getVariable "bmkhs_engOilPsi" select 1) * 100;
 if (_e2np <= (0.37 * 100)) then {
     _e2trq = 0;
 };
@@ -47,14 +47,14 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TGT_2), _e2tgt toFixed 0
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_2), (_e2ng/10) toFixed 1];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFixed 0];
 
-private _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
+private _rotorRpm = ([_heli] call bmkhs_fnc_stateRtrRpm) * 100;
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
-private _engineStates = _heli getVariable "fza_sfmplus_engState";
+private _engineStates = _heli getVariable "bmkhs_engState";
 
 private _engineStarted = 0;
 
@@ -66,7 +66,7 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
     _engineStarted = 2;
 };
 
-private _pagemode = [2,1] select ([_heli] call fza_sfmplus_fnc_onGround);
+private _pagemode = [2,1] select ([_heli] call bmkhs_fnc_stateOnGround);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 private _wcas = [_heli] call fza_fnc_coreGetWCAs;
 _wcas = _wcas select {!(WCA_ADVISORY in _x)};
@@ -79,11 +79,11 @@ for "_x" from 0 to 4 do {
 };
 
 //Hydraulics
-private _priHydPSI       = round(_heli getVariable "fza_systems_priHydPsi");
+private _priHydPSI       = round(_heli getVariable "bmkhs_priHydPsi");
 private _priHydPSI_text  = format["%1", [str _priHydPSI, 4] call fza_fnc_padString];
-private _utilHydPSI      = round(_heli getVariable "fza_systems_utilHydPsi");
+private _utilHydPSI      = round(_heli getVariable "bmkhs_utilHydPsi");
 private _utilHydPSI_text = format["%1", [str _utilHydPSI, 4] call fza_fnc_padString];
-private _accHydPSI       = round((_heli getVariable "fza_systems_accHydPsi") / 10) * 10;
+private _accHydPSI       = round((_heli getVariable "bmkhs_accHydPsi") / 10) * 10;
 private _accHydPSI_text  = format["%1", [str _accHydPSI, 4] call fza_fnc_padString];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_PRI_HYD_PSI),  _priHydPSI_text];

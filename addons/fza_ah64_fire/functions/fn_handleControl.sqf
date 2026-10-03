@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_system", "_control"];
 
-private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
+private _battBusOn          = _heli getVariable "bmkhs_battBusOn";
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 0;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 0;
 private _apuArm             = (_heli getVariable "fza_ah64_fireArmedApu") # 0;

@@ -20,11 +20,11 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
     if (isNull _heli) exitWith {};
 
-    _heli setVariable ["fza_mplanner_applying", true, true];
+    _heli setVariable ["bmkhs_inputLockout", true, true];
 
     private _settings = [_legacyJson] call CBA_fnc_parseJSON;
     if (isNil "_settings") exitWith {
-        _heli setVariable ["fza_mplanner_applying", false, true];
+        _heli setVariable ["bmkhs_inputLockout", false, true];
         systemChat "Mission Planner apply failed: invalid payload.";
     };
 
@@ -55,16 +55,15 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     private _targetFuelKg = _settings getVariable ["fuel", 0];
     private _targetFuelKgClamped = _targetFuelKg max 0;
 
-    private _sfmPlusCfg = configOf _heli >> "Fza_SfmPlus";
     private _ctrEnabled = [0, 1] select _iafsInstalled;
     private _tankCapacityKg =
-        getNumber (_sfmPlusCfg >> "maxFwdFuelMass") +
-        getNumber (_sfmPlusCfg >> "maxAftFuelMass") +
-        (_ctrEnabled * getNumber (_sfmPlusCfg >> "maxCtrFuelMass"));
+        (_heli getVariable "bmkhs_fwdTankMax") +
+        (_heli getVariable "bmkhs_aftTankMax") +
+        (_ctrEnabled * (_heli getVariable "bmkhs_ctrTankMax"));
 
     private _targetFuelPct = if (_tankCapacityKg > 0) then { (_targetFuelKgClamped / _tankCapacityKg) max 0 min 1 } else { fuel _heli };
 
-    private _curFuelKg = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
+    private _curFuelKg = _heli getVariable ["bmkhs_totFuelMass", 0];
     private _fuelDeltaKg = abs (_targetFuelKgClamped - _curFuelKg);
     private _fuelDeltaLbs = _fuelDeltaKg * 2.20462;
 
@@ -79,7 +78,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 
     private _currentFcrState = [0, 1] select ((_heli animationPhase "fcr_enable") > 0.5);
     private _needsFcr = _desiredFcrState != _currentFcrState;
-    private _needsCenterStore = (_heli getVariable ["fza_ah64_IAFSInstalled", true]) != _iafsInstalled;
+    private _needsCenterStore = (_heli getVariable ["bmkhs_ctrTankInstalled", true]) != _iafsInstalled;
     private _needsFuel = _fuelDeltaKg > 1;
     private _needsCannon = _cannonDelta > 0;
     // ACE rearm supply mode (0=unlimited, 1=caliber pool, 2=magazine-inventory)
@@ -593,7 +592,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
-    private _currentIafsInstalled = _heli getVariable ["fza_ah64_IAFSInstalled", true];
+    private _currentIafsInstalled = _heli getVariable ["bmkhs_ctrTankInstalled", true];
 
     if (_needsCenterStore && _iafsInstalled && !_currentIafsInstalled) then {
         // magazine → IAFS: unload cannon first (if loaded), then swap
@@ -823,7 +822,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         params [["_args", []]];
                         _args params ["_heli", "_curRatio", "_targetRatio", "_noSrcStatus"];
                         _heli setFuel _targetRatio;
-                        [_heli] call fza_sfmplus_fnc_fuelSet;
+                        [_heli] call bmkhs_fnc_fuelSet;
                         systemChat "Mission Planner: fuel loaded.";
                         _noSrcStatus set [1, true]; _noSrcStatus set [0, true];
                     },
@@ -833,7 +832,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                         private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
                         if (_partial > 0.01) then {
                             _heli setFuel (_curRatio + ((_targetRatio - _curRatio) * _partial)) min 1;
-                            [_heli] call fza_sfmplus_fnc_fuelSet;
+                            [_heli] call bmkhs_fnc_fuelSet;
                         };
                         _noSrcStatus set [1, false]; _noSrcStatus set [0, true];
                     },
@@ -900,7 +899,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     params [["_args", []]];
                     _args params ["_heli", "_curRatio", "_targetRatio", "_source", "_srcFuel", "_srcCap", "_litres", "_status"];
                     _heli setFuel _targetRatio;
-                    [_heli] call fza_sfmplus_fnc_fuelSet;
+                    [_heli] call bmkhs_fnc_fuelSet;
                     if (_srcCap != -10) then {
                         [_source, (_srcFuel - _litres) max 0] call ace_refuel_fnc_setFuel;
                     };
@@ -916,7 +915,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     private _partialLitres = _litres * _partial;
                     if (_partial > 0.01) then {
                         _heli setFuel _partialRatio;
-                        [_heli] call fza_sfmplus_fnc_fuelSet;
+                        [_heli] call bmkhs_fnc_fuelSet;
                         if (_srcCap != -10) then {
                             [_source, (_srcFuel - _partialLitres) max 0] call ace_refuel_fnc_setFuel;
                         };
@@ -945,7 +944,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     params [["_args", []]];
                     _args params ["_heli", "_curRatio", "_targetRatio", "_defuelStatus", "_liters"];
                     _heli setFuel _targetRatio;
-                    [_heli] call fza_sfmplus_fnc_fuelSet;
+                    [_heli] call bmkhs_fnc_fuelSet;
                     systemChat format ["Mission Planner: defueled %1 L.", round _liters];
                     _defuelStatus set [1, true]; _defuelStatus set [0, true];
                 },
@@ -955,7 +954,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
                     private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
                     if (_partial > 0.01) then {
                         _heli setFuel (_curRatio + ((_targetRatio - _curRatio) * _partial)) max 0;
-                        [_heli] call fza_sfmplus_fnc_fuelSet;
+                        [_heli] call bmkhs_fnc_fuelSet;
                     };
                     _defuelStatus set [1, false]; _defuelStatus set [0, true];
                 },
@@ -1015,7 +1014,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     };
 
     // ── STEP 6: MASS UPDATE ──────────────────────────────────────────────────
-    [_heli] call fza_sfmplus_fnc_massUpdate;
+    [_heli] call bmkhs_fnc_massUpdate;
 
     // ── STEP 7: MSN EQUIP (30s progress bar) ────────────────────────────────
     private _isUK = _msnEquip isEqualTo "UK";
@@ -1098,7 +1097,7 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
     // equipment is reapplied (e.g. UK→UK after expending flares).
     [_heli, _heli animationPhase "msn_equip_british"] remoteExec ["fza_ase_fnc_swapFlares", _heli];
 
-    _heli setVariable ["fza_mplanner_applying", false, true];
+    _heli setVariable ["bmkhs_inputLockout", false, true];
     systemChat "Mission Planner apply complete.";
 };
 

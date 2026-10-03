@@ -3,7 +3,7 @@ Function: fza_fnc_loadoutImportJson
 
 Description:
     Import of website heicopter configuration and apply it to the helicopter
-    
+
 Parameters:
     _heli - The helicopter to get information from [Unit].
     _json - the Json string output from the website
@@ -35,15 +35,14 @@ private _iafsState = [1, 0] select (_settings getVariable "iafsInstalled");
 [_heli, _iafsState] call fza_fnc_weaponSwapM230Mag;
 
 //SFM Weight sim
-[_heli] call fza_sfmplus_fnc_coreConfig;
+[_heli] call bmkhs_fnc_coreConfig;
 private _fuelKg = _settings getVariable "fuel";
 private _iafsState = [0, 1] select (_settings getVariable "iafsInstalled");
-private _sfmPlusCfg = configOf _heli >> "Fza_SfmPlus";
-private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumber (_sfmPlusCfg >> "maxAftFuelMass") + _iafsState * getNumber (_sfmPlusCfg >> "maxCtrFuelMass");
+private _tankCapacityKg = (_heli getVariable "bmkhs_fwdTankMax") + (_heli getVariable "bmkhs_aftTankMax") + _iafsState * (_heli getVariable "bmkhs_ctrTankMax");
 _heli setFuel (_fuelKg / _tankCapacityKg);
 
 //SFM Weight sim
-[_heli] call fza_fuel_fnc_fuelSet;
+[_heli] call bmkhs_fnc_fuelSet;
 
 //Loadout settings
 {
@@ -53,12 +52,12 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
     switch _pylonType do {
         case "none": {
             for "_i" from 0 to 3 do {
-                _heli setPylonLoadout [_magazineIndex, "", true, [0]]; 
+                _heli setPylonLoadout [_magazineIndex, "", true, [0]];
                 _magazineIndex = _magazineIndex - 1;
             };
         };
         case "rocket": {
-            _heli setPylonLoadout [_magazineIndex, "", true, [0]]; 
+            _heli setPylonLoadout [_magazineIndex, "", true, [0]];
             _magazineIndex = _magazineIndex - 1;
             {
                 private _pylonZone = _x;
@@ -78,7 +77,7 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
                 private _ammoName = _pylonInfo getVariable _x;
                 _ammoName = [_ammoName] call BIS_fnc_filterString;
                 if (_ammoName in _nameCheck) then {
-                    private _magName = "fza_" + _ammoName + "_" + _x; 
+                    private _magName = "fza_" + _ammoName + "_" + _x;
                     _heli setPylonLoadout [_magazineIndex, _magName, true, [0]];
                     _magazineIndex = _magazineIndex - 1;
                 } else {

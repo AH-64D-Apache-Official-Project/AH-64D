@@ -14,7 +14,7 @@ Examples:
 Author:
     BradMick, Snow(Dryden), Ampersand
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\bmkhs_helisim\functions\core\core.hpp"
 params ["_heli", "_deltaTime"];
 
 #define INPUT_MAX 10.0
@@ -49,7 +49,8 @@ private _autorange = [(ASLToAGL _tadsPosition)#2 /sin(-_elevation),0,50000] call
 
 private _range = -1;
 private _laserPos = getPosASL laserTarget _heli;
-if (_elevation < -1 && ([_heli] call fza_sfmplus_fnc_getAltitude)#1 < 1428) then {
+//Radar altitude is published in METRES; 1428 ft is the ceiling this gate wants.
+if (_elevation < -1 && {(_heli getVariable ["bmkhs_radAlt", 0.0]) < (1428.0 * FEET_TO_METERS)}) then {
     _range = _autorange;
 };
 if (_laserPos isNotEqualTo [0,0,0]) then {

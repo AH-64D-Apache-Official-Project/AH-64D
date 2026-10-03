@@ -2,7 +2,7 @@
 Function: fza_anim_fnc_getEffInput
 
 Description:
-    Replicates the fza_sfmplus_fnc_getInterpInput interpolation used by the
+    Replicates the bmkhs_fnc_inputGetInterp interpolation used by the
     flight model so animation visuals stay consistent with control positions.
 
     When input is 0 the model sits at the force-trim position.

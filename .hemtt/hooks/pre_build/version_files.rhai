@@ -83,6 +83,7 @@ let version_lines = "version = \"" + ver_str + "\";\n";
 version_lines += "versionStr = \"" + ver_str + "\";\n";
 version_lines += "versionAr[] = {" + ver_ar + "};\n";
 let hash_line = "hash = \"" + hash + "\";\n";
+
 let rfs_addons_path = HEMTT_RFS.join("addons");
 for name in addon_names {
     let version_file = addons_path.join(name).join("version.hpp");

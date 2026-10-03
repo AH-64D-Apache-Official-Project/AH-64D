@@ -19,15 +19,15 @@ Author:
     unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli"];
 
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
 
-private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
+private _acBusOn        = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn        = _heli getVariable "bmkhs_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
 private _weaponWas      = _heli getVariable "fza_ah64_was";
 private _ntsPosition    = (_heli getVariable "fza_ah64_fcrNts")#1;
@@ -216,11 +216,11 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         };
     };
 
-    
+
 
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\TADSmain_co.paa";
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
-    
+
     //COLOR SET THESE
     for "_i" from 121 to 209 do {
         //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitWith {};
@@ -282,7 +282,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
-    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP 
+    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\ihadss.paa"; //TEST
     ((uiNamespace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
@@ -320,7 +320,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round (_heli getVariable "fza_sfmplus_gndSpeed")] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round (_heli getVariable "bmkhs_gndSpeed")] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -385,20 +385,22 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
 };
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+_TQVal = (_heli getVariable "bmkhs_engPctTq" select 0) max (_heli getVariable "bmkhs_engPctTq" select 1);
 _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel2D")];
+_speedkts = format["%1", (_heli getVariable "bmkhs_vel2D")];
 
-([_heli] call fza_sfmplus_fnc_getAltitude)
-    params ["_barAlt", "_radAlt"];
+//HeliSim publishes the radar altitude in METRES; the symbology is in feet. The
+//barometric one is already feet.
+private _barAlt = _heli getVariable ["bmkhs_barAlt", 0.0];
+private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0.0]) * SCALE_METERS_FEET;
 _baraltft = format["%1",  _barAlt toFixed 0];
-_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt == 1420)];
+_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt >= 1419.5)];
 
 //FCR CenterLine
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"];
 if !isNil "_dir" then {
     _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
@@ -418,8 +420,8 @@ if (_heli animationPhase "fcr_enable" != 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
-    _fpv = worldToScreen ASLToAGL(AGLToASL positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind"));
+if ((_heli getVariable "bmkhs_vel3D") > 5) then {
+    _fpv = worldToScreen ASLToAGL(AGLToASL positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "bmkhs_velWorldSpaceNoWind"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
     }
@@ -439,7 +441,7 @@ if (_weaponWas == WAS_WEAPON_MSL) then {
             _weaponstate = "HI-MAN";
         };
     };
-    
+
     if (_tofList isNotEqualTo []) then {
         _tofNum = ceil (_tofList#0 - cba_missiontime);
         _tofStr = [str (round _tofNum), "00"] call fza_fnc_padString;
@@ -559,40 +561,40 @@ if (_headTrackerPos isEqualTo []) then {
 };
 
 //Acceleration Cue
-private _accelCueX       = 0.0; 
-private _accelCueY       = 0.0; 
+private _accelCueX       = 0.0;
+private _accelCueY       = 0.0;
 private _accelCueScalar  = 1.0;
-private _accelCueXOrigin = 0.481; 
+private _accelCueXOrigin = 0.481;
 private _accelCueYOrigin = 0.476;
-private _accelCueWidth   = 0.336 * 0.86; 
+private _accelCueWidth   = 0.336 * 0.86;
 private _accelCueHeight  = 0.336 * 1.10;
-private _velX   = 0.0; 
+private _velX   = 0.0;
 private _velY   = 0.0;
-private _accelX = 0.0; 
+private _accelX = 0.0;
 private _accelY = 0.0;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 3.08667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 3.08667;
+    _velX = ((_heli getVariable "bmkhs_velModelSpaceNoWind") select 0) / 3.08667;
+    _velY = ((_heli getVariable "bmkhs_velModelSpaceNoWind") select 1) / 3.08667;
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 30.8667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 30.8667;
+    _velX = ((_heli getVariable "bmkhs_velModelSpaceNoWind") select 0) / 30.8667;
+    _velY = ((_heli getVariable "bmkhs_velModelSpaceNoWind") select 1) / 30.8667;
 };
 _velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
 _velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
-    _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 12.0;
+    _accelX    = (_heli getVariable "bmkhs_accelX") / 12.0;
     _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
 
-    _accelY    = (_heli getVariable "fza_sfmplus_accelY") / 12.0;
+    _accelY    = (_heli getVariable "bmkhs_accelY") / 12.0;
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
     private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-        if ((_heli getVariable "fza_sfmplus_gndSpeed") <= 6) then {
+        if ((_heli getVariable "bmkhs_gndSpeed") <= 6) then {
             _accelCueX =  _velX + _accelX;
             _accelCueY = -_velY - _accelY;
         } else {
@@ -626,7 +628,7 @@ if (_radalt > 0.26) then {
 };
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetPosition[0.709, (0.6321 - _radalt), 0.01, _radalt];
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlCommit 0;
-_fpm = ((_heli getVariable "fza_sfmplus_velWorldSpace") select 2) * 0.0255;
+_fpm = ((_heli getVariable "bmkhs_velWorldSpace") select 2) * 0.0255;
 _fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
 
 ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
@@ -697,8 +699,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     _tadsdir = _tadsAzimuth;
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth}; 
-private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {_tadsElevation}; 
+private _alternatesensorpan = if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth};
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {_tadsElevation};
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);

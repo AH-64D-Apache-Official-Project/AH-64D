@@ -23,22 +23,22 @@ Author:
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params ["_heli", "_system", "_control"];
 
-private _apuBtnOn     = _heli getVariable "fza_systems_apuBtnOn";
-private _battSwitchOn = _heli getVariable "fza_systems_battSwitchOn";
-private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
+private _apuBtnOn     = _heli getVariable "bmkhs_apuBtnOn";
+private _battSwitchOn = _heli getVariable "bmkhs_battSwitchOn";
+private _battBusOn    = _heli getVariable "bmkhs_battBusOn";
 
 if (player != driver _heli) exitWith {};
 
 switch(_control) do {
     case "apu": {
         if (!_apuBtnOn && _battBusOn) then {
-            [_heli] call fza_systems_fnc_interactAPUButton;
+            ["apuBtn", "+1", _heli] call bmkhs_fnc_controlSet;
             playSound "fza_ah64_apubutton";
             [_heli] spawn fza_fnc_fxLoops;
             [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3D"];
         } else {
             if (_apuBtnOn) then {
-                [_heli] call fza_systems_fnc_interactAPUButton;
+                ["apuBtn", "+1", _heli] call bmkhs_fnc_controlSet;
                 //If either of the apache's engines are in a mode where they are using APU, turn it off.
                 _heliData = _heli getVariable "fza_ah64_engineStates";
                 (_heliData # 0) params ["_e1state"];
@@ -55,101 +55,112 @@ switch(_control) do {
     };
     case "power": {
         if (_battSwitchOn) then {
-            [_heli] call fza_systems_fnc_interactBattSwitch;
+            ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
             [_heli] spawn fza_fnc_fxLoops;
             playSound "fza_ah64_battery";
         } else {
-            [_heli] call fza_systems_fnc_interactBattSwitch;
+            ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
             [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3D"];
             playSound "fza_ah64_battery";
         };
     };
-    
+
+    //Through the control layer - the brake is a declared HeliSim control, and it drives its
+    //own animation. wraps takes the toggle round off -> brake -> lock -> off.
     case "rtrbraketoggle": {
-        [_heli, "fza_ah64_rtrbrake", !(_heli getVariable "fza_ah64_rtrbrake")] call fza_fnc_animSetValue;
+        ["rotorBrake", "+1", _heli] call bmkhs_fnc_controlSet;
     };
     case (localize "STR_FZA_AH64_ROTOR_BRAKE_LOCK"): {
-        [_heli, "fza_ah64_rtrbrake", true] call fza_fnc_animSetValue;
+        ["rotorBrake", 2, _heli] call bmkhs_fnc_controlSet;
+    };
+    case (localize "STR_FZA_AH64_ROTOR_BRAKE_BRAKE"): {
+        ["rotorBrake", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case (localize "STR_FZA_AH64_ROTOR_BRAKE_OFF"): {
-        [_heli, "fza_ah64_rtrbrake", false] call fza_fnc_animSetValue;
+        ["rotorBrake", 0, _heli] call bmkhs_fnc_controlSet;
     };
 
     //--------------------ENGINE 1--------------------//
     //Start Switch
     case (localize "STR_FZA_AH64_ENGINE_ONE_START"): {
-        [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
+        ["eng1StartSw", 2, _heli] call bmkhs_fnc_controlSet;
+    };
+    case (localize "STR_FZA_AH64_ENGINE_ONE_OFF"): {
+        ["eng1StartSw", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE"): {
-        [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
+        ["eng1StartSw", 0, _heli] call bmkhs_fnc_controlSet;
     };
     case "e1startertoggle": {
-        private _engState = _heli getVariable "fza_sfmplus_engState" select 0;
+        private _engState = _heli getVariable "bmkhs_engState" select 0;
         if (_engState isEqualTo "OFF") then {
             _heli animateSource ["plt_eng1_start", 1, true];
-            [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
+            ["eng1StartSw", 2, _heli] call bmkhs_fnc_controlSet;
         };
         if (_engState isEqualTo "STARTING") exitWith {
             _heli animateSource ["plt_eng1_start", 0, true];
-            [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
+            ["eng1StartSw", 0, _heli] call bmkhs_fnc_controlSet;
         };
     };
     case "e1off": {
-        [_heli, 0, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+        ["eng1PwrLvr", 0, _heli] call bmkhs_fnc_controlSet;
     };
     case "e1idle": {
-        [_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+        ["eng1PwrLvr", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case "e1fly": {
-        private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
-        private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+        private _eng2State       = _heli getVariable "bmkhs_engState" select 1;
+        private _eng2PwrLvrState = _heli getVariable "bmkhs_engPowerLeverState" select 1;
 
         if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            ["eng1PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
         };
-        
+
         if (_eng2State == "ON" && _eng2PwrLvrState == "IDLE") then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            ["eng1PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
+            ["eng2PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
         };
     };
-    
+
     //--------------------ENGINE 2--------------------//
     //Start Switch
     case (localize "STR_FZA_AH64_ENGINE_TWO_START"): {
-        [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
+        ["eng2StartSw", 2, _heli] call bmkhs_fnc_controlSet;
+    };
+    case (localize "STR_FZA_AH64_ENGINE_TWO_OFF"): {
+        ["eng2StartSw", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE"): {
-        [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
+        ["eng2StartSw", 0, _heli] call bmkhs_fnc_controlSet;
     };
     case "e2startertoggle": {
-        private _engState = _heli getVariable "fza_sfmplus_engState" select 1;
+        private _engState = _heli getVariable "bmkhs_engState" select 1;
         if (_engState isEqualTo "OFF") then {
             _heli animateSource ["plt_eng2_start", 1, true];
-            [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
+            ["eng2StartSw", 2, _heli] call bmkhs_fnc_controlSet;
         };
         if (_engState isEqualTo "STARTING") exitWith {
             _heli animateSource ["plt_eng2_start", 0, true];
-            [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
+            ["eng2StartSw", 0, _heli] call bmkhs_fnc_controlSet;
         };
     };
     case "e2off": {
-        [_heli, 1, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+        ["eng2PwrLvr", 0, _heli] call bmkhs_fnc_controlSet;
     };
     case "e2idle": {
-        [_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+        ["eng2PwrLvr", 1, _heli] call bmkhs_fnc_controlSet;
     };
     case "e2fly": {
-        private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
-        private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+        private _eng1State       = _heli getVariable "bmkhs_engState" select 0;
+        private _eng1PwrLvrState = _heli getVariable "bmkhs_engPowerLeverState" select 0;
 
         if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            ["eng2PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
         };
-        
+
         if (_eng1State == "ON" && _eng1PwrLvrState == "IDLE") then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            ["eng1PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
+            ["eng2PwrLvr", 2, _heli] call bmkhs_fnc_controlSet;
         };
     };
 };

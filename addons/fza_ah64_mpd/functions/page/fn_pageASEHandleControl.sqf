@@ -2,7 +2,7 @@
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_mpdIndex", "_control"];
 
-private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+private _dcBusOn = _heli getVariable "bmkhs_dcBusOn";
 
 switch(_control) do {
     //Chaff

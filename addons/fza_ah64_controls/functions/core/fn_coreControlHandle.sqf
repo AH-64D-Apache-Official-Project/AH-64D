@@ -1,13 +1,13 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-#include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\bmkhs_helisim\functions\core\core.hpp"
 
 params["_name", "_value"];
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
-private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
+private _onGnd      = [_heli] call bmkhs_fnc_stateOnGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
 if (_value) then {
@@ -64,7 +64,7 @@ if (_value) then {
         };
         case "fza_ah64_fcrSingleScan": {
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
-            private _onGnd = [_heli] call fza_sfmplus_fnc_onGround;
+            private _onGnd = [_heli] call bmkhs_fnc_stateOnGround;
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
@@ -121,26 +121,6 @@ if (_value) then {
         };
         case "vehLockTargets": {
             [_heli] call fza_fcr_fnc_cycleNTS;
-        };
-        case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            if (currentPilot _heli != player || !local _heli) exitWith {};
-
-            _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
-        };
-        case "fza_ah64_forceTrimHoldModeSwitch_right": {
-            if (currentPilot _heli != player || !local _heli) exitWith {};
-
-            [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
-        };
-        case "fza_ah64_forceTrimHoldModeSwitch_down": {
-            if (currentPilot _heli != player || !local _heli) exitWith {};
-
-            [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
-        };
-        case "fza_ah64_forceTrimHoldModeSwitch_left": {
-            if (currentPilot _heli != player || !local _heli) exitWith {};
-
-            [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
         case "fza_ah64_fcrModeSwitch_up": {
             if (_heli getVariable "fza_ah64_fcrMode" == 1) exitWith {};
@@ -298,35 +278,12 @@ if (_value) then {
             private _lmc = _heli getVariable "fza_ah64_LmcActive";
             _heli setVariable ["fza_ah64_LmcActive", !_lmc, true];
         };
-        case "fza_ah64_stickyControlInterupt": {
-            _heli setVariable ["fza_sfmplus_kbStickyInterupt", true];
-        };
         case "Headlights": {
             private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
             _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
         };
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
-        };
-        case "fza_ah64_ctrlVisToggle": {
-            if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) exitWith {};
-
-            private _layer = "fza_ah64_ctrlvis" call BIS_fnc_rscLayer;
-
-            // Check whether the display is currently shown
-            private _ctrlVisDisplay = uiNamespace getVariable ["fza_ah64_ctrlvis", displayNull];
-            private _ctrlVisIsShown = !isNull _ctrlVisDisplay;
-
-            if (_ctrlVisIsShown) then {
-                // Hide — also clear cached statics so they're recomputed on next open
-                _layer cutText ["", "PLAIN", 0, false];
-                uiNamespace setVariable ["fza_ah64_ctrlvis",        displayNull];
-                uiNamespace setVariable ["fza_ah64_ctrlVisColors",  []];
-                uiNamespace setVariable ["fza_ah64_ctrlVisCircleW", nil];
-            } else {
-                // Show
-                _layer cutRsc ["fza_ah64_ctrlvis", "PLAIN", 0, false];
-            };
         };
     };
 };
@@ -336,44 +293,6 @@ if !(_value) then {
     switch (_name) do {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
-        };
-        case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            if (currentPilot _heli != player || !local _heli) exitWith {};
-
-            //Velocity Hold Velocities
-            private _curVel   = velocityModelSpace _heli;
-            private _curVelX  = (_curVel # 0) * -1.0;
-            private _curVelY  = _curVel # 1;
-            //Attitude Hold Pitch & Roll
-            private _curAtt   = _heli call BIS_fnc_getPitchBank;
-            private _curPitch = _curAtt # 0;
-            private _curRoll  = _curAtt # 1;
-            _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                 true];
-            _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,          true];
-            _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
-            _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
-            [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
-
-            [_heli] call fza_sfmplus_fnc_centerTrimMode;
-        };
-        case "fza_ah64_stickyControlInterupt": {
-            _heli setVariable ["fza_sfmplus_kbStickyInterupt", false];
-        };
-        case "fza_ah64_forceTrimPanicButton": {
-            // Reset force-trim reference positions
-            _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
-            _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
-            _heli setVariable ["fza_ah64_forceTrimPosYaw",   0.0, true];
-            // Reset keyboard sticky input accumulated values to centre
-            _heli setVariable ["fza_sfmplus_cyclicPitchValue",     0.0];
-            _heli setVariable ["fza_sfmplus_cyclicRollValue",      0.0];
-            _heli setVariable ["fza_sfmplus_pedalYawValue",        0.0];
-            // Reset prev* shadow values used by the sticky-interrupt branch of fn_getInput
-            _heli setVariable ["fza_sfmplus_prevCyclicPitchValue", 0.0];
-            _heli setVariable ["fza_sfmplus_prevCyclicRollValue",  0.0];
-            _heli setVariable ["fza_sfmplus_prevPedalYawValue",    0.0];
         };
     };
 };

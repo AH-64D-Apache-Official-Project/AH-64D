@@ -1,8 +1,8 @@
 params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 private _chkActive  = (_state get "checkActive") > 0;
-private _chkRunning = _heli getVariable ["fza_fuel_checkRunning", false];
-private _chkDone    = _heli getVariable ["fza_fuel_checkDone",    false];
+private _chkRunning = _heli getVariable ["bmkhs_checkRunning", false];
+private _chkDone    = _heli getVariable ["bmkhs_checkDone",    false];
 
 switch(_control) do {
     // Page navigation
@@ -15,15 +15,15 @@ switch(_control) do {
     // l1 — FWD when XFER menu open; AUX L toggle otherwise
     case "l1": {
         if ((_state get "xferMenuOpen") > 0) then {
-            [_heli, "fza_fuel_xferMode", "FWD"] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_xferMode", "FWD"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
         } else {
-            private _lAuxOn   = _heli getVariable ["fza_fuel_lAuxOn", false];
-            private _lHasFuel = (_heli getVariable ["fza_sfmplus_stn1FuelMass", 0] > 0)
-                             || (_heli getVariable ["fza_sfmplus_stn2FuelMass", 0] > 0);
+            private _lAuxOn   = _heli getVariable ["bmkhs_lAuxOn", false];
+            private _lHasFuel = (_heli getVariable ["bmkhs_stn1TankMass", 0] > 0)
+                             || (_heli getVariable ["bmkhs_stn2TankMass", 0] > 0);
             // Can turn off freely; can only turn on when a left-side tank has fuel
             if (_lAuxOn || _lHasFuel) then {
-                [_heli, "fza_fuel_lAuxOn", !_lAuxOn] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_lAuxOn", !_lAuxOn] call fza_fnc_updateNetworkGlobal;
             };
         };
     };
@@ -31,15 +31,15 @@ switch(_control) do {
     // l2 — OFF when XFER menu open; IAFS/C AUX toggle otherwise
     case "l2": {
         if ((_state get "xferMenuOpen") > 0) then {
-            [_heli, "fza_fuel_xferMode", "OFF"] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_xferMode", "OFF"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
         } else {
-            if (_heli getVariable ["fza_ah64_IAFSInstalled", false]) then {
-                private _iafsOn  = _heli getVariable ["fza_ah64_IAFSOn", false];
-                private _ctrMass = _heli getVariable ["fza_sfmplus_ctrFuelMass", 0];
+            if (_heli getVariable ["bmkhs_ctrTankInstalled", false]) then {
+                private _iafsOn  = _heli getVariable ["bmkhs_ctrTankXferOn", false];
+                private _ctrMass = _heli getVariable ["bmkhs_ctrTankMass", 0];
                 // Can turn off freely; can only turn on when CTR has fuel
                 if (_iafsOn || _ctrMass > 0) then {
-                    _heli setVariable ["fza_ah64_IAFSOn", !_iafsOn];
+                    _heli setVariable ["bmkhs_ctrTankXferOn", !_iafsOn];
                 };
             };
         };
@@ -48,7 +48,7 @@ switch(_control) do {
     // l3 — AFT when XFER menu open; nothing otherwise
     case "l3": {
         if ((_state get "xferMenuOpen") > 0) then {
-            [_heli, "fza_fuel_xferMode", "AFT"] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_xferMode", "AFT"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
         };
     };
@@ -56,7 +56,7 @@ switch(_control) do {
     // l4 — AUTO when XFER menu open; open XFER menu otherwise
     case "l4": {
         if ((_state get "xferMenuOpen") > 0) then {
-            [_heli, "fza_fuel_xferMode", "AUTO"] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_xferMode", "AUTO"] call fza_fnc_updateNetworkGlobal;
             _state set ["xferMenuOpen", 0];
         } else {
             _state set ["xferMenuOpen", 1];
@@ -65,12 +65,12 @@ switch(_control) do {
 
     // r1 — AUX R (stn3 inner-right) on/off
     case "r1": {
-        private _rAuxOn   = _heli getVariable ["fza_fuel_rAuxOn", false];
-        private _rHasFuel = (_heli getVariable ["fza_sfmplus_stn3FuelMass", 0] > 0)
-                         || (_heli getVariable ["fza_sfmplus_stn4FuelMass", 0] > 0);
+        private _rAuxOn   = _heli getVariable ["bmkhs_rAuxOn", false];
+        private _rHasFuel = (_heli getVariable ["bmkhs_stn3TankMass", 0] > 0)
+                         || (_heli getVariable ["bmkhs_stn4TankMass", 0] > 0);
         // Can turn off freely; can only turn on when a right-side tank has fuel
         if (_rAuxOn || _rHasFuel) then {
-            [_heli, "fza_fuel_rAuxOn", !_rAuxOn] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_rAuxOn", !_rAuxOn] call fza_fnc_updateNetworkGlobal;
         };
     };
 
@@ -78,15 +78,15 @@ switch(_control) do {
     case "r2": {
         if (_chkActive) then {
             if (!_chkRunning) then {
-                [_heli, "fza_fuel_checkMinutes", 15] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkMinutes", 15] call fza_fnc_updateNetworkGlobal;
             };
         } else {
-            private _newBoost = !(_heli getVariable ["fza_fuel_boostOn", false]);
-            [_heli, "fza_fuel_boostOn", _newBoost] call fza_fnc_updateNetworkGlobal;
+            private _newBoost = !(_heli getVariable ["bmkhs_boostOn", false]);
+            [_heli, "bmkhs_boostOn", _newBoost] call fza_fnc_updateNetworkGlobal;
             if (_newBoost) then {
-                [_heli, "fza_fuel_crossfeedMode", "AFT"] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_crossfeedMode", "AFT"] call fza_fnc_updateNetworkGlobal;
             } else {
-                [_heli, "fza_fuel_crossfeedMode", "NORM"] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_crossfeedMode", "NORM"] call fza_fnc_updateNetworkGlobal;
             };
         };
     };
@@ -95,11 +95,11 @@ switch(_control) do {
     case "r3": {
         if (_chkActive) then {
             if (!_chkRunning) then {
-                [_heli, "fza_fuel_checkMinutes", 20] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkMinutes", 20] call fza_fnc_updateNetworkGlobal;
             };
         } else {
-            if !(_heli getVariable ["fza_fuel_boostOn", false]) then {
-                [_heli, "fza_fuel_crossfeedMode", "FWD"] call fza_fnc_updateNetworkGlobal;
+            if !(_heli getVariable ["bmkhs_boostOn", false]) then {
+                [_heli, "bmkhs_crossfeedMode", "FWD"] call fza_fnc_updateNetworkGlobal;
             };
         };
     };
@@ -108,11 +108,11 @@ switch(_control) do {
     case "r4": {
         if (_chkActive) then {
             if (!_chkRunning) then {
-                [_heli, "fza_fuel_checkMinutes", 30] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkMinutes", 30] call fza_fnc_updateNetworkGlobal;
             };
         } else {
-            if !(_heli getVariable ["fza_fuel_boostOn", false]) then {
-                [_heli, "fza_fuel_crossfeedMode", "NORM"] call fza_fnc_updateNetworkGlobal;
+            if !(_heli getVariable ["bmkhs_boostOn", false]) then {
+                [_heli, "bmkhs_crossfeedMode", "NORM"] call fza_fnc_updateNetworkGlobal;
             };
         };
     };
@@ -122,26 +122,26 @@ switch(_control) do {
         if (_chkActive && !_chkRunning) then {
             // START (also clears any previous done state)
             if (_chkDone) then {
-                [_heli, "fza_fuel_checkDone",        false] call fza_fnc_updateNetworkGlobal;
-                [_heli, "fza_fuel_checkElapsedSec",  0]     call fza_fnc_updateNetworkGlobal;
-                [_heli, "fza_fuel_checkBurnRate",    0]     call fza_fnc_updateNetworkGlobal;
-                [_heli, "fza_fuel_checkBurnoutZulu", ""]    call fza_fnc_updateNetworkGlobal;
-                [_heli, "fza_fuel_checkVFRZulu",     ""]    call fza_fnc_updateNetworkGlobal;
-                [_heli, "fza_fuel_checkIFRZulu",     ""]    call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkDone",        false] call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkElapsedSec",  0]     call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkBurnRate",    0]     call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkBurnoutZulu", ""]    call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkVfrZulu",     ""]    call fza_fnc_updateNetworkGlobal;
+                [_heli, "bmkhs_checkIfrZulu",     ""]    call fza_fnc_updateNetworkGlobal;
             };
             private _dh = floor dayTime;
             private _dm = floor ((dayTime - _dh) * 60);
-            private _startFuelMass = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
-            [_heli, "fza_fuel_checkStartTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkStartFuel", _startFuelMass]  call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkRunning",   true]            call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkStartZulu", format ["%1:%2L", _dh, [_dm, 2] call CBA_fnc_formatNumber]] call fza_fnc_updateNetworkGlobal;
+            private _startFuelMass = _heli getVariable ["bmkhs_totFuelMass", 0];
+            [_heli, "bmkhs_checkStartTime", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkStartFuel", _startFuelMass]  call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkRunning",   true]            call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkStartZulu", format ["%1:%2L", _dh, [_dm, 2] call CBA_fnc_formatNumber]] call fza_fnc_updateNetworkGlobal;
         };
         if (_chkActive && _chkRunning && !_chkDone) then {
             // STOP — freeze elapsed and results
-            private _totalFuelMass = _heli getVariable ["fza_sfmplus_totFuelMass", 0];
-            private _startFuel     = _heli getVariable ["fza_fuel_checkStartFuel", _totalFuelMass];
-            private _elapsed       = CBA_missionTime - (_heli getVariable ["fza_fuel_checkStartTime", CBA_missionTime]);
+            private _totalFuelMass = _heli getVariable ["bmkhs_totFuelMass", 0];
+            private _startFuel     = _heli getVariable ["bmkhs_checkStartFuel", _totalFuelMass];
+            private _elapsed       = CBA_missionTime - (_heli getVariable ["bmkhs_checkStartTime", CBA_missionTime]);
             private _burnRate      = if (_elapsed > 0) then { ((_startFuel - _totalFuelMass) * 2.20462) / (_elapsed / 3600) } else { 0 };
             private _burnoutHours  = if (_burnRate > 0) then { (_totalFuelMass * 2.20462) / _burnRate } else { 0 };
             private _fnZulu = {
@@ -149,16 +149,16 @@ switch(_control) do {
                 private _h = floor (_dt % 24);
                 format ["%1:%2L", _h, [floor ((_dt % 24 - _h) * 60), 2] call CBA_fnc_formatNumber]
             };
-            [_heli, "fza_fuel_checkRunning",     false]    call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkDone",        true]     call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkElapsedSec",  _elapsed] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkBurnRate",    _burnRate] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkBurnoutZulu", [dayTime + _burnoutHours]        call _fnZulu] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkVFRZulu",     [dayTime + _burnoutHours - 20/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_fuel_checkIFRZulu",     [dayTime + _burnoutHours - 30/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkRunning",     false]    call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkDone",        true]     call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkElapsedSec",  _elapsed] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkBurnRate",    _burnRate] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkBurnoutZulu", [dayTime + _burnoutHours]        call _fnZulu] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkVfrZulu",     [dayTime + _burnoutHours - 20/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkIfrZulu",     [dayTime + _burnoutHours - 30/60] call _fnZulu] call fza_fnc_updateNetworkGlobal;
         };
-        if (!_chkActive && !(_heli getVariable ["fza_fuel_boostOn", false])) then {
-            [_heli, "fza_fuel_crossfeedMode", "AFT"] call fza_fnc_updateNetworkGlobal;
+        if (!_chkActive && !(_heli getVariable ["bmkhs_boostOn", false])) then {
+            [_heli, "bmkhs_crossfeedMode", "AFT"] call fza_fnc_updateNetworkGlobal;
         };
     };
 
@@ -170,7 +170,7 @@ switch(_control) do {
             _state set ["checkActive", 0];
         } else {
             _state set ["checkActive", 1];
-            [_heli, "fza_fuel_checkPendingAdvisory", false] call fza_fnc_updateNetworkGlobal;
+            [_heli, "bmkhs_checkPendingAdvisory", false] call fza_fnc_updateNetworkGlobal;
         };
     };
 };
