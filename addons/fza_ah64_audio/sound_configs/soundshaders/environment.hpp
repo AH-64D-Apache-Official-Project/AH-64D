@@ -286,13 +286,27 @@ class fza_SpeedStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 };
 class fza_ETL_VRS_Shake_01_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {
-	sound[]   = {"\fza_ah64_us\audio\CreakingAirFrame.ogg", 1, 1};
+	samples[]=
+	{
+
+		{
+			"\fza_ah64_audio\audio\engine\env\share\creakingairframe.wss",
+			1
+		}
+	};
 	frequency = "CustomSoundController3";
 	volume    = "camInt*CustomSoundController17*CustomSoundController4";
 };
 class fza_ETL_VRS_Shake_02_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {
-	sound[]   = {"A3\Sounds_F\vehicles\noises\vehicle_stress3.wss", 1, 1};
+	samples[]=
+	{
+
+		{
+			"A3\Sounds_F\vehicles\noises\vehicle_stress3.wss",
+			1
+		}
+	};
 	frequency = "CustomSoundController3";
 	volume    = "camInt*CustomSoundController17*CustomSoundController4";
 };
