@@ -82,7 +82,7 @@ if (_rtrRPM < ROTOR_BLUR_RPM) then {
 
 // ── Tail rotor ───────────────────────────────────────────────────────────────
 // trsw: model minValue=-5, maxValue=5 → pedal -1…+1 maps to -5…+5
-[_heli, "trsw",            S * 5, true] call fza_anim_fnc_updateAnimations;
+[_heli, "trsw", _effPedal* 5, true] call fza_anim_fnc_updateAnimations;
 // Blades 1 & 4 face opposite to 2 & 3 in the model, so their pitch sign is reversed
 [_heli, "tr_blade1_pitch", -_effPedal,   true] call fza_anim_fnc_updateAnimations;
 [_heli, "tr_blade2_pitch",  _effPedal,   true] call fza_anim_fnc_updateAnimations;
