@@ -407,7 +407,7 @@ class RscTitles
                     width = 0;
                     height = 0;
                 };
-                class HScrollBar: ScrollBar
+                class HScrollbar: ScrollBar
                 {
                     width = 0;
                     height = 0;
