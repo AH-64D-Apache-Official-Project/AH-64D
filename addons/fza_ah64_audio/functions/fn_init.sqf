@@ -18,10 +18,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setVariable ["fza_audio_ase_message",     "",         true];
-_heli setVariable ["fza_audio_warning_message", "",         true];
-_heli setVariable ["fza_audio_caution",         false,      true];
-_heli setVariable ["fza_audio_funcHook",        scriptNull, true];
+_heli setVariable ["fza_audio_ase_message",     ""];
+_heli setVariable ["fza_audio_warning_message", ""];
+_heli setVariable ["fza_audio_caution",         false];
+_heli setVariable ["fza_audio_funcHook",        scriptNull];
 
 //Todo
 //Creation of interactable coms panel

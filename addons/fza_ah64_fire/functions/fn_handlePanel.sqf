@@ -5,26 +5,33 @@ Description:
     Arms or disarms the fire panel
 
 Parameters:
-    heli - The helicopter to act on   
-    engine- the engine selected 
+    heli - The helicopter to act on
+    engine- the engine selected
 
 Returns:
 
 Examples:
     [_heli] call fza_fnc_firepanel
-    
+
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli","_engine","_value"];
 
-private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
+private _battBusOn          = _heli getVariable "bmkhs_battBusOn";
 private _crewStation        = _heli call fza_fnc_currentTurret;
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 1;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 1;
 private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
 
 if !_battBusOn exitWith {};
+
+//Core owns the handle; the panel only presses it.
+private _ctrl = (createHashMapFromArray [["eng1", "eng1FireHandle"], ["eng2", "eng2FireHandle"], ["apu", "apuFireHandle"]]) get _engine;
+private _mine = [_engineOneArm, _engineTwoArm, _apuArm] select (["eng1", "eng2", "apu"] find _engine);
+if (_value || {_mine isEqualTo _crewStation}) then {
+    [_ctrl, [0, 1] select _value, _heli] call bmkhs_fnc_controlSet;
+};
 
 switch(_engine) do {
     case "eng1": {

@@ -35,7 +35,7 @@ class RscFzaMissionPlanner
             colorBackground[] = {0, 0, 0, 0};
             colorText[] = {1, 1, 1, 1};
             allowExternalURL = 0;
-            url = "\fza_ah64_missionplanner\ui\planner.html";
+            url = "\fza_ah64_missionplanner\ui\planner.built.html";
             x = "safeZoneX + ((safeZoneW - (safeZoneH * 1.20)) * 0.5)";
             y = "safeZoneY + (safeZoneH * 0.14)";
             w = "safeZoneH * 1.20";

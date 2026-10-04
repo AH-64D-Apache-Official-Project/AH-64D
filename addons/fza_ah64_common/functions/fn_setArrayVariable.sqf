@@ -25,8 +25,3 @@ if _public then {
     [_heli, _variableName, _temp] call fza_fnc_updateNetworkGlobal;
 };
 _heli setVariable[_variableName, _temp];
-
-//- Local Event when variable value gets updated (only variables audio actually listens for)
-if (_variableName in ["fza_sfmplus_engState", "fza_sfmplus_engPowerLeverState"]) then {
-    ["fza_audio_updateArrayVariable",_this] call CBA_fnc_LocalEvent;
-};

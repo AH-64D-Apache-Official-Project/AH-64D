@@ -1,5 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_mpdIndex", "_state"];
@@ -36,7 +36,7 @@ if (_heli animationPhase "msn_equip_british" == 1) then {
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
 };
 
-//Mission equipment 
+//Mission equipment
 _msn_equip_British = _heli animationPhase "msn_equip_british";
 _heli setUserMFDValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_British];
 
@@ -46,11 +46,11 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo to
 
 //GUN FAILED
 private _gunDamage     = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
-private _magDamage     = (_heli getHitPointDamage "hit_msnEquip_magandrobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1);
-private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
-private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
-private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _magDamage     = (_heli getHitPointDamage "hit_msnEquip_magAndRobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1);
+private _utilLevelMin  = (_heli getVariable "bmkhs_utilLevel_pct" < SYS_HYD_MIN_LVL);
+private _utilHydFailed = (_heli getVariable "bmkhs_utilHydPsi" < SYS_MIN_HYD_PSI);
+private _acBusOn       = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn       = _heli getVariable "bmkhs_dcBusOn";
 private _gunFailed     = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
 _heli setUserMFDValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
 
@@ -117,8 +117,8 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), _selectedWeap
 //Rocket pods draw
 
 private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
-private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType"); 
-private _rocketInvIndex  = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}}; 
+private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
+private _rocketInvIndex  = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
 private _pylonsWithRockets = [];
 
 {
@@ -132,26 +132,26 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), (BOOL
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), ""];
 
-if (_rocketInvIndex != -1) then { 
+if (_rocketInvIndex != -1) then {
     for "_invCount" from 0 to ((count _rocketInventory) - 1) do {
-        (_rocketInventory # _invCount) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText", "_selectedRktZones"]; 
-        if ((0 in _selectedRktPylons || 12 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
-            _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
-        }; 
-        if ((4 in _selectedRktPylons || 8 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
-            _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
-        }; 
+        (_rocketInventory # _invCount) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText", "_selectedRktZones"];
+        if ((0 in _selectedRktPylons || 12 in _selectedRktPylons) && 0 in _selectedRktZones) then {
+            _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText];
+        };
+        if ((4 in _selectedRktPylons || 8 in _selectedRktPylons) && 0 in _selectedRktZones) then {
+            _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText];
+        };
     };
-    (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"]; 
-    private _rktSel = 0; 
-    if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then { 
-        _rktSel = _rktSel + 1; 
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
-    }; 
-    if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then { 
-        _rktSel = _rktSel + 2; 
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
-    }; 
+    (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"];
+    private _rktSel = 0;
+    if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then {
+        _rktSel = _rktSel + 1;
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText];
+    };
+    if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then {
+        _rktSel = _rktSel + 2;
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText];
+    };
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
 };
 

@@ -20,7 +20,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 params ["_heli", "_system", "_damage"];
 
 private _largeAmmoClass = "fza_ah64_auxtank_explosion_large";
@@ -30,38 +30,38 @@ private _ammoClass = _largeAmmoClass;
 
 if (_system == "hit_msnEquip_pylon1" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#0] call BIS_fnc_inString) exitWith {};
-    if (_heli getVariable "fza_sfmplus_stn1FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn1FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn1FuelMass" < 90) exitWith {};
-    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-2.38,2.3,-2]);   
+    if (_heli getVariable "bmkhs_stn1TankMass" < 450) then {_ammoClass = _mediumAmmoClass;};
+    if (_heli getVariable "bmkhs_stn1TankMass" < 200) then {_ammoClass = _smallAmmoClass;};
+    if (_heli getVariable "bmkhs_stn1TankMass" < 90) exitWith {};
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-2.38,2.3,-2]);
     triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [1, ""];
-    
+
 };
 if (_system == "hit_msnEquip_pylon2" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#4] call BIS_fnc_inString) exitWith {};
-    if (_heli getVariable "fza_sfmplus_stn2FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn2FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn2FuelMass" < 90) exitWith {};
-    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-1.66,2.3,-2]);   
+    if (_heli getVariable "bmkhs_stn2TankMass" < 450) then {_ammoClass = _mediumAmmoClass;};
+    if (_heli getVariable "bmkhs_stn2TankMass" < 200) then {_ammoClass = _smallAmmoClass;};
+    if (_heli getVariable "bmkhs_stn2TankMass" < 90) exitWith {};
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-1.66,2.3,-2]);
     triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [5, ""];
 };
 if (_system == "hit_msnEquip_pylon3" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#8] call BIS_fnc_inString) exitWith {};
-    if (_heli getVariable "fza_sfmplus_stn3FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn3FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn3FuelMass" < 90) exitWith {};
-    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [1.66,2.3,-2]);   
+    if (_heli getVariable "bmkhs_stn3TankMass" < 450) then {_ammoClass = _mediumAmmoClass;};
+    if (_heli getVariable "bmkhs_stn3TankMass" < 200) then {_ammoClass = _smallAmmoClass;};
+    if (_heli getVariable "bmkhs_stn3TankMass" < 90) exitWith {};
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [1.66,2.3,-2]);
     triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [9, ""];
 };
 if (_system == "hit_msnEquip_pylon4" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#12] call BIS_fnc_inString) exitWith {};
-    if (_heli getVariable "fza_sfmplus_stn4FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn4FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
-    if (_heli getVariable "fza_sfmplus_stn4FuelMass" < 90) exitWith {};
-    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [2.38,2.3,-2]);   
-    triggerAmmo _auxtankExplosion; 
+    if (_heli getVariable "bmkhs_stn4TankMass" < 450) then {_ammoClass = _mediumAmmoClass;};
+    if (_heli getVariable "bmkhs_stn4TankMass" < 200) then {_ammoClass = _smallAmmoClass;};
+    if (_heli getVariable "bmkhs_stn4TankMass" < 90) exitWith {};
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [2.38,2.3,-2]);
+    triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [13, ""];
 };

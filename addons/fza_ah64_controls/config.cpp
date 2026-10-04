@@ -39,8 +39,7 @@ class SensorTemplateLaser;
 
 #include "config\CfgVideoOptions.hpp"
 
-// Control Input Visualiser UI
-#include "uiConfig\RscCtrlVis.hpp"
+// Minimal unit info panel the vehicle uses in place of the stock one
 #include "config\CfgUi.hpp"
 
 #include "config\CfgSettings.hpp"

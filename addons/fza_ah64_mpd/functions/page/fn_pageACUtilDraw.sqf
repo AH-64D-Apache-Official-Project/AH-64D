@@ -4,17 +4,17 @@
 params ["_heli", "_mpdIndex"];
 
 //Pitch
-private _pitchOn = BOOLTONUM(_heli getVariable "fza_ah64_fmcPitchOn" == true);
+private _pitchOn = BOOLTONUM(_heli getVariable "bmkhs_fmcPitchOn" == true);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_PITCH), _pitchOn];
 //Roll
-private _rollOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcRollOn" == true);
+private _rollOn  = BOOLTONUM(_heli getVariable "bmkhs_fmcRollOn" == true);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_ROLL), _rollOn];
 //Yaw
-private _yawOn   = BOOLTONUM(_heli getVariable "fza_ah64_fmcYawOn" == true);
+private _yawOn   = BOOLTONUM(_heli getVariable "bmkhs_fmcYawOn" == true);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_YAW), _yawOn];
 //Coll
-private _collOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcCollOn" == true);
+private _collOn  = BOOLTONUM(_heli getVariable "bmkhs_fmcCollOn" == true);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_COLL), _collOn];
 //Trim
-private _trimOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcTrimOn" == true);
+private _trimOn  = BOOLTONUM(_heli getVariable "bmkhs_fmcTrimOn" == true);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_TRIM), _trimOn];

@@ -22,9 +22,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_system", "_control"];
 
-private _battBusOn = _heli getVariable "fza_systems_battBusOn";
-private _acBusOn   = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
+private _battBusOn = _heli getVariable "bmkhs_battBusOn";
+private _acBusOn   = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
 private _powerOnState = (_acBusOn && _dcBusOn);
 
 switch (_control) do {

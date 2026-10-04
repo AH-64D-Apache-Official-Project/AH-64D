@@ -21,7 +21,7 @@ Description:
       • Swashplate translation (trsw, model range -5…+5) ← effective pedal ×5
       • Blade pitch (tr_blade1-4_pitch)                  ← effective pedal
 
-    "Effective" cyclic/pedal replicates fza_sfmplus_fnc_getInterpInput so the
+    "Effective" cyclic/pedal replicates bmkhs_fnc_inputGetInterp so the
     model visuals match the flight model at all trim positions.
 
 Parameters:
@@ -39,14 +39,14 @@ if (player != currentPilot _heli) exitWith {};
 
 
 // ── Read inputs ──────────────────────────────────────────────────────────────
-private _cyclicFwd  = _heli getVariable ["fza_sfmplus_cyclicFwdAft",    0.0];
-private _cyclicBank = _heli getVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
-private _ftPitch    = _heli getVariable ["fza_ah64_forceTrimPosPitch",   0.0];
-private _ftRoll     = _heli getVariable ["fza_ah64_forceTrimPosRoll",    0.0];
-private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
-private _pedal      = _heli getVariable ["fza_sfmplus_pedalLeftRight",   0.0];
-private _ftPedal    = _heli getVariable ["fza_ah64_forceTrimPosPedal",   0.0];
-private _rtrRPM     = _heli getVariable ["fza_sfmplus_rtrRPM",          0.0];
+private _cyclicFwd  = _heli getVariable ["bmkhs_cyclicFwdAft",    0.0];
+private _cyclicBank = _heli getVariable ["bmkhs_cyclicLeftRight",  0.0];
+private _ftPitch    = _heli getVariable ["bmkhs_forceTrimPosPitch",   0.0];
+private _ftRoll     = _heli getVariable ["bmkhs_forceTrimPosRoll",    0.0];
+private _collective = _heli getVariable ["bmkhs_collectiveOutput", 0.0];
+private _pedal      = _heli getVariable ["bmkhs_pedalLeftRight",   0.0];
+private _ftPedal    = _heli getVariable ["bmkhs_forceTrimPosYaw",        0.0];
+private _rtrRPM     = _heli getVariable ["bmkhs_rtrRpm",          0.0];
 
 #define MR_REVS_PER_SEC 4.817
 #define TR_REVS_PER_SEC 21.5
@@ -126,4 +126,3 @@ if (_rtrRPM < MR_BLUR_THRESHOLD) then {
 [_heli, "tr_blade2_pitch",  _effPedal,   true] call fza_anim_fnc_updateAnimations;
 [_heli, "tr_blade3_pitch",  _effPedal,   true] call fza_anim_fnc_updateAnimations;
 [_heli, "tr_blade4_pitch", -_effPedal,   true] call fza_anim_fnc_updateAnimations;
-

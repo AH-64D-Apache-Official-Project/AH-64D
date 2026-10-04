@@ -16,23 +16,23 @@ switch(_control) do {
 
     //Pitch
     case "l1": {
-        _heli setVariable ["fza_ah64_fmcPitchOn", !(_heli getVariable "fza_ah64_fmcPitchOn"), true];
+        [_heli, "pitch", !(_heli getVariable "bmkhs_fmcPitchOn")] call bmkhs_fnc_fmcSetChannel;
     };
     //Roll
     case "l2": {
-        _heli setVariable ["fza_ah64_fmcRollOn", !(_heli getVariable "fza_ah64_fmcRollOn"), true];
+        [_heli, "roll", !(_heli getVariable "bmkhs_fmcRollOn")] call bmkhs_fnc_fmcSetChannel;
     };
     //Yaw
     case "l3": {
-        _heli setVariable ["fza_ah64_fmcYawOn", !(_heli getVariable "fza_ah64_fmcYawOn"), true];
+        [_heli, "yaw", !(_heli getVariable "bmkhs_fmcYawOn")] call bmkhs_fnc_fmcSetChannel;
     };
     //Coll
     case "l4": {
-        _heli setVariable ["fza_ah64_fmcCollOn", !(_heli getVariable "fza_ah64_fmcCollOn"), true];
+        [_heli, "coll", !(_heli getVariable "bmkhs_fmcCollOn")] call bmkhs_fnc_fmcSetChannel;
     };
     //Trim
     case "l5": {
-        _heli setVariable ["fza_ah64_fmcTrimOn", !(_heli getVariable "fza_ah64_fmcTrimOn"), true];
+        [_heli, "trim", !(_heli getVariable "bmkhs_fmcTrimOn")] call bmkhs_fnc_fmcSetChannel;
     };
 
     case "b1": {

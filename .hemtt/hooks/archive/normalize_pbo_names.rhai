@@ -52,6 +52,10 @@ for dir in candidates {
         if new_name == name {
             new_name.replace(prefix_underscore + "fza_", "fza_");
         }
+        // HeliSim Core ships standalone: fza_ah64_bmkhs_X -> bmkhs_X
+        if new_name == name {
+            new_name.replace(prefix_underscore + "bmkhs_", "bmkhs_");
+        }
         if new_name == name {
             continue;
         }

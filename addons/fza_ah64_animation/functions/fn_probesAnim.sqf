@@ -7,7 +7,7 @@ Description:
 
     The probes measure the local angle of the combined airflow vector, which
     is the sum of:
-      • Aircraft velocity relative to airmass (fza_sfmplus_velModelSpace)
+      • Aircraft velocity relative to airmass (bmkhs_velModelSpace)
       • Rotor-induced downwash (proportional to RPM and collective)
       • Gravity-induced apparent flow (worldToModelVisual gravity vector)
 
@@ -27,8 +27,8 @@ params ["_heli"];
 // Only the pilot drives the probes (avoids duplicate network traffic)
 if (player != currentPilot _heli) exitWith {};
 
-private _realRPM    = [_heli] call fza_sfmplus_fnc_getRtrRPM;
-private _collective = _heli getVariable ["fza_sfmplus_collectiveOutput", 0.0];
+private _realRPM    = [_heli] call bmkhs_fnc_stateRtrRpm;
+private _collective = _heli getVariable ["bmkhs_collectiveOutput", 0.0];
 
 // Rotor induced downwash in model space (positive Z = down in Arma model coords)
 // Scale: 8 m/s baseline at 100% RPM, up to 13 m/s at full collective
@@ -38,7 +38,7 @@ private _inducedFlow = [0.0, 0.0, _realRPM * (8.0 + (_collective * 5.0))];
 private _gravity = _heli worldToModelVisual (getPosVisual _heli vectorAdd [0, 0, 9.806]);
 
 // Total local airflow vector
-private _velAirmass  = _heli getVariable ["fza_sfmplus_velModelSpace", [0.0, 0.0, 0.0]];
+private _velAirmass  = _heli getVariable ["bmkhs_velModelSpace", [0.0, 0.0, 0.0]];
 private _totalFlow   = _velAirmass vectorAdd _inducedFlow vectorAdd _gravity;
 private _normalized  = vectorNormalized _totalFlow;
 

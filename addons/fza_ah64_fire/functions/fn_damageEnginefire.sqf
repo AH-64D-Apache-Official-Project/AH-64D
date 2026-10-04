@@ -19,10 +19,10 @@ Examples:
 Author:
     Snow(dryden), Mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli","_eng"];
+params ["_heli","_eng", ["_rolled", false]];
 
 _rand = floor random 100;
-if (_rand > 1) exitWith {};
+if (!_rolled && {_rand > 1}) exitWith {};
 
 private _componentId = "";
 switch _eng do {
@@ -50,12 +50,12 @@ private _reserveFBActioned  = false;
 while {
     (alive _heli)
 }
-do { 
+do {
 	scopeName "fza_fireHandleScope";
     private _rand = random 10;
     private _primaryFBState = _heli getVariable "fza_ah64_firepdisch";
     private _reserveFBState = _heli getVariable "fza_ah64_firerdisch";
-    private _engState  = _heli getVariable "fza_sfmplus_engState";
+    private _engState  = _heli getVariable "bmkhs_engState";
     private _heliDamage = damage _heli;
     if (_primaryFBAvailable == _primaryFBState) then {
         if (floor random 11 > 7) exitWith {
@@ -67,7 +67,7 @@ do {
         if (floor random 11 > 7) exitWith {
             _reserveFBAvailable = false; //extinguisher Fail
         };
-        _reserveFBActioned = true;  
+        _reserveFBActioned = true;
     };
     switch (_eng) do {
         case "left": {
@@ -88,7 +88,7 @@ do {
         };
         case "apu": {
             private _apuArm = (_heli getVariable "fza_ah64_fireArmedApu") #0;
-            private _apuOn        = _heli getVariable "fza_systems_apuOn";
+            private _apuOn        = _heli getVariable "bmkhs_apuOn";
             private _apuDamage    = _heli getHitPointDamage "hit_apu";
             if (_apuArm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if (!_apuOn && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};

@@ -188,6 +188,10 @@
             <Turkish>KAPAL</Turkish>
             <Dutch>UIT</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_ROTOR_BRAKE_BRAKE">
+            <Original>ROTOR BRAKE BRAKE</Original>
+            <English>ROTOR BRAKE BRAKE</English>
+        </Key>
         <Key ID="STR_FZA_AH64_ROTOR_BRAKE_LOCK">
             <Original>ROTOR BRAKE LOCK</Original>
             <English>ROTOR BRAKE LOCK</English>

@@ -8,7 +8,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 private _phase        = BOOLTONUM(_persistState get "mode" == "atk");
 private _rangesetting = _persistState get "tsdScale";
 private _tsdScale     = 0.125 * 5 / (_persistState get "tsdScale");
-private _ctrX         = 0.5;  
+private _ctrX         = 0.5;
 private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
@@ -21,8 +21,8 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)];
 
 // Wind Data
-private _windDir = _heli getVariable "fza_sfmplus_windDirFrom";
-private _windVel = _heli getVariable "fza_sfmplus_windSpeedKts"; //067°/15
+private _windDir = _heli getVariable "bmkhs_windDirFrom";
+private _windVel = _heli getVariable "bmkhs_windSpeedKts"; //067°/15
 private _wind_text = format["%1° /%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "  CALM  ";};
 
@@ -42,8 +42,8 @@ if (_persistState get "mode" == "atk") then {
 switch (_state get "subPageVarPage" select 0) do {
     case 0: { //Root
         [_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
-        
-        [_heli] call fza_mpd_fnc_fuelGetData params [ "" 
+
+        [_heli] call fza_mpd_fnc_fuelGetData params [ ""
                                                     , ""
                                                     , ""
                                                     , ""
@@ -103,7 +103,7 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
         if (_type == POINT_TYPE_HZ && !_showAtkHazzard && _phase == 1) then {continue;};
         //PLANNED TGT/THRT
         if (_type == POINT_TYPE_TG && !_showPlanTgts) then {continue;};
-        
+
         _pointsArray pushBack (_x select [0,7]);
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
@@ -191,7 +191,7 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
 } forEach _shotATList;
 
 //ASE Points
-private _ctrX       = 0.5;  
+private _ctrX       = 0.5;
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_objects";
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
