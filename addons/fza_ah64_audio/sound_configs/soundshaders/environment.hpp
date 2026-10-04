@@ -21,39 +21,8 @@ class fza_Empty_SoundShader
 	};
 };
 
-// -Alarm
-class fza_Alarm_Damage_Ext_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out.wss",
-			1
-		}
-	};
-	frequency=1;
-	volume="CustomSoundController7*(CustomSoundController14+1)";
-	//volume="engineOn*(1 - ((transmissionDamage factor [0.61, 0.60])*(motorDamage factor [0.61, 0.60])*(rotorDamage factor [0.70, 0.50])))*(rotorSpeed factor [0, 0.001])";
-	range=20;
-};
-/* class fza_Alarm_RotorLow_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Low_Rotor",
-			1
-		}
-	};
-	frequency=1;
-	volume="CustomSoundController6";
-	range=20;
-}; */
-
 // -Scrub Sound
-class fza_ScrubTree_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
+class fza_ScrubTree_Ext_SoundShader_Base
 {
 	samples[]=
 	{
@@ -65,6 +34,7 @@ class fza_ScrubTree_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
 	};
 	frequency=1;
 	volume="camPos*((scrubTree) factor [0, 0.01])*(CustomSoundController14+1)";
+	range=20;
 };
 
 // -Damage
@@ -95,34 +65,6 @@ class fza_TransmissionDamage_Ext_phase2_SoundShader_Base: fza_TransmissionDamage
 	volume="(transmissiondamage factor [0.45, 0.5])*(rotorspeed factor [0.2, 0.5])*(CustomSoundController14+1)";
 };
 
-//-SlingLoad
-class fza_SlingLoadDown_Ext_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineDownEXT.wss",
-			1
-		}
-	};
-	frequency=1;
-	volume="camPos*(slingLoadActive factor [0,-1])*(CustomSoundController14+1)";
-	range=500;
-};
-class fza_SlingLoadUp_Ext_SoundShader_Base: fza_SlingLoadDown_Ext_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineUpEXT.wss",
-			1
-		}
-	};
-	frequency=1;
-	volume="camPos*(slingLoadActive factor [0,1])*(CustomSoundController14+1)";
-};
 //-Noise
 class fza_Rain_Ext_SoundShader_Base
 {
@@ -186,39 +128,9 @@ class fza_Rotor_Stress_Ext_SoundShader_Base
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Internal
-// -Alarm
-class fza_Alarm_Damage_Int_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			//"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor",
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Engine_Out.wss",
-			1
-		}
-	};
-	frequency=1;
-	//volume="CustomSoundController7*engineOn*camInt*( 1 - ((motorDamage factor [0.61, 0.60])*(rotorDamage factor [0.51, 0.50])))*(rotorSpeed factor [0.0, 0.001])";
-	volume="CustomSoundController7*camInt*(CustomSoundController16+1)";
-};
-/* class fza_Alarm_RotorLow_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			//"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low",
-			"\fza_ah64_audio\audio\Engine\Env\Alarm\Low_Rotor",
-			1
-		}
-	};
-	//volume="CustomSoundController6*engineOn*camInt*(rotorSpeed factor [0.9, 0.8999])*(rotorSpeed factor [-0.5, 1])*(speed factor [3, 3.01])";
-	volume="CustomSoundController6*camInt*(CustomSoundController16+1)";
-}; */
 
 // -Scrub Sound
-class fza_ScrubLand_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
+class fza_ScrubLand_Int_SoundShader_Base
 {
 	samples[]=
 	{
@@ -228,6 +140,7 @@ class fza_ScrubLand_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
 			1
 		}
 	};
+	frequency=1;
 	volume="2*camInt*(scrubLand factor[0.02, 0.05])*(1 - (lateralMovement factor [0.7,1]))*(CustomSoundController16+1)";
 };
 class fza_ScrubBuilding_Int_SoundShader_Base: fza_ScrubLand_Int_SoundShader_Base
@@ -240,7 +153,7 @@ class fza_ScrubTree_Int_SoundShader_Base: fza_ScrubLand_Int_SoundShader_Base
 	{
 
 		{
-			"A3\Sounds_F\vehicles\air\noises\wheelsInt.wss",
+			"A3\Sounds_F\vehicles\air\noises\scrubTreeInt.wss",
 			1
 		}
 	};
@@ -293,35 +206,6 @@ class fza_TransmissionDamage_Int_phase3_SoundShader_Base
 	frequency="CustomSoundController3";
 	volume="camInt*rotorSpeed*CustomSoundController4*(CustomSoundController16+1)";
 	range=50;
-};
-
-//-SlingLoad
-class fza_SlingLoadDown_Int_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineDownINT.wss",
-			1
-		}
-	};
-	frequency=1;
-	volume="camInt*(slingLoadActive factor [0,-1])*(CustomSoundController16+1)";
-	range=500;
-};
-class fza_SlingLoadUp_Int_SoundShader_Base: fza_SlingLoadDown_Int_SoundShader_Base
-{
-	samples[]=
-	{
-
-		{
-			"A3\Sounds_F\vehicles\air\noises\SL_engineUpINT.wss",
-			1
-		}
-	};
-	frequency=1;
-	volume="camInt*(slingLoadActive factor [0,1])*(CustomSoundController16+1)";
 };
 
 //-Noise

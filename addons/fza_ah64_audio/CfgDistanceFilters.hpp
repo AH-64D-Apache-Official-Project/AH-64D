@@ -1,4 +1,4 @@
-class cfgDistanceFilters
+class CfgDistanceFilters
 {
 	class fza_Close_Engine_Filter
 	{

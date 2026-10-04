@@ -25,7 +25,7 @@ class CfgFunctions
             class init {R;};
             class playaudio {R;};
             class playAdvisory {R;};
-            class updateEngineSoundController {R;};
+            class soundControllerUpdate {R;};
         };
     };
 };

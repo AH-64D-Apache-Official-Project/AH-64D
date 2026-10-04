@@ -2,36 +2,6 @@ class CfgSounds
 {
     ///STARTING CLICKABLE SEQUENCE SOUNDS////
     
-   /* class fza_ah64_apustart_3D
-    {
-        name = "fza_ah64_apustart_3D";
-        sound[] = {"fza_ah64_controls\data\audio\APU_Start.ogg",1,1,300};
-        titles[]={};
-    };
-    class fza_ah64_apu_loop_3D
-    {
-        name = "fza_ah64_apu_loop_3D";
-        sound[] = {"fza_ah64_controls\data\audio\APU_Loop.ogg",1,1,300};
-        titles[]={};
-    };
-    class fza_ah64_apustop_3D
-    {
-        name = "fza_ah64_apustop_3D";
-        sound[] = {"fza_ah64_controls\data\audio\APU_End.ogg",1,1,300};
-        titles[]={};
-    };
-    class fza_ah64_bat_loop_3D
-    {
-        name = "fza_ah64_bat_loop_3D";
-        sound[] = {"fza_ah64_controls\data\audio\Avionics.ogg",10,1,10};
-        titles[]={};
-    };
-    class fza_ah64_estart_3D
-    {
-        name = "fza_ah64_estart_3D";
-        sound[] = {"fza_ah64_controls\data\audio\Start_Ext.ogg",1,1,300};
-        titles[]={};
-    };*/
     class fza_ah64_fake_3D
     {
         name = "fza_ah64_fake_3D";

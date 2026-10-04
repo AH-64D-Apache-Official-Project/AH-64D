@@ -1,16 +1,28 @@
-//- Sound Controller Handlers
-["fza_audio_updateArrayVariable", fza_audio_fnc_updateEngineSoundController] call CBA_fnc_addEventHandler;
+//Sound controllers are local to each machine, so every client drives its own
+if (!hasInterface) exitWith {};
 
-//- Play APU Sound
-// #LINK - fn_interactAPUButton.sqf
-["fza_audio_updateAPU_State", {
-    params ["_heli", "_state"];
-    [_heli,"apu",_state] spawn fza_fnc_fxLoops;
-}] call CBA_fnc_addEventHandler;
+fza_audio_soundHelis = [];
 
-//- Play Battery Sound
-// #LINK - fn_interactBattSwitch.sqf
-["fza_audio_updateBatt_State", {
-    params ["_heli", "_state"];
-    [_heli,"batt",_state] spawn fza_fnc_fxLoops;
-}] call CBA_fnc_addEventHandler;
+fza_audio_ngRef = getNumber (configFile >> "CfgVehicles" >> "fza_ah64base" >> "BMKHS_HeliSim" >> "Engines" >> "Engine01" >> "Compressor" >> "ngLimitMax");
+if (fza_audio_ngRef <= 0) then {fza_audio_ngRef = 1};
+
+fza_audio_soundFrameHandler = addMissionEventHandler ["EachFrame", {
+    if (isGamePaused) exitWith {};
+
+    private _lost = false;
+    {
+        if (alive _x) then {
+            [_x, diag_deltaTime] call fza_audio_fnc_soundControllerUpdate;
+        } else {
+            _lost = true;
+            if (!isNull _x) then {
+                setCustomSoundController [_x, "CustomSoundController1", 0];
+                setCustomSoundController [_x, "CustomSoundController2", 0];
+            };
+        };
+    } forEach fza_audio_soundHelis;
+
+    if (_lost) then {
+        fza_audio_soundHelis = fza_audio_soundHelis select {alive _x};
+    };
+}];

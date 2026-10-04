@@ -1,5 +1,5 @@
 class CfgSoundShaders
 {
-	#include "sound_configs\SoundShaders\Environment.hpp"
-	#include "sound_configs\SoundShaders\Engine.hpp"
+	#include "sound_configs\soundshaders\environment.hpp"
+	#include "sound_configs\soundshaders\engine.hpp"
 };
