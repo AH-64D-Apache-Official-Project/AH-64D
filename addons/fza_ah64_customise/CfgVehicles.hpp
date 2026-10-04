@@ -1,4 +1,4 @@
-class cfgVehicles {
+class CfgVehicles {
 
     class Land_WoodenCrate_01_F;
     class fza_ah64_ObjectBase: Land_WoodenCrate_01_F {
