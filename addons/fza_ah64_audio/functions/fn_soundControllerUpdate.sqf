@@ -11,6 +11,7 @@ Description:
     CustomSoundController10/12 - engine 1/2 lit
     CustomSoundController11/13 - engine 1/2 flamed out
     CustomSoundController15    - mean Ng against the Ng limiter
+    CustomSoundController17    - rotor RPM, in place of the engine's rotorSpeed
 
 Parameters:
     _heli      - The helicopter [Object]
@@ -27,6 +28,7 @@ Author:
 ---------------------------------------------------------------------------- */
 #define ENG_SMOOTH_TIME 1.5
 #define APU_SMOOTH_TIME 0.2
+#define RTR_SMOOTH_TIME 0.2
 
 //A trigger left high replays its one-shot whenever the player gets in or out
 #define TRIGGER_HOLD 0.5
@@ -106,6 +108,10 @@ private _fnc_approach = {
 private _ng = _heli getVariable ["bmkhs_engPctNg", []];
 ["CustomSoundController15", (((_ng param [0, 0]) + (_ng param [1, 0])) / (2 * fza_audio_ngRef)) min 1 max 0, ENG_SMOOTH_TIME] call _fnc_approach;
 ["CustomSoundController1", _heli getVariable ["bmkhs_apuRpm_pct", 0], APU_SMOOTH_TIME] call _fnc_approach;
+
+private _designRpm = _heli getVariable ["bmkhs_engDesignRpm", 0];
+private _rtrRpm    = if (_designRpm > 0) then {(_heli getVariable ["bmkhs_xmsnOutputRpm", 0]) / _designRpm} else {0};
+["CustomSoundController17", _rtrRpm max 0, RTR_SMOOTH_TIME] call _fnc_approach;
 
 private _battBus = [0, 1] select (_heli getVariable ["bmkhs_battBusOn", false]);
 if (getCustomSoundController [_heli, "CustomSoundController2"] != _battBus) then {

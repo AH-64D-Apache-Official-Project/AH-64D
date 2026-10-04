@@ -13,3 +13,4 @@ Returns:
 params ["_heli"];
 
 [_heli] call bmkhs_fnc_coreUpdate;
+[_heli] call fza_anim_fnc_rotorSpin;

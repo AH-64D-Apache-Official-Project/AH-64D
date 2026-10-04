@@ -135,10 +135,10 @@ class CfgVehicles {
         rotorDamage[]            = {"rotorDamageInt", "rotorDamageOut"};
         rotorDamageInt[]         = {"\fza_ah64_controls\data\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
         rotorDamageOut[]         = {"\fza_ah64_controls\data\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
-        selectionHRotorMove      = "mr_blur";
-        selectionHRotorStill     = "mr_blades";
-        selectionVRotorMove      = "tr_blur";
-        selectionVRotorStill     = "tr_blades";
+        selectionHRotorMove      = "";
+        selectionHRotorStill     = "";
+        selectionVRotorMove      = "";
+        selectionVRotorStill     = "";
         sensorPosition           = "sensorPos";
         side                     = 1;
         simulation               = "helicopterRTD";

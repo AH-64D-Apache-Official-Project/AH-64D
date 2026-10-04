@@ -1,6 +1,8 @@
 hiddenselections[]={ 
     "skin",
     "skin_fcr",
+    "mr_blades",
+    "tr_blades",
     "ufd_back",
     "in_lt_apu",
     "mpd_brt",

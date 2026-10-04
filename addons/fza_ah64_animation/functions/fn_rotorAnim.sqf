@@ -33,6 +33,7 @@ Returns:
 Author:
     FZA AH-64D Project
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_animation\headers\rotor.hpp"
 params ["_heli"];
 
 if (player != currentPilot _heli) exitWith {};
@@ -48,57 +49,18 @@ private _pedal      = _heli getVariable ["bmkhs_pedalLeftRight",   0.0];
 private _ftPedal    = _heli getVariable ["bmkhs_forceTrimPosYaw",        0.0];
 private _rtrRPM     = _heli getVariable ["bmkhs_rtrRpm",          0.0];
 
-#define MR_REVS_PER_SEC 4.817
-#define TR_REVS_PER_SEC 21.5
-private _prevRotorPhase = _heli getVariable ["fza_anim_rotorPhase", 0];
-private _rotorPhase = (_prevRotorPhase + MR_REVS_PER_SEC * _rtrRPM * diag_deltaTime) mod 1;
-
-// ── HeliSim rotor spin ───────────────────────────────────────────────────────
-/*
-_heli setVariable ["fza_anim_rotorPhase", _rotorPhase];
-_heli animateSource ["rotorHUser", _rotorPhase, true];
-
-// Tail rotor spins at TR_REVS_PER_SEC (same transmission, 4.46× MR ratio)
-private _prevTailPhase = _heli getVariable ["fza_anim_tailRotorPhase", 0];
-private _tailPhase = (_prevTailPhase + TR_REVS_PER_SEC * _rtrRPM * diag_deltaTime) mod 1;
-_heli setVariable ["fza_anim_tailRotorPhase", _tailPhase];
-_heli animateSource ["rotorVUser", _tailPhase, true];
-
-// ── Model RPM animation sources ─────────────────────────────────────────────
-[_heli, "mainRotorRPMUser",    _rtrRPM,       true] call fza_anim_fnc_updateAnimations;
-[_heli, "mainRotorRPMUserInv", 1 - _rtrRPM,   true] call fza_anim_fnc_updateAnimations;
-*/
+//Spin itself is fza_anim_fnc_rotorSpin; this only reads where the rotor is
+private _rotorPhase = (_heli animationSourcePhase "rotorHUser") mod 1;
 
 // ── Effective values ──────────────────────────────────────────────────────────
 private _effPitch = [_cyclicFwd,  _ftPitch] call fza_anim_fnc_getEffInput;
 private _effRoll  = [_cyclicBank, _ftRoll]  call fza_anim_fnc_getEffInput;
 private _effPedal = [_pedal,      _ftPedal] call fza_anim_fnc_getEffInput;
 
-/* //To be looked at again after Public release and testing shows the rest is stable
-private _swashTns = (_collective * 2.0) - 1.0;
-[_heli, "swashplate_up_tns", _swashTns, true] call fza_anim_fnc_updateAnimations;
-[_heli, "swashplate_dn_tns", _swashTns, true] call fza_anim_fnc_updateAnimations;
-[_heli, "mr_act_tns",        _swashTns, true] call fza_anim_fnc_updateAnimations;
-
-// ── Main rotor swashplate – tilt ─────────────────────────────────────────────
-[_heli, "swashplate_up_pitch", _effPitch, true] call fza_anim_fnc_updateAnimations;
-[_heli, "swashplate_dn_pitch", _effPitch, true] call fza_anim_fnc_updateAnimations;
-[_heli, "swashplate_up_bank",  _effRoll,  true] call fza_anim_fnc_updateAnimations;
-[_heli, "swashplate_dn_bank",  _effRoll,  true] call fza_anim_fnc_updateAnimations;
-
-[_heli, "swup_arm1",    _effPitch,  true] call fza_anim_fnc_updateAnimations;
-[_heli, "swup_arm1_t",  _effPitch,  true] call fza_anim_fnc_updateAnimations;
-[_heli, "swup_arm2",   -_effRoll,   true] call fza_anim_fnc_updateAnimations;
-[_heli, "swup_arm3",   -_effPitch,  true] call fza_anim_fnc_updateAnimations;
-[_heli, "swup_arm3_t", -_effPitch,  true] call fza_anim_fnc_updateAnimations;
-[_heli, "swup_arm4",    _effRoll,   true] call fza_anim_fnc_updateAnimations;
-*/
-
-#define MR_BLUR_THRESHOLD 0.4
 #define CYCLIC_BLADE_PCT  0.5
 #define CYCLIC_PHASE_OFFSET 90
 
-if (_rtrRPM < MR_BLUR_THRESHOLD) then {
+if (_rtrRPM < ROTOR_BLUR_RPM) then {
     private _rotorAz   = _rotorPhase * 360;
     private _cyclicDir = ([0, 0] getDir [_effRoll, _effPitch]) + CYCLIC_PHASE_OFFSET;
     private _cyclicMag = [vectorMagnitude [_effPitch, _effRoll], 0, 1] call BIS_fnc_clamp;
@@ -120,7 +82,7 @@ if (_rtrRPM < MR_BLUR_THRESHOLD) then {
 
 // ── Tail rotor ───────────────────────────────────────────────────────────────
 // trsw: model minValue=-5, maxValue=5 → pedal -1…+1 maps to -5…+5
-[_heli, "trsw",            _effPedal * 5, true] call fza_anim_fnc_updateAnimations;
+[_heli, "trsw",            S * 5, true] call fza_anim_fnc_updateAnimations;
 // Blades 1 & 4 face opposite to 2 & 3 in the model, so their pitch sign is reversed
 [_heli, "tr_blade1_pitch", -_effPedal,   true] call fza_anim_fnc_updateAnimations;
 [_heli, "tr_blade2_pitch",  _effPedal,   true] call fza_anim_fnc_updateAnimations;
