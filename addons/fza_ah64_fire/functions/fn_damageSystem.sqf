@@ -20,11 +20,11 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_systems\headers\systems.hpp"
+#include "\bmkhs_helisim\functions\systems\systems.hpp"
 params["_heli", "_system", "_damage"];
 
-private _apuOn     = _heli getVariable "fza_systems_apuOn";
-private _engState  = _heli getVariable "fza_sfmplus_engState";
+private _apuOn     = _heli getVariable "bmkhs_apuOn";
+private _engState  = _heli getVariable "bmkhs_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 

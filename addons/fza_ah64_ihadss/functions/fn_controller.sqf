@@ -2,7 +2,7 @@
 Function: fza_ihadss_fnc_controller
 
 Description:
-    Controls the varius elements of the Ihadss 
+    Controls the varius elements of the Ihadss
 
 Parameters:
     _heli - The heli object to draw the IHADSS for
@@ -60,8 +60,8 @@ private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
 
 if !(objectParent player isNotEqualTo objNull || alive _heli || local _heli) exitWith {};
-private _acBusOn            = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
+private _acBusOn            = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn            = _heli getVariable "bmkhs_dcBusOn";
 private _tadsShouldBeStowed = true;
 
 if (_acBusOn && _dcBusOn) then {

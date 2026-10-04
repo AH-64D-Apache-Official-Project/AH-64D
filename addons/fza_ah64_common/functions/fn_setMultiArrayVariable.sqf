@@ -16,7 +16,7 @@ Returns:
   Nothing
 
 Examples:
-  [_heli, "fza_sfmplus_rotorBladeAzimuth", 0, 2, 45.0] call fza_fnc_setMultiArrayVariable;
+  [_heli, "bmkhs_rotorBladeAzimuth", 0, 2, 45.0] call fza_fnc_setMultiArrayVariable;
 
 Author:
   BradMick

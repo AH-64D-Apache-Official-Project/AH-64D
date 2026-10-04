@@ -24,7 +24,8 @@ Author:
 
 params["_heli", "_engNum", "_position"];
 
-if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
+//A locked-rotor start is a normal procedure, so the brake does not block the engines - only
+//the rotor. Reads the declared control; nothing writes fza_ah64_rtrbrake any more.
 
 [_heli, 0] call fza_fnc_engineUpdate;
 [_heli, 1] call fza_fnc_engineUpdate;
@@ -58,7 +59,7 @@ switch (_state) do {
 
             _heli animateSource[_engineSwitch, 0];
         };
-    }; 
+    };
     case "STARTED":{
         if (_position == ENGINE_CONTROL_STARTER) then {
             _state = "STARTEDOFF";
@@ -107,7 +108,7 @@ switch (_state) do {
             _stateParams = time;
             _otherStateParams = time;
             _changeMade = true;
-            
+
             //0.667 sets the power levers to idle in 1.5 seconds
             [_heli, "fza_ah64_powerLever1", 0.25, 0.667] call fza_fnc_animSetValue;
             [_heli, "fza_ah64_powerLever2", 0.25, 0.667] call fza_fnc_animSetValue;

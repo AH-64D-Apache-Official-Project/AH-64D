@@ -370,23 +370,6 @@
         </Key>
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->
-        <Key ID="STR_FZA_AH64_INPUT">
-            <Original>AH-64D Official Project: Input</Original>
-            <English>AH-64D Official Project: Input</English>
-            <Czech>Oficiální Projekt AH-64D: Vstup</Czech>
-            <French>Projet Officiel AH-64D : Entrée</French>
-            <Spanish>Proyecto Oficial AH-64D: Entrada</Spanish>
-            <Italian>Progetto Ufficiale AH-64D: Input</Italian>
-            <Polish>Oficjalny Projekt AH-64D: Wejście</Polish>
-            <Portuguese>Projeto Oficial AH-64D: Entrada</Portuguese>
-            <Russian>Официальный Проект AH-64D: Ввод</Russian>
-            <German>AH-64D Offizielles Projekt: Eingabe</German>
-            <Korean>AH-64D 공식 프로젝트: 입력</Korean>
-            <Japanese>AH-64D公式プロジェクト：入力</Japanese>
-            <Chinesesimp>AH-64D官方项目：输入</Chinesesimp>
-            <Turkish>AH-64D Resmi Projesi: Giriş</Turkish>
-            <Dutch>AH-64D Officieel Project: Invoer</Dutch>
-        </Key>
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_LOADOUT">

@@ -33,9 +33,21 @@ private _velocityVectorScale =
 
 if (_velocityVectorScale == -1) exitWith {};
 
-private _heliVelocity = [[velocity _heli, -getDir _heli, 2]
-    call BIS_fnc_rotateVector3D
-    vectorMultiply (SCALE_MPS_KNOTS/_velocityVectorScale), -1, 1] call BIS_fnc_clampVector
-    vectorMultiply 0.75;
+// Use MODEL-SPACE velocity directly (X = right, Y = forward, Z = up) so the
+// lateral sign matches the shared convention used by the MPD / sideslip calc
+// (+X = velocity to the RIGHT). Same source both displays now use; fixes the
+// vector being drawn on the mirrored side.
+//
+// The VV line is drawn from screen centre: its LATERAL extent = lateral velocity
+// (X, + = right) and its LENGTH along the screen = FORWARD velocity (Y). It
+// saturates (reaches the top) at _velocityVectorScale knots of FORWARD speed
+// (60 kt trans / 6 kt hover) - so the vertical screen component is forward vel,
+// NOT vertical/climb velocity.
+private _velMS = velocityModelSpace _heli;
+private _scale = SCALE_MPS_KNOTS / _velocityVectorScale;
+private _lat = (((_velMS # 0) * _scale) max -1 min 1) * 0.75;   // lateral, + = right
+private _fwd = (((_velMS # 1) * _scale) max -1 min 1) * 0.75;   // forward, drives length
 
-[_canvas, [0,0], [_heliVelocity#0, -(_heliVelocity#1)]] call fza_ihadss_fnc_canvasDrawLine
+// Canvas y is inverted vs screen (up = negative), so forward speed draws the line
+// UPWARD from centre.
+[_canvas, [0,0], [_lat, -_fwd]] call fza_ihadss_fnc_canvasDrawLine

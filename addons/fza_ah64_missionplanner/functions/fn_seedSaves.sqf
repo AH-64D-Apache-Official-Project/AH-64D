@@ -214,7 +214,7 @@ private _payload = format [
     '{"player":{"uid":"%1","name":"%2"},"environment":%3,"currentConfig":"%4","own":%5,"mission":%6,"farpFuel":%7,"farpRearm":%8,"ammoLimits":%9,"fuelRateLS":%10,"rearmMode":%11,"noAmmoSourceRequired":%12,"noFuelSourceRequired":%13}',
     (getPlayerUID player) call _jsonEscape,
     (name player) call _jsonEscape,
-    if (isNil "fza_ah64_sfmplusEnvironment" || {!(fza_ah64_sfmplusEnvironment isEqualType "")}) then { "null" } else { fza_ah64_sfmplusEnvironment },
+    if (isNil "bmkhs_helisimEnvironment" || {!(bmkhs_helisimEnvironment isEqualType "")}) then { "null" } else { bmkhs_helisimEnvironment },
     (missionNamespace getVariable ["fza_mplanner_last_loaded_config", ""]) call _jsonEscape,
     [profileNamespace getVariable ["fza_mplanner_saves_own", []]] call _serializeEntries,
     [missionNamespace getVariable ["fza_mplanner_saves_mission", []]] call _serializeEntries,

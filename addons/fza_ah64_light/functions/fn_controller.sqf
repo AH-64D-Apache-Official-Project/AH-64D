@@ -19,9 +19,9 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
-private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
-private _acBusOn      = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn      = _heli getVariable "fza_systems_dcBusOn";
+private _battBusOn    = _heli getVariable "bmkhs_battBusOn";
+private _acBusOn      = _heli getVariable "bmkhs_acBusOn";
+private _dcBusOn      = _heli getVariable "bmkhs_dcBusOn";
 private _landingLight = _heli getVariable "fza_ah64_lightSearchLight";
 private _anticollanim = _heli getVariable "fza_ah64_lightAntiColl";
 private _pltFloodVal  = _heli getVariable "fza_ah64_lightPltFlood";

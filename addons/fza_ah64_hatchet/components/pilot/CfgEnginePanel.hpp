@@ -1,6 +1,6 @@
 #pragma hemtt suppress pw3_padded_arg file
 
-CFG_SWITCH(rotorBrakeToggle, "ctrlref_p_rtrbrake", "$STR_FZA_AH64_TOGGLE_ROTOR_BRAKE", "plt_rtrbrake", 0.025, ARR_2(0, 1), ARR_2("$STR_FZA_AH64_ROTOR_BRAKE_OFF", "$STR_FZA_AH64_ROTOR_BRAKE_LOCK"), [ARR_3(_this#0, 'engine', _this#2)] call fza_fnc_coreCockpitInteract, [ARR_3(_this#0, 'engine', 'rtrbraketoggle')] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
+CFG_SWITCH(rotorBrakeToggle, "ctrlref_p_rtrbrake", "$STR_FZA_AH64_TOGGLE_ROTOR_BRAKE", "plt_rtrbrake", 0.025, ARR_3(0, 0.5, 1), ARR_3("$STR_FZA_AH64_ROTOR_BRAKE_OFF", "$STR_FZA_AH64_ROTOR_BRAKE_BRAKE", "$STR_FZA_AH64_ROTOR_BRAKE_LOCK"), [ARR_3(_this#0, 'engine', _this#2)] call fza_fnc_coreCockpitInteract, [ARR_3(_this#0, 'engine', 'rtrbraketoggle')] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
 
 CFG_BUTTON_DOWN(BatteryToggle, "ctrlref_p_mstrign", "$STR_FZA_AH64_TOGGLE_BATTERY_POWER", 0.025, [ARR_3(_this#0, 'engine', 'power')] call fza_fnc_coreCockpitInteract, "fza_ah64_battery");
 CFG_BUTTON_DOWN(ApuToggle, "ctrlref_p_apu", "$STR_FZA_AH64_TOGGLE_APU_POWER", 0.025, [ARR_3(_this#0, 'engine', 'apu')] call fza_fnc_coreCockpitInteract, "fza_ah64_apubutton");

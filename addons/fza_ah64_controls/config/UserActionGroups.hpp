@@ -24,10 +24,6 @@ class UserActionGroups {
             "fza_ah64_wasGun",
             "fza_ah64_wasRkt",
             "fza_ah64_wasMsl",
-            "fza_ah64_forceTrimHoldModeSwitch_up",
-            "fza_ah64_forceTrimHoldModeSwitch_right",
-            "fza_ah64_forceTrimHoldModeSwitch_down",
-            "fza_ah64_forceTrimHoldModeSwitch_left",
             "fza_ah64_fcrModeSwitch_up",
             "fza_ah64_fcrModeSwitch_down",
             "fza_ah64_flare",
@@ -39,8 +35,6 @@ class UserActionGroups {
             "fza_ah64_SensorSelect_DTV",
             "fza_ah64_SensorSelect_DVO",
             "fza_ah64_tadsLHGLmc",
-            "fza_ah64_stickyControlInterupt",
-            "fza_ah64_forceTrimPanicButton",
             "fza_ah64_collectiveEmergJett"
         };
     };
@@ -48,32 +42,6 @@ class UserActionGroups {
         name = "$STR_FZA_AH64_COCKPIT_CONTROLS";
         group[] = {
             #include "\fza_ah64_controls\headers\controls.hpp"
-        };
-    };
-
-    class fza_ah64_input
-    {
-        name = "$STR_FZA_AH64_INPUT";
-        group[] = {
-            //HOTAS & Keyboard Cylic
-            "fza_ah64_cyclicForward",
-            "fza_ah64_cyclicBackward",
-            "fza_ah64_cyclicLeft",
-            "fza_ah64_cyclicRight",
-            //Mouse Cyclic
-            //fza_ah64_mouseCyclicForward,
-            //fza_ah64_mouseCyclicBackward,
-            //fza_ah64_mouseCyclicLeft,
-            //fza_ah64_mouseCyclicRight,
-            //HOTAS & Keyboard Collective
-            "fza_ah64_pedalLeft",
-            "fza_ah64_pedalRight",
-            "fza_ah64_collectiveUp",
-            "fza_ah64_collectiveDn",
-            //Keyboard Collective
-            "fza_ah64_kbCollectiveUp",
-            "fza_ah64_kbCollectiveDn",
-            "fza_ah64_ctrlVisToggle"
         };
     };
 };

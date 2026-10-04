@@ -23,7 +23,7 @@ params ["_heli"];
 if (player != driver _heli && player != gunner _heli) exitWith {};
 
 private _deltaTime = ["ase_deltaTime"] call BIS_fnc_deltaTime;
-private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
+private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
 private _rlwrPwr   = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _aseUpdateTime = _heli getVariable "fza_ah64_ase_updateTimer";
 private _mwsPwr   = (_heli animationPhase "msn_equip_british" == 1 && _heli getVariable "fza_ah64_ase_msnEquipPwr" == 1);

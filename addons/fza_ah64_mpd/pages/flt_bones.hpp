@@ -73,6 +73,12 @@ class Flt_FlyToCueY : Flt_FlyToCueX {
 
 class Flt_FlightPathVectorX : Flt_FlyToCueX {
     MPD_NUM_USER(MFD_IND_FLT_FLIGHT_PATH_X)
+    // Source is sideslip beta (+ = velocity RIGHT of nose). Map + to screen-RIGHT
+    // (the base FlyToCue mapping puts + to the left, which mirrored the vector).
+    min = -20;
+    max = 20;
+    maxPos[] = {1.1, 0};    // +20 (right drift) -> screen right
+    minPos[] = {-0.1, 0};   // -20 (left drift)  -> screen left
 };
 
 class Flt_FlightPathVectorY : Flt_FlyToCueY {

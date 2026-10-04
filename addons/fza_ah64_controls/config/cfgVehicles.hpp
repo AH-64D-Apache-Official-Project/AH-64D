@@ -24,7 +24,6 @@ class CfgVehicles {
         #include "cfgVehicles\itcAir.hpp"
         #include "cfgVehicles\markerLights.hpp"
         #include "cfgVehicles\reflectors.hpp"
-        #include "cfgVehicles\sfmplus.hpp"
         #include "cfgVehicles\sounds.hpp"
         #include "cfgVehicles\soundsExt.hpp"
         #include "cfgVehicles\textureSources.hpp"
@@ -70,20 +69,6 @@ class CfgVehicles {
         LESH_AxisOffsetTarget[] = {0,-9.2,-2};
         LESH_WheelOffset[]      = {0,2.5};
 
-        //HeliSim Variables-------------/
-        startDuration          = 15;
-        fuelCapacity           = 1423;
-        fuelconsumptionrate    = 0.0;
-        maxSpeed               = 298;
-        altFullForce           = 1615;
-        altNoForce             = 9000;
-        liftForceCoef          = 0.00;
-        bodyFrictionCoef       = 0.00;
-        cyclicAsideForceCoef   = 0.00;
-        cyclicForwardForceCoef = 0.00;
-        backRotorForceCoef     = 0.00;
-        //HeliSim Variables-------------/
-
         accuracy                                    = 5;
         ace_cargo_hasCargo                          = 0;
         ace_cargo_space                             = 0;
@@ -95,7 +80,7 @@ class CfgVehicles {
         ace_vehicle_damage_hullFireProb             = 0;
         ace_vehicle_damage_turretDetonationProb     = 0.2;
         ace_vehicle_damage_turretFireProb           = 0;
-        
+
         allowTabLock             = 0;
         armor                    = 600;
         attenuationEffectType    = "HeliAttenuation";
@@ -267,7 +252,7 @@ class CfgVehicles {
         };
     };
 
-    
+
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;
         scope           = 2;

@@ -8,7 +8,7 @@ Parameters:
 
 Returns:
     Nothing
-    
+
 Examples:
     [_heli] spawn fza_fnc_fxLoops;
 
@@ -20,14 +20,14 @@ params["_heli"];
 private _timed_apu = cba_missiontime + 24;
 private _timed_bat = cba_missiontime;
 
-private _apuOn     = _heli getVariable "fza_systems_apuOn";
-private _battBusOn = _heli getVariable "fza_systems_battBusOn";
+private _apuOn     = _heli getVariable "bmkhs_apuOn";
+private _battBusOn = _heli getVariable "bmkhs_battBusOn";
 
 if (_apuOn) then {
     private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;
     _apu attachTo[_heli, [0, 0, 0]];
     hideObjectGlobal _apu;
-    
+
     while {
         _apuOn && alive _heli;
     }
