@@ -30,7 +30,7 @@ class fza_Rotor_Distance_SoundShader
 			1
 		}
 	};
-	frequency="CustomSoundController17 * (1-rotorthrust/15) * CustomSoundController15";
+	frequency="CustomSoundController17 * CustomSoundController15";
 	volume="(CustomSoundController14+1)*camext*(0 max (CustomSoundController17-0.1))*(1 + rotorthrust) * CustomSoundController15";
 	range=3000;
 	rangecurve[]=
@@ -52,7 +52,7 @@ class fza_Engine_Distance_SoundShader
 			1
 		}
 	};
-	frequency="CustomSoundController17*(1-rotorthrust/15) * CustomSoundController15";
+	frequency="CustomSoundController17 * CustomSoundController15";
 	volume="camext*((CustomSoundController17-0.72)*4)*(CustomSoundController14+1) * CustomSoundController15";
 	range=3000;
 	rangecurve[]=
@@ -73,7 +73,7 @@ class fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency="CustomSoundController17*(1+rotorThrust/15) * CustomSoundController15";
+	frequency="CustomSoundController17 * CustomSoundController15";
 	volume="camext*(CustomSoundController17 factor [0.3, 1])*(CustomSoundController14+1) * CustomSoundController15";
 	range=1000;
 	rangecurve[]=
@@ -262,7 +262,7 @@ class fza_EngineInt_SoundShader
 			1
 		}
 	};
-	frequency="CustomSoundController17*(1+rotorThrust/15) * CustomSoundController15";
+	frequency="CustomSoundController17 * CustomSoundController15";
 	volume="camInt*(CustomSoundController17 factor [0.3, 1])*(CustomSoundController16+1) * (0.7 max CustomSoundController15)";
 };
 class fza_RotorInt_SoundShader
