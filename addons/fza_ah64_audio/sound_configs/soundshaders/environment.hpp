@@ -97,7 +97,7 @@ class fza_Wind_Close_Ext_SoundShader_Base
 		}
 	};
 	frequency="CustomSoundController17";
-	volume="camPos*(0 max (CustomSoundController17-0.1)*6)*(CustomSoundController14+1) * (0.25 max CustomSoundController15)";
+	volume="camPos*rotorSpeed*(0 max (CustomSoundController17-0.1)*6)*(CustomSoundController14+1) * (0.25 max CustomSoundController15)";
 	range=20;
 	rangecurve[]=
 	{
