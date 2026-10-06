@@ -21,10 +21,8 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
+#include "\bmkhs_helisim\functions\core\core.hpp"
 params ["_heli"];
-
-#define SCALE_METERS_FEET 3.28084
-#define SCALE_MPS_KNOTS 1.94
 
 private _acBusOn        = _heli getVariable "bmkhs_acBusOn";
 private _dcBusOn        = _heli getVariable "bmkhs_dcBusOn";
@@ -320,7 +318,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round (_heli getVariable "bmkhs_gndSpeed")] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round ((_heli getVariable "bmkhs_gndSpeed") * MPS_TO_KNOTS)] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -390,12 +388,14 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", (_heli getVariable "bmkhs_vel2D")];
+_speedkts = format["%1", round ((_heli getVariable "bmkhs_vel2D") * MPS_TO_KNOTS)];
 
-//HeliSim publishes the radar altitude in METRES; the symbology is in feet. The
-//barometric one is already feet.
-private _barAlt = _heli getVariable ["bmkhs_barAlt", 0.0];
-private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0.0]) * SCALE_METERS_FEET;
+//HeliSim publishes exact altitudes - barometric in feet, radar in METRES. The altimeters'
+//steps and range are ours: baro in 10 ft, 0-20000; radar in 10 ft above 50 ft, to 1420.
+private _barAlt = ((round ((_heli getVariable ["bmkhs_barAlt", 0.0]) / 10) * 10) max 0) min 20000;
+private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0.0]) * METERS_TO_FEET;
+if (_radAlt > 50) then { _radAlt = round (_radAlt / 10) * 10 };
+_radAlt = (_radAlt max 0) min 1420;
 _baraltft = format["%1",  _barAlt toFixed 0];
 _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt >= 1419.5)];
 
@@ -420,7 +420,7 @@ if (_heli animationPhase "fcr_enable" != 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if ((_heli getVariable "bmkhs_vel3D") > 5) then {
+if (((_heli getVariable "bmkhs_vel3D") * MPS_TO_KNOTS) > 5) then {
     _fpv = worldToScreen ASLToAGL(AGLToASL positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "bmkhs_velWorldSpaceNoWind"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
@@ -497,7 +497,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
     private _thetabob = (_heli getDir (_heli getVariable "fza_ah64_bobpos")) - direction _heli;
-    private _heliBobDist = (_heli distance2D (_heli getVariable "fza_ah64_bobpos")) / BOBUP_EDGE_FEET * SCALE_METERS_FEET * BOBUP_EDGE_DISPLAY;
+    private _heliBobDist = (_heli distance2D (_heli getVariable "fza_ah64_bobpos")) / BOBUP_EDGE_FEET * METERS_TO_FEET * BOBUP_EDGE_DISPLAY;
     private _coordX = sin _thetabob;
     private _coordY = cos _thetabob;
     private _offsetX = 0.480;
@@ -594,7 +594,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
 
     private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-        if ((_heli getVariable "bmkhs_gndSpeed") <= 6) then {
+        if (((_heli getVariable "bmkhs_gndSpeed") * MPS_TO_KNOTS) <= 6) then {
             _accelCueX =  _velX + _accelX;
             _accelCueY = -_velY - _accelY;
         } else {

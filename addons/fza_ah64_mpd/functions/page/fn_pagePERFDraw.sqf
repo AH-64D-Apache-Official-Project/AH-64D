@@ -1,5 +1,5 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-#define KG_TO_LBS 2.20462
+#include "\bmkhs_helisim\functions\core\core.hpp"
 #define M_TO_INCHES 39.3701
 #define MAX_PA 8000
 
@@ -7,7 +7,7 @@ params ["_heli", "_mpdIndex"];
 
 private _config  = configOf _heli >> "BMKHS_HeliSim";
 
-private _pa      = _heli getVariable ["bmkhs_barAlt", 0.0];  //feet
+private _pa      = ((round ((_heli getVariable ["bmkhs_barAlt", 0.0]) / 10) * 10) max 0) min 20000;  //feet, the PA readout's 10 ft steps
 private _fat     = _heli getVariable "bmkhs_fat";
 private _gwt     = (_heli getVariable "bmkhs_gwt") * KG_TO_LBS;
 private _cg      = (_heli getVariable "bmkhs_cg") * M_TO_INCHES;
@@ -18,8 +18,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_CG), _cg toFixed 1];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Required torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _reqTQ_IGE     = round ((_heli getVariable "bmkhs_hvrTq_ige") * 100);
-private _reqTQ_OGE     = round ((_heli getVariable "bmkhs_hvrTq_oge") * 100);
+private _reqTQ_IGE     = round ((_heli getVariable "fza_ah64_hvrTq_ige") * 100);
+private _reqTQ_OGE     = round ((_heli getVariable "fza_ah64_hvrTq_oge") * 100);
 //Set required IGE/OGE torque
 private _reqTQ_text    = format["REQUIRED %1 %2", [str _reqTQ_IGE, 3] call fza_fnc_padString, [str _reqTQ_OGE, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _reqTQ_text = format["REQUIRED   ?   ?"]; };
@@ -35,8 +35,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Go/no-go torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _goNoGoTQ_IGE  = round ((_heli getVariable "bmkhs_goNoGoTq_ige") * 100);
-private _goNoGoTQ_OGE  = round ((_heli getVariable "bmkhs_goNoGoTq_oge") * 100);
+private _goNoGoTQ_IGE  = round ((_heli getVariable "fza_ah64_goNoGoTq_ige") * 100);
+private _goNoGoTQ_OGE  = round ((_heli getVariable "fza_ah64_goNoGoTq_oge") * 100);
 //Set go/no-go torque
 private _goNoGoTQ_text = format["GO-NO/GO %1 %2", [str _goNoGoTQ_IGE, 3] call fza_fnc_padString, [str _goNoGoTQ_OGE, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _goNoGoTQ_text = format["GO-NO/GO   ?   ?"]; };
@@ -45,16 +45,16 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _g
 // Max GWT          /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Dual engine
-private _maxGWT_DE_IGE    = round ((_heli getVariable "bmkhs_maxGwt_de_ige") / 10) * 10;
-private _maxGWT_DE_OGE    = round ((_heli getVariable "bmkhs_maxGwt_de_oge") / 10) * 10;
+private _maxGWT_DE_IGE    = round ((_heli getVariable "fza_ah64_maxGwt_de_ige") / 10) * 10;
+private _maxGWT_DE_OGE    = round ((_heli getVariable "fza_ah64_maxGwt_de_oge") / 10) * 10;
 //Set max GWT IGE/OGE
 private _maxGWT_DE_text   = format["   %1   %2", _maxGWT_DE_IGE, _maxGWT_DE_OGE];
 if (_pa > MAX_PA) then { _maxGWT_DE_text = format["     ?       ?  "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE), _maxGWT_DE_text];
 //Single engine
-private _maxGWT_SE_IGE    = round ((_heli getVariable "bmkhs_maxGwt_se_ige") / 10) * 10;
+private _maxGWT_SE_IGE    = round ((_heli getVariable "fza_ah64_maxGwt_se_ige") / 10) * 10;
 if (_maxGWT_SE_IGE < 11000) then { _maxGWT_SE_IGE = 11000; };
-private _maxGWT_SE_OGE    = round ((_heli getVariable "bmkhs_maxGwt_se_oge") / 10) * 10;
+private _maxGWT_SE_OGE    = round ((_heli getVariable "fza_ah64_maxGwt_se_oge") / 10) * 10;
 if (_maxGWT_SE_OGE < 11000) then { _maxGWT_SE_OGE = 11000; };
 //Set max GWT IGE/OGE
 private _maxGWT_SE_text   = format["   %1   %2", _maxGWT_SE_IGE, _maxGWT_SE_OGE];
@@ -63,8 +63,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _ma
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max torque DE/SE /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _maxTQ_DE      = round((_heli getVariable "bmkhs_maxTq_de") * 100);
-private _maxTQ_SE      = round((_heli getVariable "bmkhs_maxTq_se") * 100);
+private _maxTQ_DE      = round((_heli getVariable "fza_ah64_maxTq_de") * 100);
+private _maxTQ_SE      = round((_heli getVariable "fza_ah64_maxTq_se") * 100);
 //Set max torque DE
 private _maxTQ_DE_text = format["   %1", [str _maxTQ_DE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_DE), _maxTQ_DE_text];
@@ -74,15 +74,15 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_t
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cruise Data      /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _rngTQ = round((_heli getVariable "bmkhs_tas_rngTq") * 100);
-private _endTQ = round((_heli getVariable "bmkhs_tas_endTq") * 100);
+private _rngTQ = round((_heli getVariable "fza_ah64_tas_rngTq") * 100);
+private _endTQ = round((_heli getVariable "fza_ah64_tas_endTq") * 100);
 //Set max range and endurance torque
 private _maxRngEndTQ_text = format[" Q  %1  %2", [str _rngTQ, 3] call fza_fnc_padString, [str _endTQ, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _maxRngEndTQ_text = format[" Q   ?    ? "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_TQ), _maxRngEndTQ_text];
 
-private _rngFF = round((_heli getVariable "bmkhs_tas_rngFf") / 10) * 10;
-private _endFF = round((_heli getVariable "bmkhs_tas_endFf") / 10) * 10;
+private _rngFF = round((_heli getVariable "fza_ah64_tas_rngFf") / 10) * 10;
+private _endFF = round((_heli getVariable "fza_ah64_tas_endFf") / 10) * 10;
 //Set max range and endurance fuel flow
 private _maxRngEndFF_text = format["FF %1 %2", [str _rngFF, 4] call fza_fnc_padString, [str _endFF, 4] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _maxRngEndFF_text = format["FF   ?    ? "]; };
@@ -90,10 +90,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_FF), _maxRn
 /////////////////////////////////////////////////////////////////////////////////////////////
 // TAS Data         /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _vneTAS  = round(_heli getVariable "bmkhs_tas_vne");
-private _vsseTAS = round(_heli getVariable "bmkhs_tas_vsse");
-private _rngTAS  = round(_heli getVariable "bmkhs_tas_rngTas");
-private _endTAS  = round(_heli getVariable "bmkhs_tas_endTas");
+private _vneTAS  = round(_heli getVariable "fza_ah64_tas_vne");
+private _vsseTAS = round(_heli getVariable "fza_ah64_tas_vsse");
+private _rngTAS  = round(_heli getVariable "fza_ah64_tas_rngTas");
+private _endTAS  = round(_heli getVariable "fza_ah64_tas_endTas");
 //Set vne, vsse, range and end airspeeds
 private _vne_text    = format[" VNE %1", [str _vneTAS, 3] call fza_fnc_padString];
 private _vsse_text   = format["VSSE %1", [str _vsseTAS, 3] call fza_fnc_padString];
@@ -114,7 +114,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_END_SPD), _endTAS_text]
 // Wind Data        /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _windDir = _heli getVariable "bmkhs_windDirFrom";
-private _windVel = _heli getVariable "bmkhs_windSpeedKts"; //WIND 067/15
+private _windVel = round ((_heli getVariable "bmkhs_windSpeed") * MPS_TO_KNOTS); //WIND 067/15
 private _wind_text = format["WIND %1/%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "WIND  CALM ";};
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_WIND), _wind_text];
