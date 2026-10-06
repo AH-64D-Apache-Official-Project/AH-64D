@@ -9,6 +9,7 @@ class CfgFunctions
             file = "\fza_ah64_helisim\functions";
             class setup    {R;};
             class perFrame {R;};
+            class rotorMatch {R;};
         };
     };
 };

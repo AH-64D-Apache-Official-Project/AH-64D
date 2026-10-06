@@ -24,7 +24,6 @@ Author:
 params ["_heli", "_system", "_control"];
 
 private _apuBtnOn     = _heli getVariable "bmkhs_apuBtnOn";
-private _battSwitchOn = _heli getVariable "bmkhs_battSwitchOn";
 private _battBusOn    = _heli getVariable "bmkhs_battBusOn";
 
 if (player != driver _heli) exitWith {};
@@ -34,8 +33,6 @@ switch(_control) do {
         if (!_apuBtnOn && _battBusOn) then {
             ["apuBtn", "+1", _heli] call bmkhs_fnc_controlSet;
             playSound "fza_ah64_apubutton";
-            [_heli] spawn fza_fnc_fxLoops;
-            [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3D"];
         } else {
             if (_apuBtnOn) then {
                 ["apuBtn", "+1", _heli] call bmkhs_fnc_controlSet;
@@ -49,20 +46,12 @@ switch(_control) do {
                 if (_e2state in ENGINE_STATE_USING_STARTER) then {
                     [_heli, 1, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
                 };
-                [_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3D"];
             };
         };
     };
     case "power": {
-        if (_battSwitchOn) then {
-            ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
-            [_heli] spawn fza_fnc_fxLoops;
-            playSound "fza_ah64_battery";
-        } else {
-            ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
-            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3D"];
-            playSound "fza_ah64_battery";
-        };
+        ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
+        playSound "fza_ah64_battery";
     };
 
     //Through the control layer - the brake is a declared HeliSim control, and it drives its
