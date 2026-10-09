@@ -4,6 +4,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_ase\headers\ase.h"
+#include "\bmkhs_helisim\functions\core\core.hpp"
 
 private _phase        = BOOLTONUM(_persistState get "mode" == "atk");
 private _rangesetting = _persistState get "tsdScale";
@@ -22,7 +23,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli 
 
 // Wind Data
 private _windDir = _heli getVariable "bmkhs_windDirFrom";
-private _windVel = _heli getVariable "bmkhs_windSpeedKts"; //067°/15
+private _windVel = round ((_heli getVariable "bmkhs_windSpeed") * MPS_TO_KNOTS); //067°/15
 private _wind_text = format["%1° /%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "  CALM  ";};
 

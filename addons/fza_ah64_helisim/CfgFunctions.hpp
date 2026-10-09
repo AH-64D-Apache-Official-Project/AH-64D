@@ -10,5 +10,10 @@ class CfgFunctions
             class setup    {R;};
             class perFrame {R;};
         };
+        class custom {
+            file = "\fza_ah64_helisim\functions\custom";
+            class perfData      {R;};
+            class perfVariables {R;};
+        };
     };
 };

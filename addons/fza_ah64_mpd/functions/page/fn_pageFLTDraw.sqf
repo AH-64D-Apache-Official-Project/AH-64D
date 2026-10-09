@@ -1,8 +1,7 @@
 params ["_heli", "_mpdIndex"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
-#define SCALE_METERS_FEET 3.28084
-#define SCALE_MPS_KNOTS 1.94
+#include "\bmkhs_helisim\functions\core\core.hpp"
 private _2dvectTo3D = {[_this # 0, _this # 1, 0]};
 
 _padLeft = {
@@ -19,22 +18,25 @@ private _torque = (_heli getVariable "bmkhs_engPctTq" select 0) max (_heli getVa
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100) toFixed 0];
 
 //Altitude and speed
-private _groundSpeed = (_heli getVariable "bmkhs_gndSpeed");//vectorMagnitude (velocity _heli call _2dvectTo3D);
-private _airspeed    = (_heli getVariable "bmkhs_vel2D");//vectorMagnitude (velocity _heli vectorDiff wind);
-//HeliSim publishes the radar altitude in METRES; the MPD reads feet. The
-//barometric one is already feet.
-private _barAlt = _heli getVariable ["bmkhs_barAlt", 0.0];
-private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0.0]) * SCALE_METERS_FEET;
+//HeliSim publishes speeds in m/s
+private _groundSpeed = ((_heli getVariable "bmkhs_gndSpeed") * MPS_TO_KNOTS) toFixed 0;
+private _airspeed    = _heli getVariable "bmkhs_vel2D";
+//HeliSim publishes exact altitudes - barometric in feet, radar in METRES. The altimeters'
+//steps and range are ours: baro in 10 ft, 0-20000; radar in 10 ft above 50 ft, to 1420.
+private _barAlt = ((round ((_heli getVariable ["bmkhs_barAlt", 0.0]) / 10) * 10) max 0) min 20000;
+private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0.0]) * METERS_TO_FEET;
+if (_radAlt > 50) then { _radAlt = round (_radAlt / 10) * 10 };
+_radAlt = (_radAlt max 0) min 1420;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt >= 1419.5)];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), _airspeed toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * MPS_TO_KNOTS) toFixed 0];
 
 
 // Waypoint status window
 private _currentDir = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPoint = _currentDir;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
-private _nextPointMSL = ([_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue) * SCALE_METERS_FEET;
+private _nextPointMSL = ([_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue) * METERS_TO_FEET;
 [_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO), _waypointDist];
 
@@ -82,7 +84,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FLT_VERT_SPEED),    _velocity#2]
 
 // Turn and slip indicator
 private _bank = (_heli call BIS_fnc_getPitchBank) # 1;
-private _bankForStandardTurn = (_airspeed * 1.944) / 10 + 7;
+private _bankForStandardTurn = (_airspeed * MPS_TO_KNOTS) / 10 + 7;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStandardTurn];
 
 private _airspeedModelRelative = _heli vectorWorldToModel (_velocity);

@@ -50,13 +50,15 @@
         class FuselagePanel03 {
             name          = "fuselageFront";
             facing        = "forward";
+            //Solved with the main rotor tables for 10 deg nose low at 130 kt, sea level; flat
+            //across altitude until altitude is fitted.
             dragCoefTable[] =
             {
-             {   0, 0.800}
-            ,{2000, 1.080}
-            ,{4000, 1.200}
-            ,{6000, 2.080}
-            ,{8000, 3.000}
+             {   0, 1.046}
+            ,{2000, 1.046}
+            ,{4000, 1.046}
+            ,{6000, 1.046}
+            ,{8000, 1.046}
             };
             panels[] =
             {

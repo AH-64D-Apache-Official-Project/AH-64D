@@ -72,7 +72,7 @@ private _totalEnduranceNumber = if(_totalFuelConsumption > 0) then {
 // Specific Fuel Range (nm per lb): airspeed (kts) / fuel flow (lb/hr)
 // Shown blank when groundspeed < 10 kts or no fuel flow
 private _sfrText = "";
-private _groundspeedKts = _heli getVariable ["bmkhs_gndSpeed", 0];
+private _groundspeedKts = (_heli getVariable ["bmkhs_gndSpeed", 0]) * MPS_TO_KNOTS;
 if (_groundspeedKts >= 10 && _totalFuelConsumption > 0) then {
     private _sfr = (_groundspeedKts / _totalFuelConsumption) toFixed 2;
     _sfrText = if (_sfr select [0, 2] == "0.") then { _sfr select [1] } else { _sfr };
