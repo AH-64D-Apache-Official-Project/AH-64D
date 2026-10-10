@@ -18,6 +18,8 @@
 //  mastLength   - m along the disc's own up axis, from pivot to hub
 //  gearRatio    - rotor to engine shaft; shared with the transmission model
 //  torqueTau    - s, torque filter time constant
+//  damageRole   - the hitpoint role that destroys this rotor (helisim_hitpoints.hpp). A rotor
+//                 that declares none cannot be destroyed.
 //
 //  BLADE
 //  bladeRadius  - m
@@ -54,6 +56,7 @@
         class SimpleRotor01 {
             type             = "main";
             direction        = "ccw";
+            damageRole       = "mainRotor";
             numBlades        = 4;
             pivot[]          = {0.00, 2.06, 0.000};
             rotation[]       = {0.00, 0.00, 0.000};
@@ -111,6 +114,7 @@
         class SimpleRotor02 {
             type             = "tail";
             direction        = "ccw";
+            damageRole       = "tailRotor";
             numBlades        = 4;
             pivot[]          = {0.00, -6.98, -0.075};
             rotation[]       = {0.00, 90.00,  0.000};
