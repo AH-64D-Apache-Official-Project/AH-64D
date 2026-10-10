@@ -4,6 +4,18 @@
 //PERF page data. The MC TQ / MTA DE / MTA SE columns of perfTable#[] are
 //engine capability and are duplicated into helisim_engine.hpp when the
 //engine tables are externalised.
+
+    //What fn_perfData computes from these tables, on the machine that owns the aircraft. Core
+    //carries them in its packed running state, so the other crew station's PERF page reads them.
+    netStateVars[] = {
+        "fza_ah64_maxTq_cont", "fza_ah64_maxTq_de", "fza_ah64_maxTq_se",
+        "fza_ah64_maxGwt_de_ige", "fza_ah64_maxGwt_de_oge", "fza_ah64_maxGwt_se_ige", "fza_ah64_maxGwt_se_oge",
+        "fza_ah64_goNoGoTq_ige", "fza_ah64_goNoGoTq_oge",
+        "fza_ah64_hvrTq_ige", "fza_ah64_hvrTq_oge",
+        "fza_ah64_tas_vne", "fza_ah64_tas_vsse",
+        "fza_ah64_tas_rngTas", "fza_ah64_tas_rngTq", "fza_ah64_tas_rngFf",
+        "fza_ah64_tas_endTas", "fza_ah64_tas_endTq", "fza_ah64_tas_endFf"
+    };
     /////////////////////////////////////////////////////////////////////////////////////////////
     // -40 deg C Tables /////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
