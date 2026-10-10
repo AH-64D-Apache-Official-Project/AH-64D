@@ -358,7 +358,7 @@ function receiveSqfSaveSeed(payloadText) {
     saveLoadState.currentPlayerName = parsed.player && parsed.player.name ? String(parsed.player.name) : '';
 
     if (parsed.environment !== undefined && parsed.environment !== null) {
-      window.fza_ah64_sfmplusEnvironment = parsed.environment;
+      window.bmkhs_helisimEnvironment = parsed.environment;
     }
 
     if (typeof parsed.fuelRateLS === 'number' && parsed.fuelRateLS > 0) {

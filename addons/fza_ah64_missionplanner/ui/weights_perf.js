@@ -307,7 +307,7 @@ function updateWeightsAndPerformance() {
 
   document.getElementById('jettisonPct').textContent = '0 %';
 
-  if (!sfmPerfDataReady) {
+  if (!perfDataReady) {
     document.getElementById('maxEnd').textContent = '--';
     document.getElementById('maxEndPph').textContent = '--';
     document.getElementById('maxRange').textContent = '--';
@@ -347,7 +347,7 @@ function updateWeightsAndPerformance() {
   var planGWTVal = planGWTEl ? parseInt(String(planGWTEl.value || '').replace(/,/g, '').trim(), 10) : NaN;
   var perfGWT = (!isNaN(planGWTVal) && planGWTVal > 0) ? planGWTVal : currentDisplay;
 
-  var perf = computeSfmPerformance(perfGWT, atmosphere.pa, atmosphere.fat);
+  var perf = computePerformance(perfGWT, atmosphere.pa, atmosphere.fat);
   var jettisonStep = Math.round(jettDisplay / 200);
   var maxEnd = Math.round(perf.endTAS);
   var maxEndPph = Math.round(perf.endFF / 10) * 10;
