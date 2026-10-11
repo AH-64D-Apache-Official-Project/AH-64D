@@ -59,7 +59,7 @@
                 };
 
                 //Start thresholds - discrete events the model branches on.
-                lightOffNg = 0.15;       //fuel introduced
+                lightOffNg = 0.23;       //fuel introduced
                 selfSustNg = 0.52;       //starter cuts out
                 //Where the start fuel ramp reaches full and residual heat has faded. Raise it
                 //to hold fuel lean longer and peak cooler.
