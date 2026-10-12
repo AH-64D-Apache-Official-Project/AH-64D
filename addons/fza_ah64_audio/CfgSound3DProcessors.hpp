@@ -9,8 +9,9 @@ class CfgSound3DProcessors
 	};
   class fza_ENG_Trigger_3DProcessor: fza_Close_3DProcessor
 	{
-		innerRange=3;
-		range=20;
+		type="emitter";
+		innerRange=2;
+		range=3;
 	};
 	class fza_WindWash_3DProcessor: fza_Close_3DProcessor
 	{
@@ -24,13 +25,13 @@ class CfgSound3DProcessors
 	};
 	class fza_TailRotor_3DProcessor: fza_Close_3DProcessor
 	{
-		innerRange=30;
+		innerRange=10;
 		range=120;
 	};
 	class fza_Rotor_3DProcessor: fza_Close_3DProcessor
 	{
-		innerRange=0;
-		range=50;
+		innerRange=20;
+		range=300;
 	};
 	class fza_Turbine_3DProcessor: fza_TailRotor_3DProcessor
 	{

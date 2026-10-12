@@ -3,9 +3,9 @@ class CfgDistanceFilters
 	class fza_Close_Engine_Filter
 	{
 		type="lowpassfilter";
-		mincutofffrequency=100;
+		mincutofffrequency=1500;
 		qfactor=1.0;
-		innerrange=0;
+		innerrange=100;
 		range=1200;
 		powerfactor=10;
 	};
