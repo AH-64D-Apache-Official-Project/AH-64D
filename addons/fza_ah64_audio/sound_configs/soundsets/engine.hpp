@@ -60,9 +60,17 @@ class fza_Turbine_Ext_SoundSet: fza_External_Base
 	{
 		"fza_Turbine_Ext_SoundShader"
 	};
-	volumeFactor=0.5;
+	volumeFactor=0.2;
 	shape="fza_Turbine_Shape";
 	sound3dprocessingtype="fza_Turbine_3DProcessor";
+};
+class fza_TurbineInTake_Ext_SoundSet: fza_Turbine_Ext_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_TurbineInTake_Ext_SoundShader"
+	};
+	volumeFactor=0.2;
 };
 
 //- Startup + Shutdown

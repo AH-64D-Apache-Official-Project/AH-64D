@@ -6,7 +6,7 @@ class fza_APUSoundLoop_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\apu_ext_loop.ogg",
+			"\fza_ah64_audio\audio\Engine\Env\share\new_apu_ext_loop.ogg",
 			1
 		}
 	};
@@ -33,7 +33,7 @@ class fza_Rotor_Distance_SoundShader
 		}
 	};
 	frequency=QUOTE(NP_CONTROLLER);
-	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER*(0 max (NP_CONTROLLER-0.1)));
+	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (0 max NP_CONTROLLER));
 	range=3000;
 	rangecurve[]=
 	{
@@ -55,7 +55,7 @@ class fza_Engine_Distance_SoundShader
 		}
 	};
 	frequency=QUOTE(NP_CONTROLLER);
-	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER*((NP_CONTROLLER-0.72)*4));
+	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (0 max NP_CONTROLLER));
 	range=3000;
 	rangecurve[]=
 	{
@@ -114,12 +114,34 @@ class fza_Turbine_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Turbine_Ext.ogg",
+			"\fza_ah64_audio\audio\Engine\Ext\new_Turbine_ext.ogg",
 			1
 		}
 	};
 	frequency=QUOTE(NP_CONTROLLER);
-	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER*(0 max (NP_CONTROLLER-0.4)) * FACTOR(NP_CONTROLLER,0.75,1));
+	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (0 max NP_CONTROLLER) * FACTOR(NP_CONTROLLER,0.75,1));
+	range=200;
+	rangecurve[]=
+	{
+		{0,1},
+		{50,0.65},
+		{200,0}
+	};
+};
+class fza_TurbineInTake_Ext_SoundShader
+{
+	samples[]=
+	{
+		
+		{
+			"\fza_ah64_audio\audio\Engine\Ext\inTake_ext.ogg",
+			1
+		}
+	};
+	frequency=QUOTE(FACTOR(NG_CONTROLLER,0.2,0.5));
+	
+	//- Make sure volume reduced when Power is pushed to FLY
+	volume=QUOTE(camext*EXT_VOL_CONTROLLER * FACTOR(NG_CONTROLLER,0.2,0.5) * FACTOR(NP_CONTROLLER,1,0.75));
 	range=200;
 	rangecurve[]=
 	{
@@ -235,7 +257,7 @@ class fza_APUSoundLoop_Int_SoundShader: fza_APUSoundLoop_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\apu_int_loop.ogg",
+			"\fza_ah64_audio\audio\Engine\Env\share\new_apu_int_loop.ogg",
 			1
 		}
 	};
@@ -261,7 +283,7 @@ class fza_EngineInt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Int\Engine_Int.ogg",
+			"\fza_ah64_audio\audio\Engine\Int\new_Engine_Int.ogg",
 			1
 		}
 	};
@@ -274,7 +296,7 @@ class fza_RotorInt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Int\Rotor_Int.ogg",
+			"\fza_ah64_audio\audio\Engine\Int\new_Rotor_Int.ogg",
 			1
 		}
 	};
