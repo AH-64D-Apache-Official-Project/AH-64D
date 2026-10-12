@@ -96,12 +96,13 @@ class fza_RotorExt_SoundShader: fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency=QUOTE(FACTOR(NP_CONTROLLER,0.3,0.7));
-	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * FACTOR(NP_CONTROLLER,0.3,1));
+	frequency=QUOTE(FACTOR(NP_CONTROLLER,0.3,0.7) + (0.25 min (ABS(ROTOR_GSTRESS_CONTROLLER) - 1) / 4));
+	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (FACTOR(NP_CONTROLLER,0.3,1) + 2 * (ABS(ROTOR_GSTRESS_CONTROLLER) - 1)));
 	range=1200;
 	rangecurve[]=
 	{
 		{0,0.2},
+		{200,0.8},
 		{500,1},
 		{1000,0.4},
 		{1200,0}

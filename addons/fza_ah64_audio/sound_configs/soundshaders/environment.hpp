@@ -115,14 +115,16 @@ class fza_Rotor_Stress_Ext_SoundShader_Base
 			1
 		}
 	};
-	range=1200;
+	range=2500;
 	frequency=QUOTE(NP_CONTROLLER);
-	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (FACTOR(gmeterZ,1.5,2.5) + FACTOR(gmeterZ,0.5,-0.5)));
+	// volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * POW(SQR(ABS(ROTOR_GSTRESS_CONTROLLER) - 1),-1));
+	volume=QUOTE(camext*rotorSpeed*EXT_VOL_CONTROLLER * (ABS(ROTOR_GSTRESS_CONTROLLER) - 1));
 	rangecurve[]=
 	{
 		{0,1},
-		{300,0.8},
-		{1200,0}
+		{1000,0.8},
+		{2000,0.65},
+		{2500,0}
 	};
 };
 
@@ -253,7 +255,7 @@ class fza_FrameStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 			1
 		}
 	};
-	volume=QUOTE(camInt*engineOn*INT_VOL_CONTROLLER * FACTOR(gmeterZ,1.0,2.5));
+	volume=QUOTE(camInt*engineOn*INT_VOL_CONTROLLER * FACTOR(ROTOR_GSTRESS_CONTROLLER,1.0,2.5));
 };
 class fza_GStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {
@@ -266,7 +268,7 @@ class fza_GStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 		}
 	};
 	frequency=QUOTE(NP_CONTROLLER*2);
-	volume=QUOTE(camInt*engineOn*INT_VOL_CONTROLLER * FACTOR(gmeterZ,1.5,2.5) + FACTOR(gmeterZ,0.5,-0.5));
+	volume=QUOTE(camInt*engineOn*INT_VOL_CONTROLLER * FACTOR(ROTOR_GSTRESS_CONTROLLER,1.5,2.5) + FACTOR(ROTOR_GSTRESS_CONTROLLER,0.5,-0.5));
 };
 class fza_SpeedStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {

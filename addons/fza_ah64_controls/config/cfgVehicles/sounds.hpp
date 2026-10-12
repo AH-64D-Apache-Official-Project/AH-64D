@@ -47,7 +47,7 @@ class Sounds
         "fza_Rotor_Distance_SoundSet",
         "fza_Engine_Distance_SoundSet",
         "fza_Turbine_Ext_SoundSet",
-        "fza_Rotor_Stress_Ext_SoundSet_Base",
+        // "fza_Rotor_Stress_Ext_SoundSet_Base",
         "fza_TransmissionDamage_Ext_phase1_SoundSet_Base",
         "fza_TransmissionDamage_Ext_phase2_SoundSet_Base",
         "fza_Rain_Ext_SoundSet_Base",

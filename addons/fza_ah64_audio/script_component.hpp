@@ -12,8 +12,11 @@
 
 // #LINK - https://community.bistudio.com/wiki/Simple_Expression
 //- Custom MACRO
+#define ABS(A) (abs(A))
 #define FACTOR(A,X,Y) (A factor [X, Y])
 #define INTERPOLATE(A,xFrom,xTo,resFrom,resTo) (A interpolate [xFrom,xTo,resFrom,resTo])
+#define SQR(A) (sqr(A))
+#define POW(A,P) (pow(A, P))
 
 //- Volume Controller (Controller used for "Aaren's Volume Controller")
 #define EXT_VOL_CONTROLLER (CustomSoundController14+1)
@@ -23,3 +26,4 @@
 // #define NG_CONTROLLER (1 min FACTOR(CustomSoundController15,0.67,0.7))
 #define NG_CONTROLLER (CustomSoundController15)
 #define NP_CONTROLLER (CustomSoundController17)
+#define ROTOR_GSTRESS_CONTROLLER (CustomSoundController19)

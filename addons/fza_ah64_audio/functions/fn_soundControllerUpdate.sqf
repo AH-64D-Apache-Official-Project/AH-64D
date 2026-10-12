@@ -12,6 +12,7 @@ Description:
     CustomSoundController11/13 - engine 1/2 flamed out
     CustomSoundController15    - mean Ng against the Ng limiter
     CustomSoundController17    - rotor RPM, in place of the engine's rotorSpeed
+    CustomSoundController19    - rotor stress, base on "gmeterZ" in sound controller
 
 Parameters:
     _heli      - The helicopter [Object]
@@ -117,3 +118,16 @@ private _battBus = [0, 1] select (_heli getVariable ["bmkhs_battBusOn", false]);
 if (getCustomSoundController [_heli, "CustomSoundController2"] != _battBus) then {
     setCustomSoundController [_heli, "CustomSoundController2", _battBus];
 };
+
+//- Broadcast & Get rotor stress value
+private _gmeter = if (local _heli) then {
+    private _gmeter = round ((_heli getSoundController "gmeterZ") * 10) / 10;
+    [_heli, "fza_audio_rotor_GStress", _gmeter] call fza_fnc_updateNetworkGlobal;
+
+    _gmeter
+} else {
+    _heli getVariable ["fza_audio_rotor_GStress", 0];
+};
+
+//- Update sound Controller
+["CustomSoundController19", _gmeter max 0, 0.2] call _fnc_approach;

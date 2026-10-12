@@ -51,7 +51,7 @@ class fza_RotorExt_SoundSet: fza_External_Base
 		"fza_RotorExt_SoundShader"
 	};
 	volumeFactor=0.75;
-	shape="fza_BottomLess_Shape";
+	// shape="fza_BottomLess_Shape";
 	sound3dprocessingtype="fza_Rotor_3DProcessor";
 };
 class fza_Turbine_Ext_SoundSet: fza_External_Base
