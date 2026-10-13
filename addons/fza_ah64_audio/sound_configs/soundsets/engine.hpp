@@ -238,4 +238,5 @@ class fza_RotorInt_SoundSet: fza_EngineInt_SoundSet
 	{
 		"fza_RotorInt_SoundShader"
 	};
+	volumefactor=fza_Vol_Multi_Int(1.1);
 };

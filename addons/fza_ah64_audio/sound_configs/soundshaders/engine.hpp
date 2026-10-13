@@ -314,6 +314,6 @@ class fza_RotorInt_SoundShader
 		}
 	};
 	frequency=QUOTE(NP_CONTROLLER);
-	volume=QUOTE(camInt*rotorSpeed*INT_VOL_CONTROLLER * FACTOR(NP_CONTROLLER,0.3,1) * (0 max (NP_CONTROLLER-0.1)) * ((INTERPOLATE(playerPos,0,1,1,4)) max 1));
+	volume=QUOTE(camInt*rotorSpeed*INT_VOL_CONTROLLER * (FACTOR(NP_CONTROLLER,0.3,1) + 2 * (ABS(ROTOR_GSTRESS_CONTROLLER) - 1)) * ((INTERPOLATE(playerPos,0,1,1,4)) max 1));
 };
 
