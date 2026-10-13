@@ -204,7 +204,7 @@ class fza_ApuSoundLoop_Int_SoundSet: fza_Internal_Base
 	{
 		"fza_ApuSoundLoop_Int_SoundShader"
 	};
-	volumefactor=fza_Vol_Multi_Int(0.8);
+	volumefactor=fza_Vol_Multi_Int(0.64);
 };
 class fza_BattLoop_Int_SoundSet: fza_Internal_Base
 {
@@ -222,7 +222,7 @@ class fza_EngineInt_SoundSet: fza_Internal_Base
 	{
 		"fza_EngineInt_SoundShader"
 	};
-	volumefactor=fza_Vol_Multi_Int(1.2);
+	volumefactor=fza_Vol_Multi_Int(0.96);
 };
 class fza_RotorInt_SoundSet: fza_EngineInt_SoundSet
 {
