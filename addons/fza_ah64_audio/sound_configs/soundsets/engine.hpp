@@ -216,6 +216,14 @@ class fza_BattLoop_Int_SoundSet: fza_Internal_Base
 };
 
 //Internal
+class fza_TurbineInt_SoundSet: fza_Internal_Base
+{
+	soundshaders[]=
+	{
+		"fza_TurbineInt_SoundShader"
+	};
+	volumefactor=fza_Vol_Multi_Int(0.25);
+};
 class fza_EngineInt_SoundSet: fza_Internal_Base
 {
 	soundshaders[]=

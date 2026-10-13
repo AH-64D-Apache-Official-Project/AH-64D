@@ -277,6 +277,19 @@ class fza_BattLoop_Int_SoundShader: fza_APUSoundLoop_Int_SoundShader
 	volume=QUOTE(camInt*INT_VOL_CONTROLLER * CustomSoundController2);
 };
 
+class fza_TurbineInt_SoundShader
+{
+	samples[]=
+	{
+		
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\turbine_whine_int.ogg",
+			1
+		}
+	};
+	frequency=QUOTE(INTERPOLATE(NG_CONTROLLER,0,0.67,0.5,1));
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * (FACTOR(NG_CONTROLLER,0,0.2)));
+};
 class fza_EngineInt_SoundShader
 {
 	samples[]=

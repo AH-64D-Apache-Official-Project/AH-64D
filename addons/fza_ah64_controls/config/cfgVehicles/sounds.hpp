@@ -3,6 +3,7 @@ class Sounds
     soundsetsint[]={
         "fza_ApuSoundLoop_Int_SoundSet",
         "fza_BattLoop_Int_SoundSet",
+        "fza_TurbineInt_SoundSet",
         "fza_EngineInt_SoundSet",
         "fza_RotorInt_SoundSet",
         "fza_TransmissionDamage_Int_phase1_SoundSet_Base",
