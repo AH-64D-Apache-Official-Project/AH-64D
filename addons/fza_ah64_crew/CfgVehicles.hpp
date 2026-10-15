@@ -17,8 +17,8 @@ class CfgVehicles {
         RespawnItems[]          = {REPEAT_2(FirstAidKit)};
         magazines[]             = {REPEAT_6(30Rnd_556x45_Stanag), REPEAT_2(16Rnd_9x21_Mag), REPEAT_2(B_IR_Grenade), REPEAT_2(SmokeShell), REPEAT_2(SmokeShellBlue), REPEAT_2(SmokeShellPurple), REPEAT_2(Chemlight_green)};
         respawnMagazines[]      = {REPEAT_6(30Rnd_556x45_Stanag), REPEAT_2(16Rnd_9x21_Mag), REPEAT_2(B_IR_Grenade), REPEAT_2(SmokeShell), REPEAT_2(SmokeShellBlue), REPEAT_2(SmokeShellPurple), REPEAT_2(Chemlight_green)};
-        linkedItems[]           = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
-        respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
+        linkedItems[]           = {"V_PlateCarrier1_rgr", "fza_ah64_ihadss", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
+        respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "fza_ah64_ihadss", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
         faction                 = "fza_usaav";
         vehicleclass            = "fza_Men";
     };

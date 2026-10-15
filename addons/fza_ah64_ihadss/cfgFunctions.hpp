@@ -22,6 +22,9 @@ class CfgFunctions
             class controller {R;};
             class draw {R;};
             class handleControl {R;};
+            class hduCleanContainer {R;};
+            class hduInit {R;};
+            class hduUpdate {R;};
             class init {R;};
             class linearMotionCompensator {R;};
             class monocletoggle {R;};

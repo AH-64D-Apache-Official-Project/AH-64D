@@ -21,3 +21,4 @@ params["_heli","","_unit"];
 
 if (player != _unit) exitWith {};
 [_heli] call fza_ihadss_fnc_controller;
+[_unit] call fza_ihadss_fnc_hduUpdate;

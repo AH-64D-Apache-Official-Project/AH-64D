@@ -4,6 +4,12 @@ class Extended_PreInit_EventHandlers {
     };
 };
 
+class Extended_PostInit_EventHandlers {
+    class fza_ah64_PostInits {
+        init = "call fza_ihadss_fnc_hduInit;";
+    };
+};
+
 class Extended_FiredBIS_EventHandlers {
     class fza_ah64base {
         class fza_ah64base_fired_eh {
