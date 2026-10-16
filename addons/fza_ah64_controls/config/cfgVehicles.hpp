@@ -211,7 +211,17 @@ class CfgVehicles {
                     pointDirection   = "driverview_dir";
                     renderQuality    = 2;
                     renderVisionMode = 2; //TI HDU
-                    fov              = 0.7; //Unity magnification - matches ViewPilot initFov, the PNVS picture is shown full screen
+                    fov              = 0.6; //Just covers the HDU lens; fza_ihadss_fnc_draw sizes the picture from this and ViewPilot initFov
+                };
+            };
+            // TADS picture in the CPG's monocle; turret[] takes the TADS optics' current zoom and vision mode
+            class gunnertads {
+                renderTarget = "fza_ah64_tadscam";
+                class View01 {
+                    pointPosition  = "laserEnd";
+                    pointDirection = "laserBegin";
+                    renderQuality  = 2;
+                    turret[]       = {0};
                 };
             };
         };

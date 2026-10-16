@@ -19,7 +19,7 @@
     IH.HDU_FIELD = { left: -358, right: 358, top: -274, bottom: 324 };
 
     // Heads up, groups are spread out to fill the HDU lens (format units); heads down they keep the TADS layout
-    IH.SPREAD = { tape: -60, topLeft: [-44, -48], airspeed: -120, right: 66, waypoint: [-30, 20], bottom: 26, hadLeft: -22, hadRight: 14 };
+    IH.SPREAD = { tape: -60, topLeft: [-44, -48], airspeed: -44, right: 66, waypoint: [-30, 20], bottom: 26, hadLeft: -22, hadRight: 14 };
     IH.NO_SPREAD = { tape: 0, topLeft: [0, 0], airspeed: 0, right: 0, waypoint: [0, 0], bottom: 0, hadLeft: 0, hadRight: 0 };
     IH.layout = IH.NO_SPREAD;
 

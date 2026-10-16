@@ -80,9 +80,9 @@
     function drawAirspeed(ctx, m) {
         IH.font(ctx, 15);
         if (IH.isNum(m.tas)) {
-            IH.text(ctx, m.tas.toFixed(0), 154, 232, "right");
+            IH.text(ctx, m.tas.toFixed(0), 129, 232, "right");
             // Boxed with square corners at VNE
-            if (IH.isNum(m.vne) && m.vne > 0 && m.tas >= m.vne) { ctx.strokeRect(113, 211, 49, 28); }
+            if (IH.isNum(m.vne) && m.vne > 0 && m.tas >= m.vne) { ctx.strokeRect(88, 211, 49, 28); }
         }
 
         // Shown within 1/4 G of the limit or above 2 G, for at least 2 seconds
@@ -91,7 +91,7 @@
             if (gNear) { gShownUntil = performance.now() + G_MIN_SHOW_MS; }
             if (performance.now() < gShownUntil) {
                 IH.requestTick();
-                IH.text(ctx, m.g.toFixed(1) + "G", 160, 254, "right");
+                IH.text(ctx, m.g.toFixed(1) + "G", 135, 254, "right");
             }
         }
     }
@@ -197,9 +197,9 @@
 
     function drawAttHold(ctx) {
         ctx.beginPath();
-        ctx.moveTo(119, 214); ctx.lineTo(156, 214); ctx.lineTo(158, 216);
-        ctx.lineTo(158, 234); ctx.lineTo(156, 236); ctx.lineTo(119, 236);
-        ctx.lineTo(117, 234); ctx.lineTo(117, 216); ctx.closePath();
+        ctx.moveTo(94, 214); ctx.lineTo(131, 214); ctx.lineTo(133, 216);
+        ctx.lineTo(133, 234); ctx.lineTo(131, 236); ctx.lineTo(94, 236);
+        ctx.lineTo(92, 234); ctx.lineTo(92, 216); ctx.closePath();
         ctx.stroke();
     }
 

@@ -2,23 +2,24 @@
 Function: fza_ihadss_fnc_hduPnvsMask
 
 Description:
-    Shows the full screen PNVS picture only inside the HDU lens. A picture can
+    Shows the HDU picture only inside the HDU lens. A picture can
     only be clipped to rectangles, so the lens is built from thin horizontal
     controls groups, each clipping its own copy of the same render target;
     the monocle rim covers their stepped edge.
 
 Parameters:
-    _display - The fza_ah64_nvsoverlay display
-    _rect    - Screen rectangle [x, y, w, h] of the 640x480 format
-    _texture - The PNVS render target texture
-    _colour  - Picture colour
+    _display     - The fza_ah64_nvsoverlay display
+    _rect        - Screen rectangle [x, y, w, h] of the 640x480 format
+    _texture     - The render target texture
+    _colour      - Picture colour
+    _pictureRect - Screen rectangle [x, y, w, h] of the picture
 
 Returns:
     Nothing
 
 Examples:
     --- Code
-    [_display, _rect, _texture, [0.1, 1, 0, 0.7]] call fza_ihadss_fnc_hduPnvsMask
+    [_display, _rect, _texture, [0.1, 1, 0, 0.7], _pictureRect] call fza_ihadss_fnc_hduPnvsMask
     ---
 
 Author:
@@ -26,23 +27,13 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ihadss\headers\hdu.h"
 disableSerialization;
-params ["_display", "_rect", "_texture", "_colour"];
+params ["_display", "_rect", "_texture", "_colour", "_pictureRect"];
 _rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
-
-// Live tunes in the debug console: fza_ihadss_pnvsScale scales the picture about the LOS,
-// fza_ihadss_pnvsOffset = [right, up] moves it in degrees (16 format units each)
-private _scale = missionNamespace getVariable ["fza_ihadss_pnvsScale", 1];
-if !(_scale isEqualType 0 && {_scale > 0}) then {_scale = 1};
-private _offset = missionNamespace getVariable ["fza_ihadss_pnvsOffset", [0, 0]];
-if !(_offset isEqualTypeArray [0, 0]) then {_offset = [0, 0]};
-private _pictureW = safeZoneW * _scale;
-private _pictureH = safeZoneH * _scale;
-private _pictureX = safeZoneX + (safeZoneW - _pictureW) / 2 + (_offset # 0) * 16 * _rectW / 640;
-private _pictureY = safeZoneY + (safeZoneH - _pictureH) / 2 - (_offset # 1) * 16 * _rectH / 480;
+_pictureRect params ["_pictureX", "_pictureY", "_pictureW", "_pictureH"];
 
 // Whole-pixel strips so neighbours butt exactly; an overlap is drawn twice at the picture's alpha and shows as a line
-if ((_display getVariable ["fza_ihadss_stripRect", []]) isNotEqualTo [_rect, _scale, _offset]) then {
-    _display setVariable ["fza_ihadss_stripRect", [_rect, _scale, +_offset]];
+if ((_display getVariable ["fza_ihadss_stripRect", []]) isNotEqualTo [_rect, _pictureRect]) then {
+    _display setVariable ["fza_ihadss_stripRect", [_rect, +_pictureRect]];
     private _unitX   = _rectW / 640;
     private _unitY   = _rectH / 480;
     private _centreX = _rectX + 320 * _unitX;
@@ -53,7 +44,7 @@ if ((_display getVariable ["fza_ihadss_stripRect", []]) isNotEqualTo [_rect, _sc
     private _invA    = 1 / HDU_MASK_A ^ 2;
     private _invB    = 1 / HDU_MASK_B ^ 2;
     private _quadP   = _cos ^ 2 * _invA + _sin ^ 2 * _invB;
-    private _extent  = sqrt (HDU_MASK_A ^ 2 * _sin ^ 2 + HDU_MASK_B ^ 2 * _cos ^ 2);
+    private _extent  = HDU_MASK_EXTENT_Y;
     private _firstPx = round ((_centreY - safeZoneY) / pixelH - _extent * _unitY / pixelH);
     private _lastPx  = round ((_centreY - safeZoneY) / pixelH + _extent * _unitY / pixelH);
     private _stripPx = HDU_STRIP_PX max ceil ((_lastPx - _firstPx) / HDU_STRIPS_MAX);

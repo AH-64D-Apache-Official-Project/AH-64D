@@ -92,7 +92,10 @@ if _weaponFormat then {
 
 private _otherSeat = ["plt", "cpg"] select _isPilot;
 private _otherUnit = [driver _heli, gunner _heli] select _isPilot;
-private _altBrg    = [[_heli, "fza_ah64_sight", _otherSeat] call fza_fnc_getSeatVariable, _otherUnit] call _sightAz;
+private _altSight  = [_heli, "fza_ah64_sight", _otherSeat] call fza_fnc_getSeatVariable;
+// An AI CPG never selects a sight, the pilot's sight points its TADS
+if (_isPilot && {!isPlayer _otherUnit}) then {_altSight = SIGHT_TADS};
+private _altBrg    = [_altSight, _otherUnit] call _sightAz;
 if (!isNil "_altBrg" && !isNull _otherUnit) then {
     _m set ["altBrg", _altBrg];
 };

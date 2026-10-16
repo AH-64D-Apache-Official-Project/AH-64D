@@ -4,8 +4,8 @@ Function: fza_ihadss_fnc_cscopeProfileDraw
 Description:
     onDraw handler of the C-scope profile canvas. Draws the TPM terrain profile
     lines conformally on the HMD while TPM and
-    C-SCP are selected: line 1 solid white, lines 2-4 dashed in the IHADSS
-    colour, as many lines as the TPM page LINES setting. Lines are clipped to
+    C-SCP are selected in the IHADSS colour: line 1 solid, lines 2-4 dashed,
+    as many lines as the TPM page LINES setting. Lines are clipped to
     the HDU glass and display field like the other symbology, so nothing
     outside it is turned into draw calls.
 
@@ -55,8 +55,7 @@ private _unit = abs _kx * _unitX;
 // Line width and dash patterns [on, off], in format units
 private _halfWidth = 1 * _unit;
 private _patterns  = [[], [13, 9], [24, 4], [4, 6]] apply { _x apply { _x * _unit } };
-private _green     = [0.1, 1, 0, 1];
-private _colors    = [[1, 1, 1, 1], _green, _green, _green] apply { format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _x) };
+private _lineTex   = "#(rgb,8,8,3)color(0.1,1,0,1)";
 
 private _toMap = { [(_mc # 0) + _kx * ((_this # 0) - _cx), (_mc # 1) + _ky * ((_this # 1) - _cy)] };
 
@@ -124,7 +123,7 @@ _iFrom = _iFrom - (_iFrom % _stride);
 
 for "_li" from 0 to (_lineCount - 1) do {
     private _points = _lines # _li;
-    private _tex    = _colors # _li;
+    private _tex    = _lineTex;
 
     // Screen positions; a missing column or a point behind the eye breaks the line
     private _screen = [];

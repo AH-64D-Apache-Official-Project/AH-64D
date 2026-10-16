@@ -18,7 +18,9 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
+#include "\fza_ah64_ihadss\headers\hdu.h"
 params ["_heli"];
 
 private _acBusOn       = _heli getVariable "bmkhs_acBusOn";
@@ -30,20 +32,56 @@ private _dtvDamage     = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage    = _heli getHitPointDamage "hit_msnEquip_tads_flir";
 private _setDeadOptics = false;
 
-//PNVS HDU
-private _pnvsShown = (_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
+//HDU picture: the PNVS, or the TADS for the CPG with TADS selected
+private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
+private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0);
+private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+if (isNil "_sight") then {_sight = SIGHT_HMD};
+private _tadsShown = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS;
 private _pnvsDisplay = uiNamespace getVariable ["fza_ah64_nvsoverlay", displayNull];
-if (_pnvsShown) then {
+if (_pnvsShown || _tadsShown) then {
     if (isNull _pnvsDisplay) then {
         ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cutRsc ["fza_ah64_nvsoverlay", "PLAIN", 0, false];
         _pnvsDisplay = uiNamespace getVariable "fza_ah64_nvsoverlay";
     };
-    // The picture always covers the whole screen at the screen's aspect and is clipped down to the HDU
-    private _aspect      = (safeZoneW / pixelW) / (safeZoneH / pixelH);
-    private _pnvsTexture = format ["#(argb,1024,1024,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
-    private _pnvsColour  = [[0.1, 1, 0, 0.7], [0, 0, 0, 0]] select (_pnvsSensor >= SYS_SIGHT_DMG_THRESH);
+    // The picture keeps the screen's aspect, any other stretches it as the aircraft banks. The TADS field of view fills
+    // the lens height. The PNVS picture is conformal: its camera only covers the lens, so it is drawn at the view's scale.
+    private _rect   = [_heli, false] call fza_ihadss_fnc_formatRect;
+    private _aspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
+    private _offset = [0, 0];
+    private _h      = 2 * HDU_MASK_EXTENT_Y * (_rect # 3) / 480;
+    if !_tadsShown then {
+        // Live tunes in the debug console: fza_ihadss_pnvsScale scales the picture about the LOS,
+        // fza_ihadss_pnvsOffset = [right, up] moves it in degrees (16 format units each)
+        private _scale = missionNamespace getVariable ["fza_ihadss_pnvsScale", 1];
+        if !(_scale isEqualType 0 && {_scale > 0}) then {_scale = 1};
+        _offset = missionNamespace getVariable ["fza_ihadss_pnvsOffset", [0, 0]];
+        if !(_offset isEqualTypeArray [0, 0]) then {_offset = [0, 0]};
+        private _cfg = configOf _heli;
+        _h = _scale * safeZoneH * getNumber (_cfg >> "RenderTargets" >> "driverpnvs2" >> "View01" >> "fov") / getNumber (_cfg >> "ViewPilot" >> "initFov");
+    };
+    private _w = _h * safeZoneW / safeZoneH;
+    private _pictureRect = [
+        safeZoneX + (safeZoneW - _w) / 2 + (_offset # 0) * 16 * (_rect # 2) / 640,
+        safeZoneY + (safeZoneH - _h) / 2 - (_offset # 1) * 16 * (_rect # 3) / 480,
+        _w, _h
+    ];
+    // A render target ignores a non-square size, so the TADS texture is square and larger by the power of two nearest
+    // the screen's aspect, which shrinks its stretched texels; fza_ihadss_tadsSize overrides the size (a power of two)
+    private _size = 1024;
+    if _tadsShown then {
+        _size = missionNamespace getVariable ["fza_ihadss_tadsSize", 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)];
+        if !(_size isEqualType 0 && {_size >= 256}) then {_size = 1024};
+    };
+    private _texture = format ["#(argb,%1,%1,1)r2t(%2,%3)", round _size, ["fza_ah64_pnvscam2", "fza_ah64_tadscam"] select _tadsShown, _aspect];
+    private _failed  = if (_tadsShown) then {
+        [_dtvDamage, _flirDamage] select (_visionMode in [1, 2]) >= SYS_SIGHT_DMG_THRESH
+    } else {
+        _pnvsSensor >= SYS_SIGHT_DMG_THRESH
+    };
+    private _colour  = [[0.1, 1, 0, 0.7], [0, 0, 0, 0]] select _failed;
     {(_x # 0) ctrlShow true} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);
-    [_pnvsDisplay, [_heli, false] call fza_ihadss_fnc_formatRect, _pnvsTexture, _pnvsColour] call fza_ihadss_fnc_hduPnvsMask;
+    [_pnvsDisplay, _rect, _texture, _colour, _pictureRect] call fza_ihadss_fnc_hduPnvsMask;
 } else {
     {(_x # 0) ctrlShow false} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);
 };
@@ -53,7 +91,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
     if (isNull (uiNamespace getVariable ["fza_ah64_monocleinbox", displayNull])) then {
         _monocle cutRsc ["fza_ah64_monocleinbox", "PLAIN", 0, false];
     };
-    [_heli, (uiNamespace getVariable "fza_ah64_monocleinbox") displayCtrl 501, _pnvsShown] call fza_ihadss_fnc_hduMonocle;
+    [_heli, (uiNamespace getVariable "fza_ah64_monocleinbox") displayCtrl 501, _pnvsShown || _tadsShown] call fza_ihadss_fnc_hduMonocle;
 } else {
     _monocle cutText ["", "PLAIN", -1, false];
 };

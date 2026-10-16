@@ -184,14 +184,15 @@
         }
         ctx.restore();
 
-        // 40x30 deg box, edge limited to the field of regard
-        if (m.forFov) {
+        // 40x30 deg box inside the field of regard, touching its edge exactly when the sensor is at that limit
+        if (IH.isNum(m.forFov && m.forFov[0]) && IH.isNum(m.forFov[1])) {
             var w = 40 / f.azMax * f.halfW;
             var h = 15 / f.elMax * (FOR_ZERO - FOR_TOP) + 15 / -f.elMin * (FOR_BOTTOM - FOR_ZERO);
-            var p = forPoint(f, m.forFov[0], m.forFov[1]);
-            var bx = IH.clamp(p[0] - w / 2, left, right - w);
-            var by = IH.clamp(p[1] - h / 2, FOR_TOP, FOR_BOTTOM - h);
-            ctx.strokeRect(bx, by, w, h);
+            var az = IH.clamp(m.forFov[0], -f.azMax, f.azMax);
+            var el = IH.clamp(m.forFov[1], f.elMin, f.elMax);
+            var bx = IH.CX + az / f.azMax * (f.halfW - w / 2);
+            var by = el >= 0 ? FOR_ZERO - el / f.elMax * (FOR_ZERO - FOR_TOP - h / 2) : FOR_ZERO + el / f.elMin * (FOR_BOTTOM - FOR_ZERO - h / 2);
+            ctx.strokeRect(IH.clamp(bx - w / 2, left, right - w), IH.clamp(by - h / 2, FOR_TOP, FOR_BOTTOM - h), w, h);
         }
     };
 
