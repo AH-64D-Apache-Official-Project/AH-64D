@@ -34,6 +34,7 @@ _rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
 
 private _ctrls  = _display getVariable ["fza_ihadss_icons", createHashMap];
 _display setVariable ["fza_ihadss_icons", _ctrls];
+_display setVariable ["fza_ihadss_rect", _rect];
 private _colour = [[0.1, 1, 0, 1], [1, 1, 1, 1]] select _headsDown;
 private _shown  = [];
 private _mode   = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
@@ -148,13 +149,24 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     private _rktTex    = ("rkt" + (["", "_stow"] select _onGround) + (["", "_inhibit"] select _inhibit)) call _tex;
 
     // Fixed size I-beam, bars 100 format units apart, moving so that full pylon travel is its own length: the top bar is
-    // on the reticle at -15 deg, the bottom bar at +4 deg (as the previous IHADSS). Across, 16 units per degree.
+    // on the reticle at -15 deg, the bottom bar at +4 deg. Across, 16 units per degree.
     private _cx = ((320 + _losAz * 16) max 170) min 495;
     private _cy = ((290 - (_pylonElev + 15) / 19 * 100) max 100) min 400;
     ["rkt", _rktTex, [_rectX + _cx / 640 * _rectW, _rectY + _cy / 480 * _rectH], 128] call _place;
 };
 
-if ((_heli animationPhase "fcr_enable" == 1) && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
+private _tpm = (_heli getVariable ["fza_ah64_fcrMode", 0]) == FCR_DISP_MODE_TPM;
+if (_tpm && {_heli getVariable ["fza_ah64_fcrcscope", false]} && {cameraView != "GUNNER"}) then {
+    // TPM: the obstacle picture at structure tops, nearest first, on the HMD only
+    {
+        if (_forEachIndex > 63) exitWith {};
+        if (count _x > 2) then {
+            ["tgt" + str _forEachIndex, ("fcrObstacle" call _fcrTex), worldToScreen ASLToAGL _x, 30] call _place;
+        };
+    } forEach (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
+};
+
+if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];
     {

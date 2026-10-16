@@ -1,20 +1,20 @@
 /* ----------------------------------------------------------------------------
-Function: fza_ihadss_fnc_canvasAdjust
+Function: fza_mpd_fnc_canvasAdjust
 
 Description:
     (Internal)
     Converts a point in canvas coordinates to a point for drawing
 
 Parameters:
-    _canvas - The canvas to draw the velocity vector on
+    _canvas - The canvas [control, centre, scale vector]
     _inp - Point to adjust
 
 Returns:
-    Nothing
+    The point for drawing
 
 Examples:
     --- Code
-    [_canvas, [0,0]] call fza_ihadss_fnc_flightVelocityVector
+    [_canvas, [0,0]] call fza_mpd_fnc_canvasAdjust
     ---
 
 Author:

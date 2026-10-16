@@ -263,14 +263,6 @@
             <Turkish>Bunu devre dışı bırakmak Vanilla hedefleme bilgilerini gizleyecektir (yeniden başlatma gerekli)</Turkish>
             <Dutch>Het uitschakelen hiervan verbergt vanilla targeting informatie (herstart nodig)</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_SETTINGS_IHADSS_HTML">
-            <Original>IHADSS: New symbology</Original>
-            <English>IHADSS: New symbology</English>
-        </Key>
-        <Key ID="STR_FZA_AH64_SETTINGS_IHADSS_HTML_INFO">
-            <Original>Draws the IHADSS with the new symbology formats. Disable to use the previous IHADSS.</Original>
-            <English>Draws the IHADSS with the new symbology formats. Disable to use the previous IHADSS.</English>
-        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_ANIM_CONTROLS">
             <Original>Control Input Animations</Original>
             <English>Control Input Animations</English>

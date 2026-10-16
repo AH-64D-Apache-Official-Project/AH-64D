@@ -96,8 +96,6 @@ class CfgFunctions
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};
-            class velocityVector {R;};
-            class compensateSafezone { R;};
             class configToHashMap {R;};
             class doortoggle {R;};
         };

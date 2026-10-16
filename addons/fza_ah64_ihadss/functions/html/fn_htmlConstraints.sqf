@@ -2,8 +2,7 @@
 Function: fza_ihadss_fnc_htmlConstraints
 
 Description:
-    Hellfire constraints box state for the HTML IHADSS, using the same target
-    selection as fza_ihadss_fnc_constraintBoxDraw.
+    Hellfire constraints box state for the IHADSS.
 
 Parameters:
     _heli - The helicopter
