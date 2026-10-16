@@ -9,7 +9,7 @@ class RscTitles
         fadein       = 0;
         fadeout      = 0;
         name = "fza_ah64_ihadssHtml";
-        onLoad = "uiNamespace setVariable ['fza_ah64_ihadssHtml', _this select 0];";
+        onLoad = "uiNamespace setVariable ['fza_ah64_ihadssHtml', _this select 0]; (_this select 0) setVariable ['fza_ihadss_browserRect', uiNamespace getVariable ['fza_ihadss_browserRect', []]];";
         class controls
         {
             class Browser
@@ -21,10 +21,11 @@ class RscTitles
                 colorText[] = {1, 1, 1, 1};
                 allowExternalURL = 0;
                 url = "\fza_ah64_ihadss\ui\ihadss_built.html";
-                x = "safeZoneX + safeZoneW * 0.25";
-                y = "safeZoneY + safeZoneH * 0.25";
-                w = "safeZoneW * 0.5";
-                h = "safeZoneH * 0.5";
+                // Created at its final size, set by fza_ihadss_fnc_htmlDraw before opening the layer, and never resized
+                x = "(uiNamespace getVariable ['fza_ihadss_browserRect', [safeZoneX + safeZoneW * 0.25, 0, 0, 0]]) select 0";
+                y = "(uiNamespace getVariable ['fza_ihadss_browserRect', [0, safeZoneY + safeZoneH * 0.25, 0, 0]]) select 1";
+                w = "(uiNamespace getVariable ['fza_ihadss_browserRect', [0, 0, safeZoneW * 0.5, 0]]) select 2";
+                h = "(uiNamespace getVariable ['fza_ihadss_browserRect', [0, 0, 0, safeZoneH * 0.5]]) select 3";
             };
         };
     };

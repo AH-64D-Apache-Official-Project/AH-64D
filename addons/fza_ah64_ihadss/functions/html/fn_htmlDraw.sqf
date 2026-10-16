@@ -38,13 +38,23 @@ if !(player == driver _heli || player == gunner _heli) exitWith {
     if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
     if (!isNull _iconDisplay) then {_iconLayer cutText ["", "PLAIN"]};
 };
-if (isNull _display) exitWith {
+private _isPilot   = player == driver _heli;
+private _headsDown = cameraView == "GUNNER" && !_isPilot;
+
+// The browser is created at its final size and never resized, a new size reopens the layer: after a resize CEF at
+// times showed the page enlarged and cropped. Its config position reads fza_ihadss_browserRect.
+private _rect = [_heli, _headsDown] call fza_ihadss_fnc_formatRect;
+_rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
+private _marginX = IHADSS_PAGE_MARGIN / 640 * _rectW;
+private _marginY = IHADSS_PAGE_MARGIN / 480 * _rectH;
+private _browserRect = [_rectX - _marginX, _rectY - _marginY, _rectW + 2 * _marginX, _rectH + 2 * _marginY];
+if (isNull _display || {(_display getVariable ["fza_ihadss_browserRect", []]) isNotEqualTo _browserRect}) exitWith {
+    if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
+    uiNamespace setVariable ["fza_ihadss_browserRect", _browserRect];
     _layer cutRsc ["fza_ah64_ihadssHtml", "PLAIN", 0, false];
 };
 
 private _ctrl      = _display displayCtrl 960;
-private _isPilot   = player == driver _heli;
-private _headsDown = cameraView == "GUNNER" && !_isPilot;
 private _powerOn   = (_heli getVariable ["bmkhs_acBusOn", false]) && (_heli getVariable ["bmkhs_dcBusOn", false]);
 private _show      = _powerOn && (_headsDown || (cameraView == "INTERNAL" && !(_heli getVariable ["fza_ah64_monocleinbox", true])));
 
@@ -68,16 +78,6 @@ private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 // The CPG gets the weapon format on the TADS, or on the HMD with TADS/FCR selected and NVS off
 private _weaponFormat = !_isPilot && {_headsDown || {_sight in [SIGHT_TADS, SIGHT_FCR] && {(_heli getVariable ["fza_ah64_ihadss_pnvs_cam", 0]) == 0}}};
-
-private _rect = [_heli, _headsDown] call fza_ihadss_fnc_formatRect;
-if ((_ctrl getVariable ["fza_ihadss_rect", []]) isNotEqualTo _rect) then {
-    _ctrl setVariable ["fza_ihadss_rect", _rect];
-    _rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
-    private _marginX = IHADSS_PAGE_MARGIN / 640 * _rectW;
-    private _marginY = IHADSS_PAGE_MARGIN / 480 * _rectH;
-    _ctrl ctrlSetPosition [_rectX - _marginX, _rectY - _marginY, _rectW + 2 * _marginX, _rectH + 2 * _marginY];
-    _ctrl ctrlCommit 0;
-};
 
 if (!isNull _iconDisplay) then {
     [_heli, _iconDisplay, _rect, _headsDown, _weaponFormat] call fza_ihadss_fnc_htmlIcons;
