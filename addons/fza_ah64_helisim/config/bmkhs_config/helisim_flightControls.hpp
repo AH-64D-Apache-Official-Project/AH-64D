@@ -22,6 +22,7 @@
         };
         class AttitudeHold {
             gate[]      = {"bmkhs_fltCtrlsSupplied", "bmkhs_dcBusOn"};
+            subModes[]  = {"pos", "vel", "att"};
             posPitch[]  = {0.1500, 0.0070, 0.1200, 0.0070};   //position / velocity hold
             posRoll[]   = {0.0550, 0.0070, 0.0900, 0.0070};
             attPitch[]  = {0.0925, 0.0025, 0.0450, 0.0025};
@@ -34,6 +35,7 @@
         };
         class HeadingHold {
             gate[]      = {"bmkhs_fltCtrlsSupplied", "bmkhs_dcBusOn"};
+            subModes[]  = {"hdg", "yaw", "trn"};
             hdg[]       = {0.0750, 0.0200, 0.0050, 0.0200};
             //Turn coordination. Error is lateral g and the output is clamped to the hold's
             //authority (0.1), so size these against that rather than the +-1 gauge.
