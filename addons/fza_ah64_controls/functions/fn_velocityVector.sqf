@@ -1,5 +1,4 @@
-private["_heli"];
-_heli = _this select 0;
+private _heli = _this select 0;
 
 if (!(player in _heli)) exitWith {};
 

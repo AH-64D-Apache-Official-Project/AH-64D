@@ -17,6 +17,7 @@ class CfgFunctions
             class angleToScreen {R;};
             class constraintBoxDraw {R;};
             class cscopeDraw {R;};
+            class cscopeProfileDraw {R;};
             class fovControl {R;};
             class getVisionMode {R;};
             class controller {R;};

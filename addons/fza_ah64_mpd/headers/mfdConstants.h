@@ -318,6 +318,10 @@
 #define MFD_IND_FCR_PREV_CENTER 14
 #define MFD_IND_FCR_COMMAND_HEADING  15
 #define MFD_IND_FCR_ALTERNATE_SENSOR 16
+#define MFD_IND_FCR_TPM_WIDE         17
+#define MFD_IND_FCR_SCAN_SIZE        18
+#define MFD_IND_FCR_TPM_OBS_SHOW     20
+#define MFD_IND_FCR_ATM_SECTOR_ROT   21
 
 #define MFD_IND_FCR_INSTALLED 19
 
@@ -329,6 +333,11 @@
 #define MFD_TEXT_IND_FCR_WC    4
 #define MFD_TEXT_IND_FCR_ACQ_SRC 5
 #define MFD_TEXT_IND_FCR_WS    6
+// TPM-specific text slots (slots 7-9, only used when MFD_IND_FCR_MODE == FCR_DISP_MODE_TPM)
+#define MFD_TEXT_IND_FCR_TPM_PROF  7
+#define MFD_TEXT_IND_FCR_TPM_CLR   8
+#define MFD_TEXT_IND_FCR_TPM_OBS   9
+#define MFD_TEXT_IND_FCR_TPM_LINES 10
 
 //ASE Indices
 #define MFD_IND_ASE_CHAFF_STATE  0
@@ -479,6 +488,26 @@
 #define MPD_PAGE_ABR 17
 #define MPD_PAGE_VER 18
 #define MPD_PAGE_COORD 19
+#define MPD_PAGE_FCRRMAP 20
+#define MPD_PAGE_FCRTPM  21
+
+// MINIGAMES - each minigame gets its own FzaMpdPages entry + index; selected from the DMS page's IBIT button.
+//#define MPD_PAGE_DOOM 28 //Reserved for DOOM Compat Addon - see fza_compat_doom
+#define MPD_PAGE_MINIGAMES 29
+#define MPD_PAGE_ASTEROIDS 30
+#define MPD_PAGE_SPACEINVADERS 31
+#define MPD_PAGE_PONG 32
+#define MPD_PAGE_BREAKOUT 33
+#define MPD_PAGE_LUNARLANDER 34
+#define MPD_PAGE_BATTLESHIP 35
+#define MPD_PAGE_TICTACTOE 36
+#define MPD_PAGE_CONNECTFOUR 37
+#define MPD_PAGE_ROCKPAPERSCISSORS 38
+#define MPD_PAGE_CHECKERS 39
+
+//DOOM Availability Selection
+#define MFD_IND_MINIGAMES_DOOM_AVAILABLE 0
+
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

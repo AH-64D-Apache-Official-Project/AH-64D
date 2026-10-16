@@ -21,7 +21,7 @@ private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
-private _fullCycle = [3.2, 6.4] select (_fcrMode == 2);
+private _fullCycle = ([_heli] call fza_fcr_fnc_getScanTiming) # 1;
 private _lastFullCycle = _heli getVariable ["fza_ah64_fcrLastFullCycle", 0];
 
 private _knownTargets = _fcrTargets select {

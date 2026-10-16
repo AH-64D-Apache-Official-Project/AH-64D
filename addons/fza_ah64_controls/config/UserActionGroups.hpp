@@ -24,8 +24,14 @@ class UserActionGroups {
             "fza_ah64_wasGun",
             "fza_ah64_wasRkt",
             "fza_ah64_wasMsl",
-            "fza_ah64_fcrModeSwitch_up",
-            "fza_ah64_fcrModeSwitch_down",
+            "fza_ah64_fcrModeGTM",
+            "fza_ah64_fcrModeRMAP",
+            "fza_ah64_fcrModeATM",
+            "fza_ah64_fcrModeTPM",
+            "fza_ah64_fcrScanSize_W",
+            "fza_ah64_fcrScanSize_M",
+            "fza_ah64_fcrScanSize_N",
+            "fza_ah64_fcrScanSize_Z",
             "fza_ah64_flare",
             "fza_ah64_tadsLHGFov_W",
             "fza_ah64_tadsLHGFov_M",
@@ -42,6 +48,18 @@ class UserActionGroups {
         name = "$STR_FZA_AH64_COCKPIT_CONTROLS";
         group[] = {
             #include "\fza_ah64_controls\headers\controls.hpp"
+        };
+    };
+
+    class fza_ah64_minigames
+    {
+        name = "$STR_FZA_AH64_MINIGAMES";
+        group[] = {
+            "fza_minigame_up",
+            "fza_minigame_down",
+            "fza_minigame_left",
+            "fza_minigame_right",
+            "fza_minigame_fire"
         };
     };
 };

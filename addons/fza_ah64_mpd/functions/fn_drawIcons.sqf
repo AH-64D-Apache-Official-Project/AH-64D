@@ -2,7 +2,7 @@
 Function: fza_mpd_fnc_drawIcons
 
 Description:
-    Draws the points inputted on the right hand MPD, performing all necessary positioning
+    Draws the points inputted on an MPD's native display, performing all necessary positioning
 
 Parameters:
     _heli - The helicopter to draw this on (the player must be in it)
@@ -39,9 +39,11 @@ params
     ];
 
 private _displaySide = ["left", "right"] select _displayIdx;
-private _display = uiNamespace getVariable "fza_mpd_display";
+private _display = (uiNamespace getVariable ["fza_mpd_display", createHashMap]) getOrDefault [_displaySide, displayNull];
+if (isNull _display) exitWith {};
 
-private _ctrlPoints = _display getVariable ("fza_points_"+_displaySide);
+private _ctrlPoints = _display getVariable "fza_points";
+if (isNil "_ctrlPoints") exitWith {};
 
 //Set all current state to be not updated. This lets us know which ones can be removed
 {_y set ["updated", false]} forEach _ctrlPoints;
@@ -49,15 +51,13 @@ private _ctrlPoints = _display getVariable ("fza_points_"+_displaySide);
 //Draw each UI element
 {
     if !(_forEachIndex in _ctrlPoints) then {_ctrlPoints set [_forEachIndex, createHashMap]};
-    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos, _displayIdx] call fza_mpd_fnc_uiDrawPoint;
-
+    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos] call fza_mpd_fnc_uiDrawPoint;
     (_ctrlPoints get _forEachIndex) set ["updated", true];
 } forEach _dmsPoints;
 
 // Any un-updated (stale and no longer in the DMS) points should be removed from the ctrl
 {
     if (_y get "updated") then {continue;};
-    
     {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _y;
 } forEach _ctrlPoints;
 displayUpdate _display;

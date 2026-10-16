@@ -35,74 +35,6 @@
             <Turkish>Toplu Acil Durum Bırakma Düğmesi</Turkish>
             <Dutch>Collectieve Noodlastdrop Knop</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN">
-            <Original>Air Targeting Mode (ATM)</Original>
-            <English>Air Targeting Mode (ATM)</English>
-            <Czech>Režim Cílení Vzduchu (ATM)</Czech>
-            <French>Mode de Ciblage Aérien (ATM)</French>
-            <Spanish>Modo de Orientación Aérea (ATM)</Spanish>
-            <Italian>Modalità di Puntamento Aereo (ATM)</Italian>
-            <Polish>Tryb Namierzania Powietrza (ATM)</Polish>
-            <Portuguese>Modo de Orientação Aérea (ATM)</Portuguese>
-            <Russian>Режим воздушного наведения (ATM)</Russian>
-            <German>Luftzielmodus (ATM)</German>
-            <Korean>공중 조준 모드 (ATM)</Korean>
-            <Japanese>空中ターゲティングモード（ATM）</Japanese>
-            <Chinesesimp>空中瞄准模式（ATM）</Chinesesimp>
-            <Turkish>Hava Hedefleme Modu (ATM)</Turkish>
-            <Dutch>Luchttargetering Modus (ATM)</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO">
-            <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
-            <English>Sets the Fire Control Radar To Air Targeting Mode</English>
-            <Czech>Nastaví radar řízení palby na režim cílení vzduchu</Czech>
-            <French>Règle le radar de contrôle de tir en mode de ciblage aérien</French>
-            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Aérea</Spanish>
-            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento Aereo</Italian>
-            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Powietrza</Polish>
-            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Aérea</Portuguese>
-            <Russian>Устанавливает радар управления огнем в режим воздушного наведения</Russian>
-            <German>Stellt das Feuerleiterradar auf Luftzielmodus ein</German>
-            <Korean>화력 통제 레이더를 공중 조준 모드로 설정</Korean>
-            <Japanese>火器管制レーダーを空中ターゲティングモードに設定</Japanese>
-            <Chinesesimp>将火力管制雷达设置为空中瞄准模式</Chinesesimp>
-            <Turkish>Ateş Kontrol Radarını Hava Hedefleme Moduna Ayarla</Turkish>
-            <Dutch>Stelt de vuurregel radar in op luchttargetering modus</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP">
-            <Original>Ground Targeting Mode (GTM)</Original>
-            <English>Ground Targeting Mode (GTM)</English>
-            <Czech>Režim Cílení Země (GTM)</Czech>
-            <French>Mode de Ciblage Terrestre (GTM)</French>
-            <Spanish>Modo de Orientación Terrestre (GTM)</Spanish>
-            <Italian>Modalità di Puntamento a Terra (GTM)</Italian>
-            <Polish>Tryb Namierzania Gruntu (GTM)</Polish>
-            <Portuguese>Modo de Orientação Terrestre (GTM)</Portuguese>
-            <Russian>Режим наземного наведения (GTM)</Russian>
-            <German>Bodenzielmodus (GTM)</German>
-            <Korean>지상 조준 모드 (GTM)</Korean>
-            <Japanese>地上ターゲティングモード（GTM）</Japanese>
-            <Chinesesimp>地面瞄准模式（GTM）</Chinesesimp>
-            <Turkish>Yer Hedefleme Modu (GTM)</Turkish>
-            <Dutch>Grondrichtingsmodus (GTM)</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO">
-            <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
-            <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
-            <Czech>Nastaví radar řízení palby na režim cílení země</Czech>
-            <French>Règle le radar de contrôle de tir en mode de ciblage terrestre</French>
-            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Terrestre</Spanish>
-            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento a Terra</Italian>
-            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Gruntu</Polish>
-            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Terrestre</Portuguese>
-            <Russian>Устанавливает радар управления огнем в режим наземного наведения</Russian>
-            <German>Stellt das Feuerleiterradar auf Bodenzielmodus ein</German>
-            <Korean>화력 통제 레이더를 지상 조준 모드로 설정</Korean>
-            <Japanese>火器管制レーダーを地上ターゲティングモードに設定</Japanese>
-            <Chinesesimp>将火力管制雷达设置为地面瞄准模式</Chinesesimp>
-            <Turkish>Ateş Kontrol Radarını Yer Hedefleme Moduna Ayarla</Turkish>
-            <Dutch>Stelt de vuurregel radar in op grondrichtingsmodus</Dutch>
-        </Key>
         <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
             <Original>FCR Single Scan</Original>
             <English>FCR Single Scan</English>
@@ -884,6 +816,166 @@
             <Chinesesimp>在您的乘员舱中操作火箭</Chinesesimp>
             <Turkish>Crew İstasyonunuzda Roketleri İşletebilirsiniz</Turkish>
             <Dutch>Bedien de raketten in uw crew station</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_ATM">
+            <Original>Air Targeting Mode (ATM)</Original>
+            <English>Air Targeting Mode (ATM)</English>
+            <Czech>Režim Cílení Vzduchu (ATM)</Czech>
+            <French>Mode de Ciblage Aérien (ATM)</French>
+            <Spanish>Modo de Orientación Aérea (ATM)</Spanish>
+            <Italian>Modalità di Puntamento Aereo (ATM)</Italian>
+            <Polish>Tryb Namierzania Powietrza (ATM)</Polish>
+            <Portuguese>Modo de Orientação Aérea (ATM)</Portuguese>
+            <Russian>Режим воздушного наведения (ATM)</Russian>
+            <German>Luftzielmodus (ATM)</German>
+            <Korean>공중 조준 모드 (ATM)</Korean>
+            <Japanese>空中ターゲティングモード（ATM）</Japanese>
+            <Chinesesimp>空中瞄准模式（ATM）</Chinesesimp>
+            <Turkish>Hava Hedefleme Modu (ATM)</Turkish>
+            <Dutch>Luchttargetering Modus (ATM)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_ATM_INFO">
+            <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
+            <English>Sets the Fire Control Radar To Air Targeting Mode</English>
+            <Czech>Nastaví radar řízení palby na režim cílení vzduchu</Czech>
+            <French>Règle le radar de contrôle de tir en mode de ciblage aérien</French>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Aérea</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento Aereo</Italian>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Powietrza</Polish>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Aérea</Portuguese>
+            <Russian>Устанавливает радар управления огнем в режим воздушного наведения</Russian>
+            <German>Stellt das Feuerleiterradar auf Luftzielmodus ein</German>
+            <Korean>화력 통제 레이더를 공중 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを空中ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为空中瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Hava Hedefleme Moduna Ayarla</Turkish>
+            <Dutch>Stelt de vuurregel radar in op luchttargetering modus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_GTM">
+            <Original>Ground Targeting Mode (GTM)</Original>
+            <English>Ground Targeting Mode (GTM)</English>
+            <Czech>Režim Cílení Země (GTM)</Czech>
+            <French>Mode de Ciblage Terrestre (GTM)</French>
+            <Spanish>Modo de Orientación Terrestre (GTM)</Spanish>
+            <Italian>Modalità di Puntamento a Terra (GTM)</Italian>
+            <Polish>Tryb Namierzania Gruntu (GTM)</Polish>
+            <Portuguese>Modo de Orientação Terrestre (GTM)</Portuguese>
+            <Russian>Режим наземного наведения (GTM)</Russian>
+            <German>Bodenzielmodus (GTM)</German>
+            <Korean>지상 조준 모드 (GTM)</Korean>
+            <Japanese>地上ターゲティングモード（GTM）</Japanese>
+            <Chinesesimp>地面瞄准模式（GTM）</Chinesesimp>
+            <Turkish>Yer Hedefleme Modu (GTM)</Turkish>
+            <Dutch>Grondrichtingsmodus (GTM)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_GTM_INFO">
+            <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
+            <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
+            <Czech>Nastaví radar řízení palby na režim cílení země</Czech>
+            <French>Règle le radar de contrôle de tir en mode de ciblage terrestre</French>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Terrestre</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento a Terra</Italian>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Gruntu</Polish>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Terrestre</Portuguese>
+            <Russian>Устанавливает радар управления огнем в режим наземного наведения</Russian>
+            <German>Stellt das Feuerleiterradar auf Bodenzielmodus ein</German>
+            <Korean>화력 통제 레이더를 지상 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを地上ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为地面瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Yer Hedefleme Moduna Ayarla</Turkish>
+            <Dutch>Stelt de vuurregel radar in op grondrichtingsmodus</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_RMAP">
+            <Original>Radar Map Mode (RMAP)</Original>
+            <English>Radar Map Mode (RMAP)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_RMAP_INFO">
+            <Original>Sets the Fire Control Radar To Radar Map Mode</Original>
+            <English>Sets the Fire Control Radar To Radar Map Mode</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_TPM">
+            <Original>Terrain Profiles Mode (TPM)</Original>
+            <English>Terrain Profiles Mode (TPM)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_MODE_TPM_INFO">
+            <Original>Sets the Fire Control Radar To Terrain Profiles Mode</Original>
+            <English>Sets the Fire Control Radar To Terrain Profiles Mode</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_M">
+            <Original>FCR Scan Size Medium (M)</Original>
+            <English>FCR Scan Size Medium (M)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_M_INFO">
+            <Original>Selects the medium FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the medium FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_N">
+            <Original>FCR Scan Size Narrow (N)</Original>
+            <English>FCR Scan Size Narrow (N)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_N_INFO">
+            <Original>Selects the narrow FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the narrow FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_W">
+            <Original>FCR Scan Size Wide (W)</Original>
+            <English>FCR Scan Size Wide (W)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_W_INFO">
+            <Original>Selects the wide FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the wide FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_Z">
+            <Original>FCR Scan Size Zoom (Z)</Original>
+            <English>FCR Scan Size Zoom (Z)</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_SCAN_SIZE_Z_INFO">
+            <Original>Selects the zoom FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</Original>
+            <English>Selects the zoom FCR scan size. Active only when the FCR is the selected sight; takes effect at the beginning of the next scan.</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_DOWN">
+            <Original>Minigame: Down</Original>
+            <English>Minigame: Down</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_DOWN_INFO">
+            <Original>MPD minigame down input</Original>
+            <English>MPD minigame down input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_FIRE">
+            <Original>Minigame: Fire</Original>
+            <English>Minigame: Fire</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_FIRE_INFO">
+            <Original>MPD minigame generic confirm/fire/shoot input</Original>
+            <English>MPD minigame generic confirm/fire/shoot input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_LEFT">
+            <Original>Minigame: Left</Original>
+            <English>Minigame: Left</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_LEFT_INFO">
+            <Original>MPD minigame left input</Original>
+            <English>MPD minigame left input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_RIGHT">
+            <Original>Minigame: Right</Original>
+            <English>Minigame: Right</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_RIGHT_INFO">
+            <Original>MPD minigame right input</Original>
+            <English>MPD minigame right input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_UP">
+            <Original>Minigame: Up</Original>
+            <English>Minigame: Up</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAME_UP_INFO">
+            <Original>MPD minigame up input</Original>
+            <English>MPD minigame up input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MINIGAMES">
+            <Original>AH-64D MPD Minigames</Original>
+            <English>AH-64D MPD Minigames</English>
         </Key>
     </Package>
 </Project>

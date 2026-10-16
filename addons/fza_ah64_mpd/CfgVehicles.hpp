@@ -120,6 +120,12 @@ class CfgVehicles {
                     subPageVarPage[] = {1,0};
                 };
             };
+            // Minigame selection menu - DMS page's IBIT (t3) button.
+            class MINIGAMES {
+                index = MPD_PAGE_MINIGAMES;
+                draw = "fza_mpd_fnc_pageMinigamesDraw";
+                handleControl = "fza_mpd_fnc_pageMinigamesHandleControl";
+            };
             class DTU {
                 index = MPD_PAGE_DTU;
                 draw  = "fza_mpd_fnc_pageDTUDraw";
@@ -131,12 +137,30 @@ class CfgVehicles {
             };
             class FCR {
                 index = MPD_PAGE_FCR;
+                htmlUrl   = "\fza_ah64_fcr\ui\scope\scope.html";
+                htmlClass = "RscFzaFCRScope";
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
-                usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {5,0};
                 };
+            };
+            class FCRRMAP {
+                index = MPD_PAGE_FCRRMAP;
+                htmlUrl   = "\fza_ah64_fcr\ui\rmap\rmap.html";
+                htmlClass = "RscFzaFCRRmap";
+                usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
+                draw          = "fza_mpd_fnc_fcrRMAPDraw";
+                handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
+            };
+            class FCRTPM {
+                index = MPD_PAGE_FCRTPM;
+                htmlUrl   = "\fza_ah64_fcr\ui\tpm\tpm.html";
+                htmlClass = "RscFzaFCRTpm";
+                usesIcons = 0; // obstacles drawn in the HTML canvas, not via drawIcons
+                draw          = "fza_mpd_fnc_fcrTPMDraw";
+                handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
             };
             class ASE {
                 index = MPD_PAGE_ASE;
@@ -205,6 +229,7 @@ class CfgVehicles {
                     shotatdel = 0;
                 };
             };
+            // The game pages (ASTEROIDS..CHECKERS) are added by fza_ah64_minigames, DOOM by fza_compat_doom
         };
     };
 };

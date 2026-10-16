@@ -13,7 +13,7 @@ params
     , ["_width", 0.004]
     ];
 
-private ["_ctr", "_dir", "_length"];
+private ["_dir", "_length"];
 
 _canvas params ["_canvasCtrl", "_canvasCenter", "_canvasVect"];
 private _ctr = (_from vectorAdd _to) vectorMultiply 0.5;
