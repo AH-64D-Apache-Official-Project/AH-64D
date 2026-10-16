@@ -1,5 +1,43 @@
 class RscTitles
 {
+    class fza_ah64_ihadssHtml
+    {
+        idd = 650;
+        movingEnable = 0;
+        duration     = 99999;
+        fadein       = 0;
+        fadeout      = 0;
+        name = "fza_ah64_ihadssHtml";
+        onLoad = "uiNamespace setVariable ['fza_ah64_ihadssHtml', _this select 0];";
+        class controls
+        {
+            class Browser
+            {
+                idc = 960;
+                type = 106; // CT_WEBBROWSER
+                style = 0;
+                colorBackground[] = {0, 0, 0, 0};
+                colorText[] = {1, 1, 1, 1};
+                allowExternalURL = 0;
+                url = "\fza_ah64_ihadss\ui\ihadss_built.html";
+                x = "safeZoneX + safeZoneW * 0.25";
+                y = "safeZoneY + safeZoneH * 0.25";
+                w = "safeZoneW * 0.5";
+                h = "safeZoneH * 0.5";
+            };
+        };
+    };
+    class fza_ah64_ihadssIcons
+    {
+        idd = 651;
+        movingEnable = 0;
+        duration     = 99999;
+        fadein       = 0;
+        fadeout      = 0;
+        name = "fza_ah64_ihadssIcons";
+        onLoad = "uiNamespace setVariable ['fza_ah64_ihadssIcons', _this select 0];";
+        class controls {};
+    };
     class fza_ah64_nvsoverlay
     {
         idd = 800;
@@ -11,21 +49,33 @@ class RscTitles
         onLoad = "uiNameSpace setvariable ['fza_ah64_nvsoverlay',_this select 0];";
         class controls
         {
-            //HDU PNVS WITH HDR OR NVG//
-            class fza_ah64_nvsoverlay
+            // A full screen picture clipped to the HDU field, so the render target keeps the screen's own aspect
+            class fza_ah64_nvsclip: RscControlsGroupNoScrollbars
             {
-                idc = 120;
-                type = 0;
-                colorText[] = {-1, 1, 0, 0.85};
-                font = "EtelkaMonospaceProBold";
-                colorBackground[] = {1, 1, 1, 1};
-                text = "";
-                style = 48;
-                sizeEx = 1024;
+                idc = 119;
                 x = 0.12;
                 y = 0.19;
                 w = 0.78;
                 h = 0.78;
+                class controls
+                {
+                    //HDU PNVS WITH HDR OR NVG//
+                    class fza_ah64_nvsoverlay
+                    {
+                        idc = 120;
+                        type = 0;
+                        colorText[] = {-1, 1, 0, 0.85};
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = {1, 1, 1, 1};
+                        text = "";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = 0;
+                        y = 0;
+                        w = 0.78;
+                        h = 0.78;
+                    };
+                };
             };
         };
     };

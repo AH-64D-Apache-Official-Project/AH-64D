@@ -42,5 +42,16 @@ class CfgFunctions
             file = "\fza_ah64_ihadss\functions\flight";
             class flightVelocityVector {R;};
         };
+        class html {
+            file = "\fza_ah64_ihadss\functions\html";
+            class formatRect {R;};
+            class hduMonocle {R;};
+            class hduPnvsMask {R;};
+            class htmlConstraints {R;};
+            class htmlDraw {R;};
+            class htmlExecJs {R;};
+            class htmlIcons {R;};
+            class htmlModel {R;};
+        };
     };
 };

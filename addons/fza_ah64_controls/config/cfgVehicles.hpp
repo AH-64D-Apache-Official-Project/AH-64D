@@ -211,7 +211,7 @@ class CfgVehicles {
                     pointDirection   = "driverview_dir";
                     renderQuality    = 2;
                     renderVisionMode = 2; //TI HDU
-                    fov              = 0.3;
+                    fov              = 0.7; //Unity magnification - matches ViewPilot initFov, the PNVS picture is shown full screen
                 };
             };
         };

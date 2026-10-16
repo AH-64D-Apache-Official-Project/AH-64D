@@ -41,18 +41,28 @@ if (_pnvsControl == 1) exitWith {
 
 (( _heli vectorWorldToModelVisual getCameraViewDirection player) call CBA_fnc_vect2Polar) params ["_mag", "_az", "_el"];
 
-private _az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_clamp;
+// The PNVS field of regard is +-90 deg; -120 is only the stow position
+private _az = [([_az] call CBA_fnc_simplifyAngle180), -90, 90] call BIS_fnc_clamp;
 
+// Includes a +3 deg bias found in game to line the PNVS picture up with the world
 private _elCorTbl =
 [
- [-90.0,  2.2]
-,[-45.0, -1.7]
-,[  0.0, -2.7]
-,[ 45.0, -1.7]
-,[ 90.0,  2.2]
+ [-90.0,  5.2]
+,[-45.0,  1.3]
+,[  0.0,  0.3]
+,[ 45.0,  1.3]
+,[ 90.0,  5.2]
 ];
 
-private _elCor = [_elCorTbl, _az] call fza_fnc_linearInterp select 1;
+// Live tunes in the debug console: fza_ihadss_pnvsElCorTbl replaces the table above, fza_ihadss_pnvsElBias adds degrees to it
+private _tuneTbl = missionNamespace getVariable ["fza_ihadss_pnvsElCorTbl", []];
+if (_tuneTbl isEqualType [] && {count _tuneTbl > 1 && {_tuneTbl findIf {!(_x isEqualTypeArray [0, 0])} == -1}}) then {
+    _elCorTbl = _tuneTbl;
+};
+private _elBias = missionNamespace getVariable ["fza_ihadss_pnvsElBias", 0];
+if !(_elBias isEqualType 0) then {_elBias = 0};
+
+private _elCor = ([_elCorTbl, _az] call fza_fnc_linearInterp select 1) + _elBias;
 private _el    = [([_el + _elCor] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
 
 [_heli, "pnvs", rad _az, true] call fza_anim_fnc_updateAnimations;

@@ -27,6 +27,11 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_hmdfsmode",       "trans", true];
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
     _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0,   true];
+
+    // -1 hides the indication; to be set from FLT SET (radar altitude, ft) and the load factor limit (G)
+    _heli setVariable ["fza_ah64_radAltHi",          -1,  true];
+    _heli setVariable ["fza_ah64_radAltLo",          -1,  true];
+    _heli setVariable ["fza_ah64_loadFactorLimit",   -1,  true];
        
     _heli setVariable ["fza_ah64_tadsVision",     "FLIR",    true];
     _heli setVariable ["fza_ah64_tadsZoom",        0,       true];

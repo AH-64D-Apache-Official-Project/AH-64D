@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<body>
+<!-- Builds the HDU monocle textures from hdu_source.png; read by generate_ihadss_hdu.ps1 -->
+<pre id="out"></pre>
+<script>
+    // Lens glass in the 2048 source, fitted to the inner edge of the rim
+    var LENS_X = 858, LENS_Y = 1010, CLEAR_R = 545, RIM_R = 620;
+    var OUT = 1024;
+    var img = new Image();
+    img.onload = function () {
+        var src = document.createElement("canvas");
+        src.width = img.width;
+        src.height = img.height;
+        var sctx = src.getContext("2d");
+        sctx.drawImage(img, 0, 0);
+        var out = { tinted: scaled(src) };
+
+        // Clear the glass so the PNVS picture is not darkened; an opaque rim hides the strip mask's stepped edge
+        var data = sctx.getImageData(0, 0, src.width, src.height);
+        var d = data.data;
+        for (var y = 0; y < src.height; y++) {
+            for (var x = 0; x < src.width; x++) {
+                var i = (y * src.width + x) * 4;
+                var r = Math.hypot(x - LENS_X, y - LENS_Y);
+                if (r < CLEAR_R && d[i + 3] < 150) { d[i + 3] = 0; }
+                else if (r < RIM_R && d[i + 3] >= 150) { d[i + 3] = 255; }
+            }
+        }
+        sctx.putImageData(data, 0, 0);
+        out.clear = scaled(src);
+        document.getElementById("out").textContent = JSON.stringify(out);
+    };
+    function scaled(source) {
+        var c = document.createElement("canvas");
+        c.width = OUT;
+        c.height = OUT;
+        var ctx = c.getContext("2d");
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(source, 0, 0, OUT, OUT);
+        return c.toDataURL("image/png");
+    }
+    img.src = "hdu_source.png";
+</script>
+</body>
+</html>

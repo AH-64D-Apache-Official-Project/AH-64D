@@ -34,6 +34,8 @@ if _hideMonocle exitWith {
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_raddisp" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_laseit" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssHtml" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssIcons" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
@@ -51,11 +53,22 @@ private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
 //Current Ihadss
 [_heli] call fza_ihadss_fnc_fovControl;
-[_heli] call fza_ihadss_fnc_CscopeDraw;
-[_heli] call fza_ihadss_fnc_constraintBoxDraw;
-[_heli] call fza_ihadss_fnc_steeringCursorDraw;
+if !fza_ah64_ihadssHtml then {
+    [_heli] call fza_ihadss_fnc_CscopeDraw;
+    [_heli] call fza_ihadss_fnc_constraintBoxDraw;
+    [_heli] call fza_ihadss_fnc_steeringCursorDraw;
+};
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_draw;
+if fza_ah64_ihadssHtml then {
+    [_heli] call fza_ihadss_fnc_htmlDraw;
+} else {
+    {
+        if (!isNull (uiNamespace getVariable [_x, displayNull])) then {
+            (_x call BIS_fnc_rscLayer) cutText ["", "PLAIN"];
+        };
+    } forEach ["fza_ah64_ihadssHtml", "fza_ah64_ihadssIcons"];
+};
 [_heli, _deltaTime] call fza_ihadss_fnc_linearMotionCompensator;
 
 

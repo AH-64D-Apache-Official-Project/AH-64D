@@ -23,6 +23,15 @@ private _projName = "AH-64D Official Project";
     }
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_ihadssHtml",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_IHADSS_HTML"), (localize "STR_FZA_AH64_SETTINGS_IHADSS_HTML_INFO")],
+    [_projName, "UI"],
+    true,
+    0
+] call CBA_fnc_addSetting;
+
 
 [
     "fza_ah64_volumeMaster",

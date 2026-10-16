@@ -59,6 +59,15 @@ private _fcrhdg      = -360;
 private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
 private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
 private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
+private _html = fza_ah64_ihadssHtml;
+
+// The HTML IHADSS draws the symbology, so the legacy layers stay closed and writes to them are no-ops
+if _html then {
+    {
+        if (isNil {uiNamespace getVariable _x}) then {uiNamespace setVariable [_x, displayNull]};
+        if (!isNull (uiNamespace getVariable _x)) then {(_x call BIS_fnc_rscLayer) cutText ["", "PLAIN"]};
+    } forEach ["fza_ah64_raddisp", "fza_ah64_laseit"];
+};
 
 if (isNull laserTarget _heli) then {
     _laseit cutText["", "PLAIN", 0.1, false];
@@ -68,16 +77,33 @@ if !(_heli getVariable "fza_ah64_LmcActive") then {
 };
 
 //PNVS HDU
-if ((_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
-    private _aspect = getResolution#4;
-    private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
-    if (ctrlText ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
-        ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText _pnvsTexture;
+private _pnvsShown = (_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
+if (_pnvsShown) then {
+    // The picture always covers the whole screen at the screen's aspect and is clipped down to the HDU
+    private _pnvsDisplay = uiNamespace getVariable ["fza_ah64_nvsoverlay", displayNull];
+    private _pnvsClip    = _pnvsDisplay displayCtrl 119;
+    private _pnvsCtrl    = _pnvsDisplay displayCtrl 120;
+    private _aspect      = (safeZoneW / pixelW) / (safeZoneH / pixelH);
+    private _pnvsTexture = format ["#(argb,1024,1024,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
+    private _pnvsColour  = [[0.1, 1, 0, 0.7], [0, 0, 0, 0]] select (_pnvsSensor >= SYS_SIGHT_DMG_THRESH);
+    if (_html) then {
+        _pnvsClip ctrlShow false;
+        {(_x # 0) ctrlShow true} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);
+        [_pnvsDisplay, [_heli, false] call fza_ihadss_fnc_formatRect, _pnvsTexture, _pnvsColour] call fza_ihadss_fnc_hduPnvsMask;
+    } else {
+        {(_x # 0) ctrlShow false} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);
+        _pnvsClip ctrlShow true;
+        private _clipRect = [0.12, 0.19, 0.78, 0.78];
+        if ((_pnvsClip getVariable ["fza_ihadss_rect", []]) isNotEqualTo _clipRect) then {
+            _pnvsClip setVariable ["fza_ihadss_rect", _clipRect];
+            _pnvsClip ctrlSetPosition _clipRect;
+            _pnvsClip ctrlCommit 0;
+            _pnvsCtrl ctrlSetPosition [safeZoneX - (_clipRect # 0), safeZoneY - (_clipRect # 1), safeZoneW, safeZoneH];
+            _pnvsCtrl ctrlCommit 0;
+        };
+        if (ctrlText _pnvsCtrl != _pnvsTexture) then {_pnvsCtrl ctrlSetText _pnvsTexture};
+        _pnvsCtrl ctrlSetTextColor _pnvsColour;
     };
-    if (_pnvsSensor >= SYS_SIGHT_DMG_THRESH) exitWith {
-        ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0,0,0,0];
-    };
-    ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
 } else {
     ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
     cutRsc["fza_ah64_nvsoverlay", "PLAIN", 0, false];
@@ -85,7 +111,7 @@ if ((_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERN
 
 //IHADSS INIT
 private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
-if (isNil "_initialized") then {
+if (isNil "_initialized" && !_html) then {
     _raddisp cutRsc["fza_ah64_raddisp", "PLAIN", 0, false];
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\ihadss.paa";
 
@@ -96,8 +122,15 @@ if (isNil "_initialized") then {
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && (gunner _heli == player || driver _heli == player)) then {
-    _monocle cutRsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
-    ((uiNamespace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_model\tex\HDU\monocle_solid.paa";
+    if (_html) then {
+        if (isNull (uiNamespace getVariable ["fza_ah64_monocleinbox", displayNull])) then {
+            _monocle cutRsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
+        };
+        [_heli, (uiNamespace getVariable "fza_ah64_monocleinbox") displayCtrl 501, _pnvsShown] call fza_ihadss_fnc_hduMonocle;
+    } else {
+        _monocle cutRsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
+        ((uiNamespace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_model\tex\HDU\monocle_solid.paa";
+    };
 } else {
     _monocle cutText["", "PLAIN", -1, false];
 };
@@ -105,7 +138,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
     if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
-    if (isNull(uiNamespace getVariable "fza_ah64_raddisp")) then {
+    if (isNull(uiNamespace getVariable "fza_ah64_raddisp") && !_html) then {
         _raddisp cutRsc["fza_ah64_raddisp", "PLAIN", 0, false];
 
         for "_i" from 121 to 129 do {
@@ -247,7 +280,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNamespace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetTextColor[0, 0, 0, 0]; //Hide Acceleration Cue
 
     //LASER SYMBOLOGY FOR GUNNER
-    if !(isNull laserTarget _heli) then {
+    if (!(isNull laserTarget _heli) && !_html) then {
         _laseit cutRsc["fza_ah64_laseit", "PLAIN", 0, false];
         ((uiNamespace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_model\tex\HDU\Apache_LaserOn.paa";
         ((uiNamespace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
@@ -304,6 +337,8 @@ fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 if !_acBusOn then {
     [_heli] call fza_fnc_laserDisarm;
 };
+
+if _html exitWith {};
 
 _autohide = {
     _partid  = _this select 0;
