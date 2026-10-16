@@ -28,33 +28,56 @@ Author:
 disableSerialization;
 params ["_heli"];
 
-// Registered in this order so the icons layer draws above the page
-private _layer     = "fza_ah64_ihadssHtml" call BIS_fnc_rscLayer;
-private _iconLayer = "fza_ah64_ihadssIcons" call BIS_fnc_rscLayer;
-private _display     = uiNamespace getVariable ["fza_ah64_ihadssHtml", displayNull];
+private _iconLayer   = "fza_ah64_ihadssIcons" call BIS_fnc_rscLayer;
 private _iconDisplay = uiNamespace getVariable ["fza_ah64_ihadssIcons", displayNull];
+private _crew        = player == driver _heli || player == gunner _heli;
+private _isPilot     = player == driver _heli;
+private _headsDown   = cameraView == "GUNNER" && !_isPilot;
 
-if !(player == driver _heli || player == gunner _heli) exitWith {
-    if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
+// One browser per format size, each created at that size and never resized: after a resize CEF at times showed the
+// page enlarged and cropped. The pilot has only the heads up page; the CPG keeps both loaded and uses the one in view.
+// A browser's config position reads its rect variable; a new size (resolution, FOV) reopens its layer.
+private _ctrl = controlNull;
+private _rect = [];
+{
+    _x params ["_name", "_rectVar", "_down"];
+    private _layer   = _name call BIS_fnc_rscLayer;
+    private _display = uiNamespace getVariable [_name, displayNull];
+    if (!_crew || {_down && _isPilot}) then {
+        if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
+        continue;
+    };
+    private _pageRect = [_heli, _down] call fza_ihadss_fnc_formatRect;
+    _pageRect params ["_rectX", "_rectY", "_rectW", "_rectH"];
+    private _marginX = IHADSS_PAGE_MARGIN / 640 * _rectW;
+    private _marginY = IHADSS_PAGE_MARGIN / 480 * _rectH;
+    private _browserRect = [_rectX - _marginX, _rectY - _marginY, _rectW + 2 * _marginX, _rectH + 2 * _marginY];
+    if (isNull _display || {(_display getVariable ["fza_ihadss_browserRect", []]) isNotEqualTo _browserRect}) then {
+        if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
+        uiNamespace setVariable [_rectVar, _browserRect];
+        _layer cutRsc [_name, "PLAIN", 0, false];
+        continue;
+    };
+    private _pageCtrl = _display displayCtrl 960;
+    if (_down isEqualTo _headsDown) then {
+        _ctrl = _pageCtrl;
+        _rect = _pageRect;
+    } else {
+        // The page not in view stays loaded but blank
+        if (_pageCtrl getVariable ["fza_ihadss_shown", false]) then {
+            _pageCtrl setVariable ["fza_ihadss_shown", false];
+            _pageCtrl setVariable ["fza_ihadss_last", ["", -10]];
+            [_pageCtrl, "if(window.fzaIhadss){fzaIhadss.clear()}"] call fza_ihadss_fnc_htmlExecJs;
+        };
+    };
+} forEach [["fza_ah64_ihadssHtml", "fza_ihadss_browserRect", false], ["fza_ah64_ihadssHtmlDown", "fza_ihadss_browserRectDown", true]];
+
+if !_crew exitWith {
     if (!isNull _iconDisplay) then {_iconLayer cutText ["", "PLAIN"]};
 };
-private _isPilot   = player == driver _heli;
-private _headsDown = cameraView == "GUNNER" && !_isPilot;
+// The page in view is opening this frame
+if (isNull _ctrl) exitWith {};
 
-// The browser is created at its final size and never resized, a new size reopens the layer: after a resize CEF at
-// times showed the page enlarged and cropped. Its config position reads fza_ihadss_browserRect.
-private _rect = [_heli, _headsDown] call fza_ihadss_fnc_formatRect;
-_rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
-private _marginX = IHADSS_PAGE_MARGIN / 640 * _rectW;
-private _marginY = IHADSS_PAGE_MARGIN / 480 * _rectH;
-private _browserRect = [_rectX - _marginX, _rectY - _marginY, _rectW + 2 * _marginX, _rectH + 2 * _marginY];
-if (isNull _display || {(_display getVariable ["fza_ihadss_browserRect", []]) isNotEqualTo _browserRect}) exitWith {
-    if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
-    uiNamespace setVariable ["fza_ihadss_browserRect", _browserRect];
-    _layer cutRsc ["fza_ah64_ihadssHtml", "PLAIN", 0, false];
-};
-
-private _ctrl      = _display displayCtrl 960;
 private _powerOn   = (_heli getVariable ["bmkhs_acBusOn", false]) && (_heli getVariable ["bmkhs_dcBusOn", false]);
 private _show      = _powerOn && (_headsDown || (cameraView == "INTERNAL" && !(_heli getVariable ["fza_ah64_monocleinbox", true])));
 

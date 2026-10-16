@@ -29,6 +29,34 @@ class RscTitles
             };
         };
     };
+    // The CPG's heads down page, kept loaded beside the heads up one so switching views never resizes or reloads a browser
+    class fza_ah64_ihadssHtmlDown
+    {
+        idd = 654;
+        movingEnable = 0;
+        duration     = 99999;
+        fadein       = 0;
+        fadeout      = 0;
+        name = "fza_ah64_ihadssHtmlDown";
+        onLoad = "uiNamespace setVariable ['fza_ah64_ihadssHtmlDown', _this select 0]; (_this select 0) setVariable ['fza_ihadss_browserRect', uiNamespace getVariable ['fza_ihadss_browserRectDown', []]];";
+        class controls
+        {
+            class Browser
+            {
+                idc = 960;
+                type = 106; // CT_WEBBROWSER
+                style = 0;
+                colorBackground[] = {0, 0, 0, 0};
+                colorText[] = {1, 1, 1, 1};
+                allowExternalURL = 0;
+                url = "\fza_ah64_ihadss\ui\ihadss_built.html";
+                x = "(uiNamespace getVariable ['fza_ihadss_browserRectDown', [safeZoneX, 0, 0, 0]]) select 0";
+                y = "(uiNamespace getVariable ['fza_ihadss_browserRectDown', [0, safeZoneY, 0, 0]]) select 1";
+                w = "(uiNamespace getVariable ['fza_ihadss_browserRectDown', [0, 0, safeZoneW, 0]]) select 2";
+                h = "(uiNamespace getVariable ['fza_ihadss_browserRectDown', [0, 0, 0, safeZoneH]]) select 3";
+            };
+        };
+    };
     class fza_ah64_ihadssIcons
     {
         idd = 651;

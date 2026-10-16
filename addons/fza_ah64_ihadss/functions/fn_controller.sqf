@@ -23,7 +23,7 @@ params ["_heli"];
 // Layers stack in the order they are first used: PNVS picture under the monocle, symbology on top
 if (isNil "fza_ihadss_layersOrdered") then {
     fza_ihadss_layersOrdered = true;
-    {_x call BIS_fnc_rscLayer} forEach ["fza_ah64_nvsoverlay", "fza_ah64_monocleinbox", "fza_ah64_ihadssHtml", "fza_ah64_ihadssIcons"];
+    {_x call BIS_fnc_rscLayer} forEach ["fza_ah64_nvsoverlay", "fza_ah64_monocleinbox", "fza_ah64_ihadssHtml", "fza_ah64_ihadssHtmlDown", "fza_ah64_ihadssIcons"];
 };
 
 private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
@@ -38,6 +38,7 @@ if _hideMonocle exitWith {
     ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_ihadssHtml" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssHtmlDown" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_ihadssIcons" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
