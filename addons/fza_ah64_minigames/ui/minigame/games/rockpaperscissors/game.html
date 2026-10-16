@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock Paper Scissors</title>
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="nameRow">
+    <div class="playerInfo">
+        <span id="nameLeft">HOST</span>
+        <span id="recordLeft">W-L 0-0</span>
+    </div>
+    <span id="gameTitle">ROCK PAPER SCISSORS</span>
+    <div class="playerInfo">
+        <span id="nameRight">AI</span>
+        <span id="recordRight">&mdash;</span>
+    </div>
+</div>
+<div id="hud">
+    <span id="scoreLeft">0</span>
+    <span id="status">FIRST TO 3</span>
+    <span id="scoreRight">0</span>
+</div>
+<div id="muteBtn">MUTE</div>
+<div id="pauseBtn">-</div>
+<div id="restartBtn">PICK</div>
+<div id="overlay">
+    <div id="overlayText">ROCK PAPER SCISSORS<br><span id="overlaySub">press any key to start</span></div>
+</div>
+<script src="../../shared/bridge.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

@@ -385,6 +385,16 @@ class RscTitles
         };
         class controls
         {
+            // TPM profile lines (fza_ihadss_fnc_cscopeProfileDraw); at the display root so map and screen coordinates agree, sized to the monocle
+            class fza_ah64_raddisp_cscopeProfile : fza_ah64_mapControl {
+                idc = 368;
+                x = __EVAL((ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15);
+                y = __EVAL((ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2);
+                w = __EVAL(ICE_HUD_Monocle_Size*0.707);
+                h = ICE_HUD_Monocle_Size;
+                onLoad = "(_this # 0) ctrlMapSetPosition []; (_this # 0) ctrlMapAnimAdd [0, 0.000, [-1000,-1000]]; ctrlMapAnimCommit (_this # 0);";
+                onDraw = "_this call fza_ihadss_fnc_cscopeProfileDraw";
+            };
             class fza_ah64_raddisp_nobounds: RscControlsGroup //Cscope Container
             {
                 idc = -1;

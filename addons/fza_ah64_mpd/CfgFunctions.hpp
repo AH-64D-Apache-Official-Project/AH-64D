@@ -17,7 +17,10 @@ class CfgFunctions
             class bearingToScreen {RECOMPILE_FLAG;};
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
+            class execJs {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
+            class htmlCtrl {RECOMPILE_FLAG;};
+            class htmlPush {RECOMPILE_FLAG;};
             class iconBlink {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class propagatePage {RECOMPILE_FLAG;};
@@ -36,9 +39,12 @@ class CfgFunctions
         class fcr {
             file = "\fza_ah64_mpd\functions\fcr";
             class buildFCRIdent {RECOMPILE_FLAG;};
-            class buildFCRPoints {RECOMPILE_FLAG;};
+            class buildFCRTargetsJson {RECOMPILE_FLAG;};
             class fcrATMDraw {RECOMPILE_FLAG;};
             class fcrGTMDraw {RECOMPILE_FLAG;};
+            class fcrRMAPDraw {RECOMPILE_FLAG;};
+            class fcrStatusDraw {RECOMPILE_FLAG;};
+            class fcrTPMDraw {RECOMPILE_FLAG;};
         };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";
@@ -81,6 +87,8 @@ class CfgFunctions
             class pageENGHandleControl {RECOMPILE_FLAG;};
             class pageFCRDraw {RECOMPILE_FLAG;};
             class pageFCRHandleControl {RECOMPILE_FLAG;};
+            class pageFCRRMAPHandleControl {RECOMPILE_FLAG;};
+            class pageFCRTPMHandleControl {RECOMPILE_FLAG;};
             class pageFLTDraw {RECOMPILE_FLAG;};
             class pageFLTHandleControl {RECOMPILE_FLAG;};
             class pageFREQDraw {RECOMPILE_FLAG;};
@@ -88,6 +96,8 @@ class CfgFunctions
             class pageFUELDraw {RECOMPILE_FLAG;};
             class pageFUELHandleControl {RECOMPILE_FLAG;};
             class pageMENUHandleControl {RECOMPILE_FLAG;};
+            class pageMinigamesDraw {RECOMPILE_FLAG;};
+            class pageMinigamesHandleControl {RECOMPILE_FLAG;};
             class pageTSDDraw {RECOMPILE_FLAG;};
             class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};

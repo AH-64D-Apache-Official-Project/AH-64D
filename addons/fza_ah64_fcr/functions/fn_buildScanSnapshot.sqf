@@ -7,11 +7,12 @@ Description:
 
 Parameters:
     _heli      - The helicopter
-    _fcrMode   - Current FCR mode (1=GTM, 2=ATM)
+    _fcrMode   - Current FCR display mode (FCR_DISP_MODE_GTM / ATM / RMAP)
     _fcrAzBias - Azimuth bias in degrees
 
 Returns:
-    Array of target records [pos, type, moving, obj, relAzi, elevAngle, range, revealOffset]
+    Array of target records [pos, type, moving, obj, azi, elevAngle, range, revealOffset]
+    azi is relative to the scan centerline in GTM/RMAP and to the nose in ATM.
 
 Author:
     BradMick, Snow(Dryden)
@@ -24,39 +25,43 @@ private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov",    45];
 private _atmElevMin = _heli getVariable ["fza_ah64_fcrAtmElevMin", -22.5];
 private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov",   168];
 
+private _isAtm    = _fcrMode == FCR_DISP_MODE_ATM;
+private _isGround = _fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP];
+
 private _fcrTracks  = getSensorTargets _heli;
 private _fcrTargets = [];
+private _heliPos    = getPosASL _heli;
 
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
 
     private _range       = _heli distance2D _target;
-    private _heliPos     = getPosASL _heli;
     private _targetPos   = getPosASL _target;
     private _targetSpeed = vectorMagnitude velocity _target;
 
-    // Sensor and range validity
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         _targetSpeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE)
         then { continue; };
-    if (count _fcrTargets > 256) exitWith {};
+    if (count _fcrTargets >= 256) exitWith {};
 
-    // Angles relative to the helicopter
     private _targDir   = _heliPos vectorFromTo _targetPos;
-    private _zdist     = _targDir vectorDotProduct vectorDir _heli;
-    private _ydist     = _targDir vectorDotProduct vectorUp  _heli;
-    private _elevAngle = _ydist atan2 _zdist;
+    private _ydist     = _targDir vectorDotProduct vectorUp _heli;
+    // Elevation above the antenna plane — valid at every azimuth (an atan2 against the
+    // forward axis blows up to +-90/180 for targets abeam or behind a slewed sector)
+    private _elevAngle = asin ((_ydist max -1) min 1);
     private _relAzi    = [([_heli getRelDir _target] call CBA_fnc_simplifyAngle180) - _fcrAzBias] call CBA_fnc_simplifyAngle180;
 
-    // Elevation and azimuth FOV filter
-    if (_elevAngle > _gtmElevMax  && _fcrMode == 1) then { continue; };
-    if (_elevAngle < _atmElevMin  && _fcrMode == 2) then { continue; };
-    if ((abs _relAzi) > _gtmHalfFov && _fcrMode == 1) then { continue; };
-    if ((abs _relAzi) > _atmHalfFov && _fcrMode == 2) then { continue; };
+    if (_elevAngle > _gtmElevMax  && _isGround) then { continue; };
+    if (_elevAngle < _atmElevMin  && _isAtm) then { continue; };
+    if ((abs _relAzi) > _gtmHalfFov && _isGround) then { continue; };
+    if (_isAtm) then {
+        // Tail boom blanks ~12 deg either side of dead astern regardless of scan centerline
+        if (abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180) > 168) then { continue; };
+        if (_atmHalfFov < 168 && (abs _relAzi) > _atmHalfFov) then { continue; };
+    };
 
-    // Target type
     private _type = FCR_TYPE_UNKNOWN;
     if (_target isKindOf "tank")       then { _type = FCR_TYPE_TRACKED; };
     if (_target isKindOf "car")        then { _type = FCR_TYPE_WHEELED; };
@@ -64,26 +69,44 @@ private _fcrTargets = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_ase_fnc_targetIsAda) then { _type = FCR_TYPE_ADU; };
 
-    // ATM only shows moving air targets
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then { continue; };
+    // ATM: air targets only, and they must be moving — nothing else enters the list,
+    // so the target count matches what the format displays
+    if (_isAtm) then {
+        if !(_type in [FCR_TYPE_FLYER, FCR_TYPE_HELICOPTER]) then { continue; };
+        if (_targetSpeed < 5) then { continue; };
+    };
 
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
 
-    // Sweep reveal offset
-    private _revealOffset = if (_fcrMode == 1) then {
+    private _revealOffset = if (_isGround) then {
+        private _bar = (_gtmHalfFov * 2) / FCR_SCAN_RATE_DEGS;
         if (_range < 4000) then {
-            ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * 1.6
+            ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * _bar
         } else {
-            1.6 + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * 1.6
+            _bar + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * _bar
         }
     } else {
-        (6.4 - (([_relAzi, _relAzi + 360] select (_relAzi < 0)) / 360 * 6.4)) % 6.4
+        if (_atmHalfFov >= 168) then {
+            // Wide rotation starts at the nose and sweeps counter-clockwise (matches the
+            // display wiper); a target's reveal offset = its CCW angle from the nose
+            private _ccw = (-_relAzi + 360) mod 360;
+            _ccw / FCR_SCAN_RATE_DEGS
+        } else {
+            // Display mirrors the bearing math, so the visible first pass runs R→L: a target
+            // at the right edge (+halfFov) reveals at t=0, the left edge (-halfFov) at t=bar
+            ((_atmHalfFov - _relAzi) / (_atmHalfFov * 2)) * ((_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS)
+        }
     };
+
+    // ATM draws nose-relative on a rotating PPI; store the nose-relative bearing frozen at
+    // scan time so a later slew doesn't swing the symbol until the next scan refreshes it.
+    // GTM/RMAP stay centerline-relative (their wedge is fixed forward).
+    private _storeAzi = [_relAzi, _relAzi + _fcrAzBias] select _isAtm;
 
     _fcrTargets pushBack [
         [round (_targetPos#0), round (_targetPos#1), round (_targetPos#2)],
         _type, _moving, _target,
-        [_relAzi,    1] call BIS_fnc_cutDecimals,
+        [_storeAzi,  1] call BIS_fnc_cutDecimals,
         [_elevAngle, 1] call BIS_fnc_cutDecimals,
         _range, _revealOffset
     ];

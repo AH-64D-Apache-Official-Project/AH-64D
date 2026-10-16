@@ -35,28 +35,26 @@ Author:
 ---------------------------------------------------------------------------- */
 //extract parameters
 params ["_obj", "_pitch", "_bank"];
-private["_yaw", "_vdir", "_vup", "_sign", "_rotate"];
 
 //find the yaw (direction) of the object
 //map compass directions go CW, while coordinate (vector) directions go CCW, so we need to flip this
 //if we don't flip this, the object will face backwards
-_yaw = 360 - (getDir _obj);
+private _yaw = 360 - (getDir _obj);
 
 
 //----------------------------
 //function to rotate a 2d vector around the origin
 //----------------------------
 
-_rotate = {
-    private["_v", "_d", "_x", "_y"];
+private _rotate = {
 
     //extract parameters
-    _v = +(_this select 0); //we don't want to modify the originally passed vector
-    _d = _this select 1;
+    private _v = +(_this select 0); //we don't want to modify the originally passed vector
+    private _d = _this select 1;
 
     //extract old x/y values
-    _x = _v select 0;
-    _y = _v select 1;
+    private _x = _v select 0;
+    private _y = _v select 1;
 
     //if vector is 3d, we don't want to mess up the last element
     _v set [0, (cos _d) * _x - (sin _d) * _y];
@@ -72,7 +70,7 @@ _rotate = {
 //----------------------------
 
 //find sign of pitch
-_sign = [1, -1] select(_pitch < 0);
+private _sign = [1, -1] select(_pitch < 0);
 
 //cut off numbers above 180
 while {
@@ -102,7 +100,7 @@ if (abs _pitch > 90) then {
 };
 
 //find appropriate vdir according to our pitch, as if we were facing north
-_vdir = [0, cos _pitch, sin _pitch];
+private _vdir = [0, cos _pitch, sin _pitch];
 
 //then rotate X & Y around the origin according to object's yaw (direction)
 _vdir = [_vdir, _yaw] call _rotate;
@@ -130,7 +128,7 @@ if (abs _bank > 180) then {
 };
 
 //find appropriate vup according to our bank, as if we were facing north
-_vup = [sin _bank, 0, cos _bank];
+private _vup = [sin _bank, 0, cos _bank];
 
 //rotate Y & Z elements according to pitch
 _vup = [_vup select 0] + ([

@@ -14,9 +14,33 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
+// A slewed centerline holds its world bearing while the aircraft yaws.
+// Derived locally on every machine from the replicated world bearing — no per-frame traffic.
+// Centerline drags against one scan azimuth off the nose (both GTM/RMAP and ATM).
+private _clWorld = _heli getVariable ["fza_ah64_fcrCenterlineWorld", -1];
+if (_clWorld >= 0) then {
+    private _azBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+    private _newBias = [_clWorld - direction _heli] call CBA_fnc_simplifyAngle180;
+    private _lim     = if ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_ATM) then {
+        _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168]
+    } else {
+        _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45]
+    };
+    _newBias = (_newBias min _lim) max -_lim;
+    if (abs (_newBias - _azBias) > 0.1) then {
+        _heli setVariable ["fza_ah64_fcrAzBias", _newBias];
+    };
+};
+
 _heli call fza_fcr_fnc_resolveDisplay;
+[_heli] call fza_fcr_fnc_updateTPMObstacles;
+// The HMD profile lines need TPM sampling even when no MPD shows the TPM page
+if ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_TPM && { _heli getVariable ["fza_ah64_fcrcscope", false] }) then {
+    [_heli] call fza_fcr_fnc_tpmSample;
+};
 
 if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
 

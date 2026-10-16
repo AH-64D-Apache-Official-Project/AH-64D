@@ -30,8 +30,14 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_wasGun,"$STR_FZA_AH64_WAS_GUN","$STR_FZA_AH64_WAS_GUN_INFO");
     CfgUserActionDef(fza_ah64_wasRkt,"$STR_FZA_AH64_WAS_RKT","$STR_FZA_AH64_WAS_RKT_INFO");
     CfgUserActionDef(fza_ah64_wasMsl,"$STR_FZA_AH64_WAS_MSL","$STR_FZA_AH64_WAS_MSL_INFO");
-    CfgUserActionDef(fza_ah64_fcrModeSwitch_up,"$STR_FZA_AH64_FCR_MODE_SWITCH_UP","$STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO");
-    CfgUserActionDef(fza_ah64_fcrModeSwitch_down,"$STR_FZA_AH64_FCR_MODE_SWITCH_DOWN","$STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO");
+    CfgUserActionDef(fza_ah64_fcrModeGTM,"$STR_FZA_AH64_FCR_MODE_GTM","$STR_FZA_AH64_FCR_MODE_GTM_INFO");
+    CfgUserActionDef(fza_ah64_fcrModeRMAP,"$STR_FZA_AH64_FCR_MODE_RMAP","$STR_FZA_AH64_FCR_MODE_RMAP_INFO");
+    CfgUserActionDef(fza_ah64_fcrModeATM,"$STR_FZA_AH64_FCR_MODE_ATM","$STR_FZA_AH64_FCR_MODE_ATM_INFO");
+    CfgUserActionDef(fza_ah64_fcrModeTPM,"$STR_FZA_AH64_FCR_MODE_TPM","$STR_FZA_AH64_FCR_MODE_TPM_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_W,"$STR_FZA_AH64_FCR_SCAN_SIZE_W","$STR_FZA_AH64_FCR_SCAN_SIZE_W_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_M,"$STR_FZA_AH64_FCR_SCAN_SIZE_M","$STR_FZA_AH64_FCR_SCAN_SIZE_M_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_N,"$STR_FZA_AH64_FCR_SCAN_SIZE_N","$STR_FZA_AH64_FCR_SCAN_SIZE_N_INFO");
+    CfgUserActionDef(fza_ah64_fcrScanSize_Z,"$STR_FZA_AH64_FCR_SCAN_SIZE_Z","$STR_FZA_AH64_FCR_SCAN_SIZE_Z_INFO");
     CfgUserActionDef(fza_ah64_flare,"$STR_FZA_AH64_FLARE","$STR_FZA_AH64_FLARE_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGFov_W,"$STR_FZA_AH64_TADS_LHG_FOV_W","$STR_FZA_AH64_TADS_LHG_FOV_W_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGFov_M,"$STR_FZA_AH64_TADS_LHG_FOV_M","$STR_FZA_AH64_TADS_LHG_FOV_M_INFO");
@@ -42,6 +48,13 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_SensorSelect_DVO,"$STR_FZA_AH64_SENSOR_SELECT_DVO","$STR_FZA_AH64_SENSOR_SELECT_DVO_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc,"$STR_FZA_AH64_TADS_LHG_LMC","$STR_FZA_AH64_TADS_LHG_LMC_INFO");
     CfgUserActionDef(fza_ah64_collectiveEmergJett,"$STR_FZA_AH64_COLLECTIVE_EMERG_JETT","$STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO");
+
+    // MPD minigame input - generic up/down/left/right/fire, forwarded to fza_mg_fnc_minigameHandleInput.
+    CfgUserActionDef(fza_minigame_up,"$STR_FZA_AH64_MINIGAME_UP","$STR_FZA_AH64_MINIGAME_UP_INFO");
+    CfgUserActionDef(fza_minigame_down,"$STR_FZA_AH64_MINIGAME_DOWN","$STR_FZA_AH64_MINIGAME_DOWN_INFO");
+    CfgUserActionDef(fza_minigame_left,"$STR_FZA_AH64_MINIGAME_LEFT","$STR_FZA_AH64_MINIGAME_LEFT_INFO");
+    CfgUserActionDef(fza_minigame_right,"$STR_FZA_AH64_MINIGAME_RIGHT","$STR_FZA_AH64_MINIGAME_RIGHT_INFO");
+    CfgUserActionDef(fza_minigame_fire,"$STR_FZA_AH64_MINIGAME_FIRE","$STR_FZA_AH64_MINIGAME_FIRE_INFO");
 
     #include "\fza_ah64_controls\headers\controls.hpp"
 };

@@ -158,9 +158,10 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
-    _tsdFcrState = _fcrMode;
-    if (_fcrScanState == FCR_MODE_ON_SINGLE) then {
-        _tsdFcrState = (_fcrMode + 2);
+    // Footprint symbology: 1 GTM / 2 ATM continuous, +2 for a single scan. RMAP shares the GTM sector, TPM has no footprint.
+    private _footprint = [0, 1, 2, 1, 0] param [_fcrMode, 0];
+    if (_footprint != 0) then {
+        _tsdFcrState = _footprint + ([0, 2] select (_fcrScanState == FCR_MODE_ON_SINGLE));
     };
 };
 if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
