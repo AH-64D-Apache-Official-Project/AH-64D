@@ -70,6 +70,27 @@ switch (_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "b6": {
+        // MANRNG: a range in metres selects manual range, A selects auto range
+        private _checker = {
+            params ["_input", "", "_heli"];
+            if (toUpper _input == "A") exitWith {[true, -1]};
+            if !(_input regexMatch "^\d+$") exitWith {false};
+            private _range = parseNumber _input;
+            if (_range < RANGE_MANUAL_MIN || _range > RANGE_MANUAL_MAX) exitWith {false};
+            [true, _range]
+        };
+        private _callback = {
+            params ["_range", "", "_heli"];
+            if (_range < 0) then {
+                [_heli, player, RANGE_SRC_AUTO] call fza_fnc_targetingRangeSet;
+            } else {
+                [_heli, player, RANGE_SRC_MANUAL, _range] call fza_fnc_targetingRangeSet;
+            };
+            [] call fza_ku_fnc_stopInput;
+        };
+        [_heli, "RANGE", _callback, _checker, _state, ""] call fza_ku_fnc_addPrompt;
+    };
     case "t5": {
         [_heli, _mpdIndex, "coord"] call fza_mpd_fnc_setCurrentPage;
     };

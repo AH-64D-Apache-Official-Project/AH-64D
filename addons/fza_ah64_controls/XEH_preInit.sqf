@@ -61,6 +61,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_tadsIgnoreHatchetCursor",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR"), (localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR_INFO")],
+    [_projName, "TADS Controls"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_LMCSensitivity",
     "SLIDER",
     [(localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY"), (localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO")],
@@ -81,7 +90,7 @@ fza_ah64_tadsFOVs = [
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
+fza_ah64_draw3Darray      = [fza_fnc_targetingRangeUpdate, fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
 fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_cannon_fnc_update];
 fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_anim_fnc_animationUpdate];
 

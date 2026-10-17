@@ -32,7 +32,7 @@ if (_posMode) then {
     _length = _from distance2D _to;
     _dir = (_from getDir _to);
 };
-_ctr = [_canvas, _ctr] call fza_ihadss_fnc_canvasAdjust;
+_ctr = [_canvas, _ctr] call fza_mpd_fnc_canvasAdjust;
 _canvasCtrl drawRectangle
     [ _ctr
     , (_width/2)* abs (_canvasVect#0)

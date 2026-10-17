@@ -24,12 +24,15 @@ if (_value) then {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectTADS": {
+            // The TADS is the CPG's sight
+            if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFXD": {
             [_heli, "fza_ah64_sight", SIGHT_FXD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFCR": {
+            if (_heli animationPhase "fcr_enable" != 1) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
             // FCR sight select commands the centerline back to the acquisition LOS
             if ((_heli getVariable ["fza_ah64_fcrAzBias", 0]) != 0) then {
@@ -174,43 +177,43 @@ if (_value) then {
         };
         case "zoomIn": {
             if (player != gunner _heli) exitWith {};
-            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode in [1, 2]) exitWith { //FLIR is free to zoom into 1,2,3
                 _zoomindex = [_inputindex + 1, 1, 3] call BIS_fnc_clamp;
-                _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
             };
             if (_Visionmode == 0) exitWith { //DTV can only ZOOM into 2,3
                 _zoomindex = [_inputindex + 1, 2, 3] call BIS_fnc_clamp;
-                _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
             };
             if (_Visionmode == 3) exitWith { //DVO can only Zoom into 1
-                _heli setVariable ["fza_ah64_tadsZoom", 1];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", 1];
             };
         };
         case "zoomOut": {
             if (player != gunner _heli) exitWith {};
-            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode in [1, 2]) exitWith { //FLIR is free to zoom out to 0,1,2,
                 _zoomindex = [_inputindex - 1, 0, 2] call BIS_fnc_clamp;
-                _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
             };
             if (_Visionmode == 0) exitWith { //DTV can only ZOOM out to 0,2
                 _zoomindex = [_inputindex - 1, 0, 2] call BIS_fnc_clamp;
                 if (_zoomindex == 1) then {_zoomindex = 0;}; //Skipp Medium on DTV
-                _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
             };
             if (_Visionmode == 3) exitWith { //DVO can only Zoom out to 1
-                _heli setVariable ["fza_ah64_tadsZoom", 0];
+                _heli setVariable ["fza_ah64_tadsSelectedFov", 0];
             };
         };
         case "NightVision": {
             if (player != gunner _heli) exitWith {};
-            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
             private _flirDamage = _heli getHitPointDamage "hit_msnEquip_tads_flir";
             private _dtvDamage  = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
-            private _tadsVision = _heli getVariable "fza_ah64_tadsVision";
+            private _tadsVision = _heli getVariable "fza_ah64_tadsSelectedSensor";
             private _Visionmode = _heli currentVisionMode [0];
             private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
             if !(isNil "_a3ti_vis") exitWith {};
@@ -244,50 +247,50 @@ if (_value) then {
         };
         case "fza_ah64_tadsLHGFov_W": {
             if (player != gunner _heli) exitWith {};
-            _heli setVariable ["fza_ah64_tadsZoom", 0];
+            _heli setVariable ["fza_ah64_tadsSelectedFov", 0];
         };
         case "fza_ah64_tadsLHGFov_M": {
             if (player != gunner _heli) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             private _zoomindex  = 1;
             if (_Visionmode == 0) then {_zoomindex = 0;}; //DTV Cannot use Meduim, skip to Wide (0)
-            _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+            _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
         };
         case "fza_ah64_tadsLHGFov_N": {
             if (player != gunner _heli) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             private _zoomindex  = 2;
             if (_Visionmode == 3) then {_zoomindex = 1;}; //DVO cannot surpase Medium (1)
-            _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+            _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
         };
         case "fza_ah64_tadsLHGFov_Z": {
             if (player != gunner _heli) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             private _zoomindex  = 3;
             if (_Visionmode == 3) then {_zoomindex = 1;}; //DVO cannot surpase Medium (1)
-            _heli setVariable ["fza_ah64_tadsZoom", _zoomindex];
+            _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
         };
         case "fza_ah64_SensorSelect_FLIR": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "FLIR"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
-            _heli setVariable ["fza_ah64_tadsVision", "FLIR"];
+            _heli setVariable ["fza_ah64_tadsSelectedSensor", "FLIR"];
         };
         case "fza_ah64_SensorSelect_DTV": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "DTV"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
-            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
-            if (_inputindex == 1) then {_heli setVariable ["fza_ah64_tadsZoom", 0];};
-            _heli setVariable ["fza_ah64_tadsVision", "DTV"];
+            private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
+            if (_inputindex == 1) then {_heli setVariable ["fza_ah64_tadsSelectedFov", 0];};
+            _heli setVariable ["fza_ah64_tadsSelectedSensor", "DTV"];
         };
         case "fza_ah64_SensorSelect_DVO": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "DVO"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
-            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
-            if (_inputindex > 1) then {_heli setVariable ["fza_ah64_tadsZoom", 1];};
-            _heli setVariable ["fza_ah64_tadsVision", "DVO"];
+            private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
+            if (_inputindex > 1) then {_heli setVariable ["fza_ah64_tadsSelectedFov", 1];};
+            _heli setVariable ["fza_ah64_tadsSelectedSensor", "DVO"];
         };
         case "fza_ah64_tadsLHGLmc": {
             if (player != gunner _heli) exitWith {};

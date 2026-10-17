@@ -1,3 +1,5 @@
+#include "\fza_ah64_ihadss\headers\hdu.h"
+
 class Turrets : Turrets
 {
     class MainTurret: NewTurret
@@ -65,9 +67,9 @@ class Turrets : Turrets
         class OpticsIn {
             class Flir_Wide {
                 gunnerOpticsModel = "\fza_ah64_ihadss\sight\apache_heads_down_mask.p3d";
-                initfov = "(50 / 100)";
-                minfov  = "(50 / 100)";
-                maxfov  = "(50 / 100)";
+                initfov = 0.4;  //0.4 = 1x mag
+                minfov  = 0.4;  //0.4 = 1x mag
+                maxfov  = 0.4;  //0.4 = 1x mag
                 visionmode[] = {"Ti"};
                 thermalmode[] = {0,1};
                 directionStabilized = 0;
@@ -78,30 +80,30 @@ class Turrets : Turrets
                 initanglex = 0;
                 initangley = 0;
                 opticsdisplayname = "W";
-                thermalResolution[] = {0.0, 360, 1.0, 360};
+                thermalResolution[] = {0.0, FLIR_WFOV_RES, 1.0, FLIR_WFOV_RES};
                 //intensity, sharpness, grainSize, intensityX0, intensityX1, monochromatic, static, blurCoef
                 //ix0 and ix1 effect the intensity of the grain pattern
                 //----------------inten-sharp-grain--ix0---ix1---mono--stat--blur
                 thermalNoise[] = { 0.50, 0.25, 0.25, 0.05, 0.15, 1.00, 0.00, 0.50}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
             };
             class Flir_Medium: Flir_Wide {
-                initfov = "(10.1 / 100)";
-                minfov  = "(10.1 / 100)";
-                maxfov  = "(10.1 / 100)";
+                initfov = 0.0702;   //0.4 / 5.7x mag
+                minfov  = 0.0702;   //0.4 / 5.7x mag
+                maxfov  = 0.0702;   //0.4 / 5.7x mag
                 opticsdisplayname = "M";
             };
             class Flir_Narrow: Flir_Wide {
-                initfov = "(3.1 / 100)";
-                minfov  = "(3.1 / 100)";
-                maxfov  = "(3.1 / 100)";
+                initfov = 0.0222;   //0.4 / 18x mag
+                minfov  = 0.0222;   //0.4 / 18x mag
+                maxfov  = 0.0222;   //0.4 / 18x mag
                 opticsdisplayname = "N";
-            };  
+            };
             class Flir_Zoom: Flir_Wide {
-                initfov = "(1.6 / 100)";
-                minfov  = "(1.6 / 100)";
-                maxfov  = "(1.6 / 100)";
+                initfov = 0.0111;   //0.4 / 36x mag
+                minfov  = 0.0111;   //0.4 / 36x mag
+                maxfov  = 0.0111;   //0.4 / 36x mag
                 opticsdisplayname = "Z";
-                thermalResolution[] = {0.0, 180, 1.0, 180};
+                thermalResolution[] = {0.0, FLIR_ZFOV_RES, 1.0, FLIR_ZFOV_RES};
             };
             class A3ti_Wide: Flir_Wide {
                 visionmode[] = {"Normal"};
@@ -114,41 +116,41 @@ class Turrets : Turrets
             class A3ti_Narrow: Flir_Narrow {
                 visionmode[] = {"Normal"};
                 opticsdisplayname = "N";
-            };  
+            };
             class A3ti_Zoom: Flir_Zoom {
                 visionmode[] = {"Normal"};
                 opticsdisplayname = "Z";
             };
             class Dtv_wide: Flir_Wide {
                 visionmode[] = {"Normal"};
-                initfov = "(4 / 100)";
-                minfov  = "(4 / 100)";
-                maxfov  = "(4 / 100)";
+                initfov = 0.0286;   //0.4 / 14x mag
+                minfov  = 0.0286;   //0.4 / 14x mag
+                maxfov  = 0.0286;   //0.4 / 14x mag
                 opticsdisplayname = "w";
             };
             class Dtv_dummyFOV: Dtv_wide {};
             class Dtv_Narrow: Dtv_wide {
-                initfov = "(0.9 / 100)";
-                minfov  = "(0.9 / 100)";
-                maxfov  = "(0.9 / 100)";
+                initfov = 0.0125;   //0.4 / 32x mag (should be 63x)
+                minfov  = 0.0125;   //0.4 / 32x mag (should be 63x)
+                maxfov  = 0.0125;   //0.4 / 32x mag (should be 63x)
                 opticsdisplayname = "N";
             };
             class Dtv_Zoom: Dtv_wide {
-                initfov = "(0.45 / 100)";
-                minfov  = "(0.45 / 100)";
-                maxfov  = "(0.45 / 100)";
+                initfov = 0.0063;   //0.4 / 63x mag (should be 126x)
+                minfov  = 0.0063;   //0.4 / 63x mag (should be 126x)
+                maxfov  = 0.0063;   //0.4 / 63x mag (should be 126x)
                 opticsdisplayname = "Z";
             };
             class Dvo_Wide: Dtv_wide {
-                initfov = "(18 / 100)";
-                minfov  = "(18 / 100)";
-                maxfov  = "(18 / 100)";
+                initfov = 0.1143;   //0.4 / 3.5x mag
+                minfov  = 0.1143;   //0.4 / 3.5x mag
+                maxfov  = 0.1143;   //0.4 / 3.5x mag
                 opticsdisplayname = "W";
             };
             class Dvo_Narrow: Dtv_wide {
-                initfov = "(4 / 100)";
-                minfov  = "(4 / 100)";
-                maxfov  = "(4 / 100)";
+                initfov = 0.0250;   //0.4 / 16x mag
+                minfov  = 0.0250;   //0.4 / 16x mag
+                maxfov  = 0.0250;   //0.4 / 16x mag
                 opticsdisplayname = "N";
             };
         };

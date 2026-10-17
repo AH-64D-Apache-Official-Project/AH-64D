@@ -67,6 +67,9 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\targeting";
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
+            class targetingRange {R;};
+            class targetingRangeSet {R;};
+            class targetingRangeUpdate {R;};
         };
         class ui
         {
@@ -96,8 +99,6 @@ class CfgFunctions
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};
-            class velocityVector {R;};
-            class compensateSafezone { R;};
             class configToHashMap {R;};
             class doortoggle {R;};
         };

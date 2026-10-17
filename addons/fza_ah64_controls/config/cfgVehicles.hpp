@@ -211,7 +211,25 @@ class CfgVehicles {
                     pointDirection   = "driverview_dir";
                     renderQuality    = 2;
                     renderVisionMode = 2; //TI HDU
-                    fov              = 0.3;
+                    fov              = 0.6; //Just covers the HDU lens; fza_ihadss_fnc_draw sizes the picture from this and ViewPilot initFov
+                };
+            };
+            // TADS picture in the CPG's monocle; turret[] takes the TADS zoom, and the vision mode is set per sensor, as the
+            // turret's own vision mode only follows the sight while looking through it
+            class gunnertads_flir {
+                renderTarget = "fza_ah64_tadscam_flir";
+                class View01 {
+                    pointPosition    = "laserEnd";
+                    pointDirection   = "laserBegin";
+                    renderQuality    = 2;
+                    renderVisionMode = 2;
+                    turret[]         = {0};
+                };
+            };
+            class gunnertads_dtv: gunnertads_flir {
+                renderTarget = "fza_ah64_tadscam_dtv";
+                class View01: View01 {
+                    renderVisionMode = 0;
                 };
             };
         };

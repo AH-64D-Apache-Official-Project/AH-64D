@@ -39,12 +39,8 @@ private _posTadsTgt = [-1,-1,-1];
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 private _targetAzimuth = (_tadsAzimuth + direction _heli) mod 360;
 private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariable;
-private _range = _heli getVariable ["fza_ah64_tadsRange", 3000];
-
-if (!isNull laserTarget _heli) then {
-    _range = _heli distance laserTarget _heli;
-    _heli setVariable ["fza_ah64_tadsRange", _range];
-};
+// The CPG's TADS line runs out to the CPG's range source range
+private _range = ([_heli, "cpg"] call fza_fnc_targetingRange) # 0;
 
 _posTadsTgt = [_posheli, _range, _targetAzimuth] call BIS_fnc_relPos;
 _heli setVariable ["fza_ah64_tadsTarget", _posTadsTgt];

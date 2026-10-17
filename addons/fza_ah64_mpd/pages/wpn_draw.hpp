@@ -31,8 +31,7 @@ class wpnDraw {
             
             //B6
             MPD_TEXT_C(MANRNG_Label, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANRNG>"))
-            MPD_TEXT_C(MANRNG,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("1000"))
-            MPD_BOX_BAR_B(MANRNG,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y)
+            MPD_TEXT_C(MANRNG,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MANRNG))
         };
         #define WPN_WEAPON_OPTION(className, posX, weaponIndex, weaponName)\
             class className {\

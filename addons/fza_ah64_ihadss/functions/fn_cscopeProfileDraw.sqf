@@ -4,12 +4,13 @@ Function: fza_ihadss_fnc_cscopeProfileDraw
 Description:
     onDraw handler of the C-scope profile canvas. Draws the TPM terrain profile
     lines conformally on the HMD while TPM and
-    C-SCP are selected: line 1 solid white, lines 2-4 dashed in the IHADSS
-    colour, as many lines as the TPM page LINES setting. Lines are clipped to
-    the monocle, so nothing outside it is turned into draw calls.
+    C-SCP are selected in the IHADSS colour: line 1 solid, lines 2-4 dashed,
+    as many lines as the TPM page LINES setting. Lines are clipped to
+    the HDU glass and display field like the other symbology, so nothing
+    outside it is turned into draw calls.
 
 Parameters:
-    _ctrl - The canvas map control (covers the monocle rectangle)
+    _ctrl - The canvas map control (covers the screen)
 
 Returns:
     Nothing
@@ -18,18 +19,39 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ihadss\headers\hdu.h"
 params ["_ctrl"];
+
+_ctrl ctrlMapAnimAdd [0, 0.001, [-99999, -99999]];
+ctrlMapAnimCommit _ctrl;
+if (ctrlFade _ctrl > 0) then {
+    private _firstFrame = _ctrl getVariable ["fza_ihadss_firstFrame", -1];
+    if (_firstFrame < 0) exitWith {_ctrl setVariable ["fza_ihadss_firstFrame", diag_frameNo]};
+    if (diag_frameNo > _firstFrame + 1) then {
+        _ctrl ctrlSetFade 0;
+        _ctrl ctrlCommit 0;
+    };
+};
 
 private _heli = vehicle player;
 if (!(_heli isKindOf "fza_ah64base") || { driver _heli != player && gunner _heli != player }) exitWith {};
 if ((_heli getVariable ["fza_ah64_fcrMode", 0]) != FCR_DISP_MODE_TPM || { !(_heli getVariable ["fza_ah64_fcrcscope", false]) }) exitWith {};
-// HMD only, not in the TADS sight
-if (cameraView == "GUNNER") exitWith {};
+// HMD only, not in the TADS sight or with the TADS picture on the HDU
+if (cameraView == "GUNNER" || {missionNamespace getVariable ["fza_ihadss_tadsVideo", false]}) exitWith {};
 
 private _lineCount = (_heli getVariable ["fza_ah64_fcrTpmLines", 4]) min 4;
 private _profile   = _heli getVariable ["fza_ah64_fcrTPMProfile", []];
 if (_lineCount < 1 || { count _profile < 3 }) exitWith {};
 _profile params ["_leftBearing", "_colWidth", "_lines"];
+
+// The format rectangle fza_ihadss_fnc_htmlIcons placed this frame's symbols in
+private _formatRect = (ctrlParent _ctrl) getVariable ["fza_ihadss_rect", []];
+if (_formatRect isEqualTo []) exitWith {};
+_formatRect params ["_rectX", "_rectY", "_rectW", "_rectH"];
+private _unitX   = _rectW / 640;
+private _unitY   = _rectH / 480;
+private _centreX = _rectX + 320 * _unitX;
+private _centreY = _rectY + 240 * _unitY;
 
 // Screen -> map is linear; the canvas sits at the display root, so its position is in screen coordinates
 private _cp = ctrlPosition _ctrl;
@@ -39,19 +61,12 @@ private _mc = _ctrl ctrlMapScreenToWorld [_cx, _cy];
 private _mb = _ctrl ctrlMapScreenToWorld [(_cp # 0) + (_cp # 2), (_cp # 1) + (_cp # 3)];
 private _kx = ((_mb # 0) - (_mc # 0)) / ((_cp # 2) * 0.5);
 private _ky = ((_mb # 1) - (_mc # 1)) / ((_cp # 3) * 0.5);
-private _unit = abs _kx;
+private _unit = abs _kx * _unitX;
 
-// Monocle aperture, measured from monocle_solid.paa (canvas = monocle rectangle), in screen coordinates
-private _ex = _cx;
-private _ey = (_cp # 1) + (_cp # 3) * 0.492;
-private _rx = (_cp # 2) * 0.469 * 0.97;
-private _ry = (_cp # 3) * 0.421 * 0.97;
-
-// Line width and dash patterns [on, off], in screen widths
-private _halfWidth = 0.00125 * _unit;
-private _patterns  = [[], [0.022, 0.014], [0.040, 0.007], [0.007, 0.009]] apply { _x apply { _x * _unit } };
-private _green     = [0.1, 1, 0, 1];
-private _colors    = [[1, 1, 1, 1], _green, _green, _green] apply { format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _x) };
+// Line width and dash patterns [on, off], in format units
+private _halfWidth = 1 * _unit;
+private _patterns  = [[], [13, 9], [24, 4], [4, 6]] apply { _x apply { _x * _unit } };
+private _lineTex   = "#(rgb,8,8,3)color(0.1,1,0,1)";
 
 private _toMap = { [(_mc # 0) + _kx * ((_this # 0) - _cx), (_mc # 1) + _ky * ((_this # 1) - _cy)] };
 
@@ -61,22 +76,46 @@ private _rect = {
     _ctrl drawRectangle [(_a vectorAdd _b) vectorMultiply 0.5, (vectorMagnitude _d) / 2, _halfWidth, -((_d # 1) atan2 (_d # 0)), [1, 1, 1, 1], _tex];
 };
 
-// Part of screen segment a-b inside the aperture as [t0, t1], or [] if none
+// Part of screen segment a-b inside the HDU glass and display field as [t0, t1], or [] if none
+private _cos = cos HDU_MASK_ROT;
+private _sin = sin HDU_MASK_ROT;
 private _clip = {
     params ["_a", "_b"];
-    private _ax = ((_a # 0) - _ex) / _rx;
-    private _ay = ((_a # 1) - _ey) / _ry;
-    private _dx = ((_b # 0) - (_a # 0)) / _rx;
-    private _dy = ((_b # 1) - (_a # 1)) / _ry;
+    private _fx  = ((_a # 0) - _centreX) / _unitX;
+    private _fy  = ((_a # 1) - _centreY) / _unitY;
+    private _fdx = ((_b # 0) - (_a # 0)) / _unitX;
+    private _fdy = ((_b # 1) - (_a # 1)) / _unitY;
+
+    // Display field rectangle
+    private _t0 = 0;
+    private _t1 = 1;
+    {
+        _x params ["_p", "_q"];
+        if (abs _p < 1e-9) then {
+            if (_q < 0) then { _t0 = 1; _t1 = 0; };
+        } else {
+            if (_p < 0) then { _t0 = _t0 max (_q / _p) } else { _t1 = _t1 min (_q / _p) };
+        };
+    } forEach [
+        [-_fdx, _fx - HDU_FIELD_LEFT], [_fdx, HDU_FIELD_RIGHT - _fx],
+        [-_fdy, _fy - HDU_FIELD_TOP],  [_fdy, HDU_FIELD_BOTTOM - _fy]
+    ];
+    if (_t0 >= _t1) exitWith { [] };
+
+    // Glass ellipse, in its own rotated and scaled frame
+    private _ax = (_fx * _cos + _fy * _sin) / HDU_CLIP_A;
+    private _ay = (_fy * _cos - _fx * _sin) / HDU_CLIP_B;
+    private _dx = (_fdx * _cos + _fdy * _sin) / HDU_CLIP_A;
+    private _dy = (_fdy * _cos - _fdx * _sin) / HDU_CLIP_B;
     private _qa = _dx * _dx + _dy * _dy;
     private _qb = 2 * (_ax * _dx + _ay * _dy);
     private _qc = _ax * _ax + _ay * _ay - 1;
-    if (_qa < 1e-12) exitWith { [[], [0, 1]] select (_qc <= 0) };
+    if (_qa < 1e-12) exitWith { [[], [_t0, _t1]] select (_qc <= 0) };
     private _disc = _qb * _qb - 4 * _qa * _qc;
     if (_disc <= 0) exitWith { [] };
     private _sq = sqrt _disc;
-    private _t0 = ((-_qb - _sq) / (2 * _qa)) max 0;
-    private _t1 = ((-_qb + _sq) / (2 * _qa)) min 1;
+    _t0 = _t0 max ((-_qb - _sq) / (2 * _qa));
+    _t1 = _t1 min ((-_qb + _sq) / (2 * _qa));
     if (_t0 >= _t1) exitWith { [] };
     [_t0, _t1]
 };
@@ -85,7 +124,7 @@ private _clip = {
 private _colCount = count (_lines # 0);
 private _stride   = (round (3 / _colWidth)) max 1;
 
-// Only the columns near the view can reach the monocle: +-35 deg around the camera bearing
+// Only the columns near the view can reach the HDU: +-35 deg around the camera bearing
 private _camDir = getCameraViewDirection player;
 private _camRel = ((((_camDir # 0) atan2 (_camDir # 1)) - _leftBearing) + 720) % 360;
 if (_camRel > 270) then { _camRel = _camRel - 360; };
@@ -95,7 +134,7 @@ _iFrom = _iFrom - (_iFrom % _stride);
 
 for "_li" from 0 to (_lineCount - 1) do {
     private _points = _lines # _li;
-    private _tex    = _colors # _li;
+    private _tex    = _lineTex;
 
     // Screen positions; a missing column or a point behind the eye breaks the line
     private _screen = [];
@@ -104,7 +143,7 @@ for "_li" from 0 to (_lineCount - 1) do {
         _screen pushBack (if (_p isEqualTo []) then { [] } else { worldToScreen (ASLToAGL _p) });
     };
 
-    // Runs of map points inside the aperture
+    // Runs of map points inside the HDU
     private _runs = [];
     private _run  = [];
     for "_j" from 1 to (count _screen - 1) do {

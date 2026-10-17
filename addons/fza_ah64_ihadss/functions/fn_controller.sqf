@@ -20,6 +20,12 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+// Layers stack in the order they are first used: PNVS picture under the monocle, symbology on top
+if (isNil "fza_ihadss_layersOrdered") then {
+    fza_ihadss_layersOrdered = true;
+    {_x call BIS_fnc_rscLayer} forEach ["fza_ah64_nvsoverlay", "fza_ah64_monocleinbox", "fza_ah64_ihadssHtml", "fza_ah64_ihadssHtmlDown", "fza_ah64_ihadssIcons"];
+};
+
 private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
     || !(alive _heli)
     || !(alive player)
@@ -29,15 +35,15 @@ private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
     || (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
 
 if _hideMonocle exitWith {
-    ((uiNamespace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
+    fza_ihadss_tadsVideo = false;
     ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
-    ("fza_ah64_raddisp" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
-    ("fza_ah64_laseit" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssHtml" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssHtmlDown" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
+    ("fza_ah64_ihadssIcons" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
-    fza_ah64_flirBlurEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
     fza_ah64_dvoEffect ppEffectEnable false;
 };
@@ -49,13 +55,10 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 
 private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
-//Current Ihadss
 [_heli] call fza_ihadss_fnc_fovControl;
-[_heli] call fza_ihadss_fnc_CscopeDraw;
-[_heli] call fza_ihadss_fnc_constraintBoxDraw;
-[_heli] call fza_ihadss_fnc_steeringCursorDraw;
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_draw;
+[_heli] call fza_ihadss_fnc_htmlDraw;
 [_heli, _deltaTime] call fza_ihadss_fnc_linearMotionCompensator;
 
 

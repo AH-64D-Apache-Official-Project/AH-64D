@@ -29,6 +29,7 @@ class CfgFunctions
         };
         class canvas {
             file = "\fza_ah64_mpd\functions\canvas";
+            class canvasAdjust {RECOMPILE_FLAG;};
             class canvasDraw {RECOMPILE_FLAG;};
             class canvasDrawLine {RECOMPILE_FLAG;};
         }

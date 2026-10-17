@@ -14,9 +14,6 @@ class CfgFunctions
         tag = "fza_ihadss";
         class functions {
             file = "\fza_ah64_ihadss\functions";
-            class angleToScreen {R;};
-            class constraintBoxDraw {R;};
-            class cscopeDraw {R;};
             class cscopeProfileDraw {R;};
             class fovControl {R;};
             class getVisionMode {R;};
@@ -30,17 +27,18 @@ class CfgFunctions
             class linearMotionCompensator {R;};
             class monocletoggle {R;};
             class pnvsControl {R;};
-            class steeringCursorDraw {R;};
+            class tadsSlew {R;};
         };
-        class canvas {
-            file = "\fza_ah64_ihadss\functions\canvas";
-            class canvasAdjust {R;};
-            class canvasDrawLine {R;};
-            class canvasDraw {R;};
-        };
-        class flight {
-            file = "\fza_ah64_ihadss\functions\flight";
-            class flightVelocityVector {R;};
+        class html {
+            file = "\fza_ah64_ihadss\functions\html";
+            class formatRect {R;};
+            class hduMonocle {R;};
+            class hduPnvsMask {R;};
+            class htmlConstraints {R;};
+            class htmlDraw {R;};
+            class htmlExecJs {R;};
+            class htmlIcons {R;};
+            class htmlModel {R;};
         };
     };
 };
