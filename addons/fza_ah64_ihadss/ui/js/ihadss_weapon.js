@@ -11,7 +11,7 @@
         if (m.sensor) { IH.text(ctx, m.sensor, 116 + L.topLeft[0], 115 + L.topLeft[1], "left"); }
         if (IH.isNum(m.tas)) { IH.text(ctx, m.tas.toFixed(0), 250, 432 + L.bottom, "right"); }
         if (IH.isNum(m.radAlt)) { IH.text(ctx, m.radAlt.toFixed(0), 433, 432 + L.bottom, "right"); }
-        if (m.hd) {
+        if (m.hd || m.tv) {
             drawFovBrackets(ctx, m.fovNext);
             if (m.lmc) { drawLmc(ctx); }
             if (m.laser) { drawLaser(ctx); }

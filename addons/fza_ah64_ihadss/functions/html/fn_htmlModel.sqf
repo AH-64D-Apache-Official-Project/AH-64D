@@ -9,13 +9,14 @@ Parameters:
     _heli         - The helicopter
     _headsDown    - True when the CPG is looking through the TADS
     _weaponFormat - True when the weapon symbology format is shown
+    _tadsVideo    - True when the TADS picture is on the CPG's HDU
 
 Returns:
     JSON text
 
 Examples:
     --- Code
-    private _json = [_heli, false, false] call fza_ihadss_fnc_htmlModel
+    private _json = [_heli, false, false, false] call fza_ihadss_fnc_htmlModel
     ---
 
 Author:
@@ -25,7 +26,7 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\bmkhs_helisim\functions\core\core.hpp"
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
-params ["_heli", "_headsDown", "_weaponFormat"];
+params ["_heli", "_headsDown", "_weaponFormat", ["_tadsVideo", false]];
 
 private _m        = createHashMap;
 private _isPilot  = player == driver _heli;
@@ -66,6 +67,8 @@ private _sightAz = {
 private _camModel = (_camFwd call _modelAngles) apply {round _x};
 
 _m set ["hd", _headsDown];
+// The format is referenced to the TADS picture, as heads down
+_m set ["tv", _tadsVideo];
 _m set ["white", _headsDown];
 _m set ["fmt", ["flt", "wpn"] select _weaponFormat];
 _m set ["mode", _mode];
@@ -222,7 +225,7 @@ if (!isNil "_acqVec") then {
 ///////////////////////////////////////////////////////////////////////////////
 // Weapon format
 ///////////////////////////////////////////////////////////////////////////////
-if (_weaponFormat && _headsDown) then {
+if (_weaponFormat && {_headsDown || _tadsVideo}) then {
     private _visionMode = [_heli] call fza_ihadss_fnc_getVisionMode;
     _m set ["sensor", ["DTV", "FLIR", "FLIR", "DVO"] select (_visionMode max 0 min 3)];
 

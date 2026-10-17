@@ -12,13 +12,14 @@ Parameters:
     _rect         - Screen rectangle [x, y, w, h] of the 640x480 format
     _headsDown    - True when the CPG is looking through the TADS
     _weaponFormat - True when the weapon symbology format is shown
+    _tadsVideo    - True when the TADS picture is on the CPG's HDU
 
 Returns:
     Nothing
 
 Examples:
     --- Code
-    [_heli, _display, _rect, false, false] call fza_ihadss_fnc_htmlIcons
+    [_heli, _display, _rect, false, false, false] call fza_ihadss_fnc_htmlIcons
     ---
 
 Author:
@@ -29,7 +30,7 @@ Author:
 #include "\bmkhs_helisim\functions\core\core.hpp"
 #include "\fza_ah64_ihadss\headers\hdu.h"
 disableSerialization;
-params ["_heli", "_display", "_rect", "_headsDown", "_weaponFormat"];
+params ["_heli", "_display", "_rect", "_headsDown", "_weaponFormat", ["_tadsVideo", false]];
 _rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
 
 private _ctrls  = _display getVariable ["fza_ihadss_icons", createHashMap];
@@ -115,7 +116,8 @@ if (!_weaponFormat && !_headsDown) then {
 // The pilot only gets the cued LOS reticle with CUEING selected; a weapon actioned stands in for it
 private _curAcq = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingCurAcq;
 private _acqVec = [_heli, _curAcq] call fza_fnc_targetingAcqVec;
-if ((player != driver _heli || _was != WAS_WEAPON_NONE) && {!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}}) then {
+// World referenced symbols would be misplaced against the magnified TADS picture
+if (!_tadsVideo && {player != driver _heli || _was != WAS_WEAPON_NONE} && {!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}}) then {
     ["cued", ("cuedlos" call _tex), (vectorNormalized _acqVec) call _dirToScreen, 64] call _place;
 };
 
@@ -156,7 +158,7 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
 };
 
 private _tpm = (_heli getVariable ["fza_ah64_fcrMode", 0]) == FCR_DISP_MODE_TPM;
-if (_tpm && {_heli getVariable ["fza_ah64_fcrcscope", false]} && {cameraView != "GUNNER"}) then {
+if (_tpm && {!_tadsVideo} && {_heli getVariable ["fza_ah64_fcrcscope", false]} && {cameraView != "GUNNER"}) then {
     // TPM: the obstacle picture at structure tops, nearest first, on the HMD only
     {
         if (_forEachIndex > 63) exitWith {};
@@ -166,7 +168,7 @@ if (_tpm && {_heli getVariable ["fza_ah64_fcrcscope", false]} && {cameraView != 
     } forEach (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
 };
 
-if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
+if (!_tpm && {!_tadsVideo} && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];
     {

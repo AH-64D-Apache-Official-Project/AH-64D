@@ -35,6 +35,7 @@ private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
     || (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
 
 if _hideMonocle exitWith {
+    fza_ihadss_tadsVideo = false;
     ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
     ("fza_ah64_ihadssHtml" call BIS_fnc_rscLayer) cutText["", "PLAIN"];
@@ -43,7 +44,6 @@ if _hideMonocle exitWith {
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
-    fza_ah64_flirBlurEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
     fza_ah64_dvoEffect ppEffectEnable false;
 };

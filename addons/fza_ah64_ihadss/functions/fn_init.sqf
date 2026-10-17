@@ -98,19 +98,6 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
         fza_ah64_chromAberrationEffect ppEffectCommit 0;
     };
 
-    ["DynamicBlur", 404, [0.3]] call
-    {
-        params ["_name", "_priority", "_effect", "_handle"];
-        while {
-            fza_ah64_flirBlurEffect = ppEffectCreate [_name, _priority];
-            fza_ah64_flirBlurEffect < 0
-        } do {
-            _priority = _priority + 1;
-        };
-        fza_ah64_flirBlurEffect ppEffectAdjust _effect;
-        fza_ah64_flirBlurEffect ppEffectCommit 0;
-    };
-
     ["colorCorrections", 405, [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]] call
     {
         params ["_name", "_priority", "_effect", "_handle"];

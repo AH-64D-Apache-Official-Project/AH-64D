@@ -55,7 +55,7 @@
         ctx.globalAlpha = 1;
 
         var weaponFormat = m.fmt === "wpn";
-        var tadsReticle = weaponFormat && m.hd;
+        var tadsReticle = weaponFormat && (m.hd || m.tv);
 
         IH.layout = m.hd ? IH.NO_SPREAD : IH.SPREAD;
         if (!m.hd) {

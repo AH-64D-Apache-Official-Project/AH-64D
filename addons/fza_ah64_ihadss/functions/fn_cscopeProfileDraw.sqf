@@ -36,8 +36,8 @@ if (ctrlFade _ctrl > 0) then {
 private _heli = vehicle player;
 if (!(_heli isKindOf "fza_ah64base") || { driver _heli != player && gunner _heli != player }) exitWith {};
 if ((_heli getVariable ["fza_ah64_fcrMode", 0]) != FCR_DISP_MODE_TPM || { !(_heli getVariable ["fza_ah64_fcrcscope", false]) }) exitWith {};
-// HMD only, not in the TADS sight
-if (cameraView == "GUNNER") exitWith {};
+// HMD only, not in the TADS sight or with the TADS picture on the HDU
+if (cameraView == "GUNNER" || {missionNamespace getVariable ["fza_ihadss_tadsVideo", false]}) exitWith {};
 
 private _lineCount = (_heli getVariable ["fza_ah64_fcrTpmLines", 4]) min 4;
 private _profile   = _heli getVariable ["fza_ah64_fcrTPMProfile", []];

@@ -98,6 +98,9 @@ switch (_sight) do {
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _worldTargetpos = _camPosASL vectorAdd (([_heli, "TADS"] call fza_fnc_targetingAcqVec) vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
+        if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
+            _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
+        };
     };
     case SIGHT_FXD:{
         _cameraTarget = _heli modelToWorldVisual [0,1000,0];

@@ -101,12 +101,13 @@ private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 // The CPG gets the weapon format on the TADS, or on the HMD with TADS/FCR selected and NVS off
 private _weaponFormat = !_isPilot && {_headsDown || {_sight in [SIGHT_TADS, SIGHT_FCR] && {(_heli getVariable ["fza_ah64_nvsModeSwitchNorm", 0]) == 0}}};
+private _tadsVideo    = !_headsDown && {missionNamespace getVariable ["fza_ihadss_tadsVideo", false]};
 
 if (!isNull _iconDisplay) then {
-    [_heli, _iconDisplay, _rect, _headsDown, _weaponFormat] call fza_ihadss_fnc_htmlIcons;
+    [_heli, _iconDisplay, _rect, _headsDown, _weaponFormat, _tadsVideo] call fza_ihadss_fnc_htmlIcons;
 };
 
-private _json = [_heli, _headsDown, _weaponFormat] call fza_ihadss_fnc_htmlModel;
+private _json = [_heli, _headsDown, _weaponFormat, _tadsVideo] call fza_ihadss_fnc_htmlModel;
 
 // Identical frames are skipped, apart from a once-a-second resend in case a push was dropped while the page loaded
 (_ctrl getVariable ["fza_ihadss_last", ["", -10]]) params ["_lastJson", "_lastTick"];

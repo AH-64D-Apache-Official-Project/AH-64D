@@ -27,6 +27,7 @@ class CfgFunctions
             class linearMotionCompensator {R;};
             class monocletoggle {R;};
             class pnvsControl {R;};
+            class tadsSlew {R;};
         };
         class html {
             file = "\fza_ah64_ihadss\functions\html";
