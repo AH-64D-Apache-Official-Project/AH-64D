@@ -74,16 +74,16 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), (BOOLTON
 private _sight = "TADS";
 
 switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
-    case 0: {
+    case SIGHT_FCR: {
         _sight = "FCR"
     };
-    case 1: {
+    case SIGHT_HMD: {
         _sight = "HMD";
     };
-    case 2: {
+    case SIGHT_TADS: {
         _sight = "TADS";
     };
-    case 3: {
+    case SIGHT_FXD: {
         _sight = "FXD";
     };
 };
