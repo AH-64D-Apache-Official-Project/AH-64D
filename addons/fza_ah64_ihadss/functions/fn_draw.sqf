@@ -37,7 +37,8 @@ private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState &
 private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_nvsModeSwitchNorm" != 0);
 private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
-private _tadsShown = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS;
+// No picture with the DVO, which is a direct view optic
+private _tadsShown = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS && _visionMode != 3;
 fza_ihadss_tadsVideo = _tadsShown;
 private _pnvsDisplay = uiNamespace getVariable ["fza_ah64_nvsoverlay", displayNull];
 if (_pnvsShown || _tadsShown) then {
@@ -74,7 +75,13 @@ if (_pnvsShown || _tadsShown) then {
         _size = missionNamespace getVariable ["fza_ihadss_tadsSize", 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)];
         if !(_size isEqualType 0 && {_size >= 256}) then {_size = 1024};
     };
-    private _texture = format ["#(argb,%1,%1,1)r2t(%2,%3)", round _size, ["fza_ah64_pnvscam2", "fza_ah64_tadscam"] select _tadsShown, _aspect];
+    // One TADS target per sensor, each following the turret's zoom with its own vision mode
+    private _target = "fza_ah64_pnvscam2";
+    if _tadsShown then {
+        _target = ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"] select (_visionMode == 0);
+        fza_ihadss_tadsPicture = [_pictureRect, fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0])];
+    };
+    private _texture = format ["#(argb,%1,%1,1)r2t(%2,%3)", round _size, _target, _aspect];
     private _failed  = if (_tadsShown) then {
         [_dtvDamage, _flirDamage] select (_visionMode in [1, 2]) >= SYS_SIGHT_DMG_THRESH
     } else {

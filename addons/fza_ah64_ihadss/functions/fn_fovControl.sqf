@@ -20,35 +20,24 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
-private _thermalM   = _heli getVariable "fza_ah64_tadsSelectedSensor";
-private _a3tiM      = _heli getVariable "fza_ah64_tadsA3ti";
-private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
-private _flirIndex  = [0,1,2,3];
-private _a3tiIndex  = [4,5,6,7];
-private _dtvIndex   = [8,9,10,11];
-private _dvoIndex   = [12,13,99,99]; //99 = dummy value
-private _zoomindex  = _inputindex;
+// Selected FOV W/M/N/Z (0-3) to the turret optics mode. DTV has no M, so M is W; DVO has only W and N.
+// The selection is corrected to one the sensor has, and the optics mode is only set when it differs.
+private _sensor     = _heli getVariable ["fza_ah64_tadsSelectedSensor", "FLIR"];
+private _index      = ((_heli getVariable ["fza_ah64_tadsSelectedFov", 0]) max 0) min 3;
+private _visionMode = [_heli] call fza_ihadss_fnc_getVisionMode;
 
-if (_thermalM == "DTV") then { //DTV Index
-    _zoomindex = _dtvIndex select _inputindex;
-};
-
-if (_thermalM == "DVO") then { //DTV Index
-    if (_inputindex == 99) then {_inputindex = 1};
-    _zoomindex = _dvoIndex select _inputindex;
-};
-
-if (_Visionmode == 1) then { //A3TI Index
-    _zoomindex = _a3tiIndex select _inputindex;
-    _heli setVariable ["fza_ah64_tadsA3ti", true];
-};
-if (_Visionmode == 0 && _a3tiM) then {  //A3TI to DTV
-    if (_inputindex == 1) then {
-        _inputindex = 0;
+private _mode = switch (true) do {
+    case (_sensor == "DTV"): {
+        if (_index == 1) then {_index = 0};
+        [8, 9, 10, 11] select _index
     };
-    _heli setVariable ["fza_ah64_tadsA3ti", false];
+    case (_sensor == "DVO"): {
+        _index = _index min 1;
+        [12, 13] select _index
+    };
+    case (_visionMode == 1): {[4, 5, 6, 7] select _index};
+    default {_index};
 };
 
-_heli setTurretOpticsMode [[0], _zoomindex];
-_heli setVariable ["fza_ah64_tadsSelectedFov", _inputindex];
+if (_heli getTurretOpticsMode [0] != _mode) then {_heli setTurretOpticsMode [[0], _mode]};
+if ((_heli getVariable ["fza_ah64_tadsSelectedFov", 0]) != _index) then {_heli setVariable ["fza_ah64_tadsSelectedFov", _index]};

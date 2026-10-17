@@ -268,13 +268,13 @@ if (_value) then {
             _heli setVariable ["fza_ah64_tadsSelectedFov", _zoomindex];
         };
         case "fza_ah64_SensorSelect_FLIR": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "FLIR"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
             _heli setVariable ["fza_ah64_tadsSelectedSensor", "FLIR"];
         };
         case "fza_ah64_SensorSelect_DTV": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "DTV"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
@@ -282,7 +282,7 @@ if (_value) then {
             _heli setVariable ["fza_ah64_tadsSelectedSensor", "DTV"];
         };
         case "fza_ah64_SensorSelect_DVO": {
-            if (player != gunner _heli) exitWith {};
+            if (player != gunner _heli || {(_heli getVariable "fza_ah64_tadsSelectedSensor") == "DVO"}) exitWith {};
             private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
             if (_Visionmode == 1) exitWith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
