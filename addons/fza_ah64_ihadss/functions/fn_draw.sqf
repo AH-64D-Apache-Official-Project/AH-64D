@@ -37,8 +37,9 @@ private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState &
 private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_nvsModeSwitchNorm" != 0);
 private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
-// The TADS on the HDU: the format referenced to it and scaled slewing, with its picture except for the DVO, a direct view optic
-private _tadsHdu   = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS;
+// The TADS on the CPG's HDU, with TADS or FCR as the sight (the TADS linked to the FCR): the format referenced to it and
+// its picture, except for the DVO, a direct view optic. Scaled slewing is with TADS as the sight only.
+private _tadsHdu   = _monocleUp && !_pnvsShown && player == gunner _heli && _sight in [SIGHT_TADS, SIGHT_FCR];
 private _tadsShown = _tadsHdu && _visionMode != 3;
 fza_ihadss_tadsVideo   = _tadsHdu;
 fza_ihadss_tadsPicture = [];

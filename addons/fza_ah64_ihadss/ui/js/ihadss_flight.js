@@ -263,8 +263,10 @@
         var oy = fromTip ? tipY : IH.CY;
         var ax = IH.clamp(m.acc[0] / ACC_FULL_SCALE_MPS2, -1, 1) * maxPx;
         var ay = IH.clamp(m.acc[1] / ACC_FULL_SCALE_MPS2, -1, 1) * maxPx;
+        // Held at the symbol edges, without flashing
+        var cue = IH.edgeLimit(ox + ax, oy - ay);
         ctx.beginPath();
-        ctx.arc(ox + ax, oy - ay, 7, 0, 2 * Math.PI);
+        ctx.arc(cue[0], cue[1], 7, 0, 2 * Math.PI);
         ctx.stroke();
     }
 

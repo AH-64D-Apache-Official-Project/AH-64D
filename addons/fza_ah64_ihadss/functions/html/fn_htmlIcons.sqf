@@ -45,9 +45,18 @@ private _was    = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 private _edgeTop = 100 + ([IHADSS_SPREAD_TAPE, 0] select _headsDown);
 private _edge = [_rectX + 170 / 640 * _rectW, _rectY + _edgeTop / 480 * _rectH, _rectX + 495 / 640 * _rectW, _rectY + 400 / 480 * _rectH];
 
-private _camASL = AGLToASL positionCameraToWorld [0, 0, 0];
+private _camASL   = AGLToASL positionCameraToWorld [0, 0, 0];
+private _camRight = (AGLToASL positionCameraToWorld [1, 0, 0]) vectorDiff _camASL;
+private _camUp    = (AGLToASL positionCameraToWorld [0, 1, 0]) vectorDiff _camASL;
 private _dirToScreen = {
-    worldToScreen ASLToAGL (_camASL vectorAdd (_this vectorMultiply 2000))
+    private _pos = worldToScreen ASLToAGL (_camASL vectorAdd (_this vectorMultiply 2000));
+    if (_pos isNotEqualTo []) exitWith {_pos};
+    // Off screen: far out from the screen centre in its direction, so an edge limited symbol is held at the edge
+    private _right = _this vectorDotProduct _camRight;
+    private _up    = _this vectorDotProduct _camUp;
+    private _len   = sqrt (_right ^ 2 + _up ^ 2);
+    if (_len < 1e-6) exitWith {[]};
+    [0.5 + _right / _len * 10, 0.5 - _up / _len * 10]
 };
 
 private _tex    = {format ["\fza_ah64_ihadss\data\icons\ihadss_%1_ca.paa", _this]};
@@ -170,8 +179,8 @@ if (_tpm && {!_tadsVideo} && {_heli getVariable ["fza_ah64_fcrcscope", false]} &
 };
 
 if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
-    // With the TADS picture up the C-scope is placed in the picture, through the TADS LOS and the picture's FOV
-    // (tangent of half its height); otherwise against the outside world
+    // With the TADS picture up the C-scope is placed in the picture, through the TADS LOS and the picture's FOV;
+    // otherwise against the outside world. The picture's half width tangent is FOV * 8/3, measured in game.
     private _toScreen = {worldToScreen ASLToAGL _this};
     (missionNamespace getVariable ["fza_ihadss_tadsPicture", []]) params [["_picRect", []], ["_picFov", 0]];
     private ["_picX", "_picY", "_picW", "_picH", "_picAspect", "_tadsPos", "_fwd", "_right", "_up"];
@@ -190,8 +199,8 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
             private _f = _d vectorDotProduct _fwd;
             if (_f <= 0) exitWith {[]};
             [
-                _picX + _picW / 2 * (1 + (_d vectorDotProduct _right) / _f / (_picFov * _picAspect)),
-                _picY + _picH / 2 * (1 - (_d vectorDotProduct _up) / _f / _picFov)
+                _picX + _picW / 2 * (1 + (_d vectorDotProduct _right) / _f / (_picFov * 8 / 3)),
+                _picY + _picH / 2 * (1 - (_d vectorDotProduct _up) / _f / (_picFov * 8 / 3 / _picAspect))
             ]
         };
     };
