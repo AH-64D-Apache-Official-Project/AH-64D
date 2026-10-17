@@ -5,7 +5,6 @@
     var IH = window.IH;
     var flight = IH.flight = {};
 
-    var VEL_MAX_PX = 167;
     var VEL_MIN_KTS = 0.1;
     var ACC_FULL_SCALE_MPS2 = 12;
     var ACC_FROM_TIP_KTS = 6;
@@ -52,18 +51,35 @@
         });
         IH.shifted(ctx, L.waypoint[0], L.waypoint[1], function () { drawWaypoint(ctx, m, nav); });
         IH.shifted(ctx, 0, L.bottom, function () { drawTrimBall(ctx, m); });
-        // The moving symbols are cut off just below the heading tape
+        // The velocity vector and acceleration cue reach up to the top of the lubber line, the other moving symbols are
+        // cut off just below the heading tape
+        clipTop(ctx, IH.lubberTop(), function () {
+            if (hover || mode === "trans") { drawVelocityAndAccel(ctx, m); }
+        });
         ctx.save();
         ctx.beginPath();
         ctx.rect(-IH.MARGIN, IH.edgeTop(), IH.W + 2 * IH.MARGIN, IH.H + IH.MARGIN - IH.edgeTop());
         ctx.clip();
-        if (hover || mode === "trans") { drawVelocityAndAccel(ctx, m); }
         if (mode === "bobup") { drawBobUpBox(ctx, m); }
         if (mode === "trans") { drawHorizonLine(ctx, m); }
         if (mode === "cruise") { drawPitchLadder(ctx, m); }
         ctx.restore();
         if (mode === "cruise") { drawBankTriangle(ctx, m); }
     };
+
+    function clipTop(ctx, top, draw) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(-IH.MARGIN, top, IH.W + 2 * IH.MARGIN, IH.H + IH.MARGIN - top);
+        ctx.clip();
+        draw();
+        ctx.restore();
+    }
+
+    // Velocity vector full scale: from the LOS reticle to the top of the lubber line
+    function velMax() {
+        return IH.CY - IH.lubberTop();
+    }
 
     function drawTopLeft(ctx, m) {
         IH.font(ctx, 15);
@@ -216,15 +232,16 @@
     function drawVelocityAndAccel(ctx, m) {
         if (!m.vel) { return; }
         var fullKts = m.mode === "trans" ? 60 : 6;
+        var maxPx = velMax();
         var speed = Math.sqrt(m.vel[0] * m.vel[0] + m.vel[1] * m.vel[1]);
         var still = speed < VEL_MIN_KTS;
-        var vx = still ? 0 : m.vel[0] / fullKts * VEL_MAX_PX;
-        var vy = still ? 0 : m.vel[1] / fullKts * VEL_MAX_PX;
+        var vx = still ? 0 : m.vel[0] / fullKts * maxPx;
+        var vy = still ? 0 : m.vel[1] / fullKts * maxPx;
         var len = Math.sqrt(vx * vx + vy * vy);
-        var saturated = len >= VEL_MAX_PX;
+        var saturated = len >= maxPx;
         if (saturated) {
-            vx *= VEL_MAX_PX / len;
-            vy *= VEL_MAX_PX / len;
+            vx *= maxPx / len;
+            vy *= maxPx / len;
         }
         var tipX = IH.CX + vx;
         var tipY = IH.CY - vy;
@@ -244,8 +261,8 @@
         var fromTip = m.mode === "trans" || speed <= ACC_FROM_TIP_KTS;
         var ox = fromTip ? tipX : IH.CX;
         var oy = fromTip ? tipY : IH.CY;
-        var ax = IH.clamp(m.acc[0] / ACC_FULL_SCALE_MPS2, -1, 1) * VEL_MAX_PX;
-        var ay = IH.clamp(m.acc[1] / ACC_FULL_SCALE_MPS2, -1, 1) * VEL_MAX_PX;
+        var ax = IH.clamp(m.acc[0] / ACC_FULL_SCALE_MPS2, -1, 1) * maxPx;
+        var ay = IH.clamp(m.acc[1] / ACC_FULL_SCALE_MPS2, -1, 1) * maxPx;
         ctx.beginPath();
         ctx.arc(ox + ax, oy - ay, 7, 0, 2 * Math.PI);
         ctx.stroke();
@@ -254,13 +271,14 @@
     // 12 ft octagon, format edge is 40 ft
     function drawBobUpBox(ctx, m) {
         if (!m.bob) { return; }
-        var pxPerFt = VEL_MAX_PX / 40;
+        var maxPx = velMax();
+        var pxPerFt = maxPx / 40;
         var x = m.bob[0] * pxPerFt;
         var y = m.bob[1] * pxPerFt;
         var len = Math.sqrt(x * x + y * y);
-        if (len > VEL_MAX_PX) {
-            x *= VEL_MAX_PX / len;
-            y *= VEL_MAX_PX / len;
+        if (len > maxPx) {
+            x *= maxPx / len;
+            y *= maxPx / len;
         }
         var cx = IH.CX + x;
         var cy = IH.CY - y;

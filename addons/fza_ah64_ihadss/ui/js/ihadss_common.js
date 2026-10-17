@@ -36,6 +36,10 @@
     IH.edgeTop = function () {
         return IH.EDGE.top + IH.layout.tape;
     };
+    // Top of the lubber line under the heading tape
+    IH.lubberTop = function () {
+        return 73 + IH.layout.tape;
+    };
 
     IH.GREEN = "#1AFF00";
     IH.WHITE = "#FFFFFF";

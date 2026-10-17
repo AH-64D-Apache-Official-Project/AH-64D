@@ -37,9 +37,11 @@ private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState &
 private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_nvsModeSwitchNorm" != 0);
 private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
-// No picture with the DVO, which is a direct view optic
-private _tadsShown = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS && _visionMode != 3;
-fza_ihadss_tadsVideo = _tadsShown;
+// The TADS on the HDU: the format referenced to it and scaled slewing, with its picture except for the DVO, a direct view optic
+private _tadsHdu   = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS;
+private _tadsShown = _tadsHdu && _visionMode != 3;
+fza_ihadss_tadsVideo   = _tadsHdu;
+fza_ihadss_tadsPicture = [];
 private _pnvsDisplay = uiNamespace getVariable ["fza_ah64_nvsoverlay", displayNull];
 if (_pnvsShown || _tadsShown) then {
     if (isNull _pnvsDisplay) then {
