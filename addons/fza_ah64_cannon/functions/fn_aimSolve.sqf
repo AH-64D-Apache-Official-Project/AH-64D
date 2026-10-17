@@ -12,6 +12,10 @@ Description:
     a tracked aim point usually needs one round.
     A moving target is led by its velocity over the round's time of flight.
 
+    With ACE Wind Deflection flying vehicle rounds, the drag is against the air
+    (velocity less the wind) as it applies it, using the wind the aircraft's
+    air data gives.
+
 Parameters:
     _heli      - The helicopter
     _target    - Point to hit (ASL)
@@ -40,6 +44,7 @@ if (isNil "fza_cannon_ballistics") then {
 fza_cannon_ballistics params ["_muzzleSpeed", "_airFriction", "_coefGravity"];
 
 private _dt      = 0.05;
+private _wind    = [[0, 0, 0], wind] select ((missionNamespace getVariable ["ace_winddeflection_enabled", false]) && {missionNamespace getVariable ["ace_winddeflection_vehicleEnabled", false]});
 private _gravity = [0, 0, -9.80665 * _coefGravity * _dt];
 private _muzzle  = _heli modelToWorldVisualWorld (_heli selectionPosition ["usti hlavne", "Memory"]);
 private _heliVel = velocity _heli;
@@ -61,9 +66,12 @@ for "_i" from 1 to 6 do {
     while {((_pos vectorDiff _muzzle) vectorDotProduct _dir) < _reach && {_t < 13}} do {
         _prev = _pos;
         _pos  = _pos vectorAdd (_vel vectorMultiply _dt);
-        _vel  = _vel vectorAdd ((_vel vectorMultiply (_airFriction * vectorMagnitude _vel * _dt)) vectorAdd _gravity);
+        private _air = _vel vectorDiff _wind;
+        _vel  = _vel vectorAdd ((_air vectorMultiply (_airFriction * vectorMagnitude _air * _dt)) vectorAdd _gravity);
         _t    = _t + _dt;
     };
+    // Out of reach: further passes cannot help
+    if (_t >= 13) exitWith {_tof = _t};
     // Where the round crosses the target's range, between the last two steps
     private _prevReach = (_prev vectorDiff _muzzle) vectorDotProduct _dir;
     private _posReach  = (_pos vectorDiff _muzzle) vectorDotProduct _dir;
