@@ -26,6 +26,8 @@ class CfgFunctions
             class buildTPMData {RECOMPILE_FLAG;};
             class applyScanSize {RECOMPILE_FLAG;};
             class getScanTiming {RECOMPILE_FLAG;};
+            class setCenterline {RECOMPILE_FLAG;};
+            class slaveCenterline {RECOMPILE_FLAG;};
             class slewCenterline {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
             class setMode {RECOMPILE_FLAG;};

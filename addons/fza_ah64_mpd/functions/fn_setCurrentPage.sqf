@@ -31,6 +31,12 @@ params ["_heli", "_side", "_page", ["_stateOverride", createHashMap]];
 
 private _mpdState = _heli getVariable "fza_mpd_mpdState";
 
+// A new page closes the ACQ list on this MPD
+private _acqMenu = +(_heli getVariable ["fza_mpd_acqMenu", [false, false]]);
+_acqMenu set [_side, false];
+_heli setVariable ["fza_mpd_acqMenu", _acqMenu];
+_heli setUserMFDValue [[10, 11] select _side, 0];
+
 private _config = configOf _heli >> "FzaMpdPages" >> _page;
 
 if (!isClass _config) exitWith {

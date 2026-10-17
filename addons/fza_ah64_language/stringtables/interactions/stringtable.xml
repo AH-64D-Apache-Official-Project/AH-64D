@@ -273,6 +273,14 @@
             <Turkish>TADS Sensörünü FLIR Olarak Ayarla</Turkish>
             <Dutch>Stelt de TADS Sensor in op FLIR</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SLAVE">
+            <Original>Sight Slave</Original>
+            <English>Sight Slave</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SLAVE_INFO">
+            <Original>CPG: slaves the selected sight to the acquisition source, or releases it</Original>
+            <English>CPG: slaves the selected sight to the acquisition source, or releases it</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR">
             <Original>Sight Select FCR</Original>
             <English>Sight Select FCR</English>
@@ -306,40 +314,6 @@
             <Chinesesimp>将当前瞄准设置为FCR</Chinesesimp>
             <Turkish>Geçerli görüşü FCR olarak ayarla</Turkish>
             <Dutch>Stelt het huidige zicht op FCR in</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD">
-            <Original>Sight Select FXD</Original>
-            <English>Sight Select FXD</English>
-            <Czech>Vybrat FXD</Czech>
-            <French>Sélectionner FXD</French>
-            <Spanish>Seleccionar FXD</Spanish>
-            <Italian>Seleziona FXD</Italian>
-            <Polish>Wybierz FXD</Polish>
-            <Portuguese>Selecionar FXD</Portuguese>
-            <Russian>Выберите FXD</Russian>
-            <German>FXD Wählen</German>
-            <Korean>FXD 선택</Korean>
-            <Japanese>FXD選択</Japanese>
-            <Chinesesimp>选择FXD</Chinesesimp>
-            <Turkish>FXD Seç</Turkish>
-            <Dutch>FXD Selecteren</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD_INFO">
-            <Original>Sets the current sight to FXD</Original>
-            <English>Sets the current sight to FXD</English>
-            <Czech>Nastaví aktuální pohled na FXD</Czech>
-            <French>Définit la visée actuelle à FXD</French>
-            <Spanish>Establece la vista actual a FXD</Spanish>
-            <Italian>Imposta la vista attuale su FXD</Italian>
-            <Polish>Ustawia bieżący widok na FXD</Polish>
-            <Portuguese>Define o sinal atual como FXD</Portuguese>
-            <Russian>Устанавливает текущий вид на FXD</Russian>
-            <German>Setzt das aktuelle Ziel auf FXD</German>
-            <Korean>현재 조준을 FXD로 설정</Korean>
-            <Japanese>現在のサイトをFXDに設定</Japanese>
-            <Chinesesimp>将当前瞄准设置为FXD</Chinesesimp>
-            <Turkish>Geçerli görüşü FXD olarak ayarla</Turkish>
-            <Dutch>Stelt het huidige zicht op FXD in</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD">
             <Original>Sight Select HMD</Original>

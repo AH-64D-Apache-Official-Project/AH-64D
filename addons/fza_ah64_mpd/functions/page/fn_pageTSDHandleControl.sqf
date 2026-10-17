@@ -2,9 +2,11 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
-if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitWith {};
-
 private _subPage = _state get "subPageVarPage" select 0;
+// The ACQ list opens from the root page
+if ([_heli, _mpdIndex, _control, _subPage == 0] call fza_mpd_fnc_acqHandleControl) exitWith {};
+
+if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitWith {};
 
 switch (_control) do {
     case "t2": {

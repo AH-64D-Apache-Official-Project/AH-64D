@@ -2,6 +2,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
+if ([_heli, _mpdIndex, _control] call fza_mpd_fnc_acqHandleControl) exitWith {};
+
 switch _control do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
@@ -29,8 +31,5 @@ switch _control do {
     case "r4": {
         // RFHO — RF handover (fire to LOBL transition)
         // Placeholder — implement RFHO logic when available
-    };
-    case "r6": {
-        // ACQ — cycle acquisition source (handled by targeting system at higher level)
     };
 };

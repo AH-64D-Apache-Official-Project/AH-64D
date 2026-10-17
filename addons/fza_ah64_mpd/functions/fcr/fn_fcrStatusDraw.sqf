@@ -31,7 +31,6 @@ switch (_sight) do {
     case SIGHT_FCR:  { _sightSelStat = "FCR "; };
     case SIGHT_HMD:  { _sightSelStat = "HMD "; };
     case SIGHT_TADS: { _sightSelStat = "TADS"; };
-    case SIGHT_FXD:  { _sightSelStat = "FXD "; };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 

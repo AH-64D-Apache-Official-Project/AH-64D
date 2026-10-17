@@ -14,6 +14,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_mpd\functions";
             class acqDraw {RECOMPILE_FLAG;};
+            class acqHandleControl {RECOMPILE_FLAG;};
             class bearingToScreen {RECOMPILE_FLAG;};
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};

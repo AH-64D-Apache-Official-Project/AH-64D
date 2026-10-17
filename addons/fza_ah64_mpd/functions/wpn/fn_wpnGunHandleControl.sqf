@@ -17,4 +17,9 @@ switch (_control) do {
     case "l5": {
         _heli setVariable ["fza_ah64_burst_limit", -1];
     };
+    case "r2": {
+        // Gun MODE, in each crew station: NORM follows the selected sight, FXD fixes the gun to the aircraft centerline
+        private _gunMode = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
+        [_heli, "fza_ah64_gunMode", ["FXD", "NORM"] select (!isNil "_gunMode" && {_gunMode == "FXD"})] call fza_fnc_setSeatVariable;
+    };
 };

@@ -215,6 +215,7 @@
 #define MFD_TEXT_IND_WPN_RKT_TOT_QTY 18
 #define MFD_TEXT_IND_WPN_RKT_SALVO 19
 #define MFD_TEXT_IND_WPN_MANRNG 20
+#define MFD_TEXT_IND_WPN_GUN_MODE 21
 
 #define MFD_TEXT_IND_WPN_MSL_TRAJ 10
 #define MFD_TEXT_IND_WPN_MSL_PRI_CODE 11
@@ -511,6 +512,19 @@
 
 
 #define BOOLTONUM [0,1] select
+// Acquisition source list (fza_mpd_fnc_acqHandleControl): open on the left/right MPD, not offset, as page text
+// everywhere is hidden under it (MPD_ACQ_COVERS); then per option on the pages with an ACQ button, 0 hidden,
+// 1 listed, 2 selected
+#define MFD_IND_ACQ_OPEN_L    10
+#define MFD_IND_ACQ_OPEN_R    11
+#define MFD_IND_ACQ_OPT_PHS   31
+#define MFD_IND_ACQ_OPT_GHS   32
+#define MFD_IND_ACQ_OPT_SKR   33
+#define MFD_IND_ACQ_OPT_RFI   34
+#define MFD_IND_ACQ_OPT_FCR   35
+#define MFD_IND_ACQ_OPT_FXD   36
+#define MFD_IND_ACQ_OPT_TADS  37
+
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
 
 #endif

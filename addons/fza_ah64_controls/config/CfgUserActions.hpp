@@ -18,8 +18,8 @@ class fza_ah64_cockpit_##system##_##control {\
 class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectHMD,"$STR_FZA_AH64_SIGHT_SELECT_HMD","$STR_FZA_AH64_SIGHT_SELECT_HMD_INFO");
     CfgUserActionDef(fza_ah64_sightSelectTADS,"$STR_FZA_AH64_SIGHT_SELECT_TADS","$STR_FZA_AH64_SIGHT_SELECT_TADS_INFO");
-    CfgUserActionDef(fza_ah64_sightSelectFXD,"$STR_FZA_AH64_SIGHT_SELECT_FXD","$STR_FZA_AH64_SIGHT_SELECT_FXD_INFO");
     CfgUserActionDef(fza_ah64_sightSelectFCR,"$STR_FZA_AH64_SIGHT_SELECT_FCR","$STR_FZA_AH64_SIGHT_SELECT_FCR_INFO");
+    CfgUserActionDef(fza_ah64_sightSlave,"$STR_FZA_AH64_SIGHT_SLAVE","$STR_FZA_AH64_SIGHT_SLAVE_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectUp,"$STR_FZA_AH64_SYMBOLOGY_SELECT_UP","$STR_FZA_AH64_SYMBOLOGY_SELECT_UP_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectDown,"$STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN","$STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectPress,"$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS","$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO");

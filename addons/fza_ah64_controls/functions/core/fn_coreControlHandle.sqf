@@ -28,8 +28,8 @@ if (_value) then {
             if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
         };
-        case "fza_ah64_sightSelectFXD": {
-            [_heli, "fza_ah64_sight", SIGHT_FXD] call fza_fnc_setSeatVariable;
+        case "fza_ah64_sightSlave": {
+            [_heli] call fza_fnc_targetingSlave;
         };
         case "fza_ah64_sightSelectFCR": {
             if (_heli animationPhase "fcr_enable" != 1) exitWith {};

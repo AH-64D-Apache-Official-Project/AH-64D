@@ -83,9 +83,6 @@ switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
     case SIGHT_TADS: {
         _sight = "TADS";
     };
-    case SIGHT_FXD: {
-        _sight = "FXD";
-    };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"];

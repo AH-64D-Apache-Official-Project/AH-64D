@@ -1,6 +1,8 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
+if ([_heli, _mpdIndex, _control] call fza_mpd_fnc_acqHandleControl) exitWith {};
+
 switch(_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;

@@ -71,9 +71,9 @@ private _mainturret = 0;
 private _maingun = 0.298;
 private _cameraTarget = objNull;
 
-if !_acBusOn then {
-    _sight = SIGHT_FXD;
-};
+// Without AC power the sights and the gun are fixed forward
+private _sightFixed = !_acBusOn;
+if _sightFixed then {_sight = -1};
 
 switch (_sight) do {
     case SIGHT_FCR:{
@@ -101,9 +101,24 @@ switch (_sight) do {
         if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
             _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
         };
+        // Slaved, the TADS follows the CPG's acquisition source instead of the manual tracker
+        if (_heli getVariable ["fza_ah64_cpgSlaved", false]) then {
+            private _slavePos = [_heli, [_heli, [0]] call fza_fnc_targetingCurAcq] call fza_fnc_targetingAcqPoint;
+            if (_slavePos isNotEqualTo []) then {_cameraTarget = _slavePos};
+        };
     };
-    case SIGHT_FXD:{
+    default {
         _cameraTarget = _heli modelToWorldVisual [0,1000,0];
+    };
+};
+
+// With no player CPG the pilot's acquisition source points the TADS; TADS leaves it to the AI gunner to be driven
+if (!isPlayer _gunnnerUnit && {_currentTurret isEqualTo [-1]}) then {
+    private _acq = [_heli, [-1]] call fza_fnc_targetingCurAcq;
+    _cameraTarget = objNull;
+    if (_acq != "TADS") then {
+        private _slavePos = [_heli, _acq] call fza_fnc_targetingAcqPoint;
+        if (_slavePos isNotEqualTo []) then {_cameraTarget = _slavePos};
     };
 };
 
@@ -117,7 +132,7 @@ if (_targPos isEqualTo [0,0,0] && _sight == SIGHT_TADS) then {
     _targPos = _worldTargetpos;
 };
 
-if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
+if (_was == WAS_WEAPON_RKT && !_sightFixed) then {
     // Aimed along the sight line at the crew station's range source range, not the true range to what it looks at
     private _origin = switch (_sight) do {
         case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
@@ -144,7 +159,7 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     };
 };
 
-if (_was == WAS_WEAPON_MSL && _sight != SIGHT_FXD) then {
+if (_was == WAS_WEAPON_MSL && !_sightFixed) then {
     private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
     private _hellfiretable = [[33, 4],[1000, -15]];
     private _hellfireZero = ([_hellfiretable, ((getPos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
@@ -204,7 +219,9 @@ if (_was == WAS_WEAPON_GUN) then {
             _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
-    if (_sight == SIGHT_FXD) exitWith {
+    // Gun MODE FXD (WPN page) fixes the gun to the aircraft centerline
+    private _gunMode = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
+    if (_sightFixed || {!isNil "_gunMode" && {_gunMode == "FXD"}}) exitWith {
         _mainturret = 0;
         _maingun = 0;
         _inhibit = "GUN FIXED";

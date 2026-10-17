@@ -59,7 +59,6 @@ private _sightAz = {
     switch (_seatSight) do {
         case SIGHT_HMD:  { if (isNull _unit) then {nil} else {((eyeDirection _unit) call _modelAngles) # 0} };
         case SIGHT_TADS: { _tadsAz };
-        case SIGHT_FXD:  { 0 };
         default { nil };
     };
 };
@@ -216,7 +215,7 @@ _m set ["forType", ["tads", "pnvs"] select _isPilot];
 _m set ["forFov", [[_tadsAz, _tadsEl], _camModel] select (_isPilot || (_sight == SIGHT_HMD && !_headsDown))];
 
 private _curAcq = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingCurAcq;
-private _acqVec = [_heli, _curAcq] call fza_fnc_targetingAcqVec;
+private _acqVec = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingAcqCue;
 if (!isNil "_acqVec") then {
     _acqVec = vectorNormalized _acqVec;
     _m set ["forCue", (_acqVec call _modelAngles) apply {round _x}];
@@ -260,7 +259,6 @@ private _sightSel = switch (_sight) do {
     case SIGHT_HMD:  { _prefix + "HMD" };
     case SIGHT_TADS: { "TADS" };
     case SIGHT_FCR:  { _prefix + "FCR" };
-    case SIGHT_FXD:  { "FXD" };
     default { "?" };
 };
 

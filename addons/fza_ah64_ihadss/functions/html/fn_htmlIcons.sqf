@@ -123,10 +123,9 @@ if (!_weaponFormat && !_headsDown) then {
     };
 };
 
-// The pilot only gets the cued LOS reticle with CUEING selected; a weapon actioned stands in for it
-private _curAcq = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingCurAcq;
-private _acqVec = [_heli, _curAcq] call fza_fnc_targetingAcqVec;
-// World referenced symbols would be misplaced against the magnified TADS picture
+// Cued LOS reticle on the acquisition source: the CPG while slaved; the pilot with CUEING selected, which a weapon
+// actioned stands in for. Not with the TADS picture up, where it would be misplaced against the magnified picture.
+private _acqVec = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingAcqCue;
 if (!_tadsVideo && {player != driver _heli || _was != WAS_WEAPON_NONE} && {!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}}) then {
     ["cued", ("cuedlos" call _tex), (vectorNormalized _acqVec) call _dirToScreen, 64] call _place;
 };
@@ -134,13 +133,14 @@ if (!_tadsVideo && {player != driver _heli || _was != WAS_WEAPON_NONE} && {!isNi
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 
-// Drawn like the cued LOS reticle, along the fixed gun
-if (_was == WAS_WEAPON_GUN && _sight == SIGHT_FXD) then {
+// Drawn like the cued LOS reticle, along the gun in MODE FXD
+private _gunMode = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
+if (_was == WAS_WEAPON_GUN && {!isNil "_gunMode" && {_gunMode == "FXD"}}) then {
     ["gunFxd", ("cuedlos" call _tex), (vectorNormalized (_heli weaponDirection "fza_m230")) call _dirToScreen, 64] call _place;
 };
 
 // The reticle is inside the I-beam exactly when the pylons (+4 to -15 deg) can reach; steer onto it
-if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
+if (_was == WAS_WEAPON_RKT) then {
     private _losAz = 0;
     switch (true) do {
         case (_headsDown || _sight == SIGHT_TADS): {

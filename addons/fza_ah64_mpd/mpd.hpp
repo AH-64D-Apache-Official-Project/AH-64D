@@ -118,4 +118,9 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_COORD));
         #include "pages\coord_draw.hpp"
     };
+    // Last, so it is drawn over the page: the ACQ list of the pages with an ACQ button
+    class AcqMenu {
+        condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_ACQ_OPEN), 1), C_OR(C_OR(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FLT), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ENG)), C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WPN), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD))), C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)))));
+        #include "pages\acq_menu.hpp"
+    };
 };

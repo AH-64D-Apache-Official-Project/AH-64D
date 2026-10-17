@@ -1,6 +1,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_control", "_state"];
 
+if ([_heli, _mpdIndex, _control] call fza_mpd_fnc_acqHandleControl) exitWith {};
+
 private _selectedWeapon = _state get "selectedWeapon";
 
 switch (_selectedWeapon) do {
