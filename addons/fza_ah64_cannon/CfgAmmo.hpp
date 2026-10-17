@@ -26,6 +26,7 @@ class CfgAmmo {
         explosive                   = 0.8;
 
         airFriction                 = -0.00036;
+        timeToLive                  = 15;  // 12 s of flight to the 4.2 km ballistic range
         airlock                     = 0;
         irlock                      = 0;
         weaponType                  = "cannon";

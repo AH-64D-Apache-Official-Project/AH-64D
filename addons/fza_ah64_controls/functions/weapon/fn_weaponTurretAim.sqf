@@ -41,7 +41,8 @@ if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < t
     _heli setVariable [_x, _heli getVariable _x, true];
 } forEach [
     "fza_ah64_tadsAzimuth",
-    "fza_ah64_tadsElevation"
+    "fza_ah64_tadsElevation",
+    "fza_cannon_gunAim"
 ];
 _heli setVariable ["fza_ah64_lastTimePropagated", time, true];
 };
@@ -203,13 +204,52 @@ if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitWith {
         _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     };
-    private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
-    private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
-    if !(-86 < _tadsAzimuth && _tadsAzimuth < 86) then {
+    private _gunElevation = _heli getVariable "fza_ah64_tadsElevation";
+    private _gunAzimuth   = _heli getVariable "fza_ah64_tadsAzimuth";
+    // The gun's own solution: the sight LOS at the range source range, through the round's flight, leading a moving radar
+    // target (fza_cannon_fnc_aimSolve). fza_cannon_ballistic = false in the debug console returns to the gun following the TADS.
+    if (missionNamespace getVariable ["fza_cannon_ballistic", true]) then {
+        private _origin = switch (_sight) do {
+            case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
+            case SIGHT_HMD:  {AGLToASL positionCameraToWorld [0, 0, 0]};
+            default          {getPosASLVisual _heli};
+        };
+        private _losDir = _origin vectorFromTo _targPos;
+        if (_losDir isEqualTo [0, 0, 0]) then {_losDir = _heli vectorModelToWorldVisual [0, 1, 0]};
+        private _gunRange = ([_heli, player] call fza_fnc_targetingRange) # 0;
+        private _aimPoint = _origin vectorAdd (_losDir vectorMultiply _gunRange);
+        // Beyond the ballistic range of the round; not solved there, the gun holds its last solution
+        private _outOfRange = _gunRange > 4200;
+        if (_outOfRange) then {_inhibit = "BALLISTICS"};
+        // Solved 20 times a second for its correction (superelevation and lead), which is applied to the aim point every
+        // frame, so the gun follows the sight smoothly between solutions
+        private _solution = _heli getVariable ["fza_cannon_solution", [-1, [0, 0, 0]]];
+        if (!_outOfRange && {time - (_solution # 0) > 0.05}) then {
+            _solution = [time, ([_heli, _aimPoint, _targVel, _solution # 1] call fza_cannon_fnc_aimSolve) # 2];
+            _heli setVariable ["fza_cannon_solution", _solution];
+        };
+        private _muzzle = _heli modelToWorldVisualWorld (_heli selectionPosition ["usti hlavne", "Memory"]);
+        (_heli vectorWorldToModelVisual (_muzzle vectorFromTo (_aimPoint vectorAdd (_solution # 1)))) params ["_solX", "_solY", "_solZ"];
+        _gunAzimuth   = _solX atan2 _solY;
+        _gunElevation = _solZ atan2 (sqrt (_solX * _solX + _solY * _solY));
+        if (missionNamespace getVariable ["fza_cannon_debug", true]) then {
+            drawIcon3D ["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], ASLToAGL _aimPoint, 0.5, 0.5, 0, "Gun aim point"];
+        };
+    };
+    if !(-86 < _gunAzimuth && _gunAzimuth < 86) then {
         _inhibit = "AZ LIMIT";
     };
-    if !(-60 < _tadsElevation && _tadsElevation < 11) then {
+    if !(-60 < _gunElevation && _gunElevation < 11) then {
         _inhibit = "EL LIMIT";
+    };
+    // Out of coincidence while the gun is still slewing onto its commanded position, more than 1 deg off in either axis
+    private _gunMode  = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
+    private _gunFixed = _sightFixed || {!isNil "_gunMode" && {_gunMode == "FXD"}};
+    (_heli getVariable ["fza_cannon_gunAim", [0, deg 0.298]]) params ["_gunAimAz", "_gunAimEl"];
+    private _wantAz = [([_gunAzimuth, -86, 86] call BIS_fnc_clamp), 0] select _gunFixed;
+    private _wantEl = [([_gunElevation, -60, 11] call BIS_fnc_clamp), 0] select _gunFixed;
+    if (_inhibit == "" && {abs (_wantAz - _gunAimAz) > 1 || {abs (_wantEl - _gunAimEl) > 1}}) then {
+        _inhibit = "COINCIDENCE";
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
@@ -220,18 +260,32 @@ if (_was == WAS_WEAPON_GUN) then {
         };
     };
     // Gun MODE FXD (WPN page) fixes the gun to the aircraft centerline
-    private _gunMode = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
-    if (_sightFixed || {!isNil "_gunMode" && {_gunMode == "FXD"}}) exitWith {
+    if (_gunFixed) exitWith {
         _mainturret = 0;
         _maingun = 0;
         _inhibit = "GUN FIXED";
     };
-    _mainturret = -rad ([_tadsAzimuth, -86, 86] call BIS_fnc_clamp);
-    _maingun = rad ([_tadsElevation, -60, 11] call BIS_fnc_clamp);
+    _mainturret = -rad ([_gunAzimuth, -86, 86] call BIS_fnc_clamp);
+    _maingun = rad ([_gunElevation, -60, 11] call BIS_fnc_clamp);
 };
 if (_gunFailed) then {
     _mainturret = _heli animationPhase "mainTurret";
     _maingun = 0.298;
+};
+
+// The gun turns to its commanded position at its own slew rate. Fired rounds leave along this exact direction
+// (fza_cannon_fnc_fired); the animation is rounded and lags, so it only shows the barrel.
+private _slewDt = ["fza_cannon_gunSlew"] call BIS_fnc_deltaTime;
+(_heli getVariable ["fza_cannon_gunAim", [0, deg 0.298]]) params ["_gunAz", "_gunEl"];
+private _slewStep = 90 * (_slewDt min 0.1);
+_gunAz = _gunAz + ((((-deg _mainturret) - _gunAz) max -_slewStep) min _slewStep);
+_gunEl = _gunEl + ((((deg _maingun) - _gunEl) max -_slewStep) min _slewStep);
+_heli setVariable ["fza_cannon_gunAim", [_gunAz, _gunEl]];
+_mainturret = -rad _gunAz;
+_maingun    = rad _gunEl;
+if (missionNamespace getVariable ["fza_cannon_debug", true]) then {
+    private _muzzle = _heli modelToWorldVisual (_heli selectionPosition ["usti hlavne", "Memory"]);
+    drawLine3D [_muzzle, _muzzle vectorAdd ((_heli vectorModelToWorldVisual ([1, _gunAz, _gunEl] call CBA_fnc_polar2vect)) vectorMultiply 100), [0, 1, 0, 1]];
 };
 
 [_heli, "mainTurret", _mainturret] call fza_anim_fnc_updateAnimations;
