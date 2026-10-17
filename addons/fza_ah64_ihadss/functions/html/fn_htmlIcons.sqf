@@ -144,9 +144,9 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
         };
     };
     private _pylonElev = _heli getVariable ["fza_ah64_rocketPylonElev", 0];
-    private _onGround  = [_heli] call bmkhs_fnc_stateOnGround;
     private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != "";
-    private _rktTex    = ("rkt" + (["", "_stow"] select _onGround) + (["", "_inhibit"] select _inhibit)) call _tex;
+    // No stowed cursor until a WPN UTIL page can set ground stow
+    private _rktTex    = ("rkt" + (["", "_inhibit"] select _inhibit)) call _tex;
 
     // Fixed size I-beam, bars 100 format units apart, moving so that full pylon travel is its own length: the top bar is
     // on the reticle at -15 deg, the bottom bar at +4 deg. Across, 16 units per degree.
