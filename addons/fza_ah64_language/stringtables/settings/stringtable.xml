@@ -59,6 +59,14 @@
             <Turkish>TADS (LMC) Doğrusal Hareket Telafisi Giriş Duyarlılığı Kontrol</Turkish>
             <Dutch>TADS (LMC) Invoergevoeligheidscontrole van lineaire bewegingscompensator</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR">
+            <Original>TADS input ignores the detached cursor</Original>
+            <English>TADS input ignores the detached cursor</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR_INFO">
+            <Original>With the TADS on the HDU, slew the TADS and LMC with the aim input even while the Hatchet detached cursor option is on. Holding the cursor key still stops TADS input.</Original>
+            <English>With the TADS on the HDU, slew the TADS and LMC with the aim input even while the Hatchet detached cursor option is on. Holding the cursor key still stops TADS input.</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_MASTER_VOLUME">
             <Original>Master volume Knob</Original>
             <English>Master volume Knob</English>

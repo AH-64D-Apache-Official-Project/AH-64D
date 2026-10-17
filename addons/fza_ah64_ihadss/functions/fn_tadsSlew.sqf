@@ -35,7 +35,7 @@ if !(_gain isEqualType 0) then {_gain = 60};
 private _fov = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
 private _rate = _gain * _fov / (fza_ah64_tadsFOVs # 0) * _deltaTime;
 // The aim input moves the head in free look, and the cockpit cursor while it is detached
-if (freeLook || {(cameraView == "INTERNAL" && {(missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})}) then {_rate = 0};
+if (freeLook || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})}) then {_rate = 0};
 
 _az = ((_az + (inputAction "AimRight" - inputAction "AimLeft") * _rate) max -120) min 120;
 _el = ((_el + (inputAction "AimUp" - inputAction "AimDown") * _rate) max -60) min 30;

@@ -61,6 +61,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_tadsIgnoreHatchetCursor",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR"), (localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR_INFO")],
+    [_projName, "TADS Controls"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_LMCSensitivity",
     "SLIDER",
     [(localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY"), (localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO")],
