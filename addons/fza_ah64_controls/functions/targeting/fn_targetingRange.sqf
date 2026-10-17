@@ -6,15 +6,16 @@ Description:
     selected range source. The last selected source stays in use; while it
     cannot give a range the crew station's default range is used.
 
-    Laser    - *XXXX m while that station lases, XXXX m after
+    Laser    - *XXXX m while that station lases, XXXX m after, 500-9999 m; under
+               500 m there is no laser range and nothing is shown
     Radar    - RX.X km to the NTS, selected by a new NTS with FCR as the sight
     Nav      - NXX.X km to a coordinate point
     Manual   - MXX.X km, entered on the WPN page
     Auto     - AXX.X km, the selected sight LOS against zero radar altitude
     Default  - 3.0 km CPG, 1.5 km pilot
 
-    TADS ranges with laser, nav, manual or auto; FCR with radar or manual, R??
-    without a valid radar range; HMD and FXD with nav, manual or auto. HMD with
+    Manual and auto range with every sight; TADS also with laser and nav, FCR
+    with radar (R?? without a valid radar range), HMD and FXD with nav. HMD with
     the gun selected uses the manual range, or the default without one. In
     cooperative rockets the pilot uses the CPG's range.
 
@@ -58,7 +59,7 @@ if (_sight == SIGHT_HMD && {(_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]
 // Sources each sight can range with; any other uses the default
 private _allowed = switch (_sight) do {
     case SIGHT_TADS: {[RANGE_SRC_LASER, RANGE_SRC_NAV, RANGE_SRC_MANUAL, RANGE_SRC_AUTO]};
-    case SIGHT_FCR:  {[RANGE_SRC_RADAR, RANGE_SRC_MANUAL]};
+    case SIGHT_FCR:  {[RANGE_SRC_RADAR, RANGE_SRC_MANUAL, RANGE_SRC_AUTO]};
     default          {[RANGE_SRC_NAV, RANGE_SRC_MANUAL, RANGE_SRC_AUTO]};
 };
 if !(_source in _allowed) then {_source = RANGE_SRC_DEFAULT};
@@ -68,9 +69,9 @@ private _result  = switch (_source) do {
     case RANGE_SRC_LASER: {
         if (!isNull laserTarget _heli && {(_heli getVariable ["fza_ah64_laserSeat", "cpg"]) == _seat}) then {
             private _range = round ((_heli distance laserTarget _heli) min RANGE_LASER_MAX);
-            [_range, "*" + str _range]
+            [[_default, ""], [_range, "*" + str _range]] select (_range >= RANGE_LASER_MIN)
         } else {
-            [[], [_value, str round (_value min RANGE_LASER_MAX)]] select (_value > 0)
+            [[], [_value, str round (_value min RANGE_LASER_MAX)]] select (_value >= RANGE_LASER_MIN)
         };
     };
     case RANGE_SRC_RADAR: {
@@ -93,7 +94,14 @@ private _result  = switch (_source) do {
         private _unit = [driver _heli, gunner _heli] select (_seat == "cpg");
         private _dir  = switch (_sight) do {
             case SIGHT_TADS: {[_heli, "TADS"] call fza_fnc_targetingAcqVec};
-            case SIGHT_HMD:  {[eyeDirection _unit, _heli vectorModelToWorldVisual [0, 1, 0]] select (isNull _unit)};
+            // The local crew's head LOS from the camera; eyeDirection does not follow the head in a vehicle
+            case SIGHT_HMD:  {
+                switch (true) do {
+                    case (_unit == player): {getCameraViewDirection player};
+                    case (isNull _unit):    {_heli vectorModelToWorldVisual [0, 1, 0]};
+                    default                 {eyeDirection _unit};
+                };
+            };
             case SIGHT_FCR:  {
                 private _ntsPos = (_heli getVariable ["fza_ah64_fcrNts", [objNull, [0, 0, 0]]]) param [1, [0, 0, 0]];
                 [_heliPos vectorFromTo _ntsPos, _heli vectorModelToWorldVisual [0, 1, 0]] select (_ntsPos isEqualTo [0, 0, 0])
@@ -112,4 +120,6 @@ private _result  = switch (_source) do {
 
 // The default range; FCR shows R?? without a valid radar range
 if (_result isEqualTo []) exitWith {[_default, [_default call _km, "R??"] select (_sight == SIGHT_FCR), RANGE_SRC_DEFAULT]};
+// Under the laser's minimum range the default is used with nothing shown
+if ((_result # 1) == "") exitWith {_result + [RANGE_SRC_DEFAULT]};
 _result + [_source]

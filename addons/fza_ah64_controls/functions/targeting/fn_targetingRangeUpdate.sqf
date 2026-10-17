@@ -55,6 +55,11 @@ if (isNull laserTarget _heli || {(_heli getVariable ["fza_ah64_laserSeat", "cpg"
 private _range = round ((_heli distance laserTarget _heli) min RANGE_LASER_MAX);
 (_heli getVariable ["fza_ah64_rangeSrc_" + _seat, [RANGE_SRC_DEFAULT, 0]]) params ["_source", "_value"];
 
+// Under its minimum range the laser is still the source but gives no range to keep
+if (_range < RANGE_LASER_MIN) exitWith {
+    if (_source != RANGE_SRC_LASER) then {[_heli, _seat, RANGE_SRC_LASER, 0] call fza_fnc_targetingRangeSet};
+};
+
 // The live range is read from the laser while it fires; the kept value is sent at most twice a second
 if (_source != RANGE_SRC_LASER || {CBA_missionTime - (_heli getVariable ["fza_ah64_rangeLaserSent", -10]) > 0.5 && {_range != _value}}) then {
     _heli setVariable ["fza_ah64_rangeLaserSent", CBA_missionTime];

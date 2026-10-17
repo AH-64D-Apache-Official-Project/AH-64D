@@ -24,12 +24,15 @@ if (_value) then {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectTADS": {
+            // The TADS is the CPG's sight
+            if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFXD": {
             [_heli, "fza_ah64_sight", SIGHT_FXD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFCR": {
+            if (_heli animationPhase "fcr_enable" != 1) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
             // FCR sight select commands the centerline back to the acquisition LOS
             if ((_heli getVariable ["fza_ah64_fcrAzBias", 0]) != 0) then {

@@ -25,6 +25,7 @@
 #define RANGE_MANUAL_MAX      50000
 #define RANGE_AUTO_MAX        50000
 #define RANGE_NAV_MAX         32000
+#define RANGE_LASER_MIN       500
 #define RANGE_LASER_MAX       9999
 
 #define WAS_WEAPON_NONE 0
