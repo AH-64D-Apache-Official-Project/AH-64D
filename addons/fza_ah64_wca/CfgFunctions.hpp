@@ -13,6 +13,7 @@ class CfgFunctions
         tag="fza_wca";
         class functions {
             file = "\fza_ah64_wca\functions";
+            class altitudeLow {R;};
             class init {R;};
             class update {R;};
             class wcaAddCaution {R;};

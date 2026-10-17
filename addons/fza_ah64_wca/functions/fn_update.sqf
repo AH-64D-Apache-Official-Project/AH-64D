@@ -33,3 +33,5 @@ _heli setUserMFDValue [MFD_IND_GND_ORIDE, BOOLTONUM(_heli getVariable "fza_ah64_
 _heli setUserMFDValue [MFD_IND_EMER_HYD,  BOOLTONUM(_heli getVariable "bmkhs_emerHydOn")];
 _heli setUserMFDValue [MFD_IND_MSTR_CAUT, BOOLTONUM(_heli getVariable "fza_ah64_mstrCautLightOn")];
 _heli setUserMFDValue [MFD_IND_MSTR_WARN, BOOLTONUM(_heli getVariable "fza_ah64_mstrWarnLightOn")];
+
+[_heli] call fza_wca_fnc_altitudeLow;
