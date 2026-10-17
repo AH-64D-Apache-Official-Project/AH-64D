@@ -2,6 +2,9 @@
 #include "\fza_ah64_dms\headers\constants.h"
 params["_heli", "_mpdIndex", "_state", "_persistState"];
 
+// Point altitudes read like the aircraft's barometric altitude
+private _altBase = [_heli] call fza_dms_fnc_pointAltitudeBase;
+
 #define SCALE_METERS_FEET 3.28084
 
 private _pageType = _state get "pageType";
@@ -62,7 +65,7 @@ switch (_pageType) do {
                 if ((_i + 1) != _pointselected) then {
                     if (_pointInfo isNotEqualTo -1) then {
                         _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
-                        _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET) toFixed 0, 5] call fza_fnc_padString]];
+                        _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET + _altBase) toFixed 0, 5] call fza_fnc_padString]];
                     } else {
                     _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", ([_type, (_pointValue + (1 + _offset))] call fza_dms_fnc_pointToString), _ident, "AAA", "XXXX", "XXXX", "XXXXX"]];
                 };
@@ -86,7 +89,7 @@ switch (_pageType) do {
                         private _line2 = format[" %1 W84 47 13S FU  %2 %3 %4° %5 KM   ",(_id call fza_dms_fnc_pointToString), (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], _hdg,[_dstToWpt_km, 2, 1] call CBA_fnc_formatNumber];
                         //line 3
                         private _dstToWpt_nm  = (_armaPos distance2D _posHeli) * 0.000539957;
-                        private _line3 = format["   %1 %2 FT %3 NM ", _latLong, [[(_altMSL) * SCALE_METERS_FEET,0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
+                        private _line3 = format["   %1 %2 FT %3 NM ", _latLong, [[(_altMSL) * SCALE_METERS_FEET + _altBase,0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
 
                         _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex - 1), _line1];
                         _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex),     _line2];
