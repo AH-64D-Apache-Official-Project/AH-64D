@@ -2,7 +2,8 @@ class Flt_Horizon {
     type = "horizon";
     angle = -5;
     pos0[] = {0.5, 0.5};
-    pos10[] = {0.57, 0.57};
+    // Moves 0.098 per 10 deg, the rung spacing in flt_draw.hpp (0.7 * angle * 0.014)
+    pos10[] = {0.598, 0.598};
 };
 
 class Flt_RadarAlt {
