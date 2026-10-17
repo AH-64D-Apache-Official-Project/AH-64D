@@ -92,8 +92,6 @@ switch (_sight) do {
     };
     case SIGHT_HMD:{
         _targPos = AGLToASL (positionCameraToWorld [0, 0, 1000]);
-        if (cameraView == "GUNNER") exitWith {};
-        _cameraTarget = _targPos;
     };
     case SIGHT_TADS:{
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
