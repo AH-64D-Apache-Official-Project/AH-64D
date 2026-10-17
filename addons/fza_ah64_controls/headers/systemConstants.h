@@ -1,10 +1,10 @@
 #ifndef FZA_AH64_CONTROLS_HEADERS_SYSTEM_CONSTANTS_H
 #define FZA_AH64_CONTROLS_HEADERS_SYSTEM_CONSTANTS_H
 
-#define SIGHT_FCR  0
-#define SIGHT_HMD  1
-#define SIGHT_TADS 2
-#define SIGHT_FXD  3
+#define SIGHT_HMD  0
+#define SIGHT_TADS 1
+#define SIGHT_FCR  2
+#define SIGHT_FXD  3 //<-- needs to be deleted, fxd is an acquisition source, not a sight
 
 #define FCR_MODE_OFF           0
 #define FCR_MODE_ON_SINGLE     1
