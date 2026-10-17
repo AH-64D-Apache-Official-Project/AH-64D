@@ -23,3 +23,6 @@
 #define HDU_FIELD_BOTTOM 324
 #define HDU_STRIP_PX    3
 #define HDU_STRIPS_MAX  400
+//FLIR Resolution
+#define FLIR_WFOV_RES 720
+#define FLIR_ZFOV_RES 360

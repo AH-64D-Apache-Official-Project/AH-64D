@@ -106,10 +106,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         fza_ah64_flirBlurEffect ppEffectEnable true;
         //The zoom FOV is a digital zoom that doubles the resolution
         if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
-            fza_ah64_flirResolutionEffect ppEffectAdjust [180];
+            fza_ah64_flirResolutionEffect ppEffectAdjust [FLIR_ZFOV_RES];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         } else {
-            fza_ah64_flirResolutionEffect ppEffectAdjust [360];
+            fza_ah64_flirResolutionEffect ppEffectAdjust [FLIR_WFOV_RES];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
         //Progressive blur w/ zoom
@@ -153,10 +153,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirBlurEffect ppEffectEnable true;
             //The zoom FOV is a digital zoom that doubles the resolution
             if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
-                fza_ah64_flirResolutionEffect ppEffectAdjust [270];
+                fza_ah64_flirResolutionEffect ppEffectAdjust [FLIR_WFOV_RES];
                 fza_ah64_flirResolutionEffect ppEffectCommit 0;
             } else {
-                fza_ah64_flirResolutionEffect ppEffectAdjust [540];
+                fza_ah64_flirResolutionEffect ppEffectAdjust [FLIR_WFOV_RES];
                 fza_ah64_flirResolutionEffect ppEffectCommit 0;
             };
             //Progressive blur w/ zoom
