@@ -146,8 +146,8 @@ private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0]) * METERS_TO_FEET;
 if (_radAlt <= 1428) then {
     _m set ["radAlt", [round (_radAlt max 0), round (_radAlt / 10) * 10] select (_radAlt > 50)];
 };
-_m set ["radAltHi", _heli getVariable ["fza_ah64_radAltHi", -1]];
-_m set ["radAltLo", _heli getVariable ["fza_ah64_radAltLo", -1]];
+_m set ["radAltHi", _heli getVariable ["fza_ah64_radAltHi", 200]];
+_m set ["radAltLo", _heli getVariable ["fza_ah64_radAltLo", 33]];
 _m set ["baroAlt", ((round ((_heli getVariable ["bmkhs_barAlt", 0]) / 10) * 10) max 0) min 20000];
 _m set ["vsi", ((_heli getVariable ["bmkhs_velWorldSpace", [0, 0, 0]]) # 2) * MPS_TO_FPM];
 _m set ["attHold", _heli getVariable ["bmkhs_attHoldActive", false]];
@@ -180,7 +180,7 @@ if (!_weaponFormat && {_mode in ["trans", "cruise"]}) then {
     _m set ["wpt", _wpt];
 };
 
-private _nvsMode = _heli getVariable ["fza_ah64_ihadss_pnvs_cam", 0];
+private _nvsMode = _heli getVariable ["fza_ah64_nvsModeSwitchNorm", 0];
 if (!_weaponFormat && {_nvsMode != 0}) then {
     _m set ["nvsSensor", "FLIR"];
 };

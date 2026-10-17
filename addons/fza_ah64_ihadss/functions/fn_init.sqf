@@ -28,9 +28,9 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
     _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0,   true];
 
-    // -1 hides the indication; to be set from FLT SET (radar altitude, ft) and the load factor limit (G)
-    _heli setVariable ["fza_ah64_radAltHi",          -1,  true];
-    _heli setVariable ["fza_ah64_radAltLo",          -1,  true];
+    // Radar altitude HI/LO (ft) are fixed until a FLT SET page sets them, the load factor limit (G) is unset; -1 hides the indication
+    _heli setVariable ["fza_ah64_radAltHi",          200, true];
+    _heli setVariable ["fza_ah64_radAltLo",          33,  true];
     _heli setVariable ["fza_ah64_loadFactorLimit",   -1,  true];
        
     _heli setVariable ["fza_ah64_tadsSelectedSensor",     "FLIR",    true];

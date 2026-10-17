@@ -89,9 +89,9 @@
         }
     };
 
-    // Heading tape: 180 deg shown
-    IH.TAPE_PX_PER_DEG = 2;
-    IH.TAPE_HALF_DEG = 90;
+    // Heading tape: 210 deg shown across 360 format units
+    IH.TAPE_HALF_DEG = 105;
+    IH.TAPE_PX_PER_DEG = 180 / IH.TAPE_HALF_DEG;
     IH.TAPE_Y = 66;
 
     IH.wrap180 = function (a) {

@@ -8,6 +8,7 @@
     var VEL_MAX_PX = 167;
     var VEL_MIN_KTS = 0.1;
     var ACC_FULL_SCALE_MPS2 = 12;
+    var ACC_FROM_TIP_KTS = 6;
     var SCALE_TOP = 104;
     var SCALE_BOTTOM = 347;
     var SCALE_MID = (SCALE_TOP + SCALE_BOTTOM) / 2;
@@ -20,7 +21,6 @@
     var HOLD_DROP_MS = 3000;
     var G_MIN_SHOW_MS = 2000;
 
-    var radAltScaleShown = false;
     var holds = { att: { on: false, dropped: -Infinity }, alt: { on: false, dropped: -Infinity } };
     var gShownUntil = -Infinity;
 
@@ -169,14 +169,9 @@
         ctx.fill();
     }
 
-    // Shown from 0-200 ft climbing and 180 ft downwards descending
+    // Shown below 200 ft
     function drawRadAltScale(ctx, m) {
-        if (!IH.isNum(m.radAlt)) {
-            radAltScaleShown = false;
-            return;
-        }
-        radAltScaleShown = m.radAlt < (radAltScaleShown ? RADALT_SCALE_FT : 180);
-        if (!radAltScaleShown) { return; }
+        if (!IH.isNum(m.radAlt) || m.radAlt >= RADALT_SCALE_FT) { return; }
 
         var x = 551;
         var step = (SCALE_BOTTOM - SCALE_TOP) / 20;
@@ -217,7 +212,8 @@
     function drawVelocityAndAccel(ctx, m) {
         if (!m.vel) { return; }
         var fullKts = m.mode === "trans" ? 60 : 6;
-        var still = Math.sqrt(m.vel[0] * m.vel[0] + m.vel[1] * m.vel[1]) < VEL_MIN_KTS;
+        var speed = Math.sqrt(m.vel[0] * m.vel[0] + m.vel[1] * m.vel[1]);
+        var still = speed < VEL_MIN_KTS;
         var vx = still ? 0 : m.vel[0] / fullKts * VEL_MAX_PX;
         var vy = still ? 0 : m.vel[1] / fullKts * VEL_MAX_PX;
         var len = Math.sqrt(vx * vx + vy * vy);
@@ -239,8 +235,9 @@
             ctx.fill();
         }
 
+        // From the vector tip up to 6 kt, from the LOS reticle above that
         if (!m.acc) { return; }
-        var fromTip = m.mode === "trans" || !saturated;
+        var fromTip = speed <= ACC_FROM_TIP_KTS;
         var ox = fromTip ? tipX : IH.CX;
         var oy = fromTip ? tipY : IH.CY;
         var ax = IH.clamp(m.acc[0] / ACC_FULL_SCALE_MPS2, -1, 1) * VEL_MAX_PX;
