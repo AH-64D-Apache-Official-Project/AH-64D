@@ -235,9 +235,9 @@
             ctx.fill();
         }
 
-        // From the vector tip up to 6 kt, from the LOS reticle above that
+        // From the vector tip in transition; in hover and bob-up from the tip up to 6 kt, from the LOS reticle above that
         if (!m.acc) { return; }
-        var fromTip = speed <= ACC_FROM_TIP_KTS;
+        var fromTip = m.mode === "trans" || speed <= ACC_FROM_TIP_KTS;
         var ox = fromTip ? tipX : IH.CX;
         var oy = fromTip ? tipY : IH.CY;
         var ax = IH.clamp(m.acc[0] / ACC_FULL_SCALE_MPS2, -1, 1) * VEL_MAX_PX;
