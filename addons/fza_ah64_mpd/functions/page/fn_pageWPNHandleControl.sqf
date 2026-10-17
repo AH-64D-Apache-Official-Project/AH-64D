@@ -71,14 +71,13 @@ switch (_control) do {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
     case "b6": {
-        // MANRNG: a range in metres selects manual range, A selects auto range. No manual range with FCR as the sight.
+        // MANRNG: a range in metres selects manual range, A selects auto range
         private _checker = {
             params ["_input", "", "_heli"];
             if (toUpper _input == "A") exitWith {[true, -1]};
             if !(_input regexMatch "^\d+$") exitWith {false};
             private _range = parseNumber _input;
             if (_range < RANGE_MANUAL_MIN || _range > RANGE_MANUAL_MAX) exitWith {false};
-            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) exitWith {false};
             [true, _range]
         };
         private _callback = {

@@ -13,9 +13,10 @@ Description:
     Auto     - AXX.X km, the selected sight LOS against zero radar altitude
     Default  - 3.0 km CPG, 1.5 km pilot
 
-    TADS ranges with laser, nav, manual or auto; FCR with radar; HMD and FXD
-    with nav, manual or auto. HMD with the gun selected uses the manual range,
-    or the default without one.
+    TADS ranges with laser, nav, manual or auto; FCR with radar or manual, R??
+    without a valid radar range; HMD and FXD with nav, manual or auto. HMD with
+    the gun selected uses the manual range, or the default without one. In
+    cooperative rockets the pilot uses the CPG's range.
 
 Parameters:
     _heli - The helicopter
@@ -38,6 +39,11 @@ params ["_heli", "_seat"];
 _seat = [_heli, _seat] call fza_fnc_getSeat;
 if (isNil "_seat") exitWith {[RANGE_DEFAULT_CPG, "3.0", RANGE_SRC_DEFAULT]};
 
+// Cooperative rockets: rockets actioned with the pilot firing and a CPG aboard; the CPG's LOS and range are used
+if (_seat == "plt" && {(_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]) == WAS_WEAPON_RKT && {isManualFire _heli && {isPlayer gunner _heli}}}) then {
+    _seat = "cpg";
+};
+
 private _km      = {(_this / 1000) toFixed 1};
 private _default = [RANGE_DEFAULT_CPG, RANGE_DEFAULT_PLT] select (_seat == "plt");
 private _sight   = [_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable;
@@ -52,7 +58,7 @@ if (_sight == SIGHT_HMD && {(_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]
 // Sources each sight can range with; any other uses the default
 private _allowed = switch (_sight) do {
     case SIGHT_TADS: {[RANGE_SRC_LASER, RANGE_SRC_NAV, RANGE_SRC_MANUAL, RANGE_SRC_AUTO]};
-    case SIGHT_FCR:  {[RANGE_SRC_RADAR]};
+    case SIGHT_FCR:  {[RANGE_SRC_RADAR, RANGE_SRC_MANUAL]};
     default          {[RANGE_SRC_NAV, RANGE_SRC_MANUAL, RANGE_SRC_AUTO]};
 };
 if !(_source in _allowed) then {_source = RANGE_SRC_DEFAULT};
@@ -94,9 +100,9 @@ private _result  = switch (_source) do {
             };
             default {_heli vectorModelToWorldVisual [0, 1, 0]};
         };
-        // The sight line meets the ground at zero radar altitude; none at or above the horizon
+        // Where the sight line meets the ground at zero radar altitude, with the line at least 1 deg below the horizon
         private _sinDepression = -((vectorNormalized _dir) # 2);
-        if (_sinDepression >= 0.002) then {
+        if (_sinDepression >= sin 1) then {
             private _range = ((_heli getVariable ["bmkhs_radAlt", 0]) / _sinDepression) max 100;
             [[], [_range, "A" + (_range call _km)]] select (_range <= RANGE_AUTO_MAX)
         } else {[]};
@@ -104,5 +110,6 @@ private _result  = switch (_source) do {
     default {[]};
 };
 
-if (_result isEqualTo []) exitWith {[_default, _default call _km, RANGE_SRC_DEFAULT]};
+// The default range; FCR shows R?? without a valid radar range
+if (_result isEqualTo []) exitWith {[_default, [_default call _km, "R??"] select (_sight == SIGHT_FCR), RANGE_SRC_DEFAULT]};
 _result + [_source]
