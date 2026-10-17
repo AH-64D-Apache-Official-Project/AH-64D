@@ -4,7 +4,8 @@ Function: fza_wca_fnc_altitudeLow
 Description:
     Plays the "altitude low" audio message below the radar altitude LO
     setting: at LO when it is 10 ft or less, 10% below LO up to 999 ft and
-    100 ft below LO from 1000 ft. It is armed once the aircraft has been
+    100 ft below LO from 1000 ft, twice and then not again until the aircraft
+    is back above LO. It is armed once the aircraft has been
     above LO since leaving the ground, so it does not sound on the ground or
     while lifting off.
 
@@ -43,11 +44,18 @@ private _trigger = switch (true) do {
     default            {_lo - 100};
 };
 
-// Lowest priority, so any warning message takes over and it resumes once that clears
+// Said twice, 2 s apart, then not again until the aircraft is back above LO. Lowest priority, so any warning message takes over.
+private _playing = "fza_ah64_altitude_low" in (_heli getVariable ["fza_audio_warning_message", ""]);
+private _start   = _heli getVariable ["fza_ah64_altLowStart", -1];
+if (_radAlt > _lo) then {_start = -1};
 if (_armed && {_radAlt <= _trigger}) then {
-    [_heli, -1, "fza_ah64_altitude_low", 3] call fza_audio_fnc_addWarning;
-} else {
-    if ("fza_ah64_altitude_low" in (_heli getVariable ["fza_audio_warning_message", ""])) then {
-        [_heli] call fza_audio_fnc_delWarning;
+    if (_start < 0) then {_start = CBA_missionTime};
+    if (CBA_missionTime - _start < 3) then {
+        [_heli, -1, "fza_ah64_altitude_low", 2] call fza_audio_fnc_addWarning;
+    } else {
+        if (_playing) then {[_heli] call fza_audio_fnc_delWarning};
     };
+} else {
+    if (_playing) then {[_heli] call fza_audio_fnc_delWarning};
 };
+_heli setVariable ["fza_ah64_altLowStart", _start];
