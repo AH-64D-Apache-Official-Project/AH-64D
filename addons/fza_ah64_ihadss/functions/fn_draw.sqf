@@ -34,7 +34,7 @@ private _setDeadOptics = false;
 
 //HDU picture: the PNVS, or the TADS for the CPG with TADS selected
 private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
-private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0);
+private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_nvsModeSwitchNorm" != 0);
 private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 private _tadsShown = _monocleUp && !_pnvsShown && player == gunner _heli && _sight == SIGHT_TADS;
@@ -105,7 +105,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         fza_ah64_chromAberrationEffect ppEffectEnable false;
         fza_ah64_flirBlurEffect ppEffectEnable true;
         //The zoom FOV is a digital zoom that doubles the resolution
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
             fza_ah64_flirResolutionEffect ppEffectAdjust [180];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         } else {
@@ -113,31 +113,31 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
         //Progressive blur w/ zoom
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 0) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 0) then {
             fza_ah64_flirBlurEffect ppEffectAdjust [0.15];
             fza_ah64_flirBlurEffect ppEffectCommit 0;
         };
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 1) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 1) then {
             fza_ah64_flirBlurEffect ppEffectAdjust [0.20];
             fza_ah64_flirBlurEffect ppEffectCommit 0;
         };
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 2) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 2) then {
             fza_ah64_flirBlurEffect ppEffectAdjust [0.30];
             fza_ah64_flirBlurEffect ppEffectCommit 0;
         };
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
             fza_ah64_flirBlurEffect ppEffectAdjust [0.40];
             fza_ah64_flirBlurEffect ppEffectCommit 0;
         };
     } else {
-        if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedSensor") in ["DTV"]) then {
             fza_ah64_flirResolutionEffect ppEffectEnable false;
             fza_ah64_dvoEffect ppEffectEnable false;
             fza_ah64_monoChromeEffect ppEffectEnable true;
             fza_ah64_chromAberrationEffect ppEffectEnable true;
             fza_ah64_flirBlurEffect ppEffectEnable false;
         };
-        if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedSensor") in ["DVO"]) then {
             fza_ah64_flirResolutionEffect ppEffectEnable false;
             fza_ah64_dvoEffect ppEffectEnable true;
             fza_ah64_monoChromeEffect ppEffectEnable false;
@@ -145,14 +145,14 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirBlurEffect ppEffectEnable false;
         };
         //"Vanilla" FLIR
-        if ((_heli getVariable "fza_ah64_tadsVision") in ["FLIR"]) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedSensor") in ["FLIR"]) then {
             fza_ah64_flirResolutionEffect ppEffectEnable true;
             fza_ah64_dvoEffect ppEffectEnable false;
             fza_ah64_monoChromeEffect ppEffectEnable false;
             fza_ah64_chromAberrationEffect ppEffectEnable false;
             fza_ah64_flirBlurEffect ppEffectEnable true;
             //The zoom FOV is a digital zoom that doubles the resolution
-            if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+            if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
                 fza_ah64_flirResolutionEffect ppEffectAdjust [270];
                 fza_ah64_flirResolutionEffect ppEffectCommit 0;
             } else {
@@ -160,19 +160,19 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
                 fza_ah64_flirResolutionEffect ppEffectCommit 0;
             };
             //Progressive blur w/ zoom
-            if ((_heli getVariable "fza_ah64_tadsZoom") == 0) then {
+            if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 0) then {
                 fza_ah64_flirBlurEffect ppEffectAdjust [0.15];
                 fza_ah64_flirBlurEffect ppEffectCommit 0;
             };
-            if ((_heli getVariable "fza_ah64_tadsZoom") == 1) then {
+            if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 1) then {
                 fza_ah64_flirBlurEffect ppEffectAdjust [0.20];
                 fza_ah64_flirBlurEffect ppEffectCommit 0;
             };
-            if ((_heli getVariable "fza_ah64_tadsZoom") == 2) then {
+            if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 2) then {
                 fza_ah64_flirBlurEffect ppEffectAdjust [0.30];
                 fza_ah64_flirBlurEffect ppEffectCommit 0;
             };
-            if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+            if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
                 fza_ah64_flirBlurEffect ppEffectAdjust [0.40];
                 fza_ah64_flirBlurEffect ppEffectCommit 0;
             };

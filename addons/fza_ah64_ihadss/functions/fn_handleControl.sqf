@@ -30,28 +30,28 @@ switch(_control) do {
     };
     case "nvsSwitchToggle": {
         private _nvsSwitch = ["cpg_nvsmode", "plt_nvsmode"] select (driver _heli == player);
-        private _nvsState  = _heli getVariable "fza_ah64_ihadss_pnvs_cam";
+        private _nvsState  = _heli getVariable "fza_ah64_nvsModeSwitchNorm";
         if (_nvsState == 0) then {
             _heli animateSource[_nvsSwitch, 0.5];
-            _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0.5];
+            _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0.5];
         };
         if (_nvsState == 0.5) then {
             _heli animateSource[_nvsSwitch, 1];
-            _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 1];
+            _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 1];
         };
         if (_nvsState == 1) then {
             _heli animateSource[_nvsSwitch, 0];
-            _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0];
+            _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0];
         };
         playSound "fza_ah64_switch_flip3";
     };
     case (localize "STR_FZA_AH64_NVS_OFF"): {
-        _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0];
+        _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0];
     };
     case (localize "STR_FZA_AH64_NVS_NORM"): {
-        _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0.5];
+        _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0.5];
     };
     case (localize "STR_FZA_AH64_NVS_FIXED"): {
-        _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 1];
+        _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 1];
     };
 };
