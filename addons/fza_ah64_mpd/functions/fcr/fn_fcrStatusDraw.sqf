@@ -35,17 +35,7 @@ switch (_sight) do {
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
-private _nts     = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _rngSrce = format["R%1", ((_heli distance _nts) / 1000) toFixed 1];
-if (isNull _nts) then {
-    if (driver _heli isEqualTo player) then {
-        _rngSrce = "1.5";
-    } else { _rngSrce = "3.0"};
-};
-if (!isNull laserTarget _heli) then {
-    _rngSrce = format["*%1", round(_heli distance laserTarget _heli)];
-};
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), ([_heli, player] call fza_fnc_targetingRange) # 1];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 

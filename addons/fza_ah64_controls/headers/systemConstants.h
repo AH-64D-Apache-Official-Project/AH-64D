@@ -11,6 +11,22 @@
 #define FCR_MODE_ON_CONTINUOUS 2
 #define FCR_MODE_FAULT     3
 
+// Range sources, per crew station (fza_fnc_targetingRange)
+#define RANGE_SRC_DEFAULT 0
+#define RANGE_SRC_LASER   1
+#define RANGE_SRC_RADAR   2
+#define RANGE_SRC_NAV     3
+#define RANGE_SRC_MANUAL  4
+#define RANGE_SRC_AUTO    5
+
+#define RANGE_DEFAULT_PLT     1500
+#define RANGE_DEFAULT_CPG     3000
+#define RANGE_MANUAL_MIN      100
+#define RANGE_MANUAL_MAX      50000
+#define RANGE_AUTO_MAX        50000
+#define RANGE_NAV_MAX         32000
+#define RANGE_LASER_MAX       9999
+
 #define WAS_WEAPON_NONE 0
 #define WAS_WEAPON_GUN  1
 #define WAS_WEAPON_RKT  2

@@ -263,14 +263,7 @@ private _sightSel = switch (_sight) do {
     default { "?" };
 };
 
-private _range = "";
-if (!isNull laserTarget _heli) then {
-    _range = "*" + str (round (_heli distance laserTarget _heli) min 9999);
-} else {
-    if (!isNull _ntsObj && {_ntsPos isNotEqualTo [0, 0, 0]}) then {
-        _range = "R" + ((((_heli distance _ntsPos) / 1000) min 9.9) toFixed 1);
-    };
-};
+private _range = ([_heli, player] call fza_fnc_targetingRange) # 1;
 
 private _wpnCtl  = "";
 private _wpnStat = "";
