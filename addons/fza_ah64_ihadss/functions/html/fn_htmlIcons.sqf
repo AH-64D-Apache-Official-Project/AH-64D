@@ -41,8 +41,9 @@ private _shown  = [];
 private _mode   = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
 private _was    = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 
-// Format edges the limited symbols hang on, the same as IH.EDGE in ihadss_common.js
-private _edge = [_rectX + 170 / 640 * _rectW, _rectY + 100 / 480 * _rectH, _rectX + 495 / 640 * _rectW, _rectY + 400 / 480 * _rectH];
+// Format edges the limited symbols hang on, the same as IH.EDGE in ihadss_common.js; heads up the top moves up with the heading tape
+private _edgeTop = 100 + ([IHADSS_SPREAD_TAPE, 0] select _headsDown);
+private _edge = [_rectX + 170 / 640 * _rectW, _rectY + _edgeTop / 480 * _rectH, _rectX + 495 / 640 * _rectW, _rectY + 400 / 480 * _rectH];
 
 private _camASL = AGLToASL positionCameraToWorld [0, 0, 0];
 private _dirToScreen = {
@@ -168,7 +169,33 @@ if (_tpm && {!_tadsVideo} && {_heli getVariable ["fza_ah64_fcrcscope", false]} &
     } forEach (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
 };
 
-if (!_tpm && {!_tadsVideo} && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
+if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
+    // With the TADS picture up the C-scope is placed in the picture, through the TADS LOS and the picture's FOV
+    // (tangent of half its height); otherwise against the outside world
+    private _toScreen = {worldToScreen ASLToAGL _this};
+    (missionNamespace getVariable ["fza_ihadss_tadsPicture", []]) params [["_picRect", []], ["_picFov", 0]];
+    private ["_picX", "_picY", "_picW", "_picH", "_picAspect", "_tadsPos", "_fwd", "_right", "_up"];
+    if (_tadsVideo && {_picRect isNotEqualTo [] && _picFov > 0}) then {
+        _picX = _picRect # 0;
+        _picY = _picRect # 1;
+        _picW = _picRect # 2;
+        _picH = _picRect # 3;
+        _picAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
+        _tadsPos   = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
+        _fwd       = [1, _heli getVariable ["fza_ah64_tadsAzimuth", 0], _heli getVariable ["fza_ah64_tadsElevation", 0]] call CBA_fnc_polar2vect;
+        _right     = vectorNormalized (_fwd vectorCrossProduct [0, 0, 1]);
+        _up        = _right vectorCrossProduct _fwd;
+        _toScreen = {
+            private _d = _heli vectorWorldToModelVisual (_this vectorDiff _tadsPos);
+            private _f = _d vectorDotProduct _fwd;
+            if (_f <= 0) exitWith {[]};
+            [
+                _picX + _picW / 2 * (1 + (_d vectorDotProduct _right) / _f / (_picFov * _picAspect)),
+                _picY + _picH / 2 * (1 - (_d vectorDotProduct _up) / _f / _picFov)
+            ]
+        };
+    };
+
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];
     {
@@ -178,17 +205,17 @@ if (!_tpm && {!_tadsVideo} && {_heli animationPhase "fcr_enable" == 1} && {_heli
         if (_ident != "") then {
             private _parts = _ident splitString "_";
             private _tgtTex = (toLower (_parts # 1) + (["", _parts # 2] select (_parts # 1 != "FLYER"))) call _fcrTex;
-            ["tgt" + str _forEachIndex, _tgtTex, worldToScreen ASLToAGL _pos, 30] call _place;
+            ["tgt" + str _forEachIndex, _tgtTex, _pos call _toScreen, 30] call _place;
         };
     } forEach _fcrTargets;
 
     private _ntsObj   = (_heli getVariable ["fza_ah64_fcrNts", [objNull]]) # 0;
     private _ntsIndex = _fcrTargets findIf {_x # 3 == _ntsObj};
     if (_ntsIndex != -1) then {
-        ["nts", ((["nts", "nts_noMSL"] select (_was == WAS_WEAPON_NONE)) call _fcrTex), worldToScreen ASLToAGL ((_fcrTargets # _ntsIndex) # 0), 30] call _place;
+        ["nts", ((["nts", "nts_noMSL"] select (_was == WAS_WEAPON_NONE)) call _fcrTex), ((_fcrTargets # _ntsIndex) # 0) call _toScreen, 30] call _place;
         private _count = count _fcrTargets;
         if (_count > 1) then {
-            ["ants", ("ants" call _fcrTex), worldToScreen ASLToAGL ((_fcrTargets # ((_ntsIndex + 1) mod (_count min 16))) # 0), 30] call _place;
+            ["ants", ("ants" call _fcrTex), ((_fcrTargets # ((_ntsIndex + 1) mod (_count min 16))) # 0) call _toScreen, 30] call _place;
         };
     };
 };

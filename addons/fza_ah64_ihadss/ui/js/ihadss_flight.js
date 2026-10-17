@@ -15,7 +15,7 @@
     var RADALT_SCALE_FT = 200;
     var VSI_HALF_FPM = 1000;
     var TRANS_PX_PER_DEG = 8;
-    var CRUISE_PX_PER_DEG = 4;
+    var CRUISE_PX_PER_DEG = 8;
     var DEG = Math.PI / 180;
 
     var HOLD_DROP_MS = 3000;
@@ -52,13 +52,17 @@
         });
         IH.shifted(ctx, L.waypoint[0], L.waypoint[1], function () { drawWaypoint(ctx, m, nav); });
         IH.shifted(ctx, 0, L.bottom, function () { drawTrimBall(ctx, m); });
+        // The moving symbols are cut off just below the heading tape
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(-IH.MARGIN, IH.edgeTop(), IH.W + 2 * IH.MARGIN, IH.H + IH.MARGIN - IH.edgeTop());
+        ctx.clip();
         if (hover || mode === "trans") { drawVelocityAndAccel(ctx, m); }
         if (mode === "bobup") { drawBobUpBox(ctx, m); }
         if (mode === "trans") { drawHorizonLine(ctx, m); }
-        if (mode === "cruise") {
-            drawPitchLadder(ctx, m);
-            drawBankTriangle(ctx, m);
-        }
+        if (mode === "cruise") { drawPitchLadder(ctx, m); }
+        ctx.restore();
+        if (mode === "cruise") { drawBankTriangle(ctx, m); }
     };
 
     function drawTopLeft(ctx, m) {
@@ -295,13 +299,13 @@
         ctx.restore();
     }
 
-    // No 5 deg rungs, 4:1 movement
+    // No 5 deg rungs, 2:1 movement
     function drawPitchLadder(ctx, m) {
         if (!IH.isNum(m.pitch)) { return; }
         var att = attitude(m);
         ctx.save();
         ctx.beginPath();
-        ctx.rect(IH.CX - 150, 95, 300, 320);
+        ctx.rect(IH.CX - 150, IH.edgeTop() - 5, 300, 420 - IH.edgeTop());
         ctx.clip();
         ctx.translate(IH.CX, IH.CY);
         ctx.rotate(-att[1] * DEG);

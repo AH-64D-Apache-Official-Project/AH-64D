@@ -10,6 +10,8 @@
 #define HDU_CLIP_B      362
 // The HTML page extends this far past the format on every side; IH.MARGIN in ihadss_common.js
 #define IHADSS_PAGE_MARGIN 100
+// Heads up the heading tape moves up this far, and the top edge of the symbol area with it; IH.SPREAD.tape in ihadss_common.js
+#define IHADSS_SPREAD_TAPE -60
 // PNVS picture mask: the glass ellipse grown 14 px, so the strip steps fall under the rim
 #define HDU_MASK_A      (503.2 * HDU_PX_TO_UNIT)
 #define HDU_MASK_B      (530.0 * HDU_PX_TO_UNIT)

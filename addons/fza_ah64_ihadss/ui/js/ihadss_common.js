@@ -18,7 +18,8 @@
     // ...and to the HDU display field (format units from the format centre); HDU_FIELD_* in headers\hdu.h
     IH.HDU_FIELD = { left: -358, right: 358, top: -274, bottom: 324 };
 
-    // Heads up, groups are spread out to fill the HDU lens (format units); heads down they keep the TADS layout
+    // Heads up, groups are spread out to fill the HDU lens (format units); heads down they keep the TADS layout.
+    // tape is IHADSS_SPREAD_TAPE in headers\hdu.h
     IH.SPREAD = { tape: -60, topLeft: [-44, -48], airspeed: -44, right: 66, waypoint: [-30, 20], bottom: 26, hadLeft: -22, hadRight: 14 };
     IH.NO_SPREAD = { tape: 0, topLeft: [0, 0], airspeed: 0, right: 0, waypoint: [0, 0], bottom: 0, hadLeft: 0, hadRight: 0 };
     IH.layout = IH.NO_SPREAD;
@@ -30,8 +31,11 @@
         ctx.restore();
     };
 
-    // Edges the dynamic symbols are limited to
+    // Edges the dynamic symbols are limited to; the top is just below the heading tape and moves with it
     IH.EDGE = { left: 170, right: 495, top: 100, bottom: 400 };
+    IH.edgeTop = function () {
+        return IH.EDGE.top + IH.layout.tape;
+    };
 
     IH.GREEN = "#1AFF00";
     IH.WHITE = "#FFFFFF";
@@ -111,7 +115,7 @@
     // Limits a canvas point to the symbol edges, returning [x, y, wasLimited]
     IH.edgeLimit = function (x, y) {
         var cx = IH.clamp(x, IH.EDGE.left, IH.EDGE.right);
-        var cy = IH.clamp(y, IH.EDGE.top, IH.EDGE.bottom);
+        var cy = IH.clamp(y, IH.edgeTop(), IH.EDGE.bottom);
         return [cx, cy, cx !== x || cy !== y];
     };
 
