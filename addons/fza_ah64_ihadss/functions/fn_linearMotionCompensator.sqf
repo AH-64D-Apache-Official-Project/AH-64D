@@ -71,11 +71,15 @@ if (_lmcStartRange == -1) then {
 private _angVelHorizontal = _velXY / _range;
 private _angVelVertical   = _velYZ / _range;
 
+//The aim input moves the head in free look
+private _aimX = [inputAction "AimRight" - inputAction "AimLeft", 0] select freeLook;
+private _aimY = [inputAction "AimUp" - inputAction "AimDown", 0] select freeLook;
+
 //Get horizontal input
-private _inputX = ((((inputAction "AimRight" - inputAction "AimLeft") - _angVelHorizontal) * _lmcSensitivity) * _fovScalar) * _deltaTime +  _prevInputX;
+private _inputX = (((_aimX - _angVelHorizontal) * _lmcSensitivity) * _fovScalar) * _deltaTime +  _prevInputX;
 _inputX         = [_inputX, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 //Get vertical input
-private _inputY = ((((inputAction "AimUp" - inputAction "AimDown")    + _angVelVertical)   * _lmcSensitivity) * _fovScalar) * _deltaTime + _prevInputY;
+private _inputY = (((_aimY    + _angVelVertical)   * _lmcSensitivity) * _fovScalar) * _deltaTime + _prevInputY;
 _inputY         = [_inputY, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
 _heli setVariable ["fza_ah64_lmcPrevInputs", [_inputX, _inputY]];
