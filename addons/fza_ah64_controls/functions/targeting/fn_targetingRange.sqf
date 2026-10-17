@@ -15,9 +15,8 @@ Description:
     Default  - 3.0 km CPG, 1.5 km pilot
 
     Manual and auto range with every sight; TADS also with laser and nav, FCR
-    with radar (R?? without a valid radar range), HMD and FXD with nav. HMD with
-    the gun selected uses the manual range, or the default without one. In
-    cooperative rockets the pilot uses the CPG's range.
+    with radar (R?? without a valid radar range), HMD with nav. In cooperative
+    rockets the pilot uses the CPG's range.
 
 Parameters:
     _heli - The helicopter
@@ -51,10 +50,6 @@ private _sight   = [_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 (_heli getVariable ["fza_ah64_rangeSrc_" + _seat, [RANGE_SRC_DEFAULT, 0]]) params ["_source", "_value"];
 
-if (_sight == SIGHT_HMD && {(_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]) == WAS_WEAPON_GUN}) then {
-    _source = RANGE_SRC_MANUAL;
-    _value  = _heli getVariable ["fza_ah64_rangeManual_" + _seat, 0];
-};
 
 // Sources each sight can range with; any other uses the default
 private _allowed = switch (_sight) do {
