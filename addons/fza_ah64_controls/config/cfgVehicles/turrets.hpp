@@ -148,9 +148,9 @@ class Turrets : Turrets
                 opticsdisplayname = "W";
             };
             class Dvo_Narrow: Dtv_wide {
-                initfov = 0.1143;   //0.4 / 3.5x mag
-                minfov  = 0.1143;   //0.4 / 3.5x mag
-                maxfov  = 0.1143;   //0.4 / 3.5x mag
+                initfov = 0.0250;   //0.4 / 16x mag
+                minfov  = 0.0250;   //0.4 / 16x mag
+                maxfov  = 0.0250;   //0.4 / 16x mag
                 opticsdisplayname = "N";
             };
         };
