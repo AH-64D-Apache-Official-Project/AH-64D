@@ -172,6 +172,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 
 fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 
-if !_acBusOn then {
+// The laser stops without AC power or with the aircraft safe
+if (!_acBusOn || {!isNull laserTarget _heli && !(_heli getVariable ["fza_ah64_armSafeArmed", false])}) then {
     [_heli] call fza_fnc_laserDisarm;
 };

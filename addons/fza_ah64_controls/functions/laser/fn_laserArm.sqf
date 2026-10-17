@@ -23,7 +23,8 @@ params ["_heli"];
 
 private _acBusOn = _heli getVariable "bmkhs_acBusOn";
 
-// The CPG lases with the TADS as the sight
+// Only with the aircraft armed, and the CPG lases with the TADS as the sight
+if !(_heli getVariable ["fza_ah64_armSafeArmed", false]) exitWith {};
 if (player == gunner _heli && {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_TADS}) exitWith {};
 
 if (isNull laserTarget _heli && _acBusOn) then {
