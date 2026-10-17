@@ -22,6 +22,17 @@ Author:
 #include "\fza_ah64_ihadss\headers\hdu.h"
 params ["_ctrl"];
 
+_ctrl ctrlMapAnimAdd [0, 0.001, [-99999, -99999]];
+ctrlMapAnimCommit _ctrl;
+if (ctrlFade _ctrl > 0) then {
+    private _firstFrame = _ctrl getVariable ["fza_ihadss_firstFrame", -1];
+    if (_firstFrame < 0) exitWith {_ctrl setVariable ["fza_ihadss_firstFrame", diag_frameNo]};
+    if (diag_frameNo > _firstFrame + 1) then {
+        _ctrl ctrlSetFade 0;
+        _ctrl ctrlCommit 0;
+    };
+};
+
 private _heli = vehicle player;
 if (!(_heli isKindOf "fza_ah64base") || { driver _heli != player && gunner _heli != player }) exitWith {};
 if ((_heli getVariable ["fza_ah64_fcrMode", 0]) != FCR_DISP_MODE_TPM || { !(_heli getVariable ["fza_ah64_fcrcscope", false]) }) exitWith {};

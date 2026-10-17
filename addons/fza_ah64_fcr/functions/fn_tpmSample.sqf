@@ -17,7 +17,8 @@ Returns:
 fza_ah64_fcrTPMProfile:
     [leftEdgeBearing, columnWidthDeg, [line1, line2, line3, line4]], each line
     an array of points per column: [x, y, zASL] at the highest terrain the
-    radar sees in that line's range band, or [] where there is none.
+    radar sees in that line's range band, or [] where there is none or it is
+    below the clearance plane.
 
 Author:
     Snow(Dryden)
@@ -192,10 +193,12 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
                         [0, 2] select (_FCRposZ + _horizonSlope * _x >= _safeHeight)
                     } else {
                         _horizonSlope = _rise / _x;
-                        // Lit cells raise the horizon, so the last lit cell in a band is its highest point the radar sees
-                        if (_wantProf) then {
+                        // A band's line point is its highest terrain the radar sees, only where that reaches the clearance plane
+                        if (_wantProf && {_terrainASL >= _safeHeight}) then {
                             private _b = _bandOf # _ri;
-                            if (_b >= 0) then { _bandPt set [_b, [_heliX + _sinAzi * _x, _heliY + _cosAzi * _x, _terrainASL]]; };
+                            if (_b >= 0 && {(_bandPt # _b) isEqualTo [] || {_terrainASL > (_bandPt # _b) # 2}}) then {
+                                _bandPt set [_b, [_heliX + _sinAzi * _x, _heliY + _cosAzi * _x, _terrainASL]];
+                            };
                         };
                         if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) }
                     }
