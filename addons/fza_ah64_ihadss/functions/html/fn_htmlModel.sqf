@@ -160,7 +160,8 @@ _m set ["slip", fza_ah64_sideslip];
 (_heli call fza_fnc_getPitchBank) params ["_pitch", "_bank"];
 _m set ["pitch", _pitch];
 _m set ["roll", _bank];
-_m set ["pitchBias", 5];
+// Pitch bias of the HMD horizon line and pitch ladder, for a FLT SET page to set
+_m set ["pitchBias", _heli getVariable ["fza_ah64_pitchBias", 5]];
 
 private _velModel = _heli getVariable ["bmkhs_velModelSpaceNoWind", [0, 0, 0]];
 _m set ["vel", [(_velModel # 0) * MPS_TO_KNOTS, (_velModel # 1) * MPS_TO_KNOTS]];

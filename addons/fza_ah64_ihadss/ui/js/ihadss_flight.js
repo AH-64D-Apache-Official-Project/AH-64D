@@ -14,7 +14,7 @@
     var SCALE_MID = (SCALE_TOP + SCALE_BOTTOM) / 2;
     var RADALT_SCALE_FT = 200;
     var VSI_HALF_FPM = 1000;
-    var TRANS_PX_PER_DEG = 8;
+    var TRANS_PX_PER_DEG = 4;
     var CRUISE_PX_PER_DEG = 8;
     var DEG = Math.PI / 180;
 
@@ -279,7 +279,7 @@
         return [(IH.isNum(m.pitch) ? m.pitch : 0) + (IH.isNum(m.pitchBias) ? m.pitchBias : 0), IH.isNum(m.roll) ? m.roll : 0];
     }
 
-    // 2:1 movement, hangs at +-30 deg
+    // 4:1 movement, hangs at +-30 deg
     function drawHorizonLine(ctx, m) {
         if (!IH.isNum(m.pitch)) { return; }
         var att = attitude(m);
@@ -359,14 +359,15 @@
         ctx.restore();
     }
 
-    // Bank triangle only, referenced to the lubber line
+    // Bank triangle only, referenced to the lubber line: level, its tip is just below the lubber line's bottom (y 96)
     function drawBankTriangle(ctx, m) {
         if (!IH.isNum(m.roll)) { return; }
+        var r = IH.CY - (98 + IH.layout.tape);
         ctx.save();
         ctx.translate(IH.CX, IH.CY);
         ctx.rotate(-m.roll * DEG);
         ctx.beginPath();
-        ctx.moveTo(0, -140); ctx.lineTo(-6, -130); ctx.lineTo(6, -130);
+        ctx.moveTo(0, -r); ctx.lineTo(-6, 10 - r); ctx.lineTo(6, 10 - r);
         ctx.closePath();
         ctx.fill();
         ctx.restore();
