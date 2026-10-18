@@ -22,11 +22,13 @@ if (_value) then {
         };
         case "fza_ah64_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
+            if (FCR_OWNER(_heli) == ([_heli] call fza_fnc_getSeat)) then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
         };
         case "fza_ah64_sightSelectTADS": {
             // The TADS is the CPG's sight
             if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
+            if (FCR_OWNER(_heli) == "cpg") then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
         };
         case "fza_ah64_sightSlave": {
             [_heli] call fza_fnc_targetingSlave;
@@ -34,15 +36,15 @@ if (_value) then {
         case "fza_ah64_sightSelectFCR": {
             if (_heli animationPhase "fcr_enable" != 1) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
-            // FCR sight select commands the centerline back to the acquisition LOS
-            if ((_heli getVariable ["fza_ah64_fcrAzBias", 0]) != 0) then {
-                _heli setVariable ["fza_ah64_fcrAzBias", 0, true];
-                _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
-                [_heli] call fza_fcr_fnc_videoClear;
-                _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState"];
-                if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
-                    [_heli, _fcrScanState, true] call fza_fcr_fnc_armScanStart;
-                };
+            // The FCR is shared: the crew station that selects it last owns it, and only the owner scans, slews and slaves it.
+            // Taken from the other crew station, its scan stops.
+            private _seat = [_heli] call fza_fnc_getSeat;
+            if (FCR_OWNER(_heli) != _seat) then {[_heli] call fza_fcr_fnc_stopScan};
+            _heli setVariable ["fza_ah64_fcrOwner", _seat, true];
+            // FCR sight select commands the centerline to the acquisition LOS, the nose with FCR or FXD as the source:
+            // the pilot's always, as the pilot is slaved on selection; the CPG's only while slaved (fza_fnc_targetingSlave)
+            if (player == driver _heli || {_heli getVariable ["fza_ah64_cpgSlaved", false]}) then {
+                [_heli, [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingCurAcq] call fza_fcr_fnc_slaveCenterline;
             };
             private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
             if ("fza_agm114l_wep" in _missiles) then {
@@ -76,6 +78,8 @@ if (_value) then {
             [_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;
         };
         case "fza_ah64_fcrSingleScan": {
+            // The scan switch only works for the crew station that owns the FCR, by selecting it as its sight
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _onGnd = [_heli] call bmkhs_fnc_stateOnGround;
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
@@ -85,9 +89,7 @@ if (_value) then {
                 [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
             };
-            player action ["ActiveSensorsOff", _heli];
-            _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
+            [_heli] call fza_fcr_fnc_stopScan;
         };
         case "fza_ah64_targetStoreUpdate": {
             // Todo: Implemen target store
@@ -148,26 +150,16 @@ if (_value) then {
         case "fza_ah64_fcrModeTPM": {
             [_heli, FCR_DISP_MODE_TPM] call fza_fcr_fnc_setMode;
         };
-        // Scan size switch active only when FCR is the selected sight; adopted at next scan start
-        case "fza_ah64_fcrScanSize_W": {
-            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
-                _heli setVariable ["fza_ah64_fcrScanSize", 0, true];
-            };
-        };
-        case "fza_ah64_fcrScanSize_M": {
-            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
-                _heli setVariable ["fza_ah64_fcrScanSize", 1, true];
-            };
-        };
-        case "fza_ah64_fcrScanSize_N": {
-            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
-                _heli setVariable ["fza_ah64_fcrScanSize", 2, true];
-            };
-        };
+        // Scan size switch, for the crew station owning the FCR; a new size stops a running scan
+        case "fza_ah64_fcrScanSize_W";
+        case "fza_ah64_fcrScanSize_M";
+        case "fza_ah64_fcrScanSize_N";
         case "fza_ah64_fcrScanSize_Z": {
-            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR) then {
-                _heli setVariable ["fza_ah64_fcrScanSize", 3, true];
-            };
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
+            private _size = ["fza_ah64_fcrScanSize_W", "fza_ah64_fcrScanSize_M", "fza_ah64_fcrScanSize_N", "fza_ah64_fcrScanSize_Z"] find _name;
+            if (_size == (_heli getVariable ["fza_ah64_fcrScanSize", 0])) exitWith {};
+            [_heli] call fza_fcr_fnc_stopScan;
+            _heli setVariable ["fza_ah64_fcrScanSize", _size, true];
         };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;

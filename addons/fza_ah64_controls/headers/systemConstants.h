@@ -18,6 +18,10 @@
 #define RANGE_SRC_MANUAL  4
 #define RANGE_SRC_AUTO    5
 
+// The crew station with FCR as its sight, the last to select it: "plt", "cpg" or "" for none. Only it scans, slews and
+// slaves the FCR.
+#define FCR_OWNER(heli) ((heli) getVariable ["fza_ah64_fcrOwner", ""])
+
 // A coordinate point as the acquisition source is its name, W01, C51 or T01; ?01 when no point is stored
 #define ACQ_POINT_NONE "?01"
 #define ACQ_IS_POINT(acq) ((acq) regexMatch "^[WCT?][0-9]{2}$")

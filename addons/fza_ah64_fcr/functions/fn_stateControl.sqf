@@ -79,13 +79,21 @@ private _barUpdate = {
     };
 };
 
+// The crewmember always starts a scan, never the FCR: continuous scan starts only on the radar being switched on (the
+// vanilla radar toggle), not on it simply being on, so a radar outliving any stop never restarts a scan
+private _radarSwitchedOn = _armaRadarOn && {!(_heli getVariable ["fza_fcr_radarWasOn", false])};
+_heli setVariable ["fza_fcr_radarWasOn", _armaRadarOn];
+
 switch _fcrScanState do {
     case FCR_MODE_OFF: {
-        if _armaRadarOn then {
-            [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
-            [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
-            [_heli, true, true] call fza_fcr_fnc_videoClear;
+        if !_armaRadarOn exitWith {};
+        // Held off: on without having just been switched on, or with no crew station owning the FCR as its sight
+        if (!_radarSwitchedOn || {FCR_OWNER(_heli) == ""}) exitWith {
+            player action ["ActiveSensorsOff", _heli];
         };
+        [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
+        [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+        [_heli, true, true] call fza_fcr_fnc_videoClear;
     };
     case FCR_MODE_ON_SINGLE: {
         // Scans per single scanburst W2/M2/N3/Z4 (GTM/RMAP)

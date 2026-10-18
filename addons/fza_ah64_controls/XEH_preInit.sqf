@@ -1,5 +1,6 @@
 private _projName = "AH-64D Official Project";
 #include "\bmkhs_helisim\functions\core\core.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 
 [
     "fza_ah64_showPopupv2_3",
@@ -121,3 +122,19 @@ OVERRIDE_ACTION("zoomIn")
 OVERRIDE_ACTION("zoomOut")
 OVERRIDE_ACTION("NightVision")
 OVERRIDE_ACTION("Headlights")
+
+// The vanilla radar toggle is the FCR continuous scan, and only the crew station owning the FCR (by selecting it as its
+// sight) can scan: anyone else's press is swallowed before the radar turns on. Keyboard bindings only, a key handler sees
+// no joystick buttons.
+if (hasInterface) then {
+    [] spawn {
+        waitUntil {!isNull findDisplay 46};
+        (findDisplay 46) displayAddEventHandler ["KeyDown", {
+            params ["", "_key"];
+            private _heli = vehicle player;
+            if (!(_heli isKindOf "fza_ah64base") || {!(_key in actionKeys "ActiveSensorsToggle")}) exitWith {false};
+            private _seat = [_heli] call fza_fnc_getSeat;
+            !isNil "_seat" && {FCR_OWNER(_heli) != _seat}
+        }];
+    };
+};

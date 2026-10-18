@@ -29,6 +29,7 @@ class CfgFunctions
             class setCenterline {RECOMPILE_FLAG;};
             class slaveCenterline {RECOMPILE_FLAG;};
             class slewCenterline {RECOMPILE_FLAG;};
+            class stopScan {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
             class setMode {RECOMPILE_FLAG;};
             class updateTPMObstacles {RECOMPILE_FLAG;};

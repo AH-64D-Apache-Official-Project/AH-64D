@@ -5,8 +5,9 @@ Description:
     The CPG's sight SLAVE switch: toggles slaving the selected sight to the
     acquisition source. Slaved, a TADS sight follows the acquisition LOS, an FCR
     sight has its centerline set to it, and cueing is shown. Slaving to a stored
-    point selects the nav range to it. LMC stays as it was commanded. The pilot
-    is slaved on selection of a source and has no switch.
+    point selects the nav range to it. LMC stays as it was commanded. With the
+    CPG owning the FCR a press stops its scan. The pilot is slaved on selection
+    of a source and has no switch.
 
 Parameters:
     _heli - The helicopter
@@ -24,6 +25,9 @@ Author:
 params ["_heli"];
 
 if (player != gunner _heli) exitWith {};
+
+// Pressed with the CPG owning the FCR, its scan stops
+if (FCR_OWNER(_heli) == "cpg") then {[_heli] call fza_fcr_fnc_stopScan};
 
 private _slaved = !(_heli getVariable ["fza_ah64_cpgSlaved", false]);
 _heli setVariable ["fza_ah64_cpgSlaved", _slaved, true];

@@ -60,5 +60,7 @@ _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
 _heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
 
 if (_preserve) exitWith {};
+// A new scan replaces the RMAP picture, which stays up after a scan until then
+[_heli] call fza_fcr_fnc_videoClear;
 [_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrFullCycleCount", 0]                   call fza_fnc_updateNetworkGlobal;

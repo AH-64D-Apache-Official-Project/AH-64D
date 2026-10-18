@@ -76,13 +76,14 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
 if (_hadOnly) exitWith {};
 
-// Centerline arrows only while FCR is the selected sight; solid = offset commanded that side
+// Centerline arrows only while FCR is the selected sight; an arrow fills for a moment when pressed (fza_fcr_fnc_slewCenterline)
 private _arrowL = 0;
 private _arrowR = 0;
 if (_sight == SIGHT_FCR) then {
-    private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-    _arrowL = [1, 2] select (_azBias < -0.5);
-    _arrowR = [1, 2] select (_azBias >  0.5);
+    (_heli getVariable ["fza_fcr_arrowPressed", [0, -10]]) params ["_pressDir", "_pressTime"];
+    private _pressed = diag_tickTime - _pressTime < 0.2;
+    _arrowL = [1, 2] select (_pressed && _pressDir < 0);
+    _arrowR = [1, 2] select (_pressed && _pressDir > 0);
 };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_L), _arrowL];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_R), _arrowR];

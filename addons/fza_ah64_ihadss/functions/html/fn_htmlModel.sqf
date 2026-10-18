@@ -221,10 +221,11 @@ if (!isNil "_acqVec") then {
     _m set ["forCue", (_acqVec call _modelAngles) apply {round _x}];
     // The cueing dots point from the selected sight's LOS: the TADS LOS with TADS as the CPG's sight, otherwise the head
     private _cueAngles = _camAngles;
+    private ["_tadsFwd", "_tadsRight", "_tadsUp"];
     if (!_isPilot && {_sight == SIGHT_TADS}) then {
-        private _tadsFwd   = vectorNormalized ([_heli, "TADS"] call fza_fnc_targetingAcqVec);
-        private _tadsRight = vectorNormalized (_tadsFwd vectorCrossProduct (_heli vectorModelToWorldVisual [0, 0, 1]));
-        private _tadsUp    = _tadsRight vectorCrossProduct _tadsFwd;
+        _tadsFwd   = vectorNormalized ([_heli, "TADS"] call fza_fnc_targetingAcqVec);
+        _tadsRight = vectorNormalized (_tadsFwd vectorCrossProduct (_heli vectorModelToWorldVisual [0, 0, 1]));
+        _tadsUp    = _tadsRight vectorCrossProduct _tadsFwd;
         _cueAngles = {
             private _f = _this vectorDotProduct _tadsFwd;
             private _r = _this vectorDotProduct _tadsRight;
