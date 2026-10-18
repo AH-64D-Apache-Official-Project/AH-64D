@@ -320,6 +320,11 @@ if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};
 
-_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _heli getVariable ["fza_ah64_weaponInhibited", ""], ""]];
+// A target just stored (fza_fnc_targetingStore) shows for 3 seconds in place of the inhibit message
+private _inhibit = _heli getVariable ["fza_ah64_weaponInhibited", ""];
+(_heli getVariable ["fza_ah64_targetStoreMsg", ["", 0]]) params ["_storeMsg", "_storeUntil"];
+if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
+
+_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, ""]];
 
 toJSON _m

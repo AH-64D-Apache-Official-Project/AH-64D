@@ -335,7 +335,11 @@ class root {
             MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
             MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
             MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-            MPD_BOX_BAR_R(TGT,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
+            // Barrier without an NTS to store
+            class tgtBarrier {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TGT_BARRIER), 1));
+                MPD_BOX_BAR_R(TGT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
+            };
             //L5
             MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
             MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)

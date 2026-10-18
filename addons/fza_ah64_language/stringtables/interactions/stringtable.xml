@@ -663,39 +663,13 @@
             <Turkish>TADS Doğrusal Hareket Telafi Cihazını Aç/Kapat</Turkish>
             <Dutch>Schakelt TADS Lineaire Bewegingscompensator in/uit</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE">
-            <Original>Target Store</Original>
-            <English>Target Store</English>
-            <Czech>Uložit Cíl</Czech>
-            <French>Enregistrer Cible</French>
-            <Spanish>Almacenar Objetivo</Spanish>
-            <Italian>Memorizza Obiettivo</Italian>
-            <Polish>Przechowywanie Celu</Polish>
-            <Portuguese>Armazenar Alvo</Portuguese>
-            <Russian>Сохранить Цель</Russian>
-            <German>Ziel Speichern</German>
-            <Korean>대상 저장</Korean>
-            <Japanese>ターゲット保存</Japanese>
-            <Chinesesimp>目标存储</Chinesesimp>
-            <Turkish>Hedefi Kaydet</Turkish>
-            <Dutch>Doel Opslaan</Dutch>
+        <Key ID="STR_FZA_AH64_CPG_STORE_UPDATE">
+            <Original>CPG Store/Update</Original>
+            <English>CPG Store/Update</English>
         </Key>
-        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE_INFO">
-            <Original>Stores the target being currently looked at in the TADS as a waypoint</Original>
-            <English>Stores the target being currently looked at in the TADS as a waypoint</English>
-            <Czech>Uloží cíl aktuálně pozorovaný v TADS jako bod trasy</Czech>
-            <French>Enregistre la cible actuellement observée dans le TADS en tant que point de cheminement</French>
-            <Spanish>Almacena el objetivo observado actualmente en el TADS como un punto de ruta</Spanish>
-            <Italian>Memorizza l'obiettivo attualmente osservato in TADS come waypoint</Italian>
-            <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
-            <Portuguese>Armazena o alvo observado atualmente no TADS como um ponto de rota</Portuguese>
-            <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
-            <German>Speichert das derzeit im TADS beobachtete Ziel als Wegpunkt</German>
-            <Korean>TADS에서 현재 관찰 중인 대상을 경유점으로 저장</Korean>
-            <Japanese>TADSで現在見ている目標をウェイポイントとして保存します</Japanese>
-            <Chinesesimp>将当前在TADS中观察的目标存储为路点</Chinesesimp>
-            <Turkish>TADS'da şu anda bakılan hedefi bir rota noktası olarak kaydedin</Turkish>
-            <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
+        <Key ID="STR_FZA_AH64_CPG_STORE_UPDATE_INFO">
+            <Original>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</Original>
+            <English>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</English>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN">
             <Original>WAS Gun</Original>

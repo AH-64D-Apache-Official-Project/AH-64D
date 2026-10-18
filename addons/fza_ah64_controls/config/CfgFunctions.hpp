@@ -76,6 +76,7 @@ class CfgFunctions
             class targetingRangeSet {R;};
             class targetingRangeUpdate {R;};
             class targetingSlave {R;};
+            class targetingStore {R;};
         };
         class ui
         {

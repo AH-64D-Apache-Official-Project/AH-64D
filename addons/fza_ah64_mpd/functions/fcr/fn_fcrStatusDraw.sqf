@@ -39,6 +39,9 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), ([_heli, player] call fza_fnc_targetingRange) # 1];
 
+// TGT is barriered until there is an NTS to store
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_BARRIER), parseNumber (([_heli, "FCR"] call fza_fnc_targetingAcqPoint) isEqualTo [])];
+
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
 private _wasState = _heli getVariable "fza_ah64_was";

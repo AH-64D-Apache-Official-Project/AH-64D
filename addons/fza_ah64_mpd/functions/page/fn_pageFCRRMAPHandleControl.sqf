@@ -19,8 +19,11 @@ switch _control do {
         [_heli, -1] call fza_fcr_fnc_slewCenterline;
     };
     case "l4": {
-        // TGT — designate NTS as acquisition source (same as existing FCR TGT behavior)
-        [_heli] call fza_fcr_fnc_cycleNTS;
+        // TGT: the NTS stored as a target, with FCR as this crew station's sight
+        if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) exitWith {};
+        private _ntsPos = [_heli, "FCR"] call fza_fnc_targetingAcqPoint;
+        if (_ntsPos isEqualTo []) exitWith {};
+        [_heli, _ntsPos] call fza_fnc_targetingStore;
     };
     case "r1": {
         // ZOOM — 6:1 display zoom, not implemented; scan size is the grip switch

@@ -26,7 +26,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_symbologySelectPress,"$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS","$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO");
     CfgUserActionDef(fza_ah64_laserDesig,"$STR_FZA_AH64_LASER_DESIG","$STR_FZA_AH64_LASER_DESIG_INFO");
     CfgUserActionDef(fza_ah64_fcrSingleScan,"$STR_FZA_AH64_FCR_SINGLE_SCAN","$STR_FZA_AH64_FCR_SINGLE_SCAN_INFO");
-    CfgUserActionDef(fza_ah64_targetStoreUpdate,"$STR_FZA_AH64_TARGET_STORE_UPDATE","$STR_FZA_AH64_TARGET_STORE_UPDATE_INFO");
+    CfgUserActionDef(fza_ah64_cpgStoreUpdate,"$STR_FZA_AH64_CPG_STORE_UPDATE","$STR_FZA_AH64_CPG_STORE_UPDATE_INFO");
     CfgUserActionDef(fza_ah64_missileAdvance,"$STR_FZA_AH64_MISSILE_ADVANCE","$STR_FZA_AH64_MISSILE_ADVANCE_INFO");
     CfgUserActionDef(fza_ah64_wasGun,"$STR_FZA_AH64_WAS_GUN","$STR_FZA_AH64_WAS_GUN_INFO");
     CfgUserActionDef(fza_ah64_wasRkt,"$STR_FZA_AH64_WAS_RKT","$STR_FZA_AH64_WAS_RKT_INFO");
