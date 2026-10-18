@@ -26,11 +26,11 @@ params ["_heli", "_headsDown"];
 
 private _height = safeZoneH;
 if !_headsDown then {
-    private _fovTop  = getResolution param [6, 0.75];
+    // 30 deg tall at the seat's default FOV, by the view's measured projection (fza_ihadss_fnc_viewScale)
     private _initFov = getNumber (configOf _heli >> "ViewPilot" >> "initFov");
-    if (!(_fovTop isEqualType 0) || {_fovTop <= 0}) then {_fovTop = 0.75};
     if (_initFov <= 0) then {_initFov = 0.75};
-    _height = ((safeZoneH * (tan 15) / (_fovTop * _initFov)) max (0.4 * safeZoneH)) min safeZoneH;
+    private _scale = ([_heli] call fza_ihadss_fnc_viewScale) # 1;
+    _height = ((safeZoneH * (tan 15) / (_scale * _initFov)) max (0.4 * safeZoneH)) min safeZoneH;
 };
 private _width = _height / pixelH * pixelW * 4 / 3;
 if (_width > safeZoneW) then {

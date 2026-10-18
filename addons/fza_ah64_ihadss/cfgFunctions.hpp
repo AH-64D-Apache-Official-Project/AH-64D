@@ -39,6 +39,7 @@ class CfgFunctions
             class htmlExecJs {R;};
             class htmlIcons {R;};
             class htmlModel {R;};
+            class viewScale {R;};
         };
     };
 };

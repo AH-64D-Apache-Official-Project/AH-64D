@@ -124,17 +124,19 @@ if (!_weaponFormat && !_headsDown) then {
 };
 
 // With the TADS picture up, world points are placed in the picture, through the TADS LOS and the picture's FOV, not
-// against the outside world. The picture's half width tangent is FOV * 8/3, measured in game.
+// against the outside world. The picture's half height tangent is its FOV by the view's measured projection
+// (fza_ihadss_fnc_viewScale), its half width that by the picture's aspect.
 (missionNamespace getVariable ["fza_ihadss_tadsPicture", []]) params [["_picRect", []], ["_picFov", 0]];
 private _inPicture = _tadsVideo && {_picRect isNotEqualTo [] && _picFov > 0};
-private ["_picX", "_picY", "_picW", "_picH", "_picAspect", "_tadsPos", "_tadsFwd", "_tadsRight", "_tadsUp"];
+private ["_picX", "_picY", "_picW", "_picH", "_picTanV", "_picTanH", "_tadsPos", "_tadsFwd", "_tadsRight", "_tadsUp"];
 private _toPicture = {[]};
 if (_inPicture) then {
     _picX = _picRect # 0;
     _picY = _picRect # 1;
     _picW = _picRect # 2;
     _picH = _picRect # 3;
-    _picAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
+    _picTanV   = _picFov * (([_heli] call fza_ihadss_fnc_viewScale) # 1);
+    _picTanH   = _picTanV * (_picW / pixelW) / (_picH / pixelH);
     _tadsPos   = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
     _tadsFwd   = [1, _heli getVariable ["fza_ah64_tadsAzimuth", 0], _heli getVariable ["fza_ah64_tadsElevation", 0]] call CBA_fnc_polar2vect;
     _tadsRight = vectorNormalized (_tadsFwd vectorCrossProduct [0, 0, 1]);
@@ -144,8 +146,8 @@ if (_inPicture) then {
         private _f = _d vectorDotProduct _tadsFwd;
         if (_f <= 0) exitWith {[]};
         [
-            _picX + _picW / 2 * (1 + (_d vectorDotProduct _tadsRight) / _f / (_picFov * 8 / 3)),
-            _picY + _picH / 2 * (1 - (_d vectorDotProduct _tadsUp) / _f / (_picFov * 8 / 3 / _picAspect))
+            _picX + _picW / 2 * (1 + (_d vectorDotProduct _tadsRight) / _f / _picTanH),
+            _picY + _picH / 2 * (1 - (_d vectorDotProduct _tadsUp) / _f / _picTanV)
         ]
     };
 };

@@ -62,8 +62,9 @@ if (_pnvsShown || _tadsShown) then {
         if !(_scale isEqualType 0 && {_scale > 0}) then {_scale = 1};
         _offset = missionNamespace getVariable ["fza_ihadss_pnvsOffset", [0, 0]];
         if !(_offset isEqualTypeArray [0, 0]) then {_offset = [0, 0]};
-        private _cfg = configOf _heli;
-        _h = _scale * safeZoneH * getNumber (_cfg >> "RenderTargets" >> "driverpnvs2" >> "View01" >> "fov") / getNumber (_cfg >> "ViewPilot" >> "initFov");
+        // The render target's half height tangent against the view's, both by the measured projection
+        ([_heli] call fza_ihadss_fnc_viewScale) params ["_tanHalfV", "_viewScale"];
+        _h = _scale * safeZoneH * _viewScale * getNumber (configOf _heli >> "RenderTargets" >> "driverpnvs2" >> "View01" >> "fov") / _tanHalfV;
     };
     private _w = _h * safeZoneW / safeZoneH;
     private _pictureRect = [
