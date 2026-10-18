@@ -11,7 +11,8 @@ Description:
     Radar    - RX.X km to the NTS, selected by a new NTS with FCR as the sight
     Nav      - NXX.X km to a coordinate point
     Manual   - MXX.X km, entered on the WPN page
-    Auto     - AXX.X km, the selected sight LOS against zero radar altitude
+    Auto     - AXX.X km, the selected sight LOS against zero radar altitude; A50.0
+               when it cannot be solved
     Default  - 3.0 km CPG, 1.5 km pilot
 
     Manual and auto range with every sight; TADS also with laser and nav, FCR
@@ -103,12 +104,14 @@ private _result  = switch (_source) do {
             };
             default {_heli vectorModelToWorldVisual [0, 1, 0]};
         };
-        // Where the sight line meets the ground at zero radar altitude, with the line at least 1 deg below the horizon
+        // Where the sight line meets the ground at zero radar altitude, with the line at least 1 deg below the horizon;
+        // without a solution it stays the source, limited to its 50.0 km maximum
         private _sinDepression = -((vectorNormalized _dir) # 2);
+        private _range = RANGE_AUTO_MAX;
         if (_sinDepression >= sin 1) then {
-            private _range = ((_heli getVariable ["bmkhs_radAlt", 0]) / _sinDepression) max 100;
-            [[], [_range, "A" + (_range call _km)]] select (_range <= RANGE_AUTO_MAX)
-        } else {[]};
+            _range = (((_heli getVariable ["bmkhs_radAlt", 0]) / _sinDepression) max 100) min RANGE_AUTO_MAX;
+        };
+        [_range, "A" + (_range call _km)]
     };
     default {[]};
 };

@@ -7,6 +7,8 @@ Description:
     Pilot: PHS (FCR as the sight), GHS, FCR (not with FCR as the sight), FXD, TADS
     CPG:   PHS, GHS (not with HMD as the sight), FCR (TADS or HMD as the sight), FXD,
            TADS (not with TADS as the sight)
+    Both:  the crew station's coordinate point, the last selected on its COORD
+           page, ?01 before one is (fza_ah64_acqPoint_<seat>)
 
     A source that is not available is not offered: FCR not fitted or failed,
     TADS without AC power or with both its sensors failed, PHS or GHS without
@@ -43,4 +45,5 @@ if (!isNull gunner _heli && {_isPilot || {_sight != SIGHT_HMD}}) then {_options 
 if (_fcr && {[_sight != SIGHT_FCR, _sight in [SIGHT_TADS, SIGHT_HMD]] select !_isPilot}) then {_options pushBack "FCR"};
 _options pushBack "FXD";
 if (_tads && {_isPilot || {_sight != SIGHT_TADS}}) then {_options pushBack "TADS"};
+_options pushBack (_heli getVariable ["fza_ah64_acqPoint_" + _seat, ACQ_POINT_NONE]);
 _options

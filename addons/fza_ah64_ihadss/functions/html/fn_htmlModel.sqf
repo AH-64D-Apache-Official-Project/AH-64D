@@ -219,7 +219,19 @@ private _acqVec = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targe
 if (!isNil "_acqVec") then {
     _acqVec = vectorNormalized _acqVec;
     _m set ["forCue", (_acqVec call _modelAngles) apply {round _x}];
-    _m set ["acq", (_acqVec call _camAngles) apply {round _x}];
+    // The cueing dots point from the selected sight's LOS: the TADS LOS with TADS as the CPG's sight, otherwise the head
+    private _cueAngles = _camAngles;
+    if (!_isPilot && {_sight == SIGHT_TADS}) then {
+        private _tadsFwd   = vectorNormalized ([_heli, "TADS"] call fza_fnc_targetingAcqVec);
+        private _tadsRight = vectorNormalized (_tadsFwd vectorCrossProduct (_heli vectorModelToWorldVisual [0, 0, 1]));
+        private _tadsUp    = _tadsRight vectorCrossProduct _tadsFwd;
+        _cueAngles = {
+            private _f = _this vectorDotProduct _tadsFwd;
+            private _r = _this vectorDotProduct _tadsRight;
+            [_r atan2 _f, (_this vectorDotProduct _tadsUp) atan2 (sqrt (_f * _f + _r * _r))]
+        };
+    };
+    _m set ["acq", (_acqVec call _cueAngles) apply {round _x}];
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -300,7 +312,7 @@ private _sightStat = "";
 private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0;
 if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then {_sightStat = "FCR XMIT"};
 if (_nvsMode == 1) then {_sightStat = "NVS FIXED"};
-if (_atLimit) then {_sightStat = "LIMIT"};
+if (_atLimit) then {_sightStat = "LIMITS"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};

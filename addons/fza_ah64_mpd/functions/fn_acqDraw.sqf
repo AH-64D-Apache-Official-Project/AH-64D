@@ -6,7 +6,7 @@ Description:
 
 Parameters:
     _heli - the apache to show the correct values for.
-    _mpdIndex - the MPD 
+    _mpdIndex - the MPD
 
 Returns:
     Nothing
@@ -15,6 +15,7 @@ Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_floatIndex", "_stringIndex"];
 
 private _curTurret = [_heli] call fza_fnc_currentTurret;
@@ -29,3 +30,7 @@ private _options = [_heli, _seat] call fza_fnc_targetingAcqOptions;
 {
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACQ_OPT_PHS + _forEachIndex), [0, [1, 2] select (_x == _acq)] select (_x in _options)];
 } forEach ["PHS", "GHS", "SKR", "RFI", "FCR", "FXD", "TADS"];
+// B5, the crew station's coordinate point
+private _point = _heli getVariable ["fza_ah64_acqPoint_" + _seat, ACQ_POINT_NONE];
+_heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ACQ_POINT), _point];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ACQ_OPT_POINT), [1, 2] select (_point == _acq)];

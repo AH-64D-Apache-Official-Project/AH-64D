@@ -4,16 +4,16 @@ class root {
         width = 3;
         points[] = {
             //Top
-            {{0.38, 0.894}, 1}, 
+            {{0.38, 0.894}, 1},
             {{0.62, 0.894}, 1},
             //Right
-            {{0.62, 0.894}, 1}, 
+            {{0.62, 0.894}, 1},
             {{0.62, 0.984}, 1},
             //Bottom
-            {{0.62, 0.984}, 1}, 
+            {{0.62, 0.984}, 1},
             {{0.38, 0.984}, 1},
             //Left
-            {{0.38, 0.984}, 1}, 
+            {{0.38, 0.984}, 1},
             {{0.38, 0.894}, 1}, {},
             //Left HAD box
             MPD_POINTS_BOX("Null", 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
@@ -27,25 +27,25 @@ class root {
         width = 3;
         points[] = {
             //Top center index
-            {{0.500, 0.894}, 1}, 
+            {{0.500, 0.894}, 1},
             {{0.500, 0.909}, 1}, {},
             //Bottom center index
-            {{0.500, 0.984}, 1}, 
+            {{0.500, 0.984}, 1},
             {{0.500, 0.969}, 1}, {},
             //90 deg left top
-            {{0.410, 0.894}, 1}, 
+            {{0.410, 0.894}, 1},
             {{0.410, 0.909}, 1}, {},
             //90 deg left bottom
-            {{0.410, 0.984}, 1}, 
+            {{0.410, 0.984}, 1},
             {{0.410, 0.969}, 1}, {},
             //90 deg right top
-            {{0.590, 0.894}, 1}, 
+            {{0.590, 0.894}, 1},
             {{0.590, 0.909}, 1}, {},
             //90 deg left bottom
-            {{0.590, 0.984}, 1}, 
+            {{0.590, 0.984}, 1},
             {{0.590, 0.969}, 1}, {},
             //Left center index
-            {{0.380, 0.917}, 1}, 
+            {{0.380, 0.917}, 1},
             {{0.395, 0.917}, 1}, {},
             //Right center index
             {{0.620, 0.917}, 1},
@@ -58,13 +58,13 @@ class root {
         width = 3;
         points[] = {
             //Top center index
-            {{0.500, 0.894}, 1}, 
+            {{0.500, 0.894}, 1},
             {{0.500, 0.909}, 1}, {},
             //Bottom center index
-            {{0.500, 0.984}, 1}, 
+            {{0.500, 0.984}, 1},
             {{0.500, 0.969}, 1}, {},
             //Left center index
-            {{0.380, 0.917}, 1}, 
+            {{0.380, 0.917}, 1},
             {{0.395, 0.917}, 1}, {},
             //Right center index
             {{0.620, 0.917}, 1},
@@ -91,16 +91,16 @@ class root {
         width = 3;
         points[] = {
             //Top
-            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, -0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, -0.013}, 1},
             {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, -0.013}, 1},
             //Right
-            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, -0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, -0.013}, 1},
             {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, 0.013}, 1},
             //Bottom
-            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, 0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, 0.013}, 1},
             {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, 0.013}, 1},
             //Left
-            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, 0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, 0.013}, 1},
             {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, -0.013}, 1}, {},
         };
     };
@@ -204,7 +204,7 @@ class root {
             width = 3;
             sourceScale = 0.5;
             points[] = {
-                {"FCR_Fov_Centerline", {0.0, 0.045}, 1}, 
+                {"FCR_Fov_Centerline", {0.0, 0.045}, 1},
                 {"FCR_Fov_Centerline", {0.0, -0.045}, 1}
             };
         };
@@ -213,24 +213,24 @@ class root {
             width = 3;
             points[] = {
                 //1
-                {"FCR_Fov_PrevCenter", {0.0, -0.045}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, -0.045}, 1},
                 {"FCR_Fov_PrevCenter", {0.0, -0.035}, 1}, {},
                 //2
-                {"FCR_Fov_PrevCenter", {0.0, -0.025}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, -0.025}, 1},
                 {"FCR_Fov_PrevCenter", {0.0, -0.015}, 1}, {},
                 //3
                 {"FCR_Fov_PrevCenter", {0.0, -0.005}, 1},
                 {"FCR_Fov_PrevCenter", {0.0, 0.005}, 1}, {},
                 //4
-                {"FCR_Fov_PrevCenter", {0.0, 0.015}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, 0.015}, 1},
                 {"FCR_Fov_PrevCenter", {0.0, 0.025}, 1}, {},
                 //5
-                {"FCR_Fov_PrevCenter", {0.0, 0.035}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, 0.035}, 1},
                 {"FCR_Fov_PrevCenter", {0.0, 0.045}, 1}, {},
             };
         };
     };
-    
+
     class headingTapeNotch {
         type = "line";
         width = 8;
@@ -242,7 +242,6 @@ class root {
 
     class acq {
         MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, "Fcr_Acq")
-        MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
     };
 
     class text {
@@ -285,36 +284,36 @@ class root {
             width = 3;
             points[] = {
                 //25 deg
-                {{0.030, 0.800}, 1}, 
+                {{0.030, 0.800}, 1},
                 {{0.060, 0.800}, 1}, {},
                 //18.75 deg
-                {{0.030, 0.815}, 1}, 
+                {{0.030, 0.815}, 1},
                 {{0.050, 0.815}, 1}, {},
                 //12.5 deg
-                {{0.030, 0.830}, 1}, 
+                {{0.030, 0.830}, 1},
                 {{0.050, 0.830}, 1}, {},
                 //6.25 deg
-                {{0.030, 0.845}, 1}, 
+                {{0.030, 0.845}, 1},
                 {{0.050, 0.845}, 1}, {},
                 //0 deg
-                {{0.030, 0.860}, 1}, 
+                {{0.030, 0.860}, 1},
                 {{0.050, 0.860}, 1}, {},
                 //6.25 deg
-                {{0.030, 0.875}, 1}, 
+                {{0.030, 0.875}, 1},
                 {{0.060, 0.875}, 1}, {},
                 //12.5 deg
-                {{0.030, 0.890}, 1}, 
+                {{0.030, 0.890}, 1},
                 {{0.050, 0.890}, 1}, {},
                 //18.75 deg
-                {{0.030, 0.905}, 1}, 
+                {{0.030, 0.905}, 1},
                 {{0.050, 0.905}, 1}, {},
                 //25 deg
-                {{0.030, 0.920}, 1}, 
+                {{0.030, 0.920}, 1},
                 {{0.060, 0.920}, 1}, {},
                 //Target count box
                 MPD_POINTS_BOX("Null", 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
             };
-        };        
+        };
         class installedFCRText {
             //Target count
             MPD_TEXT_L(COUNT, 0.95, 0.04, MPD_TEXT_USER(MFD_TEXT_IND_FCR_COUNT))
@@ -323,7 +322,7 @@ class root {
             //T6
             MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
             MPD_TEXT_C(UTIL,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
-            
+
             //R4
             MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
             MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))

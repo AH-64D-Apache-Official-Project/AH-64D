@@ -28,6 +28,17 @@ if !(_heli getVariable "fza_ah64_LmcActive") exitWith {
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
 
+// Slaved, the TADS goes to the acquisition source and holds it, as with LMC off (fza_fnc_weaponTurretAim); LMC carries
+// on compensating from there once slave is turned off
+if (_heli getVariable ["fza_ah64_cpgSlaved", false]) exitWith {
+    private _slavePos = [_heli, [_heli, [0]] call fza_fnc_targetingCurAcq] call fza_fnc_targetingAcqPoint;
+    if (_slavePos isEqualTo []) exitWith {};
+    _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
+    _heli setVariable ["fza_ah64_lmcStartRange", -1];
+    _heli setVariable ["fza_ah64_lmcPosition", _slavePos];
+    _heli lockCameraTo [_slavePos, [0], true];
+};
+
 (_heli getVariable "fza_ah64_lmcPrevInputs") params ["_prevInputX", "_prevInputY"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";

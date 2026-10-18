@@ -1,7 +1,7 @@
 // Acquisition source list (fza_mpd_fnc_acqHandleControl, fza_mpd_fnc_acqDraw), drawn over a page with an ACQ button while
 // it is open. A frame runs down the left of R1-R6, with ACQUISITION beside it, and steps across above B4-B6. The sources
-// the crew station can select are listed in their places, the selected one boxed; ?SKR, ?TRN and ?00 are not built yet
-// and are barriered.
+// the crew station can select are listed in their places, the selected one boxed; B5 is the crew station's coordinate
+// point, the last selected on its COORD page or ?01. ?SKR and ?TRN are not built yet and are barriered.
 // The page's text there is hidden (MPD_ACQ_COVERS) and its lines are blanked here.
 
 // The frame line runs against the left of the ACQUISITION letters
@@ -75,8 +75,14 @@ ACQ_OPTION_R(FXD, MPD_POS_BUTTON_LR_6_Y, MFD_IND_ACQ_OPT_FXD, "FXD", 3)
 
 MPD_TEXT_ACQ(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, "center", "?TRN")
 MPD_BOX_BAR_B(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
-MPD_TEXT_ACQ(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, "center", "?00")
-MPD_BOX_BAR_B(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y)
+class Coord {
+    condition = C_COND(C_MPD_USER(MFD_IND_ACQ_OPT_POINT));
+    MPD_TEXT_ACQ_USER(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, "center", MFD_TEXT_IND_ACQ_POINT)
+    class Selected {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ACQ_OPT_POINT), 2));
+        MPD_BOX_C(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, 3)
+    };
+};
 class TADS {
     condition = C_COND(C_MPD_USER(MFD_IND_ACQ_OPT_TADS));
     MPD_TEXT_ACQ(TADS, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, "center", "TADS")

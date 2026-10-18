@@ -524,6 +524,9 @@
 #define MFD_IND_ACQ_OPT_FCR   35
 #define MFD_IND_ACQ_OPT_FXD   36
 #define MFD_IND_ACQ_OPT_TADS  37
+// B5, the crew station's coordinate point, and its name
+#define MFD_IND_ACQ_OPT_POINT 38
+#define MFD_TEXT_IND_ACQ_POINT 38
 
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
 

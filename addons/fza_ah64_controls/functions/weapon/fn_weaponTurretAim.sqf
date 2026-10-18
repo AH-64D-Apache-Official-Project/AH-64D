@@ -25,6 +25,7 @@ params["_heli"];
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_KM_METERS 0.001
 #define HYDRA_TIME_KM 1.353
+#define GUN_FIXED_EL 6
 
 private _currentTurret = _heli call fza_fnc_currentTurret;
 private _gunnnerUnit = _heli turretUnit [0];
@@ -218,7 +219,7 @@ if (_was == WAS_WEAPON_GUN) then {
         private _aimPoint = _origin vectorAdd (_losDir vectorMultiply _gunRange);
         // Beyond the ballistic range of the round; not solved there, the gun holds its last solution
         private _outOfRange = _gunRange > 4200;
-        if (_outOfRange) then {_inhibit = "BALLISTICS"};
+        if (_outOfRange) then {_inhibit = "BAL LIMIT"};
         // Solved 20 times a second for its correction (superelevation and lead), which is applied to the aim point every
         // frame, so the gun follows the sight smoothly between solutions
         private _solution = _heli getVariable ["fza_cannon_solution", [-1, [0, 0, 0]]];
@@ -245,7 +246,7 @@ if (_was == WAS_WEAPON_GUN) then {
     private _gunFixed = _sightFixed || {!isNil "_gunMode" && {_gunMode == "FXD"}};
     (_heli getVariable ["fza_cannon_gunAim", [0, deg 0.298]]) params ["_gunAimAz", "_gunAimEl"];
     private _wantAz = [([_gunAzimuth, -86, 86] call BIS_fnc_clamp), 0] select _gunFixed;
-    private _wantEl = [([_gunElevation, -60, 11] call BIS_fnc_clamp), 0] select _gunFixed;
+    private _wantEl = [([_gunElevation, -60, 11] call BIS_fnc_clamp), GUN_FIXED_EL] select _gunFixed;
     if (_inhibit == "" && {abs (_wantAz - _gunAimAz) > 1 || {abs (_wantEl - _gunAimEl) > 1}}) then {
         _inhibit = "COINCIDENCE";
     };
@@ -257,10 +258,10 @@ if (_was == WAS_WEAPON_GUN) then {
             _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
-    // Gun MODE FXD (WPN page) fixes the gun to the aircraft centerline
+    // Gun MODE FXD (WPN page) fixes the gun to the aircraft centerline, 6 deg up
     if (_gunFixed) exitWith {
         _mainturret = 0;
-        _maingun = 0;
+        _maingun = rad GUN_FIXED_EL;
         _inhibit = "GUN FIXED";
     };
     _mainturret = -rad ([_gunAzimuth, -86, 86] call BIS_fnc_clamp);

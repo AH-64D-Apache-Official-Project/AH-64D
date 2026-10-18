@@ -15,6 +15,7 @@ class CfgFunctions {
             class aimSolve {R;};
             class fired {R;};
             class init {R;};
+            class rangePoint {R;};
             class update {R;};
         };
     };

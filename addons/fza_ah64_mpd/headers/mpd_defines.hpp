@@ -131,7 +131,7 @@ Parameters:
 
 /* Macro: C_COND
     Wrapped around a condition built in these macros, for example:
-    
+
     --- Code
     condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
     ---
@@ -218,7 +218,7 @@ Parameters:
 
 /* Macro: MPD_POINTS_CURVED_CORNER
     Draws a 90 degree curved corner about a point
-    
+
 Parameters:
     bone - A bone to transform the corner by. "Null" if none.
     posX, posY - point to draw the corner about
@@ -239,10 +239,10 @@ Parameters:
 #define CURVED_BOX_PAD 0.0075
 /* Macro: MPD_POINTS_BOX_PAD
     Draws a box, with curved corners, with a given dimensions and padding (curved corner side).
-    
+
     Please note the box dimensions described are internal from the corners, so the real size will have 2*pad added in
     each dimension. For a macro that counts the corners in the dimensions, use <MPD_POINTS_BOX_PAD_EXTERNAL>.
-    
+
 Parameters:
     bone - A bone to transform the box  by. "Null" if none.
     posX,posY - Top left corner of the box
@@ -462,6 +462,15 @@ Parameters:
     source = "static"; \
     text = label; \
     sourceScale = 1; \
+    pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
+};
+#define MPD_TEXT_ACQ_USER(name, startX, startY, alignment, num) class Mpd_Text_##name { \
+    type = "text"; \
+    scale = 1; \
+    align = alignment; \
+    MPD_TEXT_USER(num) \
     pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \

@@ -18,6 +18,10 @@
 #define RANGE_SRC_MANUAL  4
 #define RANGE_SRC_AUTO    5
 
+// A coordinate point as the acquisition source is its name, W01, C51 or T01; ?01 when no point is stored
+#define ACQ_POINT_NONE "?01"
+#define ACQ_IS_POINT(acq) ((acq) regexMatch "^[WCT?][0-9]{2}$")
+
 #define RANGE_DEFAULT_PLT     1500
 #define RANGE_DEFAULT_CPG     3000
 #define RANGE_MANUAL_MIN      100

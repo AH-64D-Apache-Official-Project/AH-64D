@@ -9,6 +9,7 @@ Description:
     GHS  - the CPG's head
     FCR  - the NTS, or the FCR centerline without one
     FXD  - fixed forward, 4.9 deg below the airframe datum
+    W01, C51, T01 - the coordinate point; as FXD for ?01 or a point no longer stored
 
 Parameters:
     _heli - The helicopter to act on
@@ -23,6 +24,7 @@ Examples:
 Author:
     mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_acq"];
 
 // A crew member's head LOS; the local player's from the camera, as eyeDirection does not follow the head in a vehicle
@@ -52,5 +54,12 @@ switch _acq do {
             (getPosASLVisual _heli) vectorFromTo _ntsPos
         };
     };
-    default {_heli vectorModelToWorldVisual [0, cos 4.9, -sin 4.9]};
+    default {
+        private _pointPos = if (ACQ_IS_POINT(_acq)) then {[_heli, _acq] call fza_fnc_targetingAcqPoint} else {[]};
+        if (_pointPos isEqualTo []) then {
+            _heli vectorModelToWorldVisual [0, cos 4.9, -sin 4.9]
+        } else {
+            (getPosASLVisual _heli) vectorFromTo _pointPos
+        };
+    };
 };

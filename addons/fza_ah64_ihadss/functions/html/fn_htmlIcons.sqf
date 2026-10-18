@@ -117,26 +117,69 @@ if (!_weaponFormat && !_headsDown) then {
             if (isNil "_wptAlt") then {_wptAlt = getPosASL _heli # 2};
             private _dir = [_nextPointPos # 0, _nextPointPos # 1, _wptAlt] vectorDiff getPosASL _heli;
             if (vectorMagnitude _dir > 0) then {
-                ["flyTo", ("flyto" call _tex), (vectorNormalized _dir) call _dirToScreen, 64, true] call _place;
+                ["flyTo", ("flyto" call _tex), (vectorNormalized _dir) call _dirToScreen, 64] call _place;
             };
         };
     };
 };
 
-// Cued LOS reticle on the acquisition source: the CPG while slaved; the pilot with CUEING selected, which a weapon
-// actioned stands in for. Not with the TADS picture up, where it would be misplaced against the magnified picture.
-private _acqVec = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingAcqCue;
-if (!_tadsVideo && {player != driver _heli || _was != WAS_WEAPON_NONE} && {!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}}) then {
-    ["cued", ("cuedlos" call _tex), (vectorNormalized _acqVec) call _dirToScreen, 64] call _place;
+// With the TADS picture up, world points are placed in the picture, through the TADS LOS and the picture's FOV, not
+// against the outside world. The picture's half width tangent is FOV * 8/3, measured in game.
+(missionNamespace getVariable ["fza_ihadss_tadsPicture", []]) params [["_picRect", []], ["_picFov", 0]];
+private _inPicture = _tadsVideo && {_picRect isNotEqualTo [] && _picFov > 0};
+private ["_picX", "_picY", "_picW", "_picH", "_picAspect", "_tadsPos", "_tadsFwd", "_tadsRight", "_tadsUp"];
+private _toPicture = {[]};
+if (_inPicture) then {
+    _picX = _picRect # 0;
+    _picY = _picRect # 1;
+    _picW = _picRect # 2;
+    _picH = _picRect # 3;
+    _picAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
+    _tadsPos   = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
+    _tadsFwd   = [1, _heli getVariable ["fza_ah64_tadsAzimuth", 0], _heli getVariable ["fza_ah64_tadsElevation", 0]] call CBA_fnc_polar2vect;
+    _tadsRight = vectorNormalized (_tadsFwd vectorCrossProduct [0, 0, 1]);
+    _tadsUp    = _tadsRight vectorCrossProduct _tadsFwd;
+    _toPicture = {
+        private _d = _heli vectorWorldToModelVisual (_this vectorDiff _tadsPos);
+        private _f = _d vectorDotProduct _tadsFwd;
+        if (_f <= 0) exitWith {[]};
+        [
+            _picX + _picW / 2 * (1 + (_d vectorDotProduct _tadsRight) / _f / (_picFov * 8 / 3)),
+            _picY + _picH / 2 * (1 - (_d vectorDotProduct _tadsUp) / _f / (_picFov * 8 / 3 / _picAspect))
+        ]
+    };
+};
+
+// Cued LOS reticle on the acquisition source, wherever it is cued (fza_fnc_targetingAcqCue), the same as the cueing
+// dots. In the TADS picture when it is up.
+private _turret = [_heli] call fza_fnc_currentTurret;
+private _acqVec = [_heli, _turret] call fza_fnc_targetingAcqCue;
+if (!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}) then {
+    private _cuedPos = if (_inPicture) then {
+        ([_heli, [_heli, _turret] call fza_fnc_targetingCurAcq] call fza_fnc_targetingAcqPoint) call _toPicture
+    } else {
+        (vectorNormalized _acqVec) call _dirToScreen
+    };
+    ["cued", ("cuedlos" call _tex), _cuedPos, 64] call _place;
 };
 
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 
-// Drawn like the cued LOS reticle, along the gun in MODE FXD
+// Drawn like the cued LOS reticle in MODE FXD, on the fixed gun's impact point at the range source range, so it moves
+// down the display as the range grows. Solved 20 times a second and held relative to the aircraft between solutions.
 private _gunMode = [_heli, "fza_ah64_gunMode"] call fza_fnc_getSeatVariable;
 if (_was == WAS_WEAPON_GUN && {!isNil "_gunMode" && {_gunMode == "FXD"}}) then {
-    ["gunFxd", ("cuedlos" call _tex), (vectorNormalized (_heli weaponDirection "fza_m230")) call _dirToScreen, 64] call _place;
+    private _impact = _heli getVariable ["fza_cannon_fxdImpact", [-1, [0, 0, 0]]];
+    if (diag_tickTime - (_impact # 0) > 0.05) then {
+        private _range = ([_heli, player] call fza_fnc_targetingRange) # 0;
+        _impact = [diag_tickTime, _heli worldToModelVisual ASLToAGL ([_heli, _range] call fza_cannon_fnc_rangePoint)];
+        _heli setVariable ["fza_cannon_fxdImpact", _impact];
+    };
+    private _dir = (AGLToASL (_heli modelToWorldVisual (_impact # 1))) vectorDiff _camASL;
+    if (vectorMagnitude _dir > 0) then {
+        ["gunFxd", ("cuedlos" call _tex), (vectorNormalized _dir) call _dirToScreen, 64] call _place;
+    };
 };
 
 // The reticle is inside the I-beam exactly when the pylons (+4 to -15 deg) can reach; steer onto it
@@ -179,31 +222,8 @@ if (_tpm && {!_tadsVideo} && {_heli getVariable ["fza_ah64_fcrcscope", false]} &
 };
 
 if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {
-    // With the TADS picture up the C-scope is placed in the picture, through the TADS LOS and the picture's FOV;
-    // otherwise against the outside world. The picture's half width tangent is FOV * 8/3, measured in game.
-    private _toScreen = {worldToScreen ASLToAGL _this};
-    (missionNamespace getVariable ["fza_ihadss_tadsPicture", []]) params [["_picRect", []], ["_picFov", 0]];
-    private ["_picX", "_picY", "_picW", "_picH", "_picAspect", "_tadsPos", "_fwd", "_right", "_up"];
-    if (_tadsVideo && {_picRect isNotEqualTo [] && _picFov > 0}) then {
-        _picX = _picRect # 0;
-        _picY = _picRect # 1;
-        _picW = _picRect # 2;
-        _picH = _picRect # 3;
-        _picAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
-        _tadsPos   = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
-        _fwd       = [1, _heli getVariable ["fza_ah64_tadsAzimuth", 0], _heli getVariable ["fza_ah64_tadsElevation", 0]] call CBA_fnc_polar2vect;
-        _right     = vectorNormalized (_fwd vectorCrossProduct [0, 0, 1]);
-        _up        = _right vectorCrossProduct _fwd;
-        _toScreen = {
-            private _d = _heli vectorWorldToModelVisual (_this vectorDiff _tadsPos);
-            private _f = _d vectorDotProduct _fwd;
-            if (_f <= 0) exitWith {[]};
-            [
-                _picX + _picW / 2 * (1 + (_d vectorDotProduct _right) / _f / (_picFov * 8 / 3)),
-                _picY + _picH / 2 * (1 - (_d vectorDotProduct _up) / _f / (_picFov * 8 / 3 / _picAspect))
-            ]
-        };
-    };
+    // In the TADS picture when it is up, otherwise against the outside world
+    private _toScreen = [{worldToScreen ASLToAGL _this}, _toPicture] select _inPicture;
 
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];

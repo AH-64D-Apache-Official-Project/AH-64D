@@ -2,8 +2,8 @@
 Function: fza_fnc_targetingRangeUpdate
 
 Description:
-    Range source events for the local crew station: actioning rockets, or the
-    gun with HMD as the sight, selects the last manual range or the default;
+    Range source events for the local crew station: actioning rockets selects
+    the last manual range or the default;
     a new NTS with FCR as the sight selects radar; lasing selects the laser,
     keeping the last laser range for when the laser stops.
 
@@ -27,15 +27,13 @@ params ["_heli"];
 private _seat = [_heli] call fza_fnc_getSeat;
 if (isNil "_seat") exitWith {};
 
-// Actioning rockets, or the gun with HMD as the sight, starts the range source on the last manual range, or the default
+// Actioning rockets, the only weapon that does, starts the range source on the last manual range, or the default
 // without one; another source can be selected after
 private _was     = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
-private _hmdGun  = _was == WAS_WEAPON_GUN && {([_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable) == SIGHT_HMD};
-private _trigger = [_was, _hmdGun];
-if (_trigger isNotEqualTo (_heli getVariable ["fza_ah64_rangeLastWas", [WAS_WEAPON_NONE, false]])) then {
-    (_heli getVariable ["fza_ah64_rangeLastWas", [WAS_WEAPON_NONE, false]]) params ["_lastWas", "_lastHmdGun"];
-    _heli setVariable ["fza_ah64_rangeLastWas", _trigger];
-    if ((_was == WAS_WEAPON_RKT && _lastWas != WAS_WEAPON_RKT) || {_hmdGun && !_lastHmdGun}) then {
+private _lastWas = _heli getVariable ["fza_ah64_rangeLastWas", WAS_WEAPON_NONE];
+if (_was != _lastWas) then {
+    _heli setVariable ["fza_ah64_rangeLastWas", _was];
+    if (_was == WAS_WEAPON_RKT) then {
         private _manual = _heli getVariable ["fza_ah64_rangeManual_" + _seat, 0];
         if (_manual > 0) then {
             [_heli, _seat, RANGE_SRC_MANUAL, _manual] call fza_fnc_targetingRangeSet;
