@@ -284,7 +284,7 @@ if (_gunFailed) then {
 // (fza_cannon_fnc_fired); the animation is rounded and lags, so it only shows the barrel.
 private _slewDt = ["fza_cannon_gunSlew"] call BIS_fnc_deltaTime;
 (_heli getVariable ["fza_cannon_gunAim", [0, deg 0.298]]) params ["_gunAz", "_gunEl"];
-private _slewStep = 90 * (_slewDt min 0.1);
+private _slewStep = 120 * (_slewDt min 0.1);
 _gunAz = _gunAz + ((((-deg _mainturret) - _gunAz) max -_slewStep) min _slewStep);
 _gunEl = _gunEl + ((((deg _maingun) - _gunEl) max -_slewStep) min _slewStep);
 _heli setVariable ["fza_cannon_gunAim", [_gunAz, _gunEl]];
