@@ -22,14 +22,21 @@ if (_value) then {
         };
         case "fza_ah64_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
-            if (FCR_OWNER(_heli) == ([_heli] call fza_fnc_getSeat)) then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
+            // Given up by its owner, the FCR's scan stops
+            if (FCR_OWNER(_heli) == ([_heli] call fza_fnc_getSeat)) then {
+                [_heli] call fza_fcr_fnc_stopScan;
+                _heli setVariable ["fza_ah64_fcrOwner", "", true];
+            };
             if (player == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectTADS": {
             // The TADS is the CPG's sight
             if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
-            if (FCR_OWNER(_heli) == "cpg") then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
+            if (FCR_OWNER(_heli) == "cpg") then {
+                [_heli] call fza_fcr_fnc_stopScan;
+                _heli setVariable ["fza_ah64_fcrOwner", "", true];
+            };
             if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectLink": {
@@ -41,11 +48,12 @@ if (_value) then {
             _heli setVariable ["fza_ah64_cpgLink", _link, true];
             if (_sight != SIGHT_TADS) exitWith {};
             // TADS-L: the CPG owns both sights, the FCR as a second sensor following the TADS LOS (fza_fcr_fnc_controller).
-            // Taken from the pilot, its scan stops. Unlinked, the TADS is a sight without the FCR again.
+            // Taken from the pilot, its scan stops. Unlinked, the TADS is a sight without the FCR again, and its scan stops.
             if (_link) then {
                 if (FCR_OWNER(_heli) != "cpg") then {[_heli] call fza_fcr_fnc_stopScan};
                 _heli setVariable ["fza_ah64_fcrOwner", "cpg", true];
             } else {
+                [_heli] call fza_fcr_fnc_stopScan;
                 _heli setVariable ["fza_ah64_fcrOwner", "", true];
             };
         };
@@ -165,7 +173,8 @@ if (_value) then {
         case "vehLockTargets": {
             [_heli] call fza_fcr_fnc_cycleNTS;
         };
-        // Re-selecting the active mode is ignored, except RMAP where it toggles the video (see fza_fcr_fnc_setMode)
+        // A new mode cancels the scan; re-selecting the active mode is ignored, except RMAP where it toggles the video
+        // (see fza_fcr_fnc_setMode)
         case "fza_ah64_fcrModeGTM": {
             [_heli, FCR_DISP_MODE_GTM] call fza_fcr_fnc_setMode;
         };

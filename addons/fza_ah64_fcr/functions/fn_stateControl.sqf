@@ -24,7 +24,6 @@ private _acBusOn     = _heli getVariable "bmkhs_acBusOn";
 private _dcBusOn     = _heli getVariable "bmkhs_dcBusOn";
 private _fcrMode     = _heli getVariable "fza_ah64_fcrMode";
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _armaRadarOn = isVehicleRadarOn _heli;
 
 // TPM sector follows groundspeed, wide below 45 kts and narrow above 55 kts
@@ -40,20 +39,9 @@ if (_fcrMode == FCR_DISP_MODE_TPM) then {
     };
 };
 
-([_heli] call fza_fcr_fnc_getScanTiming) params ["_updateDelay", "_fullCycle"];
+private _fullCycle   = ([_heli] call fza_fcr_fnc_getScanTiming) # 1;
 private _onGnd       = [_heli] call bmkhs_fnc_stateOnGround;
 private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
-
-// A newly selected scan size is adopted at the beginning of the next scan —
-// latch exactly at the cycle wrap (applyScanSize no-ops unless something changed)
-if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS] && CBA_missionTime > _fcrScanStartTime) then {
-    private _phase     = (CBA_missionTime - _fcrScanStartTime) % _fullCycle;
-    private _prevPhase = _heli getVariable ["fza_ah64_fcrPrevCyclePhase", 0];
-    _heli setVariable ["fza_ah64_fcrPrevCyclePhase", _phase];
-    if (_phase < _prevPhase) then {
-        [_heli] call fza_fcr_fnc_applyScanSize;
-    };
-};
 
 if (_armaRadarOn) then {
     if (_fcrDamage >= SYS_FCR_DMG_THRESH || ((!_acBusOn || !_dcBusOn) && !_onGnd)) exitWith {
@@ -67,16 +55,18 @@ if (_armaRadarOn) then {
     };
 };
 
-// One snapshot per bar once the first full cycle is complete; the wiper reveals from the second sweep
-private _barUpdate = {
-    if (_heli getVariable ["fza_ah64_fcrWaitingForStart", false]) exitWith {};
-    private _firstUpdate = _time < _fcrScanStartTime;
-    private _barNow      = floor ((CBA_missionTime - _fcrScanStartTime) / _updateDelay);
-    private _barLast     = [floor ((_time - _fcrScanStartTime) / _updateDelay), -1] select _firstUpdate;
-    if (_barNow > _barLast && _barNow >= ([1, 2] select _firstUpdate)) then {
-        // ATM rebounds over the whole sector on every bar, so each bar is a full cycle
-        [_heli, _fcrMode == FCR_DISP_MODE_ATM || { (_barNow % 2) == 0 }] call fza_fcr_fnc_update;
+// The FCR's one cadence: everything it shows is updated once, as each full scan cycle completes, from what that
+// cycle saw (fza_fcr_fnc_update). Returns the number of full cycles completed since the scan started.
+private _cycleUpdate = {
+    if (_heli getVariable ["fza_ah64_fcrWaitingForStart", false] || {CBA_missionTime < _fcrScanStartTime}) exitWith {0};
+    private _cycleNow = floor ((CBA_missionTime - _fcrScanStartTime) / _fullCycle);
+    (_heli getVariable ["fza_fcr_cycleDone", [-1, 0]]) params ["_doneStart", "_doneCycle"];
+    if (_doneStart != _fcrScanStartTime) then {_doneCycle = 0};
+    if (_cycleNow > _doneCycle) then {
+        _heli setVariable ["fza_fcr_cycleDone", [_fcrScanStartTime, _cycleNow]];
+        [_heli] call fza_fcr_fnc_update;
     };
+    _cycleNow
 };
 
 // The crewmember always starts a scan, never the FCR: continuous scan starts only on the radar being switched on (the
@@ -97,18 +87,16 @@ switch _fcrScanState do {
     };
     case FCR_MODE_ON_SINGLE: {
         // Scans per single scanburst W2/M2/N3/Z4 (GTM/RMAP)
-        private _burstScans = [[2, 2, 3, 4] select (_heli getVariable ["fza_ah64_fcrScanSize", 0]), 2] select (_fcrMode == FCR_DISP_MODE_ATM);
-        if (CBA_missionTime >= (_fcrScanStartTime + (_fullCycle * _burstScans)) && _time >= _fcrScanStartTime) exitWith {
-            [_heli, true] call fza_fcr_fnc_update;
+        private _burstScans = [FCR_BURST_SCANS select (_heli getVariable ["fza_ah64_fcrScanSize", 0]), 2] select (_fcrMode == FCR_DISP_MODE_ATM);
+        if ((call _cycleUpdate) >= _burstScans) exitWith {
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             player action ["ActiveSensorsOff", _heli];
         };
-        call _barUpdate;
         if (!_armaRadarOn) then { player action ["ActiveSensorsOn", _heli]; };
     };
     case FCR_MODE_ON_CONTINUOUS: {
-        if _armaRadarOn exitWith { call _barUpdate; };
+        if _armaRadarOn exitWith { call _cycleUpdate; };
         [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
     };

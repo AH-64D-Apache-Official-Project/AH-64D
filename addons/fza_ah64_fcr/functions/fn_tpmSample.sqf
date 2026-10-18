@@ -5,7 +5,7 @@ Description:
     Samples TPM terrain for the columns the wiper has crossed since the last
     call. Feeds the TPM page video (fza_ah64_fcrTPMFrameCache) and, while the
     C-scope is selected, the IHADSS profile lines (fza_ah64_fcrTPMProfile),
-    which are published once per completed half sweep. Runs once per frame
+    which are published as each full scan cycle completes. Runs once per frame
     whichever caller comes first (TPM page draw or FCR controller).
 
 Parameters:
@@ -82,8 +82,8 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
     private _prevSweepLtoR = _heli getVariable ["fza_ah64_fcrTPMPrevSweepLtoR", -1];
     private _curSweepLtoR  = parseNumber _sweepLtoR;
     if (_newScan || _prevSweepLtoR != _curSweepLtoR) then {
-        // A completed half sweep covered the whole sector: publish its profile lines
-        if (!_newScan && _prevSweepLtoR != -1) then {
+        // A completed full cycle (its R→L half ending): publish the profile lines of the sweep that ended it
+        if (!_newScan && _prevSweepLtoR == 0 && _curSweepLtoR == 1) then {
             private _sweepHeading = _heli getVariable ["fza_ah64_fcrTPMScanHeading", getDir _heli];
             _heli setVariable ["fza_ah64_fcrTPMProfile", [_sweepHeading - _halfFov, _aziStepD, _heli getVariable ["fza_ah64_fcrTPMProfWork", []]]];
         };

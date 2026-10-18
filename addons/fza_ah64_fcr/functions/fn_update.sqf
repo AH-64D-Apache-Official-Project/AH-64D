@@ -2,12 +2,13 @@
 Function: fza_fcr_fnc_update
 
 Description:
-    Orchestrates a single FCR scan update: builds the snapshot, merges targets,
-    publishes results, and refreshes NTS. TPM keeps no target file.
+    The FCR's one update, made as each full scan cycle completes
+    (fza_fcr_fnc_stateControl): builds the snapshot, correlates it with the
+    previous scan's targets, publishes the results and refreshes the NTS.
+    Nothing the FCR shows changes between updates. TPM keeps no target file.
 
 Parameters:
-    _heli        - The helicopter
-    _isFullCycle - true when this update completes a full scan cycle
+    _heli - The helicopter
 
 Returns:
     Nothing
@@ -21,7 +22,7 @@ Author:
     BradMick, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", ["_isFullCycle", true]];
+params ["_heli"];
 
 private _fcrMode   = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
@@ -35,52 +36,41 @@ if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {
     [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
-    if (_isFullCycle) then {
-        [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
-    };
     [_heli] call fza_dms_fnc_ageShot;
 };
 
 private _fcrTargets = [_heli, _fcrMode, _fcrAzBias] call fza_fcr_fnc_buildScanSnapshot;
 
-// Priority rank by FCR_TYPE value: ADU(5)→0, WHEELED(4)→1, TRACKED(3)→2, HELI(2)→3, FLYER(1)→4, UNKNOWN(0)→5
+if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_ATM, FCR_DISP_MODE_RMAP]) then {
+    _fcrTargets = [_heli, _fcrTargets, _fcrAzBias] call fza_fcr_fnc_mergeTargets;
+};
+
+// Priority rank by FCR_TYPE value: ADU(5)→0, WHEELED(4)→1, TRACKED(3)→2, HELI(2)→3, FLYER(1)→4, UNKNOWN(0)→5; dim last
 private _eval = {
-    ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + (if (_x#6 < 4000) then { _x#4 } else { _x#4 * -1 + 90 })
+    ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + (if (_x#6 < 4000) then { _x#4 } else { _x#4 * -1 + 90 })
 };
 if (_fcrMode == FCR_DISP_MODE_ATM) then {
     _eval = {
-        ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
+        ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
     };
 };
 _fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
-
-if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_ATM, FCR_DISP_MODE_RMAP]) then {
-    _fcrTargets = [_heli, _fcrTargets] call fza_fcr_fnc_mergeTargets;
-};
 if (count _fcrTargets > 16) then {
     _fcrTargets = _fcrTargets select [0, 16];
 };
 
 [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
-
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
 
-if (_isFullCycle) then {
-    private _cycleCount = (_heli getVariable ["fza_ah64_fcrFullCycleCount", 0]) + 1;
-    [_heli, "fza_ah64_fcrFullCycleCount", _cycleCount] call fza_fnc_updateNetworkGlobal;
-
-    if (_cycleCount >= 2) then {
-        private _ntsObj        = (_heli getVariable "fza_ah64_fcrNts") # 0;
-        private _ntsStillValid = _ntsObj isNotEqualTo objNull && (_fcrTargets findIf { (_x # 3) isEqualTo _ntsObj } != -1);
-
-        if (!_ntsStillValid) then {
-            [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
-            [_heli] call fza_fcr_fnc_cycleNTS;
-        };
-    };
-
-    // lastFullCycle updated after cycleNTS so reveal-offset filter sees the previous cycle's elapsed time
-    [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
+// The NTS stays while it is still shown, at the position shown, otherwise the next target is
+private _ntsObj = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _ntsIdx = _fcrTargets findIf {(_x # 3) isEqualTo _ntsObj};
+private _shown  = if (isNull _ntsObj || {_ntsIdx == -1}) then {[]} else {[_fcrTargets # _ntsIdx, CBA_missionTime] call fza_fcr_fnc_targetShown};
+if (_shown isEqualTo []) then {
+    [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
+    [_heli] call fza_fcr_fnc_cycleNTS;
+} else {
+    [_heli, "fza_ah64_fcrNts", [_ntsObj, _shown # 0, _fcrTargets # _ntsIdx]] call fza_fnc_updateNetworkGlobal;
 };
 
 [_heli] call fza_dms_fnc_ageShot;

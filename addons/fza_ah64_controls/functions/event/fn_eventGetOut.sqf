@@ -17,8 +17,16 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
-params["_heli","","_unit"];
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params["_heli","_role","_unit"];
 
 if (player != _unit) exitWith {};
+// Leaving the seat that owns the FCR, its scan stops; the radar goes off where the aircraft is local
+// (fza_fcr_fnc_stateControl, with no owner)
+private _seat = ["", "plt", "cpg"] select ((["driver", "gunner"] find _role) + 1);
+if (_seat != "" && {FCR_OWNER(_heli) == _seat}) then {
+    [_heli] call fza_fcr_fnc_stopScan;
+    _heli setVariable ["fza_ah64_fcrOwner", "", true];
+};
 [_heli] call fza_ihadss_fnc_controller;
 [_unit] call fza_ihadss_fnc_hduUpdate;

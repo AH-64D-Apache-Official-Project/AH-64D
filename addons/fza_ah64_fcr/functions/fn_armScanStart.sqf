@@ -8,7 +8,7 @@ Description:
 Parameters:
     _heli       - The helicopter
     _scanState  - FCR_MODE_ON_SINGLE or FCR_MODE_ON_CONTINUOUS
-    _preserve   - keep NTS and cycle count (mid-scan re-cue, e.g. size change)
+    _preserve   - keep the NTS (mid-scan re-cue by a centerline slew)
 
 Returns:
     Nothing
@@ -19,7 +19,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_scanState", ["_preserve", false]];
 
-[_heli, true] call fza_fcr_fnc_applyScanSize;
+[_heli] call fza_fcr_fnc_applyScanSize;
 
 private _fcrMode    = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
@@ -47,14 +47,10 @@ private _cueDelay   = _angDist / (FCR_SCAN_RATE_DEGS * (pi / 180));
 
 [_heli, "fza_ah64_fcrWaitingForStart", true] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrState", [_scanState, CBA_missionTime + _cueDelay]] call fza_fnc_updateNetworkGlobal;
-[_heli, "fza_ah64_fcrLastFullCycle", 0] call fza_fnc_updateNetworkGlobal;
-// Restart the phase-wrap tracker so a mid-scan re-cue (size change) doesn't leave a stale
-// phase that desyncs the dish, wiper and reveal timer from the new cycle length
-_heli setVariable ["fza_ah64_fcrPrevCyclePhase", 0, true];
 
 // A new scan clears the target file. A re-cue
-// (scan start, size change, slew) is a new scan — clear the file so nothing persists through
-// the cue; targets re-derive only as the wiper sweeps the new footprint.
+// (scan start, slew) is a new scan — clear the file so nothing persists through
+// the cue; targets come back when its first full cycle completes (fza_fcr_fnc_update).
 [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
 _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
 _heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
@@ -62,5 +58,4 @@ _heli setVariable ["fza_ah64_fcrDisplayCount", 0, true];
 if (_preserve) exitWith {};
 // A new scan replaces the RMAP picture, which stays up after a scan until then
 [_heli] call fza_fcr_fnc_videoClear;
-[_heli, "fza_ah64_fcrNts",           [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
-[_heli, "fza_ah64_fcrFullCycleCount", 0]                   call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;

@@ -52,7 +52,7 @@ private _stepTowards = {
     _heli animateSource ["longbow", _next, true];
 };
 
-// Monotonic from scan start — must not use _time (last update stamp) as it resets every half-cycle
+// Monotonic from scan start — must not use the last update stamp, which is only set as each cycle completes
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 
 // Fault: the antenna locks where it is
@@ -94,7 +94,6 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
         if (local _heli) then {
             [_heli, "fza_ah64_fcrState", [_fcrScanState, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
         };
         _heli animateSource ["longbow", _startRad, true];
     };
