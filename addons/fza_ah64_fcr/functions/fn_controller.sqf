@@ -36,17 +36,20 @@ if ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_TPM && { _heli getVa
     [_heli] call fza_fcr_fnc_tpmSample;
 };
 
-// With the local crew station owning the FCR the centerline follows its acquisition source, with PHS the pilot's head:
-// the pilot's always, slaved on selection; the CPG's while slaved. Otherwise the slew arrows move it
-// (fza_fcr_fnc_slewCenterline). At most 4 times a second and from 1 deg, and not during a scan, which holds the
-// azimuth it was started on (fza_fcr_fnc_slaveCenterline); FCR and FXD hold the centerline where it was put.
+// With the local crew station owning the FCR the centerline follows: the pilot's acquisition source, with PHS the
+// pilot's head, slaved on selection; the CPG's acquisition source while slaved with FCR as the sight, or the TADS LOS
+// while linked with TADS as the sight (TADSL). Otherwise it stays where it was put, or the slew arrows move it
+// (fza_fcr_fnc_slewCenterline). At most 4 times a second and from 1 deg, and not during a scan, which holds the azimuth
+// it was started on (fza_fcr_fnc_slaveCenterline); FCR and FXD hold the centerline where it was put.
 private _isPilot = player == driver _heli;
+private _sight   = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+private _tadsL   = player == gunner _heli && {CPG_LINK(_heli) && {_sight == SIGHT_TADS}};
 if (_heli animationPhase "fcr_enable" == 1
     && {FCR_OWNER(_heli) == (["none", "cpg", "plt"] select ([player == gunner _heli, 2] select _isPilot))}
-    && {_isPilot || {_heli getVariable ["fza_ah64_cpgSlaved", false]}}
+    && {_isPilot || _tadsL || {_sight == SIGHT_FCR && {_heli getVariable ["fza_ah64_cpgSlaved", false]}}}
     && {time - (_heli getVariable ["fza_fcr_slaveFollowTime", -1]) >= 0.25}) then {
     _heli setVariable ["fza_fcr_slaveFollowTime", time];
-    private _acq = [_heli, [[0], [-1]] select _isPilot] call fza_fnc_targetingCurAcq;
+    private _acq = if (_tadsL) then {"TADS"} else {[_heli, [[0], [-1]] select _isPilot] call fza_fnc_targetingCurAcq};
     if !(_acq in ["FCR", "FXD"]) then {
         [_heli, _acq] call fza_fcr_fnc_slaveCenterline;
     };

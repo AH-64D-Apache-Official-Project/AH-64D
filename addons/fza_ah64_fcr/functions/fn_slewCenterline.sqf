@@ -8,7 +8,7 @@ Description:
     bearing so the centerline remains heading stabilized until commanded again. Only acts for the crew
     station owning the FCR (FCR_OWNER) while the centerline is not following the
     acquisition source: for the pilot, slaved on selection, only with FXD as the
-    source; for the CPG only while not slaved.
+    source; for the CPG only while not slaved, and not in TADSL.
 
 Parameters:
     _heli    - The helicopter
@@ -26,6 +26,8 @@ params ["_heli", "_dirSign"];
 if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
 if (player == driver _heli && {([_heli, [-1]] call fza_fnc_targetingCurAcq) != "FXD"}) exitWith {};
 if (player == gunner _heli && {_heli getVariable ["fza_ah64_cpgSlaved", false]}) exitWith {};
+// TADSL: the centerline follows the TADS LOS and the arrows are not shown
+if (player == gunner _heli && {CPG_LINK(_heli) && {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_TADS}}) exitWith {};
 
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {};

@@ -4,7 +4,9 @@ Function: fza_fnc_targetingSlave
 Description:
     The CPG's sight SLAVE switch: toggles slaving the selected sight to the
     acquisition source. Slaved, a TADS sight follows the acquisition LOS, an FCR
-    sight has its centerline set to it, and cueing is shown. Slaving to a stored
+    sight has its centerline set to it, and cueing is shown. Linked with FCR as
+    the sight (FCR-L) the TADS is slaved to the NTS as well, and unslaved it is
+    the CPG's to move (fza_fnc_weaponTurretAim). Slaving to a stored
     point selects the nav range to it. LMC stays as it was commanded. With the
     CPG owning the FCR a press stops its scan. The pilot is slaved on selection
     of a source and has no switch.

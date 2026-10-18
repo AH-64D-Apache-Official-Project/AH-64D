@@ -80,16 +80,24 @@ if _sightFixed then {_sight = -1};
 switch (_sight) do {
     case SIGHT_FCR:{
         _targpos = _heli modelToWorldVisual [0,1000,0];
-        if (!isNull _nts) exitWith {
+        if (isNull _nts) then {
+            _inhibit = "NO TARGET";
+        } else {
             _targPos = _ntspos;
             if (isVehicleRadarOn _heli) then {
                 _targPos = aimPos _nts;
                 _targVel = velocity _nts;
             };
-            _cameraTarget = _targPos;
         };
-        _cameraTarget = _targPos;
-        _inhibit = "NO TARGET";
+        // The FCR commands the TADS only in FCR-L while slaved: on the NTS, jumping to each new one, fixed forward without
+        // one. Otherwise the TADS is the CPG's to move as with TADS as the sight.
+        if (CPG_LINK(_heli) && {_heli getVariable ["fza_ah64_cpgSlaved", false]}) then {
+            _cameraTarget = _targPos;
+        } else {
+            if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
+                _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
+            };
+        };
     };
     case SIGHT_HMD:{
         _targPos = AGLToASL (positionCameraToWorld [0, 0, 1000]);

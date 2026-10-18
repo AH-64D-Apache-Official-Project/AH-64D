@@ -51,10 +51,12 @@ if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then 
 
 //FCR footprint: the scan sector out to 8 km, turned with the centerline and sized by the selected scan size; GTM and
 // RMAP +-45/22.5/15/7.5 deg, ATM +-90/45/22.5 or the full circle in wide. Green
-// scanning continuously or idle, white for a single scan. Only with FCR as the crew station's sight, not in TPM.
+// scanning continuously or idle, white for a single scan. Only with FCR as the crew station's sight, or as the CPG's
+// second sight linked to the TADS (TADSL), not in TPM.
 private _fcrMode = _heli getVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_OFF];
+private _ownSight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_heli animationPhase "fcr_enable" == 1
-    && {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_FCR}
+    && {_ownSight == SIGHT_FCR || {player == gunner _heli && {_ownSight == SIGHT_TADS && {CPG_LINK(_heli)}}}}
     && {_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_ATM, FCR_DISP_MODE_RMAP]}) then {
     private _atm     = _fcrMode == FCR_DISP_MODE_ATM;
     private _size    = _heli getVariable ["fza_ah64_fcrScanSize", 0];

@@ -108,7 +108,8 @@ if _fcrOn then {
     _m set ["fcrCur", _fcrBias];
     _heli getVariable "fza_ah64_fcrLastScan" params ["_lastDir"];
     if (!isNil "_lastDir") then {
-        private _last = [_lastDir + _fcrBias - _heliDir] call CBA_fnc_simplifyAngle180;
+        // Where the last scan looked (fza_fcr_fnc_update)
+        private _last = [_lastDir - _heliDir] call CBA_fnc_simplifyAngle180;
         if (abs (_last - _fcrBias) > 1) then {
             _m set ["fcrLast", _last];
         };
@@ -268,10 +269,11 @@ if (_was == WAS_WEAPON_MSL) then {
 // High action display
 ///////////////////////////////////////////////////////////////////////////////
 private _prefix = ["C-", "P-"] select _isPilot;
+private _linked = !_isPilot && {CPG_LINK(_heli)};
 private _sightSel = switch (_sight) do {
     case SIGHT_HMD:  { _prefix + "HMD" };
-    case SIGHT_TADS: { "TADS" };
-    case SIGHT_FCR:  { _prefix + "FCR" };
+    case SIGHT_TADS: { ["TADS", "TADSL"] select _linked };
+    case SIGHT_FCR:  { [_prefix + "FCR", "C-FCRL"] select _linked };
     default { "?" };
 };
 

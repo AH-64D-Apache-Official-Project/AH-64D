@@ -273,6 +273,14 @@
             <Turkish>TADS Sensörünü FLIR Olarak Ayarla</Turkish>
             <Dutch>Stelt de TADS Sensor in op FLIR</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_LINK">
+            <Original>Sight Select Link</Original>
+            <English>Sight Select Link</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_LINK_INFO">
+            <Original>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</Original>
+            <English>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SLAVE">
             <Original>Sight Slave</Original>
             <English>Sight Slave</English>

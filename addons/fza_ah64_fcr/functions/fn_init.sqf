@@ -20,7 +20,7 @@ if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_fcrInitialised", true, true];
 
     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, 0], true];
-    _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, 0, direction _heli, direction _heli], true];
+    _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, 0, direction _heli], true];
     _heli setVariable ["fza_ah64_fcrLastFullCycle", 0, true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
     _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];

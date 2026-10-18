@@ -5,7 +5,7 @@
 params ["_heli", "_mpdIndex"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "", "", ["_noseDir", -1]];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "", ["_noseDir", -1]];
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _systemWas = _heli getVariable "fza_ah64_was";
 

@@ -26,11 +26,14 @@ Author:
 params ["_heli", "_mpdIndex", ["_hadOnly", false]];
 
 private _sight        = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-private _sightSelStat = "HMD";
+private _isPilot      = player == driver _heli;
+private _prefix       = ["C-", "P-"] select _isPilot;
+private _linked       = !_isPilot && {CPG_LINK(_heli)};
+private _sightSelStat = _prefix + "HMD";
 switch (_sight) do {
-    case SIGHT_FCR:  { _sightSelStat = "FCR "; };
-    case SIGHT_HMD:  { _sightSelStat = "HMD "; };
-    case SIGHT_TADS: { _sightSelStat = "TADS"; };
+    case SIGHT_FCR:  { _sightSelStat = [_prefix + "FCR", "C-FCRL"] select _linked; };
+    case SIGHT_HMD:  { _sightSelStat = _prefix + "HMD"; };
+    case SIGHT_TADS: { _sightSelStat = ["TADS", "TADSL"] select _linked; };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
@@ -102,8 +105,9 @@ private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"];
-private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+// The centerline caret is the live centerline; the previous centerline caret is where the last scan looked
+_heli getVariable "fza_ah64_fcrLastScan" params ["_lastDir"];
+private _fcrHeading = [_heli getVariable ["fza_ah64_fcrAzBias", 0]] call CBA_fnc_simplifyAngle180;
 private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 if (_heli animationPhase "fcr_enable" != 1) then {
     _fcrHeading = -1000;

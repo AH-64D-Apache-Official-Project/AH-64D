@@ -18,9 +18,13 @@
 #define RANGE_SRC_MANUAL  4
 #define RANGE_SRC_AUTO    5
 
-// The crew station with FCR as its sight, the last to select it: "plt", "cpg" or "" for none. Only it scans, slews and
-// slaves the FCR.
+// The crew station with FCR as its sight, the last to select it, or the CPG linked with TADS as its sight: "plt", "cpg" or
+// "" for none. Only it scans, slews and slaves the FCR.
 #define FCR_OWNER(heli) ((heli) getVariable ["fza_ah64_fcrOwner", ""])
+
+// The CPG's sight select LINK: with TADS the FCR centerline follows the TADS LOS (TADS-L), with FCR the slave switch
+// slaves the TADS to the NTS (FCR-L). Off on any sight selection, a second press, or the FCR taken by the pilot.
+#define CPG_LINK(heli) ((heli) getVariable ["fza_ah64_cpgLink", false])
 
 // A coordinate point as the acquisition source is its name, W01, C51 or T01; ?01 when no point is stored
 #define ACQ_POINT_NONE "?01"

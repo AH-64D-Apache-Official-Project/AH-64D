@@ -2,8 +2,10 @@
 Function: fza_fcr_fnc_setCenterline
 
 Description:
-    Sets the FCR centerline azimuth bias, heading stabilised off centre, updates
-    the centerline carets and re-cues a running scan.
+    Sets the FCR centerline azimuth bias, heading stabilised off centre, and
+    re-cues a running scan. The last scan's picture is a snapshot and stays as
+    it was (fza_ah64_fcrLastScan, written only by fza_fcr_fnc_update); the
+    centerline caret reads the bias live.
 
 Parameters:
     _heli    - The helicopter
@@ -31,11 +33,6 @@ if (_newBias == 0) then {
     // SQF mod keeps sign — +360 first so a left slew at low headings can't store a negative bearing
     _heli setVariable ["fza_ah64_fcrCenterlineWorld", (direction _heli + _newBias + 360) mod 360, true];
 };
-
-// Current/last centerline carets update immediately; keep the update stamp and scan-time nose heading intact
-private _clDir = (direction _heli + _newBias + 360) mod 360;
-_heli getVariable "fza_ah64_fcrLastScan" params ["_oldDir", "_scanPos", "_time", "", ["_noseDir", direction _heli]];
-[_heli, "fza_ah64_fcrLastScan", [_clDir, _scanPos, _time, _oldDir, _noseDir]] call fza_fnc_updateNetworkGlobal;
 
 // The RMAP picture stays until the next scan starts (fza_fcr_fnc_armScanStart)
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState"];

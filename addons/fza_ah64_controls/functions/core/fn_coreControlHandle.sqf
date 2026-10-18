@@ -23,12 +23,31 @@ if (_value) then {
         case "fza_ah64_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
             if (FCR_OWNER(_heli) == ([_heli] call fza_fnc_getSeat)) then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
+            if (player == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectTADS": {
             // The TADS is the CPG's sight
             if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
             if (FCR_OWNER(_heli) == "cpg") then {_heli setVariable ["fza_ah64_fcrOwner", "", true]};
+            if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
+        };
+        case "fza_ah64_sightSelectLink": {
+            // The CPG's, with an FCR fitted and TADS or FCR as the sight; a second press unlinks
+            if (player != gunner _heli || {_heli animationPhase "fcr_enable" != 1}) exitWith {};
+            private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+            if !(_sight in [SIGHT_TADS, SIGHT_FCR]) exitWith {};
+            private _link = !CPG_LINK(_heli);
+            _heli setVariable ["fza_ah64_cpgLink", _link, true];
+            if (_sight != SIGHT_TADS) exitWith {};
+            // TADS-L: the CPG owns both sights, the FCR as a second sensor following the TADS LOS (fza_fcr_fnc_controller).
+            // Taken from the pilot, its scan stops. Unlinked, the TADS is a sight without the FCR again.
+            if (_link) then {
+                if (FCR_OWNER(_heli) != "cpg") then {[_heli] call fza_fcr_fnc_stopScan};
+                _heli setVariable ["fza_ah64_fcrOwner", "cpg", true];
+            } else {
+                _heli setVariable ["fza_ah64_fcrOwner", "", true];
+            };
         };
         case "fza_ah64_sightSlave": {
             [_heli] call fza_fnc_targetingSlave;
@@ -36,6 +55,8 @@ if (_value) then {
         case "fza_ah64_sightSelectFCR": {
             if (_heli animationPhase "fcr_enable" != 1) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
+            // Selected by the CPG, or the FCR taken by the pilot, the CPG's link drops
+            if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
             // The FCR is shared: the crew station that selects it last owns it, and only the owner scans, slews and slaves it.
             // Taken from the other crew station, its scan stops.
             private _seat = [_heli] call fza_fnc_getSeat;

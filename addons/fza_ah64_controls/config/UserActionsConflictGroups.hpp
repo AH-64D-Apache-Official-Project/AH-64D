@@ -5,6 +5,7 @@ class UserActionsConflictGroups{
             "fza_ah64_sightSelectHMD",
             "fza_ah64_sightSelectTADS",
             "fza_ah64_sightSelectFCR",
+            "fza_ah64_sightSelectLink",
             "fza_ah64_sightSlave",
             "fza_ah64_symbologySelectUp",
             "fza_ah64_symbologySelectDown",

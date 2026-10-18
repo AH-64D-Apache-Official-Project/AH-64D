@@ -12,9 +12,10 @@ Parameters:
 Returns:
     Nothing
 
-fza_ah64_fcrLastScan record:
-    [centerlineDir, scanPos, updateTime, prevCenterlineDir, noseDir]
-     0              1        2           3                  4
+fza_ah64_fcrLastScan record, the scan's snapshot, written only here: the FCR
+formats draw against it, and moving the centerline leaves it as it is:
+    [centerlineDir, scanPos, updateTime, noseDir]
+     0              1        2           3
 
 Author:
     BradMick, Snow(Dryden)
@@ -25,9 +26,9 @@ params ["_heli", ["_isFullCycle", true]];
 private _fcrMode   = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
 
-// Centerline = heading + azimuth bias: carets and the B-scope terrain frame both reference it
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir"];
-private _lastScan = [(direction _heli + _fcrAzBias + 360) mod 360, getPosASL _heli, CBA_missionTime, _dir, direction _heli];
+// Centerline = heading + azimuth bias: the scan frame the targets, the B-scope terrain and the previous centerline caret
+// reference
+private _lastScan = [(direction _heli + _fcrAzBias + 360) mod 360, getPosASL _heli, CBA_missionTime, direction _heli];
 
 // TPM is a pilotage mode: no target file, no NTS
 if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {
