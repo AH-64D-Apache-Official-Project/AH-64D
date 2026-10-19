@@ -93,7 +93,7 @@ private _tgtParts = [];
         // Dim below the scan-to-scan correlation for a bright symbol (fza_fcr_fnc_mergeTargets)
         [0, 1] select _dim
     ];
-} forEach (_displayTargets select [0, (count _displayTargets) min 16]);
+} forEach (_displayTargets select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]);
 
 private _shotParts = [];
 {

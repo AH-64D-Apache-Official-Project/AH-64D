@@ -45,7 +45,7 @@ private _heliPos    = getPosASL _heli;
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         _targetSpeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE)
         then { continue; };
-    if (count _fcrTargets >= 256) exitWith {};
+    if (count _fcrTargets >= FCR_TARGET_FILE) exitWith {};
 
     private _targDir   = _heliPos vectorFromTo _targetPos;
     private _ydist     = _targDir vectorDotProduct vectorUp _heli;

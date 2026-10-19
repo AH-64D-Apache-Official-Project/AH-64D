@@ -34,10 +34,10 @@ private _unitStatus = "LOAL";
 if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
     _unitStatus = "MOVE";
 } else {
-    if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+    if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_DISPLAY_LOAL_LOBL_RANGE) then {
         _unitStatus = "LOBL";
     };
-    if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then {
+    if (_range > FCR_DISPLAY_LOAL_LOBL_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then {
         _unitStatus = "LOAL";
     };
 };

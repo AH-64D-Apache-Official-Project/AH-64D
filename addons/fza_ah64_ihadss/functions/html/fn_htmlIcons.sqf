@@ -230,7 +230,7 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];
     {
-        if (_forEachIndex > 15) exitWith {};
+        if (_forEachIndex >= FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS) exitWith {};
         _x params ["_pos", "_type", "_moving"];
         private _ident = [_type, _scanPos distance2D _pos, _moving] call fza_mpd_fnc_buildFCRIdent;
         if (_ident != "") then {
@@ -246,7 +246,7 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
         ["nts", ((["nts", "nts_noMSL"] select (_was == WAS_WEAPON_NONE)) call _fcrTex), ((_fcrTargets # _ntsIndex) # 0) call _toScreen, 30] call _place;
         private _count = count _fcrTargets;
         if (_count > 1) then {
-            ["ants", ("ants" call _fcrTex), ((_fcrTargets # ((_ntsIndex + 1) mod (_count min 16))) # 0) call _toScreen, 30] call _place;
+            ["ants", ("ants" call _fcrTex), ((_fcrTargets # ((_ntsIndex + 1) mod (_count min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS))) # 0) call _toScreen, 30] call _place;
         };
     };
 };

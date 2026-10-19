@@ -14,6 +14,7 @@ Returns:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
 private _known = [];
@@ -27,5 +28,5 @@ if (_known isEqualTo []) exitWith {
 
 private _oldNts      = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _oldNtsIndex = _known findIf {(_x # 0 # 3) == _oldNts};
-(_known # ((_oldNtsIndex + 1) mod (count _known min 16))) params ["_rec", "_pos"];
+(_known # ((_oldNtsIndex + 1) mod (count _known min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS))) params ["_rec", "_pos"];
 [_heli, "fza_ah64_fcrNts", [_rec # 3, _pos, _rec]] call fza_fnc_updateNetworkGlobal;

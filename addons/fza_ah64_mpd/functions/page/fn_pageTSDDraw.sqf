@@ -121,16 +121,16 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-//FCR Points: all the radar tracks in the attack phase, its top 16 in the nav phase
+//FCR Points: all the radar tracks in the attack phase, its top ones in the nav phase
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
-private _displayTargets = (_heli getVariable "fza_ah64_fcrDisplayTargets") select [0, [16, FCR_TARGET_FILE] select _phase];
+private _displayTargets = (_heli getVariable "fza_ah64_fcrDisplayTargets") select [0, [FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, FCR_TARGET_FILE] select _phase];
 private _systemWas      = _heli getVariable "fza_ah64_was";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
 private _antsIndex = -1;
 if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
 };
 
 {

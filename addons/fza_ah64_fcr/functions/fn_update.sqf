@@ -55,8 +55,8 @@ if (_fcrMode == FCR_DISP_MODE_ATM) then {
         ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
     };
 };
-// The radar tracks FCR_TARGET_FILE targets in priority order: the FCR formats show the top 16, the TSD all of them in
-// its attack phase and the top 16 in its nav phase
+// The radar tracks FCR_TARGET_FILE targets in priority order: the FCR formats and the TSD nav phase show the top
+// FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, the TSD attack phase all of them
 _fcrTargets = ([_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy) select [0, FCR_TARGET_FILE];
 
 [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
