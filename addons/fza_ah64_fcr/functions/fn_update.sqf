@@ -8,7 +8,8 @@ Description:
     Nothing the FCR shows changes between updates. TPM keeps no target file.
 
 Parameters:
-    _heli - The helicopter
+    _heli  - The helicopter
+    _cycle - Full cycles completed since the scan started
 
 Returns:
     Nothing
@@ -22,7 +23,7 @@ Author:
     BradMick, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli"];
+params ["_heli", "_cycle"];
 
 private _fcrMode   = _heli getVariable "fza_ah64_fcrMode";
 private _fcrAzBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
@@ -42,7 +43,7 @@ if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {
 private _fcrTargets = [_heli, _fcrMode, _fcrAzBias] call fza_fcr_fnc_buildScanSnapshot;
 
 if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_ATM, FCR_DISP_MODE_RMAP]) then {
-    _fcrTargets = [_heli, _fcrTargets, _fcrAzBias] call fza_fcr_fnc_mergeTargets;
+    _fcrTargets = [_heli, _fcrTargets, _fcrAzBias, _cycle] call fza_fcr_fnc_mergeTargets;
 };
 
 // Priority rank by FCR_TYPE value: ADU(5)→0, WHEELED(4)→1, TRACKED(3)→2, HELI(2)→3, FLYER(1)→4, UNKNOWN(0)→5; dim last
@@ -54,10 +55,9 @@ if (_fcrMode == FCR_DISP_MODE_ATM) then {
         ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
     };
 };
-_fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
-if (count _fcrTargets > 16) then {
-    _fcrTargets = _fcrTargets select [0, 16];
-};
+// The radar tracks FCR_TARGET_FILE targets in priority order: the FCR formats show the top 16, the TSD all of them in
+// its attack phase and the top 16 in its nav phase
+_fcrTargets = ([_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy) select [0, FCR_TARGET_FILE];
 
 [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;

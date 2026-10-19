@@ -4,10 +4,8 @@ Function: fza_fcr_fnc_targetShown
 Description:
     What an FCR target record shows at a time. Until the wiper crosses the
     target (its reveal time) it shows the previous scan's picture; from then
-    the result of this scan's pass: the position it was detected at, or on a
-    miss the position it was last shown at, bright or dim by scan-to-scan
-    correlation (fza_fcr_fnc_mergeTargets). With its correlation gone, or
-    never shown, it is not shown.
+    this scan's: its position, bright or dim by its scanburst results
+    (fza_fcr_fnc_mergeTargets), or nothing.
 
 Parameters:
     _rec  - A fza_ah64_fcrTargets record
@@ -20,13 +18,9 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_rec", "_time"];
-_rec params ["_pos", "", "", "", "_azi", "", "_range", "", "_memory", "_revealTime", "_dispPos", "_dispAzi", "_dispRange", "_dispBright", "_bright", "_lastHit"];
+_rec params ["_pos", "", "", "", "_azi", "", "_range", "", "", "_revealTime", "_dispPos", "_dispAzi", "_dispRange", "_dispBright", "_bright", "_shown"];
 
 if (_time < _revealTime) exitWith {
     [[_dispPos, _dispAzi, _dispRange, _dispBright], []] select (_dispPos isEqualTo [])
 };
-// The correlation: a moving target's last scanburst of passes, or a stationary target's count
-private _correlated = if (_memory isEqualType []) then {_memory findIf {_x} != -1} else {_memory > 0};
-if (!_correlated) exitWith {[]};
-if (_lastHit) exitWith {[_pos, _azi, _range, _bright]};
-[[_dispPos, _dispAzi, _dispRange, _bright], []] select (_dispPos isEqualTo [])
+[[], [_pos, _azi, _range, _bright]] select _shown

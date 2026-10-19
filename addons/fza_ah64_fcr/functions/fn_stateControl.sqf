@@ -64,7 +64,7 @@ private _cycleUpdate = {
     if (_doneStart != _fcrScanStartTime) then {_doneCycle = 0};
     if (_cycleNow > _doneCycle) then {
         _heli setVariable ["fza_fcr_cycleDone", [_fcrScanStartTime, _cycleNow]];
-        [_heli] call fza_fcr_fnc_update;
+        [_heli, _cycleNow] call fza_fcr_fnc_update;
     };
     _cycleNow
 };

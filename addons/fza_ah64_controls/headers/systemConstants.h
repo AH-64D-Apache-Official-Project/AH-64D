@@ -54,13 +54,19 @@
 #define FCR_SCAN_RATE_DEGS               60 //antenna azimuth rate — constant across modes, smaller sectors scan faster
 #define FCR_TPM_SCAN_RATE_DEGS           120 //TPM antenna rate — faster than targeting modes for rapid terrain refresh
 #define FCR_BURST_SCANS                  [2, 2, 3, 4] //Scans per scanburst W/M/N/Z (GTM/RMAP; ATM is 2): the looks a target gets
-//--Miss chance per wiper pass W/M/N/Z; per scanburst Pd = 1 - miss^scans
-#define FCR_MISS_STATIONARY              [0.50, 0.50, 0.50, 0.50] //Pd 0.75/0.75/0.88/0.94
-#define FCR_MISS_MOVING                  [0.40, 0.40, 0.40, 0.40] //Pd 0.84/0.84/0.94/0.97: Doppler separates movers from the clutter
-#define FCR_MISS_FALSE                   [0.30, 0.30, 0.30, 0.30] //Pd 0.91/0.91/0.97/0.99: a known clutter discrete detected again
-#define FCR_BRIGHT_HITS                  [2, 2, 2, 3] //Scan-to-scan correlation for a bright symbol W/M/N/Z: hits over the last scanburst (moving), or count (stationary); dim below, gone at none
-#define FCR_MEMORY_CAP                   6    //Stationary target count: +1 a detection, -1 a miss, at most this, so a long-painted target rides through misses
-#define FCR_FALSE_PER_CYCLE              1.0  //False returns: new clutter discretes detected per cycle in wide, by sector width in the smaller sizes (GTM/RMAP)
+#define FCR_TARGET_FILE                  32   //Targets the radar tracks, in priority order: FCR formats show the top 16, the TSD all in its attack phase
+//--Scanburst result W/M/N/Z: at the end of each scanburst (FCR_BURST_SCANS cycles, a single scan's length, and each
+//  burst-length stretch of a continuous scan) a target is bright, dim, or not shown (the rest) by these chances
+#define FCR_STATIONARY_BRIGHT            [0.30, 0.40, 0.50, 0.60]
+#define FCR_STATIONARY_DIM               [0.40, 0.35, 0.30, 0.25]
+#define FCR_MOVING_BRIGHT                [0.80, 0.85, 0.90, 0.95] //Doppler separates movers from the clutter
+#define FCR_MOVING_DIM                   [0.15, 0.11, 0.07, 0.03]
+#define FCR_STATIONARY_MEMORY            3    //Scan-to-scan correlation: a stationary target shows its best of this many scanbursts; a mover its latest
+//--Clutter (false returns, GTM/RMAP): clutter discretes the radar holds in the scanned sector, uncorrelated: each
+//  scanburst shows each afresh by these chances, not shown 0.55
+#define FCR_CLUTTER_POOL                 5    //About 2-3 clutter symbols at a time in any scan size
+#define FCR_CLUTTER_BRIGHT               [0.20, 0.25, 0.30, 0.35]
+#define FCR_CLUTTER_DIM                  [0.25, 0.20, 0.15, 0.10]
 
 //--TPM obstacle derivation (towers/vertical items + RCS + minimum height)
 #define FCR_OBST_TOWER_RATIO             1.5  //tower-like: height at least this x the widest footprint dimension
