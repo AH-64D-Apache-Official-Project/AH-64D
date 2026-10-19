@@ -79,7 +79,6 @@ private _projName = "AH-64D Official Project";
     2
 ] call CBA_fnc_addSetting;
 
-fza_ah64_weaponDebug            = false;
 fza_ah64_pylonsLastCheckMags    = [];
 fza_ah64_overallticker          = 0;
 fza_ah64_sideslip               = 0;
@@ -92,7 +91,7 @@ fza_ah64_tadsFOVs = [
 
 //Scheduler arrays
 fza_ah64_draw3Darray      = [fza_fnc_targetingRangeUpdate, fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
-fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_cannon_fnc_update];
+fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fire_fnc_handleRearm, fza_cannon_fnc_update];
 fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_anim_fnc_animationUpdate];
 
 //Draw3d handler

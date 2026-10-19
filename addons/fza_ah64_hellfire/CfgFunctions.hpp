@@ -28,6 +28,8 @@ class CfgFunctions
             class salFindLaserDesignation {RECOMPILE_FLAG;};
             class salCanLockBeforeLaunch  {RECOMPILE_FLAG;};
             class checkChaffDefeat        {RECOMPILE_FLAG;};
+            class tofEstimate             {RECOMPILE_FLAG;};
+            class tofStart                {RECOMPILE_FLAG;};
         };
     };
 };

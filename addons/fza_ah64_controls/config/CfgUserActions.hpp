@@ -21,6 +21,8 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectFCR,"$STR_FZA_AH64_SIGHT_SELECT_FCR","$STR_FZA_AH64_SIGHT_SELECT_FCR_INFO");
     CfgUserActionDef(fza_ah64_sightSelectLink,"$STR_FZA_AH64_SIGHT_SELECT_LINK","$STR_FZA_AH64_SIGHT_SELECT_LINK_INFO");
     CfgUserActionDef(fza_ah64_sightSlave,"$STR_FZA_AH64_SIGHT_SLAVE","$STR_FZA_AH64_SIGHT_SLAVE_INFO");
+    CfgUserActionDef(fza_ah64_nvsSelectPnvs,"$STR_FZA_AH64_NVS_SELECT_PNVS","$STR_FZA_AH64_NVS_SELECT_PNVS_INFO");
+    CfgUserActionDef(fza_ah64_nvsSelectTads,"$STR_FZA_AH64_NVS_SELECT_TADS","$STR_FZA_AH64_NVS_SELECT_TADS_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectUp,"$STR_FZA_AH64_SYMBOLOGY_SELECT_UP","$STR_FZA_AH64_SYMBOLOGY_SELECT_UP_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectDown,"$STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN","$STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN_INFO");
     CfgUserActionDef(fza_ah64_symbologySelectPress,"$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS","$STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO");

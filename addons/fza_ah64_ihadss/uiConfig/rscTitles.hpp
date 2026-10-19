@@ -76,7 +76,8 @@ class RscTitles
                 y = "safeZoneY";
                 w = "safeZoneW";
                 h = "safeZoneH";
-                // Faded until the view far off the map has applied, a new map first draws its default view with icons and names
+                // Faded until the view far off the map has applied, a new map first draws its default view with icons and names;
+                // fza_ihadss_fnc_htmlIcons shows it
                 fade = 1;
                 onLoad = "(_this # 0) ctrlMapAnimAdd [0, 0.001, [-99999, -99999]]; ctrlMapAnimCommit (_this # 0);";
                 onDraw = "_this call fza_ihadss_fnc_cscopeProfileDraw";

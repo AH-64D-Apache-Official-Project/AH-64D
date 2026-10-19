@@ -23,8 +23,6 @@ params["_heli"];
 
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 #define SCALE_METERS_FEET 3.28084
-#define SCALE_KM_METERS 0.001
-#define HYDRA_TIME_KM 1.353
 #define GUN_FIXED_EL 6
 
 private _currentTurret = _heli call fza_fnc_currentTurret;
@@ -32,8 +30,9 @@ private _gunnnerUnit = _heli turretUnit [0];
 
 if (_currentTurret isNotEqualTo [0] && (isPlayer _gunnnerUnit)) exitWith {};
 
-private _azimuth = -deg(_heli animationPhase "tads_tur");
-private _elevation = deg(_heli animationPhase "tads");
+// The turret's angles and the turn added while the TADS is an NVS sensor (fza_ihadss_fnc_tadsNvsControl), 0 otherwise
+private _azimuth = -deg ((_heli animationPhase "tads_tur") + (_heli animationPhase "tads_nvs_tur"));
+private _elevation = deg ((_heli animationPhase "tads") + (_heli animationPhase "tads_nvs"));
 _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
 _heli setVariable ["fza_ah64_tadsElevation", _elevation];
 
@@ -92,7 +91,7 @@ switch (_sight) do {
         // The FCR commands the TADS only in FCR-L while slaved: on the NTS, jumping to each new one, fixed forward without
         // one. Otherwise the TADS is the CPG's to move as with TADS as the sight.
         if (CPG_LINK(_heli) && {_heli getVariable ["fza_ah64_cpgSlaved", false]}) then {
-            _cameraTarget = _targPos;
+            _cameraTarget = [_targPos, _heli modelToWorldVisualWorld [0, 1000, 0]] select (isNull _nts);
         } else {
             if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
                 _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
@@ -116,7 +115,7 @@ switch (_sight) do {
         };
     };
     default {
-        _cameraTarget = _heli modelToWorldVisual [0,1000,0];
+        _cameraTarget = _heli modelToWorldVisualWorld [0, 1000, 0];
     };
 };
 
@@ -130,11 +129,21 @@ if (!isPlayer _gunnnerUnit && {_currentTurret isEqualTo [-1]}) then {
     };
 };
 
-if ((_currentTurret isEqualTo [0] || !(isPlayer _gunnnerUnit)) && !(_heli getVariable "fza_ah64_LmcActive")) then {
-    _heli lockCameraTo [_cameraTarget, [0], false];
+// The TADS as an NVS sensor is turned by fza_ihadss_fnc_tadsNvsControl on top of the turret, which is held straight ahead:
+// the CPG's view is referenced to the turret while not flying, so a turret following the head would turn the view with it
+([_heli] call fza_ihadss_fnc_tadsNvs) params ["_nvsMode"];
+private _tadsNvs = _nvsMode != NVS_MODE_OFF;
+if _tadsNvs then {
+    _cameraTarget = (_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")) vectorAdd (_heli vectorModelToWorldVisual [0, 1000, 0]);
+};
+
+if ((_currentTurret isEqualTo [0] || !(isPlayer _gunnnerUnit)) && {_tadsNvs || {!(_heli getVariable "fza_ah64_LmcActive")}}) then {
+    [_heli, _cameraTarget] call fza_fnc_targetingTadsLockTo;
 };
 
 private _targDistance = _heli distance _targPos;
+// Rocket pylon travel, less on the ground
+private _pylonMin = [HYDRA_PYLON_MIN_AIR, HYDRA_PYLON_MIN_GROUND] select _onGnd;
 if (_targPos isEqualTo [0,0,0] && _sight == SIGHT_TADS) then {
     _targDistance = 1000;
     _targPos = _worldTargetpos;
@@ -152,17 +161,32 @@ if (_was == WAS_WEAPON_RKT && !_sightFixed) then {
     _targDistance = ([_heli, player] call fza_fnc_targetingRange) # 0;
     _targPos      = _origin vectorAdd (_losDir vectorMultiply _targDistance);
 
-    private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 580]];
-    private _elevationComp = ([_rocketTable, _targDistance] call fza_fnc_linearInterp) # 1;
-    private _tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
-    private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];
-    _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel ASLToAGL _aimLocation)) call CBA_fnc_vect2Polar)# 2;
-
-    if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
-        _inhibit = "PYLON LIMIT";
-        _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
+    // The rocket's own solution through its flight, leading a moving radar target (fza_hydra_fnc_aimSolve). Solved 20 times
+    // a second for its correction, which is applied to the aim point every frame. The pylons are commanded to its
+    // elevation and the steering cursor to its azimuth from the nose; the pylons still take their time to get there.
+    private _rktIndex = _firstPylonMags findIf {WEP_TYPE(_x) == "rocket"};
+    private _rktMag   = "";
+    if (_rktIndex != -1) then {_rktMag = _firstPylonMags # _rktIndex};
+    private _solution = _heli getVariable ["fza_hydra_solution", [-1, [0, 0, 0]]];
+    if (time - (_solution # 0) > 0.05) then {
+        ([_heli, _targPos, _targVel, _solution # 1, _rktMag] call fza_hydra_fnc_aimSolve) params ["", "_rktTof", "_correction"];
+        _solution = [time, _correction];
+        _heli setVariable ["fza_hydra_solution", _solution];
+        // The time of flight a volley is launched with (RTOF, fza_hydra_fnc_fired), to the tenth of a second
+        [_heli, "fza_ah64_rocketSolutionTof", (round (_rktTof * 10)) / 10] call fza_fnc_updateNetworkGlobal;
     };
-    if (_utilHydFailed || _utilLevelMin) exitWith {
+    (_heli vectorWorldToModelVisual ((_heli modelToWorldVisualWorld HYDRA_LAUNCH_POS(_heli)) vectorFromTo (_targPos vectorAdd (_solution # 1)))) params ["_solX", "_solY", "_solZ"];
+    _pylonAdjustment = _solZ atan2 (sqrt (_solX * _solX + _solY * _solY));
+    [_heli, "fza_ah64_rocketSteerAz", round ((_solX atan2 _solY) * 10) / 10] call fza_fnc_updateNetworkGlobal;
+
+    // Inhibits, the most serious shown: the pylons failed with the utility hydraulics as on the WPN page,
+    // too little G for the rotor to stay clear, the solution beyond the pylons' travel
+    private _rktInhibit = "";
+    if !(_pylonMin < _pylonAdjustment && _pylonAdjustment < HYDRA_PYLON_MAX) then {_rktInhibit = "PYLON LIMIT"};
+    if (([_heli] call fza_fnc_avionicsLoadFactor) < HYDRA_ACCEL_LIMIT_G) then {_rktInhibit = "ACCEL LIMIT"};
+    if (_utilHydFailed || _utilLevelMin) then {_rktInhibit = "PYLON ERROR"};
+    if (_rktInhibit != "") then {
+        _inhibit = _rktInhibit;
         _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
     };
 };
@@ -192,7 +216,7 @@ for "_i" from 0 to 3 do {
     private _pylonD = [4, 0] select _onGnd;
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
         if (_was == WAS_WEAPON_RKT) exitWith {
-            [_heli, _pylon, _pylonAdjustment] call fza_anim_fnc_updateAnimations;
+            [_heli, _pylon, (_pylonAdjustment max _pylonMin) min HYDRA_PYLON_MAX] call fza_anim_fnc_updateAnimations;
             [_heli, "fza_ah64_rocketPylonElev", _pylonAdjustment] call fza_fnc_updateNetworkGlobal;
 
         };
@@ -211,38 +235,31 @@ if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitWith {
         _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     };
-    private _gunElevation = _heli getVariable "fza_ah64_tadsElevation";
-    private _gunAzimuth   = _heli getVariable "fza_ah64_tadsAzimuth";
     // The gun's own solution: the sight LOS at the range source range, through the round's flight, leading a moving radar
-    // target (fza_cannon_fnc_aimSolve). fza_cannon_ballistic = false in the debug console returns to the gun following the TADS.
-    if (missionNamespace getVariable ["fza_cannon_ballistic", true]) then {
-        private _origin = switch (_sight) do {
-            case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
-            case SIGHT_HMD:  {AGLToASL positionCameraToWorld [0, 0, 0]};
-            default          {getPosASLVisual _heli};
-        };
-        private _losDir = _origin vectorFromTo _targPos;
-        if (_losDir isEqualTo [0, 0, 0]) then {_losDir = _heli vectorModelToWorldVisual [0, 1, 0]};
-        private _gunRange = ([_heli, player] call fza_fnc_targetingRange) # 0;
-        private _aimPoint = _origin vectorAdd (_losDir vectorMultiply _gunRange);
-        // Beyond the ballistic range of the round; not solved there, the gun holds its last solution
-        private _outOfRange = _gunRange > 4200;
-        if (_outOfRange) then {_inhibit = "BAL LIMIT"};
-        // Solved 20 times a second for its correction (superelevation and lead), which is applied to the aim point every
-        // frame, so the gun follows the sight smoothly between solutions
-        private _solution = _heli getVariable ["fza_cannon_solution", [-1, [0, 0, 0]]];
-        if (!_outOfRange && {time - (_solution # 0) > 0.05}) then {
-            _solution = [time, ([_heli, _aimPoint, _targVel, _solution # 1] call fza_cannon_fnc_aimSolve) # 2];
-            _heli setVariable ["fza_cannon_solution", _solution];
-        };
-        private _muzzle = _heli modelToWorldVisualWorld (_heli selectionPosition ["usti hlavne", "Memory"]);
-        (_heli vectorWorldToModelVisual (_muzzle vectorFromTo (_aimPoint vectorAdd (_solution # 1)))) params ["_solX", "_solY", "_solZ"];
-        _gunAzimuth   = _solX atan2 _solY;
-        _gunElevation = _solZ atan2 (sqrt (_solX * _solX + _solY * _solY));
-        if (missionNamespace getVariable ["fza_cannon_debug", true]) then {
-            drawIcon3D ["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], ASLToAGL _aimPoint, 0.5, 0.5, 0, "Gun aim point"];
-        };
+    // target (fza_cannon_fnc_aimSolve)
+    private _origin = switch (_sight) do {
+        case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
+        case SIGHT_HMD:  {AGLToASL positionCameraToWorld [0, 0, 0]};
+        default          {getPosASLVisual _heli};
     };
+    private _losDir = _origin vectorFromTo _targPos;
+    if (_losDir isEqualTo [0, 0, 0]) then {_losDir = _heli vectorModelToWorldVisual [0, 1, 0]};
+    private _gunRange = ([_heli, player] call fza_fnc_targetingRange) # 0;
+    private _aimPoint = _origin vectorAdd (_losDir vectorMultiply _gunRange);
+    // Beyond the ballistic range of the round; not solved there, the gun holds its last solution
+    private _outOfRange = _gunRange > 4200;
+    if (_outOfRange) then {_inhibit = "BAL LIMIT"};
+    // Solved 20 times a second for its correction (superelevation and lead), which is applied to the aim point every
+    // frame, so the gun follows the sight smoothly between solutions
+    private _solution = _heli getVariable ["fza_cannon_solution", [-1, [0, 0, 0]]];
+    if (!_outOfRange && {time - (_solution # 0) > 0.05}) then {
+        _solution = [time, ([_heli, _aimPoint, _targVel, _solution # 1] call fza_cannon_fnc_aimSolve) # 2];
+        _heli setVariable ["fza_cannon_solution", _solution];
+    };
+    private _muzzle = _heli modelToWorldVisualWorld (_heli selectionPosition ["usti hlavne", "Memory"]);
+    (_heli vectorWorldToModelVisual (_muzzle vectorFromTo (_aimPoint vectorAdd (_solution # 1)))) params ["_solX", "_solY", "_solZ"];
+    private _gunAzimuth   = _solX atan2 _solY;
+    private _gunElevation = _solZ atan2 (sqrt (_solX * _solX + _solY * _solY));
     if !(-86 < _gunAzimuth && _gunAzimuth < 86) then {
         _inhibit = "AZ LIMIT";
     };
@@ -290,10 +307,6 @@ _gunEl = _gunEl + ((((deg _maingun) - _gunEl) max -_slewStep) min _slewStep);
 _heli setVariable ["fza_cannon_gunAim", [_gunAz, _gunEl]];
 _mainturret = -rad _gunAz;
 _maingun    = rad _gunEl;
-if (missionNamespace getVariable ["fza_cannon_debug", true]) then {
-    private _muzzle = _heli modelToWorldVisual (_heli selectionPosition ["usti hlavne", "Memory"]);
-    drawLine3D [_muzzle, _muzzle vectorAdd ((_heli vectorModelToWorldVisual ([1, _gunAz, _gunEl] call CBA_fnc_polar2vect)) vectorMultiply 100), [0, 1, 0, 1]];
-};
 
 [_heli, "mainTurret", _mainturret] call fza_anim_fnc_updateAnimations;
 [_heli, "mainGun", _maingun] call fza_anim_fnc_updateAnimations;
@@ -306,8 +319,3 @@ for "_i" from 0 to 3 do {
 };
 
 [_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;
-
-#ifdef __A3_DEBUG__
-drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], ASLToAGL _targPos, 0.5, 0.5, 0, "Target pos ATL"];
-drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], _worldTargetpos, 0.5, 0.5, 0, "Target vector"];
-#endif

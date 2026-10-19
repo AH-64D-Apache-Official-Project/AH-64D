@@ -29,11 +29,9 @@ private _deltaTime = ["fza_ihadss_tadsSlew"] call BIS_fnc_deltaTime;
 private _az = _heli getVariable ["fza_ah64_tadsAzimuth", 0];
 private _el = _heli getVariable ["fza_ah64_tadsElevation", 0];
 
-// Live tune in the debug console: fza_ihadss_tadsSlewGain, degrees per second at full input and unity field of view
-private _gain = missionNamespace getVariable ["fza_ihadss_tadsSlewGain", 60];
-if !(_gain isEqualType 0) then {_gain = 60};
+// 60 deg/s at full input and unity field of view
 private _fov = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
-private _rate = _gain * _fov / (fza_ah64_tadsFOVs # 0) * _deltaTime;
+private _rate = 60 * _fov / (fza_ah64_tadsFOVs # 0) * _deltaTime;
 // The aim input moves the head in free look, and the cockpit cursor while it is detached
 if (freeLook || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})}) then {_rate = 0};
 

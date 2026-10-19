@@ -10,6 +10,15 @@ private _heli = vehicle player;
 private _onGnd      = [_heli] call bmkhs_fnc_stateOnGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
+// While the TADS is an NVS sensor it is not a sight, and is the FLIR in wide
+private _tadsNvsMode = ([_heli] call fza_ihadss_fnc_tadsNvs) # 0;
+private _tadsNvsBlocked = [
+    "fza_ah64_sightSelectTADS", "fza_ah64_sightSelectLink", "fza_ah64_tadsLHGLmc", "zoomIn", "zoomOut", "NightVision",
+    "fza_ah64_tadsLHGFov_W", "fza_ah64_tadsLHGFov_M", "fza_ah64_tadsLHGFov_N", "fza_ah64_tadsLHGFov_Z",
+    "fza_ah64_SensorSelect_FLIR", "fza_ah64_SensorSelect_DTV", "fza_ah64_SensorSelect_DVO"
+];
+if (_value && {_tadsNvsMode != NVS_MODE_OFF} && {_name in _tadsNvsBlocked}) exitWith {};
+
 if (_value) then {
     //When button pressed
     switch (_name) do {
@@ -59,6 +68,15 @@ if (_value) then {
         };
         case "fza_ah64_sightSlave": {
             [_heli] call fza_fnc_targetingSlave;
+        };
+        case "fza_ah64_nvsSelectPnvs";
+        case "fza_ah64_nvsSelectTads": {
+            // NVS SELECT PNVS / TADS: selecting a night vision sensor gives the other one to the other crew
+            // station, the last selection holding
+            private _seat = [_heli] call fza_fnc_getSeat;
+            if (isNil "_seat") exitWith {};
+            private _other = ["plt", "cpg"] select (_seat == "plt");
+            _heli setVariable ["fza_ah64_nvsTadsSeat", [_other, _seat] select (_name == "fza_ah64_nvsSelectTads"), true];
         };
         case "fza_ah64_sightSelectFCR": {
             if (_heli animationPhase "fcr_enable" != 1) exitWith {};

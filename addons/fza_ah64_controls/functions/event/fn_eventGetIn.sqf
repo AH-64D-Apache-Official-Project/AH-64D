@@ -37,6 +37,16 @@ if (!isNil "_seat" && {FCR_OWNER(_heli) == _seat}) then {
     _heli setVariable ["fza_ah64_fcrOwner", "", true];
 };
 if (_unit == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
-_heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0];
+// The crew station starts with its NVS MODE switch OFF; a TADS still turned for whoever had it as NVS here is set back
+if (!isNil "_seat") then {
+    _heli setVariable ["fza_ah64_nvsMode_" + _seat, NVS_MODE_OFF, true];
+    _heli animateSource [["cpg_nvsmode", "plt_nvsmode"] select (_seat == "plt"), NVS_MODE_OFF];
+    if ((_heli getVariable ["fza_ah64_nvsTadsSeat", "cpg"]) == _seat) then {
+        _heli setVariable ["fza_ihadss_tadsNvsDriving", false];
+        _heli setVariable ["fza_ihadss_tadsNvsLos", nil];
+        [_heli, "tads_nvs_tur", 0, true] call fza_anim_fnc_updateAnimations;
+        [_heli, "tads_nvs", 0, true] call fza_anim_fnc_updateAnimations;
+    };
+};
 _heli setVariable ["fza_ah64_monocleinbox", true];
 [_unit] call fza_ihadss_fnc_hduUpdate;

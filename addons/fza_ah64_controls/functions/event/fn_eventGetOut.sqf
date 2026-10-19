@@ -28,5 +28,12 @@ if (_seat != "" && {FCR_OWNER(_heli) == _seat}) then {
     [_heli] call fza_fcr_fnc_stopScan;
     _heli setVariable ["fza_ah64_fcrOwner", "", true];
 };
+// Leaving with the TADS turned as this seat's NVS sensor, it is set back to the turret now (fza_ihadss_fnc_tadsNvsControl)
+if (_heli getVariable ["fza_ihadss_tadsNvsDriving", false]) then {
+    _heli setVariable ["fza_ihadss_tadsNvsDriving", false];
+    _heli setVariable ["fza_ihadss_tadsNvsLos", nil];
+    [_heli, "tads_nvs_tur", 0, true] call fza_anim_fnc_updateAnimations;
+    [_heli, "tads_nvs", 0, true] call fza_anim_fnc_updateAnimations;
+};
 [_heli] call fza_ihadss_fnc_controller;
 [_unit] call fza_ihadss_fnc_hduUpdate;

@@ -17,8 +17,11 @@ Returns:
 fza_ah64_fcrTPMProfile:
     [leftEdgeBearing, columnWidthDeg, [line1, line2, line3, line4]], each line
     an array of points per column: [x, y, zASL] at the highest terrain the
-    radar sees in that line's range band, or [] where there is none or it is
-    below the clearance plane.
+    radar measures in that line's range band, or [] where it measures none.
+    Terrain further below the antenna elevation (ELEV FAR/NEAR) than the
+    beam reaches is not measured: unknown on the TPM page, and no line.
+fza_ah64_fcrTPMProfileTime:
+    Mission time the profile lines were last published.
 
 Author:
     Snow(Dryden)
@@ -86,6 +89,7 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
         if (!_newScan && _prevSweepLtoR == 0 && _curSweepLtoR == 1) then {
             private _sweepHeading = _heli getVariable ["fza_ah64_fcrTPMScanHeading", getDir _heli];
             _heli setVariable ["fza_ah64_fcrTPMProfile", [_sweepHeading - _halfFov, _aziStepD, _heli getVariable ["fza_ah64_fcrTPMProfWork", []]]];
+            _heli setVariable ["fza_ah64_fcrTPMProfileTime", CBA_missionTime];
         };
         _heli setVariable ["fza_ah64_fcrTPMProfWork",      call _emptyWork];
         _heli setVariable ["fza_ah64_fcrTPMScanHeading",   getDir _heli];
@@ -138,6 +142,8 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
         // selectionPosition is model-space — world ASL Z = heli ASL Z + sensor Z offset
         private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
         private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { _heliWheelZ + 3 } else { _heliWheelZ + (_FCRpos#2) };
+        // Lowest slope from the antenna the beam reaches, below the selected antenna elevation
+        private _beamFloor  = tan ((FCR_TPM_ANTENNA_EL select (_heli getVariable ["fza_ah64_fcrTpmElev", 0])) - FCR_TPM_BEAM_HALF_EL);
 
         // Cell centre ranges and their profile band, built once per geometry and PROF setting
         private _profMode = _heli getVariable ["fza_ah64_fcrTpmProfMode", 0];
@@ -189,18 +195,22 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
                 _ri = _ri + 1;
                 if (_terrainASL <= -1000) then { 2 } else {
                     if (_rise <= _horizonSlope * _x) then {
-                        // Shadowed: grey while the grazing ray is above the clearance plane (hidden terrain could pierce it), black once below
-                        [0, 2] select (_FCRposZ + _horizonSlope * _x >= _safeHeight)
+                        // Shadowed: grey while the grazing ray is above the clearance plane (hidden terrain could pierce it), black once below;
+                        // unknown behind terrain the beam did not reach
+                        if (_horizonSlope < _beamFloor) then { 2 } else { [0, 2] select (_FCRposZ + _horizonSlope * _x >= _safeHeight) }
                     } else {
                         _horizonSlope = _rise / _x;
-                        // A band's line point is its highest terrain the radar sees, only where that reaches the clearance plane
-                        if (_wantProf && {_terrainASL >= _safeHeight}) then {
-                            private _b = _bandOf # _ri;
-                            if (_b >= 0 && {(_bandPt # _b) isEqualTo [] || {_terrainASL > (_bandPt # _b) # 2}}) then {
-                                _bandPt set [_b, [_heliX + _sinAzi * _x, _heliY + _cosAzi * _x, _terrainASL]];
+                        // Below the beam: not measured, unknown
+                        if (_horizonSlope < _beamFloor) then { 2 } else {
+                            // A band's line point is the highest terrain the radar measures in it
+                            if (_wantProf) then {
+                                private _b = _bandOf # _ri;
+                                if (_b >= 0 && {(_bandPt # _b) isEqualTo [] || {_terrainASL > (_bandPt # _b) # 2}}) then {
+                                    _bandPt set [_b, [_heliX + _sinAzi * _x, _heliY + _cosAzi * _x, _terrainASL]];
+                                };
                             };
-                        };
-                        if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) }
+                            if (_terrainASL < _safeHeight) then { 0 } else { [1, 3] select (_terrainASL >= _heliWheelZ) }
+                        }
                     }
                 }
             };

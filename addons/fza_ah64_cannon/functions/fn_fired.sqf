@@ -21,7 +21,7 @@ if !(["fza_m230", _weapon] call BIS_fnc_inString) exitWith {};
 // The round leaves the barrel muzzle along the gun's commanded direction (fza_fnc_weaponTurretAim) at the muzzle speed,
 // plus the aircraft's velocity. Set as it is created, so it is on this path from its first frame.
 private _gunAim = _heli getVariable "fza_cannon_gunAim";
-if (missionNamespace getVariable ["fza_cannon_ballistic", true] && {!isNil "_gunAim" && {!isNull _missobj}}) then {
+if (!isNil "_gunAim" && {!isNull _missobj}) then {
     if (isNil "fza_cannon_ballistics") then {[_heli, getPosASL _heli] call fza_cannon_fnc_aimSolve};
     // The fire mode's dispersion (rad), which the engine's own aim would have applied
     private _dispersion = deg getNumber (configFile >> "CfgWeapons" >> _weapon >> _mode >> "dispersion");

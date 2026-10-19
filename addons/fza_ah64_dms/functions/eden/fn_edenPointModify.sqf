@@ -1,7 +1,5 @@
 params ["_logic"];
 
-diag_log "Stuff happened here";
-
 private _cfg = configOf _logic;
 
 private _pointTypes = getArray (_cfg >> "fza_point_type");
@@ -41,7 +39,5 @@ if (!isNil "_free" && {count _free > 3}) then {
 if (isNil "_index" || isNil "_ident" || isNil "_free") exitWith {};
 
 if !isServer exitWith {};
-
-diag_log "Actually applying stuff";
 
 [missionNamespace, [_identType, _index], _ident, _free, getPos _logic, getPosASL _logic # 2] call fza_dms_fnc_pointCreate;

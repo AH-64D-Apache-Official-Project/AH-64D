@@ -2,26 +2,28 @@
 Function: fza_hellfire_fnc_salOnFired
 Description: Initialises the SAL hellfire seeker at launch. Sets attack
     profile, laser code, and TOF counter.
-Parameters: _launchParams - ACE launch params (mutated in-place)
+Parameters: _firedEH      - Full ACE fired-EH array
+            _launchParams - ACE launch params (mutated in-place)
 Returns: Nothing
 Author: Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["", "_launchParams"];
+params ["_firedEH", "_launchParams"];
 _launchParams params ["_shooter"];
-
-#define SCALE_METERS_KM 0.001
-#define SCALE_KM_TOF    4
+_firedEH params ["", "", "", "", "_ammo", "_magazine", "_projectile"];
 
 private _heli          = vehicle _shooter;
 private _attackProfile = [_heli] call fza_hellfire_fnc_trajectoryToAceProfile;
 private _lasePos       = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
-private _currentTof    = _heli getVariable "fza_ah64_tofCountDown";
 
+// Locked on before launch (LOBL) it flies direct to the spot; otherwise (LOAL) the selected trajectory to the range
+// source range
+private _tofRange = ([_heli, _shooter] call fza_fnc_targetingRange) # 0;
 if (!isNil "_lasePos") then {
     _attackProfile = "hellfire";
-    _currentTof pushBack (CBA_missionTime + (_lasePos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
-    _heli setVariable ["fza_ah64_tofCountDown", _currentTof];
+    _tofRange      = _lasePos distance _heli;
 };
+// HF TOF from the launch conditions: the range to the target and the trajectory flown
+[_heli, [_ammo, _magazine, _tofRange, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
 
 _launchParams set [3, _attackProfile];
 

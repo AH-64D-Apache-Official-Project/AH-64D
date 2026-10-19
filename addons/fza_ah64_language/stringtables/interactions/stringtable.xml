@@ -281,6 +281,22 @@
             <Original>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</Original>
             <English>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</English>
         </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_PNVS">
+            <Original>NVS Select PNVS</Original>
+            <English>NVS Select PNVS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_PNVS_INFO">
+            <Original>Selects the PNVS as this crew station's night vision sensor; the other crew station gets the TADS</Original>
+            <English>Selects the PNVS as this crew station's night vision sensor; the other crew station gets the TADS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_TADS">
+            <Original>NVS Select TADS</Original>
+            <English>NVS Select TADS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_TADS_INFO">
+            <Original>Selects the TADS FLIR as this crew station's night vision sensor; the other crew station gets the PNVS. The CPG has the TADS by default</Original>
+            <English>Selects the TADS FLIR as this crew station's night vision sensor; the other crew station gets the PNVS. The CPG has the TADS by default</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SLAVE">
             <Original>Sight Slave</Original>
             <English>Sight Slave</English>

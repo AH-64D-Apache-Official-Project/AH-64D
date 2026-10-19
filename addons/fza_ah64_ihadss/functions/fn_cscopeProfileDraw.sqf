@@ -7,7 +7,8 @@ Description:
     C-SCP are selected in the IHADSS colour: line 1 solid, lines 2-4 dashed,
     as many lines as the TPM page LINES setting. Lines are clipped to
     the HDU glass and display field like the other symbology, so nothing
-    outside it is turned into draw calls.
+    outside it is turned into draw calls. With NVS MODE FIXED they are drawn
+    where the terrain is in the fixed forward picture, not in the world.
 
 Parameters:
     _ctrl - The canvas map control (covers the screen)
@@ -22,16 +23,10 @@ Author:
 #include "\fza_ah64_ihadss\headers\hdu.h"
 params ["_ctrl"];
 
+// Faded until its view far off the map has applied; fza_ihadss_fnc_htmlIcons shows it, as a fully faded control may
+// never draw to show itself
 _ctrl ctrlMapAnimAdd [0, 0.001, [-99999, -99999]];
 ctrlMapAnimCommit _ctrl;
-if (ctrlFade _ctrl > 0) then {
-    private _firstFrame = _ctrl getVariable ["fza_ihadss_firstFrame", -1];
-    if (_firstFrame < 0) exitWith {_ctrl setVariable ["fza_ihadss_firstFrame", diag_frameNo]};
-    if (diag_frameNo > _firstFrame + 1) then {
-        _ctrl ctrlSetFade 0;
-        _ctrl ctrlCommit 0;
-    };
-};
 
 private _heli = vehicle player;
 if (!(_heli isKindOf "fza_ah64base") || { driver _heli != player && gunner _heli != player }) exitWith {};
@@ -124,8 +119,11 @@ private _clip = {
 private _colCount = count (_lines # 0);
 private _stride   = (round (3 / _colWidth)) max 1;
 
-// Only the columns near the view can reach the HDU: +-35 deg around the camera bearing
-private _camDir = getCameraViewDirection player;
+// NVS MODE FIXED: in the fixed forward picture (fza_ihadss_fnc_nvsFixedView)
+private _fixedView = [_heli] call fza_ihadss_fnc_nvsFixedView;
+
+// Only the columns near the view can reach the HDU: +-35 deg around the bearing it looks along
+private _camDir = if (_fixedView isEqualTo []) then {getCameraViewDirection player} else {(_fixedView # 1) # 0};
 private _camRel = ((((_camDir # 0) atan2 (_camDir # 1)) - _leftBearing) + 720) % 360;
 if (_camRel > 270) then { _camRel = _camRel - 360; };
 private _iFrom  = ((floor ((_camRel - 35) / _colWidth)) max 0);
@@ -140,7 +138,7 @@ for "_li" from 0 to (_lineCount - 1) do {
     private _screen = [];
     for "_i" from _iFrom to _iTo step _stride do {
         private _p = _points # _i;
-        _screen pushBack (if (_p isEqualTo []) then { [] } else { worldToScreen (ASLToAGL _p) });
+        _screen pushBack (if (_p isEqualTo []) then { [] } else { [_fixedView, _p] call fza_ihadss_fnc_nvsFixedToScreen });
     };
 
     // Runs of map points inside the HDU

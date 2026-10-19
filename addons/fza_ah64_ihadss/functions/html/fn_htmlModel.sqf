@@ -135,14 +135,7 @@ private _tgtShown  = -1;
     if (_left >= 0 && {_left <= 120 || {_singleEng && {_x > 878}}}) then {_tgtShown = _tgtShown max _x};
 } forEach _engTgt;
 if (_tgtShown >= 0) then {_m set ["tgt", round _tgtShown]};
-// 0.25 s moving average, the raw sound controller is jumpy
-private _now      = diag_tickTime;
-private _gSamples = (_heli getVariable ["fza_ihadss_gSamples", []]) select {_now - (_x # 0) <= 0.25};
-_gSamples pushBack [_now, _heli getSoundController "gmeterZ"];
-_heli setVariable ["fza_ihadss_gSamples", _gSamples];
-private _gSum = 0;
-{_gSum = _gSum + (_x # 1)} forEach _gSamples;
-_m set ["g", round (_gSum / count _gSamples * 10) / 10];
+_m set ["g", round (([_heli] call fza_fnc_avionicsLoadFactor) * 10) / 10];
 _m set ["gLimit", _heli getVariable ["fza_ah64_loadFactorLimit", -1]];
 
 private _radAlt = (_heli getVariable ["bmkhs_radAlt", 0]) * METERS_TO_FEET;
@@ -184,22 +177,20 @@ if (!_weaponFormat && {_mode in ["trans", "cruise"]}) then {
     _m set ["wpt", _wpt];
 };
 
-private _nvsMode = _heli getVariable ["fza_ah64_nvsModeSwitchNorm", 0];
-if (!_weaponFormat && {_nvsMode != 0}) then {
+([_heli] call fza_ihadss_fnc_nvsState) params ["_nvsMode", "_nvsSensor"];
+if (!_weaponFormat && {_nvsMode != NVS_MODE_OFF}) then {
     _m set ["nvsSensor", "FLIR"];
 };
 
-// The selected sight at a gimbal limit
-private _atLimit = false;
-if (_isPilot) then {
-    if (_nvsMode != 0) then {
-        _atLimit = abs (_camModel # 0) >= 90 || {(_camModel # 1) >= 20 || {(_camModel # 1) <= -45}};
-    };
-} else {
+// The selected sight at a gimbal limit, or the night vision sensor's for the head: PNVS +-90 az, +20/-45 el, TADS +-120,
+// +30/-60
+private _atLimit = _nvsMode != NVS_MODE_OFF && {[
+    abs (_camModel # 0) >= 90 || {(_camModel # 1) >= 20 || {(_camModel # 1) <= -45}},
+    abs (_camModel # 0) >= 119.5 || {(_camModel # 1) >= 29.5 || {(_camModel # 1) <= -59.5}}
+] select (_nvsSensor == "TADS")};
+if (!_isPilot && {_sight in [SIGHT_HMD, SIGHT_TADS]}) then {
     private _tadsLos = [[_tadsAz, _tadsEl], _camModel] select (_sight == SIGHT_HMD && !_headsDown);
-    if (_sight in [SIGHT_HMD, SIGHT_TADS]) then {
-        _atLimit = abs (_tadsLos # 0) >= 119.5 || {(_tadsLos # 1) >= 29.5 || {(_tadsLos # 1) <= -59.5}};
-    };
+    _atLimit = _atLimit || {abs (_tadsLos # 0) >= 119.5 || {(_tadsLos # 1) >= 29.5 || {(_tadsLos # 1) <= -59.5}}};
 };
 private _gunFailed = _was == WAS_WEAPON_GUN && {
     _heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH
@@ -296,10 +287,16 @@ switch (_was) do {
         private _qty       = 0;
         if (_invIndex != -1) then {_qty = (_inventory # _invIndex) # 1};
         _wpnStat = format ["%1 NORM %2", _rktCode, _qty];
+        // RTOF=NN until the last volley launched arrives
+        private _rtof = (_heli getVariable ["fza_ah64_rocketTofEnd", -1]) - CBA_missionTime;
+        if (_rtof > 0) then {
+            _wpnStat = "RTOF=" + ([str (ceil _rtof), "00"] call fza_fnc_padString);
+        };
     };
     case WAS_WEAPON_MSL: {
         _wpnCtl  = _manual + "MSL";
         _wpnStat = (_heli getVariable ["fza_ah64_hellfireTrajectory", "LO"]) + "-MAN";
+        // Shared by both crew stations (fza_hellfire_fnc_tofStart); each drops the missiles that have arrived from its own copy
         private _tofList = _heli getVariable ["fza_ah64_tofCountDown", []];
         private _pending = _tofList select {_x > CBA_missionTime};
         if (count _pending != count _tofList) then {
@@ -314,7 +311,7 @@ switch (_was) do {
 private _sightStat = "";
 private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0;
 if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then {_sightStat = "FCR XMIT"};
-if (_nvsMode == 1) then {_sightStat = "NVS FIXED"};
+if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};
 if (_atLimit) then {_sightStat = "LIMITS"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};

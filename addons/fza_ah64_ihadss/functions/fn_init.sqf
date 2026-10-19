@@ -26,7 +26,10 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 
     _heli setVariable ["fza_ah64_hmdfsmode",       "trans", true];
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
-    _heli setVariable ["fza_ah64_nvsModeSwitchNorm", 0,   true];
+    // NVS MODE per crew station, and the crew station NVS SELECT gave the TADS to (fza_ihadss_fnc_nvsState)
+    _heli setVariable ["fza_ah64_nvsMode_plt",     0,       true];
+    _heli setVariable ["fza_ah64_nvsMode_cpg",     0,       true];
+    _heli setVariable ["fza_ah64_nvsTadsSeat",     "cpg",   true];
 
     // Radar altitude HI/LO (ft) are fixed until a FLT SET page sets them, the load factor limit (G) is unset; -1 hides the indication
     _heli setVariable ["fza_ah64_radAltHi",          200, true];

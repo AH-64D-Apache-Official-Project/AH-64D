@@ -21,6 +21,7 @@ class CfgFunctions
         class avionics
         {
             file = "\fza_ah64_controls\functions\avionics";
+            class avionicsLoadFactor {R;};
             class avionicsSlipIndicator {R;};
         };
         class core
@@ -77,6 +78,7 @@ class CfgFunctions
             class targetingRangeUpdate {R;};
             class targetingSlave {R;};
             class targetingStore {R;};
+            class targetingTadsLockTo {R;};
         };
         class ui
         {

@@ -99,8 +99,10 @@ if (isNull _iconDisplay) then {
 
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
-// The CPG gets the weapon format on the TADS, or on the HMD with TADS/FCR selected and NVS off
-private _weaponFormat = !_isPilot && {_headsDown || {_sight in [SIGHT_TADS, SIGHT_FCR] && {(_heli getVariable ["fza_ah64_nvsModeSwitchNorm", 0]) == 0}}};
+// The CPG gets the weapon format on the TADS, or on the HMD with TADS/FCR selected and NVS off; flight symbology whenever
+// the CPG's NVS MODE is NORM or FIXED, and with the FCR in TPM, a pilotage mode
+private _tpm          = (_heli getVariable ["fza_ah64_fcrMode", 0]) == FCR_DISP_MODE_TPM;
+private _weaponFormat = !_isPilot && {_headsDown || {(_sight == SIGHT_TADS || {_sight == SIGHT_FCR && !_tpm}) && {(([_heli] call fza_ihadss_fnc_nvsState) # 0) == NVS_MODE_OFF}}};
 private _tadsVideo    = !_headsDown && {missionNamespace getVariable ["fza_ihadss_tadsVideo", false]};
 
 if (!isNull _iconDisplay) then {

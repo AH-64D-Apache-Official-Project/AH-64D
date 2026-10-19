@@ -35,6 +35,7 @@ if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_fcrGtmHalfFov", 45, true];
     _heli setVariable ["fza_ah64_fcrAtmHalfFov", 168, true];
     _heli setVariable ["fza_ah64_fcrTpmHalfFov", 90, true];
+    _heli setVariable ["fza_ah64_fcrTpmElev", 0, true];
     _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
     _heli setVariable ["fza_ah64_fcrcscope", false, true];
 };

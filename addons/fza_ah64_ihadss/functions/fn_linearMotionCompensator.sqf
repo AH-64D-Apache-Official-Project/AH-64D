@@ -36,7 +36,7 @@ if (_heli getVariable ["fza_ah64_cpgSlaved", false]) exitWith {
     _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
     _heli setVariable ["fza_ah64_lmcPosition", _slavePos];
-    _heli lockCameraTo [_slavePos, [0], true];
+    [_heli, _slavePos, true] call fza_fnc_targetingTadsLockTo;
 };
 
 (_heli getVariable "fza_ah64_lmcPrevInputs") params ["_prevInputX", "_prevInputY"];
@@ -106,4 +106,4 @@ _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
 
-_heli lockCameraTo [_lmcPosition, [0], true];
+[_heli, _lmcPosition, true] call fza_fnc_targetingTadsLockTo;

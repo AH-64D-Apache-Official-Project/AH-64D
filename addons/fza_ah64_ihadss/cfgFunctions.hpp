@@ -26,7 +26,13 @@ class CfgFunctions
             class init {R;};
             class linearMotionCompensator {R;};
             class monocletoggle {R;};
+            class nvsBias {R;};
+            class nvsFixedToScreen {R;};
+            class nvsFixedView {R;};
+            class nvsState {R;};
             class pnvsControl {R;};
+            class tadsNvs {R;};
+            class tadsNvsControl {R;};
             class tadsSlew {R;};
         };
         class html {

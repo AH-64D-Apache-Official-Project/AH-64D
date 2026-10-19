@@ -35,7 +35,6 @@ _heli call fza_fcr_fnc_resolveDisplay;
 if ((_heli getVariable "fza_ah64_fcrMode") == FCR_DISP_MODE_TPM && { _heli getVariable ["fza_ah64_fcrcscope", false] }) then {
     [_heli] call fza_fcr_fnc_tpmSample;
 };
-
 // With the local crew station owning the FCR the centerline follows: the pilot's acquisition source, with PHS the
 // pilot's head, slaved on selection; the CPG's acquisition source while slaved with FCR as the sight, or the TADS LOS
 // while linked with TADS as the sight (TADSL). Otherwise it stays where it was put, or the slew arrows move it

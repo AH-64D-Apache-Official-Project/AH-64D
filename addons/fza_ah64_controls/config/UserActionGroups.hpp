@@ -13,6 +13,8 @@ class UserActionGroups {
             "fza_ah64_sightSelectFCR",
             "fza_ah64_sightSelectLink",
             "fza_ah64_sightSlave",
+            "fza_ah64_nvsSelectPnvs",
+            "fza_ah64_nvsSelectTads",
             "fza_ah64_symbologySelectUp",
             "fza_ah64_symbologySelectDown",
             "fza_ah64_symbologySelectPress",

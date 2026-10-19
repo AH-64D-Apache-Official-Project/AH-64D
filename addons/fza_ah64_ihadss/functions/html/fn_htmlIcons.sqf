@@ -36,6 +36,21 @@ _rect params ["_rectX", "_rectY", "_rectW", "_rectH"];
 private _ctrls  = _display getVariable ["fza_ihadss_icons", createHashMap];
 _display setVariable ["fza_ihadss_icons", _ctrls];
 _display setVariable ["fza_ihadss_rect", _rect];
+
+// The TPM profile canvas (fza_ihadss_fnc_cscopeProfileDraw) loads faded, so a new map never shows its default view with
+// icons and names; shown two frames later, once its view far off the map has applied
+private _profileCtrl = _display displayCtrl 652;
+if (ctrlFade _profileCtrl > 0) then {
+    private _firstFrame = _profileCtrl getVariable ["fza_ihadss_firstFrame", -1];
+    if (_firstFrame < 0) then {
+        _profileCtrl setVariable ["fza_ihadss_firstFrame", diag_frameNo];
+    } else {
+        if (diag_frameNo > _firstFrame + 1) then {
+            _profileCtrl ctrlSetFade 0;
+            _profileCtrl ctrlCommit 0;
+        };
+    };
+};
 private _colour = [[0.1, 1, 0, 1], [1, 1, 1, 1]] select _headsDown;
 private _shown  = [];
 private _mode   = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
@@ -184,41 +199,34 @@ if (_was == WAS_WEAPON_GUN && {!isNil "_gunMode" && {_gunMode == "FXD"}}) then {
     };
 };
 
-// The reticle is inside the I-beam exactly when the pylons (+4 to -15 deg) can reach; steer onto it
+// The reticle is inside the I-beam exactly when the pylons can reach (+4 to -15 deg in the air, +4 to -5 deg on the
+// ground, as PYLON LIMIT); steer onto it. Across, the rocket solution's azimuth from the nose (fza_hydra_fnc_aimSolve),
+// with the lead, drift and pod offset the sight LOS lacks
 if (_was == WAS_WEAPON_RKT) then {
-    private _losAz = 0;
-    switch (true) do {
-        case (_headsDown || _sight == SIGHT_TADS): {
-            _losAz = _heli getVariable ["fza_ah64_tadsAzimuth", 0];
-        };
-        case (_sight == SIGHT_FCR): {
-            (_heli getVariable ["fza_ah64_fcrNts", [objNull, [0, 0, 0]]]) params [["_nts", objNull], ["_ntsPos", [0, 0, 0]]];
-            if (!isNull _nts) then {_losAz = [_heli getRelDir _ntsPos] call CBA_fnc_simplifyAngle180};
-        };
-        default {
-            (_heli vectorWorldToModelVisual ((AGLToASL positionCameraToWorld [0, 0, 1]) vectorDiff _camASL)) params ["_fx", "_fy"];
-            _losAz = _fx atan2 _fy;
-        };
-    };
+    private _losAz     = _heli getVariable ["fza_ah64_rocketSteerAz", 0];
     private _pylonElev = _heli getVariable ["fza_ah64_rocketPylonElev", 0];
     private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != "";
     // No stowed cursor until a WPN UTIL page can set ground stow
     private _rktTex    = ("rkt" + (["", "_inhibit"] select _inhibit)) call _tex;
 
+    private _pylonMin  = [HYDRA_PYLON_MIN_AIR, HYDRA_PYLON_MIN_GROUND] select ([_heli] call bmkhs_fnc_stateOnGround);
+
     // Fixed size I-beam, bars 100 format units apart, moving so that full pylon travel is its own length: the top bar is
-    // on the reticle at -15 deg, the bottom bar at +4 deg. Across, 16 units per degree.
+    // on the reticle at the lower limit, the bottom bar at the upper. Across, 16 units per degree.
     private _cx = ((320 + _losAz * 16) max 170) min 495;
-    private _cy = ((290 - (_pylonElev + 15) / 19 * 100) max 100) min 400;
+    private _cy = ((290 - (_pylonElev - _pylonMin) / (HYDRA_PYLON_MAX - _pylonMin) * 100) max 100) min 400;
     ["rkt", _rktTex, [_rectX + _cx / 640 * _rectW, _rectY + _cy / 480 * _rectH], 128] call _place;
 };
 
 private _tpm = (_heli getVariable ["fza_ah64_fcrMode", 0]) == FCR_DISP_MODE_TPM;
 if (_tpm && {!_tadsVideo} && {_heli getVariable ["fza_ah64_fcrcscope", false]} && {cameraView != "GUNNER"}) then {
-    // TPM: the obstacle picture at structure tops, nearest first, on the HMD only
+    // TPM: the obstacle picture at structure tops, nearest first, on the HMD only; with NVS MODE FIXED where they are
+    // in the fixed forward picture, as the C-scope lines (fza_ihadss_fnc_nvsFixedView)
+    private _fixedView = [_heli] call fza_ihadss_fnc_nvsFixedView;
     {
         if (_forEachIndex > 63) exitWith {};
         if (count _x > 2) then {
-            ["tgt" + str _forEachIndex, ("fcrObstacle" call _fcrTex), worldToScreen ASLToAGL _x, 30] call _place;
+            ["tgt" + str _forEachIndex, ("fcrObstacle" call _fcrTex), [_fixedView, _x] call fza_ihadss_fnc_nvsFixedToScreen, 30] call _place;
         };
     } forEach (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
 };

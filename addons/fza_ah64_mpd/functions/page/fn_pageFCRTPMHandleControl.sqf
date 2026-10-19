@@ -26,6 +26,8 @@ switch _control do {
         _heli setVariable ["fza_ah64_fcrTpmClearance", (_clearance + 1) mod 4, true];
     };
     case "r2": {
-        // ELEV — placeholder (antenna elevation not applicable in TPM context)
+        // ELEV — antenna elevation FAR (-0.5 deg, high terrain out to 2500 m) or NEAR (-3 deg, rain and short range)
+        private _elev = _heli getVariable ["fza_ah64_fcrTpmElev", 0];
+        _heli setVariable ["fza_ah64_fcrTpmElev", 1 - _elev, true];
     };
 };

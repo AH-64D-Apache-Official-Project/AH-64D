@@ -32,14 +32,18 @@ private _dtvDamage     = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage    = _heli getHitPointDamage "hit_msnEquip_tads_flir";
 private _setDeadOptics = false;
 
-//HDU picture: the PNVS, or the TADS for the CPG with TADS selected
+//HDU picture: the crew station's night vision sensor (PNVS or TADS FLIR), or the TADS for the CPG with TADS selected
 private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
-private _pnvsShown = _monocleUp && (_heli getVariable "fza_ah64_nvsModeSwitchNorm" != 0);
+([_heli] call fza_ihadss_fnc_nvsState) params ["_nvsMode", "_nvsSensor"];
+private _pnvsShown = _monocleUp && _nvsMode != NVS_MODE_OFF;
+private _nvsTads   = _nvsSensor == "TADS";
 private _sight     = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 // The TADS on the CPG's HDU, with TADS or FCR as the sight (the TADS linked to the FCR): the format referenced to it and
-// its picture, except for the DVO, a direct view optic. Scaled slewing is with TADS as the sight only.
-private _tadsHdu   = _monocleUp && !_pnvsShown && player == gunner _heli && _sight in [SIGHT_TADS, SIGHT_FCR];
+// its picture, except for the DVO, a direct view optic. Scaled slewing is with TADS as the sight only. Not with the FCR
+// in TPM, a pilotage mode whose C-scope profile lines are drawn on the world.
+private _tpm       = (_heli getVariable ["fza_ah64_fcrMode", 0]) == FCR_DISP_MODE_TPM;
+private _tadsHdu   = _monocleUp && !_pnvsShown && player == gunner _heli && {_sight == SIGHT_TADS || {_sight == SIGHT_FCR && !_tpm}};
 private _tadsShown = _tadsHdu && _visionMode != 3;
 fza_ihadss_tadsVideo   = _tadsHdu;
 fza_ihadss_tadsPicture = [];
@@ -50,37 +54,24 @@ if (_pnvsShown || _tadsShown) then {
         _pnvsDisplay = uiNamespace getVariable "fza_ah64_nvsoverlay";
     };
     // The picture keeps the screen's aspect, any other stretches it as the aircraft banks. The TADS field of view fills
-    // the lens height. The PNVS picture is conformal: its camera only covers the lens, so it is drawn at the view's scale.
+    // the lens height. The NVS picture, PNVS or TADS FLIR, is conformal (unity magnification): its camera only
+    // covers the lens, so it is drawn at the view's scale.
     private _rect   = [_heli, false] call fza_ihadss_fnc_formatRect;
     private _aspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
-    private _offset = [0, 0];
     private _h      = 2 * HDU_MASK_EXTENT_Y * (_rect # 3) / 480;
     if !_tadsShown then {
-        // Live tunes in the debug console: fza_ihadss_pnvsScale scales the picture about the LOS,
-        // fza_ihadss_pnvsOffset = [right, up] moves it in degrees (16 format units each)
-        private _scale = missionNamespace getVariable ["fza_ihadss_pnvsScale", 1];
-        if !(_scale isEqualType 0 && {_scale > 0}) then {_scale = 1};
-        _offset = missionNamespace getVariable ["fza_ihadss_pnvsOffset", [0, 0]];
-        if !(_offset isEqualTypeArray [0, 0]) then {_offset = [0, 0]};
         // The render target's half height tangent against the view's, both by the measured projection
         ([_heli] call fza_ihadss_fnc_viewScale) params ["_tanHalfV", "_viewScale"];
-        _h = _scale * safeZoneH * _viewScale * getNumber (configOf _heli >> "RenderTargets" >> "driverpnvs2" >> "View01" >> "fov") / _tanHalfV;
+        _h = safeZoneH * _viewScale * getNumber (configOf _heli >> "RenderTargets" >> (["driverpnvs2", "gunnertads_nvs"] select _nvsTads) >> "View01" >> "fov") / _tanHalfV;
     };
     private _w = _h * safeZoneW / safeZoneH;
-    private _pictureRect = [
-        safeZoneX + (safeZoneW - _w) / 2 + (_offset # 0) * 16 * (_rect # 2) / 640,
-        safeZoneY + (safeZoneH - _h) / 2 - (_offset # 1) * 16 * (_rect # 3) / 480,
-        _w, _h
-    ];
+    private _pictureRect = [safeZoneX + (safeZoneW - _w) / 2, safeZoneY + (safeZoneH - _h) / 2, _w, _h];
     // A render target ignores a non-square size, so the TADS texture is square and larger by the power of two nearest
-    // the screen's aspect, which shrinks its stretched texels; fza_ihadss_tadsSize overrides the size (a power of two)
+    // the screen's aspect, which shrinks its stretched texels
     private _size = 1024;
-    if _tadsShown then {
-        _size = missionNamespace getVariable ["fza_ihadss_tadsSize", 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)];
-        if !(_size isEqualType 0 && {_size >= 256}) then {_size = 1024};
-    };
+    if _tadsShown then {_size = 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)};
     // One TADS target per sensor, each following the turret's zoom with its own vision mode
-    private _target = "fza_ah64_pnvscam2";
+    private _target = ["fza_ah64_pnvscam2", "fza_ah64_tadscam_nvs"] select _nvsTads;
     if _tadsShown then {
         _target = ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"] select (_visionMode == 0);
         fza_ihadss_tadsPicture = [_pictureRect, fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0])];
@@ -89,7 +80,7 @@ if (_pnvsShown || _tadsShown) then {
     private _failed  = if (_tadsShown) then {
         [_dtvDamage, _flirDamage] select (_visionMode in [1, 2]) >= SYS_SIGHT_DMG_THRESH
     } else {
-        _pnvsSensor >= SYS_SIGHT_DMG_THRESH
+        [_pnvsSensor, _flirDamage] select _nvsTads >= SYS_SIGHT_DMG_THRESH
     };
     private _colour  = [[0.1, 1, 0, 0.7], [0, 0, 0, 0]] select _failed;
     {(_x # 0) ctrlShow true} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);

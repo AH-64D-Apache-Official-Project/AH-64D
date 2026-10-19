@@ -18,7 +18,14 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
+
+// The TADS as an NVS sensor is the FLIR in wide
+if ((([_heli] call fza_ihadss_fnc_tadsNvs) # 0) != NVS_MODE_OFF) then {
+    if ((_heli getVariable ["fza_ah64_tadsSelectedSensor", "FLIR"]) != "FLIR") then {_heli setVariable ["fza_ah64_tadsSelectedSensor", "FLIR"]};
+    if ((_heli getVariable ["fza_ah64_tadsSelectedFov", 0]) != 0) then {_heli setVariable ["fza_ah64_tadsSelectedFov", 0]};
+};
 
 // Selected FOV W/M/N/Z (0-3) to the turret optics mode. DTV has no M, so M is W; DVO has only W and N.
 // The selection is corrected to one the sensor has, and the optics mode is only set when it differs.

@@ -57,6 +57,7 @@ private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
 [_heli] call fza_ihadss_fnc_fovControl;
 [_heli] call fza_ihadss_fnc_pnvsControl;
+[_heli] call fza_ihadss_fnc_tadsNvsControl;
 [_heli] call fza_ihadss_fnc_draw;
 [_heli] call fza_ihadss_fnc_htmlDraw;
 [_heli, _deltaTime] call fza_ihadss_fnc_linearMotionCompensator;
