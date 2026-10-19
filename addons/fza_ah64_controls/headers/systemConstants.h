@@ -57,9 +57,9 @@
 #define HYDRA_LAUNCH_POS(heli) (((heli) selectionPosition ["osa_pylon", "Memory"]) vectorAdd [0, 0.02, -0.33])
 // The rocket's flight as recorded in game: it leaves the pod at rest along the pod line and its body
 // keeps that direction; the motor gives 0.86 of the config thrust; drag is 0.00192 x airFriction x the speed along the
-// body squared, and side friction sideAirFriction x the speed across it squared, which holds its velocity within 8 deg of
-// the body, so it drops less than under gravity alone. These reproduce the recorded speeds within 2 m/s and the
-// velocity's angle off the body within 0.05 deg over 17 s of flight.
+// body squared, and side friction sideAirFriction x the speed across it squared (none in the rockets' config). These
+// reproduce the recorded speeds within 2 m/s and, with sideAirFriction 0.004, the velocity's angle off the body within
+// 0.05 deg over 17 s of flight.
 #define HYDRA_INIT_SPEED   0
 #define HYDRA_THRUST_SCALE 0.86
 #define HYDRA_DRAG_SCALE   0.00192
