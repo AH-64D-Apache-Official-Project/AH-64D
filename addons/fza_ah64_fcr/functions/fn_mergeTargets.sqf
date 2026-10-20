@@ -121,14 +121,22 @@ private _scanOf = {
         [_relAzi, 1] call BIS_fnc_cutDecimals, _elev, _range, [_heli, _relAzi, _range] call fza_fcr_fnc_revealOffset]
 };
 
+// Targets matched by object through hashmaps built once, not by searching the file for each target
+private _prevByObj = createHashMap;
+{
+    if !(_x # 16) then {_prevByObj set [hashValue (_x # 3), _x]};
+} forEach _prevTargets;
+private _seenObjs = createHashMapFromArray (_fcrTargets apply {[hashValue (_x # 3), true]});
+
 // A wreck is still a radar return, where it lies, though the sensor no longer reports it
 if (!_isAtm) then {
     {
         private _obj = _x # 3;
-        if ((_x # 16) || {isNull _obj || {alive _obj || {(_fcrTargets findIf {(_x # 3) isEqualTo _obj}) != -1}}}) then {continue};
+        if ((_x # 16) || {isNull _obj || {alive _obj || {hashValue _obj in _seenObjs}}}) then {continue};
         private _range = _heli distance2D _obj;
         if (_range <= FCR_LIMIT_MIN_RANGE || {_range >= FCR_LIMIT_STATIONARY_RANGE}) then {continue};
         _fcrTargets pushBack ([_obj, _x # 1, false, _x # 5] call _scanOf);
+        _seenObjs set [hashValue _obj, true];
     } forEach _prevTargets;
 };
 
@@ -136,10 +144,8 @@ private _correlated = [];
 
 // Seen by the sensor
 {
-    private _obj     = _x # 3;
-    private _prevIdx = _prevTargets findIf {(_x # 3) isEqualTo _obj};
-    private _prev    = if (_prevIdx == -1) then {[]} else {_prevTargets # _prevIdx};
-    private _rec     = [_x, _prev, true] call _correlate;
+    private _prev = _prevByObj getOrDefault [hashValue (_x # 3), []];
+    private _rec  = [_x, _prev, true] call _correlate;
     if (_rec isNotEqualTo []) then {_correlated pushBack _rec};
 } forEach _fcrTargets;
 
@@ -147,8 +153,7 @@ if (_isAtm) exitWith {_correlated};
 
 // Not reported by the sensor: held where it was last seen, scored not shown at the end of each scanburst
 {
-    private _obj = _x # 3;
-    if ((_x # 16) || {(_fcrTargets findIf {(_x # 3) isEqualTo _obj}) != -1}) then {continue};
+    if ((_x # 16) || {hashValue (_x # 3) in _seenObjs}) then {continue};
     private _rec = [_x, _x, false] call _correlate;
     if (_rec isNotEqualTo []) then {_correlated pushBack _rec};
 } forEach _prevTargets;

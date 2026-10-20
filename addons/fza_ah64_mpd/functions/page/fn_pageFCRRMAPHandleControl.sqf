@@ -13,6 +13,7 @@ switch _control do {
     };
     // t6 UTIL — FCR utility page not implemented
     case "l1": {
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "l2": {

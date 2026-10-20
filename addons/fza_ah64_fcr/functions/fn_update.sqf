@@ -62,15 +62,19 @@ _fcrTargets = ([_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy) select [0
 [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
 
-// The NTS stays while it is still shown, at the position shown, otherwise the next target is
-private _ntsObj = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIdx = _fcrTargets findIf {(_x # 3) isEqualTo _ntsObj};
-private _shown  = if (isNull _ntsObj || {_ntsIdx == -1}) then {[]} else {[_fcrTargets # _ntsIdx, CBA_missionTime] call fza_fcr_fnc_targetShown};
-if (_shown isEqualTo []) then {
+// The NTS stays while it is one of the top FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS displayed, at the position shown,
+// otherwise the next target is
+_heli setVariable ["fza_ah64_fcrDisplayFrame", -1];
+_heli call fza_fcr_fnc_resolveDisplay;
+private _ntsObj  = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _display = (_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS];
+private _dispIdx = if (isNull _ntsObj) then {-1} else {_display findIf {(_x # 3) isEqualTo _ntsObj}};
+if (_dispIdx == -1) then {
     [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
     [_heli] call fza_fcr_fnc_cycleNTS;
 } else {
-    [_heli, "fza_ah64_fcrNts", [_ntsObj, _shown # 0, _fcrTargets # _ntsIdx]] call fza_fnc_updateNetworkGlobal;
+    private _ntsIdx = _fcrTargets findIf {(_x # 3) isEqualTo _ntsObj};
+    [_heli, "fza_ah64_fcrNts", [_ntsObj, (_display # _dispIdx) # 0, _fcrTargets param [_ntsIdx, []]]] call fza_fnc_updateNetworkGlobal;
 };
 
 [_heli] call fza_dms_fnc_ageShot;

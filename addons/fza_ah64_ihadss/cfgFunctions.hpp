@@ -33,6 +33,7 @@ class CfgFunctions
             class pnvsControl {R;};
             class tadsNvs {R;};
             class tadsNvsControl {R;};
+            class tadsNvsReset {R;};
             class tadsSlew {R;};
         };
         class html {

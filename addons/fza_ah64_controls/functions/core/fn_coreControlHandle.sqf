@@ -32,20 +32,14 @@ if (_value) then {
         case "fza_ah64_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
             // Given up by its owner, the FCR's scan stops
-            if (FCR_OWNER(_heli) == ([_heli] call fza_fnc_getSeat)) then {
-                [_heli] call fza_fcr_fnc_stopScan;
-                _heli setVariable ["fza_ah64_fcrOwner", "", true];
-            };
+            [_heli, [_heli] call fza_fnc_getSeat] call fza_fcr_fnc_releaseOwner;
             if (player == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectTADS": {
             // The TADS is the CPG's sight
             if (player == driver _heli) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
-            if (FCR_OWNER(_heli) == "cpg") then {
-                [_heli] call fza_fcr_fnc_stopScan;
-                _heli setVariable ["fza_ah64_fcrOwner", "", true];
-            };
+            [_heli, "cpg"] call fza_fcr_fnc_releaseOwner;
             if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectLink": {
@@ -62,8 +56,7 @@ if (_value) then {
                 if (FCR_OWNER(_heli) != "cpg") then {[_heli] call fza_fcr_fnc_stopScan};
                 _heli setVariable ["fza_ah64_fcrOwner", "cpg", true];
             } else {
-                [_heli] call fza_fcr_fnc_stopScan;
-                _heli setVariable ["fza_ah64_fcrOwner", "", true];
+                [_heli, "cpg"] call fza_fcr_fnc_releaseOwner;
             };
         };
         case "fza_ah64_sightSlave": {
@@ -142,7 +135,7 @@ if (_value) then {
             // The CPG's: a target stored along the sight LOS at the range shown, 0 without one
             if (player != gunner _heli) exitWith {};
             private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-            private _acq = ["GHS", "TADS", "FCR"] select ([SIGHT_HMD, SIGHT_TADS, SIGHT_FCR] find _sight max 0);
+            private _acq = ["GHS", "TADS", "FCR"] select (([SIGHT_HMD, SIGHT_TADS, SIGHT_FCR] find _sight) max 0);
             ([_heli, "cpg"] call fza_fnc_targetingRange) params ["_range", "_text"];
             if (_text in ["", "R??"]) then {_range = 0};
             private _posASL = (getPosASL _heli) vectorAdd ((vectorNormalized ([_heli, _acq] call fza_fnc_targetingAcqVec)) vectorMultiply _range);
@@ -189,20 +182,25 @@ if (_value) then {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
         case "vehLockTargets": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli] call fza_fcr_fnc_cycleNTS;
         };
         // A new mode cancels the scan; re-selecting the active mode is ignored, except RMAP where it toggles the video
         // (see fza_fcr_fnc_setMode)
         case "fza_ah64_fcrModeGTM": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli, FCR_DISP_MODE_GTM] call fza_fcr_fnc_setMode;
         };
         case "fza_ah64_fcrModeRMAP": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli, FCR_DISP_MODE_RMAP] call fza_fcr_fnc_setMode;
         };
         case "fza_ah64_fcrModeATM": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli, FCR_DISP_MODE_ATM] call fza_fcr_fnc_setMode;
         };
         case "fza_ah64_fcrModeTPM": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli, FCR_DISP_MODE_TPM] call fza_fcr_fnc_setMode;
         };
         // Scan size switch, for the crew station owning the FCR; a new size stops a running scan

@@ -124,8 +124,16 @@ OVERRIDE_ACTION("Headlights")
 
 // The vanilla radar toggle is the FCR continuous scan, and only the crew station owning the FCR (by selecting it as its
 // sight) can scan: anyone else's press is swallowed before the radar turns on. Keyboard bindings only, a key handler sees
-// no joystick buttons.
+// no joystick buttons. Any input of the owner's is recorded, and only that starts the scan (fza_fcr_fnc_stateControl).
 if (hasInterface) then {
+    addUserActionEventHandler ["ActiveSensorsToggle", "Activate", {
+        private _heli = vehicle player;
+        if !(_heli isKindOf "fza_ah64base") exitWith {};
+        private _seat = [_heli] call fza_fnc_getSeat;
+        if (!isNil "_seat" && {FCR_OWNER(_heli) == _seat}) then {
+            _heli setVariable ["fza_fcr_ownerRadarPress", CBA_missionTime, true];
+        };
+    }];
     [] spawn {
         waitUntil {!isNull findDisplay 46};
         (findDisplay 46) displayAddEventHandler ["KeyDown", {

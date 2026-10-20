@@ -77,10 +77,21 @@ _heli setVariable ["fza_fcr_radarWasOn", _armaRadarOn];
 switch _fcrScanState do {
     case FCR_MODE_OFF: {
         if !_armaRadarOn exitWith {};
+        if _radarSwitchedOn then {_heli setVariable ["fza_fcr_radarOnAt", CBA_missionTime]};
+        private _onAt = _heli getVariable ["fza_fcr_radarOnAt", -1];
         // Held off: on without having just been switched on, or with no crew station owning the FCR as its sight
-        if (!_radarSwitchedOn || {FCR_OWNER(_heli) == ""}) exitWith {
+        if (_onAt < 0 || {FCR_OWNER(_heli) == ""}) exitWith {
             player action ["ActiveSensorsOff", _heli];
         };
+        // Only the owner's radar toggle starts the scan; its press can arrive from the other crew station a moment after
+        // the radar comes on
+        if ((_heli getVariable ["fza_fcr_ownerRadarPress", -1]) < _onAt - 0.5) exitWith {
+            if (CBA_missionTime - _onAt > 1) then {
+                _heli setVariable ["fza_fcr_radarOnAt", -1];
+                player action ["ActiveSensorsOff", _heli];
+            };
+        };
+        _heli setVariable ["fza_fcr_radarOnAt", -1];
         [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
         [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
         [_heli, true, true] call fza_fcr_fnc_videoClear;

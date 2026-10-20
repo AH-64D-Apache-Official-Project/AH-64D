@@ -52,11 +52,7 @@ private _setOffset = {
     [_heli, "tads_nvs_tur", -rad _az, true] call fza_anim_fnc_updateAnimations;
     [_heli, "tads_nvs", rad _el, true] call fza_anim_fnc_updateAnimations;
 };
-private _stop = {
-    _heli setVariable ["fza_ihadss_tadsNvsDriving", false];
-    _heli setVariable ["fza_ihadss_tadsNvsLos", nil];
-    [0, 0] call _setOffset;
-};
+private _stop = {[_heli] call fza_ihadss_fnc_tadsNvsReset};
 
 if (_mode != NVS_MODE_OFF && {player == gunner _heli}) then {
     private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;

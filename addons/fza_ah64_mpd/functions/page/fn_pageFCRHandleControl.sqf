@@ -12,6 +12,7 @@ switch(_control) do {
         _heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
     };
     case "l1": {
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "l2": {
