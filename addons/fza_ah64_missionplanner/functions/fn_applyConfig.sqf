@@ -20,7 +20,6 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
 private _others = (crew _heli) select {isPlayer _x && {_x != player}};
 if (_others isNotEqualTo []) exitWith {
     private _msg = format ["Mission Planner: cannot rearm with other players aboard (%1). Rearming with others aboard desyncs the loadout in multiplayer; they must get out first.", (_others apply {name _x}) joinString ", "];
-    hint _msg;
     systemChat _msg;
     false
 };

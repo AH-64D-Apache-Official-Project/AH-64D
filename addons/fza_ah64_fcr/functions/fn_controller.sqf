@@ -54,7 +54,8 @@ if (_heli animationPhase "fcr_enable" == 1
     };
 };
 
-if ((player != driver _heli) && (isPlayer driver _heli)) exitWith {};
+// The scan runs where the aircraft is local: on the pilot's machine, or the CPG's while it has the controls
+if (!local _heli && {(player != driver _heli && {isPlayer driver _heli}) || {isPlayer currentPilot _heli && {currentPilot _heli != player}}}) exitWith {};
 
 private _fcrEnabled = _heli animationPhase "fcr_enable" == 1;
 private _fcrDamage  = _heli getHitPointDamage "hit_msnEquip_fcr";
