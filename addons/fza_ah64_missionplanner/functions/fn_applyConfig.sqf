@@ -15,6 +15,24 @@ if (isNull _heli || {!(_heli isKindOf "Helicopter")}) then {
 if (isNull _heli) exitWith {false};
 if !(_heli isKindOf "Helicopter") exitWith {false};
 
+// Rearming with another player aboard desyncs the loadout between machines, so only the player rearming may be
+// aboard, and only one player rearms the aircraft at a time
+private _others = (crew _heli) select {isPlayer _x && {_x != player}};
+if (_others isNotEqualTo []) exitWith {
+    private _msg = format ["Mission Planner: cannot rearm with other players aboard (%1). Rearming with others aboard desyncs the loadout in multiplayer; they must get out first.", (_others apply {name _x}) joinString ", "];
+    hint _msg;
+    systemChat _msg;
+    false
+};
+private _applyingBy = _heli getVariable ["fza_mplanner_applyingBy", objNull];
+if ((_heli getVariable ["bmkhs_inputLockout", false]) && {!isNull _applyingBy && {_applyingBy != player && {alive _applyingBy}}}) exitWith {
+    private _msg = format ["Mission Planner: %1 is already rearming this aircraft.", name _applyingBy];
+    hint _msg;
+    systemChat _msg;
+    false
+};
+_heli setVariable ["fza_mplanner_applyingBy", player, true];
+
 [_heli, _legacyJson, _cannonRds, _desiredFcr, _tailNum, _msnEquip] spawn {
     params ["_heli", "_legacyJson", "_cannonRds", "_desiredFcr", "_tailNum", "_msnEquip"];
 
@@ -1091,11 +1109,9 @@ if !(_heli isKindOf "Helicopter") exitWith {false};
         };
     };
 
-    // ── STEP 9: FLARE RESTOCK ────────────────────────────────────────────────
-    // swapFlares only fires via onPhaseChanged when equipment type switches.
-    // Force it here so flares are always restocked to full even when the same
-    // equipment is reapplied (e.g. UK→UK after expending flares).
-    [_heli, _heli animationPhase "msn_equip_british"] remoteExec ["fza_ase_fnc_swapFlares", _heli];
+    // ── STEP 9: COUNTERMEASURE RESTOCK ───────────────────────────────────────
+    // Chaff and, with the UK equipment, flares to full, even when the same equipment is reapplied
+    [_heli] remoteExec ["fza_ase_fnc_restock", _heli];
 
     _heli setVariable ["bmkhs_inputLockout", false, true];
     systemChat "Mission Planner apply complete.";

@@ -26,6 +26,7 @@ class CfgFunctions
             class chaff {RECOMPILE_FLAG;};
             class flare {RECOMPILE_FLAG;};
             class irJam {RECOMPILE_FLAG;};
+            class restock {RECOMPILE_FLAG;};
         };
         class event {
             file = "\fza_ah64_ase\functions\event";
