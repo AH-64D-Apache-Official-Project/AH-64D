@@ -33,6 +33,8 @@
             drawModel();
         } catch (e) {
             if (window.console) { console.error("IHADSS draw failed", e); }
+            // A throw inside a save/clip leaves that state on the context, which could blank every later frame
+            canvas.width = canvas.width;
         }
         ctx.restore();
         if (IH.tickRequested && model) {

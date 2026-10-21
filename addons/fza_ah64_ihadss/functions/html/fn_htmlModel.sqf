@@ -324,4 +324,17 @@ if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 
 _m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, ""]];
 
-toJSON _m
+// A NaN or infinite number serialises as text that is not valid JSON, and the page then takes no update at all: those
+// become null. The first is logged with the model it was in.
+private _json = toJSON _m;
+if ("nan" in _json || {"inf" in _json || {"#IN" in _json || {"#QNAN" in _json}}}) then {
+    private _clean = _json regexReplace ["([:,\[])\s*-?(nan|inf|1\.#)[^,\]\}""]*", "$1null"];
+    if (_clean isNotEqualTo _json) then {
+        if (isNil "fza_ihadss_nonFiniteLogged") then {
+            fza_ihadss_nonFiniteLogged = true;
+            diag_log ["fza_ihadss: non-finite number in the IHADSS model", _json];
+        };
+        _json = _clean;
+    };
+};
+_json
