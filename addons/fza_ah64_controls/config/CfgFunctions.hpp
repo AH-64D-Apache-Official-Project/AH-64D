@@ -90,7 +90,8 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\weapon";
             class weaponActionSwitch {R;};
             class weaponMissileGetSelected {R;};
-            class weaponMissileCycle {R;};
+            class weaponMissileAdvance {R;};
+            class weaponMissilePriority {R;};
             class weaponMissileCycleType {R;};
             class weaponMissileCycleTypeSal {R;};
             class weaponMissileInventory {R;};
@@ -101,6 +102,9 @@ class CfgFunctions
             class weaponTrajectoryChange {R;};
             class weaponTurretAim {R;};
             class weaponUpdateSelected {R;};
+            class wasSeat {R;};
+            class weaponAim {R;};
+            class wasUpdate {R;};
         };
         class functions
         {

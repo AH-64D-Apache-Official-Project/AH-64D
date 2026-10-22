@@ -114,6 +114,7 @@
 //--Clutter (false returns, GTM/RMAP): clutter discretes the radar holds in the scanned sector, uncorrelated: each
 //  scanburst shows each afresh by these chances, not shown 0.55
 #define FCR_CLUTTER_POOL                 5    //About 2-3 clutter symbols at a time in any scan size
+#define FCR_CLUTTER_SEARCH               60   //Random points looked at per update to fill the pool, at most
 #define FCR_CLUTTER_BRIGHT               [0.20, 0.25, 0.30, 0.35]
 #define FCR_CLUTTER_DIM                  [0.25, 0.20, 0.15, 0.10]
 
@@ -121,6 +122,25 @@
 #define FCR_OBST_TOWER_RATIO             1.5  //tower-like: height at least this x the widest footprint dimension
 #define FCR_OBST_TOWER_MIN_HEIGHT_M      8    //tower-like structures qualify at this height (lamps, masts, pylons)
 #define FCR_OBST_TALL_HEIGHT_M           13   //any shape this tall qualifies (control towers, hangars)
+
+// RF missile power (WPN page MSL PWR): ALL, AUTO by the missiles available, NONE; a missile powered is aligned and ready
+// after RF_BOOT_MIN to RF_BOOT_MAX seconds
+#define MSL_PWR_ALL                      0
+#define MSL_PWR_AUTO                     1
+#define MSL_PWR_NONE                     2
+#define RF_BOOT_MIN                      2
+#define RF_BOOT_MAX                      3
+// Missile MODE (WPN page R2), each crew station's: NORM selects the next missile of the type in firing order after each shot,
+// MAN the crew station's missile advance selects it (fza_fnc_weaponMissileAdvance)
+#define MSL_MODE_NORM                    "NORM"
+#define MSL_MODE_MAN                     "MAN"
+#define MSL_MODE_RIPL                    "RIPL" //Selectable; no ripple fire yet, it selects as NORM
+#define MSL_MODES                        [MSL_MODE_NORM, MSL_MODE_MAN, MSL_MODE_RIPL] //The MODE pop-out's R1-R3
+// The missile positions (pylon slots 0-15) in the order they are fired
+#define MSL_FIRING_ORDER                 [0, 12, 1, 13, 2, 14, 3, 15, 4, 8, 5, 9, 6, 10, 7, 11]
+#define RF_STATE_UNPOWERED               0
+#define RF_STATE_ALIGNING                1
+#define RF_STATE_READY                   2
 
 // TADS->RF handoff LOBL scan radius (metres around handoff position)
 #define TADS_RF_LOBL_SCAN_RADIUS         3.5

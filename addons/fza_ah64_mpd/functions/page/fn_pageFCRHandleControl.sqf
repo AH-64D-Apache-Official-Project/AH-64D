@@ -12,7 +12,8 @@ switch(_control) do {
         _heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
     };
     case "l1": {
-        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
+        // NTS: with FCR as this crew station's sight
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat) || {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR}) exitWith {};
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "l2": {

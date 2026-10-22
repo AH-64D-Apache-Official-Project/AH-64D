@@ -323,22 +323,26 @@ class root {
             MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
             MPD_TEXT_C(UTIL,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
 
-            //R4
-            MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
-            MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
-            MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
-            //L1
-            MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
-            MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
-            MPD_TEXT_R(NTS_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
-            //L4
-            MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-            MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
-            MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-            // Barrier without an NTS to store
-            class tgtBarrier {
-                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TGT_BARRIER), 1));
-                MPD_BOX_BAR_R(TGT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
+            // NTS, TGT and RF HO only with FCR as this crew station's sight
+            class fcrSightVabs {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SIGHT_FCR), 1));
+                //R4
+                MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
+                MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
+                MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+                //L1
+                MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
+                MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
+                MPD_TEXT_R(NTS_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
+                //L4
+                MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+                MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
+                MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+                // Barrier without an NTS to store
+                class tgtBarrier {
+                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TGT_BARRIER), 1));
+                    MPD_BOX_BAR_R(TGT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
+                };
             };
             //L5
             MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))

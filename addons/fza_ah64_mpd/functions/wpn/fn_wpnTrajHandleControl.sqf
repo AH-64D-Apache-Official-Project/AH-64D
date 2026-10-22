@@ -4,7 +4,8 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 private _popOutMenu = _state get "popOutMenu";
 private _return   = false;
 
-if (_popOutMenu == 0 && _control != "R3") exitWith {false;};
+// Only with its own pop-out open (1), or TRAJ pressed to open it; not under the MODE pop-out (2)
+if (_popOutMenu != 1 && {_popOutMenu != 0 || _control != "R3"}) exitWith {false;};
 
 switch (_control) do {
     case "r1": {

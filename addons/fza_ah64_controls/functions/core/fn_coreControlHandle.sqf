@@ -142,36 +142,17 @@ if (_value) then {
             [_heli, _posASL] call fza_fnc_targetingStore;
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL && ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {
-                [_heli] call fza_fnc_weaponMissileCycle
-            };
+            // Only with the crew station's missile MODE MAN (fza_fnc_weaponMissileAdvance)
+            [_heli] call fza_fnc_weaponMissileAdvance;
         };
-        case "fza_ah64_wasGun": {
-            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
-
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
-            };
-        };
-        case "fza_ah64_wasRkt": {
-            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
-
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
-            };
-        };
+        // Each crew station's WAS: takes the weapon, the last WAS winning, or pressed again with the crew station holding it
+        // de-actions it (fza_fnc_weaponActionSwitch)
+        case "fza_ah64_wasGun";
+        case "fza_ah64_wasRkt";
         case "fza_ah64_wasMsl": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
-
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
-                [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
-            };
+            private _weapon = [WAS_WEAPON_GUN, WAS_WEAPON_RKT, WAS_WEAPON_MSL] select (["fza_ah64_wasGun", "fza_ah64_wasRkt", "fza_ah64_wasMsl"] find _name);
+            [_heli, [_weapon, WAS_WEAPON_NONE] select ([_heli, _weapon] call fza_fnc_wasSeat)] call fza_fnc_weaponActionSwitch;
         };
         case "SwitchWeaponGrp1";
         case "SwitchWeaponGrp2";

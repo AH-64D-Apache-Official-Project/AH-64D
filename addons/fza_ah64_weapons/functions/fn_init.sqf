@@ -26,6 +26,14 @@ if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) 
     _heli selectWeaponTurret ["fza_ma_safe", [0], "fza_ma_safe"];
 
     _heli setVariable ["fza_ah64_weaponInhibited", "", true];
+    _heli setVariable ["fza_ah64_weaponBlock", 0, true];
+    // RF missile power (fza_hellfire_fnc_rfPowerUpdate): the MSL PWR selection, the powered missiles [slot, ready time]
+    _heli setVariable ["fza_ah64_mslPwr", MSL_PWR_AUTO, true];
+    _heli setVariable ["fza_ah64_rfPower", [], true];
+    // Each crew station's missile MODE, and the missile advanced to in MAN (fza_fnc_weaponMissileAdvance)
+    _heli setVariable ["fza_ah64_mslMode_plt", MSL_MODE_NORM, true];
+    _heli setVariable ["fza_ah64_mslMode_cpg", MSL_MODE_NORM, true];
+    _heli setVariable ["fza_ah64_mslSlot", -1, true];
     _heli setVariable ["fza_ah64_rocketsalvo",      2, true];
     _heli setVariable ["fza_ah64_salvoFired",       0, true];
     _heli setVariable ["fza_ah64_rocketPylonElev",  0, true];
@@ -36,5 +44,8 @@ if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) 
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (_rockets isNotEqualTo []), true];
     private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (_missiles isNotEqualTo []), true];
-    _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
+    // Each crew station's WAS record (fza_fnc_weaponActionSwitch); the aircraft's weapon is worked out from them on
+    // every machine (fza_fnc_wasUpdate)
+    _heli setVariable ["fza_ah64_wasRec_plt", [WAS_WEAPON_NONE, -1, WAS_WEAPON_NONE, -1], true];
+    _heli setVariable ["fza_ah64_wasRec_cpg", [WAS_WEAPON_NONE, -1, WAS_WEAPON_NONE, -1], true];
 };

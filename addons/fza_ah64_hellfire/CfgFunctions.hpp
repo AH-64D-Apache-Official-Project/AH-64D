@@ -30,6 +30,8 @@ class CfgFunctions
             class checkChaffDefeat        {RECOMPILE_FLAG;};
             class tofEstimate             {RECOMPILE_FLAG;};
             class tofStart                {RECOMPILE_FLAG;};
+            class rfPowerUpdate           {RECOMPILE_FLAG;};
+            class rfState                 {RECOMPILE_FLAG;};
         };
     };
 };

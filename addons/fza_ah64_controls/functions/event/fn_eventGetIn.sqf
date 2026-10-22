@@ -33,6 +33,8 @@ if (fza_ah64_showPopupv2_3 && !fza_ah64_introShownThisScenario && _unit == playe
 // The seat starts on the HMD, so it no longer owns the FCR, and its scan stops
 private _seat = [_heli] call fza_fnc_getSeat;
 [_heli, _seat] call fza_fcr_fnc_releaseOwner;
+// The crew station starts holding no weapon
+[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 if (_unit == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
 // The crew station starts with its NVS MODE switch OFF; a TADS still turned for whoever had it as NVS here is set back
 if (!isNil "_seat") then {

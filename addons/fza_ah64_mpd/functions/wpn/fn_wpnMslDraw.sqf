@@ -7,7 +7,12 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_TYPE_BARRIER), BOOLTONUM
 
 private _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");
-private _selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
+private _selectedMsl = [_missileInventory, _curAmmo, _heli] call fza_fnc_weaponMissileGetSelected;
+// This crew station's missile MODE (fza_fnc_weaponMissileAdvance), and the pop-out shown, for SAL and RF
+private _mode = [_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable;
+_heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_MODE), _mode];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_MODE), MSL_MODES find _mode];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_POPOUT_MENU), _state get "popOutMenu"];
 private _seekerType = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_salType");
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), _selectedMsl + 1];
@@ -37,7 +42,7 @@ if (_seekerType != "rf") then { //Sal1, sal2
     if (_alt != -1) then {
         _altCode = _chanCodes # _alt;
     };
-    
+
     _heli setUserMFDText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_PRI_CODE), _priCode + " PRF"];
     _heli setUserMFDText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_ALT_CODE), _altCode + " PRF"];
     _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_PRI_CH), _pri + 1];
@@ -47,20 +52,25 @@ if (_seekerType != "rf") then { //Sal1, sal2
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE), _chanCodes # 2];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), _chanCodes # 3];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_SAL_SEL), toUpper _seekerType];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];    
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), _textLine1];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), _textLine2];
     _this call fza_mpd_fnc_WpnTrajDraw;
 };
 
 if (_seekerType == "rf") then { //RF
-	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
-    _indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_arhTargetConstraint) # 1;
-    if (_indicateLobl && !isNull _ntsObj)  then {
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), ""];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), "T"];
-    } else {
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), ""];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), "R"];
+    // MSL PWR selection (fza_hellfire_fnc_rfPowerUpdate)
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_PWR), _heli getVariable ["fza_ah64_mslPwr", MSL_PWR_AUTO]];
+    // The selected missile: blank unpowered, S powered but not yet aligned, R ready to receive a target, T tracking
+    private _code = switch ([_heli] call fza_hellfire_fnc_rfState) do {
+        case RF_STATE_ALIGNING: {"S"};
+        case RF_STATE_READY: {
+            _heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
+            _indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_arhTargetConstraint) # 1;
+            ["R", "T"] select (_indicateLobl && !isNull _ntsObj)
+        };
+        default {""};
     };
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), ""];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), _code];
 };

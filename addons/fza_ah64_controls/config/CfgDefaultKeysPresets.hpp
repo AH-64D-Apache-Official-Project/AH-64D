@@ -26,7 +26,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
             fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
             fza_ah64_countermeasure[] = {0x2E}; //C
-            fza_ah64_missileAdvance[] = {0x21}; //F
+            fza_ah64_missileAdvance[] = {}; //Unbound: only works in MAN missile MODE
             fza_ah64_wasGun[] = {0x02}; // 1
             fza_ah64_wasRkt[] = {0x03}; // 2
             fza_ah64_wasMsl[] = {0x04}; // 3

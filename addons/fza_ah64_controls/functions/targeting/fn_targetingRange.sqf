@@ -16,8 +16,8 @@ Description:
     Default  - 3.0 km CPG, 1.5 km pilot
 
     Manual and auto range with every sight; TADS also with laser and nav, FCR
-    with radar (R?? without a valid radar range), HMD with nav. In cooperative
-    rockets the pilot uses the CPG's range.
+    with radar (R?? without a valid radar range), HMD with nav. In COOP rockets
+    the pilot uses the CPG's range (fza_fnc_wasUpdate).
 
 Parameters:
     _heli - The helicopter
@@ -40,8 +40,8 @@ params ["_heli", "_seat"];
 _seat = [_heli, _seat] call fza_fnc_getSeat;
 if (isNil "_seat") exitWith {[RANGE_DEFAULT_CPG, "3.0", RANGE_SRC_DEFAULT]};
 
-// Cooperative rockets: rockets actioned with the pilot firing and a CPG aboard; the CPG's LOS and range are used
-if (_seat == "plt" && {(_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]) == WAS_WEAPON_RKT && {isManualFire _heli && {isPlayer gunner _heli}}}) then {
+// COOP rockets: the pilot's range and range source are the CPG's (fza_fnc_wasUpdate)
+if (_seat == "plt" && {_heli getVariable ["fza_ah64_wasCoop", false]}) then {
     _seat = "cpg";
 };
 

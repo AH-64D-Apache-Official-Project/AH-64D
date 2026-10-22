@@ -285,14 +285,15 @@ private _range = ([_heli, _seat] call fza_fnc_targetingRange) # 1;
 
 private _wpnCtl  = "";
 private _wpnStat = "";
-private _manual  = ["C", "P"] select (isManualFire _heli);
+// The crew station driving the weapon (fza_fnc_wasUpdate); COOP rockets show COOP
+private _manual  = ["C", "P"] select ((_heli getVariable ["fza_ah64_wasDriver", ""]) == "plt");
 switch (_was) do {
     case WAS_WEAPON_GUN: {
         _wpnCtl  = _manual + "GUN";
         _wpnStat = format ["ROUNDS %1", _heli ammo "fza_m230"];
     };
     case WAS_WEAPON_RKT: {
-        _wpnCtl = _manual + "RKT";
+        _wpnCtl = [_manual + "RKT", "COOP"] select (_heli getVariable ["fza_ah64_wasCoop", false]);
         private _curAmmo   = getText (configFile >> "CfgWeapons" >> (_heli getVariable ["fza_ah64_selectedRocket", ""]) >> "fza_ammoType");
         private _rktCode   = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_shortCode");
         private _inventory = [_heli] call fza_fnc_weaponRocketInventory;
@@ -308,7 +309,8 @@ switch (_was) do {
     };
     case WAS_WEAPON_MSL: {
         _wpnCtl  = _manual + "MSL";
-        _wpnStat = (_heli getVariable ["fza_ah64_hellfireTrajectory", "LO"]) + "-MAN";
+        // The trajectory and this crew station's missile MODE
+        _wpnStat = (_heli getVariable ["fza_ah64_hellfireTrajectory", "LO"]) + "-" + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         // Shared by both crew stations (fza_hellfire_fnc_tofStart); each drops the missiles that have arrived from its own copy
         private _tofList = _heli getVariable ["fza_ah64_tofCountDown", []];
         private _pending = _tofList select {_x > CBA_missionTime};
@@ -322,6 +324,13 @@ switch (_was) do {
 };
 
 private _sightStat = "";
+// REMOTE: with missiles actioned, the priority channel on a code other than the LRFD's, so a missile would guide on
+// someone else's laser
+private _priChannel = _heli getVariable ["fza_ah64_laserMissilePrimaryCode", -1];
+if (_priChannel != -1 && {[_heli, WAS_WEAPON_MSL] call fza_fnc_wasSeat
+    && {((_heli getVariable "fza_ah64_laserChannelCodes") # _priChannel) != (_heli getVariable "fza_ah64_laserLRFDCode")}}) then {
+    _sightStat = "REMOTE";
+};
 private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0;
 if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then {_sightStat = "FCR XMIT"};
 if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};

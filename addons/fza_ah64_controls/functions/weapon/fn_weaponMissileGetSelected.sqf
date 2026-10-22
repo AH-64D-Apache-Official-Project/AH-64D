@@ -2,34 +2,42 @@
 Function: fza_fnc_weaponMissileGetSelected
 
 Description:
-    Returns the index of the missile that will be fired next, if the given ammo type is selected
+    The missile position that fires next with the given ammo type selected:
+    with the missile MODE of the crew station driving the missiles MAN, the
+    missile it advanced to (fza_fnc_weaponMissileAdvance) while one of that
+    type is there; otherwise the first of the type in firing order
+    (MSL_FIRING_ORDER).
 
 Parameters:
-    _heli - The helicopter to gather inventory information on
+    _inventory - The missile inventory (fza_fnc_weaponMissileInventory)
+    _ammo      - The ammo type
+    _heli      - (optional) The helicopter, for a missile selected in MAN
 
 Returns:
-    Array - [_msl1UL, _msl1UR, _msl1LL, _msl1LR, ... , _msl4LR] (size 16)
-    
-    where _mslNXX is the state of the current pylon:
-
-    * "AMMO_NAME" where ammo is on that pylon
-    * "" where there was a hellfire, but it has been shot (the HML is still there)
-    * -1 where there is no hellfire and no  HML (on the WPN page a rail should not be shown)
+    The pylon slot 0-15, -1 with none of the type
 
 Examples:
-    //On an aircraft with a HML on pylons 2 and 3, with AGM-114Ks on the upper half and AGM-114L on the lower half
-    _ret = [_heli] call fza_fnc_weaponMissileInventory
-    //_ret => [-1,-1,-1,-1,"fza_agm114k","fza_agm114k","fza_agm114l","fza_agm114l","fza_agm114k","fza_agm114k","fza_agm114l","fza_agm114l",-1,-1,-1,-1]
+    --- Code
+    [[_heli] call fza_fnc_weaponMissileInventory, "fza_agm114l", _heli] call fza_fnc_weaponMissileGetSelected
+    ---
 
-    //The same aircraft as above, but with all the outboard rockets fired off
-    _ret2 = [_heli] call fza_fnc_weaponMissileInventory
-    \\_ret2 => [-1,-1,-1,-1,"","fza_agm114k","","fza_agm114l","","fza_agm114k","","fza_agm114l",-1,-1,-1,-1]
 Author:
-    mattysmith22
+    mattysmith22, BradMick
 ---------------------------------------------------------------------------- */
-params ["_inventory", "_ammo"];
-_priorities = [0,12,1,13,2,14,3,15,4,8,5,9,6,10,7,11];
-_index = _priorities findIf {_inventory # _x isEqualTo _ammo};
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params ["_inventory", "_ammo", ["_heli", objNull]];
 
+private _manual = -1;
+if (!isNull _heli) then {
+    private _seat = _heli getVariable ["fza_ah64_wasDriver", ""];
+    if (_seat == "") then {_seat = [_heli] call fza_fnc_getSeat};
+    if (!isNil "_seat" && {(_heli getVariable ["fza_ah64_mslMode_" + _seat, MSL_MODE_NORM]) == MSL_MODE_MAN}) then {
+        _manual = _heli getVariable ["fza_ah64_mslSlot", -1];
+    };
+};
+if (_manual != -1 && {(_inventory # _manual) isEqualTo _ammo}) exitWith {_manual};
+
+private _order = MSL_FIRING_ORDER;
+private _index = _order findIf {_inventory # _x isEqualTo _ammo};
 if (_index == -1) exitWith {-1};
-_priorities # _index
+_order # _index

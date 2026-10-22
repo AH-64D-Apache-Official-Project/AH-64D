@@ -39,6 +39,9 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), ([_heli, player] call fza_fnc_targetingRange) # 1];
 
+// NTS, TGT and RF HO are shown with FCR as this crew station's sight
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SIGHT_FCR), parseNumber (_sight == SIGHT_FCR)];
+
 // TGT is barriered until there is an NTS to store
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_BARRIER), parseNumber (([_heli, "FCR"] call fza_fnc_targetingAcqPoint) isEqualTo [])];
 
@@ -48,33 +51,33 @@ private _wasState = _heli getVariable "fza_ah64_was";
 private _mslTraj  = _heli getVariable "fza_ah64_hellfireTrajectory";
 private _wpnCtrl  = "";
 private _wpnStat  = "";
+// The crew station driving the weapon (fza_fnc_wasUpdate)
+private _pltDrives = (_heli getVariable ["fza_ah64_wasDriver", ""]) == "plt";
 switch (_wasState) do {
     case WAS_WEAPON_GUN: {
-        if (isManualFire _heli) then {
+        if (_pltDrives) then {
             _wpnStat = format["ROUNDS %1", _heli ammo "fza_m230"];
         } else {
             _wpnCtrl = "CGUN";
         };
     };
     case WAS_WEAPON_MSL: {
-        if (isManualFire _heli) then {
-            switch (_mslTraj) do {
-                case "DIR": { _wpnStat = "DIR MAN"; };
-                case "LO":  { _wpnStat = "LO MAN"; };
-                case "HI":  { _wpnStat = "HI MAN"; };
-            };
+        if (_pltDrives) then {
+            // The trajectory and this crew station's missile MODE
+            _wpnStat = _mslTraj + " " + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         } else {
             _wpnCtrl = "CMSL";
         };
     };
     case WAS_WEAPON_RKT: {
-        if (isManualFire _heli) then {
+        if (_pltDrives) then {
             private _rktAmmo = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedRocket") >> "fza_ammoType");
             private _rktCode = getText (configFile >> "CfgAmmo" >> _rktAmmo >> "fza_shortCode");
             _wpnStat = format["%1 NORM %2", _rktCode, _heli ammo(_heli getVariable "fza_ah64_selectedRocket")];
         } else {
             _wpnCtrl = "CRKT";
         };
+        if (_heli getVariable ["fza_ah64_wasCoop", false]) then {_wpnCtrl = "COOP"};
     };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];

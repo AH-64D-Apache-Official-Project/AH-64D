@@ -191,6 +191,10 @@
 #define MFD_IND_WPN_MSL_MENU 19
 // 1 when FCR sight is active and type is locked to RF
 #define MFD_IND_WPN_MSL_TYPE_BARRIER 20
+// RF MSL PWR selection: MSL_PWR_ALL / AUTO / NONE
+#define MFD_IND_WPN_MSL_PWR 21
+// This crew station's missile MODE, its index in MSL_MODES: 0 NORM, 1 MAN, 2 RIPL
+#define MFD_IND_WPN_MSL_MODE 22
 
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
@@ -216,6 +220,7 @@
 #define MFD_TEXT_IND_WPN_RKT_SALVO 19
 #define MFD_TEXT_IND_WPN_MANRNG 20
 #define MFD_TEXT_IND_WPN_GUN_MODE 21
+#define MFD_TEXT_IND_WPN_MSL_MODE 22
 
 #define MFD_TEXT_IND_WPN_MSL_TRAJ 10
 #define MFD_TEXT_IND_WPN_MSL_PRI_CODE 11
@@ -324,6 +329,7 @@
 #define MFD_IND_FCR_TPM_OBS_SHOW     20
 #define MFD_IND_FCR_ATM_SECTOR_ROT   21
 #define MFD_IND_FCR_TGT_BARRIER      22
+#define MFD_IND_FCR_SIGHT_FCR        23
 
 #define MFD_IND_FCR_INSTALLED 19
 

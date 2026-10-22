@@ -158,9 +158,10 @@ if (_isAtm) exitWith {_correlated};
     if (_rec isNotEqualTo []) then {_correlated pushBack _rec};
 } forEach _prevTargets;
 
-// Clutter: the pool is held while in the sector and unmasked, topped up from clutter discretes at random in the sector
-// (each looks at up to 15 random points, so cluttered ground fills it and open ground hardly), and shown afresh each
-// scanburst. Masking is judged to the top of the object.
+// Clutter: the pool is held while in the sector and unmasked, and shown afresh each scanburst. It is topped up from
+// clutter discretes the radar can see: random points in the sector, a random discrete within 250 m of each, until the
+// pool is full or FCR_CLUTTER_SEARCH points have been looked at this update, so cluttered ground fills it at once and
+// open ground hardly at all. Masking is judged to the top of the object.
 private _half      = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 private _heliPos   = getPosASL _heli;
 private _sensorPos = _heli modelToWorldWorld (_heli selectionPosition ["sensorPos", "Memory"]);
@@ -176,16 +177,16 @@ private _clutter = [];
 {
     if ((_x # 16) && {[_x # 3] call _visible}) then {_clutter pushBack _x};
 } forEach _prevTargets;
-for "_i" from (count _clutter + 1) to FCR_CLUTTER_POOL do {
-    private _obj = objNull;
-    for "_try" from 1 to 15 do {
-        // Uniform over the sector's area
-        private _range = sqrt (FCR_LIMIT_MIN_RANGE ^ 2 + random (FCR_LIMIT_STATIONARY_RANGE ^ 2 - FCR_LIMIT_MIN_RANGE ^ 2));
-        private _point = _heliPos getPos [_range, _scanDir - _half + random (2 * _half)];
-        _obj = (nearestTerrainObjects [_point, ["BUILDING", "HOUSE", "WALL", "ROCK", "ROCKS", "POWER LINES", "TRANSMITTER", "BUNKER", "FORTRESS", "VIEW-TOWER", "LIGHTHOUSE", "FUEL STATION", "CHURCH", "CHAPEL"], 75, true, true]) param [0, objNull];
-        if (!isNull _obj) exitWith {};
-    };
-    if (isNull _obj || {(_clutter findIf {(_x # 3) isEqualTo _obj}) != -1 || {!([_obj] call _visible)}}) then {continue};
+private _search = 0;
+while {count _clutter < FCR_CLUTTER_POOL && {_search < FCR_CLUTTER_SEARCH}} do {
+    _search = _search + 1;
+    // Uniform over the sector's area
+    private _range = sqrt (FCR_LIMIT_MIN_RANGE ^ 2 + random (FCR_LIMIT_STATIONARY_RANGE ^ 2 - FCR_LIMIT_MIN_RANGE ^ 2));
+    private _point = _heliPos getPos [_range, _scanDir - _half + random (2 * _half)];
+    private _found = nearestTerrainObjects [_point, ["BUILDING", "HOUSE", "WALL", "ROCK", "ROCKS", "POWER LINES", "TRANSMITTER", "BUNKER", "FORTRESS", "VIEW-TOWER", "LIGHTHOUSE", "FUEL STATION", "CHURCH", "CHAPEL"], 250, false, true];
+    if (_found isEqualTo []) then {continue};
+    private _obj = selectRandom _found;
+    if ((_clutter findIf {(_x # 3) isEqualTo _obj}) != -1 || {!([_obj] call _visible)}) then {continue};
     // Each discrete keeps one classification, so its symbol never changes type
     private _pos = getPosASL _obj;
     private _type = [FCR_TYPE_UNKNOWN, FCR_TYPE_UNKNOWN, FCR_TYPE_UNKNOWN, FCR_TYPE_UNKNOWN, FCR_TYPE_UNKNOWN, FCR_TYPE_UNKNOWN,
