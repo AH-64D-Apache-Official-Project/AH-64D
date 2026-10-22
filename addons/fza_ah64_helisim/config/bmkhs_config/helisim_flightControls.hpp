@@ -39,7 +39,7 @@
             hdg[]       = {0.0750, 0.0200, 0.0050, 0.1};
             //Turn coordination. Error is lateral g and the output is clamped to the hold's
             //authority (0.1), so size these against that rather than the +-1 gauge.
-            trn[]       = {0.2500, 0.0600, 0.3000, 0.009};
+            trn[]       = {0.2500, 0.0600, 0.3000, 0.1};
         };
     };
 
