@@ -93,8 +93,9 @@ private _result  = switch (_source) do {
             // The local crew's head LOS from the camera; eyeDirection does not follow the head in a vehicle
             case SIGHT_HMD:  {
                 switch (true) do {
+                    // No head LOS without the IHADSS helmet
+                    case (isNull _unit || {!([_unit] call fza_ihadss_fnc_hasHelmet)}): {_heli vectorModelToWorldVisual [0, 1, 0]};
                     case (_unit == player): {getCameraViewDirection player};
-                    case (isNull _unit):    {_heli vectorModelToWorldVisual [0, 1, 0]};
                     default                 {eyeDirection _unit};
                 };
             };

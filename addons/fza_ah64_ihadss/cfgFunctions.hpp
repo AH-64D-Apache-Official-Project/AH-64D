@@ -19,7 +19,9 @@ class CfgFunctions
             class getVisionMode {R;};
             class controller {R;};
             class draw {R;};
+            class dtvCamera {R;};
             class handleControl {R;};
+            class hasHelmet {R;};
             class hduCleanContainer {R;};
             class hduInit {R;};
             class hduUpdate {R;};
@@ -31,6 +33,8 @@ class CfgFunctions
             class nvsFixedView {R;};
             class nvsState {R;};
             class pnvsControl {R;};
+            class r2tTexture {R;};
+            class tadsLos {R;};
             class tadsNvs {R;};
             class tadsNvsControl {R;};
             class tadsNvsReset {R;};

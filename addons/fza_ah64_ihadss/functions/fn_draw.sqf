@@ -31,6 +31,7 @@ private _pnvsSensor    = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
 private _dtvDamage     = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage    = _heli getHitPointDamage "hit_msnEquip_tads_flir";
 private _setDeadOptics = false;
+fza_ihadss_screenAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
 
 //HDU picture: the crew station's night vision sensor (PNVS or TADS FLIR), or the TADS for the CPG with TADS selected
 private _monocleUp = cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox");
@@ -57,7 +58,6 @@ if (_pnvsShown || _tadsShown) then {
     // the lens height. The NVS picture, PNVS or TADS FLIR, is conformal (unity magnification): its camera only
     // covers the lens, so it is drawn at the view's scale.
     private _rect   = [_heli, false] call fza_ihadss_fnc_formatRect;
-    private _aspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
     private _h      = 2 * HDU_MASK_EXTENT_Y * (_rect # 3) / 480;
     if !_tadsShown then {
         // The render target's half height tangent against the view's, both by the measured projection
@@ -66,17 +66,13 @@ if (_pnvsShown || _tadsShown) then {
     };
     private _w = _h * safeZoneW / safeZoneH;
     private _pictureRect = [safeZoneX + (safeZoneW - _w) / 2, safeZoneY + (safeZoneH - _h) / 2, _w, _h];
-    // A render target ignores a non-square size, so the TADS texture is square and larger by the power of two nearest
-    // the screen's aspect, which shrinks its stretched texels
-    private _size = 1024;
-    if _tadsShown then {_size = 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)};
     // One TADS target per sensor, each following the turret's zoom with its own vision mode
     private _target = ["fza_ah64_pnvscam2", "fza_ah64_tadscam_nvs"] select _nvsTads;
     if _tadsShown then {
         _target = ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"] select (_visionMode == 0);
-        fza_ihadss_tadsPicture = [_pictureRect, fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0])];
+        fza_ihadss_tadsPicture = [_pictureRect, fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]])];
     };
-    private _texture = format ["#(argb,%1,%1,1)r2t(%2,%3)", round _size, _target, _aspect];
+    private _texture = [_target] call fza_ihadss_fnc_r2tTexture;
     private _failed  = if (_tadsShown) then {
         [_dtvDamage, _flirDamage] select (_visionMode in [1, 2]) >= SYS_SIGHT_DMG_THRESH
     } else {

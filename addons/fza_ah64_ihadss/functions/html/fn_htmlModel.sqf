@@ -10,6 +10,8 @@ Parameters:
     _headsDown    - True when the CPG is looking through the TADS
     _weaponFormat - True when the weapon symbology format is shown
     _tadsVideo    - True when the TADS picture is on the CPG's HDU
+    _seat         - The crew station whose symbology it is, "plt" or "cpg" (default: the player's)
+    _mpd          - True when presented on an MPD (VIDEO page): laid out and coloured as heads down, unclipped
 
 Returns:
     JSON text
@@ -26,11 +28,13 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\bmkhs_helisim\functions\core\core.hpp"
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
-params ["_heli", "_headsDown", "_weaponFormat", ["_tadsVideo", false]];
+params ["_heli", "_headsDown", "_weaponFormat", ["_tadsVideo", false], ["_seat", ""], ["_mpd", false]];
 
+if (_seat == "") then {_seat = ["cpg", "plt"] select (player == driver _heli)};
 private _m        = createHashMap;
-private _isPilot  = player == driver _heli;
-private _sight    = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+private _isPilot  = _seat == "plt";
+private _unit     = [gunner _heli, driver _heli] select _isPilot;
+private _sight    = [_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
 private _mode     = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
 private _was      = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
@@ -40,10 +44,18 @@ private _tadsEl   = _heli getVariable ["fza_ah64_tadsElevation", 0];
 private _fcrOn    = _heli animationPhase "fcr_enable" == 1;
 (_heli getVariable ["fza_ah64_fcrNts", [objNull, [0, 0, 0]]]) params [["_ntsObj", objNull], ["_ntsPos", [0, 0, 0]]];
 
-private _camASL   = AGLToASL positionCameraToWorld [0, 0, 0];
-private _camFwd   = vectorNormalized ((AGLToASL positionCameraToWorld [0, 0, 1]) vectorDiff _camASL);
-private _camUp    = vectorNormalized ((AGLToASL positionCameraToWorld [0, 1, 0]) vectorDiff _camASL);
-private _camRight = _camFwd vectorCrossProduct _camUp;
+// The head: the camera for the player's own crew station, the crewmember's eyes for the other's
+private ["_camFwd", "_camUp", "_camRight"];
+if (_unit == player) then {
+    private _camASL = AGLToASL positionCameraToWorld [0, 0, 0];
+    _camFwd   = vectorNormalized ((AGLToASL positionCameraToWorld [0, 0, 1]) vectorDiff _camASL);
+    _camUp    = vectorNormalized ((AGLToASL positionCameraToWorld [0, 1, 0]) vectorDiff _camASL);
+    _camRight = _camFwd vectorCrossProduct _camUp;
+} else {
+    _camFwd   = vectorNormalized ([vectorDirVisual _heli, eyeDirection _unit] select (alive _unit));
+    _camRight = vectorNormalized (_camFwd vectorCrossProduct (_heli vectorModelToWorldVisual [0, 0, 1]));
+    _camUp    = _camRight vectorCrossProduct _camFwd;
+};
 
 private _camAngles = {
     private _f = _this vectorDotProduct _camFwd;
@@ -177,7 +189,7 @@ if (!_weaponFormat && {_mode in ["trans", "cruise"]}) then {
     _m set ["wpt", _wpt];
 };
 
-([_heli] call fza_ihadss_fnc_nvsState) params ["_nvsMode", "_nvsSensor"];
+([_heli, _seat] call fza_ihadss_fnc_nvsState) params ["_nvsMode", "_nvsSensor"];
 if (!_weaponFormat && {_nvsMode != NVS_MODE_OFF}) then {
     _m set ["nvsSensor", "FLIR"];
 };
@@ -206,8 +218,9 @@ _m set ["losFlash", _atLimit || _gunFailed];
 _m set ["forType", ["tads", "pnvs"] select _isPilot];
 _m set ["forFov", [[_tadsAz, _tadsEl], _camModel] select (_isPilot || (_sight == SIGHT_HMD && !_headsDown))];
 
-private _curAcq = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingCurAcq;
-private _acqVec = [_heli, [_heli] call fza_fnc_currentTurret] call fza_fnc_targetingAcqCue;
+private _turret = [[0], [-1]] select _isPilot;
+private _curAcq = [_heli, _turret] call fza_fnc_targetingCurAcq;
+private _acqVec = [_heli, _turret] call fza_fnc_targetingAcqCue;
 if (!isNil "_acqVec") then {
     _acqVec = vectorNormalized _acqVec;
     _m set ["forCue", (_acqVec call _modelAngles) apply {round _x}];
@@ -234,7 +247,7 @@ if (_weaponFormat && {_headsDown || _tadsVideo}) then {
     private _visionMode = [_heli] call fza_ihadss_fnc_getVisionMode;
     _m set ["sensor", ["DTV", "FLIR", "FLIR", "DVO"] select (_visionMode max 0 min 3)];
 
-    private _opticsMode = _heli getTurretOpticsMode [0];
+    private _opticsMode = _heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]];
     private _groups     = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 10, 11], [12, 13]];
     private _group      = _groups select {_opticsMode in _x};
     if (_group isNotEqualTo []) then {
@@ -268,7 +281,7 @@ private _sightSel = switch (_sight) do {
     default { "?" };
 };
 
-private _range = ([_heli, player] call fza_fnc_targetingRange) # 1;
+private _range = ([_heli, _seat] call fza_fnc_targetingRange) # 1;
 
 private _wpnCtl  = "";
 private _wpnStat = "";
@@ -323,6 +336,11 @@ private _inhibit = _heli getVariable ["fza_ah64_weaponInhibited", ""];
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 
 _m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, ""]];
+
+if (_mpd) then {
+    _m set ["hd", true];
+    _m set ["white", false];
+};
 
 // A NaN or infinite number serialises as text that is not valid JSON, and the page then takes no update at all: those
 // become null. The first is logged with the model it was in.

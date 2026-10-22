@@ -44,7 +44,7 @@ private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
 private _lmcSensitivity = linearConversion [0.0, 1.0, fza_ah64_LMCSensitivity, 1.0, 20.0];
-private _fovScalar      = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
+private _fovScalar      = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
 
 //Get the velocities of the aircraft on the respective axes
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];

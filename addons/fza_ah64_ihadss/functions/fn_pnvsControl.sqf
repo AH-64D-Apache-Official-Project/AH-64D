@@ -31,7 +31,6 @@ if (_owner != player && {isPlayer _owner || {!local _heli}}) exitWith {};
 private _acBusOn        = _heli getVariable "bmkhs_acBusOn";
 private _dcBusOn        = _heli getVariable "bmkhs_dcBusOn";
 private _pnvsControl    = [NVS_MODE_OFF, ([_heli, _pnvsSeat] call fza_ihadss_fnc_nvsState) # 0] select (_owner == player);
-private _monocle        = _heli getVariable "fza_ah64_monocleinbox";
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
 // Turned from where it points now at its slew rate
@@ -44,8 +43,10 @@ private _slew = {
     [_heli, "pnvs_vert", rad (_nowEl + (((_el - _nowEl) max -_step) min _step)), true] call fza_anim_fnc_updateAnimations;
 };
 
-//Pnvs Stowed
-if ((_pnvsControl == NVS_MODE_OFF) || !_acBusOn || !_dcBusOn || _monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitWith {
+//Pnvs Stowed; the head is tracked by the IHADSS helmet, not the monocle, so NORM follows the head with the monocle up too,
+//and with no helmet has no head to follow
+private _noHead = _pnvsControl == NVS_MODE_NORM && {!([_owner] call fza_ihadss_fnc_hasHelmet)};
+if ((_pnvsControl == NVS_MODE_OFF) || _noHead || !_acBusOn || !_dcBusOn || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitWith {
     [-120, 0] call _slew;
 };
 

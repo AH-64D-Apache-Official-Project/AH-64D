@@ -22,6 +22,9 @@ switch(_control) do {
     case "l3": {
         [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "t1": {
+        [_heli, _mpdIndex, "vid"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "l4": {
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
     };

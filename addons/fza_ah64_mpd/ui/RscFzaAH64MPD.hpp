@@ -16,6 +16,8 @@ class RscFzaAH64MPD {
         class lineWhitePreload : lineGreenPreload {
             text = "\fza_ah64_mpd\tex\canvas\line_white_ca.paa";
         };
+        // The VIDEO page's underlay, under every native page (fza_mpd_fnc_update)
+        class video : fza_mpd_videoGroup {};
     };
     class Controls {
         class canvas : fza_ah64_mapControl {

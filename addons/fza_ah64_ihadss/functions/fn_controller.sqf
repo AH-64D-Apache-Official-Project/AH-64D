@@ -52,10 +52,15 @@ if (!(isNil "fza_ah64_notargeting")) exitWith {};
 if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
     _heli setVariable ["fza_ah64_monocleinbox", true];
 };
+// The HDU is the IHADSS helmet's
+if (!(_heli getVariable ["fza_ah64_monocleinbox", true]) && {!([player] call fza_ihadss_fnc_hasHelmet)}) then {
+    _heli setVariable ["fza_ah64_monocleinbox", true];
+    [player] call fza_ihadss_fnc_hduUpdate;
+};
 
 private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
-[_heli] call fza_ihadss_fnc_fovControl;
+// The TADS zoom is set each frame from fza_ah64_eachFrameArray (fza_ihadss_fnc_fovControl)
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_tadsNvsControl;
 [_heli] call fza_ihadss_fnc_draw;

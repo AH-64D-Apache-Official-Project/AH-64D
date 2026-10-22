@@ -9,7 +9,7 @@
 
     base.drawFlightLos = function (ctx, bold) {
         ctx.save();
-        if (bold) { ctx.lineWidth = 4; }
+        if (bold) { ctx.lineWidth = 4 * IH.weight; }
         ctx.beginPath();
         ctx.moveTo(IH.CX, IH.CY - 10); ctx.lineTo(IH.CX, IH.CY - 28);
         ctx.moveTo(IH.CX, IH.CY + 10); ctx.lineTo(IH.CX, IH.CY + 28);

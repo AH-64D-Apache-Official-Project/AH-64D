@@ -7,7 +7,8 @@ Description:
     unit of FOV. A camera of any FOV, render targets included, covers a half
     height tangent of FOV * the scale.
 
-    Measured once a frame in the first person view. The scale is kept until a
+    Measured once a frame in the first person view, while its FOV is not
+    changing (zoom). The scale is kept until a
     measurement differs by over 1%, as the heads up format is sized from it and
     its browser reopens at a new size (fza_ihadss_fnc_htmlDraw).
 
@@ -33,7 +34,17 @@ if (_frame == diag_frameNo) exitWith {[_tanHalfV, _scale]};
 private _fov = getObjectFOV player;
 if (_fov <= 0) then {_fov = getNumber (configOf _heli >> "ViewPilot" >> "initFov")};
 
-if (cameraView == "INTERNAL") then {
+// Measured only with the FOV steady: while it animates (zooming) the drawn view and the FOV read disagree, and a scale
+// measured then would resize the heads up format and reopen its browser
+(missionNamespace getVariable ["fza_ihadss_viewFov", [-1, -1]]) params ["_lastFov", "_fovSince"];
+// Over 0.5% from the FOV it settled at, so a head tracker's per-frame jitter is not a zoom
+if (_lastFov <= 0 || {abs (_fov / _lastFov - 1) > 0.005}) then {
+    _fovSince = diag_tickTime;
+    missionNamespace setVariable ["fza_ihadss_viewFov", [_fov, _fovSince]];
+};
+// Unmeasured this frame, it is the scale at this FOV
+_tanHalfV = -1;
+if (cameraView == "INTERNAL" && {diag_tickTime - _fovSince > 0.5}) then {
     // A point 0.1 tangent above the camera axis; the screen spans safeZoneH over twice the half height tangent
     private _centre = worldToScreen positionCameraToWorld [0, 0, 1];
     private _above  = worldToScreen positionCameraToWorld [0, 0.1, 1];

@@ -41,7 +41,7 @@ class wpnDraw {
                 }\
                 class Actioned{\
                     condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_WPN_WAS), 0));\
-                    color[] = {0.05,0.25,0,0.5};\
+                    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
                     class Polygon {\
                     type = "polygon";\
                     points[] = {\

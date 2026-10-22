@@ -1,0 +1,31 @@
+/*@IHADSS_FONT@*/
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+#gs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* The 640x480 IHADSS format centred, its height the MPD's (480 units to 100vw on the square MPD, the format's symbols
+   within 80-560 across); the canvas holds it inside its 100 unit margin. As fza_mpd_fnc_videoSymbols places the world
+   referenced symbols. Raised 14 units with the video, MPD_VIDEO_RAISE. */
+#ihadss {
+    position: absolute;
+    display: block;
+    width: 175vw;
+    height: 141.6667vw;
+    left: -37.5vw;
+    top: calc(50vh - 73.75vw);
+}

@@ -31,7 +31,8 @@ params ["_heli", "_acq"];
 private _headDir = {
     params ["_unit"];
     switch (true) do {
-        case (isNull _unit):    {_heli vectorModelToWorldVisual [0, 1, 0]};
+        // No head LOS without the IHADSS helmet
+        case (isNull _unit || {!([_unit] call fza_ihadss_fnc_hasHelmet)}): {_heli vectorModelToWorldVisual [0, 1, 0]};
         case (_unit == player): {getCameraViewDirection player};
         default                 {eyeDirection _unit};
     };

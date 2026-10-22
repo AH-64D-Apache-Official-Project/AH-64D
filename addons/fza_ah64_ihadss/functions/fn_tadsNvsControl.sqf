@@ -93,6 +93,9 @@ private _turEl = deg (_heli animationPhase "tads");
 private _dt    = (["fza_ihadss_tadsNvsSlew"] call BIS_fnc_deltaTime) min 0.1;
 private _los   = _heli getVariable ["fza_ihadss_tadsNvsLos", [_turAz + _offAz, _turEl + _offEl]];
 
+// With no IHADSS helmet, NORM has no head to follow: back onto the turret
+if (_mode == NVS_MODE_NORM && {!([player] call fza_ihadss_fnc_hasHelmet)}) then {_mode = NVS_MODE_OFF};
+
 private _want = switch (_mode) do {
     // The fixed LOS itself: the crew station's correction is for the head it follows in NORM
     case NVS_MODE_FIXED: {[0, NVS_FIXED_EL]};

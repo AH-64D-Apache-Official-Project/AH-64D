@@ -27,5 +27,7 @@ private _seat = ["", "plt", "cpg"] select ((["driver", "gunner"] find _role) + 1
 [_heli, _seat] call fza_fcr_fnc_releaseOwner;
 // Leaving with the TADS turned as this seat's NVS sensor, it is set back to the turret now (fza_ihadss_fnc_tadsNvsControl)
 if (_heli getVariable ["fza_ihadss_tadsNvsDriving", false]) then {[_heli] call fza_ihadss_fnc_tadsNvsReset};
+// The DTV camera ends itself once the DTV is no longer shown (fza_ihadss_fnc_dtvCamera)
+fza_ihadss_dtvShownAt = -1e6;
 [_heli] call fza_ihadss_fnc_controller;
 [_unit] call fza_ihadss_fnc_hduUpdate;

@@ -71,6 +71,9 @@
         return Math.floor(performance.now() / 1000) % 2;
     };
 
+    // Line and text weight, raised where the format is shown on an MPD (VIDEO page) to match its symbology
+    IH.weight = 1;
+
     IH.font = function (ctx, size) {
         ctx.font = size + "px BMKApacheFont, monospace";
     };
@@ -80,6 +83,12 @@
         ctx.textAlign = align || "left";
         ctx.textBaseline = baseline || "bottom";
         ctx.fillText(String(str), x, y);
+        if (IH.weight > 1) {
+            var lineWidth = ctx.lineWidth;
+            ctx.lineWidth = IH.weight - 1;
+            ctx.strokeText(String(str), x, y);
+            ctx.lineWidth = lineWidth;
+        }
     };
 
     // Adds a dashed segment to the current path, starting and ending on a dash
@@ -97,9 +106,9 @@
         }
     };
 
-    // Heading tape: 210 deg shown across 360 format units
+    // Heading tape: 210 deg shown across 243 format units
     IH.TAPE_HALF_DEG = 105;
-    IH.TAPE_PX_PER_DEG = 180 / IH.TAPE_HALF_DEG;
+    IH.TAPE_PX_PER_DEG = 121.5 / IH.TAPE_HALF_DEG;
     IH.TAPE_Y = 66;
 
     IH.wrap180 = function (a) {

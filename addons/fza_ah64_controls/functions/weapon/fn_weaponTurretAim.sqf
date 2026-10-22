@@ -50,6 +50,9 @@ _heli setVariable ["fza_ah64_lastTimePropagated", time, true];
 
 private _was             = _heli getVariable "fza_ah64_was";
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+// The HMD sight's LOS is the head's, tracked by the IHADSS helmet; without it, the aircraft's nose
+private _hasHelmet       = [player] call fza_ihadss_fnc_hasHelmet;
+private _hmdOrigin       = [getPosASLVisual _heli, AGLToASL positionCameraToWorld [0, 0, 0]] select _hasHelmet;
 private _onGnd           = [_heli] call bmkhs_fnc_stateOnGround;
 private _nts             = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntspos          = (_heli getVariable "fza_ah64_fcrNts") # 1;
@@ -93,19 +96,23 @@ switch (_sight) do {
         if (CPG_LINK(_heli) && {_heli getVariable ["fza_ah64_cpgSlaved", false]}) then {
             _cameraTarget = [_targPos, _heli modelToWorldVisualWorld [0, 1000, 0]] select (isNull _nts);
         } else {
-            if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
+            if (player == gunner _heli && {cameraView != "GUNNER"}) then {
                 _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
             };
         };
     };
     case SIGHT_HMD:{
-        _targPos = AGLToASL (positionCameraToWorld [0, 0, 1000]);
+        _targPos = if (_hasHelmet) then {AGLToASL (positionCameraToWorld [0, 0, 1000])} else {_heli modelToWorldVisualWorld [0, 1000, 0]};
+        // The TADS can be watched on an MPD with the HMD as the sight, so its slew is scaled the same
+        if (player == gunner _heli && {cameraView != "GUNNER"}) then {
+            _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
+        };
     };
     case SIGHT_TADS:{
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _worldTargetpos = _camPosASL vectorAdd (([_heli, "TADS"] call fza_fnc_targetingAcqVec) vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
-        if (missionNamespace getVariable ["fza_ihadss_tadsVideo", false] && {player == gunner _heli}) then {
+        if (player == gunner _heli && {cameraView != "GUNNER"}) then {
             _cameraTarget = [_heli] call fza_ihadss_fnc_tadsSlew;
         };
         // Slaved, the TADS follows the CPG's acquisition source instead of the manual tracker
@@ -153,7 +160,7 @@ if (_was == WAS_WEAPON_RKT && !_sightFixed) then {
     // Aimed along the sight line at the crew station's range source range, not the true range to what it looks at
     private _origin = switch (_sight) do {
         case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
-        case SIGHT_HMD:  {AGLToASL positionCameraToWorld [0, 0, 0]};
+        case SIGHT_HMD:  {_hmdOrigin};
         default          {getPosASLVisual _heli};
     };
     private _losDir = _origin vectorFromTo _targPos;
@@ -239,7 +246,7 @@ if (_was == WAS_WEAPON_GUN) then {
     // target (fza_cannon_fnc_aimSolve)
     private _origin = switch (_sight) do {
         case SIGHT_TADS: {_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")};
-        case SIGHT_HMD:  {AGLToASL positionCameraToWorld [0, 0, 0]};
+        case SIGHT_HMD:  {_hmdOrigin};
         default          {getPosASLVisual _heli};
     };
     private _losDir = _origin vectorFromTo _targPos;

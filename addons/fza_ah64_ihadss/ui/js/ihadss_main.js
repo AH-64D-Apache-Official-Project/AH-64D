@@ -52,7 +52,7 @@
         var colour = m.white ? IH.WHITE : IH.GREEN;
         ctx.strokeStyle = colour;
         ctx.fillStyle = colour;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2 * IH.weight;
         ctx.lineJoin = "round";
         ctx.globalAlpha = 1;
 

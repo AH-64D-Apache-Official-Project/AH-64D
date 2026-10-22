@@ -56,8 +56,10 @@ class ase_draw {
             //Autopage top
             {{0.002, 0.380}, 1}, 
             {{0.080, 0.380}, 1}, {},
-            //Autopage right
+            //Autopage right, broken round the AUTOPAGE text down it
             {{0.080, 0.380}, 1}, 
+            {{0.080, 0.600-3.5*MPD_TEXT_HEIGHT-0.005}, 1}, {},
+            {{0.080, 0.600+4.5*MPD_TEXT_HEIGHT+0.005}, 1}, 
             {{0.080, 0.870}, 1}, {},
             //Autopage bottom
             {{0.080, 0.870}, 1}, 
@@ -68,27 +70,6 @@ class ase_draw {
             MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
             //Chaff box
             MPD_POINTS_BOX("Null", MPD_POS_BUTTON_TB_1_X-(2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y-(3*MPD_TEXT_HEIGHT), 5*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT*2), {},
-        };
-    };
-
-    class occluders {
-        color[] = {0,0,0,1};
-        class Polygons {
-            type = "polygon";
-            points[] = {
-                { //Autopage occluder
-                    {{0.075,                0.600-3.5*MPD_TEXT_HEIGHT}, 1},
-                    {{0.080+MPD_TEXT_WIDTH, 0.600-3.5*MPD_TEXT_HEIGHT}, 1},
-                    {{0.080+MPD_TEXT_WIDTH, 0.600+4.5*MPD_TEXT_HEIGHT}, 1},
-                    {{0.075,                0.600+4.5*MPD_TEXT_HEIGHT}, 1}
-                },
-                { //RJAM occluder
-                    {{0.718-2.1*MPD_TEXT_WIDTH, 0.925}, 1},
-                    {{0.718-2.1*MPD_TEXT_WIDTH, 0.920-MPD_TEXT_HEIGHT}, 1},
-                    {{0.718+2.1*MPD_TEXT_WIDTH, 0.920-MPD_TEXT_HEIGHT}, 1},
-                    {{0.718+2.1*MPD_TEXT_WIDTH, 0.925}, 1}
-                },
-            };
         };
     };
 
@@ -400,18 +381,22 @@ class ase_draw {
         MPD_TEXT_R(PGM,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANUAL"))
         MPD_BOX_BAR_R(MODE, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y)
         //L3
+        MPD_MASK_V_R(SRH, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(SRH_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
         MPD_TEXT_R(SRH_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y,                        MPD_TEXT_STATIC("R"))
         MPD_TEXT_R(SRH_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("H"))
         //L4
+        MPD_MASK_V_R(ACQ, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(ACQ_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
         MPD_TEXT_R(ACQ_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("C"))
         MPD_TEXT_R(ACQ_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Q"))
         //L5
+        MPD_MASK_V_R(TRK, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(TRK_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
         MPD_TEXT_R(TRK_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y,                        MPD_TEXT_STATIC("R"))
         MPD_TEXT_R(TRK_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("K"))
         //L6
+        MPD_MASK_V_R(OFF, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(OFF_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
         MPD_TEXT_R(OFF_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y,                        MPD_TEXT_STATIC("F"))
         MPD_TEXT_R(OFF_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("F"))
@@ -447,6 +432,7 @@ class ase_draw {
 
     class text {
         //Autopage text
+        MPD_MASK_V_R(AUTOPAGE, 0.08, 0.600-3.5*MPD_TEXT_HEIGHT, 0.600+3.5*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(AUTOPAGE_01, 0.08, 0.600-3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
         MPD_TEXT_R(AUTOPAGE_02, 0.08, 0.600-2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("U"))
         MPD_TEXT_R(AUTOPAGE_03, 0.08, 0.600-1.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
