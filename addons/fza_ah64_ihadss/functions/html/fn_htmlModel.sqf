@@ -338,18 +338,18 @@ switch (_was) do {
 };
 
 // The trigger pulled by this crew station holding no weapon (fza_fnc_coreControlHandle)
-if (_unit == player && {CBA_missionTime < (missionNamespace getVariable ["fza_ah64_weaponQueryUntil", -1])}) then {_wpnStat = "WEAPON?"};
+if (CBA_missionTime < ((_heli getVariable ["fza_ah64_trigger_" + _seat, [-1e6, -1]]) # 1)) then {_wpnStat = "WEAPON?"};
 
 private _sightStat = "";
 if (_fcrOn && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {_sightStat = "CSCOPE"};
 // The pilot has the TADS as the night vision sensor
 ([_heli] call fza_ihadss_fnc_tadsNvs) params ["_tadsNvsMode", "_tadsNvsSeat"];
 if (!_isPilot && {_tadsNvsMode != NVS_MODE_OFF} && {_tadsNvsSeat == "plt"}) then {_sightStat = "PLT TADS"};
-// REMOTE: with missiles actioned, the priority channel on a code other than the LRFD's, so a missile would guide on
-// someone else's laser
+// REMOTE, the CPG's: with missiles actioned, the priority channel on a code other than the LRFD's, so a missile would
+// guide on someone else's laser
 private _priChannel = _heli getVariable ["fza_ah64_laserMissilePrimaryCode", -1];
-if (_priChannel != -1 && {[_heli, WAS_WEAPON_MSL] call fza_fnc_wasSeat
-    && {((_heli getVariable "fza_ah64_laserChannelCodes") # _priChannel) != (_heli getVariable "fza_ah64_laserLRFDCode")}}) then {
+if (!_isPilot && {_priChannel != -1} && {[_heli, WAS_WEAPON_MSL, _seat] call fza_fnc_wasSeat}
+    && {((_heli getVariable "fza_ah64_laserChannelCodes") # _priChannel) != (_heli getVariable "fza_ah64_laserLRFDCode")}) then {
     _sightStat = "REMOTE";
 };
 private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0;
@@ -370,11 +370,15 @@ if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_D
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};
 
 // A target just stored (fza_fnc_targetingStore) shows for 3 seconds in place of the inhibit message
-private _inhibit = _heli getVariable ["fza_ah64_weaponInhibited", ""];
-(_heli getVariable ["fza_ah64_targetStoreMsg", ["", 0]]) params ["_storeMsg", "_storeUntil"];
+// The inhibits are the aiming crew station's, shown to it and to any crew station holding the weapon
+private _holdsWeapon = _was != WAS_WEAPON_NONE && {_seat in (_heli getVariable ["fza_ah64_wasSeats", []])};
+private _inhibit = ["", _heli getVariable ["fza_ah64_weaponInhibited", ""]]
+    select (_holdsWeapon || {(_heli getVariable ["fza_ah64_weaponInhibitedSeat", ""]) == _seat});
+(_heli getVariable ["fza_ah64_targetStoreMsg", ["", 0, ""]]) params ["_storeMsg", "_storeUntil", ["_storeSeat", _seat]];
+if (_storeSeat != _seat) then {_storeUntil = 0};
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
-if (_unit == player && {_was == WAS_WEAPON_GUN} && {[_heli] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
+if (_holdsWeapon && {_was == WAS_WEAPON_GUN} && {[_heli, _seat] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
 
 // The CPG's tracker status (fza_ihadss_fnc_lstUpdate)
 private _tracker = ["", _heli getVariable ["fza_ah64_lstStatus", ""]] select !_isPilot;

@@ -342,4 +342,6 @@ if (_was == WAS_WEAPON_GUN && {[_heli] call fza_fnc_weaponAltLaunch}) then {
 if (_was != WAS_WEAPON_NONE && {!(_heli getVariable ["fza_ah64_armSafeArmed", false])}) then {_inhibit = "SAFE"};
 
 [_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;
+// The crew station whose sight and weapon it is, which with any crew station holding the weapon sees it
+[_heli, "fza_ah64_weaponInhibitedSeat", _aiming] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_weaponBlock", _block] call fza_fnc_updateNetworkGlobal;

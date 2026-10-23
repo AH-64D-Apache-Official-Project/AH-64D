@@ -150,7 +150,10 @@ if (!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}) then {
 if (_was == WAS_WEAPON_RKT) then {
     private _losAz     = _heli getVariable ["fza_ah64_rocketSteerAz", 0];
     private _pylonElev = _heli getVariable ["fza_ah64_rocketPylonElev", 0];
-    private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != "";
+    // Inhibited for the aiming crew station and those holding the rockets, as on that crew station's HMD
+    private _symSeat   = ["cpg", "plt"] select (_symbology == "P-FLT");
+    private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != ""
+        && {_symSeat in (_heli getVariable ["fza_ah64_wasSeats", []]) || {(_heli getVariable ["fza_ah64_weaponInhibitedSeat", ""]) == _symSeat}};
     private _pylonMin  = [HYDRA_PYLON_MIN_AIR, HYDRA_PYLON_MIN_GROUND] select ([_heli] call bmkhs_fnc_stateOnGround);
     private _cx = ((320 + _losAz * 16) max 170) min 495;
     private _cy = ((290 - (_pylonElev - _pylonMin) / (HYDRA_PYLON_MAX - _pylonMin) * 100) max 100) min 400;

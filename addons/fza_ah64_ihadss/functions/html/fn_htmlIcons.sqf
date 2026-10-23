@@ -205,7 +205,10 @@ if (_was == WAS_WEAPON_GUN && {!isNil "_gunMode" && {_gunMode == "FXD"}}) then {
 if (_was == WAS_WEAPON_RKT) then {
     private _losAz     = _heli getVariable ["fza_ah64_rocketSteerAz", 0];
     private _pylonElev = _heli getVariable ["fza_ah64_rocketPylonElev", 0];
-    private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != "";
+    // Inhibited for the aiming crew station and those holding the rockets (fza_ihadss_fnc_htmlModel)
+    private _ownSeat   = [_heli] call fza_fnc_getSeat;
+    private _inhibit   = (_heli getVariable ["fza_ah64_weaponInhibited", ""]) != ""
+        && {_ownSeat in (_heli getVariable ["fza_ah64_wasSeats", []]) || {(_heli getVariable ["fza_ah64_weaponInhibitedSeat", ""]) == _ownSeat}};
     // No stowed cursor until a WPN UTIL page can set ground stow
     private _rktTex    = ("rkt" + (["", "_inhibit"] select _inhibit)) call _tex;
 

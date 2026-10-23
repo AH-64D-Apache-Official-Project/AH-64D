@@ -33,6 +33,6 @@ if (_id isEqualTo []) then {
 };
 [_heli, _id, "TG", "", ASLToAGL _posASL, _posASL # 2] call fza_dms_fnc_pointCreate;
 
-// Local only: the crew station that stored it sees it (fza_ihadss_fnc_htmlModel)
-_heli setVariable ["fza_ah64_targetStoreMsg", [_id call fza_dms_fnc_pointToString, CBA_missionTime + 3]];
+// Shown to the crew station that stored it, on its own HAD and on the VIDEO page (fza_ihadss_fnc_htmlModel)
+_heli setVariable ["fza_ah64_targetStoreMsg", [_id call fza_dms_fnc_pointToString, CBA_missionTime + 3, [_heli] call fza_fnc_getSeat], true];
 _id
