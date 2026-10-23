@@ -17,7 +17,10 @@ private _lasePos       = [_heli] call fza_hellfire_fnc_salFindLaserDesignation;
 
 // Locked on before launch (LOBL) it flies direct to the spot; otherwise (LOAL) the selected trajectory to the range
 // source range
-private _tofRange = ([_heli, _shooter] call fza_fnc_targetingRange) # 0;
+// The range of the crew station driving the missiles: the shooter is the aircraft, which has no range of its own
+private _rangeSeat = _heli getVariable ["fza_ah64_wasDriver", ""];
+if (_rangeSeat == "") then {_rangeSeat = "cpg"};
+private _tofRange = ([_heli, _rangeSeat] call fza_fnc_targetingRange) # 0;
 if (!isNil "_lasePos") then {
     _attackProfile = "hellfire";
     _tofRange      = _lasePos distance _heli;
