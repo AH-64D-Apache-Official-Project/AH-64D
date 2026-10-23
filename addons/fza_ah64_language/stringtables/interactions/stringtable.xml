@@ -965,6 +965,30 @@
             <Original>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</Original>
             <English>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</English>
         </Key>
+        <Key ID="STR_FZA_AH64_LST_AUTO">
+            <Original>LST Mode: Auto</Original>
+            <English>LST Mode: Auto</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_AUTO_INFO">
+            <Original>CPG: arms the laser spot tracker and scans the TADS in four bars about its line of sight until it finds a spot of the LST code, then tracks it</Original>
+            <English>CPG: arms the laser spot tracker and scans the TADS in four bars about its line of sight until it finds a spot of the LST code, then tracks it</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_OFF">
+            <Original>LST Mode: Off</Original>
+            <English>LST Mode: Off</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_OFF_INFO">
+            <Original>CPG: turns the laser spot tracker off and gives the TADS back</Original>
+            <English>CPG: turns the laser spot tracker off and gives the TADS back</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_MANUAL">
+            <Original>LST Mode: Manual</Original>
+            <English>LST Mode: Manual</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_MANUAL_INFO">
+            <Original>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</Original>
+            <English>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</English>
+        </Key>
         <Key ID="STR_FZA_AH64_MINIGAME_UP">
             <Original>Minigame: Up</Original>
             <English>Minigame: Up</English>

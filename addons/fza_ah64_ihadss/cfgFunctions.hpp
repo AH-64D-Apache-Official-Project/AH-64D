@@ -27,6 +27,7 @@ class CfgFunctions
             class hduUpdate {R;};
             class init {R;};
             class linearMotionCompensator {R;};
+            class lstUpdate {R;};
             class monocletoggle {R;};
             class nvsBias {R;};
             class nvsFixedToScreen {R;};

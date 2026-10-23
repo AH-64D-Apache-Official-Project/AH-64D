@@ -358,6 +358,9 @@ if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then 
 if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLRFDCode", ""], ""]) isEqualType 0)}) then {
     _sightStat = "RFDCODE?";
 };
+if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLSTCode", ""], ""]) isEqualType 0)}) then {
+    _sightStat = "LSTCODE?";
+};
 if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};
 if (_atLimit) then {_sightStat = "LIMITS"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
@@ -373,7 +376,10 @@ if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
 if (_unit == player && {_was == WAS_WEAPON_GUN} && {[_heli] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
 
-_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, ""]];
+// The CPG's tracker status (fza_ihadss_fnc_lstUpdate)
+private _tracker = ["", _heli getVariable ["fza_ah64_lstStatus", ""]] select !_isPilot;
+
+_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, _tracker]];
 
 if (_mpd) then {
     _m set ["hd", true];

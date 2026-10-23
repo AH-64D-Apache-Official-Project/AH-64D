@@ -27,6 +27,8 @@ if !(_heli getVariable "fza_ah64_LmcActive") exitWith {
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
+// The LST has the TADS (fza_ihadss_fnc_lstUpdate)
+if (_heli getVariable ["fza_ihadss_lstDriving", false]) exitWith {};
 
 // Slaved, the TADS goes to the acquisition source and holds it, as with LMC off (fza_fnc_weaponTurretAim); LMC carries
 // on compensating from there once slave is turned off

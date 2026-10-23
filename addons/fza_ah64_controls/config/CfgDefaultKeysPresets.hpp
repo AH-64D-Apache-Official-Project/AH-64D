@@ -49,6 +49,9 @@ class CfgDefaultKeysPresets {
             fza_ah64_SensorSelect_DTV[]  = {0x38130007}; //Alt+6
             fza_ah64_SensorSelect_DVO[]  = {0x38130008}; //Alt+7
             fza_ah64_collectiveEmergJett[] = {};
+            fza_ah64_lstAuto[]     = {};
+            fza_ah64_lstOff[]      = {};
+            fza_ah64_lstManual[]   = {};
             fza_ah64_radialMenu[]  = {};
             fza_ah64_radialUp[]    = {};
             fza_ah64_radialDown[]  = {};

@@ -340,6 +340,14 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        // The CPG's LST mode switch
+        case "fza_ah64_lstAuto";
+        case "fza_ah64_lstOff";
+        case "fza_ah64_lstManual": {
+            if (player != gunner _heli) exitWith {};
+            private _lstMode = [LST_MODE_AUTO, LST_MODE_OFF, LST_MODE_MAN] select (["fza_ah64_lstAuto", "fza_ah64_lstOff", "fza_ah64_lstManual"] find _name);
+            _heli setVariable ["fza_ah64_lstMode", _lstMode, true];
+        };
         case "fza_ah64_radialMenu": {
             [_heli] call fza_fnc_radialToggle;
         };

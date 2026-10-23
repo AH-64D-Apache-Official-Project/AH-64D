@@ -30,6 +30,10 @@
 #define NVS_MODE_OFF   0
 #define NVS_MODE_NORM  0.5
 #define NVS_MODE_FIXED 1
+// The CPG's LST mode switch
+#define LST_MODE_OFF  0
+#define LST_MODE_AUTO 1
+#define LST_MODE_MAN  2
 // NVS MODE FIXED: fixed forward, the aircraft centerline 4.9 deg below the airframe datum
 #define NVS_FIXED_EL -4.9
 // The TADS as an NVS sensor slews noticeably slower in azimuth than the PNVS, deg/s
