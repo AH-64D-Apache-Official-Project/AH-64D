@@ -14,3 +14,4 @@ class CfgPatches
 #include "\x\cba\addons\main\script_macros_common.hpp"
 #include "baseClasses.hpp"
 #include "CfgFunctions.hpp"
+#include "radial.hpp"

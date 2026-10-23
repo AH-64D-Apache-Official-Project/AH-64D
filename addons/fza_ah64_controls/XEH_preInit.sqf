@@ -79,6 +79,24 @@ private _projName = "AH-64D Official Project";
     2
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_radialDwellTime",
+    "SLIDER",
+    [(localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME"), (localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME_INFO")],
+    [_projName, "Radial Menu"],
+    [0.5, 3, 1.5, 1],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_radialKeepOpen",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_RADIAL_KEEP_OPEN"), (localize "STR_FZA_AH64_SETTINGS_RADIAL_KEEP_OPEN_INFO")],
+    [_projName, "Radial Menu"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
 fza_ah64_pylonsLastCheckMags    = [];
 fza_ah64_overallticker          = 0;
 fza_ah64_sideslip               = 0;

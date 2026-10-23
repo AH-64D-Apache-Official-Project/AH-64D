@@ -937,6 +937,34 @@
             <Original>MPD minigame right input</Original>
             <English>MPD minigame right input</English>
         </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_MENU">
+            <Original>Radial Menu</Original>
+            <English>Radial Menu</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_MENU_INFO">
+            <Original>Opens the FCR, TADS and sensor radial menu; in a sub menu goes back, in the top menu closes it</Original>
+            <English>Opens the FCR, TADS and sensor radial menu; in a sub menu goes back, in the top menu closes it</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_UP">
+            <Original>Radial Menu: Up</Original>
+            <English>Radial Menu: Up</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_DOWN">
+            <Original>Radial Menu: Down</Original>
+            <English>Radial Menu: Down</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_LEFT">
+            <Original>Radial Menu: Left</Original>
+            <English>Radial Menu: Left</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_RIGHT">
+            <Original>Radial Menu: Right</Original>
+            <English>Radial Menu: Right</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_DIRECTION_INFO">
+            <Original>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</Original>
+            <English>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</English>
+        </Key>
         <Key ID="STR_FZA_AH64_MINIGAME_UP">
             <Original>Minigame: Up</Original>
             <English>Minigame: Up</English>

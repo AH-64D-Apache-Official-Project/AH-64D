@@ -49,6 +49,11 @@ class CfgDefaultKeysPresets {
             fza_ah64_SensorSelect_DTV[]  = {0x38130007}; //Alt+6
             fza_ah64_SensorSelect_DVO[]  = {0x38130008}; //Alt+7
             fza_ah64_collectiveEmergJett[] = {};
+            fza_ah64_radialMenu[]  = {};
+            fza_ah64_radialUp[]    = {};
+            fza_ah64_radialDown[]  = {};
+            fza_ah64_radialLeft[]  = {};
+            fza_ah64_radialRight[] = {};
 
             // MPD minigame input - arrow keys, since the numpad is Arma's freelook
             fza_minigame_up[]     = {0xC8}; // Up arrow

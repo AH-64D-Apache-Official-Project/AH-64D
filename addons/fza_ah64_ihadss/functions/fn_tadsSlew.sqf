@@ -36,8 +36,8 @@ private _hold = _heli getVariable ["fza_ihadss_tadsSlewHold", []];
 // 60 deg/s at full input and unity field of view
 private _fov = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
 private _rate = 60 * _fov / (fza_ah64_tadsFOVs # 0) * _deltaTime;
-// The aim input moves the head in free look, and the cockpit cursor while it is detached
-if (freeLook || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})}) then {_rate = 0};
+// The aim input moves the head in free look, the cockpit cursor while it is detached, and the radial menu while open
+if (freeLook || {uiNamespace getVariable ["fza_radialOpen", false]} || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})}) then {_rate = 0};
 
 private _inAz = inputAction "AimRight" - inputAction "AimLeft";
 private _inEl = inputAction "AimUp" - inputAction "AimDown";

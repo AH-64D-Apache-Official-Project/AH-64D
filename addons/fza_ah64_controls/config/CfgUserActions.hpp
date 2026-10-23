@@ -51,6 +51,12 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_SensorSelect_DVO,"$STR_FZA_AH64_SENSOR_SELECT_DVO","$STR_FZA_AH64_SENSOR_SELECT_DVO_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc,"$STR_FZA_AH64_TADS_LHG_LMC","$STR_FZA_AH64_TADS_LHG_LMC_INFO");
     CfgUserActionDef(fza_ah64_collectiveEmergJett,"$STR_FZA_AH64_COLLECTIVE_EMERG_JETT","$STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO");
+    CfgUserActionDef(fza_ah64_radialMenu,"$STR_FZA_AH64_RADIAL_MENU","$STR_FZA_AH64_RADIAL_MENU_INFO");
+    // Read by the open radial menu as a direction, alongside the aim input (fza_fnc_radialUpdate)
+    CfgUserActionDef(fza_ah64_radialUp,"$STR_FZA_AH64_RADIAL_UP","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_radialDown,"$STR_FZA_AH64_RADIAL_DOWN","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_radialLeft,"$STR_FZA_AH64_RADIAL_LEFT","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_radialRight,"$STR_FZA_AH64_RADIAL_RIGHT","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
 
     // MPD minigame input - generic up/down/left/right/fire, forwarded to fza_mg_fnc_minigameHandleInput.
     CfgUserActionDef(fza_minigame_up,"$STR_FZA_AH64_MINIGAME_UP","$STR_FZA_AH64_MINIGAME_UP_INFO");

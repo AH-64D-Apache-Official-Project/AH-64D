@@ -330,6 +330,9 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        case "fza_ah64_radialMenu": {
+            [_heli] call fza_fnc_radialToggle;
+        };
         case "fza_minigame_up": {
             ["up", true] call fza_mg_fnc_minigameHandleInput;
         };

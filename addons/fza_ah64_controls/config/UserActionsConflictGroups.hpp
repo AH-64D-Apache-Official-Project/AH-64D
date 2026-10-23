@@ -38,7 +38,12 @@ class UserActionsConflictGroups{
             "fza_ah64_SensorSelect_DTV",
             "fza_ah64_SensorSelect_DVO",
             "fza_ah64_tadsLHGLmc",
-            "fza_ah64_collectiveEmergJett"
+            "fza_ah64_collectiveEmergJett",
+            "fza_ah64_radialMenu",
+            "fza_ah64_radialUp",
+            "fza_ah64_radialDown",
+            "fza_ah64_radialLeft",
+            "fza_ah64_radialRight"
         };
     };
 };

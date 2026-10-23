@@ -63,8 +63,8 @@ if (_lmcStartRange == -1) then {
 private _angVelHorizontal = _velXY / _range;
 private _angVelVertical   = _velYZ / _range;
 
-//The aim input moves the head in free look, and the cockpit cursor while it is detached
-private _noAim = freeLook || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})};
+//The aim input moves the head in free look, the cockpit cursor while it is detached, and the radial menu while open
+private _noAim = freeLook || {uiNamespace getVariable ["fza_radialOpen", false]} || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})};
 private _aimX = [inputAction "AimRight" - inputAction "AimLeft", 0] select _noAim;
 private _aimY = [inputAction "AimUp" - inputAction "AimDown", 0] select _noAim;
 
