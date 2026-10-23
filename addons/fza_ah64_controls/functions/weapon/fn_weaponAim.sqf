@@ -178,6 +178,8 @@ if (_was == WAS_WEAPON_MSL && !_sightFixed) then {
     if (_selectedMissile == "fza_agm114l_wep" && _sight == SIGHT_TADS && _handoffData isEqualTo []) then {
         _safety pushBack "TGT DATA?";
     };
+    // A SAL seeker not tracking the TADS designation (fza_hellfire_fnc_backscatter)
+    if (_selectedMissile != "fza_agm114l_wep" && {[_heli] call fza_hellfire_fnc_backscatter}) then {_safety pushBack "BACKSCATTER"};
     if (_targDistance > MSL_BAL_LIMIT) then {_safety pushBack "BAL LIMIT"};
     // Too little G for the rotor to stay clear of the missile
     if (([_heli] call fza_fnc_avionicsLoadFactor) < HYDRA_ACCEL_LIMIT_G) then {_safety pushBack "ACCEL LIMIT"};

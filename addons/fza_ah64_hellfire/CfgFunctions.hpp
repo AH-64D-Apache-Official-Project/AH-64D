@@ -20,6 +20,7 @@ class CfgFunctions
             class arhOnFired              {RECOMPILE_FLAG;};
             class arhSeekerUpdate         {RECOMPILE_FLAG;};
             class arhTargetConstraint     {RECOMPILE_FLAG;};
+            class backscatter             {RECOMPILE_FLAG;};
             class isTargetInSeekerCone    {RECOMPILE_FLAG;};
             class checkLos                {RECOMPILE_FLAG;};
             class trajectoryToAceProfile  {RECOMPILE_FLAG;};
