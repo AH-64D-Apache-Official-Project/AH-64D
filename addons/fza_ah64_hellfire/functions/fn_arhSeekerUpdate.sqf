@@ -133,6 +133,13 @@ if (_canReacquire && {([_projectile, [getPosASL _lastTarget, speed _lastTarget, 
     };
 };
 
+// Never having found a target by the end of its search, or with nowhere to search, it has given up: NO ACQUIRE
+if (isNull _target && {_lastTimeSeen == 0} && {!(_projectile getVariable ["fza_noAcquire", false])}
+    && {_calculatedSearchPos isEqualTo [0, 0, 0] || {((getPosASL _projectile) vectorDistance _calculatedSearchPos) <= ARH_TERMINAL_RANGE}}) then {
+    _projectile setVariable ["fza_noAcquire", true];
+    (vehicle _shooter) setVariable ["fza_ah64_rfNoAcquireAt", CBA_missionTime, true];
+};
+
 if !(isNull _target) then {
     private _chaffCoef = missionNamespace getVariable ["ace_missileguidance_chaffEffectivenessCoef", 1.0];
     if ((CBA_missionTime - _lastCmCheckTime) >= RF_CM_CHECK_INTERVAL_SEEKER) then {

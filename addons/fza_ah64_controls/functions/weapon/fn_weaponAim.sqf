@@ -31,6 +31,10 @@ params["_heli"];
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 #define SCALE_METERS_FEET 3.28084
 #define GUN_FIXED_EL 6
+// Hellfire rate limit deg/s; the ballistic limits m
+#define MSL_RATE_LIMIT 30
+#define MSL_BAL_LIMIT 8000
+#define RKT_BAL_LIMIT 7500
 
 // The blocking inhibit, on the turret's machine: 1 the pylon inhibit weapon, 2 the gun's
 if (_heli turretLocal [0]) then {
@@ -140,14 +144,17 @@ if (_was == WAS_WEAPON_RKT && !_sightFixed) then {
     [_heli, "fza_ah64_rocketSteerAz", round ((_solX atan2 _solY) * 10) / 10] call fza_fnc_updateNetworkGlobal;
 
     // Inhibits, the most serious shown: the pylons failed with the utility hydraulics as on the WPN page,
-    // too little G for the rotor to stay clear, the solution beyond the pylons' travel
+    // too little G for the rotor to stay clear, the solution beyond the pylons' travel. Beyond it is only a warning in
+    // the air; on the ground the rockets could strike it.
     private _rktInhibit = "";
     if !(_pylonMin < _pylonAdjustment && _pylonAdjustment < HYDRA_PYLON_MAX) then {_rktInhibit = "PYLON LIMIT"};
     if (([_heli] call fza_fnc_avionicsLoadFactor) < HYDRA_ACCEL_LIMIT_G) then {_rktInhibit = "ACCEL LIMIT"};
     if (_utilHydFailed || _utilLevelMin) then {_rktInhibit = "PYLON ERROR"};
+    if (_rktInhibit == "" && {_targDistance > RKT_BAL_LIMIT}) then {_rktInhibit = "BAL LIMIT"};
+    // Beyond the pylons' travel in the air only warns
     if (_rktInhibit != "") then {
         _inhibit = _rktInhibit;
-        _block   = 1;
+        if !(_rktInhibit == "PYLON LIMIT" && !_onGnd) then {_block = 1};
     };
 };
 
@@ -158,16 +165,60 @@ if (_was == WAS_WEAPON_MSL && !_sightFixed) then {
     private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 
+    // Safety inhibits stop the launch; performance inhibits only warn the missile may not hit. The first safety inhibit
+    // is shown, else the first performance one.
+    private _safety      = [];
+    private _performance = [];
     private _selectedMissile = _heli getVariable ["fza_ah64_selectedMissile", ""];
-    private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
-    if (_selectedMissile == "fza_agm114l_wep" && _sight == SIGHT_TADS && _handoffData isEqualTo []) then {
-        _inhibit = "TGT DATA?";
-        _block   = 1;
-    };
     // An RF missile cannot be fired until it is powered and aligned (fza_hellfire_fnc_rfPowerUpdate)
     if (_selectedMissile == "fza_agm114l_wep" && {([_heli] call fza_hellfire_fnc_rfState) != RF_STATE_READY}) then {
-        _inhibit = "MSL NOT RDY";
+        _safety pushBack "MSL NOT RDY";
+    };
+    private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
+    if (_selectedMissile == "fza_agm114l_wep" && _sight == SIGHT_TADS && _handoffData isEqualTo []) then {
+        _safety pushBack "TGT DATA?";
+    };
+    if (_targDistance > MSL_BAL_LIMIT) then {_safety pushBack "BAL LIMIT"};
+    // Too little G for the rotor to stay clear of the missile
+    if (([_heli] call fza_fnc_avionicsLoadFactor) < HYDRA_ACCEL_LIMIT_G) then {_safety pushBack "ACCEL LIMIT"};
+    // Beyond the articulation limits: on the ground the missile could strike it
+    if !(_pylonMin <= _pylonAdjustment && _pylonAdjustment <= HYDRA_PYLON_MAX) then {
+        ([_performance, _safety] select _onGnd) pushBack "PYLON LIMIT";
+    };
+    // The launchers over 10 deg off the launch angle, or unknown with the pylons failed
+    private _mslPylon = _firstPylonMags findIf {WEP_TYPE(_x) == "hellfire"};
+    if (_utilHydFailed || _utilLevelMin
+        || {_mslPylon != -1 && {abs ((_heli animationPhase ("pylon" + str (_mslPylon + 1))) - _pylonAdjustment) > 10}}) then {
+        _performance pushBack "PYLON ANGLE";
+    };
+    // The aircraft turning or rolling too hard for the missile to be launched accurately
+    (angularVelocityModelSpace _heli) params ["_pitchRate", "_rollRate", "_yawRate"];
+    if ((deg abs _pitchRate) max (deg abs _rollRate) max (deg abs _yawRate) > MSL_RATE_LIMIT) then {_performance pushBack "RATE LIMIT"};
+    // Roll and yaw: an RF missile 20 deg each, the yaw to the target to be handed over. A SAL missile locked on before
+    // launch 20 deg of roll; locked on after, 10 deg of roll and the target (no target at all too) 7.5 deg off the nose.
+    private _isRf    = _selectedMissile == "fza_agm114l_wep";
+    private _salLobl = !_isRf && {!isNil {[_heli] call fza_hellfire_fnc_salFindLaserDesignation}};
+    if (abs ((_heli call fza_fnc_getPitchBank) # 1) > ([[10, 20] select _salLobl, 20] select _isRf)) then {_performance pushBack "ROLL LIMIT"};
+    private _offNose = {
+        (_heli worldToModelVisual (ASLToAGL _this)) params ["_tx", "_ty"];
+        abs (_tx atan2 _ty)
+    };
+    if (_isRf) then {
+        private _handoffPos = (_heli getVariable ["fza_ah64_fcrNts", [objNull, [0, 0, 0]]]) param [1, [0, 0, 0]];
+        if (_sight == SIGHT_TADS) then {
+            private _loblTarget = _heli getVariable ["fza_ah64_tadsRfHandoffLoblTarget", objNull];
+            _handoffPos = [_handoffData param [0, [0, 0, 0]], getPosASL _loblTarget] select !isNull _loblTarget;
+        };
+        if (_handoffPos isNotEqualTo [0, 0, 0] && {(_handoffPos call _offNose) > 20}) then {_performance pushBack "YAW LIMIT"};
+    } else {
+        if (!_salLobl && {_targPos isEqualTo [0, 0, 0] || {(_targPos call _offNose) > 7.5}}) then {_performance pushBack "YAW LIMIT"};
+    };
+
+    if (_safety isNotEqualTo []) then {
+        _inhibit = _safety # 0;
         _block   = 1;
+    } else {
+        if (_performance isNotEqualTo []) then {_inhibit = _performance # 0};
     };
 };
 
@@ -277,6 +328,15 @@ if (isMultiplayer && {time - (_heli getVariable ["fza_ah64_gunAimPropagated", -1
     _heli setVariable ["fza_ah64_gunAimPropagated", time];
     _heli setVariable ["fza_cannon_gunAim", _heli getVariable "fza_cannon_gunAim", true];
 };
+
+// The gun's trigger pressed straight after a rocket or missile launch
+if (_was == WAS_WEAPON_GUN && {[_heli] call fza_fnc_weaponAltLaunch}) then {
+    _inhibit = "ALT LAUNCH";
+    _block   = 2;
+};
+
+// Not armed at the armament panel, nothing fires (fza_fnc_weaponUpdateSelected)
+if (_was != WAS_WEAPON_NONE && {!(_heli getVariable ["fza_ah64_armSafeArmed", false])}) then {_inhibit = "SAFE"};
 
 [_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_weaponBlock", _block] call fza_fnc_updateNetworkGlobal;

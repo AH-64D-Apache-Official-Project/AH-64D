@@ -22,8 +22,9 @@ if (!isNil "_lasePos") then {
     _attackProfile = "hellfire";
     _tofRange      = _lasePos distance _heli;
 };
-// HFTOF from the launch conditions: the range to the target and the trajectory flown
-[_heli, [_ammo, _magazine, _tofRange, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
+// HFTOF from the launch conditions: the range to the target and the trajectory flown. Locked on after launch, the
+// target has to be lased for the terminal guidance.
+[_heli, [_ammo, _magazine, _tofRange, _attackProfile] call fza_hellfire_fnc_tofEstimate, isNil "_lasePos"] call fza_hellfire_fnc_tofStart;
 
 _launchParams set [3, _attackProfile];
 

@@ -25,6 +25,16 @@ if (_value) then {
         case "defaultAction": {
             _heli setVariable ["fza_ah64_salvofired", 0];
             _heli setVariable ["fza_ah64_burst_fired", 0];
+            // Unless the press was a click of Hatchet's cockpit cursor or of the radial menu: WEAPON?
+            // (fza_ihadss_fnc_htmlModel) while the trigger is held by a crew station holding no weapon, and the press
+            // for ALT LAUNCH (fza_fnc_weaponAltLaunch)
+            if (isNil "hct_interaction_currentButton" && {!(uiNamespace getVariable ["hct_interaction_mouseBlocker", false])}
+                && {!(uiNamespace getVariable ["fza_radialOpen", false])}) then {
+                missionNamespace setVariable ["fza_ah64_triggerPressedAt", CBA_missionTime];
+                private _holds = (_heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE]) != WAS_WEAPON_NONE
+                    && {([_heli] call fza_fnc_getSeat) in (_heli getVariable ["fza_ah64_wasSeats", []])};
+                if (!_holds) then {missionNamespace setVariable ["fza_ah64_weaponQueryUntil", 1e9]};
+            };
         };
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserArm;
@@ -359,6 +369,12 @@ if !(_value) then {
     switch (_name) do {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
+        };
+        // Held a second more after the trigger is let go
+        case "defaultAction": {
+            if ((missionNamespace getVariable ["fza_ah64_weaponQueryUntil", -1]) > CBA_missionTime) then {
+                missionNamespace setVariable ["fza_ah64_weaponQueryUntil", CBA_missionTime + 1];
+            };
         };
         case "fza_minigame_up": {
             ["up", false] call fza_mg_fnc_minigameHandleInput;

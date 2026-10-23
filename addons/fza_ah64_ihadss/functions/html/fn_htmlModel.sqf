@@ -204,9 +204,11 @@ if (!_isPilot && {_sight in [SIGHT_HMD, SIGHT_TADS]}) then {
     private _tadsLos = [[_tadsAz, _tadsEl], _camModel] select (_sight == SIGHT_HMD && !_headsDown);
     _atLimit = _atLimit || {abs (_tadsLos # 0) >= 119.5 || {(_tadsLos # 1) >= 29.5 || {(_tadsLos # 1) <= -59.5}}};
 };
+// The ammunition feed failed is a jam
+private _gunJam    = _was == WAS_WEAPON_GUN && {_heli getHitPointDamage "hit_msnEquip_magAndRobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1};
 private _gunFailed = _was == WAS_WEAPON_GUN && {
-    _heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH
-    || {_heli getHitPointDamage "hit_msnEquip_magAndRobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1}
+    _gunJam
+    || {_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH}
     || {(_heli getVariable ["bmkhs_utilLevel_pct", 1]) < SYS_HYD_MIN_LVL}
     || {(_heli getVariable ["bmkhs_utilHydPsi", 3000]) < SYS_MIN_HYD_PSI}
 };
@@ -291,6 +293,7 @@ switch (_was) do {
     case WAS_WEAPON_GUN: {
         _wpnCtl  = _manual + "GUN";
         _wpnStat = format ["ROUNDS %1", _heli ammo "fza_m230"];
+        if (_gunFailed) then {_wpnStat = ["GUN FAIL", "GUN JAM"] select _gunJam};
     };
     case WAS_WEAPON_RKT: {
         _wpnCtl = [_manual + "RKT", "COOP"] select (_heli getVariable ["fza_ah64_wasCoop", false]);
@@ -301,6 +304,9 @@ switch (_was) do {
         private _qty       = 0;
         if (_invIndex != -1) then {_qty = (_inventory # _invIndex) # 1};
         _wpnStat = format ["%1 NORM %2", _rktCode, _qty];
+        private _total = 0;
+        {if (_x isNotEqualTo []) then {_total = _total + (_x # 1)}} forEach _inventory;
+        if (_total == 0) then {_wpnStat = "NO RKTS"};
         // RTOF=NN until the last volley launched arrives
         private _rtof = (_heli getVariable ["fza_ah64_rocketTofEnd", -1]) - CBA_missionTime;
         if (_rtof > 0) then {
@@ -313,17 +319,32 @@ switch (_was) do {
         _wpnStat = (_heli getVariable ["fza_ah64_hellfireTrajectory", "LO"]) + "-" + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         // Shared by both crew stations (fza_hellfire_fnc_tofStart); each drops the missiles that have arrived from its own copy
         private _tofList = _heli getVariable ["fza_ah64_tofCountDown", []];
-        private _pending = _tofList select {_x > CBA_missionTime};
+        private _pending = _tofList select {_x isEqualType [] && {(_x # 0) > CBA_missionTime}};
         if (count _pending != count _tofList) then {
             _heli setVariable ["fza_ah64_tofCountDown", _pending];
         };
         if (_pending isNotEqualTo []) then {
-            _wpnStat = "HFTOF=" + ([str (ceil ((_pending # 0) - CBA_missionTime)), "00"] call fza_fnc_padString);
+            (_pending # 0) params ["_arrival", "_laseCue"];
+            private _left = ceil (_arrival - CBA_missionTime);
+            private _nn   = [str _left, "00"] call fza_fnc_padString;
+            _wpnStat = "HFTOF=" + _nn;
+            // Locked on after launch, the cue to lase the target for 4 s from 12 s to go (fza_hellfire_fnc_tofStart)
+            if (_laseCue && {_left <= 12} && {_left > 8}) then {_wpnStat = format ["LASE %1 TRGT", _nn]};
         };
+        if (CBA_missionTime - (_heli getVariable ["fza_ah64_mslLaunchAt", -1e6]) < 2) then {_wpnStat = "MSL LAUNCH"};
+        // An RF missile that found no target (fza_hellfire_fnc_arhSeekerUpdate)
+        if (CBA_missionTime - (_heli getVariable ["fza_ah64_rfNoAcquireAt", -1e6]) < 4) then {_wpnStat = "NO ACQUIRE"};
     };
 };
 
+// The trigger pulled by this crew station holding no weapon (fza_fnc_coreControlHandle)
+if (_unit == player && {CBA_missionTime < (missionNamespace getVariable ["fza_ah64_weaponQueryUntil", -1])}) then {_wpnStat = "WEAPON?"};
+
 private _sightStat = "";
+if (_fcrOn && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {_sightStat = "CSCOPE"};
+// The pilot has the TADS as the night vision sensor
+([_heli] call fza_ihadss_fnc_tadsNvs) params ["_tadsNvsMode", "_tadsNvsSeat"];
+if (!_isPilot && {_tadsNvsMode != NVS_MODE_OFF} && {_tadsNvsSeat == "plt"}) then {_sightStat = "PLT TADS"};
 // REMOTE: with missiles actioned, the priority channel on a code other than the LRFD's, so a missile would guide on
 // someone else's laser
 private _priChannel = _heli getVariable ["fza_ah64_laserMissilePrimaryCode", -1];
@@ -333,16 +354,24 @@ if (_priChannel != -1 && {[_heli, WAS_WEAPON_MSL] call fza_fnc_wasSeat
 };
 private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0;
 if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then {_sightStat = "FCR XMIT"};
+// The LRFD code selected has no laser code behind it
+if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLRFDCode", ""], ""]) isEqualType 0)}) then {
+    _sightStat = "RFDCODE?";
+};
 if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};
 if (_atLimit) then {_sightStat = "LIMITS"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};
+// The day TV failed leaves the DVO and FLIR
+if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TV FAIL"};
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};
 
 // A target just stored (fza_fnc_targetingStore) shows for 3 seconds in place of the inhibit message
 private _inhibit = _heli getVariable ["fza_ah64_weaponInhibited", ""];
 (_heli getVariable ["fza_ah64_targetStoreMsg", ["", 0]]) params ["_storeMsg", "_storeUntil"];
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
+// This crew station's own trigger pressed with the gun straight after a rocket or missile launch
+if (_unit == player && {_was == WAS_WEAPON_GUN} && {[_heli] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
 
 _m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, ""]];
 

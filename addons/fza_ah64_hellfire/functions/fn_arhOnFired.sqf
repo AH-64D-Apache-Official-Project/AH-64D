@@ -104,6 +104,8 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
 if (_targPos isNotEqualTo [0, 0, 0]) then {
     _firedEH params ["", "", "", "", "_ammo", "_magazine"];
     [_heli, [_ammo, _magazine, _targPos distance _heli, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
+} else {
+    [_heli, -1] call fza_hellfire_fnc_tofStart;
 };
 
 if (_handoffSource == "FCR") then {

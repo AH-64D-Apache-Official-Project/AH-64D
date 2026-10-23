@@ -89,6 +89,7 @@ class CfgFunctions
         {
             file = "\fza_ah64_controls\functions\weapon";
             class weaponActionSwitch {R;};
+            class weaponAltLaunch {R;};
             class weaponMissileGetSelected {R;};
             class weaponMissileAdvance {R;};
             class weaponMissilePriority {R;};
