@@ -33,7 +33,7 @@ private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
 private _antsIndex = -1;
 if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
 };
 
 private _ctrl = [_heli, _mpdIndex] call fza_mpd_fnc_htmlCtrl;

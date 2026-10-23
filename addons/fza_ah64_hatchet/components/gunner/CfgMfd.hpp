@@ -29,6 +29,7 @@ CFG_BUTTON_DOWN(RMPDfcr, "ctrlref_g_rmpd_fcr", "$STR_FZA_AH64_RMPD_FCR",        
 CFG_BUTTON_DOWN(RMPDwpn, "ctrlref_g_rmpd_wpn", "$STR_FZA_AH64_RMPD_WPN",        0.015, [ARR_3(_this#0, 'rmpd', 'wpn')] call fza_fnc_coreCockpitInteract, "");
 CFG_BUTTON_DOWN(RMPDtsd, "ctrlref_g_rmpd_tsd", "$STR_FZA_AH64_RMPD_TSD",        0.015, [ARR_3(_this#0, 'rmpd', 'tsd')] call fza_fnc_coreCockpitInteract, "");
 CFG_BUTTON_DOWN(RMPDac,  "ctrlref_g_rmpd_ac",  "$STR_FZA_AH64_RMPD_AC",        0.015, [ARR_3(_this#0, 'rmpd', 'ac')]  call fza_fnc_coreCockpitInteract,  "");
+CFG_BUTTON_DOWN(RMPDvid, "ctrlref_g_rmpd_vid", "$STR_FZA_AH64_RMPD_VID",       0.015, [ARR_3(_this#0, 'rmpd', 'vid')] call fza_fnc_coreCockpitInteract,  "");
 //CFG_BUTTON_DOWN(RMPDbrt, "ctrlref_g_rmpd_brt", "$STR_FZA_AH64_RMPD_BRIGHTNESS", 0.015, [ARR_3(_this#0, 'rmpd', 'brt')] call fza_fnc_coreCockpitInteract, "");
 
 //CFG_BUTTON_DOWN(className,    Mempoint,              Text,                 Distance, Code,                                                    Audio
@@ -60,5 +61,6 @@ CFG_BUTTON_DOWN(LMPDfcr, "ctrlref_g_lmpd_fcr",  "$STR_FZA_AH64_LMPD_FCR",       
 CFG_BUTTON_DOWN(LMPDwpn, "ctrlref_g_lmpd_wpn",  "$STR_FZA_AH64_LMPD_WPN",        0.015, [ARR_3(_this#0, 'lmpd', 'wpn')] call fza_fnc_coreCockpitInteract, "");
 CFG_BUTTON_DOWN(LMPDtsd, "ctrlref_g_lmpd_tsd",  "$STR_FZA_AH64_LMPD_TSD",        0.015, [ARR_3(_this#0, 'lmpd', 'tsd')] call fza_fnc_coreCockpitInteract, "");
 CFG_BUTTON_DOWN(LMPDac,  "ctrlref_g_lmpd_ac",   "$STR_FZA_AH64_LMPD_AC",        0.015, [ARR_3(_this#0, 'lmpd', 'ac')]  call fza_fnc_coreCockpitInteract,  "");
+CFG_BUTTON_DOWN(LMPDvid, "ctrlref_g_lmpd_vid",  "$STR_FZA_AH64_LMPD_VID",       0.015, [ARR_3(_this#0, 'lmpd', 'vid')] call fza_fnc_coreCockpitInteract,  "");
 //CFG_BUTTON_DOWN(LMPDbrt, "ctrlref_g_lrmpd_brt", "$STR_FZA_AH64_LMPD_BRIGHTNESS", 0.015, [ARR_3(_this#0, 'lmpd', 'brt')] call fza_fnc_coreCockpitInteract, "");
 // ...existing code...

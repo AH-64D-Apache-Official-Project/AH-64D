@@ -13,10 +13,6 @@ class CfgFunctions
     class fza_ah64_weapons
     {
         tag = "fza_weapons";
-        class pylon {
-            file = "\fza_ah64_weapons\functions\pylon";
-            class pylonSetOwner {R;};
-        };
         class functions {
             file = "\fza_ah64_weapons\functions";
             class init {R;};

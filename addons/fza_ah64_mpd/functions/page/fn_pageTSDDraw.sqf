@@ -121,18 +121,16 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-//FCR Points
-_heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
+//FCR Points: all the radar tracks in the attack phase, its top ones in the nav phase
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
-private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
+private _displayTargets = (_heli getVariable "fza_ah64_fcrDisplayTargets") select [0, [FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, FCR_TARGET_FILE] select _phase];
 private _systemWas      = _heli getVariable "fza_ah64_was";
-private _fcrMode        = _heli getVariable "fza_ah64_fcrMode";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
 private _antsIndex = -1;
 if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
 };
 
 {
@@ -154,18 +152,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
-
-private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-private _tsdFcrState = 0;
-if (_sight == SIGHT_FCR) then {
-    // Footprint symbology: 1 GTM / 2 ATM continuous, +2 for a single scan. RMAP shares the GTM sector, TPM has no footprint.
-    private _footprint = [0, 1, 2, 1, 0] param [_fcrMode, 0];
-    if (_footprint != 0) then {
-        _tsdFcrState = _footprint + ([0, 2] select (_fcrScanState == FCR_MODE_ON_SINGLE));
-    };
-};
-if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
+// The FCR footprint is drawn on the canvas (fza_mpd_fnc_pageTSDDrawCanvas)
 
 //Blue force tracker points
 private _reportingUnits = listRemoteTargets playerSide select {side (_x#0) == playerSide};

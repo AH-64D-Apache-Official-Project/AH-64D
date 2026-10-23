@@ -43,6 +43,7 @@ private _clearanceFt = _heli getVariable ["fza_ah64_fcrTpmClearance", 1];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_PROF),  ["GEOM", "ARITH", "TEST"] select (_heli getVariable ["fza_ah64_fcrTpmProfMode", 0])];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_LINES), str (_heli getVariable ["fza_ah64_fcrTpmLines", 4])];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_CLR),   ["20","50","100","200"] select _clearanceFt];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_TPM_ELEV),  ["FAR", "NEAR"] select (_heli getVariable ["fza_ah64_fcrTpmElev", 0])];
 
 // Wide below 45 kts, narrow above 55 kts — selected by fza_fcr_fnc_stateControl
 private _halfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];

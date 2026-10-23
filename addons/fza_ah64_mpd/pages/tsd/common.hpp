@@ -4,42 +4,6 @@ class vabs_show {
 };
 
 class tsdCommon {
-    class fcr_outlines {
-    #include "fcr.hpp"
-    };
-    class occluders {
-        color[] = {0,0,0,1};
-        class Polygons {
-            type = "polygon";
-            points[] = {
-                {
-                    {{0.0, 0.0}, 1},
-                    {{1.0, 0.0}, 1},
-                    {{1.0, 0.095}, 1},
-                    {{0.0, 0.095}, 1}
-                },
-                {
-                    {{0.0, 0.905}, 1},
-                    {{1.0, 0.905}, 1},
-                    {{1.0, 1.0}, 1},
-                    {{0.0, 1.0}, 1}
-                },
-                {
-                    {{0.0, 0.095}, 1},
-                    {{0.095, 0.095}, 1},
-                    {{0.095, 0.905}, 1},
-                    {{0.0, 0.905}, 1}
-                },
-                {
-                    {{0.905, 0.095}, 1},
-                    {{1.0, 0.095}, 1},
-                    {{1.0, 0.905}, 1},
-                    {{0.905, 0.905}, 1}
-                }
-            };
-        };
-    };
-
     #define MPD_TSD_SCALE_BOX(posX, posY, bone)\
         {"Tsd_Ownship", 1, {posX, posY}, 1},\
         {"Tsd_Ownship", 1, bone, {posX + MPD_TEXT_WIDTH + 0.01, posY}, 1},\
@@ -52,7 +16,7 @@ class tsdCommon {
         width = 3;
         points[] = {
             {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.9}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}, {}, //outside box
-            
+
             {{0.095, 0.115}, 1}, {{0.08, 0.115}, 1}, {}, //Left 5km indicator
             {{0.095, 0.24}, 1}, {{0.08, 0.24}, 1}, {},   //Left 4km indicator
             {{0.095, 0.365}, 1}, {{0.08, 0.365}, 1}, {}, //Left 3km indicator
@@ -99,7 +63,7 @@ class tsdCommon {
         MPD_TEXT_BONE_R(ScaleBox4, "Tsd_Ownship", 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
         MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
     };
-    
+
     class Scale_Boxes_10km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 10000));
         MPD_TEXT_BONE_R(ScaleBox1, "Tsd_Ownship", 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))

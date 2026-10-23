@@ -12,20 +12,21 @@ class CfgDefaultKeysPresets {
                 ccDD    = button info (doubleTap or joyID+btnID)
                 DD      = button local ID
             */
-            fza_ah64_sightSelectHMD[] = {0x2A130002}; //Shift+1
-            fza_ah64_sightSelectTADS[] = {0x2A130003}; //Shift+2
-            fza_ah64_sightSelectFXD[] = {0x2A130004}; //Shift+3
-            fza_ah64_sightSelectFCR[] = {0x2A130005}; //Shift+4
+            fza_ah64_v30_sightSelectHMD[] = {0x2A130002}; //Shift+1
+            fza_ah64_v30_sightSelectTADS[] = {0x2A130003}; //Shift+2
+            fza_ah64_v30_sightSelectFCR[] = {0x2A130004}; //Shift+3
+            fza_ah64_v30_sightSelectLink[] = {0x2A130005}; //Shift+4
+            fza_ah64_sightSlave[] = {0x2A130021}; //Shift+F
             fza_ah64_symbologySelectUp[] = {0x2A130030}; //Shift+B
             fza_ah64_symbologySelectDown[] = {0x1D130030}; //Ctrl+B
             fza_ah64_symbologySelectPress[] = {0x30}; //B
             fza_ah64_laserDesig[] = {0x22}; //G
             fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
-            fza_ah64_targetStoreUpdate[] = {0x2A130022}; //Shift+G
+            fza_ah64_cpgStoreUpdate[] = {0x2A130022}; //Shift+G
             fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
             fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
             fza_ah64_countermeasure[] = {0x2E}; //C
-            fza_ah64_missileAdvance[] = {0x21}; //F
+            fza_ah64_missileAdvance[] = {}; //Unbound: only works in MAN missile MODE
             fza_ah64_wasGun[] = {0x02}; // 1
             fza_ah64_wasRkt[] = {0x03}; // 2
             fza_ah64_wasMsl[] = {0x04}; // 3
@@ -48,6 +49,14 @@ class CfgDefaultKeysPresets {
             fza_ah64_SensorSelect_DTV[]  = {0x38130007}; //Alt+6
             fza_ah64_SensorSelect_DVO[]  = {0x38130008}; //Alt+7
             fza_ah64_collectiveEmergJett[] = {};
+            fza_ah64_lstAuto[]     = {};
+            fza_ah64_lstOff[]      = {};
+            fza_ah64_lstManual[]   = {};
+            fza_ah64_radialMenu[]  = {};
+            fza_ah64_radialUp[]    = {};
+            fza_ah64_radialDown[]  = {};
+            fza_ah64_radialLeft[]  = {};
+            fza_ah64_radialRight[] = {};
 
             // MPD minigame input - arrow keys, since the numpad is Arma's freelook
             fza_minigame_up[]     = {0xC8}; // Up arrow

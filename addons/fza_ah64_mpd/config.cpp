@@ -15,7 +15,9 @@ class CfgPatches
 
 #include "ui\baseControls.hpp"
 #include "ui\ctrls.hpp"
+#include "ui\videoGroup.hpp"
 #include "ui\RscFzaAH64MPD.hpp"
+#include "ui\RscFzaMPDVideo.hpp"
 
 
 #include "headers\tsd.hpp"

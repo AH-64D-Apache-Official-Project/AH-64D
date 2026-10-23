@@ -37,6 +37,9 @@ switch (_control) do {
     case "fcr": {
         [_heli, _mpdIndex, "fcr"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "vid": {
+        [_heli, _mpdIndex, "vid"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "ac": {
         private _curPage = [_heli, _mpdIndex] call fza_mpd_fnc_currentPage;
         if (_curPage == "eng") then {

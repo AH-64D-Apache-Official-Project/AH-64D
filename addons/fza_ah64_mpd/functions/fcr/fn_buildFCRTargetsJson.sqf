@@ -12,7 +12,7 @@ Description:
 Parameters:
     _heli           - The helicopter
     _displayTargets - Pre-resolved array from fza_ah64_fcrDisplayTargets
-                      Record: [pos, type, moving, obj, aziAngle, range, isGhost, lastPaintedTime]
+                      Record: [pos, type, moving, obj, aziAngle, range, dim]
     _scanPos        - World position of the helicopter at last scan
     _ntsIndex       - Index of NTS target in _displayTargets (-1 = none)
     _antsIndex      - Index of ANTS target in _displayTargets (-1 = none)
@@ -65,7 +65,7 @@ private _texToKey = {
 
 private _tgtParts = [];
 {
-    _x params ["_tgtPos", "_type", "_moving", "_target", "_aziAngle", "_range", "_isGhost", ["_lastPainted", 0]];
+    _x params ["_tgtPos", "_type", "_moving", "_target", "_aziAngle", "_range", "_dim"];
 
     if (_filterAirOnly && _type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then { continue; };
 
@@ -83,9 +83,6 @@ private _tgtParts = [];
         _iconKeys set [_ident, _keys];
     };
 
-    // Stale = 5s movers / 30s static since last painted; scanning re-stamps every cycle
-    private _stale = (CBA_missionTime - _lastPainted) >= ([FCR_STALE_STATIC_SEC, FCR_STALE_MOVING_SEC] select _moving);
-
     // ATM's PPI wedge rotates to the slewed bearing, so symbols sit at nose-relative
     // azimuth (centerline-relative angle + bias); GTM/RMAP pass 0 and stay centerline-referenced
     _tgtParts pushBack format ['{"a":%1,"r":%2,"icon":"%3","ov":"%4","stale":%5}',
@@ -93,9 +90,10 @@ private _tgtParts = [];
         (_range / _maxRange) toFixed 4,
         _keys # 0,
         _keys # 1,
-        [0, 1] select _stale
+        // Dim below the scan-to-scan correlation for a bright symbol (fza_fcr_fnc_mergeTargets)
+        [0, 1] select _dim
     ];
-} forEach (_displayTargets select [0, (count _displayTargets) min 16]);
+} forEach (_displayTargets select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]);
 
 private _shotParts = [];
 {

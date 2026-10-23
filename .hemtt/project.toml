@@ -6,10 +6,10 @@ mainprefix = "x"
 author = "AH-64 Development team"
 
 [version]
-major = 2
-minor = 3
+major = 3
+minor = 0
 patch = 0
-build = 1
+build = 0
 git_hash = 0
 
 [files]

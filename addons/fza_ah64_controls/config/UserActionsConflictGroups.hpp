@@ -2,16 +2,19 @@ class UserActionsConflictGroups{
     class CollisionGroups
     {
         fza_ah64_collisionGroups[] = {
-            "fza_ah64_sightSelectHMD",
-            "fza_ah64_sightSelectTADS",
-            "fza_ah64_sightSelectFXD",
-            "fza_ah64_sightSelectFCR",
+            "fza_ah64_v30_sightSelectHMD",
+            "fza_ah64_v30_sightSelectTADS",
+            "fza_ah64_v30_sightSelectFCR",
+            "fza_ah64_v30_sightSelectLink",
+            "fza_ah64_sightSlave",
+            "fza_ah64_nvsSelectPnvs",
+            "fza_ah64_nvsSelectTads",
             "fza_ah64_symbologySelectUp",
             "fza_ah64_symbologySelectDown",
             "fza_ah64_symbologySelectPress",
             "fza_ah64_laserDesig",
             "fza_ah64_fcrSingleScan",
-            "fza_ah64_targetStoreUpdate",
+            "fza_ah64_cpgStoreUpdate",
             "fza_ah64_waypointIncrease",
             "fza_ah64_waypointDecrease",
             "fza_ah64_missileAdvance",
@@ -35,7 +38,15 @@ class UserActionsConflictGroups{
             "fza_ah64_SensorSelect_DTV",
             "fza_ah64_SensorSelect_DVO",
             "fza_ah64_tadsLHGLmc",
-            "fza_ah64_collectiveEmergJett"
+            "fza_ah64_collectiveEmergJett",
+            "fza_ah64_lstAuto",
+            "fza_ah64_lstOff",
+            "fza_ah64_lstManual",
+            "fza_ah64_radialMenu",
+            "fza_ah64_radialUp",
+            "fza_ah64_radialDown",
+            "fza_ah64_radialLeft",
+            "fza_ah64_radialRight"
         };
     };
 };

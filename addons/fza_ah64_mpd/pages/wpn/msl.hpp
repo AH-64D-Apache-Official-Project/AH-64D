@@ -1,11 +1,57 @@
 class VABs_Mode_Msl {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3));
+    // This crew station's missile MODE, NORM / MAN / RIPL, for SAL and RF (fza_fnc_weaponMissileAdvance), its box sized
+    // to the text
     class hide_mode {
-        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 0), C_NOT(C_MPD_USER(MFD_IND_WPN_MSL_SELECTED_TYPE))));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 0));
         MPD_TEXT_L(Mode_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MODE"))
-        MPD_BOX_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 3)
-        MPD_TEXT_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MAN"))
-        MPD_BOX_BAR_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
+        class ModeBox_3 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MODE), 1));
+            MPD_BOX_L(ModeBox_3, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 3)
+        };
+        class ModeBox_4 {
+            condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MODE), 1)));
+            MPD_BOX_L(ModeBox_4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 4)
+        };
+        MPD_TEXT_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MSL_MODE))
+    };
+
+    // The MODE pop-out: NORM on R1 above MODE, MAN on R2, RIPL on R3 below it, the selection boxed
+    class ModeSelect {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 2));
+        class Box {
+            color[] = {1,1,1,1};
+            type = "line";
+            width = 3;
+            points[] = {
+                {{0.98, (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y)/2 + (MPD_TEXT_HEIGHT / 2)} , 1},
+                {{1 - (MPD_TEXT_WIDTH * 6), (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y)/2 + (MPD_TEXT_HEIGHT / 2)}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y + (MPD_TEXT_HEIGHT * 2.3) + (MPD_TEXT_HEIGHT / 2)}, 1},
+                {},
+                {{1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - (MPD_TEXT_HEIGHT * 2.3) + (MPD_TEXT_HEIGHT / 2)}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 6), 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1},
+                {{0.98, 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1}
+            };
+        };
+        MPD_TEXT_L(MODETEXT_01, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT * 2 + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("M"))
+        MPD_TEXT_L(MODETEXT_02, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("O"))
+        MPD_TEXT_L(MODETEXT_03, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y + MPD_TEXT_HEIGHT - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("D"))
+        MPD_TEXT_L(MODETEXT_04, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y + MPD_TEXT_HEIGHT * 2 - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("E"))
+        MPD_TEXT_L(NORM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("NORM"))
+        MPD_TEXT_L(MAN,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("MAN"))
+        MPD_TEXT_L(RIPL, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("RIPL"))
+        class Selected_mode_NORM {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MODE), 0));
+            MPD_BOX_L(Mode_select_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, 4)
+        };
+        class Selected_mode_MAN {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MODE), 1));
+            MPD_BOX_L(Mode_select_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, 3)
+        };
+        class Selected_mode_RIPL {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MODE), 2));
+            MPD_BOX_L(Mode_select_3, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 4)
+        };
     };
 };
 
@@ -25,7 +71,7 @@ class VABs_Mode_Msl_SAL {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_PRI_CH), 0));
             MPD_BOX_R(Pri, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 4)
             MPD_TEXT_R(Pri, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(NONE))
-            
+
             // If Pri is doesn't have a code then alt is barred out
             MPD_BOX_BAR_R(AltBar, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
         }
@@ -79,7 +125,7 @@ class VABs_Mode_Msl_SAL {
                 MPD_TEXT_R(Alt, MPD_POS_BUTTON_L_X, posY - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(__EVAL(format["CHAN %1" COMMA chanNum]))) \
             }; \
             MPD_TEXT_R(Chan, MPD_POS_BUTTON_L_X, posY + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(codeStrIndex)) \
-        }; 
+        };
     #define NONE_SELECT(posY,selectIndex) \
         class ChanNone { \
             class Selected { \
@@ -87,10 +133,10 @@ class VABs_Mode_Msl_SAL {
                 MPD_BOX_R(Selected, MPD_POS_BUTTON_L_X, posY + 0.5 * MPD_TEXT_HEIGHT, 4) \
             }; \
             MPD_TEXT_R(Chan, MPD_POS_BUTTON_L_X, posY + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("NONE")) \
-        } 
+        }
     class PriChanSelect {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MENU), 1));
-        
+
         class Box {
             type = "line";
             width = 3;
@@ -105,6 +151,7 @@ class VABs_Mode_Msl_SAL {
                 };
         };
 
+        MPD_MASK_V_R(Priority, 0.16, 0.445-4*MPD_TEXT_HEIGHT, 0.445+3*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(Label_1, 0.16, 0.445-4*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("P"))
         MPD_TEXT_R(Label_2, 0.16, 0.445-3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("R"))
         MPD_TEXT_R(Label_3, 0.16, 0.445-2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("I"))
@@ -122,7 +169,7 @@ class VABs_Mode_Msl_SAL {
     };
     class AltChanSelect {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_MENU), 2));
-        
+
         class Box {
             type = "line";
             width = 3;
@@ -137,6 +184,7 @@ class VABs_Mode_Msl_SAL {
                 };
         };
 
+        MPD_MASK_V_R(Alternate, 0.16, 0.445-4.5*MPD_TEXT_HEIGHT, 0.445+3.5*MPD_TEXT_HEIGHT)
         MPD_TEXT_R(Label_1, 0.16, 0.445-4.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
         MPD_TEXT_R(Label_2, 0.16, 0.445-3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
         MPD_TEXT_R(Label_3, 0.16, 0.445-2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
@@ -206,6 +254,7 @@ class VABs_Mode_Msl_SAL {
             };
         };
         //TRAJ Box Label
+        MPD_MASK_V_L(Traj, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT * 2 + (MPD_TEXT_HEIGHT / 2), MPD_POS_BUTTON_LR_2_Y + MPD_TEXT_HEIGHT * 2 - (MPD_TEXT_HEIGHT / 2))
         MPD_TEXT_L(TRAJTEXT_01, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT * 2 + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("T"))
         MPD_TEXT_L(TRAJTEXT_02, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT + (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("R"))
         MPD_TEXT_L(TRAJTEXT_03, 1 - (MPD_TEXT_WIDTH * 6), MPD_POS_BUTTON_LR_2_Y + MPD_TEXT_HEIGHT - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("A"))
@@ -294,9 +343,22 @@ class VABs_Mode_Msl_Rf {
     condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3), C_MPD_USER(MFD_IND_WPN_MSL_SELECTED_TYPE)));
     MPD_TEXT_R(Msl_Pwr_All, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("ALL"))
     MPD_TEXT_R(Msl_Pwr_Auto, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("AUTO"))
-    MPD_BOX_R(Msl_Pwr_Auto, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 4)
     MPD_TEXT_R(Msl_Pwr_None, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("NONE"))
+    // The MSL PWR selection boxed (fza_hellfire_fnc_rfPowerUpdate)
+    class Msl_Pwr_Box_All {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_PWR), MSL_PWR_ALL));
+        MPD_BOX_R(Msl_Pwr_All, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
+    };
+    class Msl_Pwr_Box_Auto {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_PWR), MSL_PWR_AUTO));
+        MPD_BOX_R(Msl_Pwr_Auto, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 4)
+    };
+    class Msl_Pwr_Box_None {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_PWR), MSL_PWR_NONE));
+        MPD_BOX_R(Msl_Pwr_None, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 4)
+    };
 
+    MPD_MASK_V_R(MslPwr, 0.11, MPD_POS_BUTTON_LR_2_Y - 3 * MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_2_Y + 3 * MPD_TEXT_HEIGHT)
     MPD_TEXT_R(Msl_Pwr_Label_1, 0.11, MPD_POS_BUTTON_LR_2_Y - 3 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
     MPD_TEXT_R(Msl_Pwr_Label_2, 0.11, MPD_POS_BUTTON_LR_2_Y - 2 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
     MPD_TEXT_R(Msl_Pwr_Label_3, 0.11, MPD_POS_BUTTON_LR_2_Y - 1 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
@@ -320,11 +382,15 @@ class VABs_Mode_Msl_Rf {
     MPD_TEXT_R(LOBL_INHIBIT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("LOBL INHIBIT"))
     MPD_TEXT_R(SECOND_TARGET_INHIBIT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("2ND TARGET INHIBIT"))
 
-    MPD_TEXT_L(Type_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TYPE"))
-    MPD_BOX_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 2)
-    MPD_TEXT_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
-    class TypeBarrierFcr {
-        condition = C_COND(C_MPD_USER(MFD_IND_WPN_MSL_TYPE_BARRIER));
-        MPD_BOX_BAR_L(TypeFcr, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
+    // Hidden under a pop-out (the MODE pop-out's NORM is on R1)
+    class Hide_type_rf {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 0));
+        MPD_TEXT_L(Type_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TYPE"))
+        MPD_BOX_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 2)
+        MPD_TEXT_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
+        class TypeBarrierFcr {
+            condition = C_COND(C_MPD_USER(MFD_IND_WPN_MSL_TYPE_BARRIER));
+            MPD_BOX_BAR_L(TypeFcr, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
+        };
     };
 };

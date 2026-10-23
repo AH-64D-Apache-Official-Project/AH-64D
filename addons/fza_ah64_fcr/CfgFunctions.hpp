@@ -26,12 +26,18 @@ class CfgFunctions
             class buildTPMData {RECOMPILE_FLAG;};
             class applyScanSize {RECOMPILE_FLAG;};
             class getScanTiming {RECOMPILE_FLAG;};
+            class setCenterline {RECOMPILE_FLAG;};
+            class slaveCenterline {RECOMPILE_FLAG;};
             class slewCenterline {RECOMPILE_FLAG;};
+            class releaseOwner {RECOMPILE_FLAG;};
+            class stopScan {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
             class setMode {RECOMPILE_FLAG;};
             class updateTPMObstacles {RECOMPILE_FLAG;};
             class videoClear {RECOMPILE_FLAG;};
             class tpmSample {RECOMPILE_FLAG;};
+            class revealOffset {RECOMPILE_FLAG;};
+            class targetShown {RECOMPILE_FLAG;};
         };
     };
 };

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponMissileCycle
+Function: fza_fnc_weaponMissileCycleType
 
 Description:
     Cycles through the available hellfire types
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli] call fza_fnc_weaponMissileCycle
+    [_heli] call fza_fnc_weaponMissileCycleType
 
 Author:
     mattysmith22

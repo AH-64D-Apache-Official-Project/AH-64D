@@ -20,6 +20,7 @@ class CfgFunctions
             class arhOnFired              {RECOMPILE_FLAG;};
             class arhSeekerUpdate         {RECOMPILE_FLAG;};
             class arhTargetConstraint     {RECOMPILE_FLAG;};
+            class backscatter             {RECOMPILE_FLAG;};
             class isTargetInSeekerCone    {RECOMPILE_FLAG;};
             class checkLos                {RECOMPILE_FLAG;};
             class trajectoryToAceProfile  {RECOMPILE_FLAG;};
@@ -28,6 +29,10 @@ class CfgFunctions
             class salFindLaserDesignation {RECOMPILE_FLAG;};
             class salCanLockBeforeLaunch  {RECOMPILE_FLAG;};
             class checkChaffDefeat        {RECOMPILE_FLAG;};
+            class tofEstimate             {RECOMPILE_FLAG;};
+            class tofStart                {RECOMPILE_FLAG;};
+            class rfPowerUpdate           {RECOMPILE_FLAG;};
+            class rfState                 {RECOMPILE_FLAG;};
         };
     };
 };

@@ -211,7 +211,34 @@ class CfgVehicles {
                     pointDirection   = "driverview_dir";
                     renderQuality    = 2;
                     renderVisionMode = 2; //TI HDU
-                    fov              = 0.3;
+                    fov              = 0.6; //Just covers the HDU lens; fza_ihadss_fnc_draw sizes the picture from this and ViewPilot initFov
+                };
+            };
+            // TADS FLIR picture in the CPG's monocle and on the MPDs; turret[] takes the TADS zoom, and the vision mode is
+            // set, as the turret's own vision mode only follows the sight while looking through it
+            class gunnertads_flir {
+                renderTarget = "fza_ah64_tadscam_flir";
+                class View01 {
+                    pointPosition    = "laserEnd";
+                    pointDirection   = "laserBegin";
+                    renderQuality    = 2;
+                    renderVisionMode = 2;
+                    turret[]         = {0};
+                };
+            };
+            // The DTV picture, fza_ah64_tadscam_dtv, is rendered by a script camera (fza_ihadss_fnc_dtvCamera) to be
+            // monochrome: a render target from here takes no picture effect, and no render target can be given one. It must
+            // not also be one here, as both would render to the same surface.
+            // The TADS FLIR as a night vision sensor: fixed at the PNVS's view, so its picture is conformal in the HDU like
+            // the PNVS's (unity magnification); fza_ihadss_fnc_draw sizes it from this fov
+            class gunnertads_nvs {
+                renderTarget = "fza_ah64_tadscam_nvs";
+                class View01 {
+                    pointPosition    = "laserEnd";
+                    pointDirection   = "laserBegin";
+                    renderQuality    = 2;
+                    renderVisionMode = 2;
+                    fov              = 0.6;
                 };
             };
         };

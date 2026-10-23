@@ -13,16 +13,13 @@ Examples:
     statement="[_heli] fza_fnc_weaponUpdateSelected
 
 Author:
-    
+
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 if !(_heli turretLocal [0]) exitWith {};
 
-if (player == driver _heli && !isPlayer gunner _heli && !isManualFire _heli) then {
-    player action ["ManualFire", vehicle player];
-};
-
+// Manual fire is set from the crew stations holding the weapon (fza_fnc_wasUpdate)
 
 
 switch (_heli getVariable "fza_ah64_was") do {

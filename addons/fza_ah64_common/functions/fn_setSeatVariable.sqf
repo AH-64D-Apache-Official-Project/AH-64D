@@ -11,6 +11,8 @@ Parameters:
   _value - The value to set
   _seat - The seat of the helicopter to set the variable to (default: player seat) 
       can also be "plt" or "cpg"
+  _swap - The other seat's variable instead
+  _global - Broadcast the value (default: false)
 
 Returns:
   ...
@@ -21,6 +23,6 @@ Examples:
 Author:
   mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_key", "_value", ["_seat", player], ["_swap", false]];
+params ["_heli", "_key", "_value", ["_seat", player], ["_swap", false], ["_global", false]];
 
-_heli setVariable [format["%1_%2", _key, [_heli, _seat, _swap] call fza_fnc_getSeat], _value];
+_heli setVariable [format["%1_%2", _key, [_heli, _seat, _swap] call fza_fnc_getSeat], _value, _global];

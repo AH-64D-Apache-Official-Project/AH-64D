@@ -163,7 +163,8 @@ private _TASTable_FAT = [[-40,  _TASTable0 # 1, _TASTable0 # 2, _TASTable0 # 3, 
                          [ 40,  _TASTable4 # 1, _TASTable4 # 2, _TASTable4 # 3, _TASTable4 # 4, _TASTable4 # 5, _TASTable4 # 6]];
 private _TASTable = [_TASTable_FAT, _fat] call bmkhs_fnc_mathLinearInterp;
 //Set TAS variables
-_heli setVariable ["fza_ah64_tas_vne",    _TASTable # 1];
+// Shared so both crew stations see it (IHADSS airspeed box); only sent when the rounded value changes
+[_heli, "fza_ah64_tas_vne", round (_TASTable # 1)] call fza_fnc_updateNetworkGlobal;
 _heli setVariable ["fza_ah64_tas_vsse",   _TASTable # 2];
 
 _heli setVariable ["fza_ah64_tas_rngTas", _TASTable # 3];

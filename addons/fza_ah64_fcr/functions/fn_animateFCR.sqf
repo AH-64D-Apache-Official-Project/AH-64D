@@ -3,7 +3,7 @@ Function: fza_fcr_fnc_animateFCR
 
 Description:
     Drives the FCR dish rotation each frame to match the current scan state.
-    Off/Fault: return to boresight. Cueing: step to scan start. Active: track bar.
+    Off: turn to the centerline. Fault: lock in place. Cueing: step to scan start. Active: track bar.
 
 Parameters:
     _heli - The helicopter to act upon
@@ -52,13 +52,20 @@ private _stepTowards = {
     _heli animateSource ["longbow", _next, true];
 };
 
-// Monotonic from scan start — must not use _time (last update stamp) as it resets every half-cycle
+// Monotonic from scan start — must not use the last update stamp, which is only set as each cycle completes
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 
-// Off / Fault: return to boresight
-if (_fcrScanState == FCR_MODE_OFF || _fcrScanState == FCR_MODE_FAULT) exitWith {
+// Fault: the antenna locks where it is
+if (_fcrScanState == FCR_MODE_FAULT) exitWith {
     _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-    [([0] call _applyModeSign), _dishSpeed] call _stepTowards;
+};
+
+// Off: turn to the centerline, as the arrows and slaving move it, so a scan starts from there. ATM centres on the
+// negated bias, as the sweep and the MFD wedge do.
+if (_fcrScanState == FCR_MODE_OFF) exitWith {
+    _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
+    private _restDeg = [_fcrAzBias, -_fcrAzBias] select (_fcrMode == FCR_DISP_MODE_ATM);
+    [([_restDeg * (pi / 180)] call _applyModeSign), _dishSpeed] call _stepTowards;
 };
 
 // Cueing: step toward scan start position
@@ -87,7 +94,6 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
         if (local _heli) then {
             [_heli, "fza_ah64_fcrState", [_fcrScanState, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
         };
         _heli animateSource ["longbow", _startRad, true];
     };

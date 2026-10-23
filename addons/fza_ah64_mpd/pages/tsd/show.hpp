@@ -100,7 +100,7 @@ class AtkOnly {
         class Polygons {
             type = "polygon";
             points[] = {
-                MPD_TEXT_OCCLUDER_C("Null", 0.5-(8 * MPD_TEXT_WIDTH), 0.12, 12),
+                MPD_POINTS_BOX_POLY("Null", 0.5-(6 * MPD_TEXT_WIDTH), 0.12, (12 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),
                 MPD_TEXT_OCCLUDER_L("Null", MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y,20),
                 MPD_TEXT_OCCLUDER_C("Null", MPD_POS_BUTTON_TB_6_X+0.01, MPD_POS_BUTTON_B_Y, 7),
                 MPD_TEXT_OCCLUDER_C("Null", MPD_POS_BUTTON_TB_4_X+0.022, MPD_POS_BUTTON_B_Y, 4),
@@ -153,7 +153,7 @@ class NavOnly {
         class Polygons {
             type = "polygon";
             points[] = {
-                MPD_TEXT_OCCLUDER_C("Null", 0.5-(8 * MPD_TEXT_WIDTH), 0.12, 16),
+                MPD_POINTS_BOX_POLY("Null", 0.5-(8 * MPD_TEXT_WIDTH), 0.12, (16 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),
                 MPD_TEXT_OCCLUDER_L("Null", MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, 9),
                 MPD_TEXT_OCCLUDER_R("Null", MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 13)
             };

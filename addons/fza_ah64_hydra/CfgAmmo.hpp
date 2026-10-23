@@ -55,7 +55,10 @@ class CfgAmmo {
         thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
-        sideAirFriction             = 0.004;
+        // None: the rocket's body keeps its launch direction, so side friction only pulls the velocity back up onto it,
+        // a lift the real rocket lacks. Without it the pylons reach their +4 deg limit at about 4.5 km from a level hover,
+        // and 7.5 km takes about 5 deg of nose up on top, as flown
+        sideAirFriction             = 0;
         timeToLive                  = 17;
         whistleDist                 = 24;
 

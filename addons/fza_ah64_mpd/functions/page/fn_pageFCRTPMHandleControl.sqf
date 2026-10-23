@@ -12,6 +12,7 @@ switch _control do {
     // t6 UTIL — FCR utility page not implemented
     case "l1": {
         // PROF — cycle profile mode: GEOM(0) → ARITH(1) → TEST(2) → GEOM(0)
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
         private _profMode = _heli getVariable ["fza_ah64_fcrTpmProfMode", 0];
         _heli setVariable ["fza_ah64_fcrTpmProfMode", (_profMode + 1) mod 3, true];
     };
@@ -22,10 +23,14 @@ switch _control do {
     };
     case "r1": {
         // CLEARANCE — cycle clearance plane: 20ft(0) → 50ft(1) → 100ft(2) → 200ft(3) → 20ft(0)
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
         private _clearance = _heli getVariable ["fza_ah64_fcrTpmClearance", 1];
         _heli setVariable ["fza_ah64_fcrTpmClearance", (_clearance + 1) mod 4, true];
     };
     case "r2": {
-        // ELEV — placeholder (antenna elevation not applicable in TPM context)
+        // ELEV — antenna elevation FAR (-0.5 deg, high terrain out to 2500 m) or NEAR (-3 deg, rain and short range)
+        if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
+        private _elev = _heli getVariable ["fza_ah64_fcrTpmElev", 0];
+        _heli setVariable ["fza_ah64_fcrTpmElev", 1 - _elev, true];
     };
 };

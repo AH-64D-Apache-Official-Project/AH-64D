@@ -1,8 +1,4 @@
-#ifdef __A3_DEBUG__
-#define RECOMPILE_FLAG recompile = 1
-#else
 #define RECOMPILE_FLAG recompile = 0
-#endif
 class CfgFunctions
 {
     class fza_ah64_minigames {
