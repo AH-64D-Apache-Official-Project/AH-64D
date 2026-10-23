@@ -13,7 +13,7 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 // While the TADS is an NVS sensor it is not a sight, and is the FLIR in wide
 private _tadsNvsMode = ([_heli] call fza_ihadss_fnc_tadsNvs) # 0;
 private _tadsNvsBlocked = [
-    "fza_ah64_sightSelectTADS", "fza_ah64_sightSelectLink", "fza_ah64_tadsLHGLmc", "zoomIn", "zoomOut", "NightVision",
+    "fza_ah64_v30_sightSelectTADS", "fza_ah64_v30_sightSelectLink", "fza_ah64_tadsLHGLmc", "zoomIn", "zoomOut", "NightVision",
     "fza_ah64_tadsLHGFov_W", "fza_ah64_tadsLHGFov_M", "fza_ah64_tadsLHGFov_N", "fza_ah64_tadsLHGFov_Z",
     "fza_ah64_SensorSelect_FLIR", "fza_ah64_SensorSelect_DTV", "fza_ah64_SensorSelect_DVO"
 ];
@@ -39,13 +39,13 @@ if (_value) then {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserArm;
         };
-        case "fza_ah64_sightSelectHMD": {
+        case "fza_ah64_v30_sightSelectHMD": {
             [_heli, "fza_ah64_sight", SIGHT_HMD, player, false, true] call fza_fnc_setSeatVariable;
             // Given up by its owner, the FCR's scan stops
             [_heli, [_heli] call fza_fnc_getSeat] call fza_fcr_fnc_releaseOwner;
             if (player == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
-        case "fza_ah64_sightSelectTADS": {
+        case "fza_ah64_v30_sightSelectTADS": {
             // The TADS is the CPG's sight; selected again it stays as it is, TADS-L included, as LINK is what unlinks
             if (player == driver _heli) exitWith {};
             if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_TADS) exitWith {};
@@ -53,7 +53,7 @@ if (_value) then {
             [_heli, "cpg"] call fza_fcr_fnc_releaseOwner;
             if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
-        case "fza_ah64_sightSelectLink": {
+        case "fza_ah64_v30_sightSelectLink": {
             // The CPG's, with an FCR fitted and TADS or FCR as the sight; a second press unlinks
             if (player != gunner _heli || {_heli animationPhase "fcr_enable" != 1}) exitWith {};
             private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
@@ -82,7 +82,7 @@ if (_value) then {
             private _other = ["plt", "cpg"] select (_seat == "plt");
             _heli setVariable ["fza_ah64_nvsTadsSeat", [_other, _seat] select (_name == "fza_ah64_nvsSelectTads"), true];
         };
-        case "fza_ah64_sightSelectFCR": {
+        case "fza_ah64_v30_sightSelectFCR": {
             if (_heli animationPhase "fcr_enable" != 1) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_FCR, player, false, true] call fza_fnc_setSeatVariable;
             // Selected by the CPG, or the FCR taken by the pilot, the CPG's link drops

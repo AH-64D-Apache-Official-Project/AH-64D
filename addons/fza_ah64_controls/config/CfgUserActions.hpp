@@ -16,10 +16,10 @@ class fza_ah64_cockpit_##system##_##control {\
 #define COCKPIT_CONTROL_SEP()
 
 class CfgUserActions {
-    CfgUserActionDef(fza_ah64_sightSelectHMD,"$STR_FZA_AH64_SIGHT_SELECT_HMD","$STR_FZA_AH64_SIGHT_SELECT_HMD_INFO");
-    CfgUserActionDef(fza_ah64_sightSelectTADS,"$STR_FZA_AH64_SIGHT_SELECT_TADS","$STR_FZA_AH64_SIGHT_SELECT_TADS_INFO");
-    CfgUserActionDef(fza_ah64_sightSelectFCR,"$STR_FZA_AH64_SIGHT_SELECT_FCR","$STR_FZA_AH64_SIGHT_SELECT_FCR_INFO");
-    CfgUserActionDef(fza_ah64_sightSelectLink,"$STR_FZA_AH64_SIGHT_SELECT_LINK","$STR_FZA_AH64_SIGHT_SELECT_LINK_INFO");
+    CfgUserActionDef(fza_ah64_v30_sightSelectHMD,"$STR_FZA_AH64_SIGHT_SELECT_HMD","$STR_FZA_AH64_SIGHT_SELECT_HMD_INFO");
+    CfgUserActionDef(fza_ah64_v30_sightSelectTADS,"$STR_FZA_AH64_SIGHT_SELECT_TADS","$STR_FZA_AH64_SIGHT_SELECT_TADS_INFO");
+    CfgUserActionDef(fza_ah64_v30_sightSelectFCR,"$STR_FZA_AH64_SIGHT_SELECT_FCR","$STR_FZA_AH64_SIGHT_SELECT_FCR_INFO");
+    CfgUserActionDef(fza_ah64_v30_sightSelectLink,"$STR_FZA_AH64_SIGHT_SELECT_LINK","$STR_FZA_AH64_SIGHT_SELECT_LINK_INFO");
     CfgUserActionDef(fza_ah64_sightSlave,"$STR_FZA_AH64_SIGHT_SLAVE","$STR_FZA_AH64_SIGHT_SLAVE_INFO");
     CfgUserActionDef(fza_ah64_nvsSelectPnvs,"$STR_FZA_AH64_NVS_SELECT_PNVS","$STR_FZA_AH64_NVS_SELECT_PNVS_INFO");
     CfgUserActionDef(fza_ah64_nvsSelectTads,"$STR_FZA_AH64_NVS_SELECT_TADS","$STR_FZA_AH64_NVS_SELECT_TADS_INFO");

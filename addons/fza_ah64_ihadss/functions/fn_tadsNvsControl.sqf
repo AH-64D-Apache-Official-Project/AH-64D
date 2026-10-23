@@ -58,7 +58,7 @@ if (_mode != NVS_MODE_OFF && {player == gunner _heli}) then {
     private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
     if (isNil "_sight") then {_sight = SIGHT_HMD};
     if (_sight == SIGHT_TADS) then {
-        ["fza_ah64_sightSelectHMD", true] call fza_fnc_coreControlHandle;
+        ["fza_ah64_v30_sightSelectHMD", true] call fza_fnc_coreControlHandle;
     };
     if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
 };

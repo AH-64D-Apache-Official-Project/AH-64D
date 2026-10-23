@@ -2,10 +2,10 @@ class UserActionsConflictGroups{
     class CollisionGroups
     {
         fza_ah64_collisionGroups[] = {
-            "fza_ah64_sightSelectHMD",
-            "fza_ah64_sightSelectTADS",
-            "fza_ah64_sightSelectFCR",
-            "fza_ah64_sightSelectLink",
+            "fza_ah64_v30_sightSelectHMD",
+            "fza_ah64_v30_sightSelectTADS",
+            "fza_ah64_v30_sightSelectFCR",
+            "fza_ah64_v30_sightSelectLink",
             "fza_ah64_sightSlave",
             "fza_ah64_nvsSelectPnvs",
             "fza_ah64_nvsSelectTads",

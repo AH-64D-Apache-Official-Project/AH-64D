@@ -8,10 +8,10 @@ class UserActionGroups {
     class fza_ah64 {// unique classname for your category
         name = "$STR_FZA_AH64_OFFICIAL_PROJECT"; // display name of your category
         group[] = {
-            "fza_ah64_sightSelectHMD",
-            "fza_ah64_sightSelectTADS",
-            "fza_ah64_sightSelectFCR",
-            "fza_ah64_sightSelectLink",
+            "fza_ah64_v30_sightSelectHMD",
+            "fza_ah64_v30_sightSelectTADS",
+            "fza_ah64_v30_sightSelectFCR",
+            "fza_ah64_v30_sightSelectLink",
             "fza_ah64_sightSlave",
             "fza_ah64_nvsSelectPnvs",
             "fza_ah64_nvsSelectTads",

@@ -12,10 +12,10 @@ class CfgDefaultKeysPresets {
                 ccDD    = button info (doubleTap or joyID+btnID)
                 DD      = button local ID
             */
-            fza_ah64_sightSelectHMD[] = {0x2A130002}; //Shift+1
-            fza_ah64_sightSelectTADS[] = {0x2A130003}; //Shift+2
-            fza_ah64_sightSelectFCR[] = {0x2A130004}; //Shift+3
-            fza_ah64_sightSelectLink[] = {0x2A130005}; //Shift+4
+            fza_ah64_v30_sightSelectHMD[] = {0x2A130002}; //Shift+1
+            fza_ah64_v30_sightSelectTADS[] = {0x2A130003}; //Shift+2
+            fza_ah64_v30_sightSelectFCR[] = {0x2A130004}; //Shift+3
+            fza_ah64_v30_sightSelectLink[] = {0x2A130005}; //Shift+4
             fza_ah64_sightSlave[] = {0x2A130021}; //Shift+F
             fza_ah64_symbologySelectUp[] = {0x2A130030}; //Shift+B
             fza_ah64_symbologySelectDown[] = {0x1D130030}; //Ctrl+B

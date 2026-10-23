@@ -123,18 +123,18 @@ private _sectors = switch (_menu) do {
             private _keys = [];
             if (_sight != _target) then {
                 _keys pushBack _select;
-                if (_linked) then {_keys pushBack "fza_ah64_sightSelectLink"};
+                if (_linked) then {_keys pushBack "fza_ah64_v30_sightSelectLink"};
             } else {
-                if (_linked != _link) then {_keys pushBack "fza_ah64_sightSelectLink"};
+                if (_linked != _link) then {_keys pushBack "fza_ah64_v30_sightSelectLink"};
             };
             (_keys joinString ",") + ">" + _menu
         };
         private _sights = [
-            ["TADSL", _canTads && {_canLink},  _sight == SIGHT_TADS && {_link},       [SIGHT_TADS, "fza_ah64_sightSelectTADS", true, "tads"] call _to],
-            ["TADS",  _canTads,                _sight == SIGHT_TADS && {!_link},      [SIGHT_TADS, "fza_ah64_sightSelectTADS", false, "tads"] call _to],
-            ["HMD",   true,                    _sight == SIGHT_HMD,                   [">hmd", "fza_ah64_sightSelectHMD>hmd"] select (_sight != SIGHT_HMD)],
-            ["FCR",   _hasFcr,                 _sight == SIGHT_FCR && {!_link},       [SIGHT_FCR, "fza_ah64_sightSelectFCR", false, "fcr"] call _to],
-            ["FCRL",  _canLink,                _sight == SIGHT_FCR && {_link},        [SIGHT_FCR, "fza_ah64_sightSelectFCR", true, "fcr"] call _to]
+            ["TADSL", _canTads && {_canLink},  _sight == SIGHT_TADS && {_link},       [SIGHT_TADS, "fza_ah64_v30_sightSelectTADS", true, "tads"] call _to],
+            ["TADS",  _canTads,                _sight == SIGHT_TADS && {!_link},      [SIGHT_TADS, "fza_ah64_v30_sightSelectTADS", false, "tads"] call _to],
+            ["HMD",   true,                    _sight == SIGHT_HMD,                   [">hmd", "fza_ah64_v30_sightSelectHMD>hmd"] select (_sight != SIGHT_HMD)],
+            ["FCR",   _hasFcr,                 _sight == SIGHT_FCR && {!_link},       [SIGHT_FCR, "fza_ah64_v30_sightSelectFCR", false, "fcr"] call _to],
+            ["FCRL",  _canLink,                _sight == SIGHT_FCR && {_link},        [SIGHT_FCR, "fza_ah64_v30_sightSelectFCR", true, "fcr"] call _to]
         ] select {_x # 1};
         private _span = 240 / ((count _sights) max 1);
         private _out  = [];
