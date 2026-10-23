@@ -87,3 +87,7 @@ for "_b" from 0 to 360 step 15 do {_hubOutline pushBack ([RADIAL_R_HUB, _b] call
 for "_i" from 1 to (count _hubOutline - 1) do {_hubTris append [_centre, _hubOutline # (_i - 1), _hubOutline # _i]};
 _ctrl drawTriangle [_hubTris, [[0.03, 0.06, 0.03, 0.7], [0.15, 0.25, 0.15, 0.85]] select (_hover == RADIAL_HUB), RADIAL_FILL];
 _ctrl drawPolygon [_hubOutline, [[0.3, 0.6, 0.3, 0.6], [0.4, 1, 0.4, 1]] select (_hover == RADIAL_HUB)];
+// In a sub menu, the line between its name and BACK (fza_fnc_radialSetMenu)
+if ((_display getVariable ["fza_radialMenu", "top"]) != "top") then {
+    _ctrl drawLine [[0.8 * RADIAL_R_HUB, 270] call _point, [0.8 * RADIAL_R_HUB, 90] call _point, [0.4, 1, 0.4, 1]];
+};

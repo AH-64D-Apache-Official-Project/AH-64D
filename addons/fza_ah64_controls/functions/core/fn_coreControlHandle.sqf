@@ -46,8 +46,9 @@ if (_value) then {
             if (player == gunner _heli && {CPG_LINK(_heli)}) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};
         };
         case "fza_ah64_sightSelectTADS": {
-            // The TADS is the CPG's sight
+            // The TADS is the CPG's sight; selected again it stays as it is, TADS-L included, as LINK is what unlinks
             if (player == driver _heli) exitWith {};
+            if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_TADS) exitWith {};
             [_heli, "fza_ah64_sight", SIGHT_TADS, player, false, true] call fza_fnc_setSeatVariable;
             [_heli, "cpg"] call fza_fcr_fnc_releaseOwner;
             if (CPG_LINK(_heli)) then {_heli setVariable ["fza_ah64_cpgLink", false, true]};

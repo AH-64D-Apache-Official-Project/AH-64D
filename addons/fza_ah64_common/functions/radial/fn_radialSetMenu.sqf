@@ -7,7 +7,7 @@ Description:
 
 Parameters:
     _display - The radial menu display
-    _menu    - "top", "fcr", "tads" or "sensors"
+    _menu    - "top", "fcr" or "tads"
 
 Returns:
     Nothing
@@ -19,9 +19,10 @@ Author:
 params ["_display", "_menu"];
 
 private _heli = _display getVariable ["fza_radialHeli", objNull];
-private _items = [_heli, _menu] call fza_fnc_radialItems;
+([_heli, _menu] call fza_fnc_radialItems) params ["_items", "_hubText"];
 _display setVariable ["fza_radialMenu", _menu];
 _display setVariable ["fza_radialItems", _items];
+_display setVariable ["fza_radialHubText", _hubText];
 _display setVariable ["fza_radialDwell", [RADIAL_NONE, 0, 0]];
 _display setVariable ["fza_radialStickLatch", true];
 
@@ -45,14 +46,24 @@ private _labels = _display getVariable ["fza_radialLabels", []];
         _ctrl ctrlCommit 0;
         _ctrl ctrlShow true;
     };
-} forEach (_labels select [0, RADIAL_LABELS - 1]);
+} forEach (_labels select [0, RADIAL_LABELS - 2]);
 
-// The last label is the hub's
-private _hub = _labels param [RADIAL_LABELS - 1, controlNull];
-if (!isNull _hub) then {
-    private _pos = ctrlPosition _hub;
-    _hub ctrlSetPosition [0.5 - (_pos # 2) / 2, 0.5 - (_pos # 3) / 2];
-    _hub ctrlSetText (["BACK", "CLOSE"] select (_menu == "top"));
-    _hub ctrlCommit 0;
-    _hub ctrlShow true;
-};
+// The hub: in a sub menu what is selected, or else its name, over a line (fza_fnc_radialDraw) with BACK under it, in the
+// top menu CLOSE
+private _isTop = _menu == "top";
+private _title = _labels param [RADIAL_LABELS - 2, controlNull];
+private _hub   = _labels param [RADIAL_LABELS - 1, controlNull];
+{
+    _x params ["_ctrl", "_text", "_offset"];
+    if (!isNull _ctrl) then {
+        _ctrl ctrlSetFontHeight RADIAL_HUB_FONT;
+        private _pos = ctrlPosition _ctrl;
+        _ctrl ctrlSetPosition [0.5 - (_pos # 2) / 2, 0.5 - (_pos # 3) / 2 + _offset];
+        _ctrl ctrlSetText _text;
+        _ctrl ctrlCommit 0;
+        _ctrl ctrlShow (_text != "");
+    };
+} forEach [
+    [_title, ["", [_hubText, toUpper _menu] select (_hubText == "")] select !_isTop, -0.022],
+    [_hub, ["BACK", "CLOSE"] select _isTop, [0.022, 0] select _isTop]
+];

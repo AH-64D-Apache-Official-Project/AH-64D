@@ -65,6 +65,10 @@ _display setVariable ["fza_radialLabels", _labels];
 
 _display displayAddEventHandler ["MouseButtonDown", {
     params ["_display", "_button"];
+    // The menu key on a mouse button, which the game's own binding does not see over a display
+    if ((65536 + _button) in actionKeys "fza_ah64_radialMenu") exitWith {
+        [_display getVariable ["fza_radialHeli", objNull]] call fza_fnc_radialToggle;
+    };
     if (_button == 1) exitWith {
         if ((_display getVariable ["fza_radialMenu", "top"]) == "top") then {_display closeDisplay 2} else {[_display, "top"] call fza_fnc_radialSetMenu};
     };

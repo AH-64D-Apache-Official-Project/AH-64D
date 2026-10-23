@@ -55,7 +55,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_lstOff,"$STR_FZA_AH64_LST_OFF","$STR_FZA_AH64_LST_OFF_INFO");
     CfgUserActionDef(fza_ah64_lstManual,"$STR_FZA_AH64_LST_MANUAL","$STR_FZA_AH64_LST_MANUAL_INFO");
     CfgUserActionDef(fza_ah64_radialMenu,"$STR_FZA_AH64_RADIAL_MENU","$STR_FZA_AH64_RADIAL_MENU_INFO");
-    // Read by the open radial menu as a direction, alongside the aim input (fza_fnc_radialUpdate)
+    // Read by the open radial menu as the only direction that selects by dwell (fza_fnc_radialUpdate)
     CfgUserActionDef(fza_ah64_radialUp,"$STR_FZA_AH64_RADIAL_UP","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
     CfgUserActionDef(fza_ah64_radialDown,"$STR_FZA_AH64_RADIAL_DOWN","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
     CfgUserActionDef(fza_ah64_radialLeft,"$STR_FZA_AH64_RADIAL_LEFT","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");

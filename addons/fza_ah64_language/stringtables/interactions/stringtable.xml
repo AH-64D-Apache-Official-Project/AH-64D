@@ -962,8 +962,8 @@
             <English>Radial Menu: Right</English>
         </Key>
         <Key ID="STR_FZA_AH64_RADIAL_DIRECTION_INFO">
-            <Original>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</Original>
-            <English>Points the open radial menu at a sector, as the aim input does. Held there it selects it after the dwell time. Bind to an axis, a hat or keys</English>
+            <Original>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</Original>
+            <English>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</English>
         </Key>
         <Key ID="STR_FZA_AH64_LST_AUTO">
             <Original>LST Mode: Auto</Original>

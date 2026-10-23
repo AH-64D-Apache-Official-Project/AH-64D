@@ -84,7 +84,7 @@ private _projName = "AH-64D Official Project";
     "SLIDER",
     [(localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME"), (localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME_INFO")],
     [_projName, "Radial Menu"],
-    [0.5, 3, 1.5, 1],
+    [0.5, 3, 0.8, 1],
     2
 ] call CBA_fnc_addSetting;
 
