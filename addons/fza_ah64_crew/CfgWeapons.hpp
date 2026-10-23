@@ -15,6 +15,11 @@ class CfgWeapons
         hiddenSelectionsTextures[] = {"\fza_ah64_crew\data\ihadss_co.paa", ""};
         fza_ah64_hduOff = "fza_ah64_ihadss";
         fza_ah64_hduOn = "fza_ah64_ihadss_hdu";
+        // ACE hearing: the helmet's ear cups block loud noise, and their electronic hearing protection keeps quieter
+        // sound audible, so it only lightly muffles
+        ace_hearing_protection = 0.85;
+        ace_hearing_lowerVolume = 0.3;
+        ace_hearing_hasEHP = 1;
         class ItemInfo: ItemInfo
         {
             uniformModel = "\fza_ah64_crew\data\ihadss.p3d";
