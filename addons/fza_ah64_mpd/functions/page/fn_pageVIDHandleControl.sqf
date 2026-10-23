@@ -3,7 +3,7 @@ Function: fza_mpd_fnc_pageVIDHandleControl
 
 Description:
     VIDEO page buttons. With VSEL (decluttered) only VSEL, VIEW and the menu
-    button work. VCR, IMAGE and SHARP are not available.
+    button work. VCR and SHARP are not available.
 
 Parameters:
     _heli     - The helicopter

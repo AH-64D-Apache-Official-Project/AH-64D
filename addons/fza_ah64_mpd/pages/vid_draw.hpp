@@ -6,18 +6,6 @@
 #define VID_DECL C_COND(C_EQ(C_MPD_USER(MFD_IND_VID_VSEL), 1))
 #define VID_IS(index, value) C_COND(C_EQ(C_MPD_USER(index), value))
 
-// A box round a two line label on the right, centred on the button
-#define VID_BOX2_L(name, posY, chars) class Vid_Box2_##name { \
-    type = "line"; \
-    width = 2; \
-    points[] = { \
-        {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, (posY) - MPD_TEXT_HEIGHT}, 1}, \
-        {{MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X - (chars) * MPD_TEXT_WIDTH, (posY) - MPD_TEXT_HEIGHT}, 1}, \
-        {{MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X - (chars) * MPD_TEXT_WIDTH, (posY) + MPD_TEXT_HEIGHT}, 1}, \
-        {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, (posY) + MPD_TEXT_HEIGHT}, 1}, \
-        {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, (posY) - MPD_TEXT_HEIGHT}, 1}}; \
-};
-
 // T6 VSEL: the symbology that goes with the underlay, boxed when selected
 MPD_TEXT_C(Vsel, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_USER(MFD_TEXT_IND_VID_VSEL))
 class VselBox {
@@ -67,11 +55,9 @@ class Declutter {
 class Full {
     condition = VID_FULL;
 
-    // T2 VCR and T3 IMAGE, not available
+    // T2 VCR, not available
     MPD_BOX_BAR_T(Vcr, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y)
     MPD_TEXT_C(Vcr, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("VCR"))
-    MPD_BOX_BAR_T(Image, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y)
-    MPD_TEXT_C(Image, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("IMAGE"))
 
     // L1-L3 VIEW: framed from the page edge, VIEW down the frame's side in a break in its line
     #define VID_VIEW_X      (MPD_POS_BUTTON_L_X + 4.6 * MPD_TEXT_WIDTH)
@@ -109,8 +95,38 @@ class Full {
         MPD_BOX_R(ViewZoom, MPD_POS_BUTTON_L_X, (MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT), 4)
     };
 
-    // L4/L5 SHARP
+    // L4/L5 SHARP, and its scale of 7 beside it: not available, so it stays at 3
     MPD_TEXT_R(Sharp, MPD_POS_BUTTON_L_X, 0.5 * (MPD_POS_BUTTON_LR_4_Y + MPD_POS_BUTTON_LR_5_Y) - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SHARP"))
+    #define VID_SHARP_X  (MPD_POS_BUTTON_L_X + 5.5 * MPD_TEXT_WIDTH)
+    #define VID_SHARP_W  (0.8 * MPD_TEXT_WIDTH)
+    #define VID_SHARP_H  (0.3 * MPD_TEXT_HEIGHT)
+    #define VID_SHARP_B  (0.5 * (MPD_POS_BUTTON_LR_4_Y + MPD_POS_BUTTON_LR_5_Y) + 3.5 * VID_SHARP_H)
+    #define VID_SHARP_Y(i) (VID_SHARP_B - (i) * VID_SHARP_H)
+    #define VID_SHARP_EMPTY(i) class SharpBox##i { \
+        type = "line"; \
+        width = 2; \
+        points[] = { \
+            {{VID_SHARP_X, VID_SHARP_Y(i) - 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X + VID_SHARP_W, VID_SHARP_Y(i) - 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X + VID_SHARP_W, VID_SHARP_Y(i + 1) + 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X, VID_SHARP_Y(i + 1) + 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X, VID_SHARP_Y(i) - 0.15 * VID_SHARP_H}, 1}}; \
+    };
+    #define VID_SHARP_FILLED(i) class SharpBox##i { \
+        type = "polygon"; \
+        points[] = {{ \
+            {{VID_SHARP_X, VID_SHARP_Y(i) - 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X + VID_SHARP_W, VID_SHARP_Y(i) - 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X + VID_SHARP_W, VID_SHARP_Y(i + 1) + 0.15 * VID_SHARP_H}, 1}, \
+            {{VID_SHARP_X, VID_SHARP_Y(i + 1) + 0.15 * VID_SHARP_H}, 1}}}; \
+    };
+    VID_SHARP_FILLED(0)
+    VID_SHARP_FILLED(1)
+    VID_SHARP_FILLED(2)
+    VID_SHARP_EMPTY(3)
+    VID_SHARP_EMPTY(4)
+    VID_SHARP_EMPTY(5)
+    VID_SHARP_EMPTY(6)
 
     // L6 COLOR
     MPD_TEXT_R(Color, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("COLOR"))
@@ -125,9 +141,8 @@ class Full {
         MPD_BOX_R(ColorGreen, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 5)
     };
 
-    // R1-R6 UNDERLAY, the selected boxed
-    // R1-R6 UNDERLAY: framed from the page edge, UNDERLAY down the frame's side in a break in its line
-    #define VID_UND_X      (MPD_POS_BUTTON_R_X - 5.6 * MPD_TEXT_WIDTH)
+    // R1-R6 UNDERLAY, the selected boxed: framed from the page edge, UNDERLAY down the frame's side in a break in its line
+    #define VID_UND_X      (MPD_POS_BUTTON_R_X - 10.1 * MPD_TEXT_WIDTH)
     #define VID_UND_T      (MPD_POS_BUTTON_LR_1_Y - 0.5 * MPD_TEXT_HEIGHT - 0.015)
     #define VID_UND_B      (MPD_POS_BUTTON_LR_6_Y + MPD_TEXT_HEIGHT + 0.015)
     #define VID_UND_TEXT_T (0.5 * (VID_UND_T + VID_UND_B) - 3.475 * MPD_TEXT_HEIGHT)
@@ -151,39 +166,34 @@ class Full {
     MPD_TEXT_L(UnderlayLetter6, VID_UND_X, VID_UND_TEXT_T + 5.1 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
     MPD_TEXT_L(UnderlayLetter7, VID_UND_X, VID_UND_TEXT_T + 5.95 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Y"))
     MPD_TEXT_L(SrcTads, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TADS"))
-    MPD_TEXT_L(SrcCpgSightA, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CPG"))
-    MPD_TEXT_L(SrcCpgSightB, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("SIGHT"))
-    MPD_TEXT_L(SrcCpgHmdA, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CPG"))
-    MPD_TEXT_L(SrcCpgHmdB, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("HMD"))
-    MPD_TEXT_L(SrcPltSightA, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT"))
-    MPD_TEXT_L(SrcPltSightB, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("SIGHT"))
-    MPD_TEXT_L(SrcPltHmdA, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT"))
-    MPD_TEXT_L(SrcPltHmdB, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("HMD"))
-    MPD_TEXT_L(SrcNoneA, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("NO"))
-    MPD_TEXT_L(SrcNoneB, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("VIDEO"))
     class SelTads {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 0);
         MPD_BOX_L(SrcTads, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5 * MPD_TEXT_HEIGHT, 4)
     };
+    MPD_TEXT_L(SrcCpgSight, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CPG SIGHT"))
     class SelCpgSight {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 1);
-        VID_BOX2_L(CpgSight, MPD_POS_BUTTON_LR_2_Y, 5)
+        MPD_BOX_L(SrcCpgSight, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5 * MPD_TEXT_HEIGHT, 9)
     };
+    MPD_TEXT_L(SrcCpgHmd, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CPG   HMD"))
     class SelCpgHmd {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 2);
-        VID_BOX2_L(CpgHmd, MPD_POS_BUTTON_LR_3_Y, 3)
+        MPD_BOX_L(SrcCpgHmd, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HEIGHT, 9)
     };
+    MPD_TEXT_L(SrcPltSight, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT SIGHT"))
     class SelPltSight {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 3);
-        VID_BOX2_L(PltSight, MPD_POS_BUTTON_LR_4_Y, 5)
+        MPD_BOX_L(SrcPltSight, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, 9)
     };
+    MPD_TEXT_L(SrcPltHmd, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT   HMD"))
     class SelPltHmd {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 4);
-        VID_BOX2_L(PltHmd, MPD_POS_BUTTON_LR_5_Y, 3)
+        MPD_BOX_L(SrcPltHmd, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, 9)
     };
+    MPD_TEXT_L(SrcNone, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("NO VIDEO"))
     class SelNone {
         condition = VID_IS(MFD_IND_VID_UNDERLAY, 5);
-        VID_BOX2_L(None, MPD_POS_BUTTON_LR_6_Y, 5)
+        MPD_BOX_L(SrcNone, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5 * MPD_TEXT_HEIGHT, 8)
     };
 
     // B1 VIDEO, this page; B2 SYMB, B3 RESET, B6 G/S
