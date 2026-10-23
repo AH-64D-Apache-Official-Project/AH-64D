@@ -29,7 +29,7 @@ class fza_radialMenu {
             y = "safeZoneY";
             w = "safeZoneW";
             h = "safeZoneH";
-            onLoad = "(_this # 0) ctrlMapAnimAdd [0, 0.001, [-99999, -99999]]; ctrlMapAnimCommit (_this # 0);";
+            onLoad = "(_this # 0) ctrlMapAnimAdd [0, 0.001, [-999999, -999999]]; ctrlMapAnimCommit (_this # 0);";
             onDraw = "_this call fza_fnc_radialDraw";
         };
     };

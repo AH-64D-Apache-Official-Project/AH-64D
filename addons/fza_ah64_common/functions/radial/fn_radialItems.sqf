@@ -12,7 +12,7 @@ Description:
 
 Parameters:
     _heli - The helicopter
-    _menu - "top", "fcr" or "tads"
+    _menu - "top", "hmd", "fcr", "tads" or "lst"
 
 Returns:
     [sectors, hub text], the sectors [[label, from bearing, to bearing,
@@ -36,16 +36,17 @@ private _sight    = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tadsNvs  = (([_heli] call fza_ihadss_fnc_tadsNvs) # 0) != NVS_MODE_OFF;
 private _fcrOwned = FCR_OWNER(_heli) == _seat;
 
-// Sectors between two bearings, left to right; with _changeOnly, only those that can be selected and are not already
+// Sectors across the top or bottom of the ring, left to right, over _arc degrees centred on the top or bottom; with
+// _changeOnly, only those that can be selected and are not already
 private _split = {
-    params ["_entries", "_top", ["_changeOnly", false]];
+    params ["_entries", "_top", ["_changeOnly", false], ["_arc", 180]];
     if (_changeOnly) then {_entries = _entries select {(_x # 1) && {!(_x # 2)}}};
     private _n    = count _entries;
-    private _span = 180 / (_n max 1);
+    private _span = _arc / (_n max 1);
     private _out = [];
     {
-        private _from = [270 - (_forEachIndex + 1) * _span, 270 + _forEachIndex * _span] select _top;
-        _out pushBack [_x # 0, _from, _from + _span, _x # 1, _x # 2, _x # 3];
+        private _from = [180 + _arc / 2 - (_forEachIndex + 1) * _span, 360 - _arc / 2 + _forEachIndex * _span] select _top;
+        _out pushBack [_x # 0, _from, _from + _span, _x # 1, _x # 2, _x # 3, _x param [4, "sensor"]];
     } forEach _entries;
     _out
 };
@@ -53,6 +54,14 @@ private _split = {
 private _fovLetters = ["W", "M", "N", "Z"];
 private _hub = "";
 private _sectors = switch (_menu) do {
+    case "hmd": {
+        // The flight symbology select as its keys: up across the top half, TRANS and CRUS in turn from TRANS; down across
+        // the bottom, HVR and BOB in turn from HVR. Each shows what it selects.
+        private _fsMode = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
+        _hub = ["TRANS", "CRUS", "HVR", "BOB"] param [["trans", "cruise", "hover", "bobup"] find _fsMode, ""];
+        ([[[["TRANS", "CRUS"] select (_fsMode == "trans"), true, false, "fza_ah64_symbologySelectUp"]], true] call _split)
+            + ([[[["HVR", "BOB"] select (_fsMode == "hover"), true, false, "fza_ah64_symbologySelectDown"]], false] call _split)
+    };
     case "fcr": {
         private _mode = _heli getVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_GTM];
         private _size = _heli getVariable ["fza_ah64_fcrScanSize", 0];
@@ -63,11 +72,20 @@ private _sectors = switch (_menu) do {
             ["ATM",  _fcrOwned, _mode == FCR_DISP_MODE_ATM,  "fza_ah64_fcrModeATM"],
             ["TPM",  _fcrOwned, _mode == FCR_DISP_MODE_TPM,  "fza_ah64_fcrModeTPM"]
         ], true, true] call _split) + ([[
-            ["W", _fcrOwned, _size == 0, "fza_ah64_fcrScanSize_W"],
-            ["M", _fcrOwned, _size == 1, "fza_ah64_fcrScanSize_M"],
-            ["N", _fcrOwned, _size == 2, "fza_ah64_fcrScanSize_N"],
-            ["Z", _fcrOwned, _size == 3, "fza_ah64_fcrScanSize_Z"]
+            ["W", _fcrOwned, _size == 0, "fza_ah64_fcrScanSize_W", "fov"],
+            ["M", _fcrOwned, _size == 1, "fza_ah64_fcrScanSize_M", "fov"],
+            ["N", _fcrOwned, _size == 2, "fza_ah64_fcrScanSize_N", "fov"],
+            ["Z", _fcrOwned, _size == 3, "fza_ah64_fcrScanSize_Z", "fov"]
         ], false, true] call _split)
+    };
+    case "lst": {
+        // The LST mode switch: AUTO across the top half, MAN across the bottom, OFF in place of whichever is selected
+        private _lstMode = _heli getVariable ["fza_ah64_lstMode", LST_MODE_OFF];
+        _hub = "LST " + (["O", "A", "M"] param [_lstMode, "O"]);
+        private _auto = _lstMode == LST_MODE_AUTO;
+        private _man  = _lstMode == LST_MODE_MAN;
+        ([[[["AUTO", "OFF"] select _auto, _isCpg, false, ["fza_ah64_lstAuto", "fza_ah64_lstOff"] select _auto, "lst"]], true] call _split)
+            + ([[[["MANUAL", "OFF"] select _man, _isCpg, false, ["fza_ah64_lstManual", "fza_ah64_lstOff"] select _man, "lst"]], false] call _split)
     };
     case "tads": {
         private _sensor = _heli getVariable ["fza_ah64_tadsSelectedSensor", "FLIR"];
@@ -81,20 +99,22 @@ private _sectors = switch (_menu) do {
         ([[
             ["DVO",  _canSel && _dtvOk,  _sensor == "DVO",  "fza_ah64_SensorSelect_DVO"],
             ["DTV",  _canSel && _dtvOk,  _sensor == "DTV",  "fza_ah64_SensorSelect_DTV"],
-            ["FLIR", _canSel && _flirOk, _sensor == "FLIR", "fza_ah64_SensorSelect_FLIR"]
-        ], true, true] call _split) + ([[
+            ["FLIR", _canSel && _flirOk, _sensor == "FLIR", "fza_ah64_SensorSelect_FLIR"],
+            // The LST's own menu
+            ["LST",  _isCpg,             false,             ">lst", "lst"]
+        ], true, true, 216] call _split) + ([[
             // The DTV has no medium field of view, the DVO only wide and medium
-            ["W", _can,                                    _fov == 0, "fza_ah64_tadsLHGFov_W"],
-            ["M", _can && {_sensor != "DTV"},              _fov == 1, "fza_ah64_tadsLHGFov_M"],
-            ["N", _can && {_sensor != "DVO"},              _fov == 2, "fza_ah64_tadsLHGFov_N"],
-            ["Z", _can && {_sensor != "DVO"},              _fov == 3, "fza_ah64_tadsLHGFov_Z"]
-        ], false, true] call _split)
+            ["W", _can,                                    _fov == 0, "fza_ah64_tadsLHGFov_W", "fov"],
+            ["M", _can && {_sensor != "DTV"},              _fov == 1, "fza_ah64_tadsLHGFov_M", "fov"],
+            ["N", _can && {_sensor != "DVO"},              _fov == 2, "fza_ah64_tadsLHGFov_N", "fov"],
+            ["Z", _can && {_sensor != "DVO"},              _fov == 3, "fza_ah64_tadsLHGFov_Z", "fov"]
+        ], false, true, 144] call _split)
     };
     default {
         // The sights the crew station can select over the top two thirds, left to right, each the keys that get there
-        // from the sight and link as they are: selecting another sight drops the link, LINK toggles it. TADS and TADSL
-        // open the TADS menu, FCR and FCRL the FCR's. The NVS select across the bottom third, to the other sensor than
-        // the crew station has.
+        // from the sight and link as they are: selecting another sight drops the link, LINK toggles it. HMD opens the
+        // flight symbology menu, TADS and TADSL the TADS menu, FCR and FCRL the FCR's. The NVS select across the bottom
+        // third, to the other sensor than the crew station has.
         private _link    = CPG_LINK(_heli);
         private _canTads = _isCpg && {!_tadsNvs};
         private _canLink = _isCpg && {_hasFcr};
@@ -112,7 +132,7 @@ private _sectors = switch (_menu) do {
         private _sights = [
             ["TADSL", _canTads && {_canLink},  _sight == SIGHT_TADS && {_link},       [SIGHT_TADS, "fza_ah64_sightSelectTADS", true, "tads"] call _to],
             ["TADS",  _canTads,                _sight == SIGHT_TADS && {!_link},      [SIGHT_TADS, "fza_ah64_sightSelectTADS", false, "tads"] call _to],
-            ["HMD",   true,                    _sight == SIGHT_HMD,                   "fza_ah64_sightSelectHMD"],
+            ["HMD",   true,                    _sight == SIGHT_HMD,                   [">hmd", "fza_ah64_sightSelectHMD>hmd"] select (_sight != SIGHT_HMD)],
             ["FCR",   _hasFcr,                 _sight == SIGHT_FCR && {!_link},       [SIGHT_FCR, "fza_ah64_sightSelectFCR", false, "fcr"] call _to],
             ["FCRL",  _canLink,                _sight == SIGHT_FCR && {_link},        [SIGHT_FCR, "fza_ah64_sightSelectFCR", true, "fcr"] call _to]
         ] select {_x # 1};
@@ -125,7 +145,7 @@ private _sectors = switch (_menu) do {
         // Greyed while the crew station's NVS mode is off
         private _nvsOn     = (_heli getVariable ["fza_ah64_nvsMode_" + _seat, NVS_MODE_OFF]) != NVS_MODE_OFF;
         private _nvsIsTads = (_heli getVariable ["fza_ah64_nvsTadsSeat", "cpg"]) == _seat;
-        _out pushBack [["NVS TADS", "NVS PNVS"] select _nvsIsTads, 120, 240, _nvsOn, false, ["fza_ah64_nvsSelectTads", "fza_ah64_nvsSelectPnvs"] select _nvsIsTads];
+        _out pushBack [["NVS TADS", "NVS PNVS"] select _nvsIsTads, 120, 240, _nvsOn, false, ["fza_ah64_nvsSelectTads", "fza_ah64_nvsSelectPnvs"] select _nvsIsTads, "nvs"];
         _out
     };
 };

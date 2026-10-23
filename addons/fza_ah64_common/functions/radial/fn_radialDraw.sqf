@@ -19,7 +19,7 @@ Author:
 params ["_ctrl"];
 
 // Kept far off the map, so it draws none of it
-_ctrl ctrlMapAnimAdd [0, 0.001, [-99999, -99999]];
+_ctrl ctrlMapAnimAdd [0, 0.001, [-999999, -999999]];
 ctrlMapAnimCommit _ctrl;
 
 private _display = ctrlParent _ctrl;
@@ -59,11 +59,21 @@ private _band = {
     [_tris, _outer + _inner]
 };
 
+// Half the gap between sectors (deg); where a sector meets one of another group, 2.5 times it
 private _gap = 1.5;
+private _kindAt = {
+    params ["_bearing", "_edge", "_self"];
+    private _i = _items findIf {_x isNotEqualTo _self && {abs ((((_x # _edge) - _bearing) mod 360 + 540) mod 360 - 180) < 0.01}};
+    if (_i == -1) then {""} else {(_items # _i) param [6, "sensor"]}
+};
 {
-    _x params ["", "_from", "_to", "_enabled", "_active"];
+    _x params ["", "_from", "_to", "_enabled", "_active", "", ["_kind", "sensor"]];
+    private _kindBefore = [_from, 2, _x] call _kindAt;
+    private _kindAfter  = [_to, 1, _x] call _kindAt;
+    private _gapFrom = [_gap, 2.5 * _gap] select (_kindBefore != "" && {_kindBefore != _kind});
+    private _gapTo   = [_gap, 2.5 * _gap] select (_kindAfter != "" && {_kindAfter != _kind});
     private _hovered = _forEachIndex == _hover && _enabled;
-    ([RADIAL_R_IN, RADIAL_R_OUT, _from + _gap, _to - _gap] call _band) params ["_tris", "_outline"];
+    ([RADIAL_R_IN, RADIAL_R_OUT, _from + _gapFrom, _to - _gapTo] call _band) params ["_tris", "_outline"];
     private _fill = switch (true) do {
         case (!_enabled): {[0.05, 0.05, 0.05, 0.45]};
         case (_hovered && _active): {[0.2, 0.6, 0.2, 0.85]};
@@ -73,7 +83,7 @@ private _gap = 1.5;
     };
     _ctrl drawTriangle [_tris, _fill, RADIAL_FILL];
     if (_forEachIndex == _dwellIdx && {_progress > 0}) then {
-        ([RADIAL_R_IN, RADIAL_R_IN + (RADIAL_R_OUT - RADIAL_R_IN) * _progress, _from + _gap, _to - _gap] call _band) params ["_dwellTris"];
+        ([RADIAL_R_IN, RADIAL_R_IN + (RADIAL_R_OUT - RADIAL_R_IN) * _progress, _from + _gapFrom, _to - _gapTo] call _band) params ["_dwellTris"];
         _ctrl drawTriangle [_dwellTris, [0.3, 1, 0.3, 0.6], RADIAL_FILL];
     };
     _ctrl drawPolygon [_outline, [[0.3, 0.6, 0.3, 0.6], [0.4, 1, 0.4, 1]] select _hovered];

@@ -7,7 +7,7 @@ Description:
 
 Parameters:
     _display - The radial menu display
-    _menu    - "top", "fcr" or "tads"
+    _menu    - "top", "hmd", "fcr", "tads" or "lst"
 
 Returns:
     Nothing

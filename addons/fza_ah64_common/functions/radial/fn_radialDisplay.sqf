@@ -61,6 +61,21 @@ for "_i" from 0 to (RADIAL_LABELS - 1) do {
 };
 _display setVariable ["fza_radialLabels", _labels];
 
+// The canvas parked far off the map, so none of the map shows (fza_fnc_radialDraw keeps it there). A map control draws
+// its own view for a frame or so before the move takes, so the canvas is faded out until then.
+private _canvas = _display displayCtrl 10;
+ctrlMapAnimClear _canvas;
+_canvas ctrlMapAnimAdd [0, 0.001, [-999999, -999999]];
+ctrlMapAnimCommit _canvas;
+_canvas ctrlSetFade 1;
+_canvas ctrlCommit 0;
+[{
+    params ["_canvas"];
+    if (isNull _canvas) exitWith {};
+    _canvas ctrlSetFade 0;
+    _canvas ctrlCommit 0;
+}, [_canvas], 2] call CBA_fnc_execAfterNFrames;
+
 [_display, "top"] call fza_fnc_radialSetMenu;
 
 _display displayAddEventHandler ["MouseButtonDown", {

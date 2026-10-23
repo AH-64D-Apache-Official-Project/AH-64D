@@ -348,6 +348,8 @@ if (_value) then {
             if (player != gunner _heli) exitWith {};
             private _lstMode = [LST_MODE_AUTO, LST_MODE_OFF, LST_MODE_MAN] select (["fza_ah64_lstAuto", "fza_ah64_lstOff", "fza_ah64_lstManual"] find _name);
             _heli setVariable ["fza_ah64_lstMode", _lstMode, true];
+            // Armed, it inhibits the laser: one lasing is stopped (fza_fnc_laserArm)
+            if (_lstMode != LST_MODE_OFF) then {[_heli] call fza_fnc_laserDisarm};
         };
         case "fza_ah64_radialMenu": {
             [_heli] call fza_fnc_radialToggle;
