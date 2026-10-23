@@ -318,7 +318,7 @@ switch (_was) do {
             _heli setVariable ["fza_ah64_tofCountDown", _pending];
         };
         if (_pending isNotEqualTo []) then {
-            _wpnStat = "HF TOF=" + ([str (ceil ((_pending # 0) - CBA_missionTime)), "00"] call fza_fnc_padString);
+            _wpnStat = "HFTOF=" + ([str (ceil ((_pending # 0) - CBA_missionTime)), "00"] call fza_fnc_padString);
         };
     };
 };

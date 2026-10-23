@@ -22,7 +22,7 @@ if (!isNil "_lasePos") then {
     _attackProfile = "hellfire";
     _tofRange      = _lasePos distance _heli;
 };
-// HF TOF from the launch conditions: the range to the target and the trajectory flown
+// HFTOF from the launch conditions: the range to the target and the trajectory flown
 [_heli, [_ammo, _magazine, _tofRange, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
 
 _launchParams set [3, _attackProfile];

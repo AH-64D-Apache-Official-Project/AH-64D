@@ -58,7 +58,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [3, [0, 0, 0]];
     _targetData set [4, [0, 0, 0]];
 
-    // Seeker wake time lookup: [range_km, tof_seconds]. The HF TOF shown is fza_hellfire_fnc_tofEstimate's.
+    // Seeker wake time lookup: [range_km, tof_seconds]. The HFTOF shown is fza_hellfire_fnc_tofEstimate's.
     private _hellfireTOF = [[0,0],[1,3],[2,7],[3,10],[4,14],[5,19],[6,24],[7,29],[8,36],[9,44]];
     private _rangeKm     = (_targPos distance _heli) * SCALE_METERS_KM;
     private _rangeM      = _rangeKm * 1000;
@@ -100,7 +100,7 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _stateParams set [2, [STAGE_ATTACK_TERMINAL, 0, [getPosASL _projectile select 2, 0]]];
 };
 
-// HF TOF from the launch conditions: the range to the target and the trajectory flown, direct when locked before launch
+// HFTOF from the launch conditions: the range to the target and the trajectory flown, direct when locked before launch
 if (_targPos isNotEqualTo [0, 0, 0]) then {
     _firedEH params ["", "", "", "", "_ammo", "_magazine"];
     [_heli, [_ammo, _magazine, _targPos distance _heli, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
