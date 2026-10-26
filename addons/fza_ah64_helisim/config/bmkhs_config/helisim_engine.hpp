@@ -113,8 +113,8 @@
                 leverTravelTime = 8.0;   //seconds, idle to fly - the fuel ramp, Np and the lever animation
                 loadShareGain   = 8.0;   //how hard an engine below its matched partners trims up to them
 
-                //Np governor, {kp, ki, kd, ki_clamp}.
-                pid[] = {80.0000, 40.0000, 0.0000, 0.0750};
+                //Np governor, {kp, ki, kd, limit}.
+                pid[] = {80.0000, 40.0000, 0.0000, 3.0000};
 
                 gate[] = {};             //what the ECU needs to keep metering fuel
             };
