@@ -48,8 +48,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_powerLever1", 0, true];
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
-    _heli setVariable ["fza_ah64_sight_plt", 1, true];
-    _heli setVariable ["fza_ah64_sight_cpg", 1, true];
+    _heli setVariable ["fza_ah64_sight_plt", SIGHT_HMD, true];
+    _heli setVariable ["fza_ah64_sight_cpg", SIGHT_HMD, true];
 
     _heli setVariable ["bmkhs_ctrTankInstalled", true, true];
     _heli setVariable ["bmkhs_ctrTankXferOn", false, true];

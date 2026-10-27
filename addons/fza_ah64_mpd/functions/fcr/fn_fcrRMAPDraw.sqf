@@ -275,7 +275,7 @@ private _nts       = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = if (!isNull _nts) then { _displayTargets findIf {_x # 3 == _nts} } else { -1 };
 private _antsIndex = -1;
 if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
 };
 
 // "a" normalised to -1..1 over the fixed +-45 B-scope x axis

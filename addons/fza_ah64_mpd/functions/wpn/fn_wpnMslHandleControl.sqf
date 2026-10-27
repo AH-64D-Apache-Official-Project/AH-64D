@@ -2,12 +2,30 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 
+// The MODE pop-out open: R1-R3 select this crew station's NORM / MAN / RIPL and close it
+if ((_state get "popOutMenu") == 2 && {_control in ["r1", "r2", "r3"]}) exitWith {
+    private _seat = [_heli] call fza_fnc_getSeat;
+    if (!isNil "_seat") then {
+        _heli setVariable ["fza_ah64_mslMode_" + _seat, MSL_MODES select (["r1", "r2", "r3"] find _control), true];
+    };
+    _state set ["popOutMenu", 0];
+};
+
 if (_this call fza_mpd_fnc_WpnTrajHandleControl) exitWith {};
+
+// RF: L1-L3 are the MSL PWR selection ALL / AUTO / NONE (fza_hellfire_fnc_rfPowerUpdate)
+if ((_heli getVariable ["fza_ah64_selectedMissile", ""]) == "fza_agm114l_wep" && {_control in ["l1", "l2", "l3"]}) exitWith {
+    [_heli, "fza_ah64_mslPwr", [MSL_PWR_ALL, MSL_PWR_AUTO, MSL_PWR_NONE] select (["l1", "l2", "l3"] find _control)] call fza_fnc_updateNetworkGlobal;
+};
 
 switch (_control) do {
     case "l1": {
         //Switch missile lase
         [_heli] call fza_fnc_controlHandlelaserchange;
+    };
+    case "r2": {
+        // MODE opens the MODE pop-out (fza_fnc_weaponMissileAdvance)
+        _state set ["popOutMenu", 2];
     };
     case "r1": {
         if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) then {

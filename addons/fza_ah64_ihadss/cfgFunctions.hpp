@@ -14,33 +14,44 @@ class CfgFunctions
         tag = "fza_ihadss";
         class functions {
             file = "\fza_ah64_ihadss\functions";
-            class angleToScreen {R;};
-            class constraintBoxDraw {R;};
-            class cscopeDraw {R;};
             class cscopeProfileDraw {R;};
             class fovControl {R;};
             class getVisionMode {R;};
             class controller {R;};
             class draw {R;};
+            class dtvCamera {R;};
             class handleControl {R;};
+            class hasHelmet {R;};
             class hduCleanContainer {R;};
             class hduInit {R;};
             class hduUpdate {R;};
             class init {R;};
             class linearMotionCompensator {R;};
+            class lstUpdate {R;};
             class monocletoggle {R;};
+            class nvsBias {R;};
+            class nvsFixedToScreen {R;};
+            class nvsFixedView {R;};
+            class nvsState {R;};
             class pnvsControl {R;};
-            class steeringCursorDraw {R;};
+            class r2tTexture {R;};
+            class tadsLos {R;};
+            class tadsNvs {R;};
+            class tadsNvsControl {R;};
+            class tadsNvsReset {R;};
+            class tadsSlew {R;};
         };
-        class canvas {
-            file = "\fza_ah64_ihadss\functions\canvas";
-            class canvasAdjust {R;};
-            class canvasDrawLine {R;};
-            class canvasDraw {R;};
-        };
-        class flight {
-            file = "\fza_ah64_ihadss\functions\flight";
-            class flightVelocityVector {R;};
+        class html {
+            file = "\fza_ah64_ihadss\functions\html";
+            class formatRect {R;};
+            class hduMonocle {R;};
+            class hduPnvsMask {R;};
+            class htmlConstraints {R;};
+            class htmlDraw {R;};
+            class htmlExecJs {R;};
+            class htmlIcons {R;};
+            class htmlModel {R;};
+            class viewScale {R;};
         };
     };
 };

@@ -14,7 +14,6 @@ MPD_TEXT_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTI
 ///////////////// R ///////////////
 //R6
 MPD_ACQ_SRC(Acq, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC, "Eng_Acq")
-MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
 ///////////////// B ///////////////
 MPD_BOX_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, 3)
@@ -262,7 +261,7 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
             {{0.496, 0.6}, 1}, {{0.496, 0.6 + 6*MPD_TEXT_HEIGHT}, 1}, {},
             {{0.504, 0.6}, 1}, {{0.504, 0.6 + 6*MPD_TEXT_HEIGHT}, 1}, {},
             //Curved box
-            MPD_POINTS_BOX("Null", (0.05), 0.60, (0.9), 6*MPD_TEXT_HEIGHT) 
+            MPD_POINTS_BOX("Null", (0.05), 0.60, (0.9), 6*MPD_TEXT_HEIGHT)
         };
     };
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_1, 0.05, 0.6, 0)

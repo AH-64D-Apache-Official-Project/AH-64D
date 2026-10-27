@@ -26,26 +26,24 @@ Author:
 params ["_heli", "_mpdIndex", ["_hadOnly", false]];
 
 private _sight        = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-private _sightSelStat = "HMD";
+private _isPilot      = player == driver _heli;
+private _prefix       = ["C-", "P-"] select _isPilot;
+private _linked       = !_isPilot && {CPG_LINK(_heli)};
+private _sightSelStat = _prefix + "HMD";
 switch (_sight) do {
-    case SIGHT_FCR:  { _sightSelStat = "FCR "; };
-    case SIGHT_HMD:  { _sightSelStat = "HMD "; };
-    case SIGHT_TADS: { _sightSelStat = "TADS"; };
-    case SIGHT_FXD:  { _sightSelStat = "FXD "; };
+    case SIGHT_FCR:  { _sightSelStat = [_prefix + "FCR", "C-FCRL"] select _linked; };
+    case SIGHT_HMD:  { _sightSelStat = _prefix + "HMD"; };
+    case SIGHT_TADS: { _sightSelStat = ["TADS", "TADSL"] select _linked; };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
-private _nts     = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _rngSrce = format["R%1", ((_heli distance _nts) / 1000) toFixed 1];
-if (isNull _nts) then {
-    if (driver _heli isEqualTo player) then {
-        _rngSrce = "1.5";
-    } else { _rngSrce = "3.0"};
-};
-if (!isNull laserTarget _heli) then {
-    _rngSrce = format["*%1", round(_heli distance laserTarget _heli)];
-};
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), ([_heli, player] call fza_fnc_targetingRange) # 1];
+
+// NTS, TGT and RF HO are shown with FCR as this crew station's sight
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SIGHT_FCR), parseNumber (_sight == SIGHT_FCR)];
+
+// TGT is barriered until there is an NTS to store
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_BARRIER), parseNumber (([_heli, "FCR"] call fza_fnc_targetingAcqPoint) isEqualTo [])];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
@@ -53,33 +51,33 @@ private _wasState = _heli getVariable "fza_ah64_was";
 private _mslTraj  = _heli getVariable "fza_ah64_hellfireTrajectory";
 private _wpnCtrl  = "";
 private _wpnStat  = "";
+// The crew station driving the weapon (fza_fnc_wasUpdate)
+private _pltDrives = (_heli getVariable ["fza_ah64_wasDriver", ""]) == "plt";
 switch (_wasState) do {
     case WAS_WEAPON_GUN: {
-        if (isManualFire _heli) then {
+        if (_pltDrives) then {
             _wpnStat = format["ROUNDS %1", _heli ammo "fza_m230"];
         } else {
             _wpnCtrl = "CGUN";
         };
     };
     case WAS_WEAPON_MSL: {
-        if (isManualFire _heli) then {
-            switch (_mslTraj) do {
-                case "DIR": { _wpnStat = "DIR MAN"; };
-                case "LO":  { _wpnStat = "LO MAN"; };
-                case "HI":  { _wpnStat = "HI MAN"; };
-            };
+        if (_pltDrives) then {
+            // The trajectory and this crew station's missile MODE
+            _wpnStat = _mslTraj + " " + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         } else {
             _wpnCtrl = "CMSL";
         };
     };
     case WAS_WEAPON_RKT: {
-        if (isManualFire _heli) then {
+        if (_pltDrives) then {
             private _rktAmmo = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedRocket") >> "fza_ammoType");
             private _rktCode = getText (configFile >> "CfgAmmo" >> _rktAmmo >> "fza_shortCode");
             _wpnStat = format["%1 NORM %2", _rktCode, _heli ammo(_heli getVariable "fza_ah64_selectedRocket")];
         } else {
             _wpnCtrl = "CRKT";
         };
+        if (_heli getVariable ["fza_ah64_wasCoop", false]) then {_wpnCtrl = "COOP"};
     };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
@@ -87,13 +85,14 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
 if (_hadOnly) exitWith {};
 
-// Centerline arrows only while FCR is the selected sight; solid = offset commanded that side
+// Centerline arrows only while FCR is the selected sight; an arrow fills for a moment when pressed (fza_fcr_fnc_slewCenterline)
 private _arrowL = 0;
 private _arrowR = 0;
 if (_sight == SIGHT_FCR) then {
-    private _azBias = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-    _arrowL = [1, 2] select (_azBias < -0.5);
-    _arrowR = [1, 2] select (_azBias >  0.5);
+    (_heli getVariable ["fza_fcr_arrowPressed", [0, -10]]) params ["_pressDir", "_pressTime"];
+    private _pressed = diag_tickTime - _pressTime < 0.2;
+    _arrowL = [1, 2] select (_pressed && _pressDir < 0);
+    _arrowR = [1, 2] select (_pressed && _pressDir > 0);
 };
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_L), _arrowL];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_R), _arrowR];
@@ -112,8 +111,9 @@ private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"];
-private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+// The centerline caret is the live centerline; the previous centerline caret is where the last scan looked
+_heli getVariable "fza_ah64_fcrLastScan" params ["_lastDir"];
+private _fcrHeading = [_heli getVariable ["fza_ah64_fcrAzBias", 0]] call CBA_fnc_simplifyAngle180;
 private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 if (_heli animationPhase "fcr_enable" != 1) then {
     _fcrHeading = -1000;

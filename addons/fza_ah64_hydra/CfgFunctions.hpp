@@ -13,6 +13,7 @@ class CfgFunctions
         tag="fza_hydra";
         class functions {
             file = "\fza_ah64_hydra\functions";
+            class aimSolve {RECOMPILE_FLAG;};
             class fired {RECOMPILE_FLAG;};
         };
     };

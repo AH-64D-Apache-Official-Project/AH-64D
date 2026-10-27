@@ -1,2 +1,0 @@
-#define SYMB_DEG_SCALING_FACTOR  0.005
-#define SYMB_DEG_MAX_X 50

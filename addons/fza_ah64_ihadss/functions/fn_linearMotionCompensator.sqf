@@ -27,40 +27,34 @@ if !(_heli getVariable "fza_ah64_LmcActive") exitWith {
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
+// The LST has the TADS (fza_ihadss_fnc_lstUpdate)
+if (_heli getVariable ["fza_ihadss_lstDriving", false]) exitWith {};
+
+// Slaved, the TADS goes to the acquisition source and holds it, as with LMC off (fza_fnc_weaponTurretAim); LMC carries
+// on compensating from there once slave is turned off
+if (_heli getVariable ["fza_ah64_cpgSlaved", false]) exitWith {
+    private _slavePos = [_heli, [_heli, [0]] call fza_fnc_targetingCurAcq] call fza_fnc_targetingAcqPoint;
+    if (_slavePos isEqualTo []) exitWith {};
+    _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
+    _heli setVariable ["fza_ah64_lmcStartRange", -1];
+    _heli setVariable ["fza_ah64_lmcPosition", _slavePos];
+    [_heli, _slavePos, true] call fza_fnc_targetingTadsLockTo;
+};
 
 (_heli getVariable "fza_ah64_lmcPrevInputs") params ["_prevInputX", "_prevInputY"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
 private _lmcSensitivity = linearConversion [0.0, 1.0, fza_ah64_LMCSensitivity, 1.0, 20.0];
-private _fovScalar      = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
+private _fovScalar      = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
 
 //Get the velocities of the aircraft on the respective axes
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
 
-//Get range
+//Get range, from the crew station's range source
 private _tadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
-private _tadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
-private _tadsDirection = (_tadsPosition vectorFromTo _tadsAimPos) vectorMultiply 50000;
-_tadsDirection call CBA_fnc_vect2Polar params ["","","_elevation"];
-private _elevation = _elevation min -EPSILON;
-private _autorange = [(ASLToAGL _tadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
-
-private _range = -1;
-private _laserPos = getPosASL laserTarget _heli;
-//Radar altitude is published in METRES; 1428 ft is the ceiling this gate wants.
-if (_elevation < -1 && {(_heli getVariable ["bmkhs_radAlt", 0.0]) < (1428.0 * FEET_TO_METERS)}) then {
-    _range = _autorange;
-};
-if (_laserPos isNotEqualTo [0,0,0]) then {
-    _range = _tadsPosition distance _laserPos;
-};
-
-if (_range == -1) then {
-    _range = _heli getVariable "fza_ah64_lmcRange";
-};
-_range         = _range max 500;
+private _range         = (([_heli, player] call fza_fnc_targetingRange) # 0) max 500;
 _heli setVariable ["fza_ah64_lmcRange", _range];
 if (_lmcStartRange == -1) then {
     _heli setVariable ["fza_ah64_lmcStartRange", _range];
@@ -71,11 +65,16 @@ if (_lmcStartRange == -1) then {
 private _angVelHorizontal = _velXY / _range;
 private _angVelVertical   = _velYZ / _range;
 
+//The aim input moves the head in free look, the cockpit cursor while it is detached, and the radial menu while open
+private _noAim = freeLook || {uiNamespace getVariable ["fza_radialOpen", false]} || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})};
+private _aimX = [inputAction "AimRight" - inputAction "AimLeft", 0] select _noAim;
+private _aimY = [inputAction "AimUp" - inputAction "AimDown", 0] select _noAim;
+
 //Get horizontal input
-private _inputX = ((((inputAction "AimRight" - inputAction "AimLeft") - _angVelHorizontal) * _lmcSensitivity) * _fovScalar) * _deltaTime +  _prevInputX;
+private _inputX = (((_aimX - _angVelHorizontal) * _lmcSensitivity) * _fovScalar) * _deltaTime +  _prevInputX;
 _inputX         = [_inputX, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 //Get vertical input
-private _inputY = ((((inputAction "AimUp" - inputAction "AimDown")    + _angVelVertical)   * _lmcSensitivity) * _fovScalar) * _deltaTime + _prevInputY;
+private _inputY = (((_aimY    + _angVelVertical)   * _lmcSensitivity) * _fovScalar) * _deltaTime + _prevInputY;
 _inputY         = [_inputY, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
 _heli setVariable ["fza_ah64_lmcPrevInputs", [_inputX, _inputY]];
@@ -109,4 +108,4 @@ _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
 
-_heli lockCameraTo [_lmcPosition, [0], true];
+[_heli, _lmcPosition, true] call fza_fnc_targetingTadsLockTo;

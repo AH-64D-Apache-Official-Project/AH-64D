@@ -63,8 +63,8 @@ private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FLT_ALTERNATE_SENSOR), _alternatesensorpan];
 
-_heli getVariable "fza_ah64_fcrLastScan" params ["_dir"];
-private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+// The live centerline
+private _fcrHeading = [_heli getVariable ["fza_ah64_fcrAzBias", 0]] call CBA_fnc_simplifyAngle180;
 if (_heli animationPhase "fcr_enable" != 1) then {
     _fcrHeading = -1000;
 };

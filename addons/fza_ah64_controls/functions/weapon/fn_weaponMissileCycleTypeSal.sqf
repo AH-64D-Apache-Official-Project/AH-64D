@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli] call fza_fnc_weaponMissileCycle
+    [_heli] call fza_fnc_weaponMissileCycleTypeSal
 
 Author:
     mattysmith22

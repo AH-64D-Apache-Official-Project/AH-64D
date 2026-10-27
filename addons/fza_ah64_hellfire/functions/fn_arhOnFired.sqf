@@ -50,7 +50,6 @@ private _attackProfile       = "hellfire_lo";
 private _calculatedImpactPos = [0, 0, 0];
 private _calculatedSearchPos = [0, 0, 0];
 private _timeToSearch        = 9999999;
-private _timeToImpact        = 9999999;
 private _isActive            = false;
 private _dbsOffset           = [0, 0, 0];
 
@@ -59,7 +58,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _targetData set [3, [0, 0, 0]];
     _targetData set [4, [0, 0, 0]];
 
-    // Time-of-flight lookup table: [range_km, tof_seconds]
+    // Seeker wake time lookup: [range_km, tof_seconds]. The HFTOF shown is fza_hellfire_fnc_tofEstimate's.
     private _hellfireTOF = [[0,0],[1,3],[2,7],[3,10],[4,14],[5,19],[6,24],[7,29],[8,36],[9,44]];
     private _rangeKm     = (_targPos distance _heli) * SCALE_METERS_KM;
     private _rangeM      = _rangeKm * 1000;
@@ -67,7 +66,6 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     // Shorter engagements should avoid an excessive climb arc.
     _attackProfile = ["hellfire_hi", "hellfire_lo"] select (_rangeM <= 3500);
 
-    _timeToImpact = ([_hellfireTOF, _rangeKm] call fza_fnc_linearInterp) # 1;
     _timeToSearch = ([_hellfireTOF, (_rangeKm - (FCR_LIMIT_FORCE_LOBL_RANGE * SCALE_METERS_KM))] call fza_fnc_linearInterp) # 1;
     _timeToSearch = _timeToSearch max 0;
 
@@ -76,7 +74,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
 
     // DBS-style lateral bias only: keep standard attack profiles, just shape approach path.
     private _isStationary = _targSpeed < FCR_LIMIT_MOVING_MIN_SPEED_KMH;
-    if (_isStationary && _rangeM > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+    if (_isStationary && _rangeM > ARH_LOAL_LOBL_SWITCH_RANGE) then {
         // DMS/DBS mode: wake seeker 20% sooner to begin terminal acquisition earlier.
         _timeToSearch = (_timeToSearch * 0.8) max 0;
         _calculatedSearchPos = _targPos;
@@ -93,10 +91,6 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
         private _offsetDist = (_rangeM * 0.15) min 800;
         _dbsOffset = _perpDir vectorMultiply _offsetDist;
     };
-
-    private _currentTof = _heli getVariable "fza_ah64_tofCountDown";
-    _currentTof pushBack (_timeToImpact + CBA_missionTime);
-    _heli setVariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
 if (!(isNull _targObj) && _loblCheckLima # 1) then {
@@ -104,6 +98,14 @@ if (!(isNull _targObj) && _loblCheckLima # 1) then {
     _isActive      = true;
 
     _stateParams set [2, [STAGE_ATTACK_TERMINAL, 0, [getPosASL _projectile select 2, 0]]];
+};
+
+// HFTOF from the launch conditions: the range to the target and the trajectory flown, direct when locked before launch
+if (_targPos isNotEqualTo [0, 0, 0]) then {
+    _firedEH params ["", "", "", "", "_ammo", "_magazine"];
+    [_heli, [_ammo, _magazine, _targPos distance _heli, _attackProfile] call fza_hellfire_fnc_tofEstimate] call fza_hellfire_fnc_tofStart;
+} else {
+    [_heli, -1] call fza_hellfire_fnc_tofStart;
 };
 
 if (_handoffSource == "FCR") then {

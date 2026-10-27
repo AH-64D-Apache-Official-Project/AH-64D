@@ -74,22 +74,24 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), (BOOLTON
 private _sight = "TADS";
 
 switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
-    case 0: {
+    case SIGHT_FCR: {
         _sight = "FCR"
     };
-    case 1: {
+    case SIGHT_HMD: {
         _sight = "HMD";
     };
-    case 2: {
+    case SIGHT_TADS: {
         _sight = "TADS";
-    };
-    case 3: {
-        _sight = "FXD";
     };
 };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
+// The last entered manual range stays displayed, whichever range source is in use; the default until one is entered
+private _seat        = [_heli] call fza_fnc_getSeat;
+private _manualRange = _heli getVariable ["fza_ah64_rangeManual_" + _seat, 0];
+if (_manualRange <= 0) then {_manualRange = [RANGE_DEFAULT_CPG, RANGE_DEFAULT_PLT] select (_seat == "plt")};
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MANRNG), str _manualRange];
 
 [_heli, _mpdIndex, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 private _was = _heli getVariable "fza_ah64_was";

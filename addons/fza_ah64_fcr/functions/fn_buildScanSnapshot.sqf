@@ -3,7 +3,8 @@ Function: fza_fcr_fnc_buildScanSnapshot
 
 Description:
     Processes raw sensor tracks into FCR target records with range, azimuth,
-    elevation, type, and sweep reveal offset.
+    elevation, type, and when in the cycle the wiper crosses them
+    (fza_fcr_fnc_revealOffset).
 
 Parameters:
     _heli      - The helicopter
@@ -44,7 +45,7 @@ private _heliPos    = getPosASL _heli;
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         _targetSpeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE)
         then { continue; };
-    if (count _fcrTargets >= 256) exitWith {};
+    if (count _fcrTargets >= FCR_TARGET_FILE) exitWith {};
 
     private _targDir   = _heliPos vectorFromTo _targetPos;
     private _ydist     = _targDir vectorDotProduct vectorUp _heli;
@@ -78,26 +79,6 @@ private _heliPos    = getPosASL _heli;
 
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
 
-    private _revealOffset = if (_isGround) then {
-        private _bar = (_gtmHalfFov * 2) / FCR_SCAN_RATE_DEGS;
-        if (_range < 4000) then {
-            ((_relAzi + _gtmHalfFov) / (_gtmHalfFov * 2)) * _bar
-        } else {
-            _bar + ((_gtmHalfFov - _relAzi) / (_gtmHalfFov * 2)) * _bar
-        }
-    } else {
-        if (_atmHalfFov >= 168) then {
-            // Wide rotation starts at the nose and sweeps counter-clockwise (matches the
-            // display wiper); a target's reveal offset = its CCW angle from the nose
-            private _ccw = (-_relAzi + 360) mod 360;
-            _ccw / FCR_SCAN_RATE_DEGS
-        } else {
-            // Display mirrors the bearing math, so the visible first pass runs R→L: a target
-            // at the right edge (+halfFov) reveals at t=0, the left edge (-halfFov) at t=bar
-            ((_atmHalfFov - _relAzi) / (_atmHalfFov * 2)) * ((_atmHalfFov * 2) / FCR_SCAN_RATE_DEGS)
-        }
-    };
-
     // ATM draws nose-relative on a rotating PPI; store the nose-relative bearing frozen at
     // scan time so a later slew doesn't swing the symbol until the next scan refreshes it.
     // GTM/RMAP stay centerline-relative (their wedge is fixed forward).
@@ -108,7 +89,7 @@ private _heliPos    = getPosASL _heli;
         _type, _moving, _target,
         [_storeAzi,  1] call BIS_fnc_cutDecimals,
         [_elevAngle, 1] call BIS_fnc_cutDecimals,
-        _range, _revealOffset
+        _range, [_heli, _relAzi, _range] call fza_fcr_fnc_revealOffset
     ];
 } forEach _fcrTracks;
 

@@ -2,11 +2,13 @@
 Function: fza_fcr_fnc_slewCenterline
 
 Description:
-    Steps the FCR azimuth scan centerline one full scan width left or right
-    (coverage adjacent to the previously selected area).
-    The new position is stored as a world bearing so the centerline remains
-    heading stabilized until commanded again. Only acts when the FCR is the
-    crewmember's selected sight.
+    Steps the FCR azimuth scan centerline left or right by the selected scan
+    size: 90 deg wide, 22.5 medium, 15 narrow, 7.5 zoom, all the way round the
+    aircraft, stopping a running scan. The new position is stored as a world
+    bearing so the centerline remains heading stabilized until commanded again. Only acts for the crew
+    station owning the FCR (FCR_OWNER) while the centerline is not following the
+    acquisition source: for the pilot, slaved on selection, only with FXD as the
+    source; for the CPG only while not slaved, and not in TADSL.
 
 Parameters:
     _heli    - The helicopter
@@ -21,57 +23,28 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_dirSign"];
 
-if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) exitWith {};
+if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
+if (player == driver _heli && {([_heli, [-1]] call fza_fnc_targetingCurAcq) != "FXD"}) exitWith {};
+if (player == gunner _heli && {_heli getVariable ["fza_ah64_cpgSlaved", false]}) exitWith {};
+// TADSL: the centerline follows the TADS LOS and the arrows are not shown
+if (player == gunner _heli && {CPG_LINK(_heli) && {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_TADS}}) exitWith {};
 
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
 if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {};
 
-private _azBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
-private _newBias = _azBias;
-
 // Use the SELECTED size, not the latched half-FOV — the latch happens at the next scan
-// start, so reading fcrAtmHalfFov here would give the previous size's step right after a change.
-private _size    = _heli getVariable ["fza_ah64_fcrScanSize", 0];
-private _halfFov = if (_fcrMode == FCR_DISP_MODE_ATM) then {
-    [168, 90, 45, 22.5] select _size
-} else {
-    [45, 22.5, 15, 7.5] select _size
-};
+// start, so reading it here would give the previous size right after a change.
+private _size = _heli getVariable ["fza_ah64_fcrScanSize", 0];
 // Wide (ATM 360 rotation) has no centerline to offset
-if (_halfFov >= 168) exitWith {};
+if (_fcrMode == FCR_DISP_MODE_ATM && {_size == 0}) exitWith {};
 
-// One position either side, offset half the scan azimuth (= the half-FOV) — the slewed
-// sector's inner edge sits on the helicopter centerline. GTM wide +-45/med +-22.5/
-// nrw +-15/zoom +-7.5; ATM med +-90/nrw +-45/zoom +-22.5. Clamped (no wrap-around).
-// Stepped from the side the centerline is on, not the heading-stabilised bias value,
-// so the arrows always land on left / centre / right however far the aircraft has yawed.
-private _curStep = if (_azBias > 0.5) then { 1 } else { if (_azBias < -0.5) then { -1 } else { 0 } };
-private _newStep = _curStep + _dirSign;
-if (abs _newStep > 1) exitWith {};
-_newBias = _newStep * _halfFov;
+// The arrow fills while pressed (fza_mpd_fnc_fcrStatusDraw)
+_heli setVariable ["fza_fcr_arrowPressed", [_dirSign, diag_tickTime]];
 
+private _azBias  = _heli getVariable ["fza_ah64_fcrAzBias", 0];
+private _newBias = [_azBias + _dirSign * ([90, 22.5, 15, 7.5] select _size)] call CBA_fnc_simplifyAngle180;
 if (_newBias == _azBias) exitWith {};
 
-_heli setVariable ["fza_ah64_fcrAzBias", _newBias, true];
-
-// Returning to centre (0 bias) is NOT heading-stabilized — the scan tracks the nose again,
-// so clear the stored world centerline; otherwise stabilization would drift it off centre.
-if (_newBias == 0) then {
-    _heli setVariable ["fza_ah64_fcrCenterlineWorld", -1, true];
-} else {
-    // SQF mod keeps sign — +360 first so a left slew at low headings can't store a negative bearing
-    _heli setVariable ["fza_ah64_fcrCenterlineWorld", (direction _heli + _newBias + 360) mod 360, true];
-};
-
-// Current/last centerline carets update immediately; keep the update stamp and scan-time nose heading intact
-private _clDir = (direction _heli + _newBias + 360) mod 360;
-_heli getVariable "fza_ah64_fcrLastScan" params ["_oldDir", "_scanPos", "_time", "", ["_noseDir", direction _heli]];
-[_heli, "fza_ah64_fcrLastScan", [_clDir, _scanPos, _time, _oldDir, _noseDir]] call fza_fnc_updateNetworkGlobal;
-
-// B-scope columns map to the new sector — restart the video
-[_heli] call fza_fcr_fnc_videoClear;
-
-_heli getVariable "fza_ah64_fcrState" params ["_fcrScanState"];
-if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
-    [_heli, _fcrScanState, true] call fza_fcr_fnc_armScanStart;
-};
+// Moving the scan sector stops a running scan; the antenna then turns to the new centerline (fza_fcr_fnc_animateFCR)
+[_heli] call fza_fcr_fnc_stopScan;
+[_heli, _newBias] call fza_fcr_fnc_setCenterline;

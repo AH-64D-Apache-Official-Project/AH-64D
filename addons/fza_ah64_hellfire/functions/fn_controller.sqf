@@ -12,3 +12,5 @@ params ["_heli"];
 
 [_heli] call fza_hellfire_fnc_syncAceMissileParams;
 [_heli] call fza_hellfire_fnc_tadsRfHandoffUpdate;
+[_heli] call fza_hellfire_fnc_rfPowerUpdate;
+[_heli] call fza_fnc_weaponMissilePriority;

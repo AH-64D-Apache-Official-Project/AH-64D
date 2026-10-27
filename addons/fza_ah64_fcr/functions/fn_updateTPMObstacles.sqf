@@ -4,8 +4,8 @@ Function: fza_fcr_fnc_updateTPMObstacles
 Description:
     Keeps the TPM obstacle picture for this machine. Runs every frame from
     fn_controller so the IHADSS C-scope has obstacles whether or not an MPD is
-    showing the TPM page. The picture is replaced all at once each time the
-    antenna completes a half sweep.
+    showing the TPM page. The picture is replaced all at once as each full scan
+    cycle completes, the FCR's one cadence.
 
     Writes (all local):
         fza_ah64_fcrTPMObsDisplay - [[x, y, topASL], ...] obstacles in the picture
@@ -40,7 +40,7 @@ private _publish = {
 private _epoch = _heli getVariable ["fza_ah64_fcrTPMClearEpoch", 0];
 if (_fcrScanState == FCR_MODE_FAULT || _epoch != (_heli getVariable ["fza_ah64_fcrTPMObsEpoch", -1])) then {
     _heli setVariable ["fza_ah64_fcrTPMObsEpoch", _epoch];
-    _heli setVariable ["fza_ah64_fcrTPMObsHalf",  -1];
+    _heli setVariable ["fza_ah64_fcrTPMObsCycle", -1];
     if ((_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]) isNotEqualTo []) then {
         [[], "[]"] call _publish;
     };
@@ -53,14 +53,14 @@ if (_elapsed < 0 || { _heli getVariable ["fza_ah64_fcrWaitingForStart", false] }
 
 [_heli] call fza_fcr_fnc_buildTPMData;
 
-// A scan restart or a sector change starts a fresh sweep: no picture until it completes
-private _halfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
-private _halfIdx = floor (_elapsed / ((_halfFov * 2) / FCR_TPM_SCAN_RATE_DEGS));
-private _prevIdx = _heli getVariable ["fza_ah64_fcrTPMObsHalf", -1];
-private _prevFov = _heli getVariable ["fza_ah64_fcrTPMObsHalfFov", -1];
-_heli setVariable ["fza_ah64_fcrTPMObsHalf",    _halfIdx];
+// A scan restart or a sector change starts a fresh cycle: no picture until it completes
+private _halfFov  = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+private _cycleIdx = floor (_elapsed / (([_heli] call fza_fcr_fnc_getScanTiming) # 1));
+private _prevIdx  = _heli getVariable ["fza_ah64_fcrTPMObsCycle", -1];
+private _prevFov  = _heli getVariable ["fza_ah64_fcrTPMObsHalfFov", -1];
+_heli setVariable ["fza_ah64_fcrTPMObsCycle",   _cycleIdx];
 _heli setVariable ["fza_ah64_fcrTPMObsHalfFov", _halfFov];
-if (_prevIdx < 0 || _halfIdx <= _prevIdx || _halfFov != _prevFov) exitWith {};
+if (_prevIdx < 0 || _cycleIdx <= _prevIdx || _halfFov != _prevFov) exitWith {};
 
 private _maxRange   = 2500;
 private _heliPos    = getPosASL _heli;

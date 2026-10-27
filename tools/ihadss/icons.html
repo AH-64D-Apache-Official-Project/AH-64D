@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<body>
+<!-- Renders the IHADSS virtual symbols with the page's own drawing code; read by generate_ihadss_icons.ps1 -->
+<script src="../../addons/fza_ah64_ihadss/ui/js/ihadss_common.js"></script>
+<script src="../../addons/fza_ah64_ihadss/ui/js/ihadss_base.js"></script>
+<script src="../../addons/fza_ah64_ihadss/ui/js/ihadss_flight.js"></script>
+<script src="../../addons/fza_ah64_ihadss/ui/js/ihadss_weapon.js"></script>
+<pre id="out"></pre>
+<script>
+    // [name, size in canvas units, draw about the origin]
+    var icons = [
+        ["headtracker", 64, function (c) { IH.base.drawHeadTracker(c, [0, 0]); }],
+        ["cuedlos", 64, function (c) { IH.base.drawCuedLos(c, [0, 0]); }],
+        ["fpv", 64, function (c) { IH.flight.drawFlightPathVector(c); }],
+        ["flyto", 64, function (c) { IH.flight.drawFlyToCue(c); }],
+        ["rkt", 128, function (c) { IH.weapon.drawRocketCursor(c, false, false); }],
+        ["rkt_inhibit", 128, function (c) { IH.weapon.drawRocketCursor(c, true, false); }],
+        ["rkt_stow", 128, function (c) { IH.weapon.drawRocketCursor(c, false, true); }],
+        ["rkt_stow_inhibit", 128, function (c) { IH.weapon.drawRocketCursor(c, true, true); }]
+    ];
+    var PX_PER_UNIT = 2;
+    var out = {};
+    icons.forEach(function (icon) {
+        var px = icon[1] * PX_PER_UNIT;
+        var canvas = document.createElement("canvas");
+        canvas.width = px;
+        canvas.height = px;
+        var ctx = canvas.getContext("2d");
+        ctx.translate(px / 2, px / 2);
+        ctx.scale(PX_PER_UNIT, PX_PER_UNIT);
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.lineWidth = 2;
+        ctx.lineJoin = "round";
+        icon[2](ctx);
+        out[icon[0]] = canvas.toDataURL("image/png");
+    });
+    document.getElementById("out").textContent = JSON.stringify(out);
+</script>
+</body>
+</html>

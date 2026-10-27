@@ -125,6 +125,19 @@ class AnimationSources
         animPeriod = 0.01;
         initPhase=0;
     };
+    // The TADS turned as a night vision sensor, added to the turret's own angles (fza_ihadss_fnc_tadsNvsControl); 0 otherwise
+    class tads_nvs_tur
+    {
+        source = "user";
+        animPeriod = 0.01;
+        initPhase=0;
+    };
+    class tads_nvs
+    {
+        source = "user";
+        animPeriod = 0.01;
+        initPhase=0;
+    };
     class tads_stow
     {
         source = "user";

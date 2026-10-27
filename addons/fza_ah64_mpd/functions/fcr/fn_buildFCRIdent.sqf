@@ -46,7 +46,7 @@ if (_distance_m < FCR_LIMIT_MIN_RANGE || _distance_m > _maxRange) exitWith { "" 
 private _unitStatus = if ((_moving && _distance_m <= FCR_LIMIT_MOVING_RANGE) || _unitType == "FLYER") then {
     "MOVE"
 } else {
-    ["LOAL", "LOBL"] select (_distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE)
+    ["LOAL", "LOBL"] select (_distance_m <= FCR_DISPLAY_LOAL_LOBL_RANGE)
 };
 
 // Build optional selection / weapon suffix

@@ -191,6 +191,10 @@
 #define MFD_IND_WPN_MSL_MENU 19
 // 1 when FCR sight is active and type is locked to RF
 #define MFD_IND_WPN_MSL_TYPE_BARRIER 20
+// RF MSL PWR selection: MSL_PWR_ALL / AUTO / NONE
+#define MFD_IND_WPN_MSL_PWR 21
+// This crew station's missile MODE, its index in MSL_MODES: 0 NORM, 1 MAN, 2 RIPL
+#define MFD_IND_WPN_MSL_MODE 22
 
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
@@ -214,6 +218,9 @@
 #define MFD_TEXT_IND_WPN_RKT_INV_5_QTY 17
 #define MFD_TEXT_IND_WPN_RKT_TOT_QTY 18
 #define MFD_TEXT_IND_WPN_RKT_SALVO 19
+#define MFD_TEXT_IND_WPN_MANRNG 20
+#define MFD_TEXT_IND_WPN_GUN_MODE 21
+#define MFD_TEXT_IND_WPN_MSL_MODE 22
 
 #define MFD_TEXT_IND_WPN_MSL_TRAJ 10
 #define MFD_TEXT_IND_WPN_MSL_PRI_CODE 11
@@ -237,7 +244,6 @@
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
 #define MFD_TEXT_IND_TSD_ROOT_WIND 5
 //deconflict with show page
-#define MFD_TEXT_IND_TSD_ROOT_FCR 11
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -322,6 +328,8 @@
 #define MFD_IND_FCR_SCAN_SIZE        18
 #define MFD_IND_FCR_TPM_OBS_SHOW     20
 #define MFD_IND_FCR_ATM_SECTOR_ROT   21
+#define MFD_IND_FCR_TGT_BARRIER      22
+#define MFD_IND_FCR_SIGHT_FCR        23
 
 #define MFD_IND_FCR_INSTALLED 19
 
@@ -338,6 +346,7 @@
 #define MFD_TEXT_IND_FCR_TPM_CLR   8
 #define MFD_TEXT_IND_FCR_TPM_OBS   9
 #define MFD_TEXT_IND_FCR_TPM_LINES 10
+#define MFD_TEXT_IND_FCR_TPM_ELEV  11
 
 //ASE Indices
 #define MFD_IND_ASE_CHAFF_STATE  0
@@ -490,6 +499,7 @@
 #define MPD_PAGE_COORD 19
 #define MPD_PAGE_FCRRMAP 20
 #define MPD_PAGE_FCRTPM  21
+#define MPD_PAGE_VID     22
 
 // MINIGAMES - each minigame gets its own FzaMpdPages entry + index; selected from the DMS page's IBIT button.
 //#define MPD_PAGE_DOOM 28 //Reserved for DOOM Compat Addon - see fza_compat_doom
@@ -509,7 +519,62 @@
 #define MFD_IND_MINIGAMES_DOOM_AVAILABLE 0
 
 
+// VIDEO page (fza_mpd_fnc_pageVIDDraw)
+#define MFD_IND_VID_VSEL      0
+#define MFD_IND_VID_UNDERLAY  1
+#define MFD_IND_VID_VIEW      2
+#define MFD_IND_VID_SHARP     3
+#define MFD_IND_VID_COLOR     4
+#define MFD_IND_VID_SYMB      5
+#define MFD_IND_VID_GS        6
+#define MFD_TEXT_IND_VID_VSEL 0
+
+// Video settings, per MPD (fza_mpd_fnc_videoState): [underlay, view, sharp, color, symb, g/s, VID knob, VSEL]
+#define MPD_VIDEO_UNDERLAY 0
+#define MPD_VIDEO_VIEW     1
+#define MPD_VIDEO_SHARP    2
+#define MPD_VIDEO_COLOR    3
+#define MPD_VIDEO_SYMB     4
+#define MPD_VIDEO_GS       5
+#define MPD_VIDEO_KNOB     6
+#define MPD_VIDEO_VSEL     7
+// UNDERLAY R1-R6
+#define MPD_VIDEO_SRC_TADS      0
+#define MPD_VIDEO_SRC_CPG_SIGHT 1
+#define MPD_VIDEO_SRC_CPG_HMD   2
+#define MPD_VIDEO_SRC_PLT_SIGHT 3
+#define MPD_VIDEO_SRC_PLT_HMD   4
+#define MPD_VIDEO_SRC_NONE      5
+// VIEW L1-L3
+#define MPD_VIDEO_VIEW_WIDE 0
+#define MPD_VIDEO_VIEW_NORM 1
+#define MPD_VIDEO_VIEW_ZOOM 2
+#define MPD_VIDEO_SHARP_MAX 4
+// VID knob, -1 to 1 with the centre detent at 0
+#define MPD_VIDEO_KNOB_STEP 0.25
+// The video and its symbology are raised by this many format units (480 to the MPD height), so the format's bottom
+// clears the screen edge; video.css raises the format the same
+#define MPD_VIDEO_RAISE 14
+
 #define BOOLTONUM [0,1] select
+// Acquisition source list (fza_mpd_fnc_acqHandleControl): open on the left/right MPD, not offset, as page text
+// everywhere is hidden under it (MPD_ACQ_COVERS); then per option on the pages with an ACQ button, 0 hidden,
+// 1 listed, 2 selected
+#define MFD_IND_MASK_L        12
+#define MFD_IND_MASK_R        13
+#define MFD_IND_ACQ_OPEN_L    10
+#define MFD_IND_ACQ_OPEN_R    11
+#define MFD_IND_ACQ_OPT_PHS   31
+#define MFD_IND_ACQ_OPT_GHS   32
+#define MFD_IND_ACQ_OPT_SKR   33
+#define MFD_IND_ACQ_OPT_RFI   34
+#define MFD_IND_ACQ_OPT_FCR   35
+#define MFD_IND_ACQ_OPT_FXD   36
+#define MFD_IND_ACQ_OPT_TADS  37
+// B5, the crew station's coordinate point, and its name
+#define MFD_IND_ACQ_OPT_POINT 38
+#define MFD_TEXT_IND_ACQ_POINT 38
+
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
 
 #endif

@@ -27,6 +27,7 @@ class CfgFunctions
         };
         class point {
             file = "\fza_ah64_dms\functions\point";
+            class pointAltitudeBase{R;};
             class pointCreate{R;};
             class pointDelete{R;};
             class pointEditValue{R;};

@@ -17,6 +17,19 @@ Author:
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
 if !(["fza_m230", _weapon] call BIS_fnc_inString) exitWith {};
+
+// The round leaves the barrel muzzle along the gun's commanded direction (fza_fnc_weaponTurretAim) at the muzzle speed,
+// plus the aircraft's velocity. Set as it is created, so it is on this path from its first frame.
+private _gunAim = _heli getVariable "fza_cannon_gunAim";
+if (!isNil "_gunAim" && {!isNull _missobj}) then {
+    if (isNil "fza_cannon_ballistics") then {[_heli, getPosASL _heli] call fza_cannon_fnc_aimSolve};
+    // The fire mode's dispersion (rad), which the engine's own aim would have applied
+    private _dispersion = deg getNumber (configFile >> "CfgWeapons" >> _weapon >> _mode >> "dispersion");
+    private _dir = _heli vectorModelToWorldVisual ([1, (_gunAim # 0) + random [-_dispersion, 0, _dispersion], (_gunAim # 1) + random [-_dispersion, 0, _dispersion]] call CBA_fnc_polar2vect);
+    _missobj setPosASL (_heli modelToWorldVisualWorld (_heli selectionPosition ["usti hlavne", "Memory"]));
+    _missobj setVectorDir _dir;
+    _missobj setVelocity ((_dir vectorMultiply (fza_cannon_ballistics # 0)) vectorAdd velocity _heli);
+};
 private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
 private _CannonFired = (_heli getVariable "fza_ah64_burst_fired") + 1;
 

@@ -14,6 +14,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_mpd\functions";
             class acqDraw {RECOMPILE_FLAG;};
+            class acqHandleControl {RECOMPILE_FLAG;};
             class bearingToScreen {RECOMPILE_FLAG;};
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
@@ -29,6 +30,7 @@ class CfgFunctions
         };
         class canvas {
             file = "\fza_ah64_mpd\functions\canvas";
+            class canvasAdjust {RECOMPILE_FLAG;};
             class canvasDraw {RECOMPILE_FLAG;};
             class canvasDrawLine {RECOMPILE_FLAG;};
         }
@@ -103,6 +105,8 @@ class CfgFunctions
             class pageTSDHandleControl {RECOMPILE_FLAG;};
             class pageVERDraw {RECOMPILE_FLAG;};
             class pageVERHandleControl {RECOMPILE_FLAG;};
+            class pageVIDDraw {RECOMPILE_FLAG;};
+            class pageVIDHandleControl {RECOMPILE_FLAG;};
             class pageWCADraw {RECOMPILE_FLAG;};
             class pageWCAHandleControl {RECOMPILE_FLAG;};
             class pageWPNDraw {RECOMPILE_FLAG;};
@@ -114,6 +118,16 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
+        };
+        class video {
+            file = "\fza_ah64_mpd\functions\video";
+            class videoApply {RECOMPILE_FLAG;};
+            class videoKnob {RECOMPILE_FLAG;};
+            class videoLinesDraw {RECOMPILE_FLAG;};
+            class videoSource {RECOMPILE_FLAG;};
+            class videoState {RECOMPILE_FLAG;};
+            class videoSymbols {RECOMPILE_FLAG;};
+            class videoSymbolsShow {RECOMPILE_FLAG;};
         };
         class wpn {
             file = "\fza_ah64_mpd\functions\wpn";

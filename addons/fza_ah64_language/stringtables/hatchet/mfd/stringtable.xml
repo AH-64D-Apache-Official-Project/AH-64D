@@ -36,6 +36,23 @@
             <Turkish>SOL MPD A/C</Turkish>
             <Dutch>LINKER MPD A/C</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_LMPD_VID">
+            <Original>LEFT MPD VID</Original>
+            <English>LEFT MPD VID</English>
+            <Czech>LEVÉ MPD VID</Czech>
+            <French>MPD GAUCHE VID</French>
+            <Spanish>MPD IZQUIERDO VID</Spanish>
+            <Italian>MPD SINISTRA VID</Italian>
+            <Polish>LEWE MPD VID</Polish>
+            <Portuguese>MPD ESQUERDO VID</Portuguese>
+            <Russian>ЛЕВЫЙ МПД VID</Russian>
+            <German>LINKES MPD VID</German>
+            <Korean>좌측 MPD VID</Korean>
+            <Japanese>左MPD VID</Japanese>
+            <Chinesesimp>左侧MPD VID</Chinesesimp>
+            <Turkish>SOL MPD VID</Turkish>
+            <Dutch>LINKER MPD VID</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
             <Original>LEFT MPD B1/MENU</Original>
             <English>LEFT MPD B1/MENU</English>
@@ -546,6 +563,23 @@
             <Chinesesimp>右侧MPD A/C</Chinesesimp>
             <Turkish>SAĞ MPD A/C</Turkish>
             <Dutch>RECHTER MPD A/C</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_VID">
+            <Original>RIGHT MPD VID</Original>
+            <English>RIGHT MPD VID</English>
+            <Czech>PRAVÉ MPD VID</Czech>
+            <French>MPD DROIT VID</French>
+            <Spanish>MPD DERECHO VID</Spanish>
+            <Italian>MPD DESTRA VID</Italian>
+            <Polish>PRAWE MPD VID</Polish>
+            <Portuguese>MPD DIREITO VID</Portuguese>
+            <Russian>ПРАВЫЙ МПД VID</Russian>
+            <German>RECHTES MPD VID</German>
+            <Korean>우측 MPD VID</Korean>
+            <Japanese>右MPD VID</Japanese>
+            <Chinesesimp>右侧MPD VID</Chinesesimp>
+            <Turkish>SAĞ MPD VID</Turkish>
+            <Dutch>RECHTER MPD VID</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
             <Original>RIGHT MPD B1/MENU</Original>

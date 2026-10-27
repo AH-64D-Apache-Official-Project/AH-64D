@@ -45,7 +45,7 @@ if (isNil "_pointDetails") then {
     //Line 3
     private _wptLatLong   = _pointDetails select POINT_GET_LAT_LONG;
     private _dstToWpt_nm  = ((_pointDetails # POINT_GET_ARMA_POS) distance2D (getPos _heli)) * 0.000539957;
-    private _wptDetails_3 = format["%1 %2 FT %3 NM", _wptLatLong, [[(_pointDetails select POINT_GET_ALT_MSL) * SCALE_METERS_FEET,0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
+    private _wptDetails_3 = format["%1 %2 FT %3 NM", _wptLatLong, [[(_pointDetails select POINT_GET_ALT_MSL) * SCALE_METERS_FEET + ([_heli] call fza_dms_fnc_pointAltitudeBase),0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
 
     _heli setUserMFDText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_1), _wptDetails_1];
     _heli setUserMFDText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_2), _wptDetails_2];

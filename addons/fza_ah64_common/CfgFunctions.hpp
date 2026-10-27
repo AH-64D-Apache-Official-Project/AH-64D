@@ -15,8 +15,6 @@ class CfgFunctions
             file = "\fza_ah64_common\functions";
             class addKeybind {R;};
             class cycle {R;};
-            class debugDrawCircle {R;};
-            class debugDrawLine {R;};
             class getArea {R;};
             class getSeat {R;};
             class getSeatVariable {R;};
@@ -35,6 +33,16 @@ class CfgFunctions
             class pidCreate {R;};
             class pidReset {R;};
             class pidRun {R;};
+        };
+        class radial {
+            file = "\fza_ah64_common\functions\radial";
+            class radialDisplay {R;};
+            class radialDraw {R;};
+            class radialItems {R;};
+            class radialSelect {R;};
+            class radialSetMenu {R;};
+            class radialToggle {R;};
+            class radialUpdate {R;};
         };
     };
 };

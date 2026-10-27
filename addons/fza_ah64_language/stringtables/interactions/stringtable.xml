@@ -273,6 +273,38 @@
             <Turkish>TADS Sensörünü FLIR Olarak Ayarla</Turkish>
             <Dutch>Stelt de TADS Sensor in op FLIR</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_LINK">
+            <Original>Sight Select Link</Original>
+            <English>Sight Select Link</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_LINK_INFO">
+            <Original>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</Original>
+            <English>CPG: links the other sensor to the selected sight, or unlinks it. TADS: the FCR follows the TADS. FCR: the slave switch slaves the TADS to the NTS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_PNVS">
+            <Original>NVS Select PNVS</Original>
+            <English>NVS Select PNVS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_PNVS_INFO">
+            <Original>Selects the PNVS as this crew station's night vision sensor; the other crew station gets the TADS</Original>
+            <English>Selects the PNVS as this crew station's night vision sensor; the other crew station gets the TADS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_TADS">
+            <Original>NVS Select TADS</Original>
+            <English>NVS Select TADS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_NVS_SELECT_TADS_INFO">
+            <Original>Selects the TADS FLIR as this crew station's night vision sensor; the other crew station gets the PNVS. The CPG has the TADS by default</Original>
+            <English>Selects the TADS FLIR as this crew station's night vision sensor; the other crew station gets the PNVS. The CPG has the TADS by default</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SLAVE">
+            <Original>Sight Slave</Original>
+            <English>Sight Slave</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_SIGHT_SLAVE_INFO">
+            <Original>CPG: slaves the selected sight to the acquisition source, or releases it</Original>
+            <English>CPG: slaves the selected sight to the acquisition source, or releases it</English>
+        </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR">
             <Original>Sight Select FCR</Original>
             <English>Sight Select FCR</English>
@@ -306,40 +338,6 @@
             <Chinesesimp>将当前瞄准设置为FCR</Chinesesimp>
             <Turkish>Geçerli görüşü FCR olarak ayarla</Turkish>
             <Dutch>Stelt het huidige zicht op FCR in</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD">
-            <Original>Sight Select FXD</Original>
-            <English>Sight Select FXD</English>
-            <Czech>Vybrat FXD</Czech>
-            <French>Sélectionner FXD</French>
-            <Spanish>Seleccionar FXD</Spanish>
-            <Italian>Seleziona FXD</Italian>
-            <Polish>Wybierz FXD</Polish>
-            <Portuguese>Selecionar FXD</Portuguese>
-            <Russian>Выберите FXD</Russian>
-            <German>FXD Wählen</German>
-            <Korean>FXD 선택</Korean>
-            <Japanese>FXD選択</Japanese>
-            <Chinesesimp>选择FXD</Chinesesimp>
-            <Turkish>FXD Seç</Turkish>
-            <Dutch>FXD Selecteren</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD_INFO">
-            <Original>Sets the current sight to FXD</Original>
-            <English>Sets the current sight to FXD</English>
-            <Czech>Nastaví aktuální pohled na FXD</Czech>
-            <French>Définit la visée actuelle à FXD</French>
-            <Spanish>Establece la vista actual a FXD</Spanish>
-            <Italian>Imposta la vista attuale su FXD</Italian>
-            <Polish>Ustawia bieżący widok na FXD</Polish>
-            <Portuguese>Define o sinal atual como FXD</Portuguese>
-            <Russian>Устанавливает текущий вид на FXD</Russian>
-            <German>Setzt das aktuelle Ziel auf FXD</German>
-            <Korean>현재 조준을 FXD로 설정</Korean>
-            <Japanese>現在のサイトをFXDに設定</Japanese>
-            <Chinesesimp>将当前瞄准设置为FXD</Chinesesimp>
-            <Turkish>Geçerli görüşü FXD olarak ayarla</Turkish>
-            <Dutch>Stelt het huidige zicht op FXD in</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD">
             <Original>Sight Select HMD</Original>
@@ -681,39 +679,13 @@
             <Turkish>TADS Doğrusal Hareket Telafi Cihazını Aç/Kapat</Turkish>
             <Dutch>Schakelt TADS Lineaire Bewegingscompensator in/uit</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE">
-            <Original>Target Store</Original>
-            <English>Target Store</English>
-            <Czech>Uložit Cíl</Czech>
-            <French>Enregistrer Cible</French>
-            <Spanish>Almacenar Objetivo</Spanish>
-            <Italian>Memorizza Obiettivo</Italian>
-            <Polish>Przechowywanie Celu</Polish>
-            <Portuguese>Armazenar Alvo</Portuguese>
-            <Russian>Сохранить Цель</Russian>
-            <German>Ziel Speichern</German>
-            <Korean>대상 저장</Korean>
-            <Japanese>ターゲット保存</Japanese>
-            <Chinesesimp>目标存储</Chinesesimp>
-            <Turkish>Hedefi Kaydet</Turkish>
-            <Dutch>Doel Opslaan</Dutch>
+        <Key ID="STR_FZA_AH64_CPG_STORE_UPDATE">
+            <Original>CPG Store/Update</Original>
+            <English>CPG Store/Update</English>
         </Key>
-        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE_INFO">
-            <Original>Stores the target being currently looked at in the TADS as a waypoint</Original>
-            <English>Stores the target being currently looked at in the TADS as a waypoint</English>
-            <Czech>Uloží cíl aktuálně pozorovaný v TADS jako bod trasy</Czech>
-            <French>Enregistre la cible actuellement observée dans le TADS en tant que point de cheminement</French>
-            <Spanish>Almacena el objetivo observado actualmente en el TADS como un punto de ruta</Spanish>
-            <Italian>Memorizza l'obiettivo attualmente osservato in TADS come waypoint</Italian>
-            <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
-            <Portuguese>Armazena o alvo observado atualmente no TADS como um ponto de rota</Portuguese>
-            <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
-            <German>Speichert das derzeit im TADS beobachtete Ziel als Wegpunkt</German>
-            <Korean>TADS에서 현재 관찰 중인 대상을 경유점으로 저장</Korean>
-            <Japanese>TADSで現在見ている目標をウェイポイントとして保存します</Japanese>
-            <Chinesesimp>将当前在TADS中观察的目标存储为路点</Chinesesimp>
-            <Turkish>TADS'da şu anda bakılan hedefi bir rota noktası olarak kaydedin</Turkish>
-            <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
+        <Key ID="STR_FZA_AH64_CPG_STORE_UPDATE_INFO">
+            <Original>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</Original>
+            <English>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</English>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN">
             <Original>WAS Gun</Original>
@@ -964,6 +936,58 @@
         <Key ID="STR_FZA_AH64_MINIGAME_RIGHT_INFO">
             <Original>MPD minigame right input</Original>
             <English>MPD minigame right input</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_MENU">
+            <Original>Radial Menu</Original>
+            <English>Radial Menu</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_MENU_INFO">
+            <Original>Opens the FCR, TADS and sensor radial menu; in a sub menu goes back, in the top menu closes it</Original>
+            <English>Opens the FCR, TADS and sensor radial menu; in a sub menu goes back, in the top menu closes it</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_UP">
+            <Original>Radial Menu: Up</Original>
+            <English>Radial Menu: Up</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_DOWN">
+            <Original>Radial Menu: Down</Original>
+            <English>Radial Menu: Down</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_LEFT">
+            <Original>Radial Menu: Left</Original>
+            <English>Radial Menu: Left</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_RIGHT">
+            <Original>Radial Menu: Right</Original>
+            <English>Radial Menu: Right</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_RADIAL_DIRECTION_INFO">
+            <Original>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</Original>
+            <English>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_AUTO">
+            <Original>LST Mode: Auto</Original>
+            <English>LST Mode: Auto</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_AUTO_INFO">
+            <Original>CPG: arms the laser spot tracker and scans the TADS in four bars about its line of sight until it finds a spot of the LST code, then tracks it</Original>
+            <English>CPG: arms the laser spot tracker and scans the TADS in four bars about its line of sight until it finds a spot of the LST code, then tracks it</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_OFF">
+            <Original>LST Mode: Off</Original>
+            <English>LST Mode: Off</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_OFF_INFO">
+            <Original>CPG: turns the laser spot tracker off and gives the TADS back</Original>
+            <English>CPG: turns the laser spot tracker off and gives the TADS back</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_MANUAL">
+            <Original>LST Mode: Manual</Original>
+            <English>LST Mode: Manual</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_LST_MANUAL_INFO">
+            <Original>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</Original>
+            <English>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</English>
         </Key>
         <Key ID="STR_FZA_AH64_MINIGAME_UP">
             <Original>Minigame: Up</Original>

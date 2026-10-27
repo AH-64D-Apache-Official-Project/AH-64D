@@ -9,6 +9,18 @@ class CfgVehicles {
         class MFD {
             #define MFD_IND_PAGE MFD_IND_PAGE_LEFT
             #define MFD_OFFSET MFD_OFFSET_L
+            #define MPD_MASK_PASS
+            #define MPD_BAR_ALPHA 0
+            #define MPD_MASK_ALPHA 1
+            class MPD_L_Mask {
+                topLeft = "PLT_MPD_L_TL";
+                topRight = "PLT_MPD_L_TR";
+                bottomLeft = "PLT_MPD_L_BL";
+                #include "mpd.hpp"
+            };
+            #undef MPD_MASK_PASS
+            #define MPD_BAR_ALPHA 0.5
+            #define MPD_MASK_ALPHA 0
             class MPD_L {
                 topLeft = "PLT_MPD_L_TL";
                 topRight = "PLT_MPD_L_TR";
@@ -17,6 +29,18 @@ class CfgVehicles {
             };
             #define MFD_IND_PAGE MFD_IND_PAGE_RIGHT
             #define MFD_OFFSET MFD_OFFSET_R
+            #define MPD_MASK_PASS
+            #define MPD_BAR_ALPHA 0
+            #define MPD_MASK_ALPHA 1
+            class MPD_R_Mask {
+                topLeft = "PLT_MPD_R_TL";
+                topRight = "PLT_MPD_R_TR";
+                bottomLeft = "PLT_MPD_R_BL";
+                #include "mpd.hpp"
+            };
+            #undef MPD_MASK_PASS
+            #define MPD_BAR_ALPHA 0.5
+            #define MPD_MASK_ALPHA 0
             class MPD_R {
                 topLeft = "PLT_MPD_R_TL";
                 topRight = "PLT_MPD_R_TR";
@@ -29,6 +53,18 @@ class CfgVehicles {
                 class MFD {
                     #define MFD_IND_PAGE MFD_IND_PAGE_LEFT
                     #define MFD_OFFSET MFD_OFFSET_L
+                    #define MPD_MASK_PASS
+                    #define MPD_BAR_ALPHA 0
+                    #define MPD_MASK_ALPHA 1
+                    class MPD_L_Mask {
+                        topLeft = "CPG_MPD_L_TL";
+                        topRight = "CPG_MPD_L_TR";
+                        bottomLeft = "CPG_MPD_L_BL";
+                        #include "mpd.hpp"
+                    };
+                    #undef MPD_MASK_PASS
+                    #define MPD_BAR_ALPHA 0.5
+                    #define MPD_MASK_ALPHA 0
                     class MPD_L {
                         topLeft = "CPG_MPD_L_TL";
                         topRight = "CPG_MPD_L_TR";
@@ -37,6 +73,18 @@ class CfgVehicles {
                     };
                     #define MFD_IND_PAGE MFD_IND_PAGE_RIGHT
                     #define MFD_OFFSET MFD_OFFSET_R
+                    #define MPD_MASK_PASS
+                    #define MPD_BAR_ALPHA 0
+                    #define MPD_MASK_ALPHA 1
+                    class MPD_R_Mask {
+                        topLeft = "CPG_MPD_R_TL";
+                        topRight = "CPG_MPD_R_TR";
+                        bottomLeft = "CPG_MPD_R_BL";
+                        #include "mpd.hpp"
+                    };
+                    #undef MPD_MASK_PASS
+                    #define MPD_BAR_ALPHA 0.5
+                    #define MPD_MASK_ALPHA 0
                     class MPD_R {
                         topLeft = "CPG_MPD_R_TL";
                         topRight = "CPG_MPD_R_TR";
@@ -161,6 +209,17 @@ class CfgVehicles {
                 usesIcons = 0; // obstacles drawn in the HTML canvas, not via drawIcons
                 draw          = "fza_mpd_fnc_fcrTPMDraw";
                 handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
+            };
+            // The video and its symbology are drawn in the page's display, the button labels natively
+            class VID {
+                index = MPD_PAGE_VID;
+                htmlUrl   = "\fza_ah64_mpd\ui\video\video.html";
+                htmlClass = "RscFzaMPDVideo";
+                draw          = "fza_mpd_fnc_pageVIDDraw";
+                handleControl = "fza_mpd_fnc_pageVIDHandleControl";
+                class InitState {
+                    opened = 0;
+                };
             };
             class ASE {
                 index = MPD_PAGE_ASE;

@@ -23,16 +23,14 @@ class wpnDraw {
             MPD_TEXT_L(TRAIN,      MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("TRAIN"))
             //R5
             MPD_TEXT_L(LRFD_label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("LRFD"))
-            MPD_BOX_L(LRFD,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 5)
-            MPD_TEXT_L(LRFD,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FIRST"))
+            MPD_BOX_L(LRFD,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
+            MPD_TEXT_L(LRFD,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("LAST"))
             //R6
             MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, "Wpn_Acq")
-            MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
-            
+
             //B6
             MPD_TEXT_C(MANRNG_Label, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANRNG>"))
-            MPD_TEXT_C(MANRNG,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("1000"))
-            MPD_BOX_BAR_B(MANRNG,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y)
+            MPD_TEXT_C(MANRNG,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MANRNG))
         };
         #define WPN_WEAPON_OPTION(className, posX, weaponIndex, weaponName)\
             class className {\
@@ -43,7 +41,7 @@ class wpnDraw {
                 }\
                 class Actioned{\
                     condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_WPN_WAS), 0));\
-                    color[] = {0.05,0.25,0,0.5};\
+                    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
                     class Polygon {\
                     type = "polygon";\
                     points[] = {\

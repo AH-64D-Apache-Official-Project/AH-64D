@@ -180,6 +180,7 @@ class PageSelect {
                     {{0.010, 0.550},1}
                 };
             };
+            MPD_MASK_V_R(CoordDelete, 0.1, MPD_POS_BUTTON_LR_2_Y - 0.9 * MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_2_Y + 3.6 * MPD_TEXT_HEIGHT)
             MPD_TEXT_R(TYPE_01, 0.1, MPD_POS_BUTTON_LR_2_Y - 0.9 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("D"))
             MPD_TEXT_R(TYPE_02, 0.1, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("E"))
             MPD_TEXT_R(TYPE_03, 0.1, MPD_POS_BUTTON_LR_2_Y + 0.9 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
