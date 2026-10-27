@@ -106,7 +106,7 @@
                 fuelFly  = 3.136;        //WIDE OPEN - the governor cuts back from here
 
                 //Fuel metered at light-off as a fraction of idle fuel. Sets the start PEAK.
-                startFuelBase = 0.50;
+                startFuelBase = 0.25;     //fitted to a real start: lever IDLE at 7 s, 52% at ~30 s, peak TGT 656 C
 
                 ffwdGain = 1.00;         //collective anticipation - the load demand spindle
 
@@ -122,8 +122,8 @@
             //Air turbine or electric, and what it needs available before the spool turns.
             class Starter {
                 type   = "pneumatic";
-                torque    = 0.45;               //stalled, on the spool, normalised
-                runawayNg = 0.25;               //no torque left - where motoring settles
+                torque    = 0.45;               //maximum, on the spool, normalised - then power-limited
+                motoringNg = 0.25;              //starter alone, no fuel
                 gate[] = {{"PNEU", 0.85}};      //the pneumatic circuit's own minValue
             };
         };
