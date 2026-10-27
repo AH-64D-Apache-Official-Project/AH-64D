@@ -18,3 +18,12 @@ class Extended_PreInit_EventHandlers {
         init = "call compile preprocessFileLineNumbers 'fza_ah64_animation\XEH_preInit.sqf';";
     };
 };
+
+// Every Apache, for the blades shown on this machine (fza_anim_fnc_rotorBlades)
+class Extended_Init_EventHandlers {
+    class fza_ah64base {
+        class fza_ah64_animation_init_eh {
+            init = "if (!isNil 'fza_anim_rotorHelis') then {fza_anim_rotorHelis pushBackUnique (_this select 0)};";
+        };
+    };
+};
