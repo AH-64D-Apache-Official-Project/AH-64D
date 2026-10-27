@@ -23,7 +23,7 @@
     fsDatum             = 6.4;      //m, station 0 reference
     fwdCgLimit          = 1.295;    //m, 201 in
     aftCgLimit          = 1.142;    //m, 207 in
-    comCorrection[]     = {0.0, 0.0, 0.224};
+    comCorrection[]     = {0.0, 0.0, 0.500};
     //Casual mode center of mass
     casualModeCom[]     = {0.0, 2.06, -0.075};
 

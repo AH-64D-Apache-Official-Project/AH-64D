@@ -19,6 +19,5 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
-private["_amm"];
-_amm = _this select 4;
+private _amm = _this select 4;
 _this call(call compile getText(configFile >> "CfgAmmo" >> _amm >> "muzzleEffect"));

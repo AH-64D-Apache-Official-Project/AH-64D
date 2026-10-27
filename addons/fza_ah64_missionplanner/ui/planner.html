@@ -652,7 +652,7 @@
 
 <script src="dom_utils.js"></script>
 <script src="sil_data.js"></script>
-<script src="sfm_perf.js"></script>
+<script src="helisim_perf.js"></script>
 <script src="save_load.js"></script>
 <script src="state.js"></script>
 <script src="weapons.js"></script>
@@ -851,12 +851,6 @@ updateWeightsAndPerformance();
 ['planPA', 'planFAT', 'planGWT'].forEach(function(id) {
   var el = document.getElementById(id);
   if (el) el.addEventListener('input', updateWeightsAndPerformance);
-});
-
-loadSfmPerfTablesFromConfig().then(function(loaded) {
-  if (loaded) {
-    updateWeightsAndPerformance();
-  }
 });
 
 document.getElementById('btnApplyConfig').addEventListener('click', function() {

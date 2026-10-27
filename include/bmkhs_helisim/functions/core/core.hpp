@@ -50,12 +50,6 @@
 #define VEL_VRS                 24.384
 #define ISA_STD_DAY_AIR_DENSITY 1.225
 
-//Radar altimeter display steps. Metres, because the flight model works in metres -
-//the feet are what the instrument is specified in.
-#define RADALT_ROUND_ABOVE      15.240  //50 ft   - above this the display rounds
-#define RADALT_ROUND_STEP        3.048  //10 ft   - to this step
-#define RADALT_MAX             432.816  //1420 ft - display ceiling
-
 #define VRS_SCALAR_EXPONENT     0.3
 
 //Vortex ring state warning bands. Metres per second of descent, because the flight model
@@ -67,18 +61,7 @@
 //Advance ratio ceiling - the 4.65*mu^2 profile growth diverges past here
 #define MU_MAX                  0.35
 
-#define RAD_ALT_MAX_ALT         435.254 //1428ft
-#define ALT_HOLD_SPEED_SWITCH   20.577  //40kts GS
-
-#define POS_HOLD_SPEED_SWITCH         2.572   //5kts GS
-#define VEL_HOLD_SPEED_SWITCH_DECEL   15.433  //30kts GS
-#define VEL_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS
-
-#define HDG_HOLD_SPEED_SWITCH_DECEL   15.433  //30kts GS
-#define HDG_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS
-#define HDG_HOLD_BREAKOUT_VALUE       0.05//0.03
-#define VEL_HOLD_BREAKOUT_VALUE       0.10//0.06
-#define ATT_HOLD_BREAKOUT_VALUE       0.20//0.09
+//FMC hold switch speeds, breakouts and authorities are the aircraft's - class FMC, fmc.hpp
 
 #define CENTER_TRIM_VAL               0.05
 #define BETA_G_TAU                    0.60
@@ -295,8 +278,8 @@
 //it is BOTH high enough AND fast enough - i.e. genuinely in cruise. Altitude alone is not sufficient:
 //NOE flight can sit well above 50ft while masked behind terrain or trees and is still a nose-to-tail
 //regime. Each gate is a BAND, not a step, so the handover ramps instead of jolting the tail.
-//Altitude is blended against the RAW radar altitude, bmkhs_radAltRaw:
-//the displayed _radAlt is rounded to 10ft above 50ft, which would quantize this band into a staircase.
+//Altitude is blended against the exact radar altitude, bmkhs_radAlt - a displayed one rounded to
+//10ft above 50ft would quantize this band into a staircase.
 #define AUTOPEDAL_NTT_AGL_FT          40.0    //ft  - below this: nose-to-tail
 #define AUTOPEDAL_AERO_AGL_FT         60.0    //ft  - above this: high enough for aero trim
 #define AUTOPEDAL_AERO_SPD_LO         23.15   //m/s - 45kts, below this: nose-to-tail

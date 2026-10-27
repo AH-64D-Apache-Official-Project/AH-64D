@@ -131,7 +131,7 @@ Parameters:
 
 /* Macro: C_COND
     Wrapped around a condition built in these macros, for example:
-    
+
     --- Code
     condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
     ---
@@ -218,7 +218,7 @@ Parameters:
 
 /* Macro: MPD_POINTS_CURVED_CORNER
     Draws a 90 degree curved corner about a point
-    
+
 Parameters:
     bone - A bone to transform the corner by. "Null" if none.
     posX, posY - point to draw the corner about
@@ -239,10 +239,10 @@ Parameters:
 #define CURVED_BOX_PAD 0.0075
 /* Macro: MPD_POINTS_BOX_PAD
     Draws a box, with curved corners, with a given dimensions and padding (curved corner side).
-    
+
     Please note the box dimensions described are internal from the corners, so the real size will have 2*pad added in
     each dimension. For a macro that counts the corners in the dimensions, use <MPD_POINTS_BOX_PAD_EXTERNAL>.
-    
+
 Parameters:
     bone - A bone to transform the box  by. "Null" if none.
     posX,posY - Top left corner of the box
@@ -435,13 +435,47 @@ Parameters:
         {{startX - MPD_BOX_PAD_X, startY - 0.005 - MPD_BOX_PAD_Y - MPD_ARROW_HEIGHT - MPD_ARROW_PAD}, 1}}; \
 };
 
+// The ACQ list's user value on this MPD (MFD_IND_ACQ_OPEN_L/_R): 10 left, 11 right
+#define MFD_IND_ACQ_OPEN (10 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
+// The mask pass on this MPD (MFD_IND_MASK_L/_R): 12 left, 13 right
+#define MFD_IND_MASK (12 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
+
+// Page text where the ACQ list draws (R1-R6, B4-B6) is hidden while the list is open; the MPD draws text after shapes,
+// so it cannot be covered
+#define MPD_ACQ_COVERS(startX, startY) __EVAL(["1", format ["1-user%1", MFD_IND_ACQ_OPEN]] select ((((startX) > 0.78) && ((startY) > 0.12) && ((startY) < 0.88)) || (((startY) > 0.87) && ((startX) > 0.49))))
+
 #define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
+    condition = MPD_ACQ_COVERS(startX, startY); \
+    class Text { \
+        type = "text"; \
+        scale = 1; \
+        pos[] = {bone, {startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        down[] = {bone, {startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        config \
+    }; \
+};
+
+// Text that is never hidden by the ACQ list, for the list itself
+#define MPD_TEXT_ACQ(name, startX, startY, alignment, label) class Mpd_Text_##name { \
     type = "text"; \
     scale = 1; \
-    pos[] = {bone, {startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
-    right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
-    down[] = {bone, {startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
-    config \
+    align = alignment; \
+    source = "static"; \
+    text = label; \
+    sourceScale = 1; \
+    pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
+};
+#define MPD_TEXT_ACQ_USER(name, startX, startY, alignment, num) class Mpd_Text_##name { \
+    type = "text"; \
+    scale = 1; \
+    align = alignment; \
+    MPD_TEXT_USER(num) \
+    pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
 };
 
 #define MPD_TEXT_SMALL(name, startX, startY, config) class Mpd_Text_##name { \
@@ -522,6 +556,32 @@ Parameters:
 #define MPD_TEXT_OCCLUDER_C(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)/2*MPD_TEXT_WIDTH),startY,numChars)
 #define MPD_TEXT_OCCLUDER_L(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)*MPD_TEXT_WIDTH),startY,numChars)
 
+/* Macro: MPD_MASK_V_x
+    The black box behind a vertical text column, drawn by the mask pass only (MPD_MASK_ALPHA): the column's letters
+    are further apart than their own black boxes reach.
+
+Parameters:
+    name - Unique name to use in the class definition
+    startX - X of the column's letters, as given to their MPD_TEXT_x
+    topY, bottomY - Y of the column's first and last letters
+*/
+#define MPD_MASK_V_R(name, startX, topY, bottomY) class Mpd_Mask_##name { \
+    color[] = {0, 0, 0, MPD_MASK_ALPHA}; \
+    class Polygons { \
+        type = "polygon"; \
+        points[] = { \
+            { \
+                {{(startX) - 0.25 * MPD_TEXT_WIDTH, (topY) + MPD_TEXT_HEIGHT_PAD - 0.004}, 1}, \
+                {{(startX) + 1.25 * MPD_TEXT_WIDTH, (topY) + MPD_TEXT_HEIGHT_PAD - 0.004}, 1}, \
+                {{(startX) + 1.25 * MPD_TEXT_WIDTH, (bottomY) + MPD_TEXT_HEIGHT_PAD + MPD_TEXT_HEIGHT_VEC + 0.004}, 1}, \
+                {{(startX) - 0.25 * MPD_TEXT_WIDTH, (bottomY) + MPD_TEXT_HEIGHT_PAD + MPD_TEXT_HEIGHT_VEC + 0.004}, 1} \
+            } \
+        }; \
+    }; \
+};
+#define MPD_MASK_V_C(name, startX, topY, bottomY) MPD_MASK_V_R(name, (startX) - 0.5 * MPD_TEXT_WIDTH, topY, bottomY)
+#define MPD_MASK_V_L(name, startX, topY, bottomY) MPD_MASK_V_R(name, (startX) - MPD_TEXT_WIDTH, topY, bottomY)
+
 /* Macros: Barriers
     MPD_BOX_BAR_B - Draws barrier for text at VAB B[1-6]
     MPD_BOX_BAR_T - Draws barrier for text at VAB T[1-6]
@@ -534,7 +594,7 @@ Parameters:
     startX, startY - Position of the text that this should oclcude for.
 */
 #define MPD_BOX_BAR_B(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,0.5};\
+    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -549,7 +609,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_T(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,0.5};\
+    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -564,7 +624,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_L(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,0.5};\
+    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -579,7 +639,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_R(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,0.5};\
+    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\

@@ -26,3 +26,4 @@ if (local _heli) then {
 
 [_heli] call bmkhs_fnc_coreInit;
 [_heli, configOf _heli >> "BMKHS_HeliSim"] call bmkhs_fnc_coreConfig;
+[_heli] call fza_ah64_helisim_fnc_perfVariables;

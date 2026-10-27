@@ -50,5 +50,6 @@ uiNamespace setVariable ["fza_mplanner_ready", false];
     };
     if (isNull _display) exitWith {};
     [] call fza_mplanner_fnc_seedSaves;
+    [] call fza_mplanner_fnc_seedHelisimData;
     [] call fza_mplanner_fnc_seedCurrentConfig;
 };

@@ -1,10 +1,15 @@
+#ifdef MPD_MASK_PASS
+color[] = {0, 0, 0, 1};
+font="fza_BMKApacheBlock";
+#else
 color[] = {0.2, 1, 0, 1};
+font="fza_BMKApacheFont";
+#endif
 helmetMountedDisplay=0;
 borderBottom=0;
 borderLeft=0;
 borderRight=0;
 borderTop=0;
-font="fza_BMKApacheFont";
 helmetDown[] = {0,-0.075,0};
 helmetPosition[] = {-0.0375,0.0375,0.1};
 helmetRight[] = {0.075,0,0};
@@ -30,6 +35,11 @@ class Bones {
 // HUD-Elements definitions
 class Draw
 {
+#ifdef MPD_MASK_PASS
+// The text's black boxes are only drawn while something is under the page to hide (fza_mpd_fnc_update)
+class MaskGate {
+    condition = C_COND(C_USER(MFD_IND_MASK));
+#endif
     class Wpn {
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WPN));
         #include "pages\wpn_draw.hpp"
@@ -62,6 +72,10 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
         #include "pages\dms_draw.hpp"
     };
+    class Minigames{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_MINIGAMES));
+        #include "pages\minigames_draw.hpp"
+    };
     class DTU{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DTU));
         #include "pages\dtu_draw.hpp"
@@ -69,6 +83,14 @@ class Draw
     class FCR{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR));
         #include "pages\fcr_draw.hpp"
+    };
+    class FCRRMAP{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP));
+        #include "pages\fcr\rmap.hpp"
+    };
+    class FCRTPM{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRTPM));
+        #include "pages\fcr\tpm.hpp"
     };
     class ASE{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASE));
@@ -106,4 +128,16 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_COORD));
         #include "pages\coord_draw.hpp"
     };
+    class VID{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_VID));
+        #include "pages\vid_draw.hpp"
+    };
+    // Last, so it is drawn over the page: the ACQ list of the pages with an ACQ button
+    class AcqMenu {
+        condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_ACQ_OPEN), 1), C_OR(C_OR(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FLT), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ENG)), C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WPN), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD))), C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)))));
+        #include "pages\acq_menu.hpp"
+    };
+#ifdef MPD_MASK_PASS
+};
+#endif
 };

@@ -21,7 +21,7 @@ let ui = HEMTT_VFS
 let js_files = [
     "dom_utils.js",
     "sil_data.js",
-    "sfm_perf.js",
+    "helisim_perf.js",
     "save_load.js",
     "state.js",
     "weapons.js",

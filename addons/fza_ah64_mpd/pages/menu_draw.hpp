@@ -28,6 +28,7 @@ class Mission_Lines {
         {{0.11, 0.86}, 1},
         {{0.02, 0.86}, 1}};
 };
+MPD_MASK_V_C(Mission, 0.11, 0.62 - 3.5 * MPD_TEXT_HEIGHT, 0.62 + 2.5 * MPD_TEXT_HEIGHT)
 MPD_TEXT_C(MissionChar1, 0.11, 0.62 - 3.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
 MPD_TEXT_C(MissionChar2, 0.11, 0.62 - 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("I"))
 MPD_TEXT_C(MissionChar3, 0.11, 0.62 - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
@@ -73,6 +74,7 @@ points[] = {
     {{0.85, 0.85}, 1},
     {{0.98, 0.85}, 1}};
 };
+MPD_MASK_V_C(Comunication, 0.85, 0.50 - 6.5 * MPD_TEXT_HEIGHT, 0.50 + 5.5 * MPD_TEXT_HEIGHT)
 MPD_TEXT_C(ComunicationChar1 , 0.85, 0.50 - 6.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("C"))
 MPD_TEXT_C(ComunicationChar2 , 0.85, 0.50 - 5.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
 MPD_TEXT_C(ComunicationChar3 , 0.85, 0.50 - 4.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
@@ -89,7 +91,6 @@ MPD_TEXT_C(ComunicationChar13, 0.85, 0.50 + 5.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STAT
 
 ///////////////// T ///////////////
 //T1
-MPD_BOX_BAR_T(VIDEO, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y)
 //MPD_ARROW_C(VIDEO, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 5)
 MPD_TEXT_C(VIDEO,    MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("VIDEO"))
 //T2

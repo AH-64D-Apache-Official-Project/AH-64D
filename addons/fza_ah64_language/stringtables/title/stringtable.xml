@@ -504,6 +504,10 @@
             <Turkish>AH-64D Pilotu</Turkish>
             <Dutch>AH-64D Piloot</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_IHADSS_HELMET">
+            <Original>IHADSS</Original>
+            <English>IHADSS</English>
+        </Key>
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_PROJECT_LIBRARY_DESCRIPTION">

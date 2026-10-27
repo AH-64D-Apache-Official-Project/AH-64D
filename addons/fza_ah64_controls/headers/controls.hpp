@@ -28,6 +28,7 @@ COCKPIT_CONTROL("ctrlref_rmpd_fcr", "ctrlref_g_rmpd_fcr",rmpd, "STR_FZA_AH64_RMP
 COCKPIT_CONTROL("ctrlref_rmpd_wpn", "ctrlref_g_rmpd_wpn",rmpd, "STR_FZA_AH64_RMPD",wpn, 0.035, "STR_FZA_AH64_RMPD_WPN", false) COCKPIT_CONTROL_SEP()
 COCKPIT_CONTROL("ctrlref_rmpd_tsd", "ctrlref_g_rmpd_tsd",rmpd, "STR_FZA_AH64_RMPD",tsd, 0.035, "STR_FZA_AH64_RMPD_TSD", false) COCKPIT_CONTROL_SEP()
 COCKPIT_CONTROL("ctrlref_rmpd_ac", "ctrlref_g_rmpd_ac",rmpd, "STR_FZA_AH64_RMPD",ac, 0.035, "STR_FZA_AH64_RMPD_AC", false) COCKPIT_CONTROL_SEP()
+COCKPIT_CONTROL("ctrlref_rmpd_vid", "ctrlref_g_rmpd_vid",rmpd, "STR_FZA_AH64_RMPD",vid, 0.035, "STR_FZA_AH64_RMPD_VID", false) COCKPIT_CONTROL_SEP()
 //COCKPIT_CONTROL("ctrlref_rmpd_brt", "ctrlref_g_rmpd_brt",rmpd, "STR_FZA_AH64_RMPD",brt, 0.035, "STR_FZA_AH64_RMPD_BRT", false)
 
 COCKPIT_CONTROL("ctrlref_lmpd_l1", "ctrlref_g_lmpd_l1",lmpd, "STR_FZA_AH64_LMPD",l1, 0.035, "STR_FZA_AH64_LMPD_L1", false) COCKPIT_CONTROL_SEP()
@@ -58,6 +59,7 @@ COCKPIT_CONTROL("ctrlref_lmpd_fcr", "ctrlref_g_lmpd_fcr",lmpd, "STR_FZA_AH64_LMP
 COCKPIT_CONTROL("ctrlref_lmpd_wpn", "ctrlref_g_lmpd_wpn",lmpd, "STR_FZA_AH64_LMPD",wpn, 0.035, "STR_FZA_AH64_LMPD_WPN", false) COCKPIT_CONTROL_SEP()
 COCKPIT_CONTROL("ctrlref_lmpd_tsd", "ctrlref_g_lmpd_tsd",lmpd, "STR_FZA_AH64_LMPD",tsd, 0.035, "STR_FZA_AH64_LMPD_TSD", false) COCKPIT_CONTROL_SEP()
 COCKPIT_CONTROL("ctrlref_lmpd_ac", "ctrlref_g_lmpd_ac",lmpd, "STR_FZA_AH64_LMPD",ac, 0.035, "STR_FZA_AH64_LMPD_AC", false) COCKPIT_CONTROL_SEP()
+COCKPIT_CONTROL("ctrlref_lmpd_vid", "ctrlref_g_lmpd_vid",lmpd, "STR_FZA_AH64_LMPD",vid, 0.035, "STR_FZA_AH64_LMPD_VID", false) COCKPIT_CONTROL_SEP()
 //COCKPIT_CONTROL("ctrlref_lmpd_brt", "ctrlref_g_lmpd_brt",lmpd, "STR_FZA_AH64_LMPD",brt, 0.035, "STR_FZA_AH64_LMPD_BRT", false)
 
 COCKPIT_CONTROL("ctrlref_p_fe1", "ctrlref_g_fe1",fire, "STR_FZA_AH64_FIRE_PANEL",fe1, 0.04, "STR_FZA_AH64_SELECT_ENGINE_1", false) COCKPIT_CONTROL_SEP()

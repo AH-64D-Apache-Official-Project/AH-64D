@@ -1,5 +1,6 @@
 private _projName = "AH-64D Official Project";
 #include "\bmkhs_helisim\functions\core\core.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 
 [
     "fza_ah64_showPopupv2_3",
@@ -61,6 +62,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_tadsIgnoreHatchetCursor",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR"), (localize "STR_FZA_AH64_SETTINGS_TADS_IGNORE_HATCHET_CURSOR_INFO")],
+    [_projName, "TADS Controls"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_LMCSensitivity",
     "SLIDER",
     [(localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY"), (localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO")],
@@ -69,7 +79,24 @@ private _projName = "AH-64D Official Project";
     2
 ] call CBA_fnc_addSetting;
 
-fza_ah64_weaponDebug            = false;
+[
+    "fza_ah64_radialDwellTime",
+    "SLIDER",
+    [(localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME"), (localize "STR_FZA_AH64_SETTINGS_RADIAL_DWELL_TIME_INFO")],
+    [_projName, "Radial Menu"],
+    [0.5, 3, 0.8, 1],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_radialKeepOpen",
+    "CHECKBOX",
+    [(localize "STR_FZA_AH64_SETTINGS_RADIAL_KEEP_OPEN"), (localize "STR_FZA_AH64_SETTINGS_RADIAL_KEEP_OPEN_INFO")],
+    [_projName, "Radial Menu"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
 fza_ah64_pylonsLastCheckMags    = [];
 fza_ah64_overallticker          = 0;
 fza_ah64_sideslip               = 0;
@@ -81,9 +108,9 @@ fza_ah64_tadsFOVs = [
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
-fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_cannon_fnc_update];
-fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_anim_fnc_animationUpdate];
+fza_ah64_draw3Darray      = [fza_fnc_wasUpdate, fza_fnc_targetingRangeUpdate, fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fnc_weaponAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
+fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fire_fnc_handleRearm, fza_cannon_fnc_update];
+fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_hellfire_fnc_controller, fza_light_fnc_controller, fza_anim_fnc_animationUpdate];
 
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3D", {
@@ -112,3 +139,27 @@ OVERRIDE_ACTION("zoomIn")
 OVERRIDE_ACTION("zoomOut")
 OVERRIDE_ACTION("NightVision")
 OVERRIDE_ACTION("Headlights")
+
+// The vanilla radar toggle is the FCR continuous scan, and only the crew station owning the FCR (by selecting it as its
+// sight) can scan: anyone else's press is swallowed before the radar turns on. Keyboard bindings only, a key handler sees
+// no joystick buttons. Any input of the owner's is recorded, and only that starts the scan (fza_fcr_fnc_stateControl).
+if (hasInterface) then {
+    addUserActionEventHandler ["ActiveSensorsToggle", "Activate", {
+        private _heli = vehicle player;
+        if !(_heli isKindOf "fza_ah64base") exitWith {};
+        private _seat = [_heli] call fza_fnc_getSeat;
+        if (!isNil "_seat" && {FCR_OWNER(_heli) == _seat}) then {
+            _heli setVariable ["fza_fcr_ownerRadarPress", CBA_missionTime, true];
+        };
+    }];
+    [] spawn {
+        waitUntil {!isNull findDisplay 46};
+        (findDisplay 46) displayAddEventHandler ["KeyDown", {
+            params ["", "_key"];
+            private _heli = vehicle player;
+            if (!(_heli isKindOf "fza_ah64base") || {!(_key in actionKeys "ActiveSensorsToggle")}) exitWith {false};
+            private _seat = [_heli] call fza_fnc_getSeat;
+            !isNil "_seat" && {FCR_OWNER(_heli) != _seat}
+        }];
+    };
+};

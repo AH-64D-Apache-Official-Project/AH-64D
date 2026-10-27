@@ -173,8 +173,8 @@ class fza_TransmissionDamage_Int_phase1_SoundShader_Base
 			1
 		}
 	};
-	frequency=QUOTE(0.66 + CustomSoundController3 / 3);
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController4);
+	frequency=QUOTE(0.66 + CustomSoundController32 / 3);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController31);
 	range=100;
 };
 class fza_TransmissionDamage_Int_phase2_SoundShader_Base
@@ -187,8 +187,8 @@ class fza_TransmissionDamage_Int_phase2_SoundShader_Base
 			1
 		}
 	};
-	frequency=QUOTE(CustomSoundController3);
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController4);
+	frequency=QUOTE(CustomSoundController32);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController31);
 	range=100;
 };
 class fza_TransmissionDamage_Int_phase3_SoundShader_Base
@@ -201,8 +201,8 @@ class fza_TransmissionDamage_Int_phase3_SoundShader_Base
 			1
 		}
 	};
-	frequency=QUOTE(CustomSoundController3);
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController4);
+	frequency=QUOTE(CustomSoundController32);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER*CustomSoundController31);
 	range=50;
 };
 
@@ -292,8 +292,8 @@ class fza_ETL_VRS_Shake_01_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 			1
 		}
 	};
-	frequency=QUOTE(CustomSoundController3);
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER * CustomSoundController4);
+	frequency=QUOTE(CustomSoundController32);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER * CustomSoundController31);
 };
 class fza_ETL_VRS_Shake_02_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 {
@@ -305,6 +305,6 @@ class fza_ETL_VRS_Shake_02_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 			1
 		}
 	};
-	frequency=QUOTE(CustomSoundController3);
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER * CustomSoundController4);
+	frequency=QUOTE(CustomSoundController32);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * NP_CONTROLLER * CustomSoundController31);
 };

@@ -3,7 +3,7 @@ Function: fza_fcr_fnc_animateFCR
 
 Description:
     Drives the FCR dish rotation each frame to match the current scan state.
-    Off/Fault: return to boresight. Cueing: step to scan start. Active: track bar.
+    Off: turn to the centerline. Fault: lock in place. Cueing: step to scan start. Active: track bar.
 
 Parameters:
     _heli - The helicopter to act upon
@@ -25,12 +25,12 @@ private _waitingForStart = _heli getVariable ["fza_ah64_fcrWaitingForStart", fal
 private _fcrAzBias  = _heli getVariable ["fza_ah64_fcrAzBias",    0];
 private _gtmHalfFov = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
 
-private _dishSpeed  = pi / 3.2;
+private _dishSpeed  = FCR_SCAN_RATE_DEGS * (pi / 180);
 
 private _applyModeSign = {
     params ["_rad"];
-    // GTM axis is mirrored; ATM aligns with positive rotation
-    _rad * ([-1, 1] select (_fcrMode == 2))
+    // GTM/RMAP/TPM dish axis is mirrored; ATM aligns with positive rotation
+    _rad * ([-1, 1] select (_fcrMode == FCR_DISP_MODE_ATM))
 };
 
 private _stepTowards = {
@@ -52,21 +52,36 @@ private _stepTowards = {
     _heli animateSource ["longbow", _next, true];
 };
 
-// Monotonic from scan start — must not use _time (last update stamp) as it resets every half-cycle
+// Monotonic from scan start — must not use the last update stamp, which is only set as each cycle completes
 private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
 
-// Off / Fault: return to boresight
-if (_fcrScanState == FCR_MODE_OFF || _fcrScanState == FCR_MODE_FAULT) exitWith {
+// Fault: the antenna locks where it is
+if (_fcrScanState == FCR_MODE_FAULT) exitWith {
     _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
-    [([0] call _applyModeSign), _dishSpeed] call _stepTowards;
+};
+
+// Off: turn to the centerline, as the arrows and slaving move it, so a scan starts from there. ATM centres on the
+// negated bias, as the sweep and the MFD wedge do.
+if (_fcrScanState == FCR_MODE_OFF) exitWith {
+    _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
+    private _restDeg = [_fcrAzBias, -_fcrAzBias] select (_fcrMode == FCR_DISP_MODE_ATM);
+    [([_restDeg * (pi / 180)] call _applyModeSign), _dishSpeed] call _stepTowards;
 };
 
 // Cueing: step toward scan start position
 if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
-    private _startDeg = if (_fcrMode == 1) then {
-        _fcrAzBias - _gtmHalfFov   // GTM: left edge of scan sector
+    private _startDeg = if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
+        _fcrAzBias - _gtmHalfFov   // GTM/RMAP: left edge of scan sector
     } else {
-        _fcrAzBias                 // ATM: boresight / front
+        if (_fcrMode == FCR_DISP_MODE_TPM) then {
+            private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+            _fcrAzBias - _tpmHalfFov   // TPM: left edge of scan sector
+        } else {
+            // ATM sector sizes start at the left edge; wide (360 rotation) starts at the front.
+            // Bias negated to match the MFD wedge (which uses -bias) and the active-sweep centre.
+            private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
+            (-_fcrAzBias) - ([0, _atmHalfFov] select (_atmHalfFov < 168))
+        }
     };
     private _startRad = [(_startDeg * (pi / 180))] call _applyModeSign;
 
@@ -79,7 +94,6 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
         if (local _heli) then {
             [_heli, "fza_ah64_fcrState", [_fcrScanState, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
-            [_heli, "fza_ah64_fcrLastFullCycle", CBA_missionTime] call fza_fnc_updateNetworkGlobal;
         };
         _heli animateSource ["longbow", _startRad, true];
     };
@@ -90,20 +104,42 @@ if (_waitingForStart || _fcrScanDeltaTime < 0) exitWith {
 // Active scan: track bar position each frame
 private _targetDeg = 0;
 
-if (_fcrMode == 1) then {
-    // GTM 3.2 s cycle: near bar L→R (0–1.6 s), far bar R→L (1.6–3.2 s)
-    private _t = _fcrScanDeltaTime % 3.2;
-    _targetDeg = if (_t <= 1.6) then {
-        (_fcrAzBias - _gtmHalfFov) + (_t / 1.6) * (_gtmHalfFov * 2)
+([_heli] call fza_fcr_fnc_getScanTiming) params ["_barTime", "_cycleTime"];
+
+if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_RMAP]) then {
+    // Near bar L→R then far bar R→L, one scan-width per bar at the constant antenna rate
+    private _t = _fcrScanDeltaTime % _cycleTime;
+    _targetDeg = if (_t <= _barTime) then {
+        (_fcrAzBias - _gtmHalfFov) + (_t / _barTime) * (_gtmHalfFov * 2)
     } else {
-        (_fcrAzBias + _gtmHalfFov) - ((_t - 1.6) / 1.6) * (_gtmHalfFov * 2)
+        (_fcrAzBias + _gtmHalfFov) - ((_t - _barTime) / _barTime) * (_gtmHalfFov * 2)
     };
 } else {
-    // ATM 6.4 s cycle: full 360° revolution
-    // Value goes 0→360° (not normalised to ±180°) so the wrap occurs at the front
-    // where both sides are visually identical — avoids the ±π blend artifact
-    private _t = _fcrScanDeltaTime % 6.4;
-    _targetDeg = _fcrAzBias + (_t / 6.4) * 360;
+    if (_fcrMode == FCR_DISP_MODE_TPM) then {
+        // TPM: sweep ±halfFov (90° wide mode, 45° narrow mode per groundspeed submode)
+        private _tpmHalfFov = _heli getVariable ["fza_ah64_fcrTpmHalfFov", 90];
+        private _t = _fcrScanDeltaTime % _cycleTime;
+        _targetDeg = if (_t <= _barTime) then {
+            (_fcrAzBias - _tpmHalfFov) + (_t / _barTime) * (_tpmHalfFov * 2)
+        } else {
+            (_fcrAzBias + _tpmHalfFov) - ((_t - _barTime) / _barTime) * (_tpmHalfFov * 2)
+        };
+    } else {
+        private _atmHalfFov = _heli getVariable ["fza_ah64_fcrAtmHalfFov", 168];
+        private _t = _fcrScanDeltaTime % _cycleTime;
+        _targetDeg = if (_atmHalfFov >= 168) then {
+            // ATM wide: full rotation per cycle, 0-360 so the wrap lands at the front (avoids the +-pi blend artifact)
+            _fcrAzBias + (_t / _cycleTime) * 360
+        } else {
+            // ATM M/N/Z: back-and-forth sector sweep. Bias negated so the dish centres on the
+            // same side as the MFD wedge (which uses -bias); sweep direction unchanged.
+            if (_t <= _barTime) then {
+                (-_fcrAzBias - _atmHalfFov) + (_t / _barTime) * (_atmHalfFov * 2)
+            } else {
+                (-_fcrAzBias + _atmHalfFov) - ((_t - _barTime) / _barTime) * (_atmHalfFov * 2)
+            }
+        };
+    };
 };
 
 private _targetRad = [(_targetDeg * (pi / 180))] call _applyModeSign;

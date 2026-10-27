@@ -31,6 +31,12 @@ params ["_heli", "_side", "_page", ["_stateOverride", createHashMap]];
 
 private _mpdState = _heli getVariable "fza_mpd_mpdState";
 
+// A new page closes the ACQ list on this MPD
+private _acqMenu = +(_heli getVariable ["fza_mpd_acqMenu", [false, false]]);
+_acqMenu set [_side, false];
+_heli setVariable ["fza_mpd_acqMenu", _acqMenu];
+_heli setUserMFDValue [[10, 11] select _side, 0];
+
 private _config = configOf _heli >> "FzaMpdPages" >> _page;
 
 if (!isClass _config) exitWith {
@@ -66,6 +72,37 @@ if (_mpdState # _side # 7 == 1) then {
     [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
+// HTML pages: any FzaMpdPages entry with an htmlUrl swaps this side's screens to a dedicated browser-only display, and back on the way out.
+private _sideName = ["left", "right"] select _side;
+private _selections = [["plt_pl_mpd_back", "cpg_cl_mpd_back"], ["plt_pr_mpd_back", "cpg_cr_mpd_back"]] select _side;
+private _oldHtmlUrl = (_mpdState # _side) select 8;
+private _htmlUrl = "";
+if (isText (_config >> "htmlUrl")) then {
+    _htmlUrl = getText (_config >> "htmlUrl");
+};
+// If the htmlUrl has changed, update the heli's textures to either the new HTML display or back to the default MPD display.
+private _gameUniqueId = "";
+private _htmlClass = "RscFzaMinigameBase";
+if (_htmlUrl != "") then {
+    if (isText (_config >> "htmlClass")) then {
+        _htmlClass = getText (_config >> "htmlClass");
+    };
+    _gameUniqueId = _sideName + "Game_" + _htmlClass;
+};
+if (_oldHtmlUrl != _htmlUrl) then {
+    // Leaving a minigame ends its session now rather than when the engine eventually unloads the old display,
+    // so a peer is not left waiting on an opponent who already navigated away
+    if (_oldHtmlUrl != "" && !isNil "fza_mg_fnc_minigamePageLeft") then {
+        [_heli, _side, _oldHtmlUrl] call fza_mg_fnc_minigamePageLeft;
+    };
+    if (_htmlUrl != "") then {
+        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _htmlClass + "," + _gameUniqueId + ")"]} forEach _selections;
+    } else {
+        // Same texture string as fza_mpd_fnc_init, so the native display is reused rather than recreated
+        {_heli setObjectTexture [_x, "#(rgb,2048,2048,1)ui(RscFzaAH64MPD," + _sideName + ")"]} forEach _selections;
+    };
+};
+
 private _persistState = _mpdState # _side # 5;
 
 private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
@@ -76,7 +113,7 @@ if !(_page in _persistState) then {
 };
 _state set ["side", _side];
 _state set ["page", _page];
-private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons];
+private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons, _htmlUrl, _gameUniqueId];
 
 _heli setUserMFDValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];

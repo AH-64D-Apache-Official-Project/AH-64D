@@ -21,6 +21,7 @@ class CfgFunctions
         class avionics
         {
             file = "\fza_ah64_controls\functions\avionics";
+            class avionicsLoadFactor {R;};
             class avionicsSlipIndicator {R;};
         };
         class core
@@ -64,8 +65,19 @@ class CfgFunctions
         class targeting
         {
             file = "\fza_ah64_controls\functions\targeting";
+            class targetingAcqCue {R;};
+            class targetingAcqNavRange {R;};
+            class targetingAcqOptions {R;};
+            class targetingAcqPoint {R;};
+            class targetingAcqSet {R;};
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
+            class targetingRange {R;};
+            class targetingRangeSet {R;};
+            class targetingRangeUpdate {R;};
+            class targetingSlave {R;};
+            class targetingStore {R;};
+            class targetingTadsLockTo {R;};
         };
         class ui
         {
@@ -76,8 +88,10 @@ class CfgFunctions
         {
             file = "\fza_ah64_controls\functions\weapon";
             class weaponActionSwitch {R;};
+            class weaponAltLaunch {R;};
             class weaponMissileGetSelected {R;};
-            class weaponMissileCycle {R;};
+            class weaponMissileAdvance {R;};
+            class weaponMissilePriority {R;};
             class weaponMissileCycleType {R;};
             class weaponMissileCycleTypeSal {R;};
             class weaponMissileInventory {R;};
@@ -88,6 +102,9 @@ class CfgFunctions
             class weaponTrajectoryChange {R;};
             class weaponTurretAim {R;};
             class weaponUpdateSelected {R;};
+            class wasSeat {R;};
+            class weaponAim {R;};
+            class wasUpdate {R;};
         };
         class functions
         {
@@ -95,8 +112,6 @@ class CfgFunctions
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};
-            class velocityVector {R;};
-            class compensateSafezone { R;};
             class configToHashMap {R;};
             class doortoggle {R;};
         };

@@ -21,22 +21,21 @@ Author:
 ---------------------------------------------------------------------------- */
 comment "script by general barron";
 
-private["_obj", "_pitch", "_bank", "_yaw", "_vdir", "_vup", "_sign", "_rotate"];
+private ["_pitch", "_bank", "_sign"];
 
-_obj = _this;
+private _obj = _this;
 
-_yaw = getDir _obj;
-
-
-_rotate = {
-    private["_v", "_d", "_x", "_y"];
+private _yaw = getDir _obj;
 
 
-    _v = +(_this select 0);
-    _d = _this select 1;
+private _rotate = {
 
-    _x = _v select 0;
-    _y = _v select 1;
+
+    private _v = +(_this select 0);
+    private _d = _this select 1;
+
+    private _x = _v select 0;
+    private _y = _v select 1;
 
     _v set [0, (cos _d) * _x - (sin _d) * _y];
     _v set [1, (sin _d) * _x + (cos _d) * _y];
@@ -46,7 +45,7 @@ _rotate = {
 };
 
 
-_vdir = vectorDir _obj;
+private _vdir = vectorDir _obj;
 
 _vdir = [_vdir, _yaw] call _rotate;
 
@@ -61,7 +60,7 @@ else {
     };
 };
 
-_vup = vectorUp _obj;
+private _vup = vectorUp _obj;
 
 
 _vup = [_vup, _yaw] call _rotate;

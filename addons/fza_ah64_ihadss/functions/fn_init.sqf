@@ -26,10 +26,18 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 
     _heli setVariable ["fza_ah64_hmdfsmode",       "trans", true];
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
-    _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0,   true];
+    // NVS MODE per crew station, and the crew station NVS SELECT gave the TADS to (fza_ihadss_fnc_nvsState)
+    _heli setVariable ["fza_ah64_nvsMode_plt",     0,       true];
+    _heli setVariable ["fza_ah64_nvsMode_cpg",     0,       true];
+    _heli setVariable ["fza_ah64_nvsTadsSeat",     "cpg",   true];
+
+    // Radar altitude HI/LO (ft) are fixed until a FLT SET page sets them, the load factor limit (G) is unset; -1 hides the indication
+    _heli setVariable ["fza_ah64_radAltHi",          200, true];
+    _heli setVariable ["fza_ah64_radAltLo",          33,  true];
+    _heli setVariable ["fza_ah64_loadFactorLimit",   -1,  true];
        
-    _heli setVariable ["fza_ah64_tadsVision",     "FLIR",    true];
-    _heli setVariable ["fza_ah64_tadsZoom",        0,       true];
+    _heli setVariable ["fza_ah64_tadsSelectedSensor",     "FLIR",    true];
+    _heli setVariable ["fza_ah64_tadsSelectedFov",        0,       true];
     _heli setVariable ["fza_ah64_tadsA3ti",        false,   true];
     
     //Tads
@@ -91,19 +99,6 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
         };
         fza_ah64_chromAberrationEffect ppEffectAdjust _effect;
         fza_ah64_chromAberrationEffect ppEffectCommit 0;
-    };
-
-    ["DynamicBlur", 404, [0.3]] call
-    {
-        params ["_name", "_priority", "_effect", "_handle"];
-        while {
-            fza_ah64_flirBlurEffect = ppEffectCreate [_name, _priority];
-            fza_ah64_flirBlurEffect < 0
-        } do {
-            _priority = _priority + 1;
-        };
-        fza_ah64_flirBlurEffect ppEffectAdjust _effect;
-        fza_ah64_flirBlurEffect ppEffectCommit 0;
     };
 
     ["colorCorrections", 405, [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]] call

@@ -35,4 +35,40 @@ class CfgFontFamilies
         spaceWidth = 0.7;
         spacing    = 0.2;
     };
+    // fza_BMKApacheFont with every character a solid black cell, at the same spacing: the MPD text's black box
+    class fza_BMKApacheBlock
+    {
+        fonts[] = { "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock6"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock7"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock8"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock9"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock10"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock11"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock12"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock13"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock14"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock15"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock16"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock17"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock18"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock19"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock20"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock21"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock22"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock23"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock24"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock25"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock26"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock27"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock28"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock29"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock30"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock31"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock34"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock37"
+                  , "\fza_ah64_mpd\font\BMKApacheBlock\BMKApacheBlock46"
+                  };
+        spaceWidth = 0.7;
+        spacing    = 0.2;
+    };
 };
