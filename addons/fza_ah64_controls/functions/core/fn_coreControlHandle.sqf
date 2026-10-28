@@ -104,16 +104,26 @@ if (_value) then {
             };
         };
         case "fza_ah64_symbologySelectUp": {
-            private _fsMode = _heli getVariable [format ["fza_ah64_hmdfsmode_%1", [_heli] call fza_fnc_getSeat], "trans"];
-            [_heli, "fza_ah64_hmdfsmode", ["trans", "cruise"] select (_fsMode == "trans"), player, false, true] call fza_fnc_setSeatVariable;
+            switch (_heli getVariable "fza_ah64_hmdfsmode") do {
+                case "trans": {
+                    _heli setVariable ["fza_ah64_hmdfsmode", "cruise", true];
+                };
+                default {
+                    _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
+                };
+            };
         };
         case "fza_ah64_symbologySelectDown": {
-            private _fsMode = _heli getVariable [format ["fza_ah64_hmdfsmode_%1", [_heli] call fza_fnc_getSeat], "trans"];
-            if (_fsMode == "hover") then {
-                _heli setVariable ["fza_ah64_bobpos", [(getPosASL _heli select 0), (getPosASL _heli select 1)], true];
-                _heli setVariable ["fza_ah64_bobhdg", getDir _heli, true];
+            switch (_heli getVariable "fza_ah64_hmdfsmode") do {
+                case "hover": {
+                    _heli setVariable ["fza_ah64_bobpos", [(getPosASL _heli select 0), (getPosASL _heli select 1)], true];
+                    _heli setVariable ["fza_ah64_bobhdg", getDir _heli, true];
+                    _heli setVariable ["fza_ah64_hmdfsmode", "bobup", true];
+                };
+                default {
+                    _heli setVariable ["fza_ah64_hmdfsmode", "hover", true];
+                };
             };
-            [_heli, "fza_ah64_hmdfsmode", ["hover", "bobup"] select (_fsMode == "hover"), player, false, true] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_symbologySelectPress": {
             [_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;

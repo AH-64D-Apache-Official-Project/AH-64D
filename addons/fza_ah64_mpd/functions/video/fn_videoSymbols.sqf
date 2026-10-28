@@ -119,7 +119,7 @@ private _place = {
     _icons pushBack [_texture, _px, _py, _units];
 };
 
-private _mode = _heli getVariable [["fza_ah64_hmdfsmode_cpg", "fza_ah64_hmdfsmode_plt"] select (_symbology == "P-FLT"), "trans"];
+private _mode = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
 private _was  = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 
 if (_flight) then {
