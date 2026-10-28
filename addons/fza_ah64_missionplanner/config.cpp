@@ -6,7 +6,7 @@ class CfgPatches
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
-        requiredAddons[] = {"fza_ah64_controls", "cba_main"};
+        requiredAddons[] = {"fza_ah64_controls", "cba_main", "ace_interaction"};
         #include "version.hpp"
     };
 };
@@ -15,12 +15,13 @@ class CfgPatches
 #include "RscDisplay.hpp"
 
 class CfgVehicles {
-    class air;
-    class Helicopter: air  {
+    class Air;
+    class Helicopter: Air {
+        class ACE_Actions;
         class ACE_SelfActions;
     };
-    class Helicopter_Base_F : Helicopter {
-        class ACE_Actions {
+    class Helicopter_Base_F: Helicopter {
+        class ACE_Actions: ACE_Actions {
             class ACE_MainActions;
         };
     };
