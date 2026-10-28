@@ -610,6 +610,8 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
     };
 
     private _currentIafsInstalled = _heli getVariable ["bmkhs_ctrTankInstalled", true];
+    // The swap runs where the aircraft is local, and puts in a full magazine
+    private _swappedRds = -1;
 
     if (_needsCenterStore && _iafsInstalled && !_currentIafsInstalled) then {
         // magazine → IAFS: unload cannon first (if loaded), then swap
@@ -622,7 +624,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                 {
                     params [["_args", []]];
                     _args params ["_heli", "_startRds", "_unloadStatus"];
-                    _heli setAmmo ["fza_m230", 0];
+                    ["fza_mplanner_setGunAmmo", [_heli, 0], _heli] call CBA_fnc_targetEvent;
                     _unloadStatus set [1, true];
                     _unloadStatus set [0, true];
                 },
@@ -630,7 +632,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                     params [["_args", []], ["_elapsed", 0, [0]], ["_total", 1, [0]]];
                     _args params ["_heli", "_startRds", "_unloadStatus"];
                     private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
-                    _heli setAmmo ["fza_m230", (_startRds * (1 - _partial)) max 0];
+                    ["fza_mplanner_setGunAmmo", [_heli, (_startRds * (1 - _partial)) max 0], _heli] call CBA_fnc_targetEvent;
                     _unloadStatus set [1, false];
                     _unloadStatus set [0, true];
                 },
@@ -647,7 +649,8 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                 systemChat "Mission Planner: IAFS install cancelled (cannon unload incomplete).";
             };
         };
-        [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
+        [_heli, _iafsPhase] remoteExecCall ["fza_fnc_weaponSwapM230Mag", _heli];
+        _swappedRds = getNumber (configFile >> "CfgMagazines" >> (["fza_m230_300", "fza_m230_1200"] select (_iafsPhase > 0.5)) >> "count");
         // IAFS change supply deduction (100 pts)
         if (_supplyMode == 1 && { !_noAmmoSourceRequired }) then {
             private _iafsTruck = call _fnFindSupplyTruck;
@@ -660,7 +663,8 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
 
     if (_needsCenterStore) then {
         // IAFS → magazine: swap first, then cannon rearm follows below
-        [_heli, _iafsPhase] call fza_fnc_weaponSwapM230Mag;
+        [_heli, _iafsPhase] remoteExecCall ["fza_fnc_weaponSwapM230Mag", _heli];
+        _swappedRds = getNumber (configFile >> "CfgMagazines" >> (["fza_m230_300", "fza_m230_1200"] select (_iafsPhase > 0.5)) >> "count");
         // IAFS change supply deduction (100 pts)
         if (_supplyMode == 1 && { !_noAmmoSourceRequired }) then {
             private _iafsTruck2 = call _fnFindSupplyTruck;
@@ -672,7 +676,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
     };
 
     if (_needsCannon) then {
-        private _postSwapRds = _heli ammo "fza_m230";
+        private _postSwapRds = [_heli ammo "fza_m230", _swappedRds] select (_swappedRds >= 0);
         private _cannonDeltaPost = abs (_targetCannonRds - _postSwapRds);
         if (_cannonDeltaPost > 0) then {
             // Mode 1 (30s distributed): cannon takes its proportional share; mode 2: rate-based
@@ -691,7 +695,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                 {
                     params [["_args", []]];
                     _args params ["_heli", "_startRds", "_targetRds", "_cannonStatus"];
-                    _heli setAmmo ["fza_m230", _targetRds];
+                    ["fza_mplanner_setGunAmmo", [_heli, _targetRds], _heli] call CBA_fnc_targetEvent;
                     systemChat format ["Mission Planner: cannon at %1 rds.", _targetRds];
                     _cannonStatus set [1, true];
                     _cannonStatus set [0, true];
@@ -702,7 +706,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                     private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
                     if (_partial > 0.01) then {
                         private _actualRds = (_startRds + round ((_targetRds - _startRds) * _partial)) max 0;
-                        _heli setAmmo ["fza_m230", _actualRds];
+                        ["fza_mplanner_setGunAmmo", [_heli, _actualRds], _heli] call CBA_fnc_targetEvent;
                         private _direction = ["unloading", "loading"] select (_targetRds > _startRds);
                         systemChat format ["Mission Planner: cannon %1 stopped at %2 rds.", _direction, _actualRds];
                     };
@@ -838,8 +842,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                     {
                         params [["_args", []]];
                         _args params ["_heli", "_curRatio", "_targetRatio", "_noSrcStatus"];
-                        _heli setFuel _targetRatio;
-                        [_heli] call bmkhs_fnc_fuelSet;
+                        ["fza_mplanner_setFuel", [_heli, _targetRatio], _heli] call CBA_fnc_targetEvent;
                         systemChat "Mission Planner: fuel loaded.";
                         _noSrcStatus set [1, true]; _noSrcStatus set [0, true];
                     },
@@ -848,8 +851,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                         _args params ["_heli", "_curRatio", "_targetRatio", "_noSrcStatus"];
                         private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
                         if (_partial > 0.01) then {
-                            _heli setFuel (_curRatio + ((_targetRatio - _curRatio) * _partial)) min 1;
-                            [_heli] call bmkhs_fnc_fuelSet;
+                            ["fza_mplanner_setFuel", [_heli, (_curRatio + ((_targetRatio - _curRatio) * _partial)) min 1], _heli] call CBA_fnc_targetEvent;
                         };
                         _noSrcStatus set [1, false]; _noSrcStatus set [0, true];
                     },
@@ -915,8 +917,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                 {
                     params [["_args", []]];
                     _args params ["_heli", "_curRatio", "_targetRatio", "_source", "_srcFuel", "_srcCap", "_litres", "_status"];
-                    _heli setFuel _targetRatio;
-                    [_heli] call bmkhs_fnc_fuelSet;
+                    ["fza_mplanner_setFuel", [_heli, _targetRatio], _heli] call CBA_fnc_targetEvent;
                     if (_srcCap != -10) then {
                         [_source, (_srcFuel - _litres) max 0] call ace_refuel_fnc_setFuel;
                     };
@@ -931,8 +932,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                     private _partialRatio = (_curRatio + ((_targetRatio - _curRatio) * _partial)) min 1;
                     private _partialLitres = _litres * _partial;
                     if (_partial > 0.01) then {
-                        _heli setFuel _partialRatio;
-                        [_heli] call bmkhs_fnc_fuelSet;
+                        ["fza_mplanner_setFuel", [_heli, _partialRatio], _heli] call CBA_fnc_targetEvent;
                         if (_srcCap != -10) then {
                             [_source, (_srcFuel - _partialLitres) max 0] call ace_refuel_fnc_setFuel;
                         };
@@ -960,8 +960,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                 {
                     params [["_args", []]];
                     _args params ["_heli", "_curRatio", "_targetRatio", "_defuelStatus", "_liters"];
-                    _heli setFuel _targetRatio;
-                    [_heli] call bmkhs_fnc_fuelSet;
+                    ["fza_mplanner_setFuel", [_heli, _targetRatio], _heli] call CBA_fnc_targetEvent;
                     systemChat format ["Mission Planner: defueled %1 L.", round _liters];
                     _defuelStatus set [1, true]; _defuelStatus set [0, true];
                 },
@@ -970,8 +969,7 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
                     _args params ["_heli", "_curRatio", "_targetRatio", "_defuelStatus", "_liters"];
                     private _partial = if (_total > 0) then { _elapsed / _total } else { 0 };
                     if (_partial > 0.01) then {
-                        _heli setFuel (_curRatio + ((_targetRatio - _curRatio) * _partial)) max 0;
-                        [_heli] call bmkhs_fnc_fuelSet;
+                        ["fza_mplanner_setFuel", [_heli, (_curRatio + ((_targetRatio - _curRatio) * _partial)) max 0], _heli] call CBA_fnc_targetEvent;
                     };
                     _defuelStatus set [1, false]; _defuelStatus set [0, true];
                 },

@@ -21,8 +21,6 @@ class UserActionGroups {
             "fza_ah64_laserDesig",
             "fza_ah64_fcrSingleScan",
             "fza_ah64_cpgStoreUpdate",
-            "fza_ah64_waypointIncrease",
-            "fza_ah64_waypointDecrease",
             "fza_ah64_missileAdvance",
             "fza_ah64_wasGun",
             "fza_ah64_wasRkt",

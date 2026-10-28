@@ -7,7 +7,7 @@ private _pointTypes = getArray (_cfg >> "fza_point_type");
 private _index = _logic getVariable "fza_dms_point_index";
 
 if !(isNil "_index") then {
-    private _validIndex = true;
+    private _validIndex = false;
     {
         _validIndex = _validIndex || [_x, _index] call fza_dms_fnc_pointValidIndex;
     } forEach _pointTypes;

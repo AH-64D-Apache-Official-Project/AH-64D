@@ -37,7 +37,7 @@ if (_idx >= 0) then {
     _entries pushBack _newEntry;
 };
 
-_namespace setVariable [_key, _entries];
+_namespace setVariable [_key, _entries, _isMissionScope];
 if (!_isMissionScope) then {
     saveProfileNamespace;
     systemChat format ["Mission Planner: saved '%1' to profile (%2 total saves).", _trimmedName, count _entries];

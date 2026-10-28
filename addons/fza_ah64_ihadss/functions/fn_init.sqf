@@ -24,7 +24,8 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 
     _heli setVariable ["fza_ah64_tadsStow",        true,    true];
 
-    _heli setVariable ["fza_ah64_hmdfsmode",       "trans", true];
+    _heli setVariable ["fza_ah64_hmdfsmode_plt",   "trans", true];
+    _heli setVariable ["fza_ah64_hmdfsmode_cpg",   "trans", true];
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
     // NVS MODE per crew station, and the crew station NVS SELECT gave the TADS to (fza_ihadss_fnc_nvsState)
     _heli setVariable ["fza_ah64_nvsMode_plt",     0,       true];
@@ -49,6 +50,9 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 };
 
 [] spawn {
+    //Once per machine, for every Apache
+    if (!isNil "fza_ah64_ihadssEffects") exitWith {};
+    fza_ah64_ihadssEffects = true;
     ["colorCorrections", 400, [0.95, 0.75, -0.05, [0.25, 0.25, 0.25, 0.0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]] call
     {
         params ["_name", "_priority", "_effect", "_handle"];

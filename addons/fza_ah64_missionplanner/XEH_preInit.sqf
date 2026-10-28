@@ -17,3 +17,15 @@ private _cat = ["AH-64D Official Project", "Mission Planner"];
     _cat, true, 0
 ] call CBA_fnc_addSetting;
 
+
+//setFuel and setAmmo only take effect where the aircraft is local, and the planner can be used from outside it
+["fza_mplanner_setFuel", {
+    params ["_heli", "_ratio"];
+    _heli setFuel _ratio;
+    [_heli] call bmkhs_fnc_fuelSet;
+}] call CBA_fnc_addEventHandler;
+
+["fza_mplanner_setGunAmmo", {
+    params ["_heli", "_rounds"];
+    _heli setAmmo ["fza_m230", _rounds];
+}] call CBA_fnc_addEventHandler;

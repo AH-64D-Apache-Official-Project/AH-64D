@@ -569,8 +569,8 @@
   <div id="bottom-strip">
     <div id="dtc-box">
       <div class="dtc-title">DTC</div>
-      <button id="btnLoadDTC">Load DTC</button>
-      <button id="btnSaveDTC">Save DTC</button>
+      <button id="btnLoadDTC" disabled>Load DTC</button>
+      <button id="btnSaveDTC" disabled>Save DTC</button>
       <label class="dtc-current">
         <span>Current Loaded</span>
         <input type="text" id="dtcName" value="MYMSNV01" maxlength="12" readonly
@@ -866,12 +866,6 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
   openSaveLoadDialog('load');
-});
-document.getElementById('btnLoadDTC').addEventListener('click', function() {
-  callSQF('[] call fza_mplanner_fnc_loadDTC');
-});
-document.getElementById('btnSaveDTC').addEventListener('click', function() {
-  callSQF('[] call fza_mplanner_fnc_saveDTC');
 });
 
 document.getElementById('btnCloseSaveLoad').addEventListener('click', closeSaveLoadDialog);

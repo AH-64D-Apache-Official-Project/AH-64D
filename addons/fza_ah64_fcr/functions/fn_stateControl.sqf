@@ -51,7 +51,7 @@ if (_armaRadarOn) then {
     if (((!_acBusOn || !_dcBusOn) || !_gndOrideOn) && _onGnd) exitWith {
         [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
         [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _fcrScanStartTime]] call fza_fnc_updateNetworkGlobal;
-        player action ["ActiveSensorsOff", _heli];
+        [_heli, false] call fza_fcr_fnc_radarSet;
     };
 };
 
@@ -81,14 +81,14 @@ switch _fcrScanState do {
         private _onAt = _heli getVariable ["fza_fcr_radarOnAt", -1];
         // Held off: on without having just been switched on, or with no crew station owning the FCR as its sight
         if (_onAt < 0 || {FCR_OWNER(_heli) == ""}) exitWith {
-            player action ["ActiveSensorsOff", _heli];
+            [_heli, false] call fza_fcr_fnc_radarSet;
         };
         // Only the owner's radar toggle starts the scan; its press can arrive from the other crew station a moment after
         // the radar comes on
         if ((_heli getVariable ["fza_fcr_ownerRadarPress", -1]) < _onAt - 0.5) exitWith {
             if (CBA_missionTime - _onAt > 1) then {
                 _heli setVariable ["fza_fcr_radarOnAt", -1];
-                player action ["ActiveSensorsOff", _heli];
+                [_heli, false] call fza_fcr_fnc_radarSet;
             };
         };
         _heli setVariable ["fza_fcr_radarOnAt", -1];
@@ -102,9 +102,9 @@ switch _fcrScanState do {
         if ((call _cycleUpdate) >= _burstScans) exitWith {
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
             [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
-            player action ["ActiveSensorsOff", _heli];
+            [_heli, false] call fza_fcr_fnc_radarSet;
         };
-        if (!_armaRadarOn) then { player action ["ActiveSensorsOn", _heli]; };
+        if (!_armaRadarOn) then { [_heli, true] call fza_fcr_fnc_radarSet; };
     };
     case FCR_MODE_ON_CONTINUOUS: {
         if _armaRadarOn exitWith { call _cycleUpdate; };
@@ -113,7 +113,7 @@ switch _fcrScanState do {
     };
     case FCR_MODE_FAULT: {
         if _armaRadarOn then {
-            player action ["ActiveSensorsOff", _heli];
+            [_heli, false] call fza_fcr_fnc_radarSet;
         };
         if (_acBusOn && _dcBusOn && _fcrDamage < SYS_FCR_DMG_THRESH) then {
             [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;

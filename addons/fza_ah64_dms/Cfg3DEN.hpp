@@ -7,7 +7,6 @@ class Cfg3DEN {
             attributeLoad = "\
                 private _ctrl = _this controlsGroupCtrl 100; \
                 private _allowedIconTypes = getArray (_config >> 'fza_point_type'); \
-                diag_log format ['Allowed Icon Types: %1, Config: %2', _allowedIconTypes, _config]; \
                 { \
                     private _index = _ctrl lbAdd (configName _x regexReplace ['Icon', '']);\
                     _ctrl lbSetPicture [_index, getText (_x >> 'tex')]; \

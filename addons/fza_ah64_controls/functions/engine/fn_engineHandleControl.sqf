@@ -34,6 +34,7 @@ switch(_control) do {
         if (!_apuBtnOn && _battBusOn) then {
             ["apuBtn", "+1", _heli] call bmkhs_fnc_controlSet;
             playSound "fza_ah64_apubutton";
+            _heli setVariable ["fza_ah64_apuPressTime", CBA_missionTime];
             [_heli] spawn fza_fnc_fxLoops;
             [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3D"];
         } else {
@@ -61,6 +62,7 @@ switch(_control) do {
         } else {
             ["battSwitch", "+1", _heli] call bmkhs_fnc_controlSet;
             [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3D"];
+            [_heli] spawn fza_fnc_fxLoops;
             playSound "fza_ah64_battery";
         };
     };

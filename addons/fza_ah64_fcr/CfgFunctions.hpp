@@ -31,6 +31,7 @@ class CfgFunctions
             class slewCenterline {RECOMPILE_FLAG;};
             class releaseOwner {RECOMPILE_FLAG;};
             class stopScan {RECOMPILE_FLAG;};
+            class radarSet {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
             class setMode {RECOMPILE_FLAG;};
             class updateTPMObstacles {RECOMPILE_FLAG;};

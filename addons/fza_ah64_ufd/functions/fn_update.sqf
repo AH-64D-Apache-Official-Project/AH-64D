@@ -33,13 +33,6 @@ if (!_fuelOpen) then { [_heli, _checkSeatVar, false] call fza_fnc_updateNetworkG
 private _battBusOn = _heli getVariable "bmkhs_battBusOn";
 private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
 
-if (_heli getVariable "fza_ah64_rdp_fail" && !(_heli getVariable "fza_ah64_ldp_fail") && [_heli, 0] call fza_mpd_fnc_currentPage != "fail") then {
-    [_heli, 1, "fail"] call fza_mpd_fnc_setCurrentPage;
-};
-if (_heli getVariable "fza_ah64_ldp_fail" && !(_heli getVariable "fza_ah64_rdp_fail") && [_heli, 1] call fza_mpd_fnc_currentPage != "fail") then {
-    [_heli, 0, "fail"] call fza_mpd_fnc_setCurrentPage;
-};
-
 ///EWCA//
 //pilot
 if (_battBusOn || _dcBusOn) then {

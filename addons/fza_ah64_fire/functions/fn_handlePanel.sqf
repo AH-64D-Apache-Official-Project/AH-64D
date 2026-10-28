@@ -49,7 +49,7 @@ switch(_engine) do {
     };
     case "eng2": {
         if _value then {
-            if ("fza_ah64_engine_1_fire" in (_heli getVariable "fza_audio_warning_message")) then {
+            if ("fza_ah64_engine_2_fire" in (_heli getVariable "fza_audio_warning_message")) then {
                 [_heli] call fza_audio_fnc_delwarning;
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
@@ -62,7 +62,7 @@ switch(_engine) do {
     };
     case "apu": {
         if _value then {
-            if ("fza_ah64_engine_1_fire" in (_heli getVariable "fza_audio_warning_message")) then {
+            if ("fza_ah64_APU_fire" in (_heli getVariable "fza_audio_warning_message")) then {
                 [_heli] call fza_audio_fnc_delwarning;
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };

@@ -469,6 +469,11 @@ class FzaIconTypes {
         textA = "H";
         textB = "K";
     };
+    class VU:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "V";
+        textB = "U";
+    };
 //--------------------Icon Type H--------------------
 //
 //             +---------+    +---------+   

@@ -35,6 +35,7 @@
 #define MPS_TO_FPM              196.85
 #define FPM_TO_MPS              0.00508
 #define KNOTS_TO_MPS            0.51444
+#define RAD_TO_DEG              57.29578
 
 #define GRAVITY                 9.806
 #define MOLAR_MASS_OF_AIR       0.0289644
@@ -273,36 +274,24 @@
                                               //     accel spike from railing the command)
 #define AUTO_ATT_HOVER_POS_DEADBAND   0.30    //m, position error ignored inside this (no hunting)
 
-//Auto-pedal AERODYNAMIC-TRIM gates. The pedals hold NOSE-TO-TAIL trim (velocity vector on the nose)
-//whenever the aircraft is LOW **OR** SLOW, and only switch to AERODYNAMIC trim (ball centered) when
-//it is BOTH high enough AND fast enough - i.e. genuinely in cruise. Altitude alone is not sufficient:
-//NOE flight can sit well above 50ft while masked behind terrain or trees and is still a nose-to-tail
-//regime. Each gate is a BAND, not a step, so the handover ramps instead of jolting the tail.
-//Altitude is blended against the exact radar altitude, bmkhs_radAlt - a displayed one rounded to
-//10ft above 50ft would quantize this band into a staircase.
-#define AUTOPEDAL_NTT_AGL_FT          40.0    //ft  - below this: nose-to-tail
-#define AUTOPEDAL_AERO_AGL_FT         60.0    //ft  - above this: high enough for aero trim
-#define AUTOPEDAL_AERO_SPD_LO         23.15   //m/s - 45kts, below this: nose-to-tail
-#define AUTOPEDAL_AERO_SPD_HI         28.29   //m/s - 55kts, above this: fast enough for aero trim
+//Auto-pedal aero gate: ball centred only when high AND fast; nose-to-tail when low OR slow.
+//Hand-offs are seamless - the incoming loop starts from the pedal the foot holds.
+#define AUTOPEDAL_AERO_IN_FT          50.0    //ft AGL - aero above this AND AERO_IN_KTS
+#define AUTOPEDAL_AERO_IN_KTS         50.0    //kt ground speed
+#define AUTOPEDAL_AERO_OUT_FT         45.0    //ft AGL - back to nose-to-tail below this OR AERO_OUT_KTS
+#define AUTOPEDAL_AERO_OUT_KTS        45.0    //kt ground speed
 
-//Auto-pedal PILOT FEET model. The auto-pedal stands in for a human on the pedals, so it must not
-//react like an automaton - no instant response, no chasing a ball that is a hair off centre.
-//  DEADBAND - error inside this is ignored entirely (a pilot accepts a small standing skid). The
-//             band is SUBTRACTED outside it so the response stays continuous, with no step at the edge.
-//             0.01g is roughly where the ball becomes visibly off centre (full scale is 0.15g).
-//  RATE     - maximum pedal travel per second. Feet have mass and the pedals have breakout force;
-//             0.35 = a full pedal sweep takes ~3s, an unhurried but purposeful correction.
-//  TAU      - first-order lag time constant (s). Rolls off the high-frequency content the PID
-//             produces from a noisy lateral-g signal. Larger = smoother/lazier feet.
-//DEADBAND 0.010 -> 0.004. The loop stops correcting inside the deadband, so it sets the floor on
-//how well the ball can be centred - at 0.010 g a visible offset was left standing. 0.004 is below
-//the ball's own resolution but still above the frame-to-frame noise floor.
+//Auto-pedal deadbands - error inside is ignored (a pilot accepts a small standing skid); the band
+//is subtracted outside it so the response has no step at the edge.
 #define AUTOPEDAL_AERO_DEADBAND_G     0.004
 #define AUTOPEDAL_NTT_DEADBAND_DEG    0.750
-//Keyboard pedal fade, in and back out. A key is on or off; the pedal it drives is not.
-#define AUTOPEDAL_KB_FADE_TIME        2.000
 //Forward speed at which the pedals hand over from heading hold to nose-to-tail trim
 #define AUTOPEDAL_NTT_SPD             5.144   //10kt forward
+#define AUTOPEDAL_FOOT_TIME           1.5     //s - foot covers 95% of any move
+#define AUTOPEDAL_FOOT_95PCT          4.74    //critically damped: 95% at w*t = 4.74
+#define AUTOPEDAL_FEEL                0.01    //pedal per deg/s of yaw left - foot settles where the yaw stops
+#define AUTOPEDAL_FOOT_ARRIVED        0.01    //foot this close to the pedal it eases to = turn done
+#define AUTOPEDAL_HDG_SETTLE_DPS      2.0     //deg/s - hover heading captured once the turn stops
 
 //AUTO ATTITUDE (CASUAL + KEYBOARD). Drives the aircraft to wings level so a keyboard player is
 //not fighting the pitch-up the airframe develops with forward airspeed. There is no attitude
@@ -325,7 +314,7 @@
 
 //The forces readout is its own switch, so the window can be had without the hint
 //and the 3D debug graphics that BMKHS_FM_DEBUG brings with it. Every force
-//generator tests this before publishing its row.
-#define BMKHS_FORCES_DEBUG (!isNil "bmkhs_forcesDebug" && {bmkhs_forcesDebug})
+//generator tests this before publishing its row. The flight log reads the rows too.
+#define BMKHS_FORCES_DEBUG ((!isNil "bmkhs_forcesDebug" && {bmkhs_forcesDebug}) || {!isNil "bmkhs_flightLog" && {bmkhs_flightLog}})
 
 #endif

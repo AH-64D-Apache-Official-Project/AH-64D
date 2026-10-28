@@ -6,7 +6,7 @@ private _showScale = _state get "showScale";
 private _subpage = _state get "subPageVarPage" select 0;
 private _interactHandled = false;
 
-if !(_subpage in [0,2,4]) exitWith {};
+if !(_subpage in [0,2,4]) exitWith {false};
 
 switch (_control) do {
     case "r1": {

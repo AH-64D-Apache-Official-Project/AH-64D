@@ -57,7 +57,7 @@ private _sectors = switch (_menu) do {
     case "hmd": {
         // The flight symbology select as its keys: up across the top half, TRANS and CRUS in turn from TRANS; down across
         // the bottom, HVR and BOB in turn from HVR. Each shows what it selects.
-        private _fsMode = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
+        private _fsMode = _heli getVariable [format ["fza_ah64_hmdfsmode_%1", [_heli] call fza_fnc_getSeat], "trans"];
         _hub = ["TRANS", "CRUS", "HVR", "BOB"] param [["trans", "cruise", "hover", "bobup"] find _fsMode, ""];
         ([[[["TRANS", "CRUS"] select (_fsMode == "trans"), true, false, "fza_ah64_symbologySelectUp"]], true] call _split)
             + ([[[["HVR", "BOB"] select (_fsMode == "hover"), true, false, "fza_ah64_symbologySelectDown"]], false] call _split)

@@ -53,7 +53,7 @@ if (ctrlFade _profileCtrl > 0) then {
 };
 private _colour = [[0.1, 1, 0, 1], [1, 1, 1, 1]] select _headsDown;
 private _shown  = [];
-private _mode   = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
+private _mode   = _heli getVariable [format ["fza_ah64_hmdfsmode_%1", [_heli] call fza_fnc_getSeat], "trans"];
 private _was    = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 
 // Format edges the limited symbols hang on, the same as IH.EDGE in ihadss_common.js; heads up the top moves up with the heading tape

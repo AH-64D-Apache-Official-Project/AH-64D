@@ -1,5 +1,5 @@
 class VABs_Mode_Gun {
-    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1)));
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1));
     #define WPN_GUN_BURST_LIMIT(className, burstIndex, posY, numChars, burstName) \
     class className {\
         MPD_TEXT_R(Name, MPD_POS_BUTTON_L_X, posY, MPD_TEXT_STATIC(burstName)) \

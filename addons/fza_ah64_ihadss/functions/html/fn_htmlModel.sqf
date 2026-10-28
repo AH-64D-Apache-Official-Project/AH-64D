@@ -36,7 +36,7 @@ private _isPilot  = _seat == "plt";
 private _unit     = [gunner _heli, driver _heli] select _isPilot;
 private _sight    = [_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable;
 if (isNil "_sight") then {_sight = SIGHT_HMD};
-private _mode     = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
+private _mode     = _heli getVariable [format ["fza_ah64_hmdfsmode_%1", _seat], "trans"];
 private _was      = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 private _heliDir  = getDir _heli;
 private _tadsAz   = _heli getVariable ["fza_ah64_tadsAzimuth", 0];
