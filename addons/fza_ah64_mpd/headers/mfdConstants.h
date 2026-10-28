@@ -128,6 +128,30 @@
 
 #define MFD_IND_ENG_ACQ_BOX 16
 
+//0 normal, 1 in a timed range, 2 past the maximum
+#define MFD_IND_ENG_TORQUE_RANGE_1 17
+#define MFD_IND_ENG_TORQUE_RANGE_2 18
+#define MFD_IND_ENG_TGT_RANGE_1 19
+#define MFD_IND_ENG_TGT_RANGE_2 20
+#define MFD_IND_ENG_NP_RANGE_1 21
+#define MFD_IND_ENG_NP_RANGE_2 22
+#define MFD_IND_ENG_NG_RANGE_1 23
+#define MFD_IND_ENG_NG_RANGE_2 24
+
+//Where each timed range starts, 0 when unused
+#define MFD_IND_ENG_TORQUE_SUB_1 25
+#define MFD_IND_ENG_TORQUE_SUB_2 26
+#define MFD_IND_ENG_TGT_SUB_1 27
+#define MFD_IND_ENG_TGT_SUB_2 28
+#define MFD_IND_ENG_TGT_SUB_3 29
+#define MFD_IND_ENG_TGT_SUB_4 30
+
+//Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
+#define MFD_IND_ENG_TORQUE_TIMER_AT 31
+#define MFD_IND_ENG_TGT_TIMER_AT 32
+#define MFD_IND_ENG_NG_TIMER_AT 33
+#define MFD_IND_ENG_NP_TIMER_AT 34
+
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
 #define MFD_TEXT_IND_ENG_TGT_1 2
@@ -151,6 +175,12 @@
 #define MFD_TEXT_IND_ENG_PRI_HYD_PSI  17
 #define MFD_TEXT_IND_ENG_UTIL_HYD_PSI 18
 #define MFD_TEXT_IND_ENG_ACC_HYD_PSI  19
+
+#define MFD_TEXT_IND_ENG_TORQUE_TIMER 20
+#define MFD_TEXT_IND_ENG_TGT_TIMER 21
+#define MFD_TEXT_IND_ENG_NG_TIMER 22
+#define MFD_TEXT_IND_ENG_NP_TIMER_1 23
+#define MFD_TEXT_IND_ENG_NP_TIMER_2 24
 
 //Weapon Page
 

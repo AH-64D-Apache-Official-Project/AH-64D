@@ -14,7 +14,9 @@
         "fza_ah64_hvrTq_ige", "fza_ah64_hvrTq_oge",
         "fza_ah64_tas_vne", "fza_ah64_tas_vsse",
         "fza_ah64_tas_rngTas", "fza_ah64_tas_rngTq", "fza_ah64_tas_rngFf",
-        "fza_ah64_tas_endTas", "fza_ah64_tas_endTq", "fza_ah64_tas_endFf"
+        "fza_ah64_tas_endTas", "fza_ah64_tas_endTq", "fza_ah64_tas_endFf",
+        //Core's single engine flag, so the other crew station's ENG page shows the single engine limits
+        "bmkhs_isSingleEng"
     };
     /////////////////////////////////////////////////////////////////////////////////////////////
     // -40 deg C Tables /////////////////////////////////////////////////////////////////////////
