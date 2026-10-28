@@ -135,7 +135,8 @@ NR_SCALING(Nr, MFD_IND_ENG_NR)
 //The emergency procedure title's inverse bar, as long as the title
 class Eng_Emer_Title {
     type = "linear";
-    MPD_NUM_USER(MFD_IND_ENG_EMER_TITLE_LEN)
+    source = "user";
+    sourceIndex = MFD_IND_ENG_EMER_TITLE_LEN;
     min = 0;
     max = 40;
     maxPos[] = {0, 0};

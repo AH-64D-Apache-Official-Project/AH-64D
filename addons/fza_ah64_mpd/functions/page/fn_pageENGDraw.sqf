@@ -82,14 +82,14 @@ private _engTimers = {
 {
     _x params ["_left1", "_left2", "_atInd", "_textInd"];
     private _at = [_left1, _left2] call _engTimers;
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(_atInd), _at];
+    _heli setUserMFDValue [_atInd, _at];
     _heli setUserMFDText  [MFD_INDEX_OFFSET(_textInd), [[-1, _left1, _left2, _left1 min _left2] # _at] call _timer];
 } forEach [
     [_tqTimers # 0, _tqTimers # 1, MFD_IND_ENG_TORQUE_TIMER_AT, MFD_TEXT_IND_ENG_TORQUE_TIMER],
     [(_limitTimers # 0) # 2, (_limitTimers # 1) # 2, MFD_IND_ENG_TGT_TIMER_AT, MFD_TEXT_IND_ENG_TGT_TIMER],
     [(_limitTimers # 0) # 1, (_limitTimers # 1) # 1, MFD_IND_ENG_NG_TIMER_AT, MFD_TEXT_IND_ENG_NG_TIMER]
 ];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NP_TIMER_AT), [(_limitTimers # 0) # 0, (_limitTimers # 1) # 0] call _engTimers];
+_heli setUserMFDValue [MFD_IND_ENG_NP_TIMER_AT, [(_limitTimers # 0) # 0, (_limitTimers # 1) # 0] call _engTimers];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NP_TIMER_1), [(_limitTimers # 0) # 0] call _timer];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NP_TIMER_2), [(_limitTimers # 1) # 0] call _timer];
 
@@ -132,7 +132,7 @@ if (_procedure isNotEqualTo []) then {
     _pagemode = 4;
     _procedure params ["_title", "_steps"];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_TITLE), _title];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_EMER_TITLE_LEN), count _title];
+    _heli setUserMFDValue [MFD_IND_ENG_EMER_TITLE_LEN, count _title];
     for "_i" from 0 to 6 do {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_1 + _i), _steps param [_i, ""]];
     };

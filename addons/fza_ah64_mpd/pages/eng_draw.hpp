@@ -61,11 +61,11 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
 //A timer takes the place of the engine number under its column. atInd is 0 for no timer, 1 or 2 for that engine's, 3 for both.
 #define ENG_TIMER_LABELS(name, atInd, x1, x2, posY) \
     class name##_Label_1 {\
-        condition = C_COND(C_OR(C_LESS(C_MPD_USER(atInd), 0.5), C_EQ(C_MPD_USER(atInd), 2)));\
+        condition = C_COND(C_OR(C_LESS(C_USER(atInd), 0.5), C_EQ(C_USER(atInd), 2)));\
         MPD_TEXT_C(Label, x1, posY, MPD_TEXT_STATIC("1"))\
     };\
     class name##_Label_2 {\
-        condition = C_COND(C_LESS(C_MPD_USER(atInd), 1.5));\
+        condition = C_COND(C_LESS(C_USER(atInd), 1.5));\
         MPD_TEXT_C(Label, x2, posY, MPD_TEXT_STATIC("2"))\
     };
 
@@ -74,17 +74,17 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
     ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
     class name##_Timer_1 {\
         color[] = {1,1,1,1};\
-        condition = C_COND(C_EQ(C_MPD_USER(atInd), 1));\
+        condition = C_COND(C_EQ(C_USER(atInd), 1));\
         MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(textInd))\
     };\
     class name##_Timer_2 {\
         color[] = {1,1,1,1};\
-        condition = C_COND(C_EQ(C_MPD_USER(atInd), 2));\
+        condition = C_COND(C_EQ(C_USER(atInd), 2));\
         MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(textInd))\
     };\
     class name##_Timer_Both {\
         color[] = {1,1,1,1};\
-        condition = C_COND(C_MORE(C_MPD_USER(atInd), 2.5));\
+        condition = C_COND(C_MORE(C_USER(atInd), 2.5));\
         MPD_TEXT_C(Timer, ((x1 + x2) / 2), posY, MPD_TEXT_USER(textInd))\
     };
 
@@ -93,12 +93,12 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
     ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
     class name##_Timer_1 {\
         color[] = {1,1,1,1};\
-        condition = C_COND(C_OR(C_EQ(C_MPD_USER(atInd), 1), C_MORE(C_MPD_USER(atInd), 2.5)));\
+        condition = C_COND(C_OR(C_EQ(C_USER(atInd), 1), C_MORE(C_USER(atInd), 2.5)));\
         MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(text1))\
     };\
     class name##_Timer_2 {\
         color[] = {1,1,1,1};\
-        condition = C_COND(C_MORE(C_MPD_USER(atInd), 1.5));\
+        condition = C_COND(C_MORE(C_USER(atInd), 1.5));\
         MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(text2))\
     };
 

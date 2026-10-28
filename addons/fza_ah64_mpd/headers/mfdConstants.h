@@ -13,6 +13,7 @@
 #define MFD_IND_EMER_HYD 7
 #define MFD_IND_MSTR_CAUT 8
 #define MFD_IND_MSTR_WARN 9
+//14 to 18: ENG page timers and emergency title
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
@@ -147,13 +148,14 @@
 #define MFD_IND_ENG_TGT_SUB_3 29
 #define MFD_IND_ENG_TGT_SUB_4 30
 
+//Not offset, as 31 to 38 on the page are the ACQ list's; both MPDs show the same
 //Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
-#define MFD_IND_ENG_TORQUE_TIMER_AT 31
-#define MFD_IND_ENG_TGT_TIMER_AT 32
-#define MFD_IND_ENG_NG_TIMER_AT 33
-#define MFD_IND_ENG_NP_TIMER_AT 34
+#define MFD_IND_ENG_TORQUE_TIMER_AT 14
+#define MFD_IND_ENG_TGT_TIMER_AT 15
+#define MFD_IND_ENG_NG_TIMER_AT 16
+#define MFD_IND_ENG_NP_TIMER_AT 17
 
-#define MFD_IND_ENG_EMER_TITLE_LEN 35
+#define MFD_IND_ENG_EMER_TITLE_LEN 18
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
