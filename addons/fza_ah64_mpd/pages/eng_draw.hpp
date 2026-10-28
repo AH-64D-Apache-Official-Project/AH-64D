@@ -365,6 +365,50 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_5, 0.05, 0.6, 4)
 };
 
+//Emergency format: the immediate action steps of the active warning, in white under an inverse title
+#define ENG_EMER_X 0.065
+#define ENG_EMER_Y 0.598
+#define ENG_EMER_PITCH 0.0385
+
+class EmergencyFormat {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 4));
+    class Emer_Box {
+        type = "line";
+        width = 3;
+        points[] = {
+            MPD_POINTS_BOX("Null", 0.045, (ENG_EMER_Y - 0.006), 0.855, (8 * ENG_EMER_PITCH + 0.012))
+        };
+    };
+    class Emer_Title_Bar {
+        color[] = MPD_COLOUR_WHITE;
+        class Bar {
+            type = "polygon";
+            points[] = {
+                {
+                    {{ENG_EMER_X - MPD_BOX_PAD_X, ENG_EMER_Y}, 1},
+                    {"Eng_Emer_Title", {ENG_EMER_X + MPD_BOX_PAD_X, ENG_EMER_Y}, 1},
+                    {"Eng_Emer_Title", {ENG_EMER_X + MPD_BOX_PAD_X, ENG_EMER_Y + ENG_EMER_PITCH}, 1},
+                    {{ENG_EMER_X - MPD_BOX_PAD_X, ENG_EMER_Y + ENG_EMER_PITCH}, 1}
+                }
+            };
+        };
+    };
+    class Emer_Title_Text {
+        color[] = {0, 0, 0, 1};
+        MPD_TEXT_R(Emer_Title, ENG_EMER_X, ENG_EMER_Y, MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_TITLE))
+    };
+    class Emer_Steps {
+        color[] = MPD_COLOUR_WHITE;
+        MPD_TEXT_R(Emer_1, ENG_EMER_X, (ENG_EMER_Y + 1 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_1))
+        MPD_TEXT_R(Emer_2, ENG_EMER_X, (ENG_EMER_Y + 2 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_2))
+        MPD_TEXT_R(Emer_3, ENG_EMER_X, (ENG_EMER_Y + 3 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_3))
+        MPD_TEXT_R(Emer_4, ENG_EMER_X, (ENG_EMER_Y + 4 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_4))
+        MPD_TEXT_R(Emer_5, ENG_EMER_X, (ENG_EMER_Y + 5 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_5))
+        MPD_TEXT_R(Emer_6, ENG_EMER_X, (ENG_EMER_Y + 6 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_6))
+        MPD_TEXT_R(Emer_7, ENG_EMER_X, (ENG_EMER_Y + 7 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_7))
+    };
+};
+
 class Hydraulics_Box {
     type = "line";
     width = 3;

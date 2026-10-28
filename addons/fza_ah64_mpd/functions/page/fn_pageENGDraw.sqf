@@ -125,8 +125,18 @@ private _pagemode = [2,1] select ([_heli] call bmkhs_fnc_stateOnGround);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 private _wcas = [_heli] call fza_fnc_coreGetWCAs;
 _wcas = _wcas select {!(WCA_ADVISORY in _x)};
+private _procedure = [_heli, (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 1}] call fza_mpd_fnc_pageENGProcedure;
 _wcas resize [5, [0," "]];
 if (_wcas#0#1 isNotEqualTo " ") then {_pagemode = 3;};
+if (_procedure isNotEqualTo []) then {
+    _pagemode = 4;
+    _procedure params ["_title", "_steps"];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_TITLE), _title];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_EMER_TITLE_LEN), count _title];
+    for "_i" from 0 to 6 do {
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_1 + _i), _steps param [_i, ""]];
+    };
+};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), _pagemode];
 for "_x" from 0 to 4 do {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];

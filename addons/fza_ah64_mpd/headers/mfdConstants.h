@@ -117,6 +117,7 @@
 #define MFD_IND_ENG_NR 6
 #define MFD_IND_ENG_TORQUE_BAR 7
 #define MFD_IND_ENG_TGT_BAR 8
+//1 ground, 2 in flight, 3 warnings or cautions listed, 4 emergency procedure
 #define MFD_IND_ENG_MODE 9
 #define MFD_IND_ENG_START 10
 
@@ -152,6 +153,8 @@
 #define MFD_IND_ENG_NG_TIMER_AT 33
 #define MFD_IND_ENG_NP_TIMER_AT 34
 
+#define MFD_IND_ENG_EMER_TITLE_LEN 35
+
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
 #define MFD_TEXT_IND_ENG_TGT_1 2
@@ -181,6 +184,15 @@
 #define MFD_TEXT_IND_ENG_NG_TIMER 22
 #define MFD_TEXT_IND_ENG_NP_TIMER_1 23
 #define MFD_TEXT_IND_ENG_NP_TIMER_2 24
+
+#define MFD_TEXT_IND_ENG_EMER_TITLE 25
+#define MFD_TEXT_IND_ENG_EMER_1 26
+#define MFD_TEXT_IND_ENG_EMER_2 27
+#define MFD_TEXT_IND_ENG_EMER_3 28
+#define MFD_TEXT_IND_ENG_EMER_4 29
+#define MFD_TEXT_IND_ENG_EMER_5 30
+#define MFD_TEXT_IND_ENG_EMER_6 31
+#define MFD_TEXT_IND_ENG_EMER_7 32
 
 //Weapon Page
 
