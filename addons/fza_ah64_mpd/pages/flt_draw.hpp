@@ -19,8 +19,7 @@ class flt_draw {
     MPD_TEXT_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
 
     ///////////////// R ///////////////
-    //R6
-    MPD_ACQ_SRC(Acq, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC, "Flt_Acq")
+    //R6, ACQ: drawn after the page, in mpd.hpp
 
     ///////////////// B ///////////////
     MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ENG"))

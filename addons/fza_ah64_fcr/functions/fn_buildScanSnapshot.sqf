@@ -38,7 +38,7 @@ private _heliPos    = getPosASL _heli;
 
     private _range       = _heli distance2D _target;
     private _targetPos   = getPosASL _target;
-    private _targetSpeed = vectorMagnitude velocity _target;
+    private _targetSpeed = (vectorMagnitude velocity _target) * 3.6;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
@@ -74,7 +74,7 @@ private _heliPos    = getPosASL _heli;
     // so the target count matches what the format displays
     if (_isAtm) then {
         if !(_type in [FCR_TYPE_FLYER, FCR_TYPE_HELICOPTER]) then { continue; };
-        if (_targetSpeed < 5) then { continue; };
+        if (_targetSpeed < 18) then { continue; };
     };
 
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);

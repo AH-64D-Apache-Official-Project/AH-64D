@@ -44,7 +44,7 @@ private _deleted = false;
 
 if (!_deleted) exitWith {false};
 
-_namespace setVariable [_key, _nextEntries];
+_namespace setVariable [_key, _nextEntries, _isMissionScope];
 if (!_isMissionScope) then {
     saveProfileNamespace;
 };

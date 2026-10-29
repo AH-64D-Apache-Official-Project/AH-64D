@@ -181,6 +181,7 @@
   }
   button:hover { background: var(--btn-hover); color: var(--text-bright); border-color: var(--accent); }
   button:active { background: var(--accent); color: #000; }
+  button:disabled, button:disabled:hover { background: var(--btn-bg); color: var(--text-dim); border-color: var(--border); opacity: 0.5; cursor: default; }
 
   /* ── LEFT COLUMN SECTIONS ── */
   .section-divider {

@@ -39,7 +39,7 @@ switch(_control) do {
                 private _ctrMass = _heli getVariable ["bmkhs_ctrTankMass", 0];
                 // Can turn off freely; can only turn on when CTR has fuel
                 if (_iafsOn || _ctrMass > 0) then {
-                    _heli setVariable ["bmkhs_ctrTankXferOn", !_iafsOn];
+                    [_heli, "bmkhs_ctrTankXferOn", !_iafsOn] call fza_fnc_updateNetworkGlobal;
                 };
             };
         };

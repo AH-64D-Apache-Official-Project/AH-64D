@@ -136,7 +136,7 @@ if (_value) then {
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
-                player action ["ActiveSensorsOn", _heli];
+                [_heli, true] call fza_fcr_fnc_radarSet;
                 [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
             };
@@ -267,7 +267,7 @@ if (_value) then {
 
             //End of DTV Cycle
             if (_tadsVision == "DTV") then {
-                if (fza_ah64_tadsCycleIncludeDVO && _dtvDamage < SYS_SIGHT_DMG_THRESH) exitWith { //should be DVO damage
+                if (fza_ah64_tadsCycleIncludeDVO && _dtvDamage < SYS_SIGHT_DMG_THRESH) exitWith {
                     ["fza_ah64_SensorSelect_DVO", true] call fza_fnc_coreControlHandle;
                 };
                 if (_flirDamage < SYS_SIGHT_DMG_THRESH) exitWith {

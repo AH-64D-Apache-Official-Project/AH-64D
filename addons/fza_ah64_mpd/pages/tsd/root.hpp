@@ -10,8 +10,7 @@ class tsdRoot {
         MPD_TEXT_C(PP, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC(" PP"))
         MPD_BOX_BAR_T(PP, MPD_POS_BUTTON_TB_4_X+0.0075, MPD_POS_BUTTON_T_Y)
 
-        //R6
-        MPD_ACQ_SRC(Acq, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC, "Tsd_Acq")
+        //R6, ACQ: drawn after the page, in mpd.hpp
 
         //L1
         MPD_ARROW_R(ADF, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)
@@ -21,6 +20,7 @@ class tsdRoot {
         //MPD_TEXT_L(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("SHOW"))
         //L6
         MPD_ARROW_R(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
+        MPD_TEXT_BACKING_R(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
         MPD_TEXT_R(SHOW,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("SHOW"))
 
         class vabs_ScaleHide_CAQ {

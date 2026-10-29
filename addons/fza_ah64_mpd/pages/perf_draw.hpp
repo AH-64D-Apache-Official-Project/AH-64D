@@ -1,3 +1,40 @@
+//Green, yellow or red by the range the page script works out: 0 normal, 1 time-limited, 2 past the maximum
+#define PERF_RANGE_COLOUR(name, rangeInd, config) \
+    class name##_Green {\
+        condition = C_COND(C_LESS(C_MPD_USER(rangeInd), 0.5));\
+        config\
+    };\
+    class name##_Yellow {\
+        color[] = {1,1,0,1};\
+        condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
+        config\
+    };\
+    class name##_Red {\
+        color[] = {1,0,0,1};\
+        condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
+        config\
+    };
+
+#define PERF_MAX_Q_BOX(posY) class Box {\
+        type = "line";\
+        width = 3;\
+        points[] = {\
+            MPD_POINTS_BOX("Null", (9.6*MPD_TEXT_WIDTH) - 0.005, (posY*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},\
+        };\
+    };
+
+//A MAX GWT readout, yellow while the gross weight is above it
+#define PERF_MAX_GWT(name, overInd, textInd, posX, posY) \
+    class name##_Under {\
+        condition = C_COND(C_LESS(C_MPD_USER(overInd), 0.5));\
+        MPD_TEXT_R(name, posX, posY, MPD_TEXT_USER(textInd))\
+    };\
+    class name##_Over {\
+        color[] = {1,1,0,1};\
+        condition = C_COND(C_MORE(C_MPD_USER(overInd), 0.5));\
+        MPD_TEXT_R(name, posX, posY, MPD_TEXT_USER(textInd))\
+    };
+
     class perf_draw {
 
     class lines {
@@ -36,8 +73,10 @@
              MPD_TEXT_R(IGE_OGE, MPD_TEXT_WIDTH * 10,  MPD_TEXT_HEIGHT * 3.8, MPD_TEXT_STATIC("         IGE OGE"))
              MPD_TEXT_R(REQ,     MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 5.1,  MPD_TEXT_USER(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE))//MPD_TEXT_STATIC( "REQUIRED 067 083"))
              MPD_TEXT_R(GO_NOGO, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 6.4,  MPD_TEXT_USER(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE))//MPD_TEXT_STATIC( "GO-NO/GO 100 082"))
-             MPD_TEXT_R(IND,     MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 7.7,  MPD_TEXT_USER(MFD_TEXT_IND_PERF_IND_TQ))//MPD_TEXT_STATIC( "INDICATED  019"))
+             MPD_TEXT_R(IND,     MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 7.7,  MPD_TEXT_STATIC("INDICATED"))
         };
+
+        PERF_RANGE_COLOUR(IndTq, MFD_IND_PERF_IND_TQ_RANGE, MPD_TEXT_R(IND_TQ, MPD_TEXT_WIDTH * 21, MPD_TEXT_HEIGHT * 7.7, MPD_TEXT_USER(MFD_TEXT_IND_PERF_IND_TQ)))
     };
 
     class cruise_box {
@@ -70,16 +109,13 @@
             MPD_TEXT_R(GWT,         MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT *  9.7, MPD_TEXT_STATIC("MAX GWT"))
             MPD_TEXT_R(GWT_IGE_OGE, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 11.0, MPD_TEXT_STATIC("    IGE     OGE"))
             MPD_TEXT_R(GWT_DE_TEXT, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 12.3, MPD_TEXT_STATIC("DE"))
-            MPD_TEXT_R(GWT_DE,      MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 12.3, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE))//MPD_TEXT_STATIC("DE 21440   18410"))
             MPD_TEXT_R(GWT_SE_TEXT, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 13.6, MPD_TEXT_STATIC("SE"))
         };
 
-        class max_gwt_caut_ind {
-            color[] = {1,1,0,1};
-            class max_gwt_caut_text {
-                MPD_TEXT_R(GWT_SE,   MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 13.6, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE))//MPD_TEXT_STATIC("SE 14200   12400"))
-            };
-        };
+        PERF_MAX_GWT(GWT_DE_IGE, MFD_IND_PERF_MAXGWT_DE_IGE, MFD_TEXT_IND_PERF_MAXGWT_DE_IGE, MPD_TEXT_WIDTH * 13, MPD_TEXT_HEIGHT * 12.3)
+        PERF_MAX_GWT(GWT_DE_OGE, MFD_IND_PERF_MAXGWT_DE_OGE, MFD_TEXT_IND_PERF_MAXGWT_DE_OGE, MPD_TEXT_WIDTH * 21, MPD_TEXT_HEIGHT * 12.3)
+        PERF_MAX_GWT(GWT_SE_IGE, MFD_IND_PERF_MAXGWT_SE_IGE, MFD_TEXT_IND_PERF_MAXGWT_SE_IGE, MPD_TEXT_WIDTH * 13, MPD_TEXT_HEIGHT * 13.6)
+        PERF_MAX_GWT(GWT_SE_OGE, MFD_IND_PERF_MAXGWT_SE_OGE, MFD_TEXT_IND_PERF_MAXGWT_SE_OGE, MPD_TEXT_WIDTH * 21, MPD_TEXT_HEIGHT * 13.6)
     };
 
     class tas_box {
@@ -129,36 +165,8 @@
             MPD_TEXT_R(MAX_Q_SE, MPD_TEXT_WIDTH * 6.5, MPD_TEXT_HEIGHT * 18.6, MPD_TEXT_STATIC("SE"))
         };
 
-        class max_q_de_caut_ind {
-            color[] = {1,1,0,1};
-            class max_q_de_caut_box_outline {
-                
-                type = "line";
-                width = 3;
-                points[] = {
-                    MPD_POINTS_BOX("Null", (9.6*MPD_TEXT_WIDTH) - 0.005, (17.5*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
-                };
-            };
-
-            class max_q_de_caut_text {
-                MPD_TEXT_R(MAX_Q_DE, MPD_TEXT_WIDTH * 6.5, MPD_TEXT_HEIGHT * 17.4, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAX_TQ_DE))//MPD_TEXT_STATIC("DE 115"))
-            };
-        };
-
-        class max_q_se_caut_ind {
-            color[] = {1,1,0,1};
-            class max_q_se_caut_box_outline {
-                type = "line";
-                width = 3;
-                points[] = {
-                    MPD_POINTS_BOX("Null", (9.6*MPD_TEXT_WIDTH) - 0.005, (18.7*MPD_TEXT_HEIGHT), 2.8*MPD_TEXT_WIDTH, 0.7*MPD_TEXT_HEIGHT), {},
-                };
-            };
-
-            class max_q_se_caut_text {
-                MPD_TEXT_R(MAX_Q_SE, MPD_TEXT_WIDTH * 6.5, MPD_TEXT_HEIGHT * 18.6, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAX_TQ_SE))//MPD_TEXT_STATIC("SE 122"))
-            };
-        };
+        PERF_RANGE_COLOUR(MaxQDe, MFD_IND_PERF_MAX_TQ_DE_RANGE, PERF_MAX_Q_BOX(17.5) MPD_TEXT_R(MAX_Q_DE, MPD_TEXT_WIDTH * 6.5, MPD_TEXT_HEIGHT * 17.4, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAX_TQ_DE)))
+        PERF_RANGE_COLOUR(MaxQSe, MFD_IND_PERF_MAX_TQ_SE_RANGE, PERF_MAX_Q_BOX(18.7) MPD_TEXT_R(MAX_Q_SE, MPD_TEXT_WIDTH * 6.5, MPD_TEXT_HEIGHT * 18.6, MPD_TEXT_USER(MFD_TEXT_IND_PERF_MAX_TQ_SE)))
     };
 
     class cg_display {
@@ -242,3 +250,7 @@
         MPD_TEXT_C(WT,   MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("WT"))
     };
 };
+
+#undef PERF_RANGE_COLOUR
+#undef PERF_MAX_Q_BOX
+#undef PERF_MAX_GWT

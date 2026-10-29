@@ -198,6 +198,7 @@ class CfgVehicles {
             init                = "[this, '', []] call bis_fnc_initVehicle";
         };
         class EventHandlers {
+            class CBA_Extended_EventHandlers: CBA_Extended_EventHandlers_base {};
             class fza_ah64 {
                 init         = "[_this # 0] spawn fza_fnc_eventInit;";
                 handleDamage = "_this call fza_fire_fnc_damageSystem; _this call fza_auxtank_fnc_damage";

@@ -69,22 +69,11 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     Private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
     Private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
-        switch (_heli getVariable "fza_ah64_ase_autopage") do {
-            case ASE_AUTOPAGE_SRH: {
-                if ("searching" in _state) then {
-                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-                };
-            };
-            case ASE_AUTOPAGE_ACQ: {
-                if ("acquisition" in _state) then {
-                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-                };
-            };
-            case ASE_AUTOPAGE_TRK: {
-                if ("tracking" in _state) then {
-                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-                };
-            };
+        //Each setting is a threshold: the selected level or anything above it
+        private _autopage = _heli getVariable "fza_ah64_ase_autopage";
+        private _level    = ((["searching", "acquisition", "tracking", "designating"] find _state) + 1) min ASE_AUTOPAGE_TRK;
+        if (_autopage != ASE_AUTOPAGE_OFF && _level >= _autopage) then {
+            [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
         };
     };
 } forEach _audioList;

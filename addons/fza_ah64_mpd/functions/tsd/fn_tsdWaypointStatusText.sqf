@@ -15,7 +15,7 @@ private _distance = (_waypoint distance2D getPosASL _heli);
 private _distanceStr = (_distance/1000) toFixed 1;
 
 private _etaStr = "";
-if (_groundSpeed > 0.05) then {
+if (_groundSpeed * SCALE_MPS_KNOTS > 15) then {
     private _eta = _distance / _groundSpeed;
     if (_eta < 10*60*60 && _eta >= 5*60) then {
         _etaStr = [_eta / 60, "M:SS"] call CBA_fnc_formatElapsedTime;

@@ -6,7 +6,7 @@ if (!isClass _config) then {
     _config = configFile >> "FzaIconTypes" >> "Icon" + _ident;
 };
 
-if (!isClass _config) exitWith {};
+if (!isClass _config) exitWith {false};
 
 private _configNum = _config >> "type";
 

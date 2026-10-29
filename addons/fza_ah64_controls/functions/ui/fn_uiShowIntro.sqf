@@ -17,32 +17,29 @@ params ["_display"];
 fza_ah64_introShownThisScenario = true;
 
 private _content = parseText
-"<t align='center' size='2'>AH-64D Official Project V2.3</t><br/>
+"<t align='center' size='2'>AH-64D Official Project V3.0</t><br/>
 <br/>
 <t align='center'><img size='10' image='\fza_ah64_model\tex\intro.jpg'/></t><br/>
 <br/>
-V2.3 is here, building on the V2.2 flight model and displays overhaul with a round of refinements, new systems and bug fixes across HeliSim, the MPDs and multiplayer.<br/>
+V3.0 moves the flight model and the aircraft systems to HeliSim Core, and brings a new IHADSS helmet and symbology, new radar modes and a VIDEO page. It needs HeliSim Core 1.4.2 or later and CBA_A3 3.16 or later.<br/>
 <br/>
 <t align='center' size='1.5'>Documentation</t><br/>
 Our documentation continues to be maintained at <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
 <br/>
-<t align='center' size='1.5'>Helisim</t><br/>
-The flight model has received another major pass. Retreating Blade Stall has been added and tuned, autorotations are more forgiving, and the rotor and fuselage code has been reworked for more accurate velocity and wind handling. Auto pedal and auto pitch logic have been retuned, heading hold and yaw SAS bugs have been fixed, and several rotor controller issues have been resolved.<br/>
+<t align='center' size='1.5'>HeliSim Core</t><br/>
+The flight model and the aircraft systems (engines, electrics, hydraulics, fuel and rotor) now come from the separate HeliSim Core mod, which must be loaded. The flight control modes run on its flight management computer: attitude hold picks position, velocity or attitude hold by your ground speed, and heading hold blends into turn coordination. The main and tail rotors can now be destroyed.<br/>
 <br/>
-<t align='center' size='1.5'>Fuel system</t><br/>
-A new dynamic fuel system has been added, matching the -10 fuel page logic. Each tank is independently simulated, with crossfeed, automatic fuel balancing, fuel leaks and auxiliary tank logic all modeled, and represented on a new MPD fuel page showing live fuel line flow.<br/>
+<t align='center' size='1.5'>Helmet and symbology</t><br/>
+A new IHADSS helmet is now the AH-64D pilot's default headgear, and is needed to bring the monocle down and for head tracking. The helmet symbology has four flight modes (transition, cruise, hover and bob-up), the CPG's weapon symbology, missile constraints, the rocket steering cursor and the high action display. Either crew station can take the PNVS or the TADS FLIR as its night vision sensor.<br/>
 <br/>
-<t align='center' size='1.5'>Mission Planner</t><br/>
-A brand new pre-flight Mission Planner has been added, giving you a full browser-based loadout and systems editor before you ever start the mission. Configure pylon loadouts, fuel state and FCR settings, then save and load your configurations between missions.<br/>
+<t align='center' size='1.5'>Sensors and targeting</t><br/>
+Range sources (laser, radar, navigation, manual and automatic) are shown on the HAD, and targets can be stored along your sight. The laser spot tracker finds someone else's laser spot and turns the TADS onto it. The radar gains TPM and RMAP modes, and a radial menu covers your sight, the TADS, the radar, the laser spot tracker and your symbology.<br/>
 <br/>
-<t align='center' size='1.5'>FCR</t><br/>
-The Fire Control Radar has been reworked under the hood, the FCR will now perform sweeping reveals of targets and the FCR dome will animate accordingly, this may naturaly cause delays in a scan start whilst the FCR positions itself correctly for the scan. The MPD's ATM and GTM radar pages and the TSD page have all been redrawn to take advantage of this, giving more accurate and reliable target data.<br/>
+<t align='center' size='1.5'>Weapons</t><br/>
+Radar Hellfires are powered and aligned before they can be fired. With the gun in FXD, a reticle marks where it will hit, and ALT LAUNCH stops the gun firing straight after a rocket or missile launch.<br/>
 <br/>
-<t align='center' size='1.5'>Hellfire</t><br/>
-The Hellfire ARH seeker has been substantially rewritten, with dedicated logic for line-of-sight checks, target seeker cone validation, target constraints and chaff/countermeasure defeat. Combined with FCR target data now being fed directly to the missile, Remote Fire and SAL engagements should feel noticeably more realistic.<br/>
-<br/>
-<t align='center' size='1.5'>Multiplayer &amp; stability</t><br/>
-A number of multiplayer-specific bugs have been fixed, including pylon validity checks, customise add/remove desync and jettison-all behaviour. translations have been improved, And most notisably, a sweeping array of logic bugs that could cause the airframe to be unstable have now been fixes<br/>
+<t align='center' size='1.5'>MPDs</t><br/>
+The new VIDEO page shows the TADS, the PNVS or either crew station's helmet symbology, and there are games on the MPD for the long wait on the ground.<br/>
 <br/>
 Fly safe! <br/>
 <br/>

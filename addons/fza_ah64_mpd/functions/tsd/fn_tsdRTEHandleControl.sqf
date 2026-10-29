@@ -20,8 +20,8 @@ private _addRoutePoint = {
 private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _index = ((_state get "routeScroll") + _btnIndex);
-    private _routePoint = _routeInfo#_index;
     if ((count _routeInfo) <= _index) exitWith {};
+    private _routePoint = _routeInfo#_index;
     [_heli, _routePoint, _index] call fza_dms_fnc_routeDelPoint;
 };
 

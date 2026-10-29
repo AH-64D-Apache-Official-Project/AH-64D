@@ -15,6 +15,15 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_PA),  _pa  toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_FAT), _fat toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GWT), _gwt toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_CG), _cg toFixed 1];
+
+// A torque in whole percent against HeliSim's dual or single engine limits: 0 up to the first, 2 past the last, 1 between
+private _engine  = (_heli getVariable "bmkhs_engines") # 0;
+private _tqRange = {
+    params ["_tq", "_key"];
+    private _limits = _engine get _key;
+    if (_tq > round (((_limits select -1) # 0) * 100)) exitWith {2};
+    [0, 1] select (_tq > round (((_limits # 0) # 0) * 100))
+};
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Required torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,8 +39,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ
 private _eng1TQ        = round ((_heli getVariable "bmkhs_engPctTq" select 0) * 100);
 private _eng2TQ        = round ((_heli getVariable "bmkhs_engPctTq" select 1) * 100);
 private _indTQ         = _eng1TQ max _eng2TQ;
-private _indTQ_text    = format["INDICATED  %1", [str _indTQ, 3] call fza_fnc_padString];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), [str _indTQ, 3] call fza_fnc_padString];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_PERF_IND_TQ_RANGE), [_indTQ, ["tqLimits", "tqLimitsSe"] select (_heli getVariable ["bmkhs_isSingleEng", false])] call _tqRange];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Go/no-go torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,19 +56,22 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _g
 //Dual engine
 private _maxGWT_DE_IGE    = round ((_heli getVariable "fza_ah64_maxGwt_de_ige") / 10) * 10;
 private _maxGWT_DE_OGE    = round ((_heli getVariable "fza_ah64_maxGwt_de_oge") / 10) * 10;
-//Set max GWT IGE/OGE
-private _maxGWT_DE_text   = format["   %1   %2", _maxGWT_DE_IGE, _maxGWT_DE_OGE];
-if (_pa > MAX_PA) then { _maxGWT_DE_text = format["     ?       ?  "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE), _maxGWT_DE_text];
 //Single engine
 private _maxGWT_SE_IGE    = round ((_heli getVariable "fza_ah64_maxGwt_se_ige") / 10) * 10;
 if (_maxGWT_SE_IGE < 11000) then { _maxGWT_SE_IGE = 11000; };
 private _maxGWT_SE_OGE    = round ((_heli getVariable "fza_ah64_maxGwt_se_oge") / 10) * 10;
 if (_maxGWT_SE_OGE < 11000) then { _maxGWT_SE_OGE = 11000; };
-//Set max GWT IGE/OGE
-private _maxGWT_SE_text   = format["   %1   %2", _maxGWT_SE_IGE, _maxGWT_SE_OGE];
-if (_pa > MAX_PA) then { _maxGWT_SE_text = format["     ?       ?  "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _maxGWT_SE_text];
+//Set max GWT IGE/OGE, each yellow while the gross weight is above it
+{
+    _x params ["_maxGWT", "_textInd", "_overInd"];
+    _heli setUserMFDText  [MFD_INDEX_OFFSET(_textInd), ["  ?", str _maxGWT] select (_pa <= MAX_PA)];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(_overInd), [0, 1] select (_pa <= MAX_PA && {round _gwt > _maxGWT})];
+} forEach [
+    [_maxGWT_DE_IGE, MFD_TEXT_IND_PERF_MAXGWT_DE_IGE, MFD_IND_PERF_MAXGWT_DE_IGE],
+    [_maxGWT_DE_OGE, MFD_TEXT_IND_PERF_MAXGWT_DE_OGE, MFD_IND_PERF_MAXGWT_DE_OGE],
+    [_maxGWT_SE_IGE, MFD_TEXT_IND_PERF_MAXGWT_SE_IGE, MFD_IND_PERF_MAXGWT_SE_IGE],
+    [_maxGWT_SE_OGE, MFD_TEXT_IND_PERF_MAXGWT_SE_OGE, MFD_IND_PERF_MAXGWT_SE_OGE]
+];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max torque DE/SE /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +83,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_DE), _maxTQ_DE_t
 //Set max troque SE
 private _maxTQ_SE_text = format["   %1", [str _maxTQ_SE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_text];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_PERF_MAX_TQ_DE_RANGE), [_maxTQ_DE, "tqLimits"] call _tqRange];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_PERF_MAX_TQ_SE_RANGE), [_maxTQ_SE, "tqLimitsSe"] call _tqRange];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cruise Data      /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -33,7 +33,10 @@ params ["_heli"];
             private _seekerhead = getNumber (configOf _object >> "weaponLockSystem");
             if ([_seekerhead, 8] call BIS_fnc_bitwiseAND == 8) then {
                 _launching pushBack _launcher;
-                _rwrObjects deleteAt (_rwrObjects findIf {_x isEqualTo _launcher;});
+                private _launcherIndex = _rwrObjects findIf {(_x # 1) isEqualTo _launcher};
+                if (_launcherIndex >= 0) then {_rwrObjects deleteAt _launcherIndex;};
+                _launcherIndex = _rwrAudio findIf {(_x # 0) isEqualTo _launcher};
+                if (_launcherIndex >= 0) then {_rwrAudio deleteAt _launcherIndex;};
                 [_heli, _launcher, ASE_LNC] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
                 _rwrObjects pushBack [ASE_LNC, _object, _iconClass];
                 continue;
@@ -53,11 +56,12 @@ params ["_heli"];
     };
 } forEach getSensorThreats _heli;
 
+private _threatObjects = getSensorThreats _heli apply {vehicle (_x # 0)};
 {
     _x params ["_object", "_type", "_relationship", "_sensor"];
     private _object = vehicle _object;
     if (_object in _launching) then {continue;};
-    if (_object in (getSensorThreats _heli)) exitWith {};
+    if (_object in _threatObjects) then {continue;};
     if ("passiveradar" in _sensor) then {
         [_heli, _object] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
         _rwrObjects pushBack [ASE_SRH, getPos _object, _iconClass];

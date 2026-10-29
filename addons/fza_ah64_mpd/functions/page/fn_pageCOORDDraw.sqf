@@ -58,7 +58,7 @@ switch (_pageType) do {
             _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
 
             if ((_i + 1) != _pointselected) then {
-                _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET + _altBase) toFixed 0, 5] call fza_fnc_padString]];
+                _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, _gridCoord select [0,4], _gridCoord select [4,4], [(_altMSL * SCALE_METERS_FEET + _altBase) toFixed 0, 5] call fza_fnc_padString]];
             } else {
                 //Line 1
                 private _dstToWpt_m  = _armaPos distance2D _posHeli;
@@ -74,7 +74,7 @@ switch (_pageType) do {
                 //line 2
                 private _hdg          = (_heli getDir _armaPos) toFixed 0;
                 private _dstToWpt_km  = (_armaPos distance2D _posHeli) * 0.001;
-                private _line2 = format[" %1 W84 47 13S FU  %2 %3 %4° %5 KM   ",(_id call fza_dms_fnc_pointToString), (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], _hdg,[_dstToWpt_km, 2, 1] call CBA_fnc_formatNumber];
+                private _line2 = format[" %1 W84 47 13S FU  %2 %3 %4° %5 KM   ",(_id call fza_dms_fnc_pointToString), _gridCoord select [0,4], _gridCoord select [4,4], _hdg,[_dstToWpt_km, 2, 1] call CBA_fnc_formatNumber];
                 //line 3
                 private _dstToWpt_nm  = (_armaPos distance2D _posHeli) * 0.000539957;
                 private _line3 = format["   %1 %2 FT %3 NM ", _latLong, [[(_altMSL) * SCALE_METERS_FEET + _altBase,0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
@@ -108,8 +108,9 @@ switch (_pageType) do {
             _pointInfo params ["_shotNum", "_ident", "_missileType", "_triggerTime", "_shotPos", "_ind", "_old", "_overwriteValue"];
 
             if (_pointInfo isNotEqualTo -1) then {
+                private _shotGrid = [_shotPos] call fza_dms_fnc_posToGrid;
                 _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex), [[format["%1     %2 %3L %4", ([(_pointValue + 1), 2] call CBA_fnc_formatNumber), [_missileType, 3, true] call fza_fnc_padString, _triggerTime, _ind], 28, true] call fza_fnc_padString, 29] call fza_fnc_padString];
-                _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), [format["W84 47 13S FU %1 %2", ([(_shotPos#0)/10, 4] call CBA_fnc_formatNumber), ([(_shotPos#1)/10, 4] call CBA_fnc_formatNumber)], 28] call fza_fnc_padString];
+                _heli setUserMFDText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), [format["W84 47 13S FU %1 %2", _shotGrid select [0,4], _shotGrid select [4,4]], 28] call fza_fnc_padString];
                 _pointsArray pushBack [MPD_POSMODE_SCREEN, [0.35,(0.20 + (0.1185 * _i)),0], "", POINT_TYPE_FCR, _i, _ident];
             };
 
