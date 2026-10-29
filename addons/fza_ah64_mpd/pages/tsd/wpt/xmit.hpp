@@ -29,6 +29,7 @@ class wptXmit {
         
         //L6
         MPD_BOX_R(XMIT,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
+        MPD_TEXT_BACKING_R(XMIT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
         MPD_TEXT_R(XMIT,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("XMIT"))
     };
 };

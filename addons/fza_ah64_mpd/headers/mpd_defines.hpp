@@ -44,6 +44,8 @@
 #define MPD_ARROW_HEIGHT 0.006
 #define MPD_BOX_PAD_X 0.006
 #define MPD_BOX_PAD_Y 0.000
+//How far a black backing reaches above and below its text, as the glyphs stand a little proud of the text height
+#define MPD_TEXT_BACKING_PAD 0.004
 
 /* Constants: MPD VAB positions
   MPD_POS_BUTTON_L_X - X coordinate of VABS L[1-6]
@@ -456,6 +458,21 @@ Parameters:
     }; \
 };
 
+// A black box behind numChars of MPD_TEXT_R text, so lines under the text don't show through it. Inside one of mpd.hpp's
+// Draw classes polygons draw before lines and text after both, so it only hides lines from an earlier one (the TSD frame).
+#define MPD_TEXT_BACKING_R(name, startX, startY, numChars) class Mpd_Backing_##name { \
+    color[] = {0, 0, 0, 1}; \
+    class Box { \
+        type = "polygon"; \
+        points[] = {{ \
+            {{startX, startY+MPD_TEXT_HEIGHT_PAD-MPD_TEXT_BACKING_PAD}, 1}, \
+            {{startX+(numChars)*MPD_TEXT_WIDTH, startY+MPD_TEXT_HEIGHT_PAD-MPD_TEXT_BACKING_PAD}, 1}, \
+            {{startX+(numChars)*MPD_TEXT_WIDTH, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD+MPD_TEXT_BACKING_PAD}, 1}, \
+            {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD+MPD_TEXT_BACKING_PAD}, 1} \
+        }}; \
+    }; \
+};
+
 // Text that is never hidden by the ACQ list, for the list itself
 #define MPD_TEXT_ACQ(name, startX, startY, alignment, label) class Mpd_Text_##name { \
     type = "text"; \
@@ -713,7 +730,8 @@ Parameters:
 };
 
 /* Macro: MPD_ACQ_SRC
-    Defines an acquisition source button. It must be at the R6 position
+    Defines an acquisition source button. It must be at the R6 position, in a Draw class after the page's: a black
+    backing behind the ACQ label and inside the box hides the page's lines under them
 
 Parameters:
     name - Unique name to use in the class definition.
@@ -722,6 +740,26 @@ Parameters:
     boneName - name of the bone defined using MPD_BONE_ACQ_SRC_BOX
 */
 #define MPD_ACQ_SRC(name,floatIndex,stringIndex,boneName) class name { \
+    class Backing { \
+        color[] = {0, 0, 0, 1}; \
+        class Box { \
+            type = "polygon"; \
+            points[] = { \
+                { \
+                    {{MPD_POS_BUTTON_R_X - 3*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT + MPD_TEXT_HEIGHT_PAD - MPD_TEXT_BACKING_PAD}, 1}, \
+                    {{MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT + MPD_TEXT_HEIGHT_PAD - MPD_TEXT_BACKING_PAD}, 1}, \
+                    {{MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT + MPD_TEXT_HEIGHT_PAD + MPD_TEXT_HEIGHT_VEC + MPD_TEXT_BACKING_PAD}, 1}, \
+                    {{MPD_POS_BUTTON_R_X - 3*MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT + MPD_TEXT_HEIGHT_PAD + MPD_TEXT_HEIGHT_VEC + MPD_TEXT_BACKING_PAD}, 1} \
+                }, \
+                { \
+                    {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}, \
+                    {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}, \
+                    {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y + 1.5*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+                    {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y + 1.5*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1} \
+                } \
+            }; \
+        }; \
+    }; \
     MPD_TEXT_L(ACQ_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ACQ")) \
     MPD_TEXT_L(ACQ,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(stringIndex)) \
     class Box  { \

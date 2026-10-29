@@ -25,8 +25,7 @@ class wpnDraw {
             MPD_TEXT_L(LRFD_label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("LRFD"))
             MPD_BOX_L(LRFD,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
             MPD_TEXT_L(LRFD,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("LAST"))
-            //R6
-            MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, "Wpn_Acq")
+            //R6, ACQ: drawn after the page, in mpd.hpp
 
             //B6
             MPD_TEXT_C(MANRNG_Label, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANRNG>"))

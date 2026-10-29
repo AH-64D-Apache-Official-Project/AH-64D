@@ -64,6 +64,12 @@ class MaskGate {
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FUEL));
         #include "pages\fuel_draw.hpp"
     };
+    // Its own class, before the TSD's: inside one of these Draw classes the MPD draws polygons before lines, so the black
+    // backings behind the TSD's labels only hide lines from an earlier class
+    class TsdFrame {
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD));
+        #include "pages\tsd\frame.hpp"
+    };
     class TSD {
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD));
         #include "pages\tsd_draw.hpp"
@@ -131,6 +137,31 @@ class MaskGate {
     class VID{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_VID));
         #include "pages\vid_draw.hpp"
+    };
+    // After the pages, as a class of its own, so its black backing hides the page's lines under it: inside one of these
+    // Draw classes the MPD draws polygons before lines. The ACQ button at R6, while the list is closed.
+    class AcqSource {
+        condition = C_COND(C_EQ(C_USER(MFD_IND_ACQ_OPEN), 0));
+        class Flt {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FLT));
+            MPD_ACQ_SRC(Acq, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC, "Flt_Acq")
+        };
+        class Eng {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ENG));
+            MPD_ACQ_SRC(Acq, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC, "Eng_Acq")
+        };
+        class Wpn {
+            condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WPN), C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 2))));
+            MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, "Wpn_Acq")
+        };
+        class Tsd {
+            condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 0)));
+            MPD_ACQ_SRC(Acq, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC, "Tsd_Acq")
+        };
+        class Fcr {
+            condition = C_COND(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)));
+            MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, "Fcr_Acq")
+        };
     };
     // Last, so it is drawn over the page: the ACQ list of the pages with an ACQ button
     class AcqMenu {

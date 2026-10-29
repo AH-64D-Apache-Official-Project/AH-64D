@@ -404,8 +404,10 @@
 #define MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE 4
 #define MFD_TEXT_IND_PERF_IND_TQ          5
 //--Max Gross Weight
-#define MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE 6
-#define MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE 7
+#define MFD_TEXT_IND_PERF_MAXGWT_DE_IGE 6
+#define MFD_TEXT_IND_PERF_MAXGWT_DE_OGE 7
+#define MFD_TEXT_IND_PERF_MAXGWT_SE_IGE 18
+#define MFD_TEXT_IND_PERF_MAXGWT_SE_OGE 19
 //--Max Torque (TQ)
 #define MFD_TEXT_IND_PERF_MAX_TQ_DE 8
 #define MFD_TEXT_IND_PERF_MAX_TQ_SE 9
@@ -421,6 +423,16 @@
 #define MFD_TEXT_IND_PERF_WIND 16
 //--CG
 #define MFD_TEXT_IND_PERF_CG   17
+
+//1 while the gross weight is above that maximum gross weight
+#define MFD_IND_PERF_MAXGWT_DE_IGE 0
+#define MFD_IND_PERF_MAXGWT_DE_OGE 1
+#define MFD_IND_PERF_MAXGWT_SE_IGE 2
+#define MFD_IND_PERF_MAXGWT_SE_OGE 3
+//0 normal, 1 in a timed range, 2 past the maximum
+#define MFD_IND_PERF_MAX_TQ_DE_RANGE 4
+#define MFD_IND_PERF_MAX_TQ_SE_RANGE 5
+#define MFD_IND_PERF_IND_TQ_RANGE    6
 
 //DTU Page
 #define MFD_IND_DTU_SUBPAGE 0
