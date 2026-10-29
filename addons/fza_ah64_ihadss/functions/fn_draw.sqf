@@ -55,14 +55,15 @@ if (_pnvsShown || _tadsShown) then {
         _pnvsDisplay = uiNamespace getVariable "fza_ah64_nvsoverlay";
     };
     // The picture keeps the screen's aspect, any other stretches it as the aircraft banks. The TADS field of view fills
-    // the lens height. The NVS picture, PNVS or TADS FLIR, is conformal (unity magnification): its camera only
-    // covers the lens, so it is drawn at the view's scale.
+    // the lens height. The NVS picture, PNVS or TADS FLIR, is conformal (unity magnification) at the seat's default
+    // FOV and does not follow the view's zoom: its camera only covers the lens, so it is drawn at its FOV over the
+    // default's, the same scale as the heads up format (fza_ihadss_fnc_formatRect).
     private _rect   = [_heli, false] call fza_ihadss_fnc_formatRect;
     private _h      = 2 * HDU_MASK_EXTENT_Y * (_rect # 3) / 480;
     if !_tadsShown then {
-        // The render target's half height tangent against the view's, both by the measured projection
-        ([_heli] call fza_ihadss_fnc_viewScale) params ["_tanHalfV", "_viewScale"];
-        _h = safeZoneH * _viewScale * getNumber (configOf _heli >> "RenderTargets" >> (["driverpnvs2", "gunnertads_nvs"] select _nvsTads) >> "View01" >> "fov") / _tanHalfV;
+        private _initFov = getNumber (configOf _heli >> "ViewPilot" >> "initFov");
+        if (_initFov <= 0) then {_initFov = 0.75};
+        _h = safeZoneH * getNumber (configOf _heli >> "RenderTargets" >> (["driverpnvs2", "gunnertads_nvs"] select _nvsTads) >> "View01" >> "fov") / _initFov;
     };
     private _w = _h * safeZoneW / safeZoneH;
     private _pictureRect = [safeZoneX + (safeZoneW - _w) / 2, safeZoneY + (safeZoneH - _h) / 2, _w, _h];

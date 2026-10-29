@@ -150,7 +150,7 @@ if (_inPicture) then {
     _picY = _picRect # 1;
     _picW = _picRect # 2;
     _picH = _picRect # 3;
-    _picTanV   = _picFov * (([_heli] call fza_ihadss_fnc_viewScale) # 1);
+    _picTanV   = _picFov * (([_heli] call fza_ihadss_fnc_viewScale) # 0);
     _picTanH   = _picTanV * (_picW / pixelW) / (_picH / pixelH);
     _tadsPos   = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
     _tadsFwd   = [1, _heli getVariable ["fza_ah64_tadsAzimuth", 0], _heli getVariable ["fza_ah64_tadsElevation", 0]] call CBA_fnc_polar2vect;
