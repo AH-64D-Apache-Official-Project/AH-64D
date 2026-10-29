@@ -3,8 +3,8 @@ Function: fza_mpd_fnc_pageENGProcedure
 
 Description:
     The immediate action steps for the ENG page emergency format: those of the
-    most urgent active warning that has them. HIGH ROTOR RPM has none. No
-    brackets or commas: the MPD font draws them blank.
+    most urgent active warning that has them. HIGH ROTOR RPM and both engines
+    out have none. No brackets or commas: the MPD font draws them blank.
 
 Parameters:
     _heli     - The helicopter
@@ -67,9 +67,8 @@ private _procedure = switch (true) do {
     case ("AFT DECK FIRE" in _warnings): {
         ["AFT DECK FIRE", ["LAND AS SOON AS POSSIBLE"]]
     };
-    case ("ENGINE 1 OUT" in _warnings && {"ENGINE 2 OUT" in _warnings}): {
-        ["DUAL ENGINE FAILURE", ["AUTOROTATE", "WING STORES JETTISON - AS APPROPRIATE"]]
-    };
+    //Both out has no procedure, and the low rotor one that would follow is wrong for it
+    case ("ENGINE 1 OUT" in _warnings && {"ENGINE 2 OUT" in _warnings}): {[]};
     case ("ENGINE 1 OUT" in _warnings || {"ENGINE 2 OUT" in _warnings}): {
         ["SINGLE ENGINE FAILURE", ["WING STORES JETTISON - AS APPROPRIATE", "LAND AS SOON AS PRACTICABLE"]]
     };
