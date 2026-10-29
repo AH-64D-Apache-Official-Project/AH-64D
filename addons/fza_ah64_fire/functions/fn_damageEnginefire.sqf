@@ -19,6 +19,7 @@ Examples:
 Author:
     Snow(dryden), Mattysmith22
 ---------------------------------------------------------------------------- */
+#define FIRE_BOTTLE_FAIL_CHANCE 0.25
 params ["_heli","_eng", ["_rolled", false]];
 
 _rand = floor random 100;
@@ -42,6 +43,7 @@ if (_heli getVariable _componentId) exitWith {};
 _heli setVariable[_componentId, true, true];
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
+private _armVar             = ["fza_ah64_fireArmed1", "fza_ah64_fireArmed2", "fza_ah64_fireArmedApu"] select (["left", "right", "apu"] find _eng);
 private _primaryFBAvailable = !(_heli getVariable "fza_ah64_firepdisch");
 private _reserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
 private _primaryFBActioned  = false;
@@ -57,40 +59,33 @@ do {
     private _reserveFBState = _heli getVariable "fza_ah64_firerdisch";
     private _engState  = _heli getVariable "bmkhs_engState";
     private _heliDamage = damage _heli;
-    if (_primaryFBAvailable == _primaryFBState) then {
-        if (floor random 11 > 7) exitWith {
-            _primaryFBAvailable = false; //extinguisher Fail
-        };
-        _primaryFBActioned = true;
+    // A bottle only reaches this fire if its handle is armed when the bottle discharges, and then fails one time in four
+    private _armed = (_heli getVariable _armVar) # 0;
+    if (_primaryFBAvailable && _primaryFBState) then {
+        _primaryFBAvailable = false;
+        _primaryFBActioned  = _armed && {random 1 >= FIRE_BOTTLE_FAIL_CHANCE};
     };
-    if (_reserveFBAvailable == _reserveFBState) then {
-        if (floor random 11 > 7) exitWith {
-            _reserveFBAvailable = false; //extinguisher Fail
-        };
-        _reserveFBActioned = true;
+    if (_reserveFBAvailable && _reserveFBState) then {
+        _reserveFBAvailable = false;
+        _reserveFBActioned  = _armed && {random 1 >= FIRE_BOTTLE_FAIL_CHANCE};
     };
+    if (_primaryFBActioned || _reserveFBActioned) then {breakOut  "fza_fireHandleScope"};
     switch (_eng) do {
         case "left": {
-            private _engine1Arm    = (_heli getVariable "fza_ah64_fireArmed1") #0;
             private _engineDamage  = _heli getHitPointDamage "hitengine1";
             private _eng1State = _engState select 0;
-            if (_engine1Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if ((_eng1State == "off") && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine1", _engineDamage + 0.001];
         };
         case "right": {
-            private _engine2Arm    = (_heli getVariable "fza_ah64_fireArmed2") #0;
             private _engineDamage  = _heli getHitPointDamage "hitengine2";
             private _eng2State = _engState select 1;
-            if (_engine2Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if ((_eng2State == "off") && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine2", _engineDamage + 0.001];
         };
         case "apu": {
-            private _apuArm = (_heli getVariable "fza_ah64_fireArmedApu") #0;
             private _apuOn        = _heli getVariable "bmkhs_apuOn";
             private _apuDamage    = _heli getHitPointDamage "hit_apu";
-            if (_apuArm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if (!_apuOn && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hit_apu", _apuDamage + 0.001];
         };

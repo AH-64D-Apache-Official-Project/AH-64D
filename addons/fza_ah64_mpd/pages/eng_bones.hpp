@@ -119,11 +119,28 @@ class Eng_Hyd_Box {
 TGT_SCALING(Tgt_1, MFD_IND_ENG_TGT_1)
 TGT_SCALING(Tgt_2, MFD_IND_ENG_TGT_2)
 TGT_SCALING(Tgt_Limit, MFD_IND_ENG_TGT_BAR)
+TGT_SCALING(Tgt_Sub_1, MFD_IND_ENG_TGT_SUB_1)
+TGT_SCALING(Tgt_Sub_2, MFD_IND_ENG_TGT_SUB_2)
+TGT_SCALING(Tgt_Sub_3, MFD_IND_ENG_TGT_SUB_3)
+TGT_SCALING(Tgt_Sub_4, MFD_IND_ENG_TGT_SUB_4)
 TORQUE_SCALING(Torque_1, MFD_IND_ENG_TORQUE_1)
 TORQUE_SCALING(Torque_2, MFD_IND_ENG_TORQUE_2)
 TORQUE_SCALING(Torque_Limit, MFD_IND_ENG_TORQUE_BAR)
+TORQUE_SCALING(Torque_Sub_1, MFD_IND_ENG_TORQUE_SUB_1)
+TORQUE_SCALING(Torque_Sub_2, MFD_IND_ENG_TORQUE_SUB_2)
 NP_SCALING(Np_1, MFD_IND_ENG_NP_1)
 NP_SCALING(Np_2, MFD_IND_ENG_NP_2)
 NR_SCALING(Nr, MFD_IND_ENG_NR)
+
+//The emergency procedure title's inverse bar, as long as the title
+class Eng_Emer_Title {
+    type = "linear";
+    source = "user";
+    sourceIndex = MFD_IND_ENG_EMER_TITLE_LEN;
+    min = 0;
+    max = 40;
+    maxPos[] = {0, 0};
+    minPos[] = {40 * MPD_TEXT_WIDTH, 0};
+};
 
 MPD_BONE_ACQ_SRC_BOX(Eng_Acq, MFD_IND_ENG_ACQ_BOX)

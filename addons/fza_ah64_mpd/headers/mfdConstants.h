@@ -13,6 +13,7 @@
 #define MFD_IND_EMER_HYD 7
 #define MFD_IND_MSTR_CAUT 8
 #define MFD_IND_MSTR_WARN 9
+//14 to 18: ENG page timers and emergency title
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
@@ -117,6 +118,7 @@
 #define MFD_IND_ENG_NR 6
 #define MFD_IND_ENG_TORQUE_BAR 7
 #define MFD_IND_ENG_TGT_BAR 8
+//1 ground, 2 in flight, 3 warnings or cautions listed, 4 emergency procedure
 #define MFD_IND_ENG_MODE 9
 #define MFD_IND_ENG_START 10
 
@@ -127,6 +129,33 @@
 #define MFD_IND_ENG_WCA_5 15
 
 #define MFD_IND_ENG_ACQ_BOX 16
+
+//0 normal, 1 in a timed range, 2 past the maximum
+#define MFD_IND_ENG_TORQUE_RANGE_1 17
+#define MFD_IND_ENG_TORQUE_RANGE_2 18
+#define MFD_IND_ENG_TGT_RANGE_1 19
+#define MFD_IND_ENG_TGT_RANGE_2 20
+#define MFD_IND_ENG_NP_RANGE_1 21
+#define MFD_IND_ENG_NP_RANGE_2 22
+#define MFD_IND_ENG_NG_RANGE_1 23
+#define MFD_IND_ENG_NG_RANGE_2 24
+
+//Where each timed range starts, 0 when unused
+#define MFD_IND_ENG_TORQUE_SUB_1 25
+#define MFD_IND_ENG_TORQUE_SUB_2 26
+#define MFD_IND_ENG_TGT_SUB_1 27
+#define MFD_IND_ENG_TGT_SUB_2 28
+#define MFD_IND_ENG_TGT_SUB_3 29
+#define MFD_IND_ENG_TGT_SUB_4 30
+
+//Not offset, as 31 to 38 on the page are the ACQ list's; both MPDs show the same
+//Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
+#define MFD_IND_ENG_TORQUE_TIMER_AT 14
+#define MFD_IND_ENG_TGT_TIMER_AT 15
+#define MFD_IND_ENG_NG_TIMER_AT 16
+#define MFD_IND_ENG_NP_TIMER_AT 17
+
+#define MFD_IND_ENG_EMER_TITLE_LEN 18
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
@@ -151,6 +180,21 @@
 #define MFD_TEXT_IND_ENG_PRI_HYD_PSI  17
 #define MFD_TEXT_IND_ENG_UTIL_HYD_PSI 18
 #define MFD_TEXT_IND_ENG_ACC_HYD_PSI  19
+
+#define MFD_TEXT_IND_ENG_TORQUE_TIMER 20
+#define MFD_TEXT_IND_ENG_TGT_TIMER 21
+#define MFD_TEXT_IND_ENG_NG_TIMER 22
+#define MFD_TEXT_IND_ENG_NP_TIMER_1 23
+#define MFD_TEXT_IND_ENG_NP_TIMER_2 24
+
+#define MFD_TEXT_IND_ENG_EMER_TITLE 25
+#define MFD_TEXT_IND_ENG_EMER_1 26
+#define MFD_TEXT_IND_ENG_EMER_2 27
+#define MFD_TEXT_IND_ENG_EMER_3 28
+#define MFD_TEXT_IND_ENG_EMER_4 29
+#define MFD_TEXT_IND_ENG_EMER_5 30
+#define MFD_TEXT_IND_ENG_EMER_6 31
+#define MFD_TEXT_IND_ENG_EMER_7 32
 
 //Weapon Page
 

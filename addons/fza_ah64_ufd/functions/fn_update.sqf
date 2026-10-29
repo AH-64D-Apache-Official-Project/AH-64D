@@ -37,7 +37,8 @@ private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
 //pilot
 if (_battBusOn || _dcBusOn) then {
     _heli setUserMFDValue [MFD_IND_BATT, 1];
-    private _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
+    private _allWcas = [_heli] call fza_fnc_coreGetWCAs;
+    private _wcas = _allWcas select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
     private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
     private _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
     private _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
@@ -50,7 +51,8 @@ if (_battBusOn || _dcBusOn) then {
     private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
     private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
     private _autoPageCheck = _heli getVariable ["fza_ah64_engineAutoPageCheck", []];
-    private _autoPageList = _warnings + _cautions;
+    //The fire warnings have no UFD text, but still autopage
+    private _autoPageList = (_allWcas select {_x # 0 != WCA_ADVISORY}) apply {_x # 1};
     private _autoPageEngine = false;
     {if !(_x in _autoPageCheck) then {_autoPageEngine = true;};} forEach _autoPageList;
     _heli setVariable ["fza_ah64_engineAutoPageCheck", _autoPageList];
