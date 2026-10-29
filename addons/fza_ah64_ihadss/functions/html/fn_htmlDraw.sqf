@@ -33,10 +33,13 @@ private _iconDisplay = uiNamespace getVariable ["fza_ah64_ihadssIcons", displayN
 private _crew        = player == driver _heli || player == gunner _heli;
 private _isPilot     = player == driver _heli;
 private _headsDown   = cameraView == "GUNNER" && !_isPilot;
+// Measured here, in the player's own Draw3D pass, and fixed once measured
+([_heli, true] call fza_ihadss_fnc_viewScale) params ["", "_scaleSettled"];
 
 // One browser per format size, each created at that size and never resized: after a resize CEF at times showed the
 // page enlarged and cropped. The pilot has only the heads up page; the CPG keeps both loaded and uses the one in view.
-// A browser's config position reads its rect variable; a new size (resolution, FOV) reopens its layer.
+// A browser's config position reads its rect variable; a new size (resolution, FOV) reopens its layer. The heads up
+// page waits for the view's scale, so it opens once at its final size.
 private _ctrl = controlNull;
 private _rect = [];
 {
@@ -52,7 +55,12 @@ private _rect = [];
     private _marginX = IHADSS_PAGE_MARGIN / 640 * _rectW;
     private _marginY = IHADSS_PAGE_MARGIN / 480 * _rectH;
     private _browserRect = [_rectX - _marginX, _rectY - _marginY, _rectW + 2 * _marginX, _rectH + 2 * _marginY];
-    if (isNull _display || {(_display getVariable ["fza_ihadss_browserRect", []]) isNotEqualTo _browserRect}) then {
+    private _reopen = isNull _display || {(_display getVariable ["fza_ihadss_browserRect", []]) isNotEqualTo _browserRect};
+    if (_reopen && {!_down && !_scaleSettled}) then {
+        if (isNull _display) then {continue};
+        _reopen = false;
+    };
+    if (_reopen) then {
         if (!isNull _display) then {_layer cutText ["", "PLAIN"]};
         uiNamespace setVariable [_rectVar, _browserRect];
         _layer cutRsc [_name, "PLAIN", 0, false];
