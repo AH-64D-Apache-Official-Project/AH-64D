@@ -55,7 +55,6 @@ class CfgFunctions
         class fx {
             file = "\fza_ah64_controls\functions\fx";
             class fxMuzzle {R;};
-            class fxLoops {R;};
         };
         class laser
         {

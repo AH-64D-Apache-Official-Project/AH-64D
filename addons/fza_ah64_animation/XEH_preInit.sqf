@@ -30,3 +30,15 @@ private _projName = "AH-64D Official Project";
     [true],
     0
 ] call CBA_fnc_addSetting;
+
+// The blades or the blur on this machine, for every Apache (fza_anim_fnc_rotorBlades)
+if (hasInterface) then {
+    fza_anim_rotorHelis = [];
+    fza_anim_rotorBladesHandler = addMissionEventHandler ["EachFrame", {
+        private _lost = false;
+        {
+            if (isNull _x) then {_lost = true} else {[_x] call fza_anim_fnc_rotorBlades};
+        } forEach fza_anim_rotorHelis;
+        if (_lost) then {fza_anim_rotorHelis = fza_anim_rotorHelis select {!isNull _x}};
+    }];
+};

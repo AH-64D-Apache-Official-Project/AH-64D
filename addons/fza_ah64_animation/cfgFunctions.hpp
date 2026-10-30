@@ -20,6 +20,8 @@ class CfgFunctions
             class getEffInput      {R;};
             class probesAnim       {R;};
             class rotorAnim        {R;};
+            class rotorBlades      {R;};
+            class rotorSpin        {R;};
             class updateAnimations {R;};
         };
     };

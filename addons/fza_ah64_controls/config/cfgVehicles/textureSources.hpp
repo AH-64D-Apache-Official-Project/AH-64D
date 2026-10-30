@@ -92,4 +92,4 @@ class textureSources
     };
 };
 textureList[] = {"b2", 1};
-hiddenSelectionsTextures[] = {"\fza_ah64_model\tex\Ex\b2_co.paa","\fza_ah64_model\tex\ex\fcr_co.paa"};
+hiddenSelectionsTextures[] = {"\fza_ah64_model\tex\Ex\b2_co.paa","\fza_ah64_model\tex\ex\fcr_co.paa","\fza_ah64_model\tex\ex\rtrs_co.paa","\fza_ah64_model\tex\ex\rtrs_co.paa"};

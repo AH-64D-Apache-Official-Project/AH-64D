@@ -19,28 +19,26 @@ class AnimationSources
         initPhase = 0;
         animPeriod = 0;
     };
-    /*////////ROTOR RPM///////
+    ////////ROTOR///////
+    //Driven by fza_anim_fnc_rotorSpin. animPeriod of the spin sources is seconds per revolution at 100% Nr
     class mainRotorRPMUser
     {
         source = "user";
         initPhase = 0;
-        animPeriod = 0;
+        animPeriod = 1;
     };
-    // Drives mainRotor rotation (replaces vanilla rotorH source) so HeliSim RPM
-    // controls the visual spin speed rather than the RTD engine.
     class rotorHUser
     {
         source = "user";
         initPhase = 0;
-        animPeriod = 0;
+        animPeriod = 0.2076;
     };
-    // Drives tailRotor rotation (replaces vanilla rotorV source).
     class rotorVUser
     {
         source = "user";
         initPhase = 0;
-        animPeriod = 0;
-    };*/
+        animPeriod = 0.0465;
+    };
     ////////RADAR///////
     class fcr_enable
     {
