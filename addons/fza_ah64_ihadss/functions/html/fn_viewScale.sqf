@@ -3,60 +3,73 @@ Function: fza_ihadss_fnc_viewScale
 
 Description:
     The projection of the player's view, measured from worldToScreen rather
-    than assumed: the tangent of half the view's height, and that tangent per
-    unit of FOV. A camera of any FOV, render targets included, covers a half
-    height tangent of FOV * the scale.
+    than assumed: the half height tangent per unit of FOV. A camera of any
+    FOV, render targets included, covers a half height tangent of FOV * the
+    scale.
 
-    Measured once a frame in the first person view, while its FOV is not
-    changing (zoom). The scale is kept until a
-    measurement differs by over 1%, as the heads up format is sized from it and
-    its browser reopens at a new size (fza_ihadss_fnc_htmlDraw).
+    Measured once and then fixed, as the heads up format is sized from it and
+    its browser reopens at a new size (fza_ihadss_fnc_htmlDraw). Measured
+    again only when the resolution or the profile FOV changes. Only the
+    measuring caller, the controller in the player's own Draw3D pass, takes
+    readings: elsewhere (EachFrame, a render target's pass) the camera and the
+    projection disagree. The median of several readings is kept.
 
 Parameters:
-    _heli - The helicopter, for its default FOV when the view's cannot be read
+    _heli    - The helicopter
+    _measure - True to take a reading this frame (default: false)
 
 Returns:
-    [tangent of half the view height, half height tangent per unit FOV]
+    [half height tangent per unit FOV, settled]. Until measured the scale is
+    the profile's top FOV; settled once measured, or after 3 s of measuring
+    without a result.
 
 Examples:
     --- Code
-    ([_heli] call fza_ihadss_fnc_viewScale) params ["_tanHalfV", "_scale"];
+    ([_heli] call fza_ihadss_fnc_viewScale) params ["_scale", "_settled"];
     ---
 
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params ["_heli", ["_measure", false]];
 
-(missionNamespace getVariable ["fza_ihadss_viewScale", [-1, 0, 0]]) params ["_frame", "_tanHalfV", "_scale"];
-if (_frame == diag_frameNo) exitWith {[_tanHalfV, _scale]};
-
-private _fov = getObjectFOV player;
-if (_fov <= 0) then {_fov = getNumber (configOf _heli >> "ViewPilot" >> "initFov")};
-
-// Measured only with the FOV steady: while it animates (zooming) the drawn view and the FOV read disagree, and a scale
-// measured then would resize the heads up format and reopen its browser
-(missionNamespace getVariable ["fza_ihadss_viewFov", [-1, -1]]) params ["_lastFov", "_fovSince"];
-// Over 0.5% from the FOV it settled at, so a head tracker's per-frame jitter is not a zoom
-if (_lastFov <= 0 || {abs (_fov / _lastFov - 1) > 0.005}) then {
-    _fovSince = diag_tickTime;
-    missionNamespace setVariable ["fza_ihadss_viewFov", [_fov, _fovSince]];
+private _key = [getResolution, typeOf _heli];
+(missionNamespace getVariable ["fza_ihadss_viewScale", [[], 0, [], -1]]) params ["_scaleKey", "_scale", "_readings", "_since"];
+if (_scaleKey isNotEqualTo _key) then {
+    _scale    = 0;
+    _readings = [];
+    _since    = -1;
+    missionNamespace setVariable ["fza_ihadss_viewScale", [_key, _scale, _readings, _since]];
 };
-// Unmeasured this frame, it is the scale at this FOV
-_tanHalfV = -1;
-if (cameraView == "INTERNAL" && {diag_tickTime - _fovSince > 0.5}) then {
-    // A point 0.1 tangent above the camera axis; the screen spans safeZoneH over twice the half height tangent
-    private _centre = worldToScreen positionCameraToWorld [0, 0, 1];
-    private _above  = worldToScreen positionCameraToWorld [0, 0.1, 1];
-    if (_centre isNotEqualTo [] && {_above isNotEqualTo [] && {(_centre # 1) > (_above # 1)}}) then {
-        _tanHalfV = (safeZoneH / 2) / (((_centre # 1) - (_above # 1)) / 0.1);
-        private _measured = _tanHalfV / _fov;
-        if (_scale <= 0 || {abs (_measured / _scale - 1) > 0.01}) then {_scale = _measured};
+if (_scale > 0) exitWith {[_scale, true]};
+
+if (_measure && {cameraView == "INTERNAL"}) then {
+    if (_since < 0) then {
+        _since = diag_tickTime;
+        missionNamespace setVariable ["fza_ihadss_viewScale", [_key, _scale, _readings, _since]];
+    };
+    private _fov = getObjectFOV player;
+    // Only with the FOV steady: while it animates (zooming) the drawn view and the FOV read disagree
+    (missionNamespace getVariable ["fza_ihadss_viewFov", [-1, -1]]) params ["_lastFov", "_fovSince"];
+    if (_lastFov <= 0 || {abs (_fov / _lastFov - 1) > 0.005}) then {
+        _fovSince = diag_tickTime;
+        missionNamespace setVariable ["fza_ihadss_viewFov", [_fov, _fovSince]];
+    };
+    if (_fov > 0 && {diag_tickTime - _fovSince > 0.5}) then {
+        // A point 0.1 tangent above the camera axis; the screen spans safeZoneH over twice the half height tangent. The
+        // camera axis lands on the screen centre only when the camera and the projection are the same view's.
+        private _centre = worldToScreen positionCameraToWorld [0, 0, 1];
+        private _above  = worldToScreen positionCameraToWorld [0, 0.1, 1];
+        if (_centre isNotEqualTo [] && {_above isNotEqualTo []
+            && {abs ((_centre # 0) - 0.5) < 0.005 && {abs ((_centre # 1) - 0.5) < 0.005 && {(_centre # 1) > (_above # 1)}}}}) then {
+            _readings pushBack ((safeZoneH / 2) / (((_centre # 1) - (_above # 1)) / 0.1) / _fov);
+        };
+    };
+    if (count _readings >= 9) then {
+        _readings sort true;
+        _scale = _readings # 4;
+        missionNamespace setVariable ["fza_ihadss_viewScale", [_key, _scale, [], _since]];
     };
 };
-// Never measured yet: the profile's top FOV, the previous assumption
-if (_scale <= 0) then {_scale = getResolution param [6, 0.75]};
-if (_tanHalfV <= 0) then {_tanHalfV = _scale * _fov};
-
-missionNamespace setVariable ["fza_ihadss_viewScale", [diag_frameNo, _tanHalfV, _scale]];
-[_tanHalfV, _scale]
+if (_scale > 0) exitWith {[_scale, true]};
+[getResolution param [6, 0.75], _since >= 0 && {diag_tickTime - _since > 3}]

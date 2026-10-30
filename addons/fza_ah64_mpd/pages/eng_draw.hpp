@@ -12,8 +12,7 @@ MPD_ARROW_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
 MPD_TEXT_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
 
 ///////////////// R ///////////////
-//R6
-MPD_ACQ_SRC(Acq, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC, "Eng_Acq")
+//R6, ACQ: drawn after the page, in mpd.hpp
 
 ///////////////// B ///////////////
 MPD_BOX_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, 3)
@@ -45,8 +44,8 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
 #define ENG_TAPE_XLARGE_HALF_WIDTH 0.04
 #define ENG_TAPE_CHEVRON_XLARGE_HEIGHT 0.024
 
-#define ENG_TAPE_TORQUE_1_X 0.05
-#define ENG_TAPE_TORQUE_2_X 0.15
+#define ENG_TAPE_TORQUE_1_X 0.065
+#define ENG_TAPE_TORQUE_2_X 0.165
 #define ENG_TAPE_TGT_1_X (0.33-0.05)
 #define ENG_TAPE_TGT_2_X (0.33+0.05)
 #define ENG_TAPE_NP_1_X 0.49
@@ -58,12 +57,53 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
 #define ENG_SIDE_DATA_1_X 0.78
 #define ENG_SIDE_DATA_2_X 0.92
 
-MPD_TEXT_C(TORQUE_1_NUMBER, ENG_TAPE_TORQUE_1_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("1"))
-MPD_TEXT_C(TORQUE_2_NUMBER, ENG_TAPE_TORQUE_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2"))
-MPD_TEXT_C(TGT_1_NUMBER, ENG_TAPE_TGT_1_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("1"))
-MPD_TEXT_C(TGT_2_NUMBER, ENG_TAPE_TGT_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2"))
-MPD_TEXT_C(NP_1_NUMBER, ENG_TAPE_NP_1_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("1"))
-MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2"))
+//A timer takes the place of the engine number under its column. atInd is 0 for no timer, 1 or 2 for that engine's, 3 for both.
+#define ENG_TIMER_LABELS(name, atInd, x1, x2, posY) \
+    class name##_Label_1 {\
+        condition = C_COND(C_OR(C_LESS(C_USER(atInd), 0.5), C_EQ(C_USER(atInd), 2)));\
+        MPD_TEXT_C(Label, x1, posY, MPD_TEXT_STATIC("1"))\
+    };\
+    class name##_Label_2 {\
+        condition = C_COND(C_LESS(C_USER(atInd), 1.5));\
+        MPD_TEXT_C(Label, x2, posY, MPD_TEXT_STATIC("2"))\
+    };
+
+//One timer for both engines: under the engine over its limit, or centred between the two when both are
+#define ENG_SHARED_TIMER(name, atInd, textInd, x1, x2, posY) \
+    ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
+    class name##_Timer_1 {\
+        color[] = {1,1,1,1};\
+        condition = C_COND(C_EQ(C_USER(atInd), 1));\
+        MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(textInd))\
+    };\
+    class name##_Timer_2 {\
+        color[] = {1,1,1,1};\
+        condition = C_COND(C_EQ(C_USER(atInd), 2));\
+        MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(textInd))\
+    };\
+    class name##_Timer_Both {\
+        color[] = {1,1,1,1};\
+        condition = C_COND(C_MORE(C_USER(atInd), 2.5));\
+        MPD_TEXT_C(Timer, ((x1 + x2) / 2), posY, MPD_TEXT_USER(textInd))\
+    };
+
+//A timer for each engine, each under its own column
+#define ENG_OWN_TIMERS(name, atInd, text1, text2, x1, x2, posY) \
+    ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
+    class name##_Timer_1 {\
+        color[] = {1,1,1,1};\
+        condition = C_COND(C_OR(C_EQ(C_USER(atInd), 1), C_MORE(C_USER(atInd), 2.5)));\
+        MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(text1))\
+    };\
+    class name##_Timer_2 {\
+        color[] = {1,1,1,1};\
+        condition = C_COND(C_MORE(C_USER(atInd), 1.5));\
+        MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(text2))\
+    };
+
+ENG_SHARED_TIMER(Torque, MFD_IND_ENG_TORQUE_TIMER_AT, MFD_TEXT_IND_ENG_TORQUE_TIMER, ENG_TAPE_TORQUE_1_X, ENG_TAPE_TORQUE_2_X, ENG_TAPE_BOTTOM_Y)
+ENG_SHARED_TIMER(Tgt, MFD_IND_ENG_TGT_TIMER_AT, MFD_TEXT_IND_ENG_TGT_TIMER, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X, ENG_TAPE_BOTTOM_Y)
+ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEXT_IND_ENG_NP_TIMER_2, ENG_TAPE_NP_1_X, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y)
 
 
 #define ENG_TAPE_RECT(middleX, halfWidth, startPct, bone) \
@@ -89,26 +129,34 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
     }
 
 
-#define ENG_TORQUE_TAPE(num, posX, textInd)\
-    class Tapes {\
-        type = "polygon";\
-        points[] = {\
-            ENG_TAPE_RECT(posX, ENG_TAPE_HALF_WIDTH, 0, CONCAT_3(Eng_Torque_,num,_Zone_1)),\
-            ENG_TAPE_RECT(posX, ENG_TAPE_MEDIUM_HALF_WIDTH, 0.7, CONCAT_3(Eng_Torque_,num,_Zone_2)),\
-            ENG_TAPE_RECT(posX, ENG_TAPE_LARGE_HALF_WIDTH, 0.85, CONCAT_3(Eng_Torque_,num,_Zone_3))\
-        };\
-    };\
-    MPD_TEXT_C(Digit, posX, ENG_TAPE_BOTTOM_Y - 0.7 * ENG_TAPE_HEIGHT, MPD_TEXT_USER(textInd))
+#define ENG_DIGIT_Y (ENG_TAPE_BOTTOM_Y - 0.7 * ENG_TAPE_HEIGHT)
 
-#define ENG_TGT_TAPE(num, posX, textInd)\
+//The readout sits in a window, so the tape passing behind it doesn't hide it
+#define ENG_TAPE_READOUT(posX, textInd)\
+    class Window {\
+        color[] = {0,0,0,1};\
+        class Box {\
+            type = "polygon";\
+            points[] = {{\
+                {{posX - 1.5 * MPD_TEXT_WIDTH - 0.004, ENG_DIGIT_Y + 0.004}, 1},\
+                {{posX + 1.5 * MPD_TEXT_WIDTH + 0.004, ENG_DIGIT_Y + 0.004}, 1},\
+                {{posX + 1.5 * MPD_TEXT_WIDTH + 0.004, ENG_DIGIT_Y + MPD_TEXT_HEIGHT - 0.004}, 1},\
+                {{posX - 1.5 * MPD_TEXT_WIDTH - 0.004, ENG_DIGIT_Y + MPD_TEXT_HEIGHT - 0.004}, 1}\
+            }};\
+        };\
+    };\
+    MPD_TEXT_C(Digit, posX, ENG_DIGIT_Y, MPD_TEXT_USER(textInd))
+
+//name is the tape's bones, Eng_<name>_Zone_1 to 3. It stays the first argument everywhere: Arma's
+//preprocessor keeps the space before a later argument, and ## then fails to join it.
+#define ENG_TAPE(name, posX, textInd, halfWidth)\
     class Tapes {\
         type = "polygon";\
         points[] = {\
-            ENG_TAPE_RECT(posX, ENG_TAPE_HALF_WIDTH, 0, CONCAT_3(Eng_Tgt_,num,_Zone_1) COMMA 1 COMMA CONCAT_3(Eng_Tgt_,num,_Zone_2)),\
-            ENG_TAPE_RECT(posX, ENG_TAPE_MEDIUM_HALF_WIDTH, 0.7, CONCAT_3(Eng_Tgt_,num,_Zone_3))\
+            ENG_TAPE_RECT(posX, halfWidth, 0, CONCAT_3(Eng_,name,_Zone_1) COMMA 1 COMMA CONCAT_3(Eng_,name,_Zone_2) COMMA 1 COMMA CONCAT_3(Eng_,name,_Zone_3))\
         };\
     };\
-    MPD_TEXT_C(Digit, posX, ENG_TAPE_BOTTOM_Y - 0.7 * ENG_TAPE_HEIGHT, MPD_TEXT_USER(textInd))
+    ENG_TAPE_READOUT(posX, textInd)
 
 #define ENG_NP_TAPE(num, posX, textX, textInd)\
     class Tapes {\
@@ -133,20 +181,38 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
     };\
     MPD_TEXT_C(Digit, ENG_TAPE_NR_X, ENG_TAPE_BOTTOM_Y - 0.7 * ENG_TAPE_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NR))
 
-#define COLOR_G_Y_R(name, value, del1, del2, config) \
+//Colour by the range the page script works out: 0 green, 1 yellow, 2 red
+#define ENG_RANGE_COLOUR(name, rangeInd, config) \
     class name##_Green {\
-        condition = C_COND(C_LESS(C_MPD_USER(value), del1));\
+        condition = C_COND(C_LESS(C_MPD_USER(rangeInd), 0.5));\
         config\
     };\
     class name##_Yellow {\
         color[] = {1,1,0,1};\
-        condition = C_COND(C_AND(C_MORE(C_MPD_USER(value),del1-0.05),C_LESS(C_MPD_USER(value),del2+0.05)));\
+        condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
         config\
     };\
     class name##_Red {\
         color[] = {1,0,0,1};\
-        condition = C_COND(C_MORE(C_MPD_USER(value), del2));\
+        condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
         config\
+    };
+
+//The whole tape is narrow and green, medium and yellow, or wide and red
+#define ENG_RANGE_TAPE(name, rangeInd, posX, textInd) \
+    class name##_Green {\
+        condition = C_COND(C_LESS(C_MPD_USER(rangeInd), 0.5));\
+        ENG_TAPE(name, posX, textInd, ENG_TAPE_HALF_WIDTH)\
+    };\
+    class name##_Yellow {\
+        color[] = {1,1,0,1};\
+        condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
+        ENG_TAPE(name, posX, textInd, ENG_TAPE_MEDIUM_HALF_WIDTH)\
+    };\
+    class name##_Red {\
+        color[] = {1,0,0,1};\
+        condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
+        ENG_TAPE(name, posX, textInd, ENG_TAPE_LARGE_HALF_WIDTH)\
     };
 
 #define COLOR_R_G_Y_R(name, value, del1, del2, del3, config) \
@@ -170,12 +236,12 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
         config\
     };
 
-COLOR_G_Y_R(Torque_1, MFD_IND_ENG_TORQUE_1, 101, 115, ENG_TORQUE_TAPE(1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1))
-COLOR_G_Y_R(Torque_2, MFD_IND_ENG_TORQUE_2, 101, 115, ENG_TORQUE_TAPE(2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2))
-COLOR_G_Y_R(Tgt_1,    MFD_IND_ENG_TGT_1, 811, 950,    ENG_TGT_TAPE(1, ENG_TAPE_TGT_1_X, MFD_TEXT_IND_ENG_TGT_1))
-COLOR_G_Y_R(Tgt_2,    MFD_IND_ENG_TGT_2, 811, 950,    ENG_TGT_TAPE(2, ENG_TAPE_TGT_2_X, MFD_TEXT_IND_ENG_TGT_2))
-COLOR_R_G_Y_R(Np_1,   MFD_IND_ENG_NP_1, 95, 105, 110, ENG_NP_TAPE(1, ENG_TAPE_NP_1_X, ENG_SIDE_DATA_1_X, MFD_TEXT_IND_ENG_NP_1))
-COLOR_R_G_Y_R(Np_2,   MFD_IND_ENG_NP_2, 95, 105, 110, ENG_NP_TAPE(2, ENG_TAPE_NP_2_X, ENG_SIDE_DATA_2_X, MFD_TEXT_IND_ENG_NP_2))
+ENG_RANGE_TAPE(Torque_1, MFD_IND_ENG_TORQUE_RANGE_1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1)
+ENG_RANGE_TAPE(Torque_2, MFD_IND_ENG_TORQUE_RANGE_2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2)
+ENG_RANGE_TAPE(Tgt_1,    MFD_IND_ENG_TGT_RANGE_1,    ENG_TAPE_TGT_1_X,    MFD_TEXT_IND_ENG_TGT_1)
+ENG_RANGE_TAPE(Tgt_2,    MFD_IND_ENG_TGT_RANGE_2,    ENG_TAPE_TGT_2_X,    MFD_TEXT_IND_ENG_TGT_2)
+ENG_RANGE_COLOUR(Np_1, MFD_IND_ENG_NP_RANGE_1, ENG_NP_TAPE(1, ENG_TAPE_NP_1_X, ENG_SIDE_DATA_1_X, MFD_TEXT_IND_ENG_NP_1))
+ENG_RANGE_COLOUR(Np_2, MFD_IND_ENG_NP_RANGE_2, ENG_NP_TAPE(2, ENG_TAPE_NP_2_X, ENG_SIDE_DATA_2_X, MFD_TEXT_IND_ENG_NP_2))
 COLOR_R_G_Y_R(Nr,     MFD_IND_ENG_NR, 95, 105, 110, ENG_NR_TAPE)
 
 class StarterBox {
@@ -204,10 +270,9 @@ class StarterEng2 {
 
 MPD_TEXT_C(NP_SIDE_LABEL, ENG_SIDE_DATA_X, 0.35, MPD_TEXT_STATIC("Np %"))
 MPD_TEXT_C(NG_SIDE_LABEL, ENG_SIDE_DATA_X, 0.45, MPD_TEXT_STATIC("NG %"))
-MPD_TEXT_C(NP_SIDE_NG_1, ENG_SIDE_DATA_1_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_1))
-MPD_TEXT_C(NG_SIDE_NG_2, ENG_SIDE_DATA_2_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_2))
-MPD_TEXT_C(NP_SIDE_ENG_1_LABEL, ENG_SIDE_DATA_1_X, 0.45+2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-MPD_TEXT_C(NG_SIDE_ENG_2_LABEL, ENG_SIDE_DATA_2_X, 0.45+2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+ENG_RANGE_COLOUR(Ng_1, MFD_IND_ENG_NG_RANGE_1, MPD_TEXT_C(NP_SIDE_NG_1, ENG_SIDE_DATA_1_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_1)))
+ENG_RANGE_COLOUR(Ng_2, MFD_IND_ENG_NG_RANGE_2, MPD_TEXT_C(NG_SIDE_NG_2, ENG_SIDE_DATA_2_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_2)))
+ENG_SHARED_TIMER(Ng, MFD_IND_ENG_NG_TIMER_AT, MFD_TEXT_IND_ENG_NG_TIMER, ENG_SIDE_DATA_1_X, ENG_SIDE_DATA_2_X, 0.45+2*MPD_TEXT_HEIGHT)
 
 
 #define ENG_HYDRAULICS_X 0.48
@@ -251,6 +316,34 @@ class Limits_Red {
     };
 };
 
+//One short bar across each engine's tape, with a gap between the two
+#define ENG_SUB_BAR_HALF 0.04
+#define ENG_SUB_BAR(name, ind, tape1X, tape2X) \
+    class name {\
+        condition = C_COND(C_MORE(C_MPD_USER(ind), 0));\
+        class Line {\
+            type = "line";\
+            width = 6;\
+            points[] = {\
+                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape1X - ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
+                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape1X + ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
+                {},\
+                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape2X - ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
+                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape2X + ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1}\
+            };\
+        };\
+    };
+
+class Limits_Yellow {
+    color[] = {1,1,0,1};
+    ENG_SUB_BAR(Torque_Sub_1, MFD_IND_ENG_TORQUE_SUB_1, ENG_TAPE_TORQUE_1_X, ENG_TAPE_TORQUE_2_X)
+    ENG_SUB_BAR(Torque_Sub_2, MFD_IND_ENG_TORQUE_SUB_2, ENG_TAPE_TORQUE_1_X, ENG_TAPE_TORQUE_2_X)
+    ENG_SUB_BAR(Tgt_Sub_1, MFD_IND_ENG_TGT_SUB_1, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
+    ENG_SUB_BAR(Tgt_Sub_2, MFD_IND_ENG_TGT_SUB_2, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
+    ENG_SUB_BAR(Tgt_Sub_3, MFD_IND_ENG_TGT_SUB_3, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
+    ENG_SUB_BAR(Tgt_Sub_4, MFD_IND_ENG_TGT_SUB_4, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
+};
+
 class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 3));
     class WCA_Box{
@@ -269,6 +362,50 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_3, 0.05, 0.6, 2)
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_4, 0.05, 0.6, 3)
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_5, 0.05, 0.6, 4)
+};
+
+//Emergency format: the immediate action steps of the active warning, in white under an inverse title
+#define ENG_EMER_X 0.065
+#define ENG_EMER_Y 0.598
+#define ENG_EMER_PITCH 0.0385
+
+class EmergencyFormat {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 4));
+    class Emer_Box {
+        type = "line";
+        width = 3;
+        points[] = {
+            MPD_POINTS_BOX("Null", 0.045, (ENG_EMER_Y - 0.006), 0.855, (8 * ENG_EMER_PITCH + 0.012))
+        };
+    };
+    class Emer_Title_Bar {
+        color[] = MPD_COLOUR_WHITE;
+        class Bar {
+            type = "polygon";
+            points[] = {
+                {
+                    {{ENG_EMER_X - MPD_BOX_PAD_X, ENG_EMER_Y}, 1},
+                    {"Eng_Emer_Title", {ENG_EMER_X + MPD_BOX_PAD_X, ENG_EMER_Y}, 1},
+                    {"Eng_Emer_Title", {ENG_EMER_X + MPD_BOX_PAD_X, ENG_EMER_Y + ENG_EMER_PITCH}, 1},
+                    {{ENG_EMER_X - MPD_BOX_PAD_X, ENG_EMER_Y + ENG_EMER_PITCH}, 1}
+                }
+            };
+        };
+    };
+    class Emer_Title_Text {
+        color[] = {0, 0, 0, 1};
+        MPD_TEXT_R(Emer_Title, ENG_EMER_X, ENG_EMER_Y, MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_TITLE))
+    };
+    class Emer_Steps {
+        color[] = MPD_COLOUR_WHITE;
+        MPD_TEXT_R(Emer_1, ENG_EMER_X, (ENG_EMER_Y + 1 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_1))
+        MPD_TEXT_R(Emer_2, ENG_EMER_X, (ENG_EMER_Y + 2 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_2))
+        MPD_TEXT_R(Emer_3, ENG_EMER_X, (ENG_EMER_Y + 3 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_3))
+        MPD_TEXT_R(Emer_4, ENG_EMER_X, (ENG_EMER_Y + 4 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_4))
+        MPD_TEXT_R(Emer_5, ENG_EMER_X, (ENG_EMER_Y + 5 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_5))
+        MPD_TEXT_R(Emer_6, ENG_EMER_X, (ENG_EMER_Y + 6 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_6))
+        MPD_TEXT_R(Emer_7, ENG_EMER_X, (ENG_EMER_Y + 7 * ENG_EMER_PITCH), MPD_TEXT_USER(MFD_TEXT_IND_ENG_EMER_7))
+    };
 };
 
 class Hydraulics_Box {

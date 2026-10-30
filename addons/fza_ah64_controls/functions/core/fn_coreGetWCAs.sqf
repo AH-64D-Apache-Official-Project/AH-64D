@@ -37,6 +37,8 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 
 params ["_heli"];
+//Built once a frame for the UFD and both MPDs
+if ((_heli getVariable ["fza_ah64_wcaFrame", -1]) == diag_frameNo) exitWith {+(_heli getVariable "fza_ah64_wcaList")};
 
 #define SYSTEM_PRIORITY            0
 #define HYD_FAIL_PRIORITY          1
@@ -537,9 +539,6 @@ if (_rtrBrake > 0
     [_activeCaut, "RTR BRK ON/LK"] call fza_wca_fnc_wcaDelCaution;
 };
 
-if (_playCautAudio) then {
-    [_heli] call fza_audio_fnc_addCaution;
-};
 //ASE
 if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH) && _MsnEquipState == ASE_MSNEQUIP_STATE_ON && _heli animationPhase "msn_equip_american" == 1) then {
         ([_heli, _activeCaut, "IRJAM FAIL", "IRJAM FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
@@ -549,6 +548,9 @@ if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_TH
     _wcas pushBack _wcaAddCaution;
 } else {
     [_activeCaut, "IRJAM FAIL"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_playCautAudio) then {
+    [_heli] call fza_audio_fnc_addCaution;
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////
@@ -628,7 +630,7 @@ if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {
-    _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
+    _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCK SEL", "TW LOCK SEL"];
 };
 
 //Auxilary Fuel tanks
@@ -659,4 +661,6 @@ if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptPassed) then {
 if (_heli getVariable ["bmkhs_checkPendingAdvisory", false]) then {
     _wcas pushBack [WCA_ADVISORY, "FUEL CHECK", "FUEL CHECK"];
 };
+_heli setVariable ["fza_ah64_wcaFrame", diag_frameNo];
+_heli setVariable ["fza_ah64_wcaList", +_wcas];
 _wcas;

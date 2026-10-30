@@ -73,7 +73,7 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _calculatedImpactPos = _targPos;
 
     // DBS-style lateral bias only: keep standard attack profiles, just shape approach path.
-    private _isStationary = _targSpeed < FCR_LIMIT_MOVING_MIN_SPEED_KMH;
+    private _isStationary = abs _targSpeed < FCR_LIMIT_MOVING_MIN_SPEED_KMH;
     if (_isStationary && _rangeM > ARH_LOAL_LOBL_SWITCH_RANGE) then {
         // DMS/DBS mode: wake seeker 20% sooner to begin terminal acquisition earlier.
         _timeToSearch = (_timeToSearch * 0.8) max 0;

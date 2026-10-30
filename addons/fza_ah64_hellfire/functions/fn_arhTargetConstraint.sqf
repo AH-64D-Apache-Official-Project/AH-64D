@@ -31,7 +31,7 @@ private _fnCanSee = {
     }
 };
 
-if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH && !_inFlight) exitWith {
+if (abs _targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH && !_inFlight) exitWith {
     if (_dist >= FCR_LIMIT_MOVING_RANGE || !([_seeker, _targObj] call _fnCanSee)) exitWith { [false, false] };
     [true, true]
 };

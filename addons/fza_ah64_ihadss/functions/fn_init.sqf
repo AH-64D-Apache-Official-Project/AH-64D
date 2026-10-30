@@ -49,6 +49,9 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 };
 
 [] spawn {
+    //Once per machine, for every Apache
+    if (!isNil "fza_ah64_ihadssEffects") exitWith {};
+    fza_ah64_ihadssEffects = true;
     ["colorCorrections", 400, [0.95, 0.75, -0.05, [0.25, 0.25, 0.25, 0.0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]] call
     {
         params ["_name", "_priority", "_effect", "_handle"];

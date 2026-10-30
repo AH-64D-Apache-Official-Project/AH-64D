@@ -47,7 +47,7 @@ _heli setVariable ["fza_mpd_verLoadedAddons", _loadedApacheAddons];
 _heli setVariable ["fza_mpd_verExpectedAddons", _expectedAddons];
 _heli setVariable ["fza_mpd_verExpectedHash", _expectedHash];
 
-for "_i" from 0 to ((count _expectedAddons) min 39) do {
+for "_i" from 0 to (((count _expectedAddons) min 40) - 1) do {
     private _validationState = 2;
     private _addonName = _expectedAddons # _i;
     private _addonHash = (getText (configFile >> "CfgPatches" >> _addonName >> "hash")) select [0,8];

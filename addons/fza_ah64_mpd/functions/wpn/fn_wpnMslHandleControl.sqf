@@ -19,10 +19,6 @@ if ((_heli getVariable ["fza_ah64_selectedMissile", ""]) == "fza_agm114l_wep" &&
 };
 
 switch (_control) do {
-    case "l1": {
-        //Switch missile lase
-        [_heli] call fza_fnc_controlHandlelaserchange;
-    };
     case "r2": {
         // MODE opens the MODE pop-out (fza_fnc_weaponMissileAdvance)
         _state set ["popOutMenu", 2];

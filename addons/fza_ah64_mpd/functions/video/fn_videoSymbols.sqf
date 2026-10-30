@@ -78,7 +78,7 @@ private _up    = _right vectorCrossProduct _fwd;
 // Format units per unit of tangent: the picture's height in the MPD (fza_mpd_fnc_videoApply) over its half height
 // tangent (fza_ihadss_fnc_viewScale); the format is 480 units to the MPD's height
 private _picH = [1 / (4 / 3 * 0.95), 1 / (4 / 3 * 0.75), 2 / (4 / 3 * 0.95)] select _view;
-private _k    = _picH / 2 * 480 / (_fov * (([_heli] call fza_ihadss_fnc_viewScale) # 1));
+private _k    = _picH / 2 * 480 / (_fov * (([_heli] call fza_ihadss_fnc_viewScale) # 0));
 
 // Model space direction to the format, [] behind the camera or far outside the page; held out in its direction at the
 // format's edge when _far. Only finite values in reach of the page.

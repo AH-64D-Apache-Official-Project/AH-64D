@@ -13,6 +13,7 @@ class CfgPatches {
 class SensorTemplateActiveRadar;
 class SensorTemplatePassiveRadar;
 class SensorTemplateLaser;
+class CBA_Extended_EventHandlers_base;
 #include "config\defines.hpp"
 #include "config\misc.hpp"
 

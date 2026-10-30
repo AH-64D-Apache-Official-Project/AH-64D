@@ -587,21 +587,21 @@
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_TAIL_NUMBER_INFO">
-            <Original>Enter a 7 character tail number. Leave a space to skip a position.</Original>
-            <English>Enter a 7 character tail number. Leave a space to skip a position.</English>
-            <Czech>Zadejte 7místné Číslo Ocasů. Nechte Mezeru, aby Ste Přeskočili Pozici.</Czech>
-            <French>Entrez un Numéro de Queue de 7 Caractères. Laissez un Espace pour Sauter une Position.</French>
-            <Spanish>Ingrese un Número de Cola de 7 Caracteres. Deje un Espacio para Omitir una Posición.</Spanish>
-            <Italian>Inserisci un Numero di Coda di 7 Caratteri. Lascia uno Spazio per Saltare una Posizione.</Italian>
-            <Polish>Wprowadź 7-znakowy Numer Ogona. Pomiń Pozycję, Pozostawiając Spację.</Polish>
-            <Portuguese>Insira um Número de Cauda de 7 Caracteres. Deixe um Espaço para Pular uma Posição.</Portuguese>
-            <Russian>Введите 7-значный Номер Хвоста. Оставьте Пробел, Чтобы Пропустить Позицию.</Russian>
-            <German>Geben Sie eine 7-stellige Hecknummer ein. Hinterlassen Sie ein Leerzeichen, um eine Position zu überspringen.</German>
-            <Korean>7자리 꼬리 번호를 입력하세요. 위치를 건너뛰려면 공백을 남기세요.</Korean>
-            <Japanese>7文字のテール番号を入力してください。位置をスキップするには、スペースを残してください。</Japanese>
-            <Chinesesimp>输入7个字符的尾号。留下一个空格以跳过位置。</Chinesesimp>
-            <Turkish>7 Karakterli bir Kuyruk Numarası Girin. Bir Konumu Atlamak için Boşluk Bırakın.</Turkish>
-            <Dutch>Voer een Staartummer van 7 Tekens In. Laat een Spatie over om een Positie over te Slaan.</Dutch>
+            <Original>Enter a 5 character tail number. Leave a space to skip a position.</Original>
+            <English>Enter a 5 character tail number. Leave a space to skip a position.</English>
+            <Czech>Zadejte 5místné Číslo Ocasů. Nechte Mezeru, aby Ste Přeskočili Pozici.</Czech>
+            <French>Entrez un Numéro de Queue de 5 Caractères. Laissez un Espace pour Sauter une Position.</French>
+            <Spanish>Ingrese un Número de Cola de 5 Caracteres. Deje un Espacio para Omitir una Posición.</Spanish>
+            <Italian>Inserisci un Numero di Coda di 5 Caratteri. Lascia uno Spazio per Saltare una Posizione.</Italian>
+            <Polish>Wprowadź 5-znakowy Numer Ogona. Pomiń Pozycję, Pozostawiając Spację.</Polish>
+            <Portuguese>Insira um Número de Cauda de 5 Caracteres. Deixe um Espaço para Pular uma Posição.</Portuguese>
+            <Russian>Введите 5-значный Номер Хвоста. Оставьте Пробел, Чтобы Пропустить Позицию.</Russian>
+            <German>Geben Sie eine 5-stellige Hecknummer ein. Hinterlassen Sie ein Leerzeichen, um eine Position zu überspringen.</German>
+            <Korean>5자리 꼬리 번호를 입력하세요. 위치를 건너뛰려면 공백을 남기세요.</Korean>
+            <Japanese>5文字のテール番号を入力してください。位置をスキップするには、スペースを残してください。</Japanese>
+            <Chinesesimp>输入5个字符的尾号。留下一个空格以跳过位置。</Chinesesimp>
+            <Turkish>5 Karakterli bir Kuyruk Numarası Girin. Bir Konumu Atlamak için Boşluk Bırakın.</Turkish>
+            <Dutch>Voer een Staartummer van 5 Tekens In. Laat een Spatie over om een Positie over te Slaan.</Dutch>
         </Key>
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->

@@ -32,15 +32,12 @@ private _reserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
 switch(_control) do {
     case "fe1": {
         [_heli, "eng1", !_engineOneArm] call fza_fire_fnc_handlePanel;
-        ["fza_ah64_button_click2", 0.1];
     };
     case "fe2": {
         [_heli, "eng2", !_engineTwoArm] call fza_fire_fnc_handlePanel;
-        ["fza_ah64_button_click2", 0.1];
     };
     case "fapu": {
         [_heli, "apu", !_apuArm] call fza_fire_fnc_handlePanel;
-        ["fza_ah64_button_click2", 0.1];
     };
     case "fbp": {
         if ((_engineOneArm || _engineTwoArm || _apuArm) && _primaryFbAvailable) then {
@@ -49,7 +46,6 @@ switch(_control) do {
                     _heli setHitPointDamage  ["hitengine1", 0.01];
                 };
             };
-            ["fza_ah64_button_click2", 0.1];
         };
     case "fbr": {
         if ((_engineOneArm || _engineTwoArm || _apuArm) && _reserveFBAvailable) then {
@@ -58,7 +54,6 @@ switch(_control) do {
                 _heli setHitPointDamage  ["hitengine2", 0.01];
             };
         };
-        ["fza_ah64_button_click2", 0.1];
     };
     case (localize "STR_FZA_AH64_FIRE_TEST_1"): {
         _heli setVariable ["fza_ah64_firetest", 1, true];

@@ -22,6 +22,6 @@ params ["_heli"];
 
 if !(((_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0) in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) exitWith {};
 
-player action ["ActiveSensorsOff", _heli];
+[_heli, false] call fza_fcr_fnc_radarSet;
 _heli setVariable ["fza_ah64_fcrWaitingForStart", false, true];
 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];

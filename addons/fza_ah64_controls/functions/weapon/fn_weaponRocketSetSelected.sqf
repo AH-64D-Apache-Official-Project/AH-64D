@@ -1,6 +1,6 @@
 params ["_heli", "_index"];
 
-if !(heli turretLocal [0]) exitWith {};
+if !(_heli turretLocal [0]) exitWith {};
 private _inventory = [_heli] call fza_fnc_weaponRocketInventory;
 
 if (_inventory # _index isEqualTo []) exitWith {};

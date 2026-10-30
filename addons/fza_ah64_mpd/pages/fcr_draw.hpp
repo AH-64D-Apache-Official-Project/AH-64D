@@ -240,9 +240,7 @@ class root {
         };
     };
 
-    class acq {
-        MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, "Fcr_Acq")
-    };
+    //R6, ACQ: drawn after the page, in mpd.hpp
 
     class text {
         //HAD left
