@@ -73,7 +73,7 @@
 
             coneAngle        = 12.0;  //deg at full collective
             rollLiftCoef     = 0.15; //0.19
-            pitchLiftCoef    = 0.40; //0.36 > 0.54 < 0.72
+            pitchLiftCoef    = 0.40; //0.36 > 0.54 > 0.72
             gndEffValue      = 1.225;
             reacTqScalar     = 0.50;
             autoTorque       = 80.0;

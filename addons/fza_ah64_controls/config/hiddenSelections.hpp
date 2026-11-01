@@ -1,4 +1,4 @@
-hiddenselections[]={ 
+hiddenselections[]={
     "skin",
     "skin_fcr",
     "ufd_back",
@@ -27,4 +27,12 @@ hiddenselections[]={
     "tailDigit_05",
     "tailDigit_06",
     "tailDigit_07",
+    "blade1",
+    "blade2",
+    "blade3",
+    "blade4",
+    "skin_tailboom",
+    "skin_vtail",
+    "hstab",
+    "skin_tailrotor"
 };
