@@ -92,8 +92,7 @@ class textureSources
     };
 };
 textureList[] = {"b2", 1};
-//Index-matched to hiddenSelections.hpp. The "" run is the lights, MPD backs and tail digits,
-//which scripts set at runtime; the damage parts after it need a texture or they spawn hidden.
+//Index-matched to hiddenSelections.hpp
 hiddenSelectionsTextures[] = {
     "\fza_ah64_model\tex\Ex\b2_co.paa", "\fza_ah64_model\tex\ex\fcr_co.paa",
     "", "", "", "", "", "", "", "", "", "", "", "", "", "",

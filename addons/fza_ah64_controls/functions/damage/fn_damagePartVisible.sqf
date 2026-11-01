@@ -2,19 +2,7 @@
 Function: fza_fnc_damagePartVisible
 
 Description:
-    Shows or hides a damageable part of the airframe - one of the hidden selections
-    (blade1-4, skin_tailboom, skin_vtail, hstab). The one place that changes them, so
-    every caller gets the same behaviour.
-
-    Hiding keeps the texture the part had, and showing puts it back, so a paint scheme
-    survives. A part that was never hidden shows with its hiddenSelectionsTextures default.
-
-    A part carries everything mounted behind it, both ways: the tailboom takes the vertical
-    tail and the stabilator, and the vertical tail takes the tail rotor.
-
-    Blur proxies have no texture to blank, and the still blades are the engine's own
-    mr_blades/tr_blades faces, which a hidden selection would take over; both go with hide
-    animations instead.
+    Shows or hides a damageable part of the airframe, and the parts mounted on it.
 
 Parameters:
     _heli      - The helicopter
@@ -67,7 +55,6 @@ if (_visible) then {
     _heli setObjectTextureGlobal [_index, _saved getOrDefault [_selection, _default]];
     _saved deleteAt _selection;
 } else {
-    //Hiding twice must not overwrite the real texture with ""
     if !(_selection in _saved) then {_saved set [_selection, (getObjectTextures _heli) # _index]};
     _heli setObjectTextureGlobal [_index, ""];
 };

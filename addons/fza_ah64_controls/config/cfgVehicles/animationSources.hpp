@@ -113,7 +113,7 @@ class AnimationSources
         animPeriod = 0.01;
         initPhase  = -5.5;
     };
-    //Damage: blur proxies and still blades, 1 = present, 0 = gone. No displayName, so the garage doesn't list them
+    //Damage - 1 present, 0 gone
     class blade1_blur
     {
         source = "user";
