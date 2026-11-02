@@ -14,6 +14,8 @@
 // How far round its labels a VAB can be chosen, and how often it is looked for while the cursor is still
 #define MPD_CURSOR_PICK_PAD   0.01
 #define MPD_CURSOR_PICK_EVERY 0.15
+// How far from a TSD point the cursor chooses it (fza_mpd_fnc_cursorPoint)
+#define MPD_CURSOR_POINT_REACH 0.025
 
 // A label is drawn again this far to its right, and an arrow this wide, to show them bold
 #define MPD_CURSOR_BOLD       0.0025
@@ -26,8 +28,9 @@
       the line below it
     - B1-B6: the same in the bottom row, or the line above it
     The copy is drawn while 100 + its VAB is in its MPD's MFD_IND_CURSOR_VAB, by the conditions below (%1 that user value,
-    %2 startX, %3 startY); they start with startX, startY and the alignment (0 right, 1 centre, 2 left), for
-    fza_mpd_fnc_cursorLabels. Their numbers are the ones here. */
+    %2 startX, %3 startY, then 1 or 0 for whether it is at the side edge (%4), on the T row (%5) and on a B row (%6), worked
+    out when the config loads, as the game can't multiply comparisons of two numbers); they start with startX, startY and
+    the alignment (0 right, 1 centre, 2 left), for fza_mpd_fnc_cursorLabels. Their numbers are the ones here. */
 #define MPD_CURSOR_L_MAX_X     0.064
 #define MPD_CURSOR_R_MIN_X     0.936
 #define MPD_CURSOR_ROWS_TOP    0.08
@@ -43,8 +46,8 @@
 #define MPD_CURSOR_COL_TOL     0.045
 #define MPD_CURSOR_COL_EDGE    0.005
 
-#define MPD_CURSOR_BOLD_R "(0*(%2)*(%3)*0)+(((%1)>100.5)*((%1)<106.5)*((%2)<0.064)*((%3)>(0.1425+0.115*((%1)-101)-0.0625*((%1)<101.5)))*((%3)<(0.2575+0.115*((%1)-101)+0.0275*((%1)>105.5))))+(((%1)>112.5)*((%1)<118.5)*((%3)<0.0675)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+(((%1)>118.5)*((%1)<124.5)*(((%3)>0.936)*((%3)<0.944)+((%3)>0.8925)*((%3)<0.9065))*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
-#define MPD_CURSOR_BOLD_C "(0*(%2)*(%3)*1)+(((%1)>112.5)*((%1)<118.5)*((%3)<0.0675)*((%2)>(0.165+0.12*((%1)-113)))*((%2)<(0.255+0.12*((%1)-113))))+(((%1)>118.5)*((%1)<124.5)*(((%3)>0.936)*((%3)<0.944)+((%3)>0.8925)*((%3)<0.9065))*((%2)>(0.165+0.12*((%1)-119)))*((%2)<(0.255+0.12*((%1)-119))))"
-#define MPD_CURSOR_BOLD_L "(0*(%2)*(%3)*2)+(((%1)>106.5)*((%1)<112.5)*((%2)>0.936)*((%3)>(0.1425+0.115*((%1)-107)-0.0625*((%1)<107.5)))*((%3)<(0.2575+0.115*((%1)-107)+0.0275*((%1)>111.5))))+(((%1)>112.5)*((%1)<118.5)*((%3)<0.0675)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+(((%1)>118.5)*((%1)<124.5)*(((%3)>0.936)*((%3)<0.944)+((%3)>0.8925)*((%3)<0.9065))*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
+#define MPD_CURSOR_BOLD_R "(0*(%2)*(%3)*0)+((%4)*((%1)>100.5)*((%1)<106.5)*((%3)>(0.1425+0.115*((%1)-101)-0.0625*((%1)<101.5)))*((%3)<(0.2575+0.115*((%1)-101)+0.0275*((%1)>105.5))))+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
+#define MPD_CURSOR_BOLD_C "(0*(%2)*(%3)*1)+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.165+0.12*((%1)-113)))*((%2)<(0.255+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.165+0.12*((%1)-119)))*((%2)<(0.255+0.12*((%1)-119))))"
+#define MPD_CURSOR_BOLD_L "(0*(%2)*(%3)*2)+((%4)*((%1)>106.5)*((%1)<112.5)*((%3)>(0.1425+0.115*((%1)-107)-0.0625*((%1)<107.5)))*((%3)<(0.2575+0.115*((%1)-107)+0.0275*((%1)>111.5))))+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
 
 #endif

@@ -477,9 +477,11 @@ Parameters:
 };
 
 // The condition of a bold copy of a label at startX, startY, by its alignment (headers\cursor.h)
-#define MPD_BOLD_COND_R(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_R, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
-#define MPD_BOLD_COND_C(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_C, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
-#define MPD_BOLD_COND_L(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_L, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
+#define MPD_BOLD_ON_T(startY) ([0, 1] select ((startY) < 0.0675))
+#define MPD_BOLD_ON_B(startY) ([0, 1] select ((((startY) > 0.936) && ((startY) < 0.944)) || (((startY) > 0.8925) && ((startY) < 0.9065))))
+#define MPD_BOLD_COND_R(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_R, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, [0, 1] select ((startX) < 0.064), MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
+#define MPD_BOLD_COND_C(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_C, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, 0, MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
+#define MPD_BOLD_COND_L(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_L, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, [0, 1] select ((startX) > 0.936), MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
 
 // A black box behind numChars of MPD_TEXT_R text, so lines under the text don't show through it. Inside one of mpd.hpp's
 // Draw classes polygons draw before lines and text after both, so it only hides lines from an earlier one (the TSD frame).

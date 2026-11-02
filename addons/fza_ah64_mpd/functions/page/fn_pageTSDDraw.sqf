@@ -108,6 +108,8 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
         _pointsArray pushBack (_x select [0,7]);
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
+// The points the MPD cursor can choose (fza_mpd_fnc_cursorPoint): where each is, and its point ID
+_state set ["cursorPoints", _pointsArray apply {[_x # 1, [_x # 3, _x # 4]]}];
 
 //Shot At UnderLay
 private _shotATList = _heli getVariable "fza_dms_shotAt";
@@ -205,4 +207,8 @@ if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then 
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
+// The point the MPD cursor is on, if on this MPD
+private _cursor = _heli getVariable ["fza_mpd_cursor", []];
+private _highlight = [[], _cursor param [8, []]] select (_cursor param [0, -1] == _mpdIndex);
+
+[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY], direction _heli, getPosASL _heli, _highlight] call fza_mpd_fnc_drawIcons;

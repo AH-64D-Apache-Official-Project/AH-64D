@@ -33,4 +33,5 @@ _cursor set [2, 0.5];
 _cursor set [3, time];
 _cursor set [5, false];
 _cursor set [6, 0];
+_cursor set [8, []];
 _cursor set [7, -1];

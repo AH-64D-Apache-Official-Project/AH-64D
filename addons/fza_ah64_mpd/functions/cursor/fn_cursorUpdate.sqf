@@ -6,8 +6,9 @@ Description:
     it, faster the further they are pushed and the longer they are held. Held
     against the inner edge of an MPD, let go and pushed over it again, it goes
     to the other MPD. Three minutes after it was last used it is stowed in the
-    lower left corner, unless it rests on a VAB label of the TSD or an FCR page.
-    The labels of the VAB it is on (fza_mpd_fnc_cursorPick) are drawn bold.
+    lower left corner, unless it rests on a VAB label or point of the TSD or an
+    FCR page. The labels of the VAB it is on (fza_mpd_fnc_cursorPick) are drawn
+    bold; a TSD point it is on (fza_mpd_fnc_cursorPoint), over a black circle.
 
     Local to the crew station's client, as the cursors of the two crew stations
     are independent of each other. The MPDs draw it from MFD_IND_CURSOR_X and
@@ -45,11 +46,11 @@ if !(typeOf _heli in _labels) then {
 private _deltaTime = (["fza_mpd_cursor"] call BIS_fnc_deltaTime) min 0.1;
 private _cursor = _heli getVariable "fza_mpd_cursor";
 if (isNil "_cursor") then {
-    // [MPD, X, Y, last used, input held for, double bump armed, VAB it is on, looked for at]
-    _cursor = [0, MPD_CURSOR_STOW_X, MPD_CURSOR_STOW_Y, time, 0, false, 0, -1];
+    // [MPD, X, Y, last used, input held for, double bump armed, VAB it is on, looked for at, TSD point it is on]
+    _cursor = [0, MPD_CURSOR_STOW_X, MPD_CURSOR_STOW_Y, time, 0, false, 0, -1, []];
     _heli setVariable ["fza_mpd_cursor", _cursor];
 };
-_cursor params ["_side", "_posX", "_posY", "_usedAt", "_heldFor", "_bumpArmed", ["_hover", 0, [0]], ["_pickedAt", -1]];
+_cursor params ["_side", "_posX", "_posY", "_usedAt", "_heldFor", "_bumpArmed", ["_hover", 0, [0]], ["_pickedAt", -1], ["_point", [], [[]]]];
 
 private _pages = [toLower ([_heli, 0] call fza_mpd_fnc_currentPage), toLower ([_heli, 1] call fza_mpd_fnc_currentPage)];
 private _live = _pages # _side != "off";
@@ -85,23 +86,27 @@ if (_bumpArmed && {_outward > 0.5} && {_pages # (1 - _side) != "off"}) then {
 };
 
 if (time - _usedAt > MPD_CURSOR_STOW_TIME && {_posX != MPD_CURSOR_STOW_X || {_posY != MPD_CURSOR_STOW_Y}}
-    && {!((_pages # _side) in ["tsd", "fcr", "fcrrmap", "fcrtpm"] && {_hover > 0})}) then {
+    && {!((_pages # _side) in ["tsd", "fcr", "fcrrmap", "fcrtpm"] && {_hover > 0 || {_point isNotEqualTo []}})}) then {
     _posX = MPD_CURSOR_STOW_X;
     _posY = MPD_CURSOR_STOW_Y;
     _pickedAt = -1;
 };
 
 // Looked for while it moves, and now and then while it is still, as the page can change under it
+// A label first, then a point on the TSD pages that take one
 if (!_live) then {
     _hover = 0;
+    _point = [];
 } else {
     if (_pushed || {diag_tickTime - _pickedAt > MPD_CURSOR_PICK_EVERY}) then {
         _hover = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPick;
+        _point = [];
+        if (_hover == 0) then {_point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint};
         _pickedAt = diag_tickTime;
     };
 };
 
-_heli setVariable ["fza_mpd_cursor", [_side, _posX, _posY, _usedAt, _heldFor, _bumpArmed, _hover, _pickedAt]];
+_heli setVariable ["fza_mpd_cursor", [_side, _posX, _posY, _usedAt, _heldFor, _bumpArmed, _hover, _pickedAt, _point]];
 
 _heli setUserMFDValue [MFD_IND_CURSOR_X, [0, 1 + 2 * _side + _posX] select _live];
 _heli setUserMFDValue [MFD_IND_CURSOR_Y, _posY];

@@ -41,6 +41,7 @@ class CfgFunctions
             class cursorEnter {RECOMPILE_FLAG;};
             class cursorLabels {RECOMPILE_FLAG;};
             class cursorPick {RECOMPILE_FLAG;};
+            class cursorPoint {RECOMPILE_FLAG;};
             class cursorUpdate {RECOMPILE_FLAG;};
         };
         class chan {

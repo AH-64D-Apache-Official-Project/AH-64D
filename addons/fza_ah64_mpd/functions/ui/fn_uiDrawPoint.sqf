@@ -9,6 +9,7 @@ params
     , ["_heliCtr", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
+    , ["_highlight", []]
     ];
 
 private _getOrCreateCtrl = {
@@ -48,6 +49,19 @@ if (_uiCtr # 0 < -0.1 || _uiCtr # 0 > 1.1 || _uiCtr # 1 < -0.1 || _uiCtr # 1 > 1
 };
 
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
+
+// The point the MPD cursor would choose, over a black circle the icon's size. Made before the icon, so drawn under it;
+// the circle fills 18 of the texture's 64 pixels.
+private _backingCtrl = [_display, _ctrlPoint, "backing", "RscPicture"] call _getOrCreateCtrl;
+private _chosen = _highlight isNotEqualTo [] && {[_dmsPoint # POINT_GET_TYPE, _dmsPoint # POINT_GET_ID] isEqualTo _highlight};
+_backingCtrl ctrlShow _chosen;
+if (_chosen) then {
+    private _backingSize = _iconSize * 64 / 18;
+    _backingCtrl ctrlSetPosition [_uiCtr # 0 - 0.5 * _backingSize, _uiCtr # 1 - 0.5 * _backingSize, _backingSize, _backingSize];
+    _backingCtrl ctrlSetText "\A3\ui_f\data\map\markers\military\dot_CA.paa";
+    _backingCtrl ctrlSetTextColor [0, 0, 0, 1];
+    _backingCtrl ctrlCommit 0;
+};
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;

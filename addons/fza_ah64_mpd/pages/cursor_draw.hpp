@@ -40,13 +40,26 @@ class Cursor {
         type = "line";
         width = MPD_CURSOR_BOLD_WIDTH;
         points[] = {
-            MPD_CURSOR_POINT(0.01626, -0.01626), MPD_CURSOR_POINT(0.03323, -0.03323),
+            MPD_CURSOR_POINT(0.01237, -0.01237), MPD_CURSOR_POINT(0.03323, -0.03323),
             {},
-            MPD_CURSOR_POINT(0.01626, 0.01626), MPD_CURSOR_POINT(0.03323, 0.03323),
+            MPD_CURSOR_POINT(0.01237, 0.01237), MPD_CURSOR_POINT(0.03323, 0.03323),
             {},
-            MPD_CURSOR_POINT(-0.01626, 0.01626), MPD_CURSOR_POINT(-0.03323, 0.03323),
+            MPD_CURSOR_POINT(-0.01237, 0.01237), MPD_CURSOR_POINT(-0.03323, 0.03323),
             {},
-            MPD_CURSOR_POINT(-0.01626, -0.01626), MPD_CURSOR_POINT(-0.03323, -0.03323)
+            MPD_CURSOR_POINT(-0.01237, -0.01237), MPD_CURSOR_POINT(-0.03323, -0.03323)
+        };
+    };
+    // Central crosshairs, on the TSD pages that take a point from the map (fza_mpd_fnc_cursorPoint)
+    class Crosshair {
+        condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_AND(C_MORE(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1.5), C_LESS(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 4.5))));
+        class Lines {
+            type = "line";
+            width = MPD_CURSOR_BOLD_WIDTH;
+            points[] = {
+                MPD_CURSOR_POINT(-0.009, 0), MPD_CURSOR_POINT(0.009, 0),
+                {},
+                MPD_CURSOR_POINT(0, -0.009), MPD_CURSOR_POINT(0, 0.009)
+            };
         };
     };
 };

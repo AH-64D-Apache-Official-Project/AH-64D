@@ -128,8 +128,6 @@
 #define MFD_IND_ENG_WCA_3 13
 #define MFD_IND_ENG_WCA_4 14
 #define MFD_IND_ENG_WCA_5 15
-//The emergency procedure's title length shares the first WCA's slot, as the procedure and the WCA list are never drawn together
-#define MFD_IND_ENG_EMER_TITLE_LEN 11
 
 #define MFD_IND_ENG_ACQ_BOX 16
 
@@ -142,6 +140,8 @@
 #define MFD_IND_ENG_NP_RANGE_2 22
 #define MFD_IND_ENG_NG_RANGE_1 23
 #define MFD_IND_ENG_NG_RANGE_2 24
+
+#define MFD_IND_ENG_EMER_TITLE_LEN 25
 
 //Not offset, as 31 to 38 on the page are the ACQ list's; both MPDs show the same
 //Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
