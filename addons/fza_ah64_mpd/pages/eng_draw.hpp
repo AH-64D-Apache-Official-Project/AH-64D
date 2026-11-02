@@ -149,11 +149,27 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
 
 //name is the tape's bones, Eng_<name>_Zone_1 to 3. It stays the first argument everywhere: Arma's
 //preprocessor keeps the space before a later argument, and ## then fails to join it.
-#define ENG_TAPE(name, posX, textInd, halfWidth)\
+//Segment starts match the tape's bones in eng_bones.hpp.
+
+//Narrow below 100%, medium to 115%, large above
+#define ENG_TORQUE_TAPE(name, posX, textInd)\
     class Tapes {\
         type = "polygon";\
         points[] = {\
-            ENG_TAPE_RECT(posX, halfWidth, 0, CONCAT_3(Eng_,name,_Zone_1) COMMA 1 COMMA CONCAT_3(Eng_,name,_Zone_2) COMMA 1 COMMA CONCAT_3(Eng_,name,_Zone_3))\
+            ENG_TAPE_RECT(posX, ENG_TAPE_HALF_WIDTH, 0, CONCAT_3(Eng_,name,_Zone_1)),\
+            ENG_TAPE_RECT(posX, ENG_TAPE_MEDIUM_HALF_WIDTH, 0.6, CONCAT_3(Eng_,name,_Zone_2)),\
+            ENG_TAPE_RECT(posX, ENG_TAPE_LARGE_HALF_WIDTH, 0.75, CONCAT_3(Eng_,name,_Zone_3))\
+        };\
+    };\
+    ENG_TAPE_READOUT(posX, textInd)
+
+//Narrow below 810, medium above
+#define ENG_TGT_TAPE(name, posX, textInd)\
+    class Tapes {\
+        type = "polygon";\
+        points[] = {\
+            ENG_TAPE_RECT(posX, ENG_TAPE_HALF_WIDTH, 0, CONCAT_3(Eng_,name,_Zone_1) COMMA 1 COMMA CONCAT_3(Eng_,name,_Zone_2)),\
+            ENG_TAPE_RECT(posX, ENG_TAPE_MEDIUM_HALF_WIDTH, 0.6, CONCAT_3(Eng_,name,_Zone_3))\
         };\
     };\
     ENG_TAPE_READOUT(posX, textInd)
@@ -198,23 +214,6 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
         config\
     };
 
-//The whole tape is narrow and green, medium and yellow, or wide and red
-#define ENG_RANGE_TAPE(name, rangeInd, posX, textInd) \
-    class name##_Green {\
-        condition = C_COND(C_LESS(C_MPD_USER(rangeInd), 0.5));\
-        ENG_TAPE(name, posX, textInd, ENG_TAPE_HALF_WIDTH)\
-    };\
-    class name##_Yellow {\
-        color[] = {1,1,0,1};\
-        condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
-        ENG_TAPE(name, posX, textInd, ENG_TAPE_MEDIUM_HALF_WIDTH)\
-    };\
-    class name##_Red {\
-        color[] = {1,0,0,1};\
-        condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
-        ENG_TAPE(name, posX, textInd, ENG_TAPE_LARGE_HALF_WIDTH)\
-    };
-
 #define COLOR_R_G_Y_R(name, value, del1, del2, del3, config) \
     class name##_Red {\
         color[] = {1,0,0,1};\
@@ -236,10 +235,10 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
         config\
     };
 
-ENG_RANGE_TAPE(Torque_1, MFD_IND_ENG_TORQUE_RANGE_1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1)
-ENG_RANGE_TAPE(Torque_2, MFD_IND_ENG_TORQUE_RANGE_2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2)
-ENG_RANGE_TAPE(Tgt_1,    MFD_IND_ENG_TGT_RANGE_1,    ENG_TAPE_TGT_1_X,    MFD_TEXT_IND_ENG_TGT_1)
-ENG_RANGE_TAPE(Tgt_2,    MFD_IND_ENG_TGT_RANGE_2,    ENG_TAPE_TGT_2_X,    MFD_TEXT_IND_ENG_TGT_2)
+ENG_RANGE_COLOUR(Torque_1, MFD_IND_ENG_TORQUE_RANGE_1, ENG_TORQUE_TAPE(Torque_1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1))
+ENG_RANGE_COLOUR(Torque_2, MFD_IND_ENG_TORQUE_RANGE_2, ENG_TORQUE_TAPE(Torque_2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2))
+ENG_RANGE_COLOUR(Tgt_1, MFD_IND_ENG_TGT_RANGE_1, ENG_TGT_TAPE(Tgt_1, ENG_TAPE_TGT_1_X, MFD_TEXT_IND_ENG_TGT_1))
+ENG_RANGE_COLOUR(Tgt_2, MFD_IND_ENG_TGT_RANGE_2, ENG_TGT_TAPE(Tgt_2, ENG_TAPE_TGT_2_X, MFD_TEXT_IND_ENG_TGT_2))
 ENG_RANGE_COLOUR(Np_1, MFD_IND_ENG_NP_RANGE_1, ENG_NP_TAPE(1, ENG_TAPE_NP_1_X, ENG_SIDE_DATA_1_X, MFD_TEXT_IND_ENG_NP_1))
 ENG_RANGE_COLOUR(Np_2, MFD_IND_ENG_NP_RANGE_2, ENG_NP_TAPE(2, ENG_TAPE_NP_2_X, ENG_SIDE_DATA_2_X, MFD_TEXT_IND_ENG_NP_2))
 COLOR_R_G_Y_R(Nr,     MFD_IND_ENG_NR, 95, 105, 110, ENG_NR_TAPE)
@@ -314,34 +313,6 @@ class Limits_Red {
             LIMITS_DIAMOND(Null, ENG_TAPE_NR_X + 0.055, ENG_TAPE_BOTTOM_Y - 0.9 * ENG_TAPE_HEIGHT)
         };
     };
-};
-
-//One short bar across each engine's tape, with a gap between the two
-#define ENG_SUB_BAR_HALF 0.04
-#define ENG_SUB_BAR(name, ind, tape1X, tape2X) \
-    class name {\
-        condition = C_COND(C_MORE(C_MPD_USER(ind), 0));\
-        class Line {\
-            type = "line";\
-            width = 6;\
-            points[] = {\
-                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape1X - ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
-                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape1X + ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
-                {},\
-                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape2X - ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1},\
-                {CONCAT_3(Eng_,name,_Zone_1), 1, CONCAT_3(Eng_,name,_Zone_2), 1, CONCAT_3(Eng_,name,_Zone_3), {tape2X + ENG_SUB_BAR_HALF, ENG_TAPE_BOTTOM_Y}, 1}\
-            };\
-        };\
-    };
-
-class Limits_Yellow {
-    color[] = {1,1,0,1};
-    ENG_SUB_BAR(Torque_Sub_1, MFD_IND_ENG_TORQUE_SUB_1, ENG_TAPE_TORQUE_1_X, ENG_TAPE_TORQUE_2_X)
-    ENG_SUB_BAR(Torque_Sub_2, MFD_IND_ENG_TORQUE_SUB_2, ENG_TAPE_TORQUE_1_X, ENG_TAPE_TORQUE_2_X)
-    ENG_SUB_BAR(Tgt_Sub_1, MFD_IND_ENG_TGT_SUB_1, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
-    ENG_SUB_BAR(Tgt_Sub_2, MFD_IND_ENG_TGT_SUB_2, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
-    ENG_SUB_BAR(Tgt_Sub_3, MFD_IND_ENG_TGT_SUB_3, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
-    ENG_SUB_BAR(Tgt_Sub_4, MFD_IND_ENG_TGT_SUB_4, ENG_TAPE_TGT_1_X, ENG_TAPE_TGT_2_X)
 };
 
 class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
