@@ -93,23 +93,11 @@ _heli setUserMFDValue [MFD_IND_ENG_NP_TIMER_AT, [(_limitTimers # 0) # 0, (_limit
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NP_TIMER_1), [(_limitTimers # 0) # 0] call _timer];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NP_TIMER_2), [(_limitTimers # 1) # 0] call _timer];
 
-// The red bar marks a set's maximum; a yellow bar marks where each timed range below it starts
+// The red bar marks a set's maximum
 private _tqMarks  = [_engines # 0] call _tqLimits;
 private _tgtMarks = (_engines # 0) get _tgtKey;
-private _starts   = {
-    params ["_limits"];
-    ((_limits select [0, count _limits - 1]) select {(_x # 1) > 0}) apply {_x # 0}
-};
-private _tqStarts  = [_tqMarks] call _starts;
-private _tgtStarts = [_tgtMarks] call _starts;
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), ((_tqMarks select -1) # 0) * 100];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), (_tgtMarks select -1) # 0];
-for "_i" from 0 to 1 do {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_SUB_1 + _i), (_tqStarts param [_i, 0]) * 100];
-};
-for "_i" from 0 to 3 do {
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_SUB_1 + _i), _tgtStarts param [_i, 0]];
-};
 
 private _engineStarted = 0;
 

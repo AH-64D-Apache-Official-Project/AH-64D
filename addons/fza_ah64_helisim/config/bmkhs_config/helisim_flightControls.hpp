@@ -16,8 +16,8 @@
     class FMC {
         class Sas {
             gate[]      = {"bmkhs_fltCtrlsSupplied", "bmkhs_dcBusOn"};
-            pitch[]     = {0.0026, 0.0000, 0.000035, 0.00};
-            roll[]      = {0.0017, 0.0000, 0.000035, 0.00};
+            pitch[]     = {0.010, 0.0000, 0.000035, 0.00};
+            roll[]      = {0.010, 0.0000, 0.000035, 0.00};
             yaw[]       = {0.0052, 0.00087, 0.00044, 0.002523};
         };
         class AttitudeHold {

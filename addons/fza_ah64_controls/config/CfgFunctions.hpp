@@ -36,6 +36,7 @@ class CfgFunctions
         };
         class damage {
             file = "\fza_ah64_controls\functions\damage";
+            class damagePartVisible {R;};
         };
         class engine
         {

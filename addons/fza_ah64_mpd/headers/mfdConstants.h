@@ -140,14 +140,6 @@
 #define MFD_IND_ENG_NG_RANGE_1 23
 #define MFD_IND_ENG_NG_RANGE_2 24
 
-//Where each timed range starts, 0 when unused
-#define MFD_IND_ENG_TORQUE_SUB_1 25
-#define MFD_IND_ENG_TORQUE_SUB_2 26
-#define MFD_IND_ENG_TGT_SUB_1 27
-#define MFD_IND_ENG_TGT_SUB_2 28
-#define MFD_IND_ENG_TGT_SUB_3 29
-#define MFD_IND_ENG_TGT_SUB_4 30
-
 //Not offset, as 31 to 38 on the page are the ACQ list's; both MPDs show the same
 //Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
 #define MFD_IND_ENG_TORQUE_TIMER_AT 14

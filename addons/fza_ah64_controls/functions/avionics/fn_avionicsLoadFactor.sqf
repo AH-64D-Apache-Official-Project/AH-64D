@@ -2,9 +2,9 @@
 Function: fza_fnc_avionicsLoadFactor
 
 Description:
-    The aircraft's vertical load factor, the gmeterZ sound controller averaged
-    over the last 0.25 s, as the raw controller is jumpy. One sample a frame,
-    whoever asks first (the IHADSS G readout, the rocket ACCEL LIMIT).
+    The aircraft's vertical load factor from HeliSim, averaged over the last
+    0.25 s. One sample a frame, whoever asks first (the IHADSS G readout, the
+    rocket ACCEL LIMIT).
 
 Parameters:
     _heli - The helicopter
@@ -26,7 +26,7 @@ private _now      = diag_tickTime;
 private _gSamples = (_heli getVariable ["fza_ihadss_gSamples", []]) select {_now - (_x # 0) <= 0.25};
 if (_heli getVariable ["fza_ihadss_gSampleFrame", -1] != diag_frameNo) then {
     _heli setVariable ["fza_ihadss_gSampleFrame", diag_frameNo];
-    _gSamples pushBack [_now, _heli getSoundController "gmeterZ"];
+    _gSamples pushBack [_now, (_heli getVariable "bmkhs_loadFactor") # 2];
 };
 _heli setVariable ["fza_ihadss_gSamples", _gSamples];
 if (_gSamples isEqualTo []) exitWith {1};

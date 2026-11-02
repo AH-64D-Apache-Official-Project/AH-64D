@@ -92,4 +92,17 @@ class textureSources
     };
 };
 textureList[] = {"b2", 1};
-hiddenSelectionsTextures[] = {"\fza_ah64_model\tex\Ex\b2_co.paa","\fza_ah64_model\tex\ex\fcr_co.paa"};
+//Index-matched to hiddenSelections.hpp
+hiddenSelectionsTextures[] = {
+    "\fza_ah64_model\tex\Ex\b2_co.paa", "\fza_ah64_model\tex\ex\fcr_co.paa",
+    "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "", "", "", "", "",
+    "\fza_ah64_model\tex\ex\rtrs_co.paa",   //blade1
+    "\fza_ah64_model\tex\ex\rtrs_co.paa",   //blade2
+    "\fza_ah64_model\tex\ex\rtrs_co.paa",   //blade3
+    "\fza_ah64_model\tex\ex\rtrs_co.paa",   //blade4
+    "\fza_ah64_model\tex\Ex\b2_co.paa",     //skin_tailboom
+    "\fza_ah64_model\tex\Ex\b2_co.paa",     //skin_vtail
+    "\fza_ah64_model\tex\Ex\b2_co.paa",     //hstab
+    "\fza_ah64_model\tex\ex\rtrs_co.paa"    //skin_tailrotor
+};

@@ -113,6 +113,28 @@ class AnimationSources
         animPeriod = 0.01;
         initPhase  = -5.5;
     };
+    //Damage - 1 present, 0 gone
+    class blade1_blur
+    {
+        source = "user";
+        animPeriod = 0.001;
+        initPhase = 1;
+    };
+    class blade2_blur: blade1_blur {};
+    class blade3_blur: blade1_blur {};
+    class blade4_blur: blade1_blur {};
+    class tblade1_blur: blade1_blur {};
+    class tblade2_blur: blade1_blur {};
+    class tblade3_blur: blade1_blur {};
+    class tblade4_blur: blade1_blur {};
+    class blade1_still: blade1_blur {};
+    class blade2_still: blade1_blur {};
+    class blade3_still: blade1_blur {};
+    class blade4_still: blade1_blur {};
+    class tblade1_still: blade1_blur {};
+    class tblade2_still: blade1_blur {};
+    class tblade3_still: blade1_blur {};
+    class tblade4_still: blade1_blur {};
     class pnvs
     {
         source = "user";
