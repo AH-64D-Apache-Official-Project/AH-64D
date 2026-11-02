@@ -368,7 +368,9 @@ Parameters:
     startX, startY - Position of the text the arrow should be over
     numChars - Number of characters in the text to draw an arrow over, defines the length of the arrow.
 */
-#define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
+#define MPD_ARROW_R(name, startX, startY, numChars) MPD_ARROW(name, startX, startY, numChars) \
+    MPD_BOLD_ARROW(name, MPD_BOLD_COND_R(startX, startY), startX, startY, numChars)
+#define MPD_ARROW(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
     type = "line"; \
     points[] = { \
         {{startX, startY - MPD_ARROW_PAD}, 1}, \
@@ -441,6 +443,8 @@ Parameters:
 #define MFD_IND_ACQ_OPEN (10 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
 // The mask pass on this MPD (MFD_IND_MASK_L/_R): 12 left, 13 right
 #define MFD_IND_MASK (12 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
+// The cursor's X user value at this MPD's left edge (MFD_IND_CURSOR_X): 1 left, 3 right
+#define MPD_CURSOR_X_BASE (1 + 2 * (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
 
 // Page text where the ACQ list draws (R1-R6, B4-B6) is hidden while the list is open; the MPD draws text after shapes,
 // so it cannot be covered
@@ -458,6 +462,25 @@ Parameters:
     }; \
 };
 
+// MPD_TEXT at a fixed place, with the bold copy shown while it is in the MPD cursor's selection (headers\cursor.h)
+#define MPD_TEXT_SEL(name, startX, startY, config, cond) class Mpd_Text_##name { \
+    condition = MPD_ACQ_COVERS(startX, startY); \
+    class Text { \
+        type = "text"; \
+        scale = 1; \
+        pos[] = {"Null", {startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        right[] = {"Null", {startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        down[] = {"Null", {startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
+        config \
+    }; \
+    MPD_BOLD_TEXT(name, cond, startX, startY+MPD_TEXT_HEIGHT_PAD, MPD_TEXT_WIDTH_VEC, config) \
+};
+
+// The condition of a bold copy of a label at startX, startY, by its alignment (headers\cursor.h)
+#define MPD_BOLD_COND_R(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_R, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
+#define MPD_BOLD_COND_C(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_C, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
+#define MPD_BOLD_COND_L(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_L, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY])
+
 // A black box behind numChars of MPD_TEXT_R text, so lines under the text don't show through it. Inside one of mpd.hpp's
 // Draw classes polygons draw before lines and text after both, so it only hides lines from an earlier one (the TSD frame).
 #define MPD_TEXT_BACKING_R(name, startX, startY, numChars) class Mpd_Backing_##name { \
@@ -473,7 +496,8 @@ Parameters:
     }; \
 };
 
-// Text that is never hidden by the ACQ list, for the list itself
+// Text that is never hidden by the ACQ list, for the list itself. Its entries are on the right edge, growing left, or
+// centred on a bottom button, so the left-aligned rules give their VABs (headers\cursor.h)
 #define MPD_TEXT_ACQ(name, startX, startY, alignment, label) class Mpd_Text_##name { \
     type = "text"; \
     scale = 1; \
@@ -484,7 +508,8 @@ Parameters:
     pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
-};
+}; \
+MPD_BOLD_TEXT(name, MPD_BOLD_COND_L(startX, startY), startX, startY+MPD_TEXT_HEIGHT_PAD, MPD_TEXT_WIDTH_VEC, align = alignment; source = "static"; text = label; sourceScale = 1;)
 #define MPD_TEXT_ACQ_USER(name, startX, startY, alignment, num) class Mpd_Text_##name { \
     type = "text"; \
     scale = 1; \
@@ -493,16 +518,18 @@ Parameters:
     pos[] = {{startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
     down[] = {{startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
-};
+}; \
+MPD_BOLD_TEXT(name, MPD_BOLD_COND_L(startX, startY), startX, startY+MPD_TEXT_HEIGHT_PAD, MPD_TEXT_WIDTH_VEC, align = alignment; MPD_TEXT_USER(num))
 
-#define MPD_TEXT_SMALL(name, startX, startY, config) class Mpd_Text_##name { \
+#define MPD_TEXT_SMALL(name, startX, startY, config, cond) class Mpd_Text_##name { \
     type = "text"; \
     scale = 1; \
     pos[] = {{startX, startY}, 1}; \
     right[] = {{startX+MPD_TEXT_SMALL_WIDTH_VEC, startY}, 1}; \
     down[] = {{startX, startY+(MPD_TEXT_SMALL_HEIGHT)}, 1}; \
     config \
-};
+}; \
+MPD_BOLD_TEXT(name, cond, startX, startY, MPD_TEXT_SMALL_WIDTH_VEC, config)
 
 /* Macro: MPD_BOX_BONE_x
     Draws text in the given direction, with the text content defined by config. Text is transformed by the given bone.
@@ -527,9 +554,9 @@ Parameters:
     startX, startY - Position of the text
     config - Configuration describing the content, like <MPD_TEXT_STATIC>, <MPD_TEXT_USER> and <MPD_TEXT_USER_SCALE>
 */
-#define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "right"; config)
-#define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "center"; config)
-#define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "left"; config)
+#define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "right"; config, MPD_BOLD_COND_R(startX, startY))
+#define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "center"; config, MPD_BOLD_COND_C(startX, startY))
+#define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = "left"; config, MPD_BOLD_COND_L(startX, startY))
 
 /* Macro: MPD_TEXT_x
     Draws text, with the text content defined by config.
@@ -540,12 +567,16 @@ Parameters:
     startX, startY - Position of the text
     config - Configuration describing the content, like <MPD_TEXT_STATIC>, <MPD_TEXT_USER> and <MPD_TEXT_USER_SCALE>
 */
-#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "right"; config)
-#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "center"; config)
-#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "left"; config)
+#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT_SEL(name, startX, startY, align = "right"; config, MPD_BOLD_COND_R(startX, startY))
+#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT_SEL(name, startX, startY, align = "center"; config, MPD_BOLD_COND_C(startX, startY))
+#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT_SEL(name, startX, startY, align = "left"; config, MPD_BOLD_COND_L(startX, startY))
+// Text that is never part of a VAB's label, as a list along an edge
+#define MPD_TEXT_PLAIN_R(name, startX, startY, config) MPD_TEXT(name, "Null", startX, startY, align = "right"; config)
 
-#define MPD_ARROW_C(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
-#define MPD_ARROW_L(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
+#define MPD_ARROW_C(name, startX, startY, numChars) MPD_ARROW(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars) \
+    MPD_BOLD_ARROW(name, MPD_BOLD_COND_C(startX, startY), (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
+#define MPD_ARROW_L(name, startX, startY, numChars) MPD_ARROW(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars) \
+    MPD_BOLD_ARROW(name, MPD_BOLD_COND_L(startX, startY), (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
 
 #define MPD_BOX_C(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_BOX_L(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)

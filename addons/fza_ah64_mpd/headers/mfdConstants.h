@@ -13,7 +13,8 @@
 #define MFD_IND_EMER_HYD 7
 #define MFD_IND_MSTR_CAUT 8
 #define MFD_IND_MSTR_WARN 9
-//14 to 18: ENG page timers and emergency title
+//14 to 17: ENG page timers
+//18, 19: MPD cursor
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
@@ -127,6 +128,8 @@
 #define MFD_IND_ENG_WCA_3 13
 #define MFD_IND_ENG_WCA_4 14
 #define MFD_IND_ENG_WCA_5 15
+//The emergency procedure's title length shares the first WCA's slot, as the procedure and the WCA list are never drawn together
+#define MFD_IND_ENG_EMER_TITLE_LEN 11
 
 #define MFD_IND_ENG_ACQ_BOX 16
 
@@ -146,8 +149,6 @@
 #define MFD_IND_ENG_TGT_TIMER_AT 15
 #define MFD_IND_ENG_NG_TIMER_AT 16
 #define MFD_IND_ENG_NP_TIMER_AT 17
-
-#define MFD_IND_ENG_EMER_TITLE_LEN 18
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
@@ -502,7 +503,7 @@
 //0-32 IN USE FOR ADDON NAMES
 #define MFD_TEXT_VER_PAGESTR 39
 
-#define MFD_IND_VER_PAGENUM 39
+#define MFD_IND_VER_PAGENUM 33
 
 
 #define MFD_TEXT_COORD_LINE_0 2
@@ -622,6 +623,12 @@
 // B5, the crew station's coordinate point, and its name
 #define MFD_IND_ACQ_OPT_POINT 38
 #define MFD_TEXT_IND_ACQ_POINT 38
+// The crew station's MPD cursor (fza_mpd_fnc_cursorUpdate), not offset: its X from 1 to 2 on the left MPD, 3 to 4 on
+// the right, 0 while on neither; and its Y
+#define MFD_IND_CURSOR_X      18
+#define MFD_IND_CURSOR_Y      19
+// Per MPD, on every page: 100 + the VAB the cursor is on there, whose labels are drawn bold (headers\cursor.h), else 0
+#define MFD_IND_CURSOR_VAB    39
 
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
 

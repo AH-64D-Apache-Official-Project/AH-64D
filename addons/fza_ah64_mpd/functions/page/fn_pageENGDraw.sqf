@@ -120,7 +120,6 @@ if (_procedure isNotEqualTo []) then {
     _pagemode = 4;
     _procedure params ["_title", "_steps"];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_TITLE), _title];
-    _heli setUserMFDValue [MFD_IND_ENG_EMER_TITLE_LEN, count _title];
     for "_i" from 0 to 6 do {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_1 + _i), _steps param [_i, ""]];
     };
@@ -129,6 +128,10 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), _pagemode];
 for "_x" from 0 to 4 do {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#0];
+};
+// After the WCAs, as it shares the first one's slot
+if (_procedure isNotEqualTo []) then {
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_EMER_TITLE_LEN), count (_procedure # 0)];
 };
 
 //Hydraulics

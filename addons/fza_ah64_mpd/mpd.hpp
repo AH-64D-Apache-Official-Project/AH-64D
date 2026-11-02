@@ -1,3 +1,5 @@
+#define MPD_CURSOR_PAGES
+#include "headers\cursor_bold.hpp"
 #ifdef MPD_MASK_PASS
 color[] = {0, 0, 0, 1};
 font="fza_BMKApacheBlock";
@@ -31,6 +33,7 @@ class Bones {
     #include "pages\fcr_bones.hpp"
     #include "pages\wpn_bones.hpp"
     #include "pages\abr_bones.hpp"
+    #include "pages\cursor_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
@@ -170,5 +173,9 @@ class MaskGate {
     };
 #ifdef MPD_MASK_PASS
 };
+#else
+    #include "pages\cursor_draw.hpp"
 #endif
 };
+#undef MPD_CURSOR_PAGES
+#include "headers\cursor_bold.hpp"

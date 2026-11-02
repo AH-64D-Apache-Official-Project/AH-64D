@@ -34,6 +34,15 @@ class CfgFunctions
             class canvasDraw {RECOMPILE_FLAG;};
             class canvasDrawLine {RECOMPILE_FLAG;};
         }
+        class cursor {
+            file = "\fza_ah64_mpd\functions\cursor";
+            class cursorCompile {RECOMPILE_FLAG;};
+            class cursorDisplaySelect {RECOMPILE_FLAG;};
+            class cursorEnter {RECOMPILE_FLAG;};
+            class cursorLabels {RECOMPILE_FLAG;};
+            class cursorPick {RECOMPILE_FLAG;};
+            class cursorUpdate {RECOMPILE_FLAG;};
+        };
         class chan {
             file = "\fza_ah64_mpd\functions\chan";
             class chanShowFrequencies {RECOMPILE_FLAG;};

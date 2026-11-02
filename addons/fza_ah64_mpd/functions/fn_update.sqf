@@ -69,3 +69,5 @@ if (!_acBusOn && _rmpdCurr != "off") then {
     };
     _heli setUserMFDValue [[MFD_IND_MASK_L, MFD_IND_MASK_R] select _forEachIndex, BOOLTONUM (_video || _usesIcons == 1)];
 } forEach ["left", "right"];
+
+[_heli] call fza_mpd_fnc_cursorUpdate;

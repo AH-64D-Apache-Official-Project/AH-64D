@@ -23,6 +23,8 @@ class CfgPatches
 #include "headers\tsd.hpp"
 #include "headers\mpd_defines.hpp"
 #include "headers\mfdConstants.h"
+#include "headers\cursor.h"
+#include "headers\cursor_bold.hpp"
 
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"

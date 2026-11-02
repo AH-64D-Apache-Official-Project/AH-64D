@@ -130,7 +130,7 @@ NR_SCALING(Nr, MFD_IND_ENG_NR)
 class Eng_Emer_Title {
     type = "linear";
     source = "user";
-    sourceIndex = MFD_IND_ENG_EMER_TITLE_LEN;
+    sourceIndex = MFD_USER_NUM(MFD_IND_ENG_EMER_TITLE_LEN);
     min = 0;
     max = 40;
     maxPos[] = {0, 0};

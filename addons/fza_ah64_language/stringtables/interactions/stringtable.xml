@@ -965,6 +965,42 @@
             <Original>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</Original>
             <English>Points the open radial menu at a sector; held there it selects it after the dwell time. The only input that selects by holding: bind to a controller stick's axes, a hat or keys</English>
         </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_UP">
+            <Original>MPD Cursor: Up</Original>
+            <English>MPD Cursor: Up</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_DOWN">
+            <Original>MPD Cursor: Down</Original>
+            <English>MPD Cursor: Down</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_LEFT">
+            <Original>MPD Cursor: Left</Original>
+            <English>MPD Cursor: Left</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_RIGHT">
+            <Original>MPD Cursor: Right</Original>
+            <English>MPD Cursor: Right</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_DIRECTION_INFO">
+            <Original>Moves your MPD cursor, faster the further a stick is pushed and the longer it is held. At the inner edge of an MPD, let go and push again to move it onto the other MPD. Bind to a controller stick's axes, a hat or keys</Original>
+            <English>Moves your MPD cursor, faster the further a stick is pushed and the longer it is held. At the inner edge of an MPD, let go and push again to move it onto the other MPD. Bind to a controller stick's axes, a hat or keys</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_ENTER">
+            <Original>MPD Cursor: Enter</Original>
+            <English>MPD Cursor: Enter</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_ENTER_INFO">
+            <Original>Presses the MPD button whose label the cursor is on, shown in bold</Original>
+            <English>Presses the MPD button whose label the cursor is on, shown in bold</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_DISPLAY_SELECT">
+            <Original>MPD Cursor: Display Select</Original>
+            <English>MPD Cursor: Display Select</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPD_CURSOR_DISPLAY_SELECT_INFO">
+            <Original>Moves your MPD cursor to the centre of the other MPD</Original>
+            <English>Moves your MPD cursor to the centre of the other MPD</English>
+        </Key>
         <Key ID="STR_FZA_AH64_LST_AUTO">
             <Original>LST Mode: Auto</Original>
             <English>LST Mode: Auto</English>

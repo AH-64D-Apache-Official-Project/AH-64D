@@ -60,6 +60,13 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_radialDown,"$STR_FZA_AH64_RADIAL_DOWN","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
     CfgUserActionDef(fza_ah64_radialLeft,"$STR_FZA_AH64_RADIAL_LEFT","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
     CfgUserActionDef(fza_ah64_radialRight,"$STR_FZA_AH64_RADIAL_RIGHT","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");
+    // Read each frame by fza_mpd_fnc_cursorUpdate, so a stick's axes move the cursor at a speed that follows them
+    CfgUserActionDef(fza_ah64_mpdCursorUp,"$STR_FZA_AH64_MPD_CURSOR_UP","$STR_FZA_AH64_MPD_CURSOR_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_mpdCursorDown,"$STR_FZA_AH64_MPD_CURSOR_DOWN","$STR_FZA_AH64_MPD_CURSOR_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_mpdCursorLeft,"$STR_FZA_AH64_MPD_CURSOR_LEFT","$STR_FZA_AH64_MPD_CURSOR_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_mpdCursorRight,"$STR_FZA_AH64_MPD_CURSOR_RIGHT","$STR_FZA_AH64_MPD_CURSOR_DIRECTION_INFO");
+    CfgUserActionDef(fza_ah64_mpdCursorEnter,"$STR_FZA_AH64_MPD_CURSOR_ENTER","$STR_FZA_AH64_MPD_CURSOR_ENTER_INFO");
+    CfgUserActionDef(fza_ah64_mpdCursorDisplaySelect,"$STR_FZA_AH64_MPD_CURSOR_DISPLAY_SELECT","$STR_FZA_AH64_MPD_CURSOR_DISPLAY_SELECT_INFO");
 
     // MPD minigame input - generic up/down/left/right/fire, forwarded to fza_mg_fnc_minigameHandleInput.
     CfgUserActionDef(fza_minigame_up,"$STR_FZA_AH64_MINIGAME_UP","$STR_FZA_AH64_MINIGAME_UP_INFO");

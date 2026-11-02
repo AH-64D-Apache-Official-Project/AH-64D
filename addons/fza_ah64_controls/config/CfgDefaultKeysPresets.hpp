@@ -55,6 +55,12 @@ class CfgDefaultKeysPresets {
             fza_ah64_radialDown[]  = {};
             fza_ah64_radialLeft[]  = {};
             fza_ah64_radialRight[] = {};
+            fza_ah64_mpdCursorUp[]            = {};
+            fza_ah64_mpdCursorDown[]          = {};
+            fza_ah64_mpdCursorLeft[]          = {};
+            fza_ah64_mpdCursorRight[]         = {};
+            fza_ah64_mpdCursorEnter[]         = {};
+            fza_ah64_mpdCursorDisplaySelect[] = {};
 
             // MPD minigame input - arrow keys, since the numpad is Arma's freelook
             fza_minigame_up[]     = {0xC8}; // Up arrow
