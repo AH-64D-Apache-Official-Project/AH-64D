@@ -53,7 +53,7 @@ private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 // The point the MPD cursor would choose, over a black circle the icon's size. Made before the icon, so drawn under it;
 // the circle fills 18 of the texture's 64 pixels.
 private _backingCtrl = [_display, _ctrlPoint, "backing", "RscPicture"] call _getOrCreateCtrl;
-private _chosen = _highlight isNotEqualTo [] && {[_dmsPoint # POINT_GET_TYPE, _dmsPoint # POINT_GET_ID] isEqualTo _highlight};
+private _chosen = _highlight isNotEqualTo [] && {(_dmsPoint # POINT_GET_ID) isEqualTo _highlight};
 _backingCtrl ctrlShow _chosen;
 if (_chosen) then {
     private _backingSize = _iconSize * 64 / 18;

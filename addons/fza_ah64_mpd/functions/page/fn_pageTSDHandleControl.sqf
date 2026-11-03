@@ -7,6 +7,10 @@ private _subPage = _state get "subPageVarPage" select 0;
 if ([_heli, _mpdIndex, _control, _subPage == 0] call fza_mpd_fnc_acqHandleControl) exitWith {};
 
 if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitWith {};
+// CTR, on the pages that draw it: the top level, WPT and THRT
+if (_control == "r3" && {_subPage in [0, 2, 4]}) exitWith {
+    _persistState set ["ctr", 1 - (_persistState get "ctr")];
+};
 
 switch (_control) do {
     case "t2": {
@@ -40,9 +44,6 @@ switch _subPage do {
             };
             case "b6": {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
-            };
-            case "r3": {
-                _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
         };
     };

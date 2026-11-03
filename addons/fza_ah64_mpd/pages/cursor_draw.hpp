@@ -5,6 +5,7 @@
 // A ring with four diagonal spokes, centred on the cursor's position
 class Cursor {
     condition = C_COND(C_AND(C_MORE(C_USER(MFD_IND_CURSOR_X), MPD_CURSOR_X_BASE - 0.5), C_LESS(C_USER(MFD_IND_CURSOR_X), MPD_CURSOR_X_BASE + 1.5)));
+    color[] = MPD_COLOUR_GREEN;
     class Ring {
         type = "line";
         width = MPD_CURSOR_BOLD_WIDTH;
@@ -52,6 +53,7 @@ class Cursor {
     // Central crosshairs, on the TSD pages that take a point from the map (fza_mpd_fnc_cursorPoint)
     class Crosshair {
         condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_AND(C_MORE(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1.5), C_LESS(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 4.5))));
+        color[] = MPD_COLOUR_GREEN;
         class Lines {
             type = "line";
             width = MPD_CURSOR_BOLD_WIDTH;

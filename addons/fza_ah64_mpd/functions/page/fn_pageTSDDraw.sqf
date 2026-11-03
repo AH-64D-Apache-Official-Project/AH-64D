@@ -109,7 +109,7 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 // The points the MPD cursor can choose (fza_mpd_fnc_cursorPoint): where each is, and its point ID
-_state set ["cursorPoints", _pointsArray apply {[_x # 1, [_x # 3, _x # 4]]}];
+_state set ["cursorPoints", _pointsArray apply {[_x # 1, _x # 4]}];
 
 //Shot At UnderLay
 private _shotATList = _heli getVariable "fza_dms_shotAt";
