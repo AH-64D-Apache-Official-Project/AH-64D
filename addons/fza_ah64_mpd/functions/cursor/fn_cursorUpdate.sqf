@@ -114,6 +114,18 @@ if (!_live) then {
 
 _heli setVariable ["fza_mpd_cursor", [_side, _posX, _posY, _usedAt, _heldFor, _bumpArmed, _hover, _pickedAt, _point]];
 
+// Cursor enter held on the button it pressed holds that button, as a held bezel button does (fza_mpd_fnc_handleHold)
+private _held = _heli getVariable "fza_mpd_cursorHeld";
+if (!isNil "_held") then {
+    _held params ["_heldSide", "_heldControl", "_heldVab"];
+    if (inputAction "fza_ah64_mpdCursorEnter" > 0 && {_side == _heldSide} && {_hover == _heldVab}) then {
+        [_heli, ["lmpd", "rmpd"] select _heldSide, _heldControl, _deltaTime] call fza_mpd_fnc_handleHold;
+    } else {
+        _heli setVariable ["fza_mpd_cursorHeld", nil];
+        _heli setVariable ["fza_mpd_hold", nil];
+    };
+};
+
 _heli setUserMFDValue [MFD_IND_CURSOR_X, [0, 1 + 2 * _side + _posX] select _live];
 _heli setUserMFDValue [MFD_IND_CURSOR_Y, _posY];
 

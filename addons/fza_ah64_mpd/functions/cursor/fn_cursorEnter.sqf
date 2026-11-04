@@ -45,6 +45,9 @@ private _vab = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPick;
 if (_vab > 0) exitWith {
     private _control = (["l", "r", "t", "b"] select floor ((_vab - 1) / 6)) + str ((_vab - 1) % 6 + 1);
     [_heli, ["lmpd", "rmpd"] select _side, _control] call fza_fnc_coreCockpitInteract;
+    // Held while cursor enter is (fza_mpd_fnc_cursorUpdate)
+    _heli setVariable ["fza_mpd_hold", nil];
+    _heli setVariable ["fza_mpd_cursorHeld", [_side, _control, _vab]];
 };
 
 ((_heli getVariable "fza_mpd_mpdState") # _side) params ["_page", "", "", "", "_state", "_persistState"];
