@@ -6,7 +6,8 @@ Description:
     choose it: with FCR as the crew station's sight, to store it while TGT is
     selected, else as the NTS, owning the FCR. The symbol is drawn over a black
     circle in the cursor's centre (scope.js, rmap.js), and the cursor leaves out
-    its ring (MFD_IND_FCR_CURSOR_TARGET).
+    its ring (MFD_IND_FCR_CURSOR_TARGET). Its entry is kept in the page state as
+    cursorHover, for cursor enter (fza_mpd_fnc_cursorEnter) to act on the same one.
 
 Parameters:
     _heli          - The helicopter
@@ -30,7 +31,7 @@ Author:
 #include "\fza_ah64_mpd\headers\cursor.h"
 params ["_heli", "_mpdIndex", "_state", "_cursorTargets"];
 
-private _hover = -1;
+private _hover = [];
 private _cursor = _heli getVariable ["fza_mpd_cursor", []];
 if (_cursor param [0, -1] == _mpdIndex
     && {_cursor param [6, 0] == 0}
@@ -44,9 +45,10 @@ if (_cursor param [0, -1] == _mpdIndex
         private _distance = [_x # 0, _x # 1] distanceSqr [_posX, _posY];
         if (_distance < _bestDistance) then {
             _bestDistance = _distance;
-            _hover = _x # 4;
+            _hover = _x;
         };
     } forEach _cursorTargets;
 };
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_TARGET), BOOLTONUM(_hover >= 0)];
-_hover
+_state set ["cursorHover", _hover];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_TARGET), BOOLTONUM(_hover isNotEqualTo [])];
+_hover param [4, -1]

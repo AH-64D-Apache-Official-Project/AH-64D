@@ -22,11 +22,9 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ZOOM), _persistState getOrDe
 private _cursorOn = _heli getVariable ["fza_mpd_cursor", []];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_MAP), BOOLTONUM(_cursorOn param [0, -1] == _mpdIndex && {[_heli, _mpdIndex, _cursorOn # 1, _cursorOn # 2] call fza_mpd_fnc_cursorInArea})];
 if (_frozen) then {
-    private _heliPos = getPosASL _heli;
-    private _theta = [_heli, _framePos # 0, _framePos # 1, _heliPos # 0, _heliPos # 1, _frameHeading] call fza_fnc_relativeDirection;
-    private _r = (_framePos distance2D _heliPos) * _tsdScale;
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_X), _ctrX + sin _theta * _r];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_Y), _ctrY - cos _theta * _r];
+    ([_framePos, _frameHeading, _tsdScale, [_ctrX, _ctrY], getPosASL _heli] call fza_mpd_fnc_tsdWorldToScreen) params ["_ownX", "_ownY"];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_X), _ownX];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_Y), _ownY];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_ROT), ((direction _heli - _frameHeading) + 360) mod 360];
 };
 
@@ -214,7 +212,8 @@ private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
     if !_showRLWR exitWith {};
     _x params ["_state", "_object","_iconClass"];
-    private _bearing = _heli getRelDir _object;
+    // Relative to the map's heading, frozen or live
+    private _bearing = (_heli getDir _object) - _frameHeading;
     if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
@@ -238,4 +237,4 @@ private _highlight = [[], _cursor param [8, []]] select (_cursor param [0, -1] =
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_POINT), BOOLTONUM(_highlight isNotEqualTo [])];
 
 // The map's symbols inside its border
-[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, _highlight, [0.095, 0.095, 0.905, 0.905]] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, _highlight, TSD_MAP_CLIP] call fza_mpd_fnc_drawIcons;

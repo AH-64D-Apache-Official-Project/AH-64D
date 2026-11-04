@@ -25,10 +25,10 @@
 #define POINT_COUNT_WP_HZ 50
 #define POINT_COUNT_CM 49
 #define POINT_COUNT_TG_TH 50
-// The target file with its special points after the stored ones: T50 an FCR target chosen by CAQ, T55 and T56 the pilot's and
+// The target file with its special points after the stored ones: T51 an FCR target chosen by CAQ, T55 and T56 the pilot's and
 // CPG's terrain (TRN) points chosen by CAQ
 #define POINT_COUNT_TG_TH_ALL 56
-#define POINT_INDEX_TG_FCR_CAQ 50
+#define POINT_INDEX_TG_FCR_CAQ 51
 #define POINT_INDEX_TG_TRN_PLT 55
 #define POINT_INDEX_TG_TRN_CPG 56
 #define POINT_COUNT_SHOT 128

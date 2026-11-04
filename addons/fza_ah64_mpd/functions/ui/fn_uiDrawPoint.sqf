@@ -38,37 +38,45 @@ private _textHeight = 0.00208 / _iconSize;
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
 private _uiCtr   = _armaPos;
 if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
-    private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _armaPos # 0, _armaPos # 1, _heading] call fza_fnc_relativeDirection;
-    private _r = _heliPos distance2D _armaPos;
-    private _x = _heliCtr # 0 + sin _theta * (_r * _scale);
-    private _y = _heliCtr # 1 - cos _theta * (_r * _scale);
-    _uiCtr = [_x, _y];
+    _uiCtr = [_heliPos, _heading, _scale, _heliCtr, _armaPos] call fza_mpd_fnc_tsdWorldToScreen;
 };
 
-// Off the display, or centred outside the clip (the TSD's map): no controls needed (the display's margin keeps icons that
-// straddle its edge)
-if (_clip isNotEqualTo []) then {
-    _clip params ["_left", "_top", "_right", "_bottom"];
-    if (_uiCtr # 0 < _left || {_uiCtr # 0 > _right} || {_uiCtr # 1 < _top} || {_uiCtr # 1 > _bottom}) then {_uiCtr = [-1, -1]};
-};
+// Off the display: no controls needed (the display's margin keeps icons that straddle its edge)
 if (_uiCtr # 0 < -0.1 || _uiCtr # 0 > 1.1 || _uiCtr # 1 < -0.1 || _uiCtr # 1 > 1.1) exitWith {
     {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
 };
+// Centred outside the clip (the TSD's map): hidden, the controls kept for when it comes back in
+private _clipped = false;
+if (_clip isNotEqualTo []) then {
+    _clip params ["_left", "_top", "_right", "_bottom"];
+    _clipped = _uiCtr # 0 < _left || {_uiCtr # 0 > _right} || {_uiCtr # 1 < _top} || {_uiCtr # 1 > _bottom};
+};
+if (_clipped isNotEqualTo (_ctrlPoint getOrDefault ["hidden", false])) then {
+    {if (typeName _y == "CONTROL") then {_y ctrlShow !_clipped;};} forEach _ctrlPoint;
+    _ctrlPoint set ["hidden", _clipped];
+};
+if (_clipped) exitWith {};
 
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
 // The point the MPD cursor would choose is drawn over the cursor, which the MPD leaves out (pages\cursor_draw.hpp): the
-// cursor's spokes where it is, a black circle under the point, black under its text. Made before the icon and text, so
-// drawn under them; the circle fills 18 of the dot texture's 64 pixels.
+// cursor's spokes where it is, a black circle under the point, black under its text. Only the chosen point has these;
+// made before its icon and text, which are made again after them, so drawn under them. The circle fills 18 of the dot
+// texture's 64 pixels.
 // A DMS point's ID is [type, number]; the TSD's other symbols (FCR targets) have just the number
 private _pointId = _dmsPoint # POINT_GET_ID;
 if (_pointId isEqualType 0) then {_pointId = [_dmsPoint # POINT_GET_TYPE, _pointId]};
 private _chosen = _highlight isNotEqualTo [] && {_pointId isEqualTo _highlight};
-private _cursorCtrl = [_display, _ctrlPoint, "cursor", "RscPicture"] call _getOrCreateCtrl;
-private _backingCtrl = [_display, _ctrlPoint, "backing", "RscPicture"] call _getOrCreateCtrl;
-private _textBacks = ["textA", "textB"] apply {[_display, _ctrlPoint, _x + "Back", "RscText"] call _getOrCreateCtrl};
-{_x ctrlShow _chosen} forEach ([_cursorCtrl, _backingCtrl] + _textBacks);
-if (_chosen) then {
+private _highlightKeys = ["cursor", "backing", "textABack", "textBBack"];
+if (!_chosen) then {
+    {if (_x in _ctrlPoint) then {ctrlDelete (_ctrlPoint deleteAt _x);};} forEach _highlightKeys;
+} else {
+    if (isNull (_ctrlPoint getOrDefault ["cursor", controlNull])) then {
+        {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
+        {_ctrlPoint set [_x, _display ctrlCreate [["RscPicture", "RscText"] select (_forEachIndex > 1), -1]];} forEach _highlightKeys;
+    };
+    private _cursorCtrl = _ctrlPoint get "cursor";
+    private _backingCtrl = _ctrlPoint get "backing";
     (_heli getVariable ["fza_mpd_cursor", []]) params ["", ["_cursorX", _uiCtr # 0], ["_cursorY", _uiCtr # 1]];
     _cursorCtrl ctrlSetPosition [_cursorX - 0.5 * MPD_CURSOR_SPOKES_SIZE, _cursorY - 0.5 * MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE];
     _cursorCtrl ctrlSetText "\fza_ah64_mpd\tex\cursor\spokes_ca.paa";

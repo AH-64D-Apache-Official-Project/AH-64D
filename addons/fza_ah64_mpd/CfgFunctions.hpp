@@ -77,6 +77,8 @@ class CfgFunctions
             class tsdPanHold {RECOMPILE_FLAG;};
             class tsdPanRoute {RECOMPILE_FLAG;};
             class tsdScale {RECOMPILE_FLAG;};
+            class tsdScreenToWorld {RECOMPILE_FLAG;};
+            class tsdWorldToScreen {RECOMPILE_FLAG;};
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
             class tsdScaleDraw {RECOMPILE_FLAG;};

@@ -43,6 +43,10 @@
 // The PAN page
 #define TSD_PAN                 [5, 0]
 
+// The map inside its border, [left, top, right, bottom] in MPD units: symbols and lines are clipped to it and the cursor works
+// on it
+#define TSD_MAP_CLIP            [0.095, 0.095, 0.905, 0.905]
+
 //FCR Page
 #define FCR_GTM                 [5, 0]
 #define FCR_ATM                 [5, 1]

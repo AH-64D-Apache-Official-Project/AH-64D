@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-params ["_heli", "_id", "_ident", "_freeText", "_armaPos", "_altMsl"];
+params ["_heli", "_id", "_ident", "_freeText", "_armaPos", "_altMsl", ["_publish", true]];
 if (_id isEqualTo []) exitWith {false};
 _id params ["_type", "_index"];
 if !([_type, _ident] call fza_dms_fnc_pointIsValidIdent) exitWith {false};
@@ -26,7 +26,9 @@ private _pointData =
     ];
 
 private _db = _heli getVariable _dbName;
+// A file shorter than its points (saved before it grew) padded with empty entries, not left with gaps
+while {count _db < _dbIndex} do {_db pushBack -1};
 _db set [_dbIndex, _pointData];
 
-_heli setVariable [_dbName, _db, true];
+_heli setVariable [_dbName, _db, _publish];
 true;

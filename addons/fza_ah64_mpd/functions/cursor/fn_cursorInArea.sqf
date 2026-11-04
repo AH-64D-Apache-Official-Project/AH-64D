@@ -26,12 +26,14 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_mpd\headers\cursor.h"
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 params ["_heli", "_side", "_posX", "_posY"];
 
 ((_heli getVariable "fza_mpd_mpdState") # _side) params ["_page", "", "", "", "_state"];
 switch (toLower _page) do {
     case "tsd": {
-        _posX > 0.095 && {_posX < 0.905} && {_posY > 0.095} && {_posY < 0.905}
+        TSD_MAP_CLIP params ["_left", "_top", "_right", "_bottom"];
+        _posX > _left && {_posX < _right} && {_posY > _top} && {_posY < _bottom}
     };
     case "fcr": {
         if ((_heli getVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_OFF]) == FCR_DISP_MODE_ATM) exitWith {

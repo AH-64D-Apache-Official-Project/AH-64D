@@ -68,19 +68,11 @@ if (toLower _page in ["fcr", "fcrrmap"]) exitWith {
     };
     // A target symbol (fza_mpd_fnc_fcrGTMDraw, fza_mpd_fnc_fcrATMDraw, fza_mpd_fnc_fcrRMAPDraw): stored while TGT is
     // selected, else the NTS, as the NTS button selects one
-    private _tgt = _state getOrDefault ["tgt", 0] == 1;
-    if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR || {!_tgt && {FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)}}) exitWith {};
-    private _best = [];
-    private _bestDistance = MPD_CURSOR_TARGET_REACH ^ 2;
-    {
-        private _distance = [_x # 0, _x # 1] distanceSqr [_posX, _posY];
-        if (_distance < _bestDistance) then {
-            _bestDistance = _distance;
-            _best = _x;
-        };
-    } forEach (_state getOrDefault ["cursorTargets", []]);
+    // The one the cursor shows it is on, found again now
+    [_heli, _side, _state, _state getOrDefault ["cursorTargets", []]] call fza_mpd_fnc_fcrCursorHover;
+    private _best = _state getOrDefault ["cursorHover", []];
     if (_best isEqualTo []) exitWith {};
-    if (_tgt) exitWith {[_heli, _state, _best # 3] call fza_mpd_fnc_fcrTgtStore};
+    if (_state getOrDefault ["tgt", 0] == 1) exitWith {[_heli, _state, [_best # 3]] call fza_mpd_fnc_fcrTgtStore};
     [_best # 2, _best # 3] call _setNts;
 };
 
@@ -92,12 +84,8 @@ if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {};
 private _mapPos = {
     params ["_px", "_py"];
     private _tsd = _persistState get _page;
-    private _scale = [_tsd] call fza_mpd_fnc_tsdScale;
-    private _dx = _px - 0.5;
-    private _dy = 0.75 - 0.25 * (_tsd get "ctr") - _py;
     ([_heli, _tsd] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading"];
-    private _pos = _framePos getPos [sqrt (_dx ^ 2 + _dy ^ 2) / _scale, _frameHeading + (_dx atan2 _dy)];
-    [_pos # 0, _pos # 1, 0]
+    [_framePos, _frameHeading, [_tsd] call fza_mpd_fnc_tsdScale, [0.5, 0.75 - 0.25 * (_tsd get "ctr")], [_px, _py]] call fza_mpd_fnc_tsdScreenToWorld
 };
 
 private _kuState = _heli getVariable ["fza_ku_state", KU_STATE_OFF];
@@ -117,12 +105,13 @@ if (_subPage == 5) exitWith {
 };
 
 // CAQ, the map staying frozen: as the crew station's acquisition source, the point under the cursor, an FCR target
-// stored as T50, or else the terrain there as the crew station's TRN point, T55 for the pilot and T56 for the CPG, labelled
+// stored as T51, or else the terrain there as the crew station's TRN point, T55 for the pilot and T56 for the CPG, labelled
 // with its crew station
 if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
+    // Chosen while CAQ is still selected, as fza_mpd_fnc_cursorPoint offers points only then
+    private _point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint;
     _state set ["caq", 0];
     private _seat = [_heli] call fza_fnc_getSeat;
-    private _point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint;
     if (_point isEqualTo []) exitWith {
         private _pos = [_posX, _posY] call _mapPos;
         private _id = [POINT_TYPE_TG, [POINT_INDEX_TG_TRN_PLT, POINT_INDEX_TG_TRN_CPG] select (_seat == "cpg")];
@@ -130,11 +119,14 @@ if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
         [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
     };
     if (_point # 0 == POINT_TYPE_FCR) exitWith {
-        (((_state get "cursorFcr") select {(_x # 1) isEqualTo _point}) # 0) params ["_pos", "", "_target"];
-        if (FCR_OWNER(_heli) == _seat) then {[_target, _pos] call _setNts};
-        private _id = [POINT_TYPE_TG, POINT_INDEX_TG_FCR_CAQ];
-        [_heli, _id, "TG", "FCR", [_pos # 0, _pos # 1, 0], getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate;
-        [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
+        private _entry = (_state getOrDefault ["cursorFcr", []]) select {(_x # 1) isEqualTo _point};
+        if (_entry isNotEqualTo []) then {
+            (_entry # 0) params ["_pos", "", "_target"];
+            if (FCR_OWNER(_heli) == _seat) then {[_target, _pos] call _setNts};
+            private _id = [POINT_TYPE_TG, POINT_INDEX_TG_FCR_CAQ];
+            [_heli, _id, "TG", "FCR", [_pos # 0, _pos # 1, 0], getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate;
+            [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
+        };
     };
     [_heli, _point call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
 };

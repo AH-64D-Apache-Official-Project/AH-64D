@@ -58,9 +58,7 @@ private _bestDistance = MPD_CURSOR_POINT_REACH ^ 2;
 {
     _x params ["_armaPos", "_id"];
     if !((_id # 0) in _types) then {continue};
-    private _theta = [_heli, _heliPos # 0, _heliPos # 1, _armaPos # 0, _armaPos # 1, _heading] call fza_fnc_relativeDirection;
-    private _r = (_heliPos distance2D _armaPos) * _scale;
-    private _distance = (0.5 + sin _theta * _r - _posX) ^ 2 + (_ctrY - cos _theta * _r - _posY) ^ 2;
+    private _distance = ([_heliPos, _heading, _scale, [0.5, _ctrY], _armaPos] call fza_mpd_fnc_tsdWorldToScreen) distanceSqr [_posX, _posY];
     if (_distance < _bestDistance) then {
         _bestDistance = _distance;
         _best = _id;
