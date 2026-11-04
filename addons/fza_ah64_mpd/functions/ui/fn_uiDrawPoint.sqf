@@ -80,7 +80,7 @@ if (!_chosen) then {
     (_heli getVariable ["fza_mpd_cursor", []]) params ["", ["_cursorX", _uiCtr # 0], ["_cursorY", _uiCtr # 1]];
     _cursorCtrl ctrlSetPosition [_cursorX - 0.5 * MPD_CURSOR_SPOKES_SIZE, _cursorY - 0.5 * MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE];
     _cursorCtrl ctrlSetText "\fza_ah64_mpd\tex\cursor\spokes_ca.paa";
-    _cursorCtrl ctrlSetTextColor [0.2, 1, 0, 1];
+    _cursorCtrl ctrlSetTextColor MPD_CURSOR_SPOKES_COLOR;
     _cursorCtrl ctrlCommit 0;
     private _backingSize = 2 * MPD_CURSOR_POINT_CIRCLE * 64 / 18;
     _backingCtrl ctrlSetPosition [_uiCtr # 0 - 0.5 * _backingSize, _uiCtr # 1 - 0.5 * _backingSize, _backingSize, _backingSize];

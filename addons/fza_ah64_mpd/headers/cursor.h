@@ -20,8 +20,11 @@
 #define MPD_CURSOR_TARGET_REACH 0.035
 // The radius of the black circle a symbol the cursor would choose is drawn over, just past the cursor's ring
 #define MPD_CURSOR_POINT_CIRCLE 0.022
-// The size of the cursor's spokes as the TSD draws them under a point it would choose (tex\cursor\spokes_ca.paa)
-#define MPD_CURSOR_SPOKES_SIZE 0.1
+// The size of the cursor's spokes as the TSD draws them under a point it would choose (tex\cursor\spokes_ca.paa, 256 px):
+// one texel to a pixel of the 2048 px MPD texture
+#define MPD_CURSOR_SPOKES_SIZE 0.125
+// Their tint, as the native cursor's green looks: the MPD texture shows a colour about squared, the native lines brighter
+#define MPD_CURSOR_SPOKES_COLOR [0.6, 1, 0, 1]
 // FCR display zoom: the zoom box's area shown in a square of this half size about the MPD's centre. The box is sized by
 // the scan size, wide to zoom: about 6:1 in wide, more for the smaller scans.
 #define MPD_CURSOR_ZOOM_VIEW_HALF 0.36
