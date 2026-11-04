@@ -6,10 +6,12 @@
 #undef MPD_BOLD_SCROLL_ARROW
 #undef MPD_BOLD_PAGE_SCROLL
 #undef MPD_BOLD_ROUTE_SCROLL
+#undef MPD_BOLD_HOLLOW_ARROW
 #define MPD_BOLD_TEXT(name, cond, startX, posY, widthVec, config)
 #define MPD_BOLD_ARROW(name, cond, lineX, startY, numChars)
 #define MPD_BOLD_PAGE_SCROLL
 #define MPD_BOLD_ROUTE_SCROLL
+#define MPD_BOLD_HOLLOW_ARROW(name, cond, cx, cy, ax, ay, px, py)
 
 #ifdef MPD_CURSOR_PAGES
 #include "cursor_bold_pages.hpp"

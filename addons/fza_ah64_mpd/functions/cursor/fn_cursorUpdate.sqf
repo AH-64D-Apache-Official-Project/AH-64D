@@ -54,6 +54,12 @@ _cursor params ["_side", "_posX", "_posY", "_usedAt", "_heldFor", "_bumpArmed", 
 
 private _pages = [toLower ([_heli, 0] call fza_mpd_fnc_currentPage), toLower ([_heli, 1] call fza_mpd_fnc_currentPage)];
 private _live = _pages # _side != "off";
+// On an MPD that is off, it goes to the other one if that is on
+if (!_live && {_pages # (1 - _side) != "off"}) then {
+    _side = 1 - _side;
+    _live = true;
+    _pickedAt = -1;
+};
 
 private _inX = inputAction "fza_ah64_mpdCursorRight" - inputAction "fza_ah64_mpdCursorLeft";
 private _inY = inputAction "fza_ah64_mpdCursorDown" - inputAction "fza_ah64_mpdCursorUp";

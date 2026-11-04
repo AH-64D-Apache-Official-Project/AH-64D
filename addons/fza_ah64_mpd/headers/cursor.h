@@ -40,10 +40,12 @@
     - T1-T6: text starting at a button (MPD_CURSOR_COL_EDGE), or centred on one (MPD_CURSOR_COL_TOL), in the top row or
       the line below it
     - B1-B6: the same in the bottom row, or the line above it
-    The copy is drawn while 100 + its VAB is in its MPD's MFD_IND_CURSOR_VAB, by the conditions below (%1 that user value,
-    %2 startX, %3 startY, then 1 or 0 for whether it is at the side edge (%4), on the T row (%5) and on a B row (%6), worked
-    out when the config loads, as the game can't multiply comparisons of two numbers); they start with startX, startY and
-    the alignment (0 right, 1 centre, 2 left), for fza_mpd_fnc_cursorLabels. Their numbers are the ones here. */
+    The VAB is worked out when the config loads (MPD_CURSOR_VAB_SIDE, MPD_CURSOR_VAB_TB, numbers only, as __EVAL can't hold
+    braces or semicolons), and the copy is drawn while 100 + it is in its MPD's MFD_IND_CURSOR_VAB, by MPD_CURSOR_BOLD_COND
+    (%1 that user value, %2 startX, %3 startY, %4 the alignment, 0 right, 1 centre, 2 left, %5 the VAB, 0 for none). It
+    starts with those four, for fza_mpd_fnc_cursorLabels. */
+// How near a button's place on the edge the cursor chooses it when no label is there (fza_mpd_fnc_cursorPick)
+#define MPD_CURSOR_BUTTON_REACH 0.04
 #define MPD_CURSOR_L_MAX_X     0.064
 #define MPD_CURSOR_R_MIN_X     0.936
 #define MPD_CURSOR_ROWS_TOP    0.08
@@ -59,8 +61,22 @@
 #define MPD_CURSOR_COL_TOL     0.045
 #define MPD_CURSOR_COL_EDGE    0.005
 
-#define MPD_CURSOR_BOLD_R "(0*(%2)*(%3)*0)+((%4)*((%1)>100.5)*((%1)<106.5)*((%3)>(0.1425+0.115*((%1)-101)-0.0625*((%1)<101.5)))*((%3)<(0.2575+0.115*((%1)-101)+0.0275*((%1)>105.5))))+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
-#define MPD_CURSOR_BOLD_C "(0*(%2)*(%3)*1)+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.165+0.12*((%1)-113)))*((%2)<(0.255+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.165+0.12*((%1)-119)))*((%2)<(0.255+0.12*((%1)-119))))"
-#define MPD_CURSOR_BOLD_L "(0*(%2)*(%3)*2)+((%4)*((%1)>106.5)*((%1)<112.5)*((%3)>(0.1425+0.115*((%1)-107)-0.0625*((%1)<107.5)))*((%3)<(0.2575+0.115*((%1)-107)+0.0275*((%1)>111.5))))+((%5)*((%1)>112.5)*((%1)<118.5)*((%2)>(0.205+0.12*((%1)-113)))*((%2)<(0.215+0.12*((%1)-113))))+((%6)*((%1)>118.5)*((%1)<124.5)*((%2)>(0.205+0.12*((%1)-119)))*((%2)<(0.215+0.12*((%1)-119))))"
+#define MPD_CURSOR_BOLD_COND "(0*(%2)*(%3)*(%4)*(%5))+(((%1)>(99.5+%5))*((%1)<(100.5+%5)))"
+
+// When the config loads: 1 or 0 for a comparison
+#define MPD_CURSOR_B(cmp) ([0, 1] select (cmp))
+// The row of L1-L6 or R1-R6 a label's top is in: how many of the splits between them are above it, one it is on not
+// counted whatever the float rounding
+#define MPD_CURSOR_ROW(y) ((ceil (((y) - MPD_CURSOR_ROW_SPLIT) / MPD_CURSOR_ROW_PITCH - 0.0001) max 0) min 5)
+#define MPD_CURSOR_IN_ROWS(y) (MPD_CURSOR_B((y) > MPD_CURSOR_ROWS_TOP) * MPD_CURSOR_B((y) < MPD_CURSOR_ROWS_BOTTOM))
+// The column of T1-T6 or B1-B6 nearest a label, and 1 if it is within tol of it
+#define MPD_CURSOR_COL(x) ((round (((x) - MPD_POS_BUTTON_TB_1_X) / MPD_CURSOR_COL_PITCH) max 0) min 5)
+#define MPD_CURSOR_ON_COL(x, tol) MPD_CURSOR_B(abs ((x) - MPD_POS_BUTTON_TB_1_X - MPD_CURSOR_COL_PITCH * MPD_CURSOR_COL(x)) < (tol))
+#define MPD_CURSOR_ON_T(y) MPD_CURSOR_B((y) < MPD_CURSOR_T_MAX_Y)
+#define MPD_CURSOR_ON_B(y) (MPD_CURSOR_B((y) > MPD_CURSOR_B_MIN_Y) * MPD_CURSOR_B((y) < MPD_CURSOR_B_MAX_Y) + MPD_CURSOR_B((y) > MPD_CURSOR_B2_MIN_Y) * MPD_CURSOR_B((y) < MPD_CURSOR_B2_MAX_Y))
+// The VAB of a label on the T or B row, 0 for none
+#define MPD_CURSOR_VAB_TB(x, y, tol) (MPD_CURSOR_ON_COL(x, tol) * (13 * MPD_CURSOR_ON_T(y) + 19 * MPD_CURSOR_ON_B(y) + (MPD_CURSOR_ON_T(y) + MPD_CURSOR_ON_B(y)) * MPD_CURSOR_COL(x)))
+// The VAB of a label that is L1-L6 (first 1) or R1-R6 (first 7) if at that side's edge (edge 1) in the rows, else on T or B
+#define MPD_CURSOR_VAB_SIDE(x, y, edge, first) ([MPD_CURSOR_VAB_TB(x, y, MPD_CURSOR_COL_EDGE), (first) + MPD_CURSOR_ROW(y)] select (((edge) * MPD_CURSOR_IN_ROWS(y)) > 0.5))
 
 #endif

@@ -6,9 +6,9 @@ Description:
     MPD cursor, and keeps them for the mission (fza_mpd_cursorLabels) by
     helicopter type. A label is anything with a bold copy (headers\cursor.h):
     its text and arrows, and the symbols some pages give a button. The copy's
-    condition starts with the label's place and alignment, which give its VAB
-    by the rules there, and its own text or line is where the cursor chooses
-    it. Per MPD, a hash map of VAB number (1-6 L1-L6, 7-12 R1-R6, 13-18 T1-T6,
+    condition starts with the label's place, alignment and VAB, worked out by
+    the rules there when the config loads, and its own text or line is where
+    the cursor chooses it. Per MPD, a hash map of VAB number (1-6 L1-L6, 7-12 R1-R6, 13-18 T1-T6,
     19-24 B1-B6) to its parts, each with the code that tells from the MFD user
     values whether it is drawn (fza_mpd_fnc_cursorCompile) and either its text
     (place, alignment, size, and a string, a user text index, or -1 for a
@@ -33,24 +33,8 @@ Author:
 #include "\fza_ah64_mpd\headers\cursor.h"
 params ["_heli"];
 
-private _splits = [0, 1, 2, 3, 4] apply {MPD_CURSOR_ROW_SPLIT + _x * MPD_CURSOR_ROW_PITCH};
 private _expressions = createHashMap;
 private _chains = createHashMap;
-
-// The VAB of a label at startX, startY (the top of its text) with an alignment (0 right, 1 centre, 2 left)
-private _vabOf = {
-    params ["_startX", "_startY", "_align"];
-    private _inRows = _startY > MPD_CURSOR_ROWS_TOP && {_startY < MPD_CURSOR_ROWS_BOTTOM};
-    private _row = {_startY > _x} count _splits;
-    if (_inRows && {_align == 0} && {_startX < MPD_CURSOR_L_MAX_X}) exitWith {1 + _row};
-    if (_inRows && {_align == 2} && {_startX > MPD_CURSOR_R_MIN_X}) exitWith {7 + _row};
-    private _tolerance = [MPD_CURSOR_COL_EDGE, MPD_CURSOR_COL_TOL] select (_align == 1);
-    private _col = [0, 1, 2, 3, 4, 5] findIf {abs (_startX - (MPD_POS_BUTTON_TB_1_X + _x * MPD_CURSOR_COL_PITCH)) < _tolerance};
-    if (_col < 0) exitWith {0};
-    if (_startY < MPD_CURSOR_T_MAX_Y) exitWith {13 + _col};
-    if ((_startY > MPD_CURSOR_B_MIN_Y && {_startY < MPD_CURSOR_B_MAX_Y}) || {_startY > MPD_CURSOR_B2_MIN_Y && {_startY < MPD_CURSOR_B2_MAX_Y}}) exitWith {19 + _col};
-    0
-};
 
 // A point at a fixed place, {x, y} or {"Null", {x, y}, 1}, whose numbers can be expressions; [] if a bone moves it
 private _point = {
@@ -134,9 +118,8 @@ private _addPart = {
 private _walk = {
     params ["_cfg", "_chain"];
     if ((configName _cfg) select [0, 8] == "Mpd_Bold") exitWith {
-        // Its label's place and alignment start its condition: (0*(startX)*(startY)*(alignment))+...
-        private _params = (getText (_cfg >> "condition")) splitString "()*+";
-        private _vab = [parseNumber (_params param [1, ""]), parseNumber (_params param [2, ""]), parseNumber (_params param [3, ""])] call _vabOf;
+        // Its label's place, alignment and VAB start its condition: (0*(startX)*(startY)*(alignment)*(VAB))+...
+        private _vab = parseNumber (((getText (_cfg >> "condition")) splitString "()*+") param [4, ""]);
         if (_vab == 0) exitWith {};
         {
             [_x, _chain, _vab] call _addPart;

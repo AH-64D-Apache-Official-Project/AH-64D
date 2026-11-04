@@ -43,7 +43,8 @@ private _period = switch (_control) do {
     default {-1};
 };
 if (_period < 0) exitWith {};
-_hold set [2, (_hold # 2) + _frameTime];
+// No more than two steps owed, so a long frame doesn't run a burst of them
+_hold set [2, ((_hold # 2) + _frameTime) min (2 * _period)];
 while {(_hold # 2) >= _period} do {
     _hold set [2, (_hold # 2) - _period];
     [_heli, _mpdIndex, _control, _state, _persistState] call fza_mpd_fnc_tsdPanHandleControl;

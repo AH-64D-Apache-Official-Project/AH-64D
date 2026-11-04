@@ -477,11 +477,20 @@ Parameters:
 };
 
 // The condition of a bold copy of a label at startX, startY, by its alignment (headers\cursor.h)
-#define MPD_BOLD_ON_T(startY) ([0, 1] select ((startY) < 0.0675))
-#define MPD_BOLD_ON_B(startY) ([0, 1] select ((((startY) > 0.936) && ((startY) < 0.944)) || (((startY) > 0.8925) && ((startY) < 0.9065))))
-#define MPD_BOLD_COND_R(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_R, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, [0, 1] select ((startX) < 0.064), MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
-#define MPD_BOLD_COND_C(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_C, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, 0, MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
-#define MPD_BOLD_COND_L(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_L, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, [0, 1] select ((startX) > 0.936), MPD_BOLD_ON_T(startY), MPD_BOLD_ON_B(startY)])
+#define MPD_BOLD_COND_R(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_COND, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, 0, MPD_CURSOR_VAB_SIDE(startX, startY, MPD_CURSOR_B((startX) < MPD_CURSOR_L_MAX_X), 1)])
+#define MPD_BOLD_COND_C(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_COND, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, 1, MPD_CURSOR_VAB_TB(startX, startY, MPD_CURSOR_COL_TOL)])
+#define MPD_BOLD_COND_L(startX, startY) __EVAL(format [MPD_CURSOR_BOLD_COND, format ["user%1", MFD_OFFSET + MFD_IND_CURSOR_VAB], startX, startY, 2, MPD_CURSOR_VAB_SIDE(startX, startY, MPD_CURSOR_B((startX) > MPD_CURSOR_R_MIN_X), 7)])
+
+// A hollow arrow, centred on cx, cy, pointing along (ax, ay); (px, py) across it
+#define MPD_HOLLOW_ARROW(cx, cy, ax, ay, px, py) \
+    {{(cx) + 0.022 * (ax), (cy) + 0.022 * (ay)}, 1}, \
+    {{(cx) + 0.010 * (ax) - 0.013 * (px), (cy) + 0.010 * (ay) - 0.013 * (py)}, 1}, \
+    {{(cx) + 0.010 * (ax) - 0.006 * (px), (cy) + 0.010 * (ay) - 0.006 * (py)}, 1}, \
+    {{(cx) - 0.022 * (ax) - 0.006 * (px), (cy) - 0.022 * (ay) - 0.006 * (py)}, 1}, \
+    {{(cx) - 0.022 * (ax) + 0.006 * (px), (cy) - 0.022 * (ay) + 0.006 * (py)}, 1}, \
+    {{(cx) + 0.010 * (ax) + 0.006 * (px), (cy) + 0.010 * (ay) + 0.006 * (py)}, 1}, \
+    {{(cx) + 0.010 * (ax) + 0.013 * (px), (cy) + 0.010 * (ay) + 0.013 * (py)}, 1}, \
+    {{(cx) + 0.022 * (ax), (cy) + 0.022 * (ay)}, 1}
 
 // A black box behind numChars of MPD_TEXT_R text, so lines under the text don't show through it. Inside one of mpd.hpp's
 // Draw classes polygons draw before lines and text after both, so it only hides lines from an earlier one (the TSD frame).

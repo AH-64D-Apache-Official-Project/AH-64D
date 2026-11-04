@@ -47,6 +47,10 @@
 // on it
 #define TSD_MAP_CLIP            [0.095, 0.095, 0.905, 0.905]
 
+// ZOOM: the map 20 percent larger about the ownship, and a place y down a TSD drawn as if centred (CTR), zoomed
+#define TSD_ZOOM_FACTOR         1.2
+#define TSD_ZOOMED(posY)        (0.5 + TSD_ZOOM_FACTOR * ((posY) - 0.5))
+
 //FCR Page
 #define FCR_GTM                 [5, 0]
 #define FCR_ATM                 [5, 1]

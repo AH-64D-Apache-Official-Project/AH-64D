@@ -41,6 +41,11 @@ if (_control == "t3" && {_subPage in [0, 2, 3, 4]}) exitWith {
     _state set ["subPageVarPage", TSD_PAN];
 };
 
+// CAQ ends when the top level is left, for a subpage or another page
+if (_subPage == 0 && {_control in ["l6", "b1", "b4", "b5", "b6", "t2", "t5"]}) then {
+    _state set ["caq", 0];
+};
+
 switch (_control) do {
     case "t2": {
         // LAST PAN on the PAN page

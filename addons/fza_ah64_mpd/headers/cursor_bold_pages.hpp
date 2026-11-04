@@ -5,6 +5,7 @@
 #undef MPD_BOLD_ARROW
 #undef MPD_BOLD_PAGE_SCROLL
 #undef MPD_BOLD_ROUTE_SCROLL
+#undef MPD_BOLD_HOLLOW_ARROW
 #define MPD_BOLD_TEXT(name, cond, startX, posY, widthVec, config) class Mpd_Bold_##name { \
     condition = cond; \
     class Text { \
@@ -45,6 +46,15 @@
             {{(tipX) + 0.024 * (ax) + 0.017 * (px), (tipY) + 0.024 * (ay) + 0.017 * (py)}, 1}, \
             {{tipX, tipY}, 1} \
         }; \
+    }; \
+};
+// A hollow arrow (MPD_HOLLOW_ARROW), as the TSD PAN page's
+#define MPD_BOLD_HOLLOW_ARROW(name, cond, cx, cy, ax, ay, px, py) class Mpd_Bold_##name { \
+    condition = cond; \
+    class Line { \
+        type = "line"; \
+        width = MPD_CURSOR_BOLD_WIDTH; \
+        points[] = {MPD_HOLLOW_ARROW(cx, cy, ax, ay, px, py)}; \
     }; \
 };
 #define MPD_BOLD_PAGE_SCROLL \

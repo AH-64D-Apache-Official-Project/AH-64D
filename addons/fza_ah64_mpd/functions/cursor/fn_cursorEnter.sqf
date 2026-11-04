@@ -72,7 +72,7 @@ if (toLower _page in ["fcr", "fcrrmap"]) exitWith {
     [_heli, _side, _state, _state getOrDefault ["cursorTargets", []]] call fza_mpd_fnc_fcrCursorHover;
     private _best = _state getOrDefault ["cursorHover", []];
     if (_best isEqualTo []) exitWith {};
-    if (_state getOrDefault ["tgt", 0] == 1) exitWith {[_heli, _state, [_best # 3]] call fza_mpd_fnc_fcrTgtStore};
+    if (_state getOrDefault ["tgt", 0] == 1) exitWith {[_heli, _state, [[_best # 3, _best # 2]]] call fza_mpd_fnc_fcrTgtStore};
     [_best # 2, _best # 3] call _setNts;
 };
 

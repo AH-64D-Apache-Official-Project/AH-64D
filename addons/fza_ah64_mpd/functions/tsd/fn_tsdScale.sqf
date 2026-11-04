@@ -19,6 +19,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 params ["_tsd"];
 
-0.125 * 5 / (_tsd get "tsdScale") * ([1, 1.2] select (_tsd getOrDefault ["zoom", 0] == 1))
+0.125 * 5 / (_tsd get "tsdScale") * ([1, TSD_ZOOM_FACTOR] select (_tsd getOrDefault ["zoom", 0] == 1))

@@ -2,17 +2,6 @@
 // (fza_mpd_fnc_tsdPanHandleControl, fza_mpd_fnc_tsdPanDraw)
 #include "..\tsd\common.hpp"
 
-// A hollow arrow, centred on cx, cy, pointing along (ax, ay); (px, py) across it
-#define TSD_PAN_ARROW(cx, cy, ax, ay, px, py) \
-    {{(cx) + 0.022 * (ax), (cy) + 0.022 * (ay)}, 1}, \
-    {{(cx) + 0.010 * (ax) - 0.013 * (px), (cy) + 0.010 * (ay) - 0.013 * (py)}, 1}, \
-    {{(cx) + 0.010 * (ax) - 0.006 * (px), (cy) + 0.010 * (ay) - 0.006 * (py)}, 1}, \
-    {{(cx) - 0.022 * (ax) - 0.006 * (px), (cy) - 0.022 * (ay) - 0.006 * (py)}, 1}, \
-    {{(cx) - 0.022 * (ax) + 0.006 * (px), (cy) - 0.022 * (ay) + 0.006 * (py)}, 1}, \
-    {{(cx) + 0.010 * (ax) + 0.006 * (px), (cy) + 0.010 * (ay) + 0.006 * (py)}, 1}, \
-    {{(cx) + 0.010 * (ax) + 0.013 * (px), (cy) + 0.010 * (ay) + 0.013 * (py)}, 1}, \
-    {{(cx) + 0.022 * (ax), (cy) + 0.022 * (ay)}, 1}
-
 class vabs {
     //T1
     MPD_TEXT_C(RPT, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("RPT"))
@@ -38,7 +27,7 @@ class vabs {
     MPD_TEXT_R(NextWpt,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_USER(MFD_TEXT_IND_TSD_PAN_NEXT_WPT))
     //L3, L4, with RTE between
     MPD_TEXT_BACKING_R(Rte, MPD_POS_BUTTON_L_X, (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2, 3)
-    MPD_TEXT_R(Rte,         MPD_POS_BUTTON_L_X, (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2, MPD_TEXT_STATIC("RTE"))
+    MPD_TEXT_PLAIN_R(Rte,   MPD_POS_BUTTON_L_X, (MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2, MPD_TEXT_STATIC("RTE"))
     //L5
     MPD_TEXT_BACKING_R(LastWpt, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
     MPD_TEXT_R(LastWpt,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_USER(MFD_TEXT_IND_TSD_PAN_LAST_WPT))
@@ -48,12 +37,16 @@ class vabs {
         type = "line";
         width = 3;
         points[] = {
-            TSD_PAN_ARROW(MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y + 0.022, -1, 0, 0, 1), {},
-            TSD_PAN_ARROW(MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y + 0.022, 1, 0, 0, 1), {},
-            TSD_PAN_ARROW(MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_3_Y + 0.022, 0, -1, 1, 0), {},
-            TSD_PAN_ARROW(MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_4_Y + 0.022, 0, 1, 1, 0)
+            MPD_HOLLOW_ARROW(MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y + 0.022, -1, 0, 0, 1), {},
+            MPD_HOLLOW_ARROW(MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y + 0.022, 1, 0, 0, 1), {},
+            MPD_HOLLOW_ARROW(MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_3_Y + 0.022, 0, -1, 1, 0), {},
+            MPD_HOLLOW_ARROW(MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_4_Y + 0.022, 0, 1, 1, 0)
         };
     };
+    MPD_BOLD_HOLLOW_ARROW(HdgLeft,  MPD_BOLD_COND_C(MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y), MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y + 0.022, -1, 0, 0, 1)
+    MPD_BOLD_HOLLOW_ARROW(HdgRight, MPD_BOLD_COND_C(MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y), MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y + 0.022, 1, 0, 0, 1)
+    MPD_BOLD_HOLLOW_ARROW(RteFwd,   MPD_BOLD_COND_R(MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y), MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_3_Y + 0.022, 0, -1, 1, 0)
+    MPD_BOLD_HOLLOW_ARROW(RteBack,  MPD_BOLD_COND_R(MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y), MPD_POS_BUTTON_L_X + 0.015, MPD_POS_BUTTON_LR_4_Y + 0.022, 0, 1, 1, 0)
 
     //R1-R5: ZOOM, SC, CTR, FRZ
     #include "components\vabs_right.hpp"
@@ -61,4 +54,3 @@ class vabs {
     #include "components\vabs_bottom.hpp"
 };
 
-#undef TSD_PAN_ARROW

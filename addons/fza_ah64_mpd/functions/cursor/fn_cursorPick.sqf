@@ -78,4 +78,17 @@ private _bestDistance = 1e9;
     } forEach (_labels getOrDefault [_vab, []]);
 } forEach _vabs;
 
+// No label there: the button itself, at its place on the edge, for a button with nothing drawn by it (the COORD page's
+// rows)
+if (_best == 0) then {
+    if (_posX < MPD_CURSOR_L_MAX_X || {_posX > MPD_CURSOR_R_MIN_X}) then {
+        private _row = [MPD_POS_BUTTON_LR_1_Y, MPD_POS_BUTTON_LR_2_Y, MPD_POS_BUTTON_LR_3_Y, MPD_POS_BUTTON_LR_4_Y, MPD_POS_BUTTON_LR_5_Y, MPD_POS_BUTTON_LR_6_Y] findIf {abs (_posY - _x) < MPD_CURSOR_BUTTON_REACH};
+        if (_row >= 0) then {_best = ([1, 7] select (_posX > 0.5)) + _row};
+    };
+    if (_posY < MPD_CURSOR_T_MAX_Y || {_posY > MPD_CURSOR_B_MIN_Y}) then {
+        private _col = [MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_TB_6_X] findIf {abs (_posX - _x) < MPD_CURSOR_BUTTON_REACH};
+        if (_col >= 0) then {_best = ([13, 19] select (_posY > 0.5)) + _col};
+    };
+};
+
 _best

@@ -38,11 +38,12 @@ if (_control == "l4") exitWith {
     if (_tgt == 0 && {!_fcrSight || {(_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) isEqualTo []}}) exitWith {true};
     _state set ["tgt", 1 - _tgt];
     _state set ["tgtStored", []];
-    _state set ["tgtStoredPos", []];
+    _state set ["tgtStoredTargets", []];
     true
 };
 if (!_fcrSight) exitWith {true};
 
-// ALL: the targets displayed, top priority first
-[_heli, _state, ((_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]) apply {_x # 0}] call fza_mpd_fnc_fcrTgtStore;
+// ALL: the target symbols the format draws (fza_mpd_fnc_fcrGTMDraw, fza_mpd_fnc_fcrATMDraw, fza_mpd_fnc_fcrRMAPDraw), top
+// priority first
+[_heli, _state, (_state getOrDefault ["cursorTargets", []]) apply {[_x # 3, _x # 2]}] call fza_mpd_fnc_fcrTgtStore;
 true

@@ -31,6 +31,7 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\cursor.h"
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 params ["_heli", "_side", "_posX", "_posY"];
 
 ((_heli getVariable "fza_mpd_mpdState") # _side) params ["_page", "", "", "", "_state", "_persistState"];
@@ -55,10 +56,15 @@ private _ctrY = 0.75 - 0.25 * (_tsd get "ctr");
 
 private _best = [];
 private _bestDistance = MPD_CURSOR_POINT_REACH ^ 2;
+TSD_MAP_CLIP params ["_left", "_top", "_right", "_bottom"];
 {
     _x params ["_armaPos", "_id"];
     if !((_id # 0) in _types) then {continue};
-    private _distance = ([_heliPos, _heading, _scale, [0.5, _ctrY], _armaPos] call fza_mpd_fnc_tsdWorldToScreen) distanceSqr [_posX, _posY];
+    private _screen = [_heliPos, _heading, _scale, [0.5, _ctrY], _armaPos] call fza_mpd_fnc_tsdWorldToScreen;
+    // Not one outside the map border, which the TSD hides (fza_mpd_fnc_uiDrawPoint)
+    _screen params ["_sx", "_sy"];
+    if (_sx < _left || {_sx > _right} || {_sy < _top} || {_sy > _bottom}) then {continue};
+    private _distance = _screen distanceSqr [_posX, _posY];
     if (_distance < _bestDistance) then {
         _bestDistance = _distance;
         _best = _id;
