@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex"];
+params ["_heli", "_mpdIndex", "_state"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "", ["_noseDir", -1]];
@@ -73,9 +73,18 @@ if (!isNull _ctrl) then {
     // Shot-at markers get the same frame from the scan-time nose heading.
     ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _systemWas,
         _atmHalfFov, 8000, _dir, 1, true, 0, _noseDir
-    ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
+    ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson", "_symbols"];
 
-    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson]] call fza_mpd_fnc_htmlPush;
+    // Where scope.js draws each symbol, for the MPD cursor (fza_mpd_fnc_cursorEnter)
+    private _cursorTargets = [];
+    {
+        _x params ["_a", "_r", "_target", "_pos"];
+        _cursorTargets pushBack [0.5 + sin _a * _r * 0.325, 0.5 - cos _a * _r * 0.325, _target, _pos, _forEachIndex];
+    } forEach _symbols;
+    _state set ["cursorTargets", _cursorTargets];
+    private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
+
+    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"zoom":null,"hover":%3,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson, _hover]] call fza_mpd_fnc_htmlPush;
 };
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];

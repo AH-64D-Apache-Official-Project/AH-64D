@@ -21,7 +21,7 @@ if (_type == POINT_TYPE_CM) exitWith {
 if (_type == POINT_TYPE_TG) exitWith {
     private _arrIndex = _index - 1;
 
-    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_TG_TH) exitWith {-1};
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_TG_TH_ALL) exitWith {-1};
     ["fza_dms_targetsThreats", _arrIndex];
 };
 

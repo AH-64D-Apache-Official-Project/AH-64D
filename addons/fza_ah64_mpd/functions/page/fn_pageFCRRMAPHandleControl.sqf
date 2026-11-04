@@ -1,8 +1,9 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex", "_control"];
+params ["_heli", "_mpdIndex", "_control", "_state"];
 
 if ([_heli, _mpdIndex, _control] call fza_mpd_fnc_acqHandleControl) exitWith {};
+if ([_heli, _mpdIndex, _control, _state] call fza_mpd_fnc_fcrTgtHandleControl) exitWith {};
 
 switch _control do {
     case "b1": {
@@ -19,13 +20,6 @@ switch _control do {
     };
     case "l2": {
         [_heli, -1] call fza_fcr_fnc_slewCenterline;
-    };
-    case "l4": {
-        // TGT: the NTS stored as a target, with FCR as this crew station's sight
-        if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR) exitWith {};
-        private _ntsPos = [_heli, "FCR"] call fza_fnc_targetingAcqPoint;
-        if (_ntsPos isEqualTo []) exitWith {};
-        [_heli, _ntsPos] call fza_fnc_targetingStore;
     };
     case "r1": {
         // ZOOM — 6:1 display zoom, not implemented; scan size is the grip switch

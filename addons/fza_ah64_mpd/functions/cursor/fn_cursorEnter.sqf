@@ -3,9 +3,14 @@ Function: fza_mpd_fnc_cursorEnter
 
 Description:
     Cursor enter: presses the VAB whose label the crew station's MPD cursor is
-    on (fza_mpd_fnc_cursorPick). Else, on the TSD: gives a KU GRID prompt the
-    cursor's map position, adds a point there on WPT or THRT ADD, or chooses
-    the point it is on (fza_mpd_fnc_cursorPoint).
+    on (fza_mpd_fnc_cursorPick). Else:
+    - FCR formats: zooms on the area while ZOOM is choosing one, or, with FCR
+      as the crew station's sight, stores the target symbol it is on while TGT
+      is selected, else makes it the NTS.
+    - TSD: gives a KU GRID prompt the cursor's map position, pans the map
+      there on the PAN page, makes the point or FCR target it is on the
+      acquisition source while CAQ is choosing, adds a point there on WPT or
+      THRT ADD, or chooses the point it is on (fza_mpd_fnc_cursorPoint).
 
 Parameters:
     _heli - The helicopter
@@ -22,6 +27,9 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ku\headers\constants.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
+#include "\fza_ah64_mpd\headers\cursor.h"
 params ["_heli"];
 
 if !(player in [driver _heli, gunner _heli]) exitWith {};
@@ -40,24 +48,95 @@ if (_vab > 0) exitWith {
 };
 
 ((_heli getVariable "fza_mpd_mpdState") # _side) params ["_page", "", "", "", "_state", "_persistState"];
+
+// A target as the FCR's NTS, with its record in the target file (fza_fcr_fnc_cycleNTS)
+private _setNts = {
+    params ["_target", "_pos"];
+    private _file = _heli getVariable ["fza_ah64_fcrTargets", []];
+    private _rec  = _file param [_file findIf {(_x # 3) isEqualTo _target}, []];
+    [_heli, "fza_ah64_fcrNts", [_target, _pos, _rec]] call fza_fnc_updateNetworkGlobal;
+};
+
+if (toLower _page in ["fcr", "fcrrmap"]) exitWith {
+    if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {};
+    // ZOOM: the zoom box's area, sized by the scan size, shown in the zoomed square
+    if (_state getOrDefault ["zoom", 0] == 1) exitWith {
+        private _half = [MPD_CURSOR_ZOOM_HALF_W, MPD_CURSOR_ZOOM_HALF_M, MPD_CURSOR_ZOOM_HALF_N, MPD_CURSOR_ZOOM_HALF_Z] param [_heli getVariable ["fza_ah64_fcrScanSize", 0], MPD_CURSOR_ZOOM_HALF_W];
+        _state set ["zoomCtr", [_posX, _posY]];
+        _state set ["zoomRatio", MPD_CURSOR_ZOOM_VIEW_HALF / _half];
+        _state set ["zoom", 2];
+    };
+    // A target symbol (fza_mpd_fnc_fcrGTMDraw, fza_mpd_fnc_fcrATMDraw, fza_mpd_fnc_fcrRMAPDraw): stored while TGT is
+    // selected, else the NTS, as the NTS button selects one
+    private _tgt = _state getOrDefault ["tgt", 0] == 1;
+    if (([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) != SIGHT_FCR || {!_tgt && {FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)}}) exitWith {};
+    private _best = [];
+    private _bestDistance = MPD_CURSOR_TARGET_REACH ^ 2;
+    {
+        private _distance = [_x # 0, _x # 1] distanceSqr [_posX, _posY];
+        if (_distance < _bestDistance) then {
+            _bestDistance = _distance;
+            _best = _x;
+        };
+    } forEach (_state getOrDefault ["cursorTargets", []]);
+    if (_best isEqualTo []) exitWith {};
+    if (_tgt) exitWith {[_heli, _state, _best # 3] call fza_mpd_fnc_fcrTgtStore};
+    [_best # 2, _best # 3] call _setNts;
+};
+
 if (toLower _page != "tsd") exitWith {};
+if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {};
 (_state get "subPageVarPage") params ["_subPage", "_variant"];
 
-// The map position under the cursor, the inverse of where fza_mpd_fnc_uiDrawPoint draws a point
+// The map position under an MPD position, the inverse of where fza_mpd_fnc_uiDrawPoint draws a point
 private _mapPos = {
+    params ["_px", "_py"];
     private _tsd = _persistState get _page;
-    private _scale = 0.125 * 5 / (_tsd get "tsdScale");
-    private _dx = _posX - 0.5;
-    private _dy = 0.75 - 0.25 * (_tsd get "ctr") - _posY;
-    private _pos = _heli getPos [sqrt (_dx ^ 2 + _dy ^ 2) / _scale, direction _heli + (_dx atan2 _dy)];
+    private _scale = [_tsd] call fza_mpd_fnc_tsdScale;
+    private _dx = _px - 0.5;
+    private _dy = 0.75 - 0.25 * (_tsd get "ctr") - _py;
+    ([_heli, _tsd] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading"];
+    private _pos = _framePos getPos [sqrt (_dx ^ 2 + _dy ^ 2) / _scale, _frameHeading + (_dx atan2 _dy)];
     [_pos # 0, _pos # 1, 0]
 };
 
 private _kuState = _heli getVariable ["fza_ku_state", KU_STATE_OFF];
 if (_kuState != KU_STATE_OFF && {_heli getVariable ["fza_ku_prompt", ""] == "GRID"}) exitWith {
     _heli setVariable ["fza_ku_state", KU_STATE_INPUT];
-    _heli setVariable ["fza_ku_input", [call _mapPos] call fza_dms_fnc_posToGrid];
+    _heli setVariable ["fza_ku_input", [[_posX, _posY] call _mapPos] call fza_dms_fnc_posToGrid];
     [_heli] call fza_ku_fnc_updateScreen;
+};
+
+// PAN: the frozen map moved so the place under the cursor is at its centre, at the same heading
+if (_subPage == 5) exitWith {
+    private _tsd = _persistState get _page;
+    private _frame = [[_posX, _posY + 0.25 - 0.25 * (_tsd get "ctr")] call _mapPos, ([_heli, _tsd] call fza_mpd_fnc_tsdFrame) # 1];
+    _tsd set ["frozen", _frame];
+    _tsd set ["lastPan", +_frame];
+    _tsd set ["panRte", -1];
+};
+
+// CAQ, the map staying frozen: as the crew station's acquisition source, the point under the cursor, an FCR target
+// stored as T50, or else the terrain there as the crew station's TRN point, T55 for the pilot and T56 for the CPG, labelled
+// with its crew station
+if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
+    _state set ["caq", 0];
+    private _seat = [_heli] call fza_fnc_getSeat;
+    private _point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint;
+    if (_point isEqualTo []) exitWith {
+        private _pos = [_posX, _posY] call _mapPos;
+        private _id = [POINT_TYPE_TG, [POINT_INDEX_TG_TRN_PLT, POINT_INDEX_TG_TRN_CPG] select (_seat == "cpg")];
+        [_heli, _id, "TRN", toUpper _seat, _pos, getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate;
+        [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
+    };
+    if (_point # 0 == POINT_TYPE_FCR) exitWith {
+        (((_state get "cursorFcr") select {(_x # 1) isEqualTo _point}) # 0) params ["_pos", "", "_target"];
+        if (FCR_OWNER(_heli) == _seat) then {[_target, _pos] call _setNts};
+        private _id = [POINT_TYPE_TG, POINT_INDEX_TG_FCR_CAQ];
+        [_heli, _id, "TG", "FCR", [_pos # 0, _pos # 1, 0], getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate;
+        [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
+    };
+    [_heli, _point call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
 };
 
 // WPT or THRT ADD: a point of the chosen type, at the cursor, at ground level
@@ -66,7 +145,7 @@ if (_subPage in [2, 4] && {_variant == 1}) exitWith {
     private _type = _state get "addType";
     private _id = [_heli, _type] call fza_dms_fnc_pointNextFree;
     private _ident = ["WP", "TU", "CP", "", "TG"] select _type;
-    private _pos = call _mapPos;
+    private _pos = [_posX, _posY] call _mapPos;
     if !([_heli, _id, _ident, _ident, _pos, getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate) exitWith {};
     _heli setVariable [["fza_mpd_tsdWptCurrentSel", "fza_mpd_tsdThrtCurrentSel"] select (_subPage == 4), _id];
     _state set ["subPageVarPage", [_subPage, 0]];

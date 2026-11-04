@@ -13,9 +13,43 @@ class Tsd_Ownship_Offset {
     pos[] = {0.5, 0.5};
 };
 
+// The live ownship over a frozen map: where it is (MFD_IND_TSD_OWNSHIP_X, _Y) and how far it has turned from the map's
+// heading (MFD_IND_TSD_OWNSHIP_ROT), clockwise. A linear bone is at maxPos at its min value; a rotational one turns a
+// further 180 deg.
+class Tsd_Live_X {
+    type = "linear";
+    source = "user";
+    sourceIndex = MFD_USER_NUM(MFD_IND_TSD_OWNSHIP_X);
+    min = -1;
+    max = 2;
+    minPos[] = {2, 0};
+    maxPos[] = {-1, 0};
+};
+class Tsd_Live_Y {
+    type = "linear";
+    source = "user";
+    sourceIndex = MFD_USER_NUM(MFD_IND_TSD_OWNSHIP_Y);
+    min = -1;
+    max = 2;
+    minPos[] = {0, 2};
+    maxPos[] = {0, -1};
+};
+class Tsd_Live_Rot {
+    type = "rotational";
+    source = "user";
+    sourceIndex = MFD_USER_NUM(MFD_IND_TSD_OWNSHIP_ROT);
+    min = 0;
+    max = 360;
+    center[] = {0, 0};
+    minAngle = -180;
+    maxAngle = 180;
+};
+
+// The rose turns with the heading the map is drawn at (fza_mpd_fnc_tsdFrame): the aircraft's, or the frozen map's
 class Tsd_Hsi_360 {
     type = "rotational";
-    source = "heading";
+    source = "user";
+    sourceIndex = MFD_USER_NUM(MFD_IND_TSD_HSI_HDG);
     min = 0;
     max = 360;
     sourceScale = 1;

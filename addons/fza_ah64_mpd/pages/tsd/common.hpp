@@ -1,5 +1,5 @@
 class vabs_show {
-    condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1)));
+    condition = C_COND(C_AND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1)), C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5))));
     #include "components\vabs_top.hpp"
 };
 
@@ -52,39 +52,90 @@ class tsdCommon {
         MPD_TEXT_BONE_R(ScaleBox5, "Tsd_Ownship", 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("50"))
     };
 
-    //Ownship Icon
+    // The ownship: cyan on a live map. On a frozen map (FRZ, CAQ, PAN) white at its place with stopped rotors, and the live
+    // one in cyan moving over the map; the map border is dashed (frame.hpp)
     class Ownship {
-        color[] = {0,1,1,1};
-        class Lines {
-            type = "line";
-            width = 3;
-            points[] = {
-                //Ownship rotor
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.020,  0.000}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.014, -0.014}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000, -0.020}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, -0.014}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.020,  0.000}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014,  0.014}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000,  0.020}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.014,  0.014}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.020,  0.000}, 1},
-                {},
-                //Tail boom line
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000, 0.020}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000, 0.040}, 1},
-                {},
-                //Tail rotor axle line
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000, 0.040}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.040}, 1},
-                {},
-                //Tail rotor line
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.030}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.05}, 1},
-                {},
-                //Ownship center dot
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000,  0.0025}, 1},
-                {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", { 0.000, -0.0025}, 1},
+        class Live {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_FROZEN)));
+            color[] = {0,1,1,1};
+            class Lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.02, 0.0}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, -0.014}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, -0.02}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, -0.014}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.02, 0.0}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, 0.014}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.02}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, 0.014}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.02, 0.0}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.02}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.04}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.04}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.04}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.03}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.05}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.0025}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, -0.0025}, 1}
+                };
+            };
+        };
+        class Frozen {
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
+            color[] = {1,1,1,1};
+            class Lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    //Stopped rotor blades
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.02, 0.0}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.02, 0.0}, 1}, {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, -0.02}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.02}, 1}, {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, -0.014}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, 0.014}, 1}, {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, -0.014}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, 0.014}, 1}, {},
+                    //Tail boom, tail rotor axle and tail rotor
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.02}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.04}, 1}, {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.04}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.04}, 1}, {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.03}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.0125, 0.05}, 1}
+                };
+            };
+        };
+        class Moving {
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
+            color[] = {0,1,1,1};
+            clipTL[] = {0, 0};
+            clipBR[] = {1, 1};
+            class Lines {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {"Tsd_Live_Rot", {0.02, 0.0}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.014, -0.014}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.0, -0.02}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {-0.014, -0.014}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {-0.02, 0.0}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {-0.014, 0.014}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.0, 0.02}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.014, 0.014}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.02, 0.0}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {},
+                    {"Tsd_Live_Rot", {0.0, 0.02}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.0, 0.04}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {},
+                    {"Tsd_Live_Rot", {0.0, 0.04}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {-0.0125, 0.04}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {},
+                    {"Tsd_Live_Rot", {-0.0125, 0.03}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {-0.0125, 0.05}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {},
+                    {"Tsd_Live_Rot", {0.0, 0.0025}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1},
+                    {"Tsd_Live_Rot", {0.0, -0.0025}, 1, "Tsd_Live_X", 1, "Tsd_Live_Y", 1}
+                };
             };
         };
     };

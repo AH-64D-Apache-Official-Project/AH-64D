@@ -20,6 +20,7 @@ class CfgFunctions
             class drawIcons {RECOMPILE_FLAG;};
             class execJs {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
+            class handleHold {RECOMPILE_FLAG;};
             class htmlCtrl {RECOMPILE_FLAG;};
             class htmlPush {RECOMPILE_FLAG;};
             class iconBlink {RECOMPILE_FLAG;};
@@ -39,9 +40,11 @@ class CfgFunctions
             class cursorCompile {RECOMPILE_FLAG;};
             class cursorDisplaySelect {RECOMPILE_FLAG;};
             class cursorEnter {RECOMPILE_FLAG;};
+            class cursorInArea {RECOMPILE_FLAG;};
             class cursorLabels {RECOMPILE_FLAG;};
             class cursorPick {RECOMPILE_FLAG;};
             class cursorPoint {RECOMPILE_FLAG;};
+            class cursorToNts {RECOMPILE_FLAG;};
             class cursorUpdate {RECOMPILE_FLAG;};
         };
         class chan {
@@ -50,6 +53,10 @@ class CfgFunctions
         };
         class fcr {
             file = "\fza_ah64_mpd\functions\fcr";
+            class fcrCursorHover {RECOMPILE_FLAG;};
+            class fcrTgtDraw {RECOMPILE_FLAG;};
+            class fcrTgtHandleControl {RECOMPILE_FLAG;};
+            class fcrTgtStore {RECOMPILE_FLAG;};
             class buildFCRIdent {RECOMPILE_FLAG;};
             class buildFCRTargetsJson {RECOMPILE_FLAG;};
             class fcrATMDraw {RECOMPILE_FLAG;};
@@ -64,6 +71,12 @@ class CfgFunctions
         };
         class tsd {
             file = "\fza_ah64_mpd\functions\tsd";
+            class tsdFrame {RECOMPILE_FLAG;};
+            class tsdPanDraw {RECOMPILE_FLAG;};
+            class tsdPanHandleControl {RECOMPILE_FLAG;};
+            class tsdPanHold {RECOMPILE_FLAG;};
+            class tsdPanRoute {RECOMPILE_FLAG;};
+            class tsdScale {RECOMPILE_FLAG;};
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
             class tsdScaleDraw {RECOMPILE_FLAG;};

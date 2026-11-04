@@ -15,6 +15,8 @@
 
     // Native MPD icons are 0.09 of display height; the browser covers 0.95 of it
     var ICON_FRAC = 0.09 / 0.95;
+    // The target the MPD cursor is on, or -1
+    var hover = -1;
 
     var canvas, ctx, W, H;
     var overlay, octx;
@@ -171,10 +173,19 @@
         var rTop  = RADAR_TOP    * H;
         var rH    = (RADAR_BOTTOM - RADAR_TOP) * H;
 
-        return window.fzaFCRIconLayer.drawSymbols(octx, targets, shots, ICON_FRAC * H, function (item) {
+        var toXY = function (item) {
             if (!(item.a >= -1 && item.a <= 1 && item.r >= 0 && item.r <= 1)) { return null; }
             return [ rLeft + (item.a * 0.5 + 0.5) * rW, rTop + rH - item.r * rH ];
-        });
+        };
+        // The target the MPD cursor is on, over a black circle in the cursor's centre (MPD_CURSOR_POINT_CIRCLE)
+        var hovered = targets[hover] ? toXY(targets[hover]) : null;
+        if (hovered) {
+            octx.fillStyle = "#000";
+            octx.beginPath();
+            octx.arc(hovered[0], hovered[1], 0.022 / 0.95 * H, 0, 2 * Math.PI);
+            octx.fill();
+        }
+        return window.fzaFCRIconLayer.drawSymbols(octx, targets, shots, ICON_FRAC * H, toXY);
     }
 
     function renderLoop() {
@@ -214,6 +225,11 @@
     window.fzaFCRRmap = {
         update: function (data) {
             if (!data || !ctx) { return; }
+
+            if (data.hover !== undefined && data.hover !== hover) {
+                hover = data.hover;
+                targetsDirty = true;
+            }
 
             // A different sector or grid size invalidates every stored column
             var regrid = false;

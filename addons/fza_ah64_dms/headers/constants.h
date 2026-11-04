@@ -25,6 +25,12 @@
 #define POINT_COUNT_WP_HZ 50
 #define POINT_COUNT_CM 49
 #define POINT_COUNT_TG_TH 50
+// The target file with its special points after the stored ones: T50 an FCR target chosen by CAQ, T55 and T56 the pilot's and
+// CPG's terrain (TRN) points chosen by CAQ
+#define POINT_COUNT_TG_TH_ALL 56
+#define POINT_INDEX_TG_FCR_CAQ 50
+#define POINT_INDEX_TG_TRN_PLT 55
+#define POINT_INDEX_TG_TRN_CPG 56
 #define POINT_COUNT_SHOT 128
 
 #define POINT_GET_ARMA_POS 1
@@ -47,6 +53,7 @@
 #define MPD_ICON_COLOR_BLUE {0.4, 0.6, 1.0, 1}
 #define MPD_ICON_COLOR_RED {1.0, 0.0, 0.2, 1}
 #define MPD_ICON_COLOR_YELLOW {1.0, 1.0, 0.0, 1}
+#define MPD_ICON_COLOR_WHITE {1.0, 1.0, 1.0, 1}
 
 #define MPD_POSMODE_WORLD true
 #define MPD_POSMODE_SCREEN false

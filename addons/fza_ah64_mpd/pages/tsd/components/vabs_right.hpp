@@ -11,6 +11,21 @@ class VABSRight {
         MPD_TEXT_L(ZOOM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
         MPD_TEXT_L(ZOOM_3, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
         MPD_TEXT_L(ZOOM_4, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
+        // Boxed while the map is zoomed
+        class ZOOM_Box {
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_ZOOM));
+            class Lines {
+                type = "line";
+                width = 2;
+                points[] = {
+                    {{MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_1_Y - 2.5 * MPD_TEXT_HEIGHT}, 1},
+                    {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_1_Y - 2.5 * MPD_TEXT_HEIGHT}, 1},
+                    {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_1_Y + 1.5 * MPD_TEXT_HEIGHT}, 1},
+                    {{MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_1_Y + 1.5 * MPD_TEXT_HEIGHT}, 1},
+                    {{MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_1_Y - 2.5 * MPD_TEXT_HEIGHT}, 1}
+                };
+            };
+        };
         //R2
         MPD_TEXT_L(SC_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SC"))
         MPD_BOX_L(SC,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, 2)
@@ -39,7 +54,10 @@ class VABSRight {
             MPD_BOX_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 3)
         };
     };
-    //R5    
-    MPD_BOX_BAR_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y)
+    //R5, boxed while the map is frozen
     MPD_TEXT_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("FRZ"))
+    class FRZ_Box {
+        condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
+        MPD_BOX_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, 3)
+    };
 };

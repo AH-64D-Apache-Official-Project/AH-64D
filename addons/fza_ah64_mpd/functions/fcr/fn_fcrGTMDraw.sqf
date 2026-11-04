@@ -2,7 +2,8 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex"];
+#include "\fza_ah64_mpd\headers\cursor.h"
+params ["_heli", "_mpdIndex", "_state"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
@@ -41,9 +42,31 @@ if (!isNull _ctrl) then {
     // "a" in degrees (divisor 1) — the polar wedge trig happens in scope.js
     ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _systemWas,
         _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45], 8000, _dir, 1, false
-    ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
+    ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson", "_symbols"];
 
-    [_ctrl, "fzaFCRScope.update", format ['{"mode":1,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson]] call fza_mpd_fnc_htmlPush;
+    // Display zoom (ZOOM): the area about zoomCtr shown 6:1 in a square about the MPD's centre
+    private _zoomed = _state getOrDefault ["zoom", 0] == 2;
+    private _zoomCtr = _state getOrDefault ["zoomCtr", [0.5, 0.5]];
+    private _zoomRatio = _state getOrDefault ["zoomRatio", 6];
+    private _zoomJson = ["null", format ["[%1,%2,%3,%4]", _zoomCtr # 0, _zoomCtr # 1, _zoomRatio, MPD_CURSOR_ZOOM_VIEW_HALF]] select _zoomed;
+
+    // Where scope.js draws each symbol, for the MPD cursor (fza_mpd_fnc_cursorEnter)
+    private _cursorTargets = [];
+    {
+        _x params ["_a", "_r", "_target", "_pos"];
+        private _sx = 0.5 + sin _a * _r * 0.65;
+        private _sy = 0.87 - cos _a * _r * 0.65;
+        if (_zoomed) then {
+            _sx = 0.5 + (_sx - _zoomCtr # 0) * _zoomRatio;
+            _sy = 0.5 + (_sy - _zoomCtr # 1) * _zoomRatio;
+            if (abs (_sx - 0.5) > MPD_CURSOR_ZOOM_VIEW_HALF || {abs (_sy - 0.5) > MPD_CURSOR_ZOOM_VIEW_HALF}) then {continue};
+        };
+        _cursorTargets pushBack [_sx, _sy, _target, _pos, _forEachIndex];
+    } forEach _symbols;
+    _state set ["cursorTargets", _cursorTargets];
+    private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
+
+    [_ctrl, "fzaFCRScope.update", format ['{"mode":1,"zoom":%3,"hover":%4,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson, _zoomJson, _hover]] call fza_mpd_fnc_htmlPush;
 };
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];

@@ -1,7 +1,8 @@
 // Acquisition source list (fza_mpd_fnc_acqHandleControl, fza_mpd_fnc_acqDraw), drawn over a page with an ACQ button while
 // it is open. A frame runs down the left of R1-R6, with ACQUISITION beside it, and steps across above B4-B6. The sources
 // the crew station can select are listed in their places, the selected one boxed; B5 is the crew station's coordinate
-// point, the last selected on its COORD page or ?01. ?SKR and ?TRN are not built yet and are barriered.
+// point, the last selected on its COORD page or ?01; B4 TRN its terrain point from CAQ. ?SKR is not built yet and is
+// barriered.
 // The page's text there is hidden (MPD_ACQ_COVERS) and its lines are blanked here.
 
 // The frame line runs against the left of the ACQUISITION letters
@@ -73,8 +74,16 @@ MPD_BOX_BAR_L(SKR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HE
 ACQ_OPTION_R(FCR, MPD_POS_BUTTON_LR_5_Y, MFD_IND_ACQ_OPT_FCR, "FCR", 3)
 ACQ_OPTION_R(FXD, MPD_POS_BUTTON_LR_6_Y, MFD_IND_ACQ_OPT_FXD, "FXD", 3)
 
-MPD_TEXT_ACQ(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, "center", "?TRN")
-MPD_BOX_BAR_B(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
+// B4, the crew station's TRN point from CAQ; barriered until it has one
+MPD_TEXT_ACQ(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, "center", "TRN")
+class TrnNone {
+    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ACQ_OPT_TRN)));
+    MPD_BOX_BAR_B(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
+};
+class TrnSelected {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ACQ_OPT_TRN), 2));
+    MPD_BOX_C(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, 3)
+};
 class Coord {
     condition = C_COND(C_MPD_USER(MFD_IND_ACQ_OPT_POINT));
     MPD_TEXT_ACQ_USER(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, "center", MFD_TEXT_IND_ACQ_POINT)

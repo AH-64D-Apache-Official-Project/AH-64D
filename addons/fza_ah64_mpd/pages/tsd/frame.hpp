@@ -11,8 +11,6 @@ class lines {
     type = "line";
     width = 3;
     points[] = {
-        {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.905}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}, {}, //outside box
-
         {{0.095, 0.115}, 1}, {{0.08, 0.115}, 1}, {}, //Left 5km indicator
         {{0.095, 0.24}, 1}, {{0.08, 0.24}, 1}, {},   //Left 4km indicator
         {{0.095, 0.365}, 1}, {{0.08, 0.365}, 1}, {}, //Left 3km indicator
@@ -37,5 +35,28 @@ class lines {
 
         MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
         MPD_POINTS_BOX("Null", 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01),     //Heading
+    };
+};
+
+// The map border: bold and dashed while the map is frozen, the map frozen cue
+class border {
+    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_FROZEN)));
+    class lines {
+        type = "line";
+        width = 3;
+        points[] = {
+            {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.905}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}
+        };
+    };
+};
+class borderFrozen {
+    condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
+    class lines {
+        type = "line";
+        lineType = 2;
+        width = 6;
+        points[] = {
+            {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.905}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}
+        };
     };
 };

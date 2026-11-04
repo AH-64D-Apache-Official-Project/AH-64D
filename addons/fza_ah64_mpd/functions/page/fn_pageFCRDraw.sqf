@@ -18,6 +18,17 @@ if (_fcrMode in [FCR_DISP_MODE_RMAP, FCR_DISP_MODE_TPM]) exitWith {
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), _fcrMode];
 
+// Display zoom is on the GTM scope only; the symbols the cursor can choose are set by the GTM and ATM draws
+if (_fcrMode != FCR_DISP_MODE_GTM) then {_state set ["zoom", 0]};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ZOOM), _state getOrDefault ["zoom", 0]];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_TARGET), 0];
+// Whether the MPD cursor is over the target area, where it chooses targets and zooms
+private _cursorOn = _heli getVariable ["fza_mpd_cursor", []];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_AREA), BOOLTONUM(_cursorOn param [0, -1] == _mpdIndex && {[_heli, _mpdIndex, _cursorOn # 1, _cursorOn # 2] call fza_mpd_fnc_cursorInArea})];
+[_heli, _mpdIndex, _state] call fza_mpd_fnc_fcrTgtDraw;
+[_heli, _mpdIndex] call fza_mpd_fnc_cursorToNts;
+_state set ["cursorTargets", []];
+
 switch _fcrMode do {
     case FCR_DISP_MODE_OFF: { //NOT INSTALLED
         [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;

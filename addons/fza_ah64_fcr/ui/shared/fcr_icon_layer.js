@@ -33,18 +33,19 @@
         return entry;
     }
 
-    // Draw sprite centered at (x, y); returns false while still decoding (caller retries)
-    function draw(ctx, key, x, y, sizePx, alpha, color) {
+    // Draw sprite centered at (x, y), dimmed to brightness (1 full); returns false while still decoding (caller retries).
+    // Dimmed by brightness, not transparency, so a dim symbol looks the same over the page, the video or a black circle.
+    function draw(ctx, key, x, y, sizePx, brightness, color) {
         if (!key) { return true; } // empty overlay key — nothing to draw
         var tint = color || DEFAULT_TINT;
         var cacheKey = key + "|" + tint;
         var s = sprites[cacheKey] || makeSprite(cacheKey, key, tint);
         if (s.failed) { return true; }
         if (!s.ready) { return false; }
-        var prev = ctx.globalAlpha;
-        ctx.globalAlpha = (alpha === undefined) ? 1 : alpha;
+        var dim = brightness !== undefined && brightness < 1;
+        if (dim) { ctx.filter = "brightness(" + Math.round(brightness * 100) + "%)"; }
         ctx.drawImage(s.canvas, x - sizePx / 2, y - sizePx / 2, sizePx, sizePx);
-        ctx.globalAlpha = prev;
+        if (dim) { ctx.filter = "none"; }
         return true;
     }
 
@@ -70,10 +71,10 @@
             if (!t) { continue; }
             p = toXY(t);
             if (!p) { continue; }
-            var alpha = t.stale ? 0.5 : 1;
-            if (!draw(ctx, t.icon, p[0], p[1], sizePx, alpha)) { allDrawn = false; }
+            var brightness = t.stale ? 0.5 : 1;
+            if (!draw(ctx, t.icon, p[0], p[1], sizePx, brightness)) { allDrawn = false; }
             if (t.ov) {
-                if (!draw(ctx, t.ov, p[0], p[1], sizePx, alpha)) { allDrawn = false; }
+                if (!draw(ctx, t.ov, p[0], p[1], sizePx, brightness)) { allDrawn = false; }
             }
         }
         drawShots(true);

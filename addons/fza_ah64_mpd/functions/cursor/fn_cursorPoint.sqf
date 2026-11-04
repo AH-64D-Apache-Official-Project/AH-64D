@@ -4,9 +4,10 @@ Function: fza_mpd_fnc_cursorPoint
 Description:
     The point an MPD cursor position is on, on a TSD page that takes a point
     from the map: WPT (waypoints, hazards and control measures) and THRT
-    (targets and threats), at their top level, DEL and EDT, and RTE ADD
-    (waypoints, hazards and control measures). Of the points the TSD draws
-    (fza_mpd_fnc_pageTSDDraw), the nearest within reach of the cursor.
+    (targets and threats), at their top level, DEL and EDT, RTE ADD
+    (waypoints, hazards and control measures), and CAQ (waypoints, hazards,
+    control measures, targets and threats, and FCR targets). Of the points the TSD
+    draws (fza_mpd_fnc_pageTSDDraw), the nearest within reach of the cursor.
 
 Parameters:
     _heli - The helicopter
@@ -15,7 +16,9 @@ Parameters:
     _posY - Cursor Y, 0 top to 1 bottom
 
 Returns:
-    The point ID ([type, ID]), or [] for none
+    The point ID ([type, ID]), or [] for none. An FCR target's is
+    [POINT_TYPE_FCR, its index in the FCR's displayed targets], as in the page
+    state's cursorFcr.
 
 Examples:
     --- Code
@@ -33,20 +36,22 @@ params ["_heli", "_side", "_posX", "_posY"];
 ((_heli getVariable "fza_mpd_mpdState") # _side) params ["_page", "", "", "", "_state", "_persistState"];
 if (toLower _page != "tsd") exitWith {[]};
 (_state get "subPageVarPage") params ["_subPage", "_variant"];
+private _caq = _subPage == 0 && {_state getOrDefault ["caq", 0] == 1};
 private _types = switch (true) do {
+    case (_caq): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM, POINT_TYPE_TG, POINT_TYPE_FCR]};
     case (_subPage == 2 && {_variant in [0, 2, 3, 4, 5]}): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM]};
     case (_subPage == 4 && {_variant in [0, 2, 3, 4, 5]}): {[POINT_TYPE_TG]};
     case (_subPage == 3 && {_variant in [1, 2]}): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM]};
     default {[]};
 };
 if (_types isEqualTo []) exitWith {[]};
+if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {[]};
 
 // Where fza_mpd_fnc_uiDrawPoint draws them
 private _tsd = _persistState get _page;
-private _scale = 0.125 * 5 / (_tsd get "tsdScale");
+private _scale = [_tsd] call fza_mpd_fnc_tsdScale;
 private _ctrY = 0.75 - 0.25 * (_tsd get "ctr");
-private _heliPos = getPosASL _heli;
-private _heading = direction _heli;
+([_heli, _tsd] call fza_mpd_fnc_tsdFrame) params ["_heliPos", "_heading"];
 
 private _best = [];
 private _bestDistance = MPD_CURSOR_POINT_REACH ^ 2;
@@ -60,6 +65,6 @@ private _bestDistance = MPD_CURSOR_POINT_REACH ^ 2;
         _bestDistance = _distance;
         _best = _id;
     };
-} forEach (_state getOrDefault ["cursorPoints", []]);
+} forEach ((_state getOrDefault ["cursorPoints", []]) + ([[], (_state getOrDefault ["cursorFcr", []]) apply {[_x # 0, _x # 1]}] select _caq));
 
 _best

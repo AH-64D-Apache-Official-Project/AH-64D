@@ -16,6 +16,19 @@
 #define MPD_CURSOR_PICK_EVERY 0.15
 // How far from a TSD point the cursor chooses it (fza_mpd_fnc_cursorPoint)
 #define MPD_CURSOR_POINT_REACH 0.025
+// How far from an FCR target symbol the cursor chooses it, the symbols being larger
+#define MPD_CURSOR_TARGET_REACH 0.035
+// The radius of the black circle a symbol the cursor would choose is drawn over, just past the cursor's ring
+#define MPD_CURSOR_POINT_CIRCLE 0.022
+// The size of the cursor's spokes as the TSD draws them under a point it would choose (tex\cursor\spokes_ca.paa)
+#define MPD_CURSOR_SPOKES_SIZE 0.1
+// FCR display zoom: the zoom box's area shown in a square of this half size about the MPD's centre. The box is sized by
+// the scan size, wide to zoom: about 6:1 in wide, more for the smaller scans.
+#define MPD_CURSOR_ZOOM_VIEW_HALF 0.36
+#define MPD_CURSOR_ZOOM_HALF_W    0.06
+#define MPD_CURSOR_ZOOM_HALF_M    0.045
+#define MPD_CURSOR_ZOOM_HALF_N    0.035
+#define MPD_CURSOR_ZOOM_HALF_Z    0.025
 
 // A label is drawn again this far to its right, and an arrow this wide, to show them bold
 #define MPD_CURSOR_BOLD       0.0025

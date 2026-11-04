@@ -4,10 +4,12 @@ params ["_heli", "_canvas", "_mpdIndex", "_state", "_persistState"];
 
 
 // Dynamic positioning
-private _tsdScale = 0.125 * 5 / (_persistState get "tsdScale");
+private _tsdScale = [_persistState] call fza_mpd_fnc_tsdScale;
 private _pos = getPosASL _heli;
 private _ctrX = 0.5;
 private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
+// The map's frame, live or frozen (fza_mpd_fnc_tsdFrame)
+([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading"];
 
 //Route Draw
 private _routeData    = _heli getVariable "fza_ah64_routeData";
@@ -24,13 +26,13 @@ private _drawArray = [];
 } forEach _routeInfo;
 {
     if ((_forEachindex + 1) >= count _drawArray) then {continue;};
-    [_heli, _canvas, _X, _drawArray #(_forEachindex+1), [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine;
+    [_heli, _canvas, _X, _drawArray #(_forEachindex+1), [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, [0.095, 0.095, 0.905, 0.905]] call fza_mpd_fnc_canvasDrawLine;
 } forEach _drawArray;
 
 //Route Dir Draw
 private _rteDir = _heli getVariable "fza_dms_routeNext";
 if (_rteDir#1 isNotEqualTo [0,0,0]) then {
-    [_heli, _canvas, _rteDir#1, [_heli, _rteDir#0, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine;
+    [_heli, _canvas, _rteDir#1, [_heli, _rteDir#0, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, [0.095, 0.095, 0.905, 0.905]] call fza_mpd_fnc_canvasDrawLine;
 };
 
 //TSD Sensor line
@@ -46,7 +48,7 @@ _posTadsTgt = [_posheli, _range, _targetAzimuth] call BIS_fnc_relPos;
 _heli setVariable ["fza_ah64_tadsTarget", _posTadsTgt];
 
 if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
-    [_heli, _canvas, _posTadsTgt, _posheli, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine;
+    [_heli, _canvas, _posTadsTgt, _posheli, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, [0.095, 0.095, 0.905, 0.905]] call fza_mpd_fnc_canvasDrawLine;
 };
 
 //FCR footprint: the scan sector out to 8 km, turned with the centerline and sized by the selected scan size; GTM and
@@ -67,7 +69,7 @@ if (_heli animationPhase "fcr_enable" == 1
     private _colour  = [[0, 1, 0, 1], [1, 1, 1, 1]] select (((_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0) == FCR_MODE_ON_SINGLE);
     private _radius  = 8000;
     private _at      = {params ["_bearing", ["_range", _radius]]; _posheli getPos [_range, _bearing]};
-    private _line    = {[_heli, _canvas, _this # 0, _this # 1, _colour, MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine};
+    private _line    = {[_heli, _canvas, _this # 0, _this # 1, _colour, MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, [0.095, 0.095, 0.905, 0.905]] call fza_mpd_fnc_canvasDrawLine};
 
     // The arc, in steps of at most 5 deg
     private _steps = ceil (2 * _half / 5);

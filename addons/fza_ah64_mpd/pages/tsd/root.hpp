@@ -25,9 +25,12 @@ class tsdRoot {
 
         class vabs_ScaleHide_CAQ {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOUT), 0));
-            //R4
-            MPD_BOX_BAR_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+            //R4, boxed while choosing a point or FCR target as the acquisition source
             MPD_TEXT_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))
+            class CAQ_Box {
+                condition = C_COND(C_MPD_USER(MFD_IND_TSD_CAQ));
+                MPD_BOX_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, 3)
+            };
         };
     };
 };

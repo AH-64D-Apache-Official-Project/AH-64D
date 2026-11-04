@@ -8,6 +8,11 @@ class Show {
     #include "tsd\show.hpp"
 };
 
+class Pan {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5));
+    #include "tsd\pan.hpp"
+};
+
 class Wpt {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 2));
     #include "tsd\wpt\common.hpp"

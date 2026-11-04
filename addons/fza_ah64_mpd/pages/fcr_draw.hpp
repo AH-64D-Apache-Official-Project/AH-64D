@@ -324,10 +324,13 @@ class root {
             // NTS, TGT and RF HO only with FCR as this crew station's sight
             class fcrSightVabs {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SIGHT_FCR), 1));
-                //R4
-                MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
-                MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
-                MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+                //R4, not while TGT is selected
+                class RFHO_Gate {
+                    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_TGT_MODE)));
+                    MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
+                    MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
+                    MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+                };
                 //L1
                 MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
                 MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
@@ -341,15 +344,40 @@ class root {
                     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TGT_BARRIER), 1));
                     MPD_BOX_BAR_R(TGT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
                 };
+                // TGT boxed while selected, with ALL at L5 and the store status window
+                class TGT_Box {
+                    condition = C_COND(C_MPD_USER(MFD_IND_FCR_TGT_MODE));
+                    class Lines {
+                        type = "line";
+                        width = 2;
+                        points[] = {
+                            {{MPD_POS_BUTTON_L_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_4_Y - 0.75 * MPD_TEXT_HEIGHT}, 1},
+                            {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_4_Y - 0.75 * MPD_TEXT_HEIGHT}, 1},
+                            {{MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_4_Y + 1.6 * MPD_TEXT_HEIGHT}, 1},
+                            {{MPD_POS_BUTTON_L_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_4_Y + 1.6 * MPD_TEXT_HEIGHT}, 1},
+                            {{MPD_POS_BUTTON_L_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_4_Y - 0.75 * MPD_TEXT_HEIGHT}, 1}
+                        };
+                    };
+                    MPD_TEXT_R(ALL, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("ALL"))
+                };
             };
-            //L5
-            MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
-            MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
-            MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
-            MPD_BOX_BAR_R(ELEV,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
+            //L5, ALL in its place while TGT is selected
+            class ELEV_Gate {
+                condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_TGT_MODE)));
+                MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
+                MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
+                MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
+                MPD_BOX_BAR_R(ELEV,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
+            };
+            class TgtStore {
+                condition = C_COND(C_MPD_USER(MFD_IND_FCR_TGT_MODE));
+                #include "fcr\tgt_store.hpp"
+            };
         };
 
+        // Not while TGT is selected
         class fcrOffsetArrows {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_TGT_MODE)));
             class leftArrowHollow {
                 condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));
                 class lines {

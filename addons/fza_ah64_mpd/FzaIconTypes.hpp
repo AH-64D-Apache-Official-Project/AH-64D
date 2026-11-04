@@ -864,6 +864,17 @@ class FzaIconTypes {
 
 //--------------------TSD Crosshair--------------------
 
+    // A crew station's terrain point chosen by CAQ (T55, T56), labelled PLT or CPG by its free text
+    class TRN:IconTypeH {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\trn_ca.paa";
+        color[] = MPD_ICON_COLOR_WHITE;
+        type = POINT_TYPE_TG;
+        textA = MPD_ICON_TEXT_FREE;
+        textAOffset[] = {0.5, 0.68};
+        textAHAlign = "center";
+        textAVAlign = "top";
+    };
+
     class TSD_TADS_CROSSHAIR:IconTypeH {
         tex   = "\fza_ah64_mpd\tex\tsdIcons\tads_tsd_icon.paa";
         type  = POINT_TYPE_SYSTEM;

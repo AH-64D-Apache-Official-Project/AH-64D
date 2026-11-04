@@ -86,7 +86,7 @@ if (_bumpArmed && {_outward > 0.5} && {_pages # (1 - _side) != "off"}) then {
 };
 
 if (time - _usedAt > MPD_CURSOR_STOW_TIME && {_posX != MPD_CURSOR_STOW_X || {_posY != MPD_CURSOR_STOW_Y}}
-    && {!((_pages # _side) in ["tsd", "fcr", "fcrrmap", "fcrtpm"] && {_hover > 0 || {_point isNotEqualTo []}})}) then {
+    && {!((_pages # _side) in ["tsd", "fcr", "fcrrmap", "fcrtpm"] && {_hover > 0 || {_point isNotEqualTo []} || {[_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea}})}) then {
     _posX = MPD_CURSOR_STOW_X;
     _posY = MPD_CURSOR_STOW_Y;
     _pickedAt = -1;

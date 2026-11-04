@@ -302,8 +302,27 @@
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18
 #define MFD_IND_TSD_SUBPAGE 19
+// The map frozen (FRZ, CAQ, PAN): the flag, the heading the map is drawn at, CAQ choosing, and the live ownship's place and
+// turn over the frozen map
+#define MFD_IND_TSD_FROZEN       20
+#define MFD_IND_TSD_HSI_HDG      21
+#define MFD_IND_TSD_CAQ          22
+#define MFD_IND_TSD_OWNSHIP_X    23
+#define MFD_IND_TSD_OWNSHIP_Y    24
+#define MFD_IND_TSD_OWNSHIP_ROT  25
+// The MPD cursor is on a point it can choose, drawn over a black circle in the cursor's centre
+#define MFD_IND_TSD_CURSOR_POINT 26
+// ZOOM: the map 20 percent larger about the ownship
+#define MFD_IND_TSD_ZOOM         27
+// The MPD cursor is over the map, where it chooses points and pans
+#define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
+// The PAN page: the pan heading, the last POINT panned to, and the route's next and last waypoints from the pan location
+#define MFD_TEXT_IND_TSD_PAN_HDG      20
+#define MFD_TEXT_IND_TSD_PAN_POINT    21
+#define MFD_TEXT_IND_TSD_PAN_NEXT_WPT 22
+#define MFD_TEXT_IND_TSD_PAN_LAST_WPT 23
 
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
@@ -367,6 +386,14 @@
 #define MFD_IND_FCR_ATM_SECTOR_ROT   21
 #define MFD_IND_FCR_TGT_BARRIER      22
 #define MFD_IND_FCR_SIGHT_FCR        23
+// Display zoom: 0 off, 1 choosing the area with the cursor, 2 zoomed
+#define MFD_IND_FCR_ZOOM             24
+// The MPD cursor is on a target symbol it can choose, drawn over a black circle in the cursor's centre
+#define MFD_IND_FCR_CURSOR_TARGET    25
+// The MPD cursor is over the FCR target area (fza_mpd_fnc_cursorInArea)
+#define MFD_IND_FCR_CURSOR_AREA      26
+// TGT: the cursor stores the FCR targets it picks, with the store status window (fza_mpd_fnc_fcrTgtDraw)
+#define MFD_IND_FCR_TGT_MODE         27
 
 #define MFD_IND_FCR_INSTALLED 19
 
@@ -377,6 +404,10 @@
 #define MFD_TEXT_IND_FCR_SS    3
 #define MFD_TEXT_IND_FCR_WC    4
 #define MFD_TEXT_IND_FCR_ACQ_SRC 5
+// TGT's store status window: the next target file address, and the ones stored since TGT was selected
+#define MFD_TEXT_IND_FCR_TGT_NEXT   12
+#define MFD_TEXT_IND_FCR_TGT_LIST_1 13
+#define MFD_FCR_TGT_LIST_LINES      12
 #define MFD_TEXT_IND_FCR_WS    6
 // TPM-specific text slots (slots 7-9, only used when MFD_IND_FCR_MODE == FCR_DISP_MODE_TPM)
 #define MFD_TEXT_IND_FCR_TPM_PROF  7
@@ -617,6 +648,8 @@
 #define MFD_IND_ACQ_OPT_GHS   32
 #define MFD_IND_ACQ_OPT_SKR   33
 #define MFD_IND_ACQ_OPT_RFI   34
+// RFI isn't on the ACQ list; its slot is the crew station's TRN point there (B4), from CAQ
+#define MFD_IND_ACQ_OPT_TRN   34
 #define MFD_IND_ACQ_OPT_FCR   35
 #define MFD_IND_ACQ_OPT_FXD   36
 #define MFD_IND_ACQ_OPT_TADS  37

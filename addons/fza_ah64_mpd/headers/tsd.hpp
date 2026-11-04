@@ -40,6 +40,9 @@
 #define TSD_THRT_STO            [4, 6]
 #define TSD_THRT_XMIT           [4, 7]
 
+// The PAN page
+#define TSD_PAN                 [5, 0]
+
 //FCR Page
 #define FCR_GTM                 [5, 0]
 #define FCR_ATM                 [5, 1]
