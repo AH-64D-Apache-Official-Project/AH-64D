@@ -61,6 +61,8 @@
 #define IAT_REACQUIRE   2
 #define IAT_HOLD        0.6
 #define IAT_SIZE_TIME   4.5
+// How far ahead of a moving target the TADS is commanded, in its motion relative to the aircraft (s)
+#define IAT_LEAD        0.15
 // NVS MODE FIXED: fixed forward, the aircraft centerline 4.9 deg below the airframe datum
 #define NVS_FIXED_EL -4.9
 // The TADS as an NVS sensor slews noticeably slower in azimuth than the PNVS, deg/s

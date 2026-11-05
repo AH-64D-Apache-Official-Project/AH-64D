@@ -16,7 +16,7 @@ Parameters:
     _lstDriving - True when the LST drives the TADS
 
 Returns:
-    ASL position or object the TADS is driven to, [] when the IAT is not driving it
+    ASL position the TADS is driven to, [] when the IAT is not driving it
 
 Examples:
     --- Code
@@ -111,6 +111,12 @@ if (_state == IAT_STOP || {_pos isEqualTo []}) exitWith {
     []
 };
 
+// The turret trails a moving point, so it is commanded ahead of the target by the target's motion relative to the
+// aircraft over the lead time (fza_ihadss_iatLead overrides it to tune)
+private _targetVel = if (_state == IAT_COAST) then {_vel} else {
+    if (isNull _obj || {_trackPoint isNotEqualTo []}) then {[0, 0, 0]} else {velocity _obj}
+};
+_pos = _pos vectorAdd ((_targetVel vectorDiff velocity _heli) vectorMultiply (missionNamespace getVariable ["fza_ihadss_iatLead", IAT_LEAD]));
 private _rel = _heli vectorWorldToModelVisual (_pos vectorDiff _tadsPos);
 _rel params ["_rx", "_ry", "_rz"];
 private _az = _rx atan2 _ry;
@@ -159,7 +165,4 @@ if (_dt > 0) then {
 
 _heli setVariable ["fza_ihadss_iatLocal", [_offAz, _offEl, _checkedAt, _now, _lastSeen, _lastPos, _lastVel, _newAz, _newEl, _rateAz, _rateEl]];
 _heli setVariable ["fza_ihadss_iatDriving", true];
-// A vehicle or man tracked on the target itself is locked to it, for the game to follow it smoothly: a point re-aimed
-// each frame is always trailed
-if (_state == IAT_TRACK && {_trackPoint isEqualTo []} && {_offAz == 0 && _offEl == 0} && {!isNull _obj}) exitWith {_obj};
 _tadsPos vectorAdd (_heli vectorModelToWorldVisual ([vectorMagnitude _rel, _newAz, _newEl] call CBA_fnc_polar2vect))
