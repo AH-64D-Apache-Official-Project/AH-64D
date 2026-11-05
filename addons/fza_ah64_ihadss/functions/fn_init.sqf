@@ -17,6 +17,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
 if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) then {
@@ -46,6 +47,8 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_lmcPosition",            [],    true];
     _heli setVariable ["fza_ah64_lmcStartRange",          1000,    true];
     _heli setVariable ["fza_ah64_lmcRange",          1000,    true];
+    _heli setVariable ["fza_ah64_iat",                IAT_IDLE, true];
+    _heli setVariable ["fza_ah64_iatPolarity",        IAT_POL_AUTO, true];
 };
 
 [] spawn {

@@ -54,6 +54,11 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_lstAuto,"$STR_FZA_AH64_LST_AUTO","$STR_FZA_AH64_LST_AUTO_INFO");
     CfgUserActionDef(fza_ah64_lstOff,"$STR_FZA_AH64_LST_OFF","$STR_FZA_AH64_LST_OFF_INFO");
     CfgUserActionDef(fza_ah64_lstManual,"$STR_FZA_AH64_LST_MANUAL","$STR_FZA_AH64_LST_MANUAL_INFO");
+    CfgUserActionDef(fza_ah64_iatEngage,"$STR_FZA_AH64_IATENGAGE","$STR_FZA_AH64_IATENGAGE_INFO");
+    CfgUserActionDef(fza_ah64_iatOffset,"$STR_FZA_AH64_IATOFFSET","$STR_FZA_AH64_IATOFFSET_INFO");
+    CfgUserActionDef(fza_ah64_iatPolarityWhite,"$STR_FZA_AH64_IATPOLARITYWHITE","$STR_FZA_AH64_IATPOLARITYWHITE_INFO");
+    CfgUserActionDef(fza_ah64_iatPolarityAuto,"$STR_FZA_AH64_IATPOLARITYAUTO","$STR_FZA_AH64_IATPOLARITYAUTO_INFO");
+    CfgUserActionDef(fza_ah64_iatPolarityBlack,"$STR_FZA_AH64_IATPOLARITYBLACK","$STR_FZA_AH64_IATPOLARITYBLACK_INFO");
     CfgUserActionDef(fza_ah64_radialMenu,"$STR_FZA_AH64_RADIAL_MENU","$STR_FZA_AH64_RADIAL_MENU_INFO");
     // Read by the open radial menu as the only direction that selects by dwell (fza_fnc_radialUpdate)
     CfgUserActionDef(fza_ah64_radialUp,"$STR_FZA_AH64_RADIAL_UP","$STR_FZA_AH64_RADIAL_DIRECTION_INFO");

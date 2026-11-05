@@ -14,6 +14,7 @@ class CfgFunctions
         tag = "fza_ihadss";
         class functions {
             file = "\fza_ah64_ihadss\functions";
+            class aimInputBlocked {R;};
             class cscopeProfileDraw {R;};
             class fovControl {R;};
             class getVisionMode {R;};
@@ -25,6 +26,14 @@ class CfgFunctions
             class hduCleanContainer {R;};
             class hduInit {R;};
             class hduUpdate {R;};
+            class iatGates {R;};
+            class iatGateStrips {R;};
+            class iatAcquire {R;};
+            class iatCheck {R;};
+            class iatDisengage {R;};
+            class iatSwitch {R;};
+            class iatTargetPos {R;};
+            class iatUpdate {R;};
             class init {R;};
             class linearMotionCompensator {R;};
             class lstUpdate {R;};
@@ -36,6 +45,7 @@ class CfgFunctions
             class pnvsControl {R;};
             class r2tTexture {R;};
             class tadsLos {R;};
+            class tadsNativeGain {R;};
             class tadsNvs {R;};
             class tadsNvsControl {R;};
             class tadsNvsReset {R;};

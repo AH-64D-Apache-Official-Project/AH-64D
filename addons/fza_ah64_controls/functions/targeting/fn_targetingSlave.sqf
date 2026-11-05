@@ -9,7 +9,7 @@ Description:
     the CPG's to move (fza_fnc_weaponTurretAim). Slaving to a stored
     point selects the nav range to it. LMC stays as it was commanded. With the
     CPG owning the FCR a press stops its scan. The pilot is slaved on selection
-    of a source and has no switch.
+    of a source and has no switch. A press disengages the IAT.
 
 Parameters:
     _heli - The helicopter
@@ -27,6 +27,9 @@ Author:
 params ["_heli"];
 
 if (player != gunner _heli) exitWith {};
+
+// A press puts the TADS back in manual track from the IAT
+[_heli] call fza_ihadss_fnc_iatDisengage;
 
 // Pressed with the CPG owning the FCR, its scan stops
 if (FCR_OWNER(_heli) == "cpg") then {[_heli] call fza_fcr_fnc_stopScan};

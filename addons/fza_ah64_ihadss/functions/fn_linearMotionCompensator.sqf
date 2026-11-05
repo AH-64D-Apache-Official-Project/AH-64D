@@ -29,6 +29,12 @@ private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_sight != SIGHT_tads || (player != gunner _heli)) exitWith {};
 // The LST has the TADS (fza_ihadss_fnc_lstUpdate)
 if (_heli getVariable ["fza_ihadss_lstDriving", false]) exitWith {};
+// The IAT has the TADS (fza_ihadss_fnc_iatUpdate): LMC starts again from where it is left, unless stop mode carries it on
+if (_heli getVariable ["fza_ihadss_iatDriving", false]) exitWith {
+    _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
+    _heli setVariable ["fza_ah64_lmcStartRange", -1];
+    _heli setVariable ["fza_ah64_lmcPosition", []];
+};
 
 // Slaved, the TADS goes to the acquisition source and holds it, as with LMC off (fza_fnc_weaponTurretAim); LMC carries
 // on compensating from there once slave is turned off
@@ -65,8 +71,7 @@ if (_lmcStartRange == -1) then {
 private _angVelHorizontal = _velXY / _range;
 private _angVelVertical   = _velYZ / _range;
 
-//The aim input moves the head in free look, the cockpit cursor while it is detached, and the radial menu while open
-private _noAim = freeLook || {uiNamespace getVariable ["fza_radialOpen", false]} || {(cameraView == "INTERNAL" && {((missionNamespace getVariable ["hct_interaction_trackIR_interaction_cursor", false]) && {!fza_ah64_tadsIgnoreHatchetCursor}) || {uiNamespace getVariable ["hct_interaction_mouseBlocker", false]}})};
+private _noAim = call fza_ihadss_fnc_aimInputBlocked;
 private _aimX = [inputAction "AimRight" - inputAction "AimLeft", 0] select _noAim;
 private _aimY = [inputAction "AimUp" - inputAction "AimDown", 0] select _noAim;
 

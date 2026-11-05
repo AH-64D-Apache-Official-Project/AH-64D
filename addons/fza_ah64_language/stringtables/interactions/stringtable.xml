@@ -989,6 +989,46 @@
             <Original>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</Original>
             <English>CPG: arms the laser spot tracker while the TADS is slewed by hand, and tracks a spot of the LST code once found</English>
         </Key>
+        <Key ID="STR_FZA_AH64_IATENGAGE">
+            <Original>IAT/OFS: IAT</Original>
+            <English>IAT/OFS: IAT</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATENGAGE_INFO">
+            <Original>CPG: engages the image auto tracker on the target under the TADS reticle, or disengages it to manual track</Original>
+            <English>CPG: engages the image auto tracker on the target under the TADS reticle, or disengages it to manual track</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATOFFSET">
+            <Original>IAT/OFS: OFS</Original>
+            <English>IAT/OFS: OFS</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATOFFSET_INFO">
+            <Original>CPG: while the image auto tracker tracks, slew the TADS off the target with the manual tracker; again to return to the target</Original>
+            <English>CPG: while the image auto tracker tracks, slew the TADS off the target with the manual tracker; again to return to the target</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYWHITE">
+            <Original>IAT Polarity: White</Original>
+            <English>IAT Polarity: White</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYWHITE_INFO">
+            <Original>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people</Original>
+            <English>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYAUTO">
+            <Original>IAT Polarity: Auto</Original>
+            <English>IAT Polarity: Auto</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYAUTO_INFO">
+            <Original>CPG: the image auto tracker selects its contrast polarity itself</Original>
+            <English>CPG: the image auto tracker selects its contrast polarity itself</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYBLACK">
+            <Original>IAT Polarity: Black</Original>
+            <English>IAT Polarity: Black</English>
+        </Key>
+        <Key ID="STR_FZA_AH64_IATPOLARITYBLACK_INFO">
+            <Original>CPG: the image auto tracker tracks black on white: in the FLIR, cold vehicles, wrecks and buildings</Original>
+            <English>CPG: the image auto tracker tracks black on white: in the FLIR, cold vehicles, wrecks and buildings</English>
+        </Key>
         <Key ID="STR_FZA_AH64_MINIGAME_UP">
             <Original>Minigame: Up</Original>
             <English>Minigame: Up</English>
