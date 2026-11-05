@@ -71,7 +71,10 @@ if (_pnvsShown || _tadsShown) then {
     private _target = ["fza_ah64_pnvscam2", "fza_ah64_tadscam_nvs"] select _nvsTads;
     if _tadsShown then {
         _target = ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"] select (_visionMode == 0);
-        fza_ihadss_tadsPicture = [_pictureRect, fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]])];
+        // The DTV's camera stops at DTV_CAMERA_MIN_FOV
+        private _picFov = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
+        if (_visionMode == 0) then {_picFov = _picFov max DTV_CAMERA_MIN_FOV};
+        fza_ihadss_tadsPicture = [_pictureRect, _picFov];
     };
     private _texture = [_target] call fza_ihadss_fnc_r2tTexture;
     private _failed  = if (_tadsShown) then {

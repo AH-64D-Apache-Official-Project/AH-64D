@@ -57,7 +57,8 @@ switch (true) do {
         _fov    = if (_target == "fza_ah64_tadscam_nvs") then {
             getNumber (configOf _heli >> "RenderTargets" >> "gunnertads_nvs" >> "View01" >> "fov")
         } else {
-            fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]])
+            (fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]))
+                max ([0, DTV_CAMERA_MIN_FOV] select (_target == "fza_ah64_tadscam_dtv"))
         };
     };
     default {

@@ -34,6 +34,9 @@
 #define LST_MODE_OFF  0
 #define LST_MODE_AUTO 1
 #define LST_MODE_MAN  2
+// A script camera's FOV goes no narrower (camSetFov): the DTV, a script camera (fza_ihadss_fnc_dtvCamera), shows its zoom
+// FOV at this, and is placed into at this
+#define DTV_CAMERA_MIN_FOV 0.01
 // The CPG's image auto tracker, fza_ah64_iat (fza_ihadss_fnc_iatUpdate), and its polarity switch
 #define IAT_OFF   0
 #define IAT_TRACK 1

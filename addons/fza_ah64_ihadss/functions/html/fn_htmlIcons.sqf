@@ -279,13 +279,17 @@ if (_gate isNotEqualTo []) then {
     private _r = if (_c isEqualTo []) then {[]} else {(_gPos vectorAdd (_gRight vectorMultiply (_gHalf # 0))) call _toScr};
     private _u = if (_r isEqualTo []) then {[]} else {(_gPos vectorAdd (_gUp vectorMultiply (_gHalf # 1))) call _toScr};
     if (_u isEqualTo []) exitWith {};
-    // Format units, about the reticle at the format's centre
+    // Format units, about the reticle at the format's centre; heads up, a strip off the HDU lens or display field is not drawn
     private _unitX = _rectW / 640;
     private _unitY = _rectH / 480;
     private _cx    = _rectX + _rectW / 2;
     private _cy    = _rectY + _rectH / 2;
     {
         _x params ["_bx", "_by", "_bw", "_bh"];
+        private _fx = _bx + _bw / 2;
+        private _fy = _by + _bh / 2;
+        if (!_headsDown && {_fx < HDU_FIELD_LEFT || {_fx > HDU_FIELD_RIGHT || {_fy < HDU_FIELD_TOP || {_fy > HDU_FIELD_BOTTOM
+            || {((_fx * cos HDU_MASK_ROT + _fy * sin HDU_MASK_ROT) / HDU_CLIP_A) ^ 2 + ((_fy * cos HDU_MASK_ROT - _fx * sin HDU_MASK_ROT) / HDU_CLIP_B) ^ 2 > 1}}}}}) then {continue};
         private _key  = "iat" + str _forEachIndex;
         private _ctrl = _ctrls getOrDefault [_key, controlNull];
         if (isNull _ctrl) then {
