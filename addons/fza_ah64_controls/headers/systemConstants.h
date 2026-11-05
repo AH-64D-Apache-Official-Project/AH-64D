@@ -40,6 +40,7 @@
 #define IAT_COAST 2
 #define IAT_STOP  3
 #define IAT_FAIL  4
+#define IAT_SIZING 5
 #define IAT_IDLE  [IAT_OFF, false, objNull, [], [], [0, 0, 0], -1, [0, 0], -1, []]
 #define IAT_POL_WHITE 0
 #define IAT_POL_AUTO  1
@@ -51,10 +52,12 @@
 #define IAT_GATE_MAX   0.5
 #define IAT_RANGE      8000
 #define IAT_VISIBLE    0.3
-// Check rate, time to reacquire before stop mode, gate growth time (s)
+// Check rate, time to reacquire before stop mode; IAT held this long starts sizing the gates, growing over IAT_SIZE_TIME
+// and shrinking back (s)
 #define IAT_CHECK_EVERY 0.1
 #define IAT_REACQUIRE   2
-#define IAT_GROW_TIME   0.5
+#define IAT_HOLD        0.6
+#define IAT_SIZE_TIME   4.5
 // NVS MODE FIXED: fixed forward, the aircraft centerline 4.9 deg below the airframe datum
 #define NVS_FIXED_EL -4.9
 // The TADS as an NVS sensor slews noticeably slower in azimuth than the PNVS, deg/s

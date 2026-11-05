@@ -225,12 +225,14 @@ if (!_tpm && {_cscope} && {_heli animationPhase "fcr_enable" == 1}) then {
 
 // IAT gates, projected as the symbols above (fza_ihadss_fnc_iatGates)
 private _gates = [];
-private _gate  = if (_symbology == "TADS") then {[_heli] call fza_ihadss_fnc_iatGates} else {[]};
+private _gRight = _heli vectorModelToWorldVisual _right;
+private _gUp    = _heli vectorModelToWorldVisual _up;
+private _gate   = if (_symbology == "TADS") then {[_heli, _gRight, _gUp] call fza_ihadss_fnc_iatGates} else {[]};
 if (_gate isNotEqualTo []) then {
     _gate params ["_gPos", "_gHalf"];
     private _c = _gPos call _point;
-    private _r = (_gPos vectorAdd (_heli vectorModelToWorldVisual (_right vectorMultiply (_gHalf # 0)))) call _point;
-    private _u = (_gPos vectorAdd (_heli vectorModelToWorldVisual (_up vectorMultiply (_gHalf # 1)))) call _point;
+    private _r = (_gPos vectorAdd (_gRight vectorMultiply (_gHalf # 0))) call _point;
+    private _u = (_gPos vectorAdd (_gUp vectorMultiply (_gHalf # 1))) call _point;
     if (_c isEqualTo [] || {_r isEqualTo []} || {_u isEqualTo []}) exitWith {};
     _gates = ([_heli, (_c # 0) - 320, (_c # 1) - 240, abs ((_r # 0) - (_c # 0)), abs ((_u # 1) - (_c # 1))] call fza_ihadss_fnc_iatGateStrips)
         apply {[(_x # 0) + 320, (_x # 1) + 240, _x # 2, _x # 3]};

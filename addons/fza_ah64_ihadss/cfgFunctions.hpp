@@ -29,8 +29,10 @@ class CfgFunctions
             class iatGates {R;};
             class iatGateStrips {R;};
             class iatAcquire {R;};
+            class iatBounds {R;};
             class iatCheck {R;};
             class iatDisengage {R;};
+            class iatSizing {R;};
             class iatSwitch {R;};
             class iatTargetPos {R;};
             class iatUpdate {R;};

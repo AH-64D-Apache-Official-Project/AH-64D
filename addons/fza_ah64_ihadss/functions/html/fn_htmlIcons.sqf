@@ -264,15 +264,20 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
 
 // IAT gates in the same frame as the picture, through the sight or in the TADS picture on the HDU, projected as the
 // other world symbols are; in format units about the reticle (fza_ihadss_fnc_iatGateStrips)
-private _gate = if (_weaponFormat && {_headsDown || _inPicture}) then {[_heli] call fza_ihadss_fnc_iatGates} else {[]};
+private _gate  = [];
+private _gRight = [];
+private _gUp    = [];
+if (_weaponFormat && {_headsDown || _inPicture}) then {
+    _gRight = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsRight} else {vectorNormalized _camRight};
+    _gUp    = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsUp} else {vectorNormalized _camUp};
+    _gate   = [_heli, _gRight, _gUp] call fza_ihadss_fnc_iatGates;
+};
 if (_gate isNotEqualTo []) then {
     _gate params ["_gPos", "_gHalf"];
     private _toScr = [{worldToScreen ASLToAGL _this}, _toPicture] select _inPicture;
-    private _right = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsRight} else {vectorNormalized _camRight};
-    private _up    = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsUp} else {vectorNormalized _camUp};
     private _c = _gPos call _toScr;
-    private _r = if (_c isEqualTo []) then {[]} else {(_gPos vectorAdd (_right vectorMultiply (_gHalf # 0))) call _toScr};
-    private _u = if (_r isEqualTo []) then {[]} else {(_gPos vectorAdd (_up vectorMultiply (_gHalf # 1))) call _toScr};
+    private _r = if (_c isEqualTo []) then {[]} else {(_gPos vectorAdd (_gRight vectorMultiply (_gHalf # 0))) call _toScr};
+    private _u = if (_r isEqualTo []) then {[]} else {(_gPos vectorAdd (_gUp vectorMultiply (_gHalf # 1))) call _toScr};
     if (_u isEqualTo []) exitWith {};
     // Format units, about the reticle at the format's centre
     private _unitX = _rectW / 640;

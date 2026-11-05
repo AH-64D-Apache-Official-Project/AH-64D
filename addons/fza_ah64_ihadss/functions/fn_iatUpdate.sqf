@@ -51,7 +51,7 @@ if (_state != IAT_FAIL && {_heli getHitPointDamage "hit_msnEquip_tads_turret" >=
     _state = IAT_FAIL;
     [_heli, "fza_ah64_iat", [IAT_FAIL, false, objNull, [], [], [0, 0, 0], -1, [0, 0], _now, []]] call fza_fnc_updateNetworkGlobal;
 };
-if (_state in [IAT_STOP, IAT_FAIL]) exitWith {
+if (_state in [IAT_STOP, IAT_FAIL, IAT_SIZING]) exitWith {
     _heli setVariable ["fza_ihadss_iatDriving", false];
     []
 };

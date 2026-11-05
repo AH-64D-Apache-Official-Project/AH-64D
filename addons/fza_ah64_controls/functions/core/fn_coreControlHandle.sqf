@@ -403,6 +403,9 @@ if !(_value) then {
                 _heli setVariable ["fza_ah64_trigger_" + _seat, [_pressedAt, CBA_missionTime + 1], true];
             };
         };
+        case "fza_ah64_iatEngage": {
+            [_heli, false, false] call fza_ihadss_fnc_iatSwitch;
+        };
         case "fza_minigame_up": {
             ["up", false] call fza_mg_fnc_minigameHandleInput;
         };
