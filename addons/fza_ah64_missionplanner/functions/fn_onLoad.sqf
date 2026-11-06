@@ -5,6 +5,7 @@ uiNamespace setVariable ["fza_mplanner_display", _display];
 
 private _browser = _display displayCtrl 100;
 if (isNull _browser) exitWith {};
+(_display displayCtrl 101) ctrlShow false;
 
 private _eventName = ["JS", "Dialog"] joinString "";
 
@@ -52,4 +53,5 @@ uiNamespace setVariable ["fza_mplanner_ready", false];
     [] call fza_mplanner_fnc_seedSaves;
     [] call fza_mplanner_fnc_seedHelisimData;
     [] call fza_mplanner_fnc_seedCurrentConfig;
+    [] call fza_mplanner_fnc_dtcSeed;
 };

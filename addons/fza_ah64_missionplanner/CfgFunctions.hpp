@@ -15,5 +15,15 @@ class CfgFunctions
             class seedCurrentConfig {};
             class applyConfig {};
         };
+        class dtc
+        {
+            file = "fza_ah64_missionplanner\functions\dtc";
+            class dtcDelete {};
+            class dtcMap {};
+            class dtcMapDraw {};
+            class dtcSave {};
+            class dtcSeed {};
+            class dtcStage {};
+        };
     };
 };

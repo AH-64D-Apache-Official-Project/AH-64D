@@ -33,19 +33,19 @@ switch (_pageType) do {
             case 5: {"fza_dms_targetsThreats"};
         });
 
-        // Only the points stored in the database, six to a page; the page and the line selected are held within them
-        // as points are added and deleted
-        private _points = _variable select {_x isNotEqualTo -1};
+        // Every point in the file, six to a page, empty ones as blank data
+        private _points = _variable;
         _pageNumberMax = (ceil (count _points / 6)) max 1;
         _state set ["pageNumberMax", _pageNumberMax];
         if (_pageNumber > _pageNumberMax) then {
             _pageNumber = _pageNumberMax;
             _state set ["pageNumber", _pageNumber];
         };
-        private _pagePoints = _points select [(_pageNumber - 1) * 6, 6];
-        // The point ids on the lines, for the point select buttons (fza_mpd_fnc_pageCOORDHandleControl)
-        _state set ["pagePoints", _pagePoints apply {_x # POINT_GET_ID}];
-        if (_pointselected > count _pagePoints) then {
+        private _first = (_pageNumber - 1) * 6;
+        private _pagePoints = _points select [_first, 6];
+        // The point ids on the lines, [] for an empty one, for the point select buttons (fza_mpd_fnc_pageCOORDHandleControl)
+        _state set ["pagePoints", _pagePoints apply {[_x # POINT_GET_ID, []] select (_x isEqualTo -1)}];
+        if (_pointselected > count _pagePoints || {_pointselected > 0 && {(_pagePoints # (_pointselected - 1)) isEqualTo -1}}) then {
             _pointselected = -1;
             _state set ["PointSelected", -1];
             _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_POINT), -1];
@@ -55,6 +55,16 @@ switch (_pageType) do {
             private _i = _forEachIndex;
             private _pointInfo = _x;
             private _mfdTextIndex = (_i * 3 + 3);
+            if (_pointInfo isEqualTo -1) then {
+                private _number = _first + _i + 1;
+                private _id = switch (_pageType) do {
+                    case 1: {"W" + ([_number, 2] call CBA_fnc_formatNumber)};
+                    case 2: {"C" + str (_number + 50)};
+                    default {"T" + ([_number, 2] call CBA_fnc_formatNumber)};
+                };
+                _heli setUserMFDText [MFD_INDEX_OFFSET(_mfdTextIndex), format ["%1 AA AAA AAA XX AAX AA XXXX XXXX XXXXX FT", _id]];
+                continue;
+            };
             _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
 
             if ((_i + 1) != _pointselected) then {
@@ -88,12 +98,34 @@ switch (_pageType) do {
     case 3;
     case 4: {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), _pageType];
-        _state set ["pageNumberMax", 9];
-        private _varName = switch (_pageType) do {
-            case 1: {"fza_dms_lines"};
-            case 2: {"fza_dms_area"};
+        _state set ["pagePoints", []];
+        // Every line or area in the file, three to a page, empty ones as blank data: the number and ident, then a row
+        // for each point's grid and altitude
+        private _list = _heli getVariable [["fza_dms_lines", "fza_dms_areas"] select (_pageType == 4), []];
+        _pageNumberMax = (ceil (count _list / 3)) max 1;
+        _state set ["pageNumberMax", _pageNumberMax];
+        if (_pageNumber > _pageNumberMax) then {
+            _pageNumber = _pageNumberMax;
+            _state set ["pageNumber", _pageNumber];
         };
-        private _variable = _heli getVariable _varName;
+        private _first = (_pageNumber - 1) * 3;
+        {
+            private _row = _forEachIndex * 6 + 2;
+            private _number = [_first + _forEachIndex + 1, 2] call CBA_fnc_formatNumber;
+            if (_x isEqualTo -1) then {
+                for "_k" from 0 to 3 do {
+                    private _head = [_number + " AAAAA ", "         "] select (_k > 0);
+                    _heli setUserMFDText [MFD_INDEX_OFFSET(_row + _k), _head + "AAA 00 00A AA 0000 0000 00000 FT"];
+                };
+                continue;
+            };
+            _x params ["_ident", "_pts"];
+            {
+                private _grid = [_x] call fza_dms_fnc_posToGrid;
+                private _head = [_number + " " + ([_ident, 5, true] call fza_fnc_padString) + " ", "         "] select (_forEachIndex > 0);
+                _heli setUserMFDText [MFD_INDEX_OFFSET(_row + _forEachIndex), format ["%1W84 47 13S FU %2 %3 %4 FT", _head, _grid select [0, 4], _grid select [4, 4], [((_x # 2) * SCALE_METERS_FEET + _altBase) toFixed 0, 5] call fza_fnc_padString]];
+            } forEach _pts;
+        } forEach (_list select [_first, 3]);
     };
     case 6: {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 6];

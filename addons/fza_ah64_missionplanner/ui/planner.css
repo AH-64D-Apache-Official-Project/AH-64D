@@ -799,7 +799,7 @@
   }
   #app.non-config-tab .config-only-bottom { display: none; }
   #panel-config .col-left {
-    padding-bottom: 180px;
+    padding-bottom: 200px;
   }
   .perf-box {
     background: rgba(0, 0, 0, 0.45);
@@ -832,7 +832,7 @@
     padding-top: 0;
   }
   #app.non-config-tab .tab-sidebar {
-    padding-bottom: 128px;
+    padding-bottom: 200px;
   }
   .bottom-row {
     display: flex;
@@ -1157,3 +1157,90 @@
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg2); }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ── DTC: LINES, AREAS AND ZONES ── */
+  .dtc-sidebar { min-height: 0; }
+  .dtc-tools { display: flex; gap: 4px; flex-shrink: 0; }
+  .dtc-tools button { flex: 1; font-size: 14px; padding: 3px 2px; }
+  .dtc-tools button.on, .dtc-act.on { background: var(--accent); color: #000; border-color: var(--accent); }
+  .dtc-lists { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 1px; }
+  .dtc-list-title {
+    color: var(--text-bright);
+    font-size: 14px;
+    margin-top: 4px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dtc-inline { font-size: 11px; padding: 1px 4px; }
+  .dtc-list { display: flex; flex-direction: column; gap: 1px; }
+  .dtc-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 1px 3px;
+    font-size: 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .dtc-row:hover { background: var(--btn-hover); }
+  .dtc-row.sel { border-color: var(--accent); }
+  .dtc-row.empty { color: var(--text-dim); }
+  .dtc-num { width: 2ch; color: var(--text-dim); }
+  .dtc-ident {
+    width: 7ch;
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: inherit;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  .dtc-zone-name, .dtc-none { width: 7ch; }
+  .dtc-info { flex: 1; color: var(--text-dim); }
+  .dtc-act, .dtc-del { font-size: 11px; padding: 1px 4px; }
+  .dtc-map { flex: 1; background: var(--bg2); }
+  #dtc-box .row2btn button { font-size: 13px; padding: 2px 2px; }
+  .dtc-status { min-height: 13px; font-size: 11px; color: var(--text-dim); }
+  .dtc-status.bad { color: var(--red-bright); }
+  .dtc-pid { width: 4ch; color: var(--text-bright); }
+  .dtc-pident, .dtc-free {
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .dtc-pident { width: 7ch; }
+  .dtc-free { width: 5ch; text-transform: uppercase; }
+  .dtc-route-picker { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; flex-shrink: 0; }
+  .dtc-route { font-size: 13px; padding: 2px 0; }
+  .dtc-route.on { background: var(--accent); color: #000; border-color: var(--accent); }
+  .dtc-scopes {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .dtc-scope {
+    min-width: 100px;
+    padding: 6px 10px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text-dim);
+    text-align: center;
+    cursor: pointer;
+  }
+  .dtc-scope.active { color: var(--text-bright); border-color: var(--accent); background: #163816; }
+  .dtc-text {
+    width: 100%;
+    height: 90px;
+    resize: none;
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 11px;
+    user-select: text;
+  }

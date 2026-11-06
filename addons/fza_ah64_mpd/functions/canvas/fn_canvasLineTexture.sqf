@@ -1,0 +1,10 @@
+// Texture files the MPD display loads with itself (RscFzaAH64MPD)
+params ["_color"];
+
+switch (true) do {
+    case (_color isEqualTo [0, 1, 0, 1]): {"\fza_ah64_mpd\tex\canvas\line_green_ca.paa"};
+    case (_color isEqualTo [1, 1, 1, 1]): {"\fza_ah64_mpd\tex\canvas\line_white_ca.paa"};
+    case (_color isEqualTo [1, 1, 0, 1]): {"\fza_ah64_mpd\tex\canvas\line_yellow_ca.paa"};
+    case (_color isEqualTo [0.6, 0.6, 0.6, 1]): {"\fza_ah64_mpd\tex\canvas\line_dim_ca.paa"};
+    default {format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _color)};
+}

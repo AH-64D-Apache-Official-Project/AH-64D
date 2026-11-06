@@ -25,7 +25,7 @@ switch (_state get "subPage") do {
                     params ["_heli", "_state"];
                     sleep 4;
                     _state set ["loadState", MFD_DTU_LOAD_COMPLETE];
-                    [missionNamespace, _heli] call fza_dms_fnc_copy;
+                    [_heli] call fza_dms_fnc_dtcLoad;
                 };
                 _state set ["subPage", DTU_LOAD_STATUS]; //Load status subpage
             };

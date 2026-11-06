@@ -900,4 +900,27 @@ class FzaIconTypes {
         type  = POINT_TYPE_FCR;
         color[] = MPD_ICON_COLOR_RED;
     };
+//--------------------TSD Zone, Area and Line Labels--------------------
+
+    class TSD_ZONE_LABEL_WHITE:IconTypeB {
+        tex   = "";
+        type  = POINT_TYPE_SYSTEM;
+        textA = MPD_ICON_TEXT_FREE;
+        color[] = {1, 1, 1, 1};
+    };
+    class TSD_ZONE_LABEL_DIM:TSD_ZONE_LABEL_WHITE {
+        color[] = {0.6, 0.6, 0.6, 1};
+    };
+    class TSD_ZONE_LABEL_YELLOW:TSD_ZONE_LABEL_WHITE {
+        color[] = MPD_ICON_COLOR_YELLOW;
+    };
+    class TSD_AREA_LABEL:TSD_ZONE_LABEL_WHITE {
+        color[] = MPD_ICON_COLOR_GREEN;
+    };
+    class TSD_LINE_LABEL:IconTypeC {
+        tex   = "";
+        type  = POINT_TYPE_SYSTEM;
+        textA = MPD_ICON_TEXT_FREE;
+        color[] = MPD_ICON_COLOR_GREEN;
+    };
 };

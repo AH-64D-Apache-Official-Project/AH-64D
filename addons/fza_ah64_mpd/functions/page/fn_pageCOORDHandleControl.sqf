@@ -43,22 +43,22 @@ switch (_control) do {
             _state set ["shotatdel", 0];
         };
     };
-    /*case "t3": {
+    case "t3": {
         if (_pageType != 3) then {
             _state set ["pageType", 3];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
             _state set ["shotatdel", 0];
         };
-    };*/
-    /*case "t4": {
+    };
+    case "t4": {
         if (_pageType != 4) then {
             _state set ["pageType", 4];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
             _state set ["shotatdel", 0];
         };
-    };*/
+    };
     case "t5": {
         if (_pageType != 5) then {
             _state set ["pageType", 5];
@@ -86,7 +86,7 @@ switch (_control) do {
     case "r6": {
         if (_pageType == 6) exitWith {};
         private _line = ["r1", "r2", "r3", "r4", "r5", "r6"] find _control;
-        if (_line >= count _pagePoints) exitWith {};
+        if (_line >= count _pagePoints || {(_pagePoints # _line) isEqualTo []}) exitWith {};
         _state set ["PointSelected", [_line + 1, -1] select (_pointselected == _line + 1)];
     };
 
@@ -103,7 +103,7 @@ switch (_control) do {
             };
         };
         private _line = ["l1", "l2", "l3", "l4", "l5", "l6"] find _control;
-        if (_line >= count _pagePoints) exitWith {};
+        if (_line >= count _pagePoints || {(_pagePoints # _line) isEqualTo []}) exitWith {};
         [_heli, (_pagePoints # _line) call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
     };
 };

@@ -158,6 +158,13 @@ class CfgVehicles {
                     mode = "nav";
                     ctr = 0;
                     tsdScale = 25000;
+                    znType = 0;
+                    znOpt = 0;
+                    znDraw = 0;
+                    znCount = 1;
+                    znKm = 2;
+                    znPfSel = 0;
+                    znNfSel = 0;
                 };
             };
             class DMS {

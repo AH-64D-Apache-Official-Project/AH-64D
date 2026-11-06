@@ -11,7 +11,7 @@ Description:
     at most 15 times a second.
 
     Output variable fza_ah64_fcrDisplayTargets contains only targets that should
-    currently be visible. Output variable fza_ah64_fcrDisplayCount is their
+    currently be visible, none in an active NF zone. Output variable fza_ah64_fcrDisplayCount is their
     number.
 
 Parameters:
@@ -20,9 +20,10 @@ Parameters:
 Returns:
     Nothing. Writes fza_ah64_fcrDisplayTargets and fza_ah64_fcrDisplayCount.
 
-Record format (7 elements):
-    [pos, type, moving, obj, aziAngle, range, dim]
-     0    1     2       3    4         5      6
+Record format (8 elements):
+    [pos, type, moving, obj, aziAngle, range, dim, zone]
+     0    1     2       3    4         5      6    7
+    zone: 0 none, 1 the active PF zone, 2 an active NF zone
 
 Author:
     Snow(Dryden)
@@ -62,7 +63,10 @@ private _next = 1e9;
         if (abs _relCmd > _halfCmd + 1) then { continue; };
     };
 
-    _displayTargets pushBack [_pos, _x # 1, _x # 2, _x # 3, _aziAngle, _range, !_bright];
+    // Not shown in an active NF zone (fza_fcr_fnc_update)
+    if ((_x param [17, 0]) == 2) then { continue; };
+
+    _displayTargets pushBack [_pos, _x # 1, _x # 2, _x # 3, _aziAngle, _range, !_bright, _x param [17, 0]];
 } forEach _targets;
 
 _heli setVariable ["fza_fcr_displayBuilt", [_targets, _lastScan, _fcrMode, _scanSize, _next, CBA_missionTime]];

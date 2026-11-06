@@ -294,6 +294,9 @@
 #define MFD_IND_TSD_SHOW_WIND 8
 #define MFD_IND_TSD_SHOW_ENDR 9
 #define MFD_IND_TSD_ASE_FOOTPRINT 10
+#define MFD_IND_TSD_SHOW_INACTIVE_ZONES 11
+#define MFD_IND_TSD_SHOW_AREAS 12
+#define MFD_IND_TSD_SHOW_LINES 29
 
 #define MFD_IND_TSD_OPEN_POPOUT 13
 #define MFD_IND_TSD_ACQ_BOX 14
@@ -318,6 +321,33 @@
 #define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
+
+// ZN, local to subpage 6
+#define MFD_IND_TSD_ZN_VARIANT    0
+#define MFD_IND_TSD_ZN_OPT        1
+#define MFD_IND_TSD_ZN_DRAW       2
+#define MFD_IND_TSD_ZN_NF_SINGLE  3
+#define MFD_IND_TSD_ZN_FCR_POWER  4
+#define MFD_IND_TSD_ZN_ANY        5
+#define MFD_IND_TSD_ZN_SEL        12
+#define MFD_IND_TSD_ZN_EDIT       29
+#define MFD_IND_TSD_ZN_TYPE       30
+// The eight zones' states on NF SEL and ASN: 0 empty, 1 drawn, 2 active
+#define MFD_IND_TSD_ZN_SLOTS      [1, 2, 3, 4, 5, 6, 7, 11]
+#define MFD_IND_TSD_ZN_SLOT_1     1
+#define MFD_IND_TSD_ZN_SLOT_2     2
+#define MFD_IND_TSD_ZN_SLOT_3     3
+#define MFD_IND_TSD_ZN_SLOT_4     4
+#define MFD_IND_TSD_ZN_SLOT_5     5
+#define MFD_IND_TSD_ZN_SLOT_6     6
+#define MFD_IND_TSD_ZN_SLOT_7     7
+#define MFD_IND_TSD_ZN_SLOT_8     11
+
+#define MFD_TEXT_IND_TSD_ZN_COUNT 0
+#define MFD_TEXT_IND_TSD_ZN_SEL   1
+#define MFD_TEXT_IND_TSD_ZN_DEL   2
+// The eight zones' labels on NF SEL and ASN, 0-7
+#define MFD_TEXT_IND_TSD_ZN_SLOT_1 0
 // The PAN page: the pan heading, the last POINT panned to, and the route's next and last waypoints from the pan location
 #define MFD_TEXT_IND_TSD_PAN_HDG      20
 #define MFD_TEXT_IND_TSD_PAN_POINT    21

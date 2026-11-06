@@ -55,6 +55,9 @@ if (_vab > 0) exitWith {
 // A target as the FCR's NTS, with its record in the target file (fza_fcr_fnc_cycleNTS)
 private _setNts = {
     params ["_target", "_pos"];
+    // Not one in an active NF zone
+    private _display = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
+    if (((_display param [_display findIf {(_x # 3) isEqualTo _target}, []]) param [7, 0]) == 2) exitWith {};
     private _file = _heli getVariable ["fza_ah64_fcrTargets", []];
     private _rec  = _file param [_file findIf {(_x # 3) isEqualTo _target}, []];
     [_heli, "fza_ah64_fcrNts", [_target, _pos, _rec]] call fza_fnc_updateNetworkGlobal;
@@ -126,6 +129,12 @@ if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
         };
     };
     [_heli, _point call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
+};
+
+// ZN: a corner of the zone being drawn, or the TRP centre
+if (_subPage == 6) exitWith {
+    private _tsd = _persistState get _page;
+    [_heli, _state, _tsd, [_posX, _posY] call _mapPos, ([_heli, _tsd] call fza_mpd_fnc_tsdFrame) # 1] call fza_mpd_fnc_tsdZNCursorEnter;
 };
 
 // WPT or THRT ADD: a point of the chosen type, at the cursor, at ground level
