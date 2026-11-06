@@ -23,9 +23,6 @@ switch (_type) do {
     };
 };
 
-// Not the target file's special points after its stored ones (POINT_COUNT_TG_TH_ALL)
-private _points = _heli getVariable _varName;
-if (_type == POINT_TYPE_TG) then {_points = _points select [0, POINT_COUNT_TG_TH]};
-private _index = _points findIf {_x isEqualTo -1};
+private _index = (_heli getVariable _varName) findIf {_x isEqualTo -1};
 if (_index == -1) exitWith {[]};
 [_type, _index + _offset];

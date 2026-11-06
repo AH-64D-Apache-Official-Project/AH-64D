@@ -93,9 +93,8 @@ class rangeMarksZoomed {
 };
 #undef TSD_LEFT_MARK
 
-// The map border: bold and dashed while the map is frozen, the map frozen cue
+// The map border; while the map is frozen, bold dashes just outside it, the map frozen cue
 class border {
-    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_FROZEN)));
     class lines {
         type = "line";
         width = 3;
@@ -104,14 +103,30 @@ class border {
         };
     };
 };
+// Five dashes a side, a ninth of it each with equal gaps; the end ones meet as the corners
+// How far outside the border the dashes sit, and the nth ninth along a side of their square
+#define TSD_FRZ_OUT 0.003
+#define TSD_FRZ_AT(n) (0.095 - TSD_FRZ_OUT + (n) * (0.81 + 2 * TSD_FRZ_OUT) / 9)
+#define TSD_FRZ_DASHES_H(posY) {{TSD_FRZ_AT(2), posY}, 1}, {{TSD_FRZ_AT(3), posY}, 1}, {}, {{TSD_FRZ_AT(4), posY}, 1}, {{TSD_FRZ_AT(5), posY}, 1}, {}, {{TSD_FRZ_AT(6), posY}, 1}, {{TSD_FRZ_AT(7), posY}, 1}
+#define TSD_FRZ_DASHES_V(posX) {{posX, TSD_FRZ_AT(2)}, 1}, {{posX, TSD_FRZ_AT(3)}, 1}, {}, {{posX, TSD_FRZ_AT(4)}, 1}, {{posX, TSD_FRZ_AT(5)}, 1}, {}, {{posX, TSD_FRZ_AT(6)}, 1}, {{posX, TSD_FRZ_AT(7)}, 1}
 class borderFrozen {
     condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
     class lines {
         type = "line";
-        lineType = 2;
-        width = 6;
+        width = 8;
         points[] = {
-            {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.905}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}
+            {{TSD_FRZ_AT(0), TSD_FRZ_AT(1)}, 1}, {{TSD_FRZ_AT(0), TSD_FRZ_AT(0)}, 1}, {{TSD_FRZ_AT(1), TSD_FRZ_AT(0)}, 1}, {},
+            {{TSD_FRZ_AT(8), TSD_FRZ_AT(0)}, 1}, {{TSD_FRZ_AT(9), TSD_FRZ_AT(0)}, 1}, {{TSD_FRZ_AT(9), TSD_FRZ_AT(1)}, 1}, {},
+            {{TSD_FRZ_AT(9), TSD_FRZ_AT(8)}, 1}, {{TSD_FRZ_AT(9), TSD_FRZ_AT(9)}, 1}, {{TSD_FRZ_AT(8), TSD_FRZ_AT(9)}, 1}, {},
+            {{TSD_FRZ_AT(1), TSD_FRZ_AT(9)}, 1}, {{TSD_FRZ_AT(0), TSD_FRZ_AT(9)}, 1}, {{TSD_FRZ_AT(0), TSD_FRZ_AT(8)}, 1}, {},
+            TSD_FRZ_DASHES_H(TSD_FRZ_AT(0)), {},
+            TSD_FRZ_DASHES_H(TSD_FRZ_AT(9)), {},
+            TSD_FRZ_DASHES_V(TSD_FRZ_AT(0)), {},
+            TSD_FRZ_DASHES_V(TSD_FRZ_AT(9))
         };
     };
 };
+#undef TSD_FRZ_DASHES_H
+#undef TSD_FRZ_DASHES_V
+#undef TSD_FRZ_AT
+#undef TSD_FRZ_OUT

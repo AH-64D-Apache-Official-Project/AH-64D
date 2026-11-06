@@ -121,8 +121,8 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
         };
         //Hazards
         if (_type == POINT_TYPE_HZ && !_showAtkHazzard && _phase == 1) then {continue;};
-        //PLANNED TGT/THRT, but the crew stations' terrain points
-        if (_type == POINT_TYPE_TG && !_showPlanTgts && _ident != "TRN") then {continue;};
+        //PLANNED TGT/THRT
+        if (_type == POINT_TYPE_TG && !_showPlanTgts) then {continue;};
 
         _pointsArray pushBack (_x select [0,7]);
     } forEach (_heli getVariable _x);

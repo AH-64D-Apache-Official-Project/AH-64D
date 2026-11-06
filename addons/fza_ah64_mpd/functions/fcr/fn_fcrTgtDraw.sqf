@@ -2,7 +2,7 @@
 Function: fza_mpd_fnc_fcrTgtDraw
 
 Description:
-    TGT on an FCR format: whether it is selected, and the store status window,
+    TGT on an FCR format: whether it is shown and selected, and the store status window,
     the target file address the next target is stored at and the ones stored
     since TGT was selected, the latest last.
 
@@ -28,6 +28,8 @@ params ["_heli", "_mpdIndex", "_state"];
 
 private _tgt = _state getOrDefault ["tgt", 0];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_MODE), _tgt];
+// TGT is hidden until a scan has given targets to store (fza_mpd_fnc_fcrTgtHandleControl)
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_AVAIL), parseNumber (_tgt == 1 || {(_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) isNotEqualTo []})];
 if (_tgt == 0) exitWith {};
 
 // Where fza_fnc_targetingStore stores the next one: the first free address, or the one it overwrites next

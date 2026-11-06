@@ -107,20 +107,14 @@ if (_subPage == 5) exitWith {
     _tsd set ["panRte", -1];
 };
 
-// CAQ, the map staying frozen: as the crew station's acquisition source, the point under the cursor, an FCR target
-// stored as T51, or else the terrain there as the crew station's TRN point, T55 for the pilot and T56 for the CPG, labelled
-// with its crew station
+// CAQ, the map staying frozen: as the crew station's acquisition source, the point under the cursor, or an FCR target
+// stored as T50
 if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
-    // Chosen while CAQ is still selected, as fza_mpd_fnc_cursorPoint offers points only then
+    // Chosen while CAQ is still selected, as fza_mpd_fnc_cursorPoint offers points only then; none there leaves it selected
     private _point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint;
+    if (_point isEqualTo []) exitWith {};
     _state set ["caq", 0];
     private _seat = [_heli] call fza_fnc_getSeat;
-    if (_point isEqualTo []) exitWith {
-        private _pos = [_posX, _posY] call _mapPos;
-        private _id = [POINT_TYPE_TG, [POINT_INDEX_TG_TRN_PLT, POINT_INDEX_TG_TRN_CPG] select (_seat == "cpg")];
-        [_heli, _id, "TRN", toUpper _seat, _pos, getTerrainHeightASL _pos max 0] call fza_dms_fnc_pointCreate;
-        [_heli, _id call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
-    };
     if (_point # 0 == POINT_TYPE_FCR) exitWith {
         private _entry = (_state getOrDefault ["cursorFcr", []]) select {(_x # 1) isEqualTo _point};
         if (_entry isNotEqualTo []) then {
@@ -146,7 +140,8 @@ if (_subPage in [2, 4] && {_variant == 1}) exitWith {
     _state set ["subPageVarPage", [_subPage, 0]];
 };
 
-// A TSD point, chosen as if entered on the KU; DEL, EDT and RTE ADD go on to their pages for a chosen point
+// A TSD point, chosen as if entered on the KU; DEL, EDT and RTE ADD go on to their pages for a chosen point, RTE DIR
+// flies direct to it
 private _point = [_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorPoint;
 if (_point isEqualTo []) exitWith {};
 [_heli] call fza_ku_fnc_clear;
@@ -157,7 +152,14 @@ switch (_subPage) do {
         if (_variant in [2, 4]) then {_state set ["subPageVarPage", [_subPage, _variant + 1]]};
     };
     case 3: {
-        _heli setVariable ["fza_mpd_tsdRteCurrentSel", _point];
-        _state set ["subPageVarPage", [3, 2]];
+        if (_variant in [4, 5]) then {
+            // As the DIR page's POINT entry (fza_mpd_fnc_tsdRTEHandleControl)
+            [_heli, _point, true] call fza_dms_fnc_routeSetDir;
+            _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
+            _state set ["subPageVarPage", [3, 0]];
+        } else {
+            _heli setVariable ["fza_mpd_tsdRteCurrentSel", _point];
+            _state set ["subPageVarPage", [3, 2]];
+        };
     };
 };

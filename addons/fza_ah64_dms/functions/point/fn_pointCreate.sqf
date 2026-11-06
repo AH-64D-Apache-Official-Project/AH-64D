@@ -12,7 +12,7 @@ _result params ["_dbName", "_dbIndex"];
 private _gridCoord = [_armaPos] call fza_dms_fnc_posToGrid;
 private _latLong   = [_armaPos] call fza_dms_fnc_posToLatLong call fza_dms_fnc_latLongToString;
 
-private _pointData = 
+private _pointData =
     [ MPD_POSMODE_WORLD
     , _armaPos
     , _freeText
@@ -26,8 +26,6 @@ private _pointData =
     ];
 
 private _db = _heli getVariable _dbName;
-// A file shorter than its points (saved before it grew) padded with empty entries, not left with gaps
-while {count _db < _dbIndex} do {_db pushBack -1};
 _db set [_dbIndex, _pointData];
 
 _heli setVariable [_dbName, _db, _publish];

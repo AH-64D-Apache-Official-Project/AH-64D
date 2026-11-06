@@ -5,8 +5,9 @@ Description:
     The point an MPD cursor position is on, on a TSD page that takes a point
     from the map: WPT (waypoints, hazards and control measures) and THRT
     (targets and threats), at their top level, DEL and EDT, RTE ADD
-    (waypoints, hazards and control measures), and CAQ (waypoints, hazards,
-    control measures, targets and threats, and FCR targets). Of the points the TSD
+    (waypoints, hazards and control measures), RTE DIR (those and targets and
+    threats), and CAQ (waypoints, hazards, control measures, targets and
+    threats, and FCR targets). Of the points the TSD
     draws (fza_mpd_fnc_pageTSDDraw), the nearest within reach of the cursor.
 
 Parameters:
@@ -43,6 +44,7 @@ private _types = switch (true) do {
     case (_subPage == 2 && {_variant in [0, 2, 3, 4, 5]}): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM]};
     case (_subPage == 4 && {_variant in [0, 2, 3, 4, 5]}): {[POINT_TYPE_TG]};
     case (_subPage == 3 && {_variant in [1, 2]}): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM]};
+    case (_subPage == 3 && {_variant in [4, 5]}): {[POINT_TYPE_WP, POINT_TYPE_HZ, POINT_TYPE_CM, POINT_TYPE_TG]};
     default {[]};
 };
 if (_types isEqualTo []) exitWith {[]};

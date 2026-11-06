@@ -100,7 +100,6 @@ class tsdCommon {
                 width = 3;
                 points[] = {
                     //Stopped rotor blades
-                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.02, 0.0}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.02, 0.0}, 1}, {},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, -0.02}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.0, 0.02}, 1}, {},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, -0.014}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, 0.014}, 1}, {},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {0.014, -0.014}, 1}, {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {-0.014, 0.014}, 1}, {},

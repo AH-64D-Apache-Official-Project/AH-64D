@@ -141,6 +141,11 @@ class MaskGate {
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_VID));
         #include "pages\vid_draw.hpp"
     };
+    // After the pages, as the ACQ button below: the FCR formats' TGT store window, while TGT is selected
+    class FcrTgtStore {
+        condition = C_COND(C_AND(C_AND(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)), C_NOT(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 0))), C_MPD_USER(MFD_IND_FCR_TGT_MODE)));
+        #include "pages\fcr\tgt_store.hpp"
+    };
     // After the pages, as a class of its own, so its black backing hides the page's lines under it: inside one of these
     // Draw classes the MPD draws polygons before lines. The ACQ button at R6, while the list is closed.
     class AcqSource {

@@ -7,7 +7,5 @@ _result params ["_dbName", "_dbIndex"];
 
 private _db = _heli getVariable _dbName;
 
-// A file saved before it had its special points is shorter
-private _point = _db param [_dbIndex, -1];
-if (_point isEqualTo -1) exitWith {};
-_point select _valueType
+if (_db # _dbIndex isEqualTo -1) exitWith {};
+_db # _dbIndex select _valueType

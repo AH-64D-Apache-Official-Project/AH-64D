@@ -335,16 +335,14 @@ class root {
                 MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
                 MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
                 MPD_TEXT_R(NTS_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
-                //L4
-                MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-                MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
-                MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-                // Barrier without an NTS to store
-                class tgtBarrier {
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_TGT_BARRIER), 1));
-                    MPD_BOX_BAR_R(TGT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
+                //L4, once a scan has given targets to store
+                class TGT_Avail {
+                    condition = C_COND(C_MPD_USER(MFD_IND_FCR_TGT_AVAIL));
+                    MPD_TEXT_R(TGT_1,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+                    MPD_TEXT_R(TGT_2,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
+                    MPD_TEXT_R(TGT_3,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
                 };
-                // TGT boxed while selected, with ALL at L5 and the store status window
+                // TGT boxed while selected, with ALL at L5; the store status window is drawn from mpd.hpp
                 class TGT_Box {
                     condition = C_COND(C_MPD_USER(MFD_IND_FCR_TGT_MODE));
                     class Lines {
@@ -368,10 +366,6 @@ class root {
                 MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
                 MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
                 MPD_BOX_BAR_R(ELEV,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
-            };
-            class TgtStore {
-                condition = C_COND(C_MPD_USER(MFD_IND_FCR_TGT_MODE));
-                #include "fcr\tgt_store.hpp"
             };
         };
 

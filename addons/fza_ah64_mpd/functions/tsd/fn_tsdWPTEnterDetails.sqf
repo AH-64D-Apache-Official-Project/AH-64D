@@ -4,7 +4,9 @@ params ["_heli", "_state"];
 
 private _identChecker = {
     params ["_input", "_state"];
-    [_state get "addType", _input] call fza_dms_fnc_pointIsValidIdent;
+    // Left blank: the point type's default ident
+    if (_input == "") then {_input = ["WP", "TU", "CP", "", "TG"] select (_state get "addType")};
+    [[_state get "addType", _input] call fza_dms_fnc_pointIsValidIdent, _input]
 };
 
 private _identCallback = {
