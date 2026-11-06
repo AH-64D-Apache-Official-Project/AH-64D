@@ -653,7 +653,7 @@
     receiveSeed: function (payload) {
       if (!payload) return;
       state.world = payload.world || state.world;
-      state.saves = { own: payload.own || [], mission: payload.mission || [] };
+      if (Array.isArray(payload.own)) state.saves = { own: payload.own, mission: payload.mission || [] };
       if (payload.idents) state.idents = payload.idents;
       var mode = payload.mode || 'open';
       if (mode === 'open' && !state.seeded) {
