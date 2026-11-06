@@ -93,6 +93,12 @@ switch (_sight) do {
 private _lstTarget = [_heli] call fza_ihadss_fnc_lstUpdate;
 if (_lstTarget isNotEqualTo []) then {_cameraTarget = _lstTarget};
 
+// The IAT tracking drives the TADS over the sight and LMC; the LST taking the TADS drops it. Its LOS offset slews
+// as the game's own control does heads down, learnt from the CPG's own slewing.
+[_heli] call fza_ihadss_fnc_tadsNativeGain;
+private _iatTarget = [_heli, _lstTarget isNotEqualTo []] call fza_ihadss_fnc_iatUpdate;
+if (_iatTarget isNotEqualTo []) then {_cameraTarget = _iatTarget};
+
 // With no player CPG the pilot's acquisition source points the TADS; TADS leaves it to the AI gunner to be driven
 if (!isPlayer _gunnnerUnit && {_currentTurret isEqualTo [-1]}) then {
     private _acq = [_heli, [-1]] call fza_fnc_targetingCurAcq;
@@ -111,6 +117,6 @@ if _tadsNvs then {
     _cameraTarget = (_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")) vectorAdd (_heli vectorModelToWorldVisual [0, 1000, 0]);
 };
 
-if ((_currentTurret isEqualTo [0] || !(isPlayer _gunnnerUnit)) && {_tadsNvs || {_lstTarget isNotEqualTo []} || {!(_heli getVariable "fza_ah64_LmcActive")}}) then {
+if ((_currentTurret isEqualTo [0] || !(isPlayer _gunnnerUnit)) && {_tadsNvs || {_lstTarget isNotEqualTo []} || {_iatTarget isNotEqualTo []} || {!(_heli getVariable "fza_ah64_LmcActive")}}) then {
     [_heli, _cameraTarget] call fza_fnc_targetingTadsLockTo;
 };

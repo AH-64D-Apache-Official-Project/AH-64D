@@ -4,7 +4,8 @@ Function: fza_mpd_fnc_videoLinesDraw
 Description:
     onDraw handler of the VIDEO page's line canvas: the TPM terrain profile
     lines fza_mpd_fnc_videoSymbolsShow left on the display, line 1 solid, lines
-    2-4 dashed, as on the HDU (fza_ihadss_fnc_cscopeProfileDraw).
+    2-4 dashed, as on the HDU (fza_ihadss_fnc_cscopeProfileDraw); and the IAT
+    gates, filled strips.
 
 Parameters:
     _ctrl - The canvas map control (covers the display)
@@ -23,7 +24,8 @@ _ctrl ctrlMapAnimAdd [0, 0.001, [-99999, -99999]];
 ctrlMapAnimCommit _ctrl;
 
 private _lines = (ctrlParent _ctrl) getVariable ["fza_mpd_videoLines", []];
-if (_lines isEqualTo []) exitWith {};
+private _gates = (ctrlParent _ctrl) getVariable ["fza_mpd_videoGates", []];
+if (_lines isEqualTo [] && {_gates isEqualTo []}) exitWith {};
 
 // Display to map is linear; format units to the display are 480 to its height, centred and raised
 private _mc = _ctrl ctrlMapScreenToWorld [0.5, 0.5];
@@ -39,6 +41,11 @@ if (_unit < 1e-9 || {abs _ky < 1e-9}) exitWith {};
 private _halfWidth = 0.8 * _unit;
 private _patterns  = [[], [13, 9], [24, 4], [4, 6]] apply {_x apply {_x * _unit}};
 private _tex       = "\fza_ah64_mpd\tex\canvas\line_green_ca.paa";
+
+{
+    _x params ["_gx", "_gy", "_gw", "_gh"];
+    _ctrl drawRectangle [[_gx + _gw / 2, _gy + _gh / 2] call _toMap, _gw / 2 * _unit, _gh / 2 * abs _ky, 0, [1, 1, 1, 1], _tex];
+} forEach _gates;
 
 private _rect = {
     params ["_a", "_b"];

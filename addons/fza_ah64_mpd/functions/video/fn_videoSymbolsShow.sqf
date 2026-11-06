@@ -3,8 +3,8 @@ Function: fza_mpd_fnc_videoSymbolsShow
 
 Description:
     Shows the VIDEO page's world referenced symbols (fza_mpd_fnc_videoSymbols)
-    in its display: the icons as pictures in its icon group, the TPM lines left
-    for its line canvas (fza_mpd_fnc_videoLinesDraw). Native, so they are drawn
+    in its display: the icons as pictures in its icon group, the TPM lines and
+    IAT gates left for its line canvas (fza_mpd_fnc_videoLinesDraw). Native, so they are drawn
     in the same frame as the video under them.
 
 Parameters:
@@ -25,11 +25,12 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 disableSerialization;
 params ["_display", "_symbols"];
-_symbols params [["_icons", []], ["_lines", []]];
+_symbols params [["_icons", []], ["_lines", []], ["_gates", []]];
 
 private _group = _display displayCtrl 385;
 if (isNull _group) exitWith {};
 _display setVariable ["fza_mpd_videoLines", _lines];
+_display setVariable ["fza_mpd_videoGates", _gates];
 
 // Format units to the display: 480 units to its height, centred and raised
 private _ctrls = _group getVariable ["fza_mpd_videoIcons", []];

@@ -10,7 +10,8 @@ Description:
     centred). The same symbols as the HDU's (fza_ihadss_fnc_htmlIcons): flight
     format, the head tracker, flight path vector and fly-to cue; the cued LOS
     reticle; the rocket steering cursor; the C-SCOPE FCR targets, or with TPM
-    its obstacles and terrain profile lines.
+    its obstacles and terrain profile lines; with the TADS symbology the IAT
+    gates.
 
 Parameters:
     _heli      - The helicopter
@@ -19,7 +20,7 @@ Parameters:
     _symbology - The symbology shown with it, "TADS", "C-FLT" or "P-FLT"
 
 Returns:
-    [icons [[texture, x, y, size]], TPM lines [[line, [x, y, ...]]]]
+    [icons [[texture, x, y, size]], TPM lines [[line, [x, y, ...]]], IAT gate strips [[x, y, w, h]]]
 
 Examples:
     --- Code
@@ -56,7 +57,8 @@ switch (true) do {
         _fov    = if (_target == "fza_ah64_tadscam_nvs") then {
             getNumber (configOf _heli >> "RenderTargets" >> "gunnertads_nvs" >> "View01" >> "fov")
         } else {
-            fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]])
+            (fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]))
+                max ([0, DTV_CAMERA_MIN_FOV] select (_target == "fza_ah64_tadscam_dtv"))
         };
     };
     default {
@@ -71,7 +73,7 @@ switch (true) do {
         };
     };
 };
-if (_fwd isEqualTo []) exitWith {[[], []]};
+if (_fwd isEqualTo []) exitWith {[[], [], []]};
 _fwd = vectorNormalized _fwd;
 private _right = vectorNormalized (_fwd vectorCrossProduct [0, 0, 1]);
 private _up    = _right vectorCrossProduct _fwd;
@@ -222,4 +224,19 @@ if (!_tpm && {_cscope} && {_heli animationPhase "fcr_enable" == 1}) then {
     };
 };
 
-[_icons, _lines]
+// IAT gates, projected as the symbols above (fza_ihadss_fnc_iatGates)
+private _gates = [];
+private _gRight = _heli vectorModelToWorldVisual _right;
+private _gUp    = _heli vectorModelToWorldVisual _up;
+private _gate   = if (_symbology == "TADS") then {[_heli, _gRight, _gUp] call fza_ihadss_fnc_iatGates} else {[]};
+if (_gate isNotEqualTo []) then {
+    _gate params ["_gPos", "_gHalf"];
+    private _c = _gPos call _point;
+    private _r = (_gPos vectorAdd (_gRight vectorMultiply (_gHalf # 0))) call _point;
+    private _u = (_gPos vectorAdd (_gUp vectorMultiply (_gHalf # 1))) call _point;
+    if (_c isEqualTo [] || {_r isEqualTo []} || {_u isEqualTo []}) exitWith {};
+    _gates = ([_heli, (_c # 0) - 320, (_c # 1) - 240, abs ((_r # 0) - (_c # 0)), abs ((_u # 1) - (_c # 1))] call fza_ihadss_fnc_iatGateStrips)
+        apply {[(_x # 0) + 320, (_x # 1) + 240, _x # 2, _x # 3]};
+};
+
+[_icons, _lines, _gates]
