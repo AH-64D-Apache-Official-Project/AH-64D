@@ -4,7 +4,7 @@ class RscFzaMissionPlanner
     enableSimulation = 1;
     movingEnable = 0;
     onLoad = "[_this select 0] call fza_mplanner_fnc_onLoad";
-    onUnload = "uiNamespace setVariable ['fza_mplanner_display', displayNull]; uiNamespace setVariable ['fza_mplanner_dtcDraw', nil]; uiNamespace setVariable ['fza_mplanner_dtcDraft', nil]; uiNamespace setVariable ['fza_mplanner_dtcPoints', nil]; uiNamespace setVariable ['fza_mplanner_dtcRoute', nil]";
+    onUnload = "_this call fza_mplanner_fnc_onUnload";
 
     class controlsBackground
     {

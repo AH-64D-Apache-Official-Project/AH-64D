@@ -1,7 +1,8 @@
 // The DTC map's lines, areas and zones (fza_mplanner_fnc_dtcMap "sync"), and the one being drawn out to the mouse
 params ["_map"];
 
-private _colours = [[0, 0.5, 0, 1], [0, 0.3, 0.85, 1], [0.15, 0.15, 0.15, 1], [0.95, 0.55, 0, 1], [0.6, 0, 0.7, 1]];
+// Lines green, areas olive, PF zones black, NF zones orange, routes purple, FLET red, FLOT blue
+private _colours = [[0, 0.5, 0, 1], [0.4, 0.4, 0, 1], [0.15, 0.15, 0.15, 1], [0.95, 0.55, 0, 1], [0.6, 0, 0.7, 1], [0.85, 0, 0, 1], [0, 0.3, 0.9, 1]];
 private _w0 = _map ctrlMapScreenToWorld [0, 0];
 private _halfWidth = (_w0 distance2D (_map ctrlMapScreenToWorld [0.004, 0])) / 2;
 if (_halfWidth <= 0) exitWith {};
@@ -21,7 +22,7 @@ private _shape = {
 };
 
 {
-    _x params [["_pts", []], ["_closed", false], ["_colourIndex", 0], ["_label", ""]];
+    _x params [["_pts", []], ["_closed", false], ["_colourIndex", 0], ["_label", ""], ["_bothEnds", false]];
     if (count _pts < 2) then {continue};
     private _colour = _colours param [_colourIndex, _colours # 0];
     [_pts, _closed, _colour] call _shape;
@@ -30,6 +31,9 @@ private _shape = {
         {_sum = [(_sum # 0) + (_x # 0), (_sum # 1) + (_x # 1)]} forEach _pts;
         private _at = [[(_sum # 0) / count _pts, (_sum # 1) / count _pts], _pts # (count _pts - 1)] select !_closed;
         _map drawIcon ["#(argb,8,8,3)color(0,0,0,0)", _colour, [_at # 0, _at # 1], 0, 0, 0, _label, 2, 0.045, "PuristaBold", "center"];
+        if (_bothEnds) then {
+            _map drawIcon ["#(argb,8,8,3)color(0,0,0,0)", _colour, [_pts # 0 # 0, _pts # 0 # 1], 0, 0, 0, _label, 2, 0.045, "PuristaBold", "center"];
+        };
     };
 } forEach (uiNamespace getVariable ["fza_mplanner_dtcDraw", []]);
 

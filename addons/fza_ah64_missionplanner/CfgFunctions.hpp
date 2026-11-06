@@ -7,6 +7,7 @@ class CfgFunctions
             file = "fza_ah64_missionplanner\functions";
             class open {};
             class onLoad {};
+            class onUnload {};
             class saveConfig {};
             class deleteConfig {};
             class pushMissionConfig {};

@@ -1,6 +1,6 @@
 #include "\fza_ah64_dms\headers\constants.h"
 // What the TSD draws of the zones, areas and lines:
-// [world points, closed, line colour, marquee, label, label position, label class, label ID]
+// [world points, closed, line colour, marquee, label, label position, label class, label ID, more label positions]
 params ["_heli", "_state", "_persistState", "_phase"];
 
 private _onZn = (_state get "subPageVarPage") # 0 == 6;
@@ -29,7 +29,12 @@ if (_showLines) then {
     {
         if (_x isEqualTo -1) then {continue};
         _x params ["_ident", "_pts"];
-        _items pushBack [_pts, false, [0, 1, 0, 1], false, _ident, _pts select (count _pts - 1), "TSD_LINE_LABEL", [POINT_TYPE_LINE, _forEachIndex]];
+        // By the ident: FLOT blue, FLET red, phase and boundary lines green; a phase line's ident at both its ends
+        private _kind = ["", "FLOT", "FLET"] find (_ident select [0, 4]);
+        private _colour = [[0, 1, 0, 1], [0.4, 0.6, 1, 1], [1, 0, 0, 1]] select (_kind max 0);
+        private _labelClass = ["TSD_LINE_LABEL", "TSD_LINE_LABEL_BLUE", "TSD_LINE_LABEL_RED"] select (_kind max 0);
+        private _ends = [[], [_pts # 0]] select (_ident select [0, 2] == "PL");
+        _items pushBack [_pts, false, _colour, false, _ident, _pts # (count _pts - 1), _labelClass, [POINT_TYPE_LINE, _forEachIndex], _ends];
     } forEach _lines;
 };
 if (_showAreas) then {

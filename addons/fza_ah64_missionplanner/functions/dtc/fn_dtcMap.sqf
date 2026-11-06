@@ -54,6 +54,8 @@ switch (_mode) do {
             _map ctrlCommit 0;
             _map ctrlShow true;
         };
+        // Drawn over the browser while it has the focus; the page leaves its map area clear for when it hasn't
+        if (focusedCtrl _display != _map) then {ctrlSetFocus _map};
         if (isNil {_map getVariable "fza_mplanner_dtcDrawEh"}) then {
             _map setVariable ["fza_mplanner_dtcDrawEh", _map ctrlAddEventHandler ["Draw", {_this call fza_mplanner_fnc_dtcMapDraw}]];
             _map ctrlAddEventHandler ["MouseButtonUp", {

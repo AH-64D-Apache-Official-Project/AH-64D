@@ -94,7 +94,12 @@
   function sync() {
     if (!state.mapShown) return;
     var d = state.dtc, draw = [], points = [], route = [];
-    d.lines.forEach(function (e) { if (e) draw.push([e.pts, false, 0, e.id]); });
+    // Lines: FLOT blue, FLET red, the others green; a phase line labelled at both ends
+    d.lines.forEach(function (e) {
+      if (!e) return;
+      var kind = dtcLineKind(e.id);
+      draw.push([e.pts, false, kind === 'FLOT' ? 6 : kind === 'FLET' ? 5 : 0, e.id, kind === 'PL']);
+    });
     d.areas.forEach(function (e) { if (e) draw.push([e.pts, true, 1, e.id]); });
     d.pfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 2, 'PF' + (i + 1) + (d.activePf === i ? ' ACT' : '')]); });
     d.nfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 3, 'NF' + (i + 1) + (d.nfActive[i] ? ' ACT' : '')]); });
@@ -238,7 +243,16 @@
     var d = state.dtc;
     var cls = 'dtc-row' + (state.sel[kind] === i ? ' sel' : '') + (e ? '' : ' empty');
     var name = '';
-    if (kind === 'lines' || kind === 'areas') {
+    if (kind === 'lines') {
+      if (e) {
+        var lk = dtcLineKind(e.id);
+        name = '<select class="dtc-lkind" data-slot="' + i + '">' + DTC_LINE_KINDS.map(function (k) {
+          return '<option value="' + k + '"' + (k === lk ? ' selected' : '') + '>' + k + '</option>';
+        }).join('') + '</select><input class="dtc-lsuffix" data-slot="' + i + '" maxlength="' + (5 - lk.length) + '" value="' + escapeHtml(dtcLineSuffix(e.id)) + '">';
+      } else {
+        name = '<span class="dtc-none">--</span>';
+      }
+    } else if (kind === 'areas') {
       name = e ? '<input class="dtc-ident" data-kind="' + kind + '" data-slot="' + i + '" maxlength="5" value="' + escapeHtml(e.id) + '">' : '<span class="dtc-none">--</span>';
     } else {
       name = '<span class="dtc-zone-name">' + (kind === 'pfz' ? 'PF' : 'NF') + (i + 1) + '</span>';
@@ -491,6 +505,15 @@
     if (t.classList && t.classList.contains('dtc-ident')) {
       var e = state.dtc[kind][slot];
       if (e) e.id = dtcIdent(t.value, dtcDefaultIdent(kind, slot));
+      changed();
+    } else if (t.classList && (t.classList.contains('dtc-lkind') || t.classList.contains('dtc-lsuffix'))) {
+      var line = state.dtc.lines[slot];
+      var row = t.closest ? t.closest('.dtc-row') : null;
+      if (line && row) {
+        var lkind = row.querySelector('.dtc-lkind').value;
+        var suffix = String(row.querySelector('.dtc-lsuffix').value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5 - lkind.length);
+        line.id = lkind + suffix;
+      }
       changed();
     } else if (t.classList && t.classList.contains('dtc-pident')) {
       var p = state.dtc[kind][slot];

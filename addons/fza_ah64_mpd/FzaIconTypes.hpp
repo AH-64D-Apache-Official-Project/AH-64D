@@ -923,4 +923,10 @@ class FzaIconTypes {
         textA = MPD_ICON_TEXT_FREE;
         color[] = MPD_ICON_COLOR_GREEN;
     };
+    class TSD_LINE_LABEL_BLUE:TSD_LINE_LABEL {
+        color[] = MPD_ICON_COLOR_BLUE;
+    };
+    class TSD_LINE_LABEL_RED:TSD_LINE_LABEL {
+        color[] = MPD_ICON_COLOR_RED;
+    };
 };

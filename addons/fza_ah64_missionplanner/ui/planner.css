@@ -1200,7 +1200,7 @@
   .dtc-zone-name, .dtc-none { width: 7ch; }
   .dtc-info { flex: 1; color: var(--text-dim); }
   .dtc-act, .dtc-del { font-size: 11px; padding: 1px 4px; }
-  .dtc-map { flex: 1; background: var(--bg2); }
+  .dtc-map { flex: 1; background: transparent; }
   #dtc-box .row2btn button { font-size: 13px; padding: 2px 2px; }
   .dtc-status { min-height: 13px; font-size: 11px; color: var(--text-dim); }
   .dtc-status.bad { color: var(--red-bright); }
@@ -1244,3 +1244,12 @@
     font-size: 11px;
     user-select: text;
   }
+  .dtc-lkind, .dtc-lsuffix {
+    background: var(--input-bg);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .dtc-lkind { width: 7ch; }
+  .dtc-lsuffix { width: 5ch; text-transform: uppercase; }

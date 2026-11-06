@@ -56,7 +56,22 @@ function dtcPad2(n) {
 }
 
 function dtcDefaultIdent(kind, slot) {
-  return (kind === 'areas' ? 'EA' : 'LN') + dtcPad2(slot + 1);
+  return kind === 'areas' ? 'EA' + dtcPad2(slot + 1) : 'PL' + (slot < 9 ? '00' : '0') + (slot + 1);
+}
+
+// A line's kind by its ident: phase line PL..., boundary BL..., FLOT, FLET; its ident's own characters follow
+var DTC_LINE_KINDS = ['PL', 'BL', 'FLOT', 'FLET'];
+function dtcLineKind(id) {
+  id = String(id || '');
+  if (id.indexOf('FLOT') === 0) return 'FLOT';
+  if (id.indexOf('FLET') === 0) return 'FLET';
+  if (id.indexOf('BL') === 0) return 'BL';
+  return 'PL';
+}
+function dtcLineSuffix(id) {
+  id = String(id || '');
+  var kind = dtcLineKind(id);
+  return id.indexOf(kind) === 0 ? id.slice(kind.length) : id.slice(0, 5 - kind.length);
 }
 
 function dtcPoints(raw, min, max) {

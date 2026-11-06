@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-// The PF zones made by the cursor entries so far, in place of those there before; none made puts those back
+// The PF zones made by the cursor entries so far, in place of those there before, PF1 active; none made puts those back
 params ["_heli", "_state", "_persistState"];
 
 private _draft = _state getOrDefault ["znDraft", []];
@@ -41,3 +41,8 @@ if (_zones isEqualTo []) exitWith {
     [_heli, _now] call fza_dms_fnc_zoneSetState;
 };
 [_heli, ZONE_KIND_PF, _zones] call fza_dms_fnc_zoneSetAll;
+// PF1 active, the ownship's
+private _zoneState = +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]);
+_zoneState set [ZONE_STATE_ACTIVE_PF, 0];
+_zoneState set [ZONE_STATE_OWN_PF, 0];
+[_heli, _zoneState] call fza_dms_fnc_zoneSetState;

@@ -73,6 +73,8 @@ _heli call fza_fcr_fnc_resolveDisplay;
 private _ntsObj  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _display = (_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS];
 private _dispIdx = if (isNull _ntsObj) then {-1} else {_display findIf {(_x # 3) isEqualTo _ntsObj && {(_x param [7, 0]) != 2}}};
+// Nor while targets in the active PF zone, which head the list, are and it isn't one
+if (_dispIdx != -1 && {((_display # 0) param [7, 0]) == 1} && {((_display # _dispIdx) param [7, 0]) != 1}) then {_dispIdx = -1};
 if (_dispIdx == -1) then {
     [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
     [_heli] call fza_fcr_fnc_cycleNTS;

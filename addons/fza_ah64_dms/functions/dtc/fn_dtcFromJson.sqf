@@ -72,7 +72,7 @@ private _lines = ["lines", LINE_COUNT, {
     params ["_entry", "_i"];
     private _pts = [_entry, 2, LINE_POINTS_MAX] call _readPts;
     if (_pts isEqualTo -1) exitWith {-1};
-    [[_entry, "L" + str (_i + 1)] call _ident, _pts]
+    [[_entry, "PL" + ([_i + 1, 3] call CBA_fnc_formatNumber)] call _ident, _pts]
 }] call _slots;
 private _areas = ["areas", AREA_COUNT, {
     params ["_entry", "_i"];
