@@ -3,8 +3,8 @@ Function: fza_ihadss_fnc_tadsNativeGain
 
 Description:
     Learns how far the game's own turret control moves the TADS heads down for
-    a unit of aim input, so input the mod applies itself there (IAT offset
-    tracking, fza_ihadss_fnc_iatUpdate) moves it the same. Measured each frame
+    a unit of aim input, so input the mod applies itself there (the IAT's LOS
+    offset, fza_ihadss_fnc_iatUpdate) moves it the same. Measured each frame
     the CPG slews the TADS by hand through the sight with nothing locking it,
     as the change in its stabilised line of sight against the input times the
     field of view, by least squares over recent frames.

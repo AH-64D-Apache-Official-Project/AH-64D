@@ -93,7 +93,7 @@ switch (_sight) do {
 private _lstTarget = [_heli] call fza_ihadss_fnc_lstUpdate;
 if (_lstTarget isNotEqualTo []) then {_cameraTarget = _lstTarget};
 
-// The IAT tracking drives the TADS over the sight and LMC; the LST taking the TADS drops it. Its offset tracking slews
+// The IAT tracking drives the TADS over the sight and LMC; the LST taking the TADS drops it. Its LOS offset slews
 // as the game's own control does heads down, learnt from the CPG's own slewing.
 [_heli] call fza_ihadss_fnc_tadsNativeGain;
 private _iatTarget = [_heli, _lstTarget isNotEqualTo []] call fza_ihadss_fnc_iatUpdate;

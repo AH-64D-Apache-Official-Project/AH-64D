@@ -1002,16 +1002,16 @@
             <English>IAT/OFS: OFS</English>
         </Key>
         <Key ID="STR_FZA_AH64_IATOFFSET_INFO">
-            <Original>CPG: while the image auto tracker tracks, slew the TADS off the target with the manual tracker; again to return to the target</Original>
-            <English>CPG: while the image auto tracker tracks, slew the TADS off the target with the manual tracker; again to return to the target</English>
+            <Original>CPG: while the image auto tracker tracks, lets the TADS line of sight be slewed off the target; again to return it to the centre of the tracked target</Original>
+            <English>CPG: while the image auto tracker tracks, lets the TADS line of sight be slewed off the target; again to return it to the centre of the tracked target</English>
         </Key>
         <Key ID="STR_FZA_AH64_IATPOLARITYWHITE">
             <Original>IAT Polarity: White</Original>
             <English>IAT Polarity: White</English>
         </Key>
         <Key ID="STR_FZA_AH64_IATPOLARITYWHITE_INFO">
-            <Original>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people</Original>
-            <English>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people</English>
+            <Original>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people in white hot, cold objects in black hot</Original>
+            <English>CPG: the image auto tracker tracks white on black: in the FLIR, running vehicles and people in white hot, cold objects in black hot</English>
         </Key>
         <Key ID="STR_FZA_AH64_IATPOLARITYAUTO">
             <Original>IAT Polarity: Auto</Original>
@@ -1026,8 +1026,8 @@
             <English>IAT Polarity: Black</English>
         </Key>
         <Key ID="STR_FZA_AH64_IATPOLARITYBLACK_INFO">
-            <Original>CPG: the image auto tracker tracks black on white: in the FLIR, cold vehicles, wrecks and buildings</Original>
-            <English>CPG: the image auto tracker tracks black on white: in the FLIR, cold vehicles, wrecks and buildings</English>
+            <Original>CPG: the image auto tracker tracks black on white: in the FLIR, running vehicles and people in black hot, cold objects in white hot</Original>
+            <English>CPG: the image auto tracker tracks black on white: in the FLIR, running vehicles and people in black hot, cold objects in white hot</English>
         </Key>
         <Key ID="STR_FZA_AH64_MINIGAME_UP">
             <Original>Minigame: Up</Original>

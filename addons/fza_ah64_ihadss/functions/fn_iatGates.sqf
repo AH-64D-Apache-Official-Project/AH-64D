@@ -5,9 +5,9 @@ Description:
     The IAT gates as a world point and size, for each display to project
     through its own camera as it does its other world symbols. Tracking, about
     the target, as wide and tall as its bounding box seen along the display's
-    right and up; while sized and in stop mode about a point out along the
+    right and up, reached from the size they had on capture; while sized and in stop mode about a point out along the
     TADS LOS, at the size they are being sized to or had. None with the IAT
-    off or failed, or in the DVO.
+    off or failed.
 
 Parameters:
     _heli  - The helicopter
@@ -28,9 +28,11 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_right", "_up"];
 
-(_heli getVariable ["fza_ah64_iat", IAT_IDLE]) params ["_state", "", "_obj", "_trackPoint", "", "", "", "_half", "_started", "_stopGate"];
+(_heli getVariable ["fza_ah64_iat", IAT_IDLE]) params ["_state", "_gate0", "_obj", "_trackPoint", "", "", "", "_half", "_started", "_stopGate"];
 if !(_state in [IAT_TRACK, IAT_COAST, IAT_STOP, IAT_SIZING]) exitWith {[]};
-if (([_heli] call fza_ihadss_fnc_getVisionMode) == 3) exitWith {[]};
+
+([_heli] call fza_ihadss_fnc_tadsLos) params ["_losPos", "_losDir"];
+private _fov = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
 
 if (_state == IAT_SIZING) then {
     private _size = [_started] call fza_ihadss_fnc_iatSizing;
@@ -38,8 +40,6 @@ if (_state == IAT_SIZING) then {
 };
 
 if (_state in [IAT_STOP, IAT_SIZING]) exitWith {
-    ([_heli] call fza_ihadss_fnc_tadsLos) params ["_losPos", "_losDir"];
-    private _fov = fza_ah64_tadsFOVs select (_heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]]);
     if (_stopGate isEqualTo []) then {_stopGate = [IAT_GATE_MAX, IAT_GATE_MAX]};
     [
         _heli modelToWorldVisualWorld (_losPos vectorAdd (_losDir vectorMultiply 1000)),
@@ -49,7 +49,16 @@ if (_state in [IAT_STOP, IAT_SIZING]) exitWith {
 
 private _pos = [_heli] call fza_ihadss_fnc_iatTargetPos;
 if (_pos isEqualTo []) exitWith {[]};
-if (isNull _obj) exitWith {[_pos, _half]};
+
+// From capture the gates go from the size they had to the target's over IAT_GATE_TIME
+private _fit = {
+    params ["_at", "_size"];
+    private _t = (CBA_missionTime - _started) / IAT_GATE_TIME;
+    if (_t >= 1) exitWith {[_at, _size]};
+    private _from = _gate0 * _fov * (_at vectorDistance (_heli modelToWorldVisualWorld _losPos));
+    [_at, _size apply {_from + (_x - _from) * (_t max 0)}]
+};
+if (isNull _obj) exitWith {[_pos, _half] call _fit};
 
 ([_obj] call fza_ihadss_fnc_iatBounds) params ["_p1", "_p2"];
 private _ext  = (_p2 vectorDiff _p1) apply {abs _x / 2};
@@ -64,4 +73,4 @@ private _seen = {
 if (_state == IAT_TRACK && {_trackPoint isEqualTo []}) then {
     _pos = AGLToASL (_obj modelToWorldVisual ((_p1 vectorAdd _p2) vectorMultiply 0.5));
 };
-[_pos, [[_right] call _seen, [_up] call _seen]]
+[_pos, [[_right] call _seen, [_up] call _seen]] call _fit
