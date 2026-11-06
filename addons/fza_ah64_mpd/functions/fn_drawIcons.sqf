@@ -19,6 +19,10 @@ Parameters:
     _display - 1 if right, 0 if left
     _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *persist state "tsdScale" x 0.75*
     _center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
+    _heading - (optional) Heading the points are drawn about. Defaults to the helicopter's
+    _heliPos - (optional) Position the points are drawn from. Defaults to the helicopter's
+    _highlight - (optional) Point ID ([type, ID]) drawn over a black circle, as chosen by the MPD cursor. Defaults to none
+    _clip - (optional) [left, top, right, bottom]: points centred outside it aren't drawn. Defaults to none
 
 Returns:
     Nothing
@@ -36,6 +40,8 @@ params
     , ["_center", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
+    , ["_highlight", []]
+    , ["_clip", []]
     ];
 
 private _displaySide = ["left", "right"] select _displayIdx;
@@ -51,7 +57,7 @@ if (isNil "_ctrlPoints") exitWith {};
 //Draw each UI element
 {
     if !(_forEachIndex in _ctrlPoints) then {_ctrlPoints set [_forEachIndex, createHashMap]};
-    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos] call fza_mpd_fnc_uiDrawPoint;
+    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos, _highlight, _clip] call fza_mpd_fnc_uiDrawPoint;
     (_ctrlPoints get _forEachIndex) set ["updated", true];
 } forEach _dmsPoints;
 

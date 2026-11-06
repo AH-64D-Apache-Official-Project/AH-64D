@@ -13,7 +13,8 @@
 #define MFD_IND_EMER_HYD 7
 #define MFD_IND_MSTR_CAUT 8
 #define MFD_IND_MSTR_WARN 9
-//14 to 18: ENG page timers and emergency title
+//14 to 17: ENG page timers
+//18, 19: MPD cursor
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
@@ -140,14 +141,14 @@
 #define MFD_IND_ENG_NG_RANGE_1 23
 #define MFD_IND_ENG_NG_RANGE_2 24
 
+#define MFD_IND_ENG_EMER_TITLE_LEN 25
+
 //Not offset, as 31 to 38 on the page are the ACQ list's; both MPDs show the same
 //Which engines' timers are running: 0 neither, 1 engine 1, 2 engine 2, 3 both
 #define MFD_IND_ENG_TORQUE_TIMER_AT 14
 #define MFD_IND_ENG_TGT_TIMER_AT 15
 #define MFD_IND_ENG_NG_TIMER_AT 16
 #define MFD_IND_ENG_NP_TIMER_AT 17
-
-#define MFD_IND_ENG_EMER_TITLE_LEN 18
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
@@ -301,8 +302,27 @@
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18
 #define MFD_IND_TSD_SUBPAGE 19
+// The map frozen (FRZ, CAQ, PAN): the flag, the heading the map is drawn at, CAQ choosing, and the live ownship's place and
+// turn over the frozen map
+#define MFD_IND_TSD_FROZEN       20
+#define MFD_IND_TSD_HSI_HDG      21
+#define MFD_IND_TSD_CAQ          22
+#define MFD_IND_TSD_OWNSHIP_X    23
+#define MFD_IND_TSD_OWNSHIP_Y    24
+#define MFD_IND_TSD_OWNSHIP_ROT  25
+// The MPD cursor is on a point it can choose, drawn over a black circle in the cursor's centre
+#define MFD_IND_TSD_CURSOR_POINT 26
+// ZOOM: the map 20 percent larger about the ownship
+#define MFD_IND_TSD_ZOOM         27
+// The MPD cursor is over the map, where it chooses points and pans
+#define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
+// The PAN page: the pan heading, the last POINT panned to, and the route's next and last waypoints from the pan location
+#define MFD_TEXT_IND_TSD_PAN_HDG      20
+#define MFD_TEXT_IND_TSD_PAN_POINT    21
+#define MFD_TEXT_IND_TSD_PAN_NEXT_WPT 22
+#define MFD_TEXT_IND_TSD_PAN_LAST_WPT 23
 
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
@@ -364,8 +384,17 @@
 #define MFD_IND_FCR_SCAN_SIZE        18
 #define MFD_IND_FCR_TPM_OBS_SHOW     20
 #define MFD_IND_FCR_ATM_SECTOR_ROT   21
-#define MFD_IND_FCR_TGT_BARRIER      22
+// TGT is shown: there are targets to store, or it is selected (fza_mpd_fnc_fcrTgtDraw)
+#define MFD_IND_FCR_TGT_AVAIL        22
 #define MFD_IND_FCR_SIGHT_FCR        23
+// Display zoom: 0 off, 1 choosing the area with the cursor, 2 zoomed
+#define MFD_IND_FCR_ZOOM             24
+// The MPD cursor is on a target symbol it can choose, drawn over a black circle in the cursor's centre
+#define MFD_IND_FCR_CURSOR_TARGET    25
+// The MPD cursor is over the FCR target area (fza_mpd_fnc_cursorInArea)
+#define MFD_IND_FCR_CURSOR_AREA      26
+// TGT: the cursor stores the FCR targets it picks, with the store status window (fza_mpd_fnc_fcrTgtDraw)
+#define MFD_IND_FCR_TGT_MODE         27
 
 #define MFD_IND_FCR_INSTALLED 19
 
@@ -376,6 +405,10 @@
 #define MFD_TEXT_IND_FCR_SS    3
 #define MFD_TEXT_IND_FCR_WC    4
 #define MFD_TEXT_IND_FCR_ACQ_SRC 5
+// TGT's store status window: the next target file address, and the ones stored since TGT was selected
+#define MFD_TEXT_IND_FCR_TGT_NEXT   12
+#define MFD_TEXT_IND_FCR_TGT_LIST_1 13
+#define MFD_FCR_TGT_LIST_LINES      17
 #define MFD_TEXT_IND_FCR_WS    6
 // TPM-specific text slots (slots 7-9, only used when MFD_IND_FCR_MODE == FCR_DISP_MODE_TPM)
 #define MFD_TEXT_IND_FCR_TPM_PROF  7
@@ -502,7 +535,7 @@
 //0-32 IN USE FOR ADDON NAMES
 #define MFD_TEXT_VER_PAGESTR 39
 
-#define MFD_IND_VER_PAGENUM 39
+#define MFD_IND_VER_PAGENUM 33
 
 
 #define MFD_TEXT_COORD_LINE_0 2
@@ -622,6 +655,12 @@
 // B5, the crew station's coordinate point, and its name
 #define MFD_IND_ACQ_OPT_POINT 38
 #define MFD_TEXT_IND_ACQ_POINT 38
+// The crew station's MPD cursor (fza_mpd_fnc_cursorUpdate), not offset: its X from 1 to 2 on the left MPD, 3 to 4 on
+// the right, 0 while on neither; and its Y
+#define MFD_IND_CURSOR_X      18
+#define MFD_IND_CURSOR_Y      19
+// Per MPD, on every page: 100 + the VAB the cursor is on there, whose labels are drawn bold (headers\cursor.h), else 0
+#define MFD_IND_CURSOR_VAB    39
 
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
 

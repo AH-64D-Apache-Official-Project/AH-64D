@@ -33,7 +33,8 @@ Parameters:
                       targets, instead of relative to the scan centerline
 
 Returns:
-    [_targetsJson, _shotsJson] - comma-joined fragment strings (no brackets)
+    [_targetsJson, _shotsJson, _symbols] - comma-joined fragment strings (no brackets), and each target symbol
+    drawn as [azimuth, range / max range, target, position]
 
 Author:
     Snow(Dryden)
@@ -64,6 +65,8 @@ private _texToKey = {
 };
 
 private _tgtParts = [];
+// Each symbol drawn, for the MPD cursor: azimuth and range as sent, the target and its position
+private _tgtSymbols = [];
 {
     _x params ["_tgtPos", "_type", "_moving", "_target", "_aziAngle", "_range", "_dim"];
 
@@ -93,6 +96,7 @@ private _tgtParts = [];
         // Dim below the scan-to-scan correlation for a bright symbol (fza_fcr_fnc_mergeTargets)
         [0, 1] select _dim
     ];
+    _tgtSymbols pushBack [(_aziAngle + _aziOffset) / _aziDivisor, _range / _maxRange, _target, _tgtPos];
 } forEach (_displayTargets select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]);
 
 private _shotParts = [];
@@ -113,6 +117,6 @@ private _shotParts = [];
     ];
 } forEach (_heli getVariable ["fza_dms_shotAt", []]);
 
-private _result = [_tgtParts joinString ",", _shotParts joinString ","];
+private _result = [_tgtParts joinString ",", _shotParts joinString ",", _tgtSymbols];
 _heli setVariable ["fza_mpd_fcrTargetsJsonCache", [diag_frameNo, _this, _result]];
 _result

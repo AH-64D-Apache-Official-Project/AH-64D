@@ -22,6 +22,19 @@ class className {\
     clickSound = Audio;\
 }\
 
+// A button that also runs code every frame while held, and when released
+#define CFG_BUTTON_DOWN_HOLD_UP(className, Mempoint, Text, Distance, CodeDown, CodeHold, CodeUp, Audio) \
+class className {\
+    positionType = "static";\
+    position = Mempoint;\
+    label = Text;\
+    radius = Distance;\
+    buttonDown = QUOTE(CodeDown);\
+    buttonHold = QUOTE(CodeHold);\
+    buttonUp = QUOTE(CodeUp);\
+    clickSound = Audio;\
+}\
+
 #define CFG_BUTTON_DOWN_CONDITIONS(className, Condition, Mempoint, Text, Distance, Code, Audio) \
 class className {\
     condition = QUOTE(Condition);\

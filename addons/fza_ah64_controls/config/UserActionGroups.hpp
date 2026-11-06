@@ -50,7 +50,13 @@ class UserActionGroups {
             "fza_ah64_radialUp",
             "fza_ah64_radialDown",
             "fza_ah64_radialLeft",
-            "fza_ah64_radialRight"
+            "fza_ah64_radialRight",
+            "fza_ah64_mpdCursorUp",
+            "fza_ah64_mpdCursorDown",
+            "fza_ah64_mpdCursorLeft",
+            "fza_ah64_mpdCursorRight",
+            "fza_ah64_mpdCursorEnter",
+            "fza_ah64_mpdCursorDisplaySelect"
         };
     };
     class fza_ah64_cockpit {

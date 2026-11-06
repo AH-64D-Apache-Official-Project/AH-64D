@@ -112,9 +112,6 @@ switch (_variant) do {
             /*case "l6": {    //WPT > XMIT
                 _state set ["subPageVarPage", TSD_WPT_XMIT];
             };*/
-            case "r3": {
-                _persistState set ["ctr", 1 - (_persistState get "ctr")];
-            };
         };
     };
     case 1: {   //WPT > ADD

@@ -120,7 +120,7 @@ if (_procedure isNotEqualTo []) then {
     _pagemode = 4;
     _procedure params ["_title", "_steps"];
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_TITLE), _title];
-    _heli setUserMFDValue [MFD_IND_ENG_EMER_TITLE_LEN, count _title];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_EMER_TITLE_LEN), count _title];
     for "_i" from 0 to 6 do {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_EMER_1 + _i), _steps param [_i, ""]];
     };

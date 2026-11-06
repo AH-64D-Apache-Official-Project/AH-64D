@@ -218,6 +218,7 @@ class rteCommon {
             MPD_BOX_L(PointReview, (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_2_Y, 3)
         };
     };
+    MPD_BOLD_ROUTE_SCROLL
     class scroll_arrows {
         type = "line";
         width = 3;

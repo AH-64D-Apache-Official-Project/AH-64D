@@ -36,6 +36,14 @@ private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), FCR_DISP_MODE_RMAP];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE), _heli getVariable ["fza_ah64_fcrScanSize", 0]];
+// The MPD cursor: over the radar picture, where it chooses targets (fza_mpd_fnc_cursorInArea); on a target, below
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ZOOM), 0];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_TARGET), 0];
+private _cursorOn = _heli getVariable ["fza_mpd_cursor", []];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_AREA), BOOLTONUM(_cursorOn param [0, -1] == _mpdIndex && {[_heli, _mpdIndex, _cursorOn # 1, _cursorOn # 2] call fza_mpd_fnc_cursorInArea})];
+[_heli, _mpdIndex, _state] call fza_mpd_fnc_fcrTgtDraw;
+[_heli, _mpdIndex] call fza_mpd_fnc_cursorToNts;
+_state set ["cursorTargets", []];
 
 _heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 private _gtmHalfFov       = _heli getVariable ["fza_ah64_fcrGtmHalfFov", 45];
@@ -281,10 +289,21 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 // "a" normalised to -1..1 over the fixed +-45 B-scope x axis
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _heli getVariable "fza_ah64_was",
     _gtmHalfFov, _maxRange, _dir, 45, false
-] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson"];
+] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson", "_symbols"];
+
+// Where rmap.js draws each symbol in the radar picture, for the MPD cursor (fza_mpd_fnc_cursorEnter); the browser covers
+// 0.025 to 0.975 of the MPD
+private _cursorTargets = [];
+{
+    _x params ["_a", "_r", "_target", "_pos"];
+    if (_a < -1 || {_a > 1} || {_r < 0} || {_r > 1}) then {continue};
+    _cursorTargets pushBack [0.025 + 0.95 * (0.1632 + (_a * 0.5 + 0.5) * (0.8368 - 0.1632)), 0.025 + 0.95 * (0.1316 + (0.8947 - 0.1316) * (1 - _r)), _target, _pos, _forEachIndex];
+} forEach _symbols;
+_state set ["cursorTargets", _cursorTargets];
+private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
 
 private _json = format [
-    '{"halfFov":%1,"aziSteps":%2,"nearSteps":%3,"farSteps":%4,"hardClear":%5,"video":%6,"targets":[%7],"shots":[%8]%9}',
+    '{"halfFov":%1,"aziSteps":%2,"nearSteps":%3,"farSteps":%4,"hardClear":%5,"video":%6,"hover":%10,"targets":[%7],"shots":[%8]%9}',
     _gtmHalfFov,
     _aziSteps,
     _nearSteps,
@@ -293,7 +312,8 @@ private _json = format [
     ["false","true"] select _rmapVideo,
     _tgtJson,
     _shotJson,
-    ["", ',"columns":' + _colJson] select (_colJson != "")
+    ["", ',"columns":' + _colJson] select (_colJson != ""),
+    _hover
 ];
 
 [_ctrl, "fzaFCRRmap.update", _json] call fza_mpd_fnc_htmlPush;

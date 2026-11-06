@@ -1,14 +1,22 @@
 class fcr_draw {
-    //R1
-    MPD_TEXT_L(ZOOM_1,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Z"))
-    MPD_TEXT_L(ZOOM_2,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
-    MPD_TEXT_L(ZOOM_3,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
-    MPD_TEXT_L(ZOOM_4,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
-    MPD_BOX_BAR_L(ZOOM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
+    //R1, not while TGT is selected
+    class ZoomGate {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_TGT_MODE)));
+        MPD_TEXT_L(ZOOM_1,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Z"))
+        MPD_TEXT_L(ZOOM_2,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
+        MPD_TEXT_L(ZOOM_3,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
+        MPD_TEXT_L(ZOOM_4,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
+        class ZoomBox {
+            condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_ZOOM), 0.5));
+            MPD_BOX_V(ZOOM, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, 4)
+        };
+    };
     // PPI scan sector — selected sector outline (sides from the 500 m point + 8 km arc)
     // full intensity; range arcs and azimuth/odd-km tics partial intensity, sized to the selected
     // scan; larger sector outlines remain in partial intensity. Origin (0.5, 0.8705), 0.08125/km.
+    // Hidden while the display is zoomed; the zoomed area is drawn on the scope page (scope.js)
     class gtmScanSector {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         class wideOutline {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
             class lines {
@@ -180,7 +188,7 @@ class fcr_draw {
         };
     };
     class lines_show {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1), C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5)));
         class lines_continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
             class nearBar {

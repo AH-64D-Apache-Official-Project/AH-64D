@@ -25,6 +25,8 @@
 #define POINT_COUNT_WP_HZ 50
 #define POINT_COUNT_CM 49
 #define POINT_COUNT_TG_TH 50
+// An FCR target chosen by CAQ is stored at T50
+#define POINT_INDEX_TG_FCR_CAQ 50
 #define POINT_COUNT_SHOT 128
 
 #define POINT_GET_ARMA_POS 1

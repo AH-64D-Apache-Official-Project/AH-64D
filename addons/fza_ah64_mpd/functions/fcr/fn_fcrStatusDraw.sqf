@@ -42,9 +42,6 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), ([_heli, player] c
 // NTS, TGT and RF HO are shown with FCR as this crew station's sight
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SIGHT_FCR), parseNumber (_sight == SIGHT_FCR)];
 
-// TGT is barriered until there is an NTS to store
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TGT_BARRIER), parseNumber (([_heli, "FCR"] call fza_fnc_targetingAcqPoint) isEqualTo [])];
-
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
 private _wasState = _heli getVariable "fza_ah64_was";

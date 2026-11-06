@@ -354,6 +354,12 @@ if (_value) then {
         case "fza_ah64_radialMenu": {
             [_heli] call fza_fnc_radialToggle;
         };
+        case "fza_ah64_mpdCursorEnter": {
+            [_heli] call fza_mpd_fnc_cursorEnter;
+        };
+        case "fza_ah64_mpdCursorDisplaySelect": {
+            [_heli] call fza_mpd_fnc_cursorDisplaySelect;
+        };
         case "fza_minigame_up": {
             ["up", true] call fza_mg_fnc_minigameHandleInput;
         };

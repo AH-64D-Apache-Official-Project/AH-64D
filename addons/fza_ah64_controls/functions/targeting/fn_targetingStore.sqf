@@ -8,8 +8,10 @@ Description:
     that stored it.
 
 Parameters:
-    _heli   - The helicopter
-    _posASL - The position to store, PositionASL
+    _heli    - The helicopter
+    _posASL  - The position to store, PositionASL
+    _publish - Whether to broadcast the target file and message (optional, default true); false for a caller storing
+               several, which broadcasts them once after
 
 Returns:
     The point id stored
@@ -23,16 +25,16 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_dms\headers\constants.h"
-params ["_heli", "_posASL"];
+params ["_heli", "_posASL", ["_publish", true]];
 
 private _id = [_heli, POINT_TYPE_TG] call fza_dms_fnc_pointNextFree;
 if (_id isEqualTo []) then {
     private _index = _heli getVariable ["fza_ah64_targetStoreOverwrite", 1];
     _id = [POINT_TYPE_TG, _index];
-    _heli setVariable ["fza_ah64_targetStoreOverwrite", _index % POINT_COUNT_TG_TH + 1, true];
+    _heli setVariable ["fza_ah64_targetStoreOverwrite", _index % POINT_COUNT_TG_TH + 1, _publish];
 };
-[_heli, _id, "TG", "", ASLToAGL _posASL, _posASL # 2] call fza_dms_fnc_pointCreate;
+[_heli, _id, "TG", "", ASLToAGL _posASL, _posASL # 2, _publish] call fza_dms_fnc_pointCreate;
 
 // Shown to the crew station that stored it, on its own HAD and on the VIDEO page (fza_ihadss_fnc_htmlModel)
-_heli setVariable ["fza_ah64_targetStoreMsg", [_id call fza_dms_fnc_pointToString, CBA_missionTime + 3, [_heli] call fza_fnc_getSeat], true];
+_heli setVariable ["fza_ah64_targetStoreMsg", [_id call fza_dms_fnc_pointToString, CBA_missionTime + 3, [_heli] call fza_fnc_getSeat], _publish];
 _id

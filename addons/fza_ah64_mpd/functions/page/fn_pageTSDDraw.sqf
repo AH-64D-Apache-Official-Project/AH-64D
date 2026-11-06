@@ -8,9 +8,25 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 
 private _phase        = BOOLTONUM(_persistState get "mode" == "atk");
 private _rangesetting = _persistState get "tsdScale";
-private _tsdScale     = 0.125 * 5 / (_persistState get "tsdScale");
+private _tsdScale     = [_persistState] call fza_mpd_fnc_tsdScale;
 private _ctrX         = 0.5;
 private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
+
+// The map's frame, live or frozen; while frozen the live ownship moves over it
+([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading", "_frozen"];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_FROZEN), BOOLTONUM(_frozen)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI_HDG), _frameHeading];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CAQ), _state getOrDefault ["caq", 0]];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ZOOM), _persistState getOrDefault ["zoom", 0]];
+// Whether the MPD cursor is over the map, where it chooses points and pans
+private _cursorOn = _heli getVariable ["fza_mpd_cursor", []];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_MAP), BOOLTONUM(_cursorOn param [0, -1] == _mpdIndex && {[_heli, _mpdIndex, _cursorOn # 1, _cursorOn # 2] call fza_mpd_fnc_cursorInArea})];
+if (_frozen) then {
+    ([_framePos, _frameHeading, _tsdScale, [_ctrX, _ctrY], getPosASL _heli] call fza_mpd_fnc_tsdWorldToScreen) params ["_ownX", "_ownY"];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_X), _ownX];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_Y), _ownY];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_OWNSHIP_ROT), ((direction _heli - _frameHeading) + 360) mod 360];
+};
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -74,6 +90,9 @@ switch (_state get "subPageVarPage" select 0) do {
     case 4: {   //THRT
         _this call fza_mpd_fnc_tsdThrtDraw;
     };
+    case 5: {   //PAN
+        _this call fza_mpd_fnc_tsdPanDraw;
+    };
 };
 
 _this call fza_mpd_fnc_tsdScaleDraw;
@@ -108,6 +127,8 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
         _pointsArray pushBack (_x select [0,7]);
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
+// The points the MPD cursor can choose (fza_mpd_fnc_cursorPoint): where each is, and its point ID
+_state set ["cursorPoints", _pointsArray apply {[_x # 1, _x # 4]}];
 
 //Shot At UnderLay
 private _shotATList = _heli getVariable "fza_dms_shotAt";
@@ -133,6 +154,8 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
 };
 
+// The FCR targets drawn, for CAQ (fza_mpd_fnc_cursorPoint): where each is, an ID, and the target
+private _cursorFcr = [];
 {
     _x params ["_pos", "_type", "_moving", "_target"];
     private _ident = "";
@@ -151,7 +174,9 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
     };
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
+    _cursorFcr pushBack [_pos, [POINT_TYPE_FCR, _forEachIndex], _target];
 } forEach _displayTargets;
+_state set ["cursorFcr", _cursorFcr];
 // The FCR footprint is drawn on the canvas (fza_mpd_fnc_pageTSDDrawCanvas)
 
 //Blue force tracker points
@@ -187,7 +212,8 @@ private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
     if !_showRLWR exitWith {};
     _x params ["_state", "_object","_iconClass"];
-    private _bearing = _heli getRelDir _object;
+    // Relative to the map's heading, frozen or live
+    private _bearing = (_heli getDir _object) - _frameHeading;
     if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
@@ -205,4 +231,10 @@ if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then 
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
+// The point the MPD cursor is on, if on this MPD
+private _cursor = _heli getVariable ["fza_mpd_cursor", []];
+private _highlight = [[], _cursor param [8, []]] select (_cursor param [0, -1] == _mpdIndex);
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_POINT), BOOLTONUM(_highlight isNotEqualTo [])];
+
+// The map's symbols inside its border
+[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, _highlight, TSD_MAP_CLIP] call fza_mpd_fnc_drawIcons;

@@ -1,11 +1,13 @@
 // Acquisition source list (fza_mpd_fnc_acqHandleControl, fza_mpd_fnc_acqDraw), drawn over a page with an ACQ button while
 // it is open. A frame runs down the left of R1-R6, with ACQUISITION beside it, and steps across above B4-B6. The sources
 // the crew station can select are listed in their places, the selected one boxed; B5 is the crew station's coordinate
-// point, the last selected on its COORD page or ?01. ?SKR and ?TRN are not built yet and are barriered.
+// point, the last selected on its COORD page or ?01. ?SKR is not built yet and is barriered.
 // The page's text there is hidden (MPD_ACQ_COVERS) and its lines are blanked here.
 
-// The frame line runs against the left of the ACQUISITION letters
-#define ACQ_FRAME_X  (MPD_POS_BUTTON_R_X - 5.6 * MPD_TEXT_WIDTH)
+// The frame line runs through the middle of the ACQUISITION letters, broken where they are
+#define ACQ_FRAME_X  (MPD_POS_BUTTON_R_X - 4.675 * MPD_TEXT_WIDTH)
+#define ACQ_TEXT_T   (0.5 - 5.5 * 0.85 * MPD_TEXT_HEIGHT)
+#define ACQ_TEXT_B   (0.5 + 4.5 * 0.85 * MPD_TEXT_HEIGHT + MPD_TEXT_HEIGHT_VEC + 2 * MPD_TEXT_HEIGHT_PAD)
 #define ACQ_FRAME_T  (MPD_POS_BUTTON_LR_1_Y - 0.9 * MPD_TEXT_HEIGHT)
 #define ACQ_FRAME_B  (1 - 0.7 * (1 - (MPD_POS_BUTTON_B_Y - 1.2 * MPD_TEXT_HEIGHT)))
 #define ACQ_FRAME_BX (MPD_POS_BUTTON_TB_4_X - 3 * MPD_TEXT_WIDTH)
@@ -30,6 +32,16 @@ class Obscurants {
             {{ACQ_FRAME_X, ACQ_FRAME_B}, 1}
         }};
     };
+    // Under the half of the ACQUISITION letters outside the frame
+    class Letters {
+        type = "polygon";
+        points[] = {{
+            {{ACQ_FRAME_X - 0.6 * MPD_TEXT_WIDTH, ACQ_TEXT_T}, 1},
+            {{ACQ_FRAME_X, ACQ_TEXT_T}, 1},
+            {{ACQ_FRAME_X, ACQ_TEXT_B}, 1},
+            {{ACQ_FRAME_X - 0.6 * MPD_TEXT_WIDTH, ACQ_TEXT_B}, 1}
+        }};
+    };
     class Bottom {
         type = "polygon";
         points[] = {{
@@ -47,13 +59,15 @@ class Frame {
     points[] = {
         {{1, ACQ_FRAME_T}, 1},
         {{ACQ_FRAME_X, ACQ_FRAME_T}, 1},
+        {{ACQ_FRAME_X, ACQ_TEXT_T}, 1}, {},
+        {{ACQ_FRAME_X, ACQ_TEXT_B}, 1},
         {{ACQ_FRAME_X, ACQ_FRAME_B}, 1},
         {{ACQ_FRAME_BX, ACQ_FRAME_B}, 1},
         {{ACQ_FRAME_BX, 1}, 1}
     };
 };
 
-#define ACQ_LETTER(name, index, letter) MPD_TEXT_ACQ(name, ACQ_FRAME_X + 0.6 * MPD_TEXT_WIDTH, 0.5 + (index - 5.5) * 0.85 * MPD_TEXT_HEIGHT, "center", letter)
+#define ACQ_LETTER(name, index, letter) MPD_TEXT_ACQ(name, ACQ_FRAME_X, 0.5 + (index - 5.5) * 0.85 * MPD_TEXT_HEIGHT, "center", letter)
 ACQ_LETTER(Acq_1, 0, "A")
 ACQ_LETTER(Acq_2, 1, "C")
 ACQ_LETTER(Acq_3, 2, "Q")
@@ -73,8 +87,6 @@ MPD_BOX_BAR_L(SKR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - 0.5 * MPD_TEXT_HE
 ACQ_OPTION_R(FCR, MPD_POS_BUTTON_LR_5_Y, MFD_IND_ACQ_OPT_FCR, "FCR", 3)
 ACQ_OPTION_R(FXD, MPD_POS_BUTTON_LR_6_Y, MFD_IND_ACQ_OPT_FXD, "FXD", 3)
 
-MPD_TEXT_ACQ(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, "center", "?TRN")
-MPD_BOX_BAR_B(TRN, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
 class Coord {
     condition = C_COND(C_MPD_USER(MFD_IND_ACQ_OPT_POINT));
     MPD_TEXT_ACQ_USER(Coord, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, "center", MFD_TEXT_IND_ACQ_POINT)
@@ -95,6 +107,8 @@ class TADS {
 #undef ACQ_LETTER
 #undef ACQ_OPTION_R
 #undef ACQ_FRAME_X
+#undef ACQ_TEXT_T
+#undef ACQ_TEXT_B
 #undef ACQ_FRAME_T
 #undef ACQ_FRAME_B
 #undef ACQ_FRAME_BX
