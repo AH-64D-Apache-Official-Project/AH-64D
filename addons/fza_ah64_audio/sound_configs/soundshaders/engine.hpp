@@ -10,10 +10,10 @@ class fza_APUSoundLoop_Ext_SoundShader
 			1
 		}
 	};
-	frequency=QUOTE(CustomSoundController1);
+	frequency=QUOTE(APU_CONTROLLER);
 
 	//- Make sure volume reduced when Power is pushed to FLY
-	volume=QUOTE(camext*EXT_VOL_CONTROLLER * CustomSoundController1 * FACTOR(NP_CONTROLLER,1,0)); 
+	volume=QUOTE(camext*EXT_VOL_CONTROLLER * APU_CONTROLLER * FACTOR(NP_CONTROLLER,1,0)); 
 	range=200;
 	rangecurve[]=
 	{
@@ -261,7 +261,7 @@ class fza_APUSoundLoop_Int_SoundShader: fza_APUSoundLoop_Ext_SoundShader
 			1
 		}
 	};
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * CustomSoundController1);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * APU_CONTROLLER);
 };
 class fza_BattLoop_Int_SoundShader: fza_APUSoundLoop_Int_SoundShader
 {
@@ -274,7 +274,7 @@ class fza_BattLoop_Int_SoundShader: fza_APUSoundLoop_Int_SoundShader
 		}
 	};
 	frequency=1;
-	volume=QUOTE(camInt*INT_VOL_CONTROLLER * CustomSoundController2);
+	volume=QUOTE(camInt*INT_VOL_CONTROLLER * BATTERY_CONTROLLER);
 };
 
 class fza_TurbineInt_SoundShader

@@ -27,3 +27,7 @@
 #define NG_CONTROLLER (CustomSoundController15)
 #define NP_CONTROLLER (CustomSoundController17)
 #define ROTOR_GSTRESS_CONTROLLER (CustomSoundController19)
+
+//- Common Controllers
+#define APU_CONTROLLER (CustomSoundController1)
+#define BATTERY_CONTROLLER (CustomSoundController2)
