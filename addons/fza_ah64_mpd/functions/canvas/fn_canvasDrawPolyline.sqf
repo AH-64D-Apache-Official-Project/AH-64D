@@ -32,9 +32,10 @@ private _seg = {
     _ctrl drawRectangle [_mid, _halfW, (_len / 2) * abs (_vect # 1), _dx atan2 (-_dy), [1, 1, 1, 1], _fill];
 };
 
-if (_closed) then {_pts = _pts + [_pts # 0]};
+private _count = count _pts;
+private _last = [_count - 1, _count] select _closed;
 if (_dash isEqualTo []) exitWith {
-    for "_i" from 1 to count _pts - 1 do {[_pts # (_i - 1), _pts # _i] call _seg};
+    for "_i" from 1 to _last do {[_pts # (_i - 1), _pts # (_i mod _count)] call _seg};
 };
 
 _dash params ["_on", "_off", ["_phase", 0]];
@@ -42,9 +43,9 @@ private _period = _on + _off;
 if (_period <= 0) exitWith {};
 private _s = (_phase mod _period + _period) mod _period;
 private _budget = 400;
-for "_i" from 1 to count _pts - 1 do {
+for "_i" from 1 to _last do {
     private _a = _pts # (_i - 1);
-    private _b = _pts # _i;
+    private _b = _pts # (_i mod _count);
     private _len = _a distance2D _b;
     private _p = 0;
     while {_p < _len && {_budget > 0}} do {
