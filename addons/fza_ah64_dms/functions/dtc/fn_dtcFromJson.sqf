@@ -161,8 +161,8 @@ if (_routeNames isNotEqualTo []) then {
     private _given = _routeNames;
     _routeNames = ROUTE_NAME_DEFAULTS;
     {
-        private _name = _given param [_forEachIndex, ""];
-        if (_name isEqualType "" && {toUpper _name regexMatch "^[A-Z0-9]{1,5}$"}) then {_routeNames set [_forEachIndex, toUpper _name]};
+        private _routeName = _given param [_forEachIndex, ""];
+        if (_routeName isEqualType "" && {toUpper _routeName regexMatch "^[A-Z0-9]{1,5}$"}) then {_routeNames set [_forEachIndex, toUpper _routeName]};
     } forEach ROUTE_NAME_DEFAULTS;
 };
 

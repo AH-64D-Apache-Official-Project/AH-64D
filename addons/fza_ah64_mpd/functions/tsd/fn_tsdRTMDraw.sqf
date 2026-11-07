@@ -15,18 +15,32 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTM_CURRENT), [-1, _column] 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTM_DELETE), _state getOrDefault ["rtmDelete", 0]];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTM_CONFIRM), BOOLTONUM(_confirm >= 0)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTM_PAGE), format ["%1/2", _page + 1]];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTM_CONFIRM), _names param [_confirm, ""]];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTM_CONFIRM), if (_confirm >= 0) then {_names param [_confirm, ""]} else {""}];
+
+// The point labels, rebuilt only when this page's routes change; a deep copy, as the routes are changed in place
+private _routes = _routeData select [5 * _page, 5];
+private _cache  = _state getOrDefault ["rtmCache", [[], []]];
+if (_routes isNotEqualTo (_cache # 0)) then {
+    private _built = [];
+    {
+        for "_row" from 0 to 5 do {
+            private _text = "";
+            if (_row < count _x) then {
+                private _id = [_heli, _x # _row, POINT_GET_ID] call fza_dms_fnc_pointGetValue;
+                if (!isNil "_id") then {_text = _id call fza_dms_fnc_pointToString};
+            };
+            _built pushBack _text;
+        };
+    } forEach _routes;
+    _cache = [+_routes, _built];
+    _state set ["rtmCache", _cache];
+};
+private _texts = _cache # 1;
 
 {
-    private _route  = 5 * _page + _forEachIndex;
-    private _points = _routeData param [_route, []];
-    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTM_NAME_1 + _forEachIndex), _names param [_route, ""]];
+    private _col = _forEachIndex;
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTM_NAME_1 + _col), _names param [5 * _page + _col, ""]];
     for "_row" from 0 to 5 do {
-        private _text = "";
-        if (_row < count _points) then {
-            private _id = [_heli, _points # _row, POINT_GET_ID] call fza_dms_fnc_pointGetValue;
-            if (!isNil "_id") then {_text = _id call fza_dms_fnc_pointToString};
-        };
-        _heli setUserMFDText [MFD_INDEX_OFFSET(_x + _row), _text];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(_x + _row), _texts param [6 * _col + _row, ""]];
     };
 } forEach MFD_TEXT_IND_TSD_RTM_COLS;

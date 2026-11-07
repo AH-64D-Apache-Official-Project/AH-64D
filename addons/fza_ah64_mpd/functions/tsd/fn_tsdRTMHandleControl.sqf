@@ -51,7 +51,7 @@ private _reverse = {
     if (_count < 2) exitWith {};
     reverse _points;
     private _index = _heli getVariable "fza_ah64_routeCurPoint";
-    if (_index != -1) then {
+    if (_index >= 0 && {_index < _count}) then {
         private _newIndex = _count - 1 - _index;
         if (((_heli getVariable "fza_dms_routeNext") # 1) isEqualTo [0, 0, 0] && {_index > 0}) then {
             _newIndex = _count - _index;
