@@ -86,7 +86,7 @@ switch (_control) do {
     case "r6": {
         if (_pageType == 6) exitWith {};
         private _line = ["r1", "r2", "r3", "r4", "r5", "r6"] find _control;
-        if (_line >= count _pagePoints || {(_pagePoints # _line) isEqualTo []}) exitWith {};
+        if (_line >= count _pagePoints) exitWith {};
         _state set ["PointSelected", [_line + 1, -1] select (_pointselected == _line + 1)];
     };
 
@@ -103,7 +103,7 @@ switch (_control) do {
             };
         };
         private _line = ["l1", "l2", "l3", "l4", "l5", "l6"] find _control;
-        if (_line >= count _pagePoints || {(_pagePoints # _line) isEqualTo []}) exitWith {};
+        if (_line >= count _pagePoints) exitWith {};
         [_heli, (_pagePoints # _line) call fza_dms_fnc_pointToString] call fza_fnc_targetingAcqSet;
     };
 };

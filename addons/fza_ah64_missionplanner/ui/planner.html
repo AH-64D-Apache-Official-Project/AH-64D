@@ -558,16 +558,6 @@
   <div class="tab-panel placeholder-panel" id="panel-az">
     <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Areas / Zones</div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-tool="area">Area</button>
-        <button type="button" data-dtc-tool="pfz">PF Zone</button>
-        <button type="button" data-dtc-tool="nfz">NF Zone</button>
-      </div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-action="shape">BOX</button>
-        <button type="button" data-dtc-action="undo">Undo</button>
-        <button type="button" data-dtc-action="cancel">Cancel</button>
-      </div>
       <div class="dtc-lists">
         <div class="dtc-list-title">Engagement Areas</div>
         <div class="dtc-list" id="dtcListAreas"></div>
@@ -582,12 +572,6 @@
   <div class="tab-panel placeholder-panel" id="panel-lines">
     <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Boundary and Phase Lines</div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-tool="line">Draw Line</button>
-        <button type="button" data-dtc-action="finish">Finish</button>
-        <button type="button" data-dtc-action="undo">Undo</button>
-        <button type="button" data-dtc-action="cancel">Cancel</button>
-      </div>
       <div class="dtc-lists">
         <div class="dtc-list" id="dtcListLines"></div>
       </div>
@@ -616,19 +600,18 @@
   <div id="bottom-strip">
     <div id="dtc-box">
       <div class="dtc-title">DTC</div>
-      <label class="dtc-current">
-        <span>Name</span>
+      <label class="dtc-label" for="dtcName">Name</label>
+      <div class="dtc-cols">
         <input type="text" id="dtcName" value="" maxlength="8" placeholder="8 LETTERS OR NUMBERS" autocomplete="off" spellcheck="false"
           style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright);">
-      </label>
-      <div class="row2btn">
-        <button type="button" id="btnLoadDTC">Load DTC</button>
-        <button type="button" id="btnOpenDTCs">Open DTCs</button>
-      </div>
-      <div class="row2btn">
-        <button type="button" id="btnReadDTC">Read A/C</button>
-        <button type="button" id="btnEdenDTC">Merge Eden</button>
-        <button type="button" id="btnNewDTC">New</button>
+        <div class="row2btn">
+          <button type="button" id="btnOpenDTC">OPEN DTC</button>
+          <button type="button" id="btnSaveDTC">SAVE DTC</button>
+        </div>
+        <button type="button" id="btnLoadDTC">Upload to Acft</button>
+        <button type="button" id="btnOpenDTCs">DTC MANAGER</button>
+        <button type="button" id="btnReadDTC">Download from Acft</button>
+        <button type="button" id="btnNewDTC">Clear DTC</button>
       </div>
       <div class="dtc-status" id="dtcStatus"></div>
     </div>
@@ -719,26 +702,24 @@
         <div class="dtc-scope active" data-dtc-scope="own">OWN</div>
         <div class="dtc-scope" data-dtc-scope="mission">MISSION</div>
       </div>
-      <div class="modal-form-row">
+      <div class="modal-form-row manage-only">
         <span class="label">DTC Name</span>
         <input type="text" id="dtcModalName" maxlength="8" autocomplete="off" spellcheck="false" placeholder="8 LETTERS OR NUMBERS">
       </div>
       <div class="save-list" id="dtcSaveList"></div>
-      <div class="modal-actions">
+      <div class="modal-actions manage-only">
         <div class="left">
-          <button id="btnDtcSave" type="button">Save</button>
-          <button id="btnDtcLoad" type="button">Open</button>
           <button id="btnDtcPush" type="button">Push to Mission</button>
           <button id="btnDtcDelete" type="button">Delete</button>
         </div>
       </div>
-      <div class="modal-form-row">
+      <div class="modal-form-row manage-only">
         <span class="label">DTC as Text</span>
         <button id="btnDtcExport" type="button">Export</button>
         <button id="btnDtcImport" type="button">Import</button>
       </div>
-      <textarea id="dtcText" class="dtc-text" spellcheck="false" placeholder="Export puts the DTC here and on the clipboard. Paste one here and Import it."></textarea>
-      <div class="modal-hint">Open puts a saved DTC in the planner; Load DTC then puts it in the aircraft, for the crew to load with DTU MASTER LOAD.</div>
+      <textarea id="dtcText" class="dtc-text manage-only" spellcheck="false" placeholder="Export puts the DTC here and on the clipboard. Paste one here and Import it."></textarea>
+      <div class="modal-hint" id="dtcModalHint"></div>
     </div>
   </div>
 </div>
@@ -755,6 +736,7 @@
 <script src="dtc_ui.js"></script>
 <script>
 // â”€â”€ TAB SWITCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// The sidebar is padded by the bottom strip's measured height so its list runs down to the DTC box
 function setActiveTabState(tabName) {
   var app = document.getElementById('app');
   if (!app) return;
@@ -763,7 +745,13 @@ function setActiveTabState(tabName) {
   } else {
     app.classList.add('non-config-tab');
   }
+  var strip = document.getElementById('bottom-strip');
+  if (strip) app.style.setProperty('--strip-h', strip.offsetHeight + 'px');
 }
+window.addEventListener('resize', function () {
+  var app = document.getElementById('app'), strip = document.getElementById('bottom-strip');
+  if (app && strip) app.style.setProperty('--strip-h', strip.offsetHeight + 'px');
+});
 
 eachNode('.tab', function(tab) {
   tab.addEventListener('click', function() {

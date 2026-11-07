@@ -1,15 +1,17 @@
-// The DTC tabs (points, routes, areas/zones, lines): lists, drawing on the Arma map laid over the page
-// (fza_mplanner_fnc_dtcMap), points dragged from their lists onto the map and about it, the map's right-click menu,
-// and the DTC box and its dialog: load into the aircraft, saves, read back, Eden, text
+// The DTC tabs (points, routes, areas/zones, lines): lists, the Arma map laid over the page
+// (fza_mplanner_fnc_dtcMap), points and shapes dragged from their lists onto the map and about it, the map's
+// right-click menu, and the DTC box and its dialog: upload to the aircraft, saves, download from it, text
 (function () {
   'use strict';
 
-  var TOOLS = {
-    line: { kind: 'lines', need: 4, min: 2, closed: false, colour: 0, shape: false, label: 'line', tab: 'lines' },
-    area: { kind: 'areas', need: 4, min: 4, closed: true, colour: 1, shape: true, label: 'area', tab: 'az' },
-    pfz:  { kind: 'pfz',   need: 4, min: 4, closed: true, colour: 2, shape: true, label: 'PFZ', tab: 'az' },
-    nfz:  { kind: 'nfz',   need: 4, min: 4, closed: true, colour: 3, shape: true, label: 'NFZ', tab: 'az' }
-  };
+  // The shapes a list row or the menu puts on the map at a spot, and their tabs: a line 2 km long east to west, an
+  // area or zone a box 1 km square
+  var SHAPE_TABS = { lines: 'lines', areas: 'az', pfz: 'az', nfz: 'az' };
+  var LINE_HALF = 1000, BOX_HALF = 500;
+  // The line kinds' colours: the map's (fza_mplanner_fnc_dtcMapDraw's indices) and the menu's swatches, as the TSD
+  // draws them, FLOT blue, FLET red, FSCL white, the others green
+  var LINE_COLOURS = { PL: 0, BL: 0, FLOT: 6, FLET: 5, FSCL: 7 };
+  var LINE_SWATCHES = { PL: '#00ff00', BL: '#00ff00', FLOT: '#6699ff', FLET: '#ff0000', FSCL: '#ffffff' };
   var MAP_TABS = { lines: true, az: true, wp: true, cm: true, tt: true, routes: true };
   // The seed's ident lists each point file takes, and a new point's ident
   var IDENT_LISTS = { wp: ['wp', 'hz'], cm: ['cm'], tt: ['tt', 'th'] };
@@ -21,21 +23,24 @@
     seeded: false,
     tab: 'config',
     tool: null,
-    box: true,
-    sel: { lines: -1, areas: -1, pfz: -1, nfz: -1, wp: -1, cm: -1, tt: -1 },
+    // The one item selected, {kind, slot}: a point, line, area or zone, or an entry of the current route ('route')
+    sel: null,
     route: 0,
+    uploaded: '',
     idents: null,
     icons: null,
     saves: { own: [], mission: [] },
-    modal: { scope: 'own', selected: '' },
+    // The DTC manager: its scope and the save chosen in it; pick while it is only there to open a DTC from
+    modal: { scope: 'own', selected: '', pick: false },
     mapShown: false,
     mapRect: ''
   };
-  // A point's row being dragged {kind, slot, x, y, moved}, or a press in the map area {map: true}
+  // A point's or shape's row being dragged {kind, slot, x, y, moved}, or a press in the map area {map: true}
   var drag = null;
   // The click a drag ends with is not a click on the row
   var dragged = false;
-  // The right-click menu: {px, py, point: id or null, at: [x, y, z, grid] or null, stack: [level, ...]}
+  // The right-click menu: {px, py, point: id or null, shape: {kind, slot, seg} or null, at: [x, y, z, grid] or null,
+  // stack: [level, ...]}
   var menu = null;
 
   function el(id) { return document.getElementById(id); }
@@ -59,7 +64,51 @@
     sync();
   }
 
-  // The ground height under points that arrived with an MSL height but no ground (the aircraft, a save, Eden, text),
+  function isSel(kind, slot) {
+    return !!state.sel && state.sel.kind === kind && state.sel.slot === slot;
+  }
+
+  // An item selected: its row on its tab, highlighted on the map
+  function selectItem(kind, slot) {
+    var list = kind === 'route' ? state.dtc.routes[state.route] : state.dtc[kind];
+    if (!list || !list[slot]) return;
+    state.sel = { kind: kind, slot: slot };
+    showTab(kind === 'route' ? 'routes' : IDENT_LISTS[kind] ? kind : SHAPE_TABS[kind]);
+    render();
+    sync();
+    var row = document.querySelector('.dtc-row.sel[data-kind="' + kind + '"]');
+    if (row && row.scrollIntoView) row.scrollIntoView({ block: 'nearest' });
+  }
+
+  // An item deleted: a point leaves any route it is on, a zone its active state
+  function deleteItem(kind, slot) {
+    if (kind === 'route') {
+      state.dtc.routes[state.route].splice(slot, 1);
+    } else if (IDENT_LISTS[kind]) {
+      deletePoint(kind, slot);
+    } else if (SHAPE_TABS[kind]) {
+      state.dtc[kind][slot] = null;
+      if (kind === 'pfz' && state.dtc.activePf === slot) state.dtc.activePf = -1;
+      if (kind === 'nfz') state.dtc.nfActive[slot] = false;
+    } else {
+      return;
+    }
+    if (isSel(kind, slot)) state.sel = null;
+    changed();
+  }
+
+  // The upload button yellow while the DTC differs from what was last uploaded to or downloaded from the aircraft
+  function markUpload() {
+    var b = el('btnLoadDTC');
+    if (b) b.classList.toggle('pending', dtcJson() !== state.uploaded);
+  }
+
+  function uploaded() {
+    state.uploaded = dtcJson();
+    markUpload();
+  }
+
+  // The ground height under points that arrived with an MSL height but no ground (the aircraft, a save, text),
   // asked of the map, which answers with onTerrain in the same order
   var terrain = { wanted: [], askedAt: 0 };
   function fetchTerrain() {
@@ -87,17 +136,38 @@
     return names;
   }
 
-  // ── TSD icons: the ident's textures (tsd_icon_data.js) masking the colour the aircraft draws it in ──
-  function iconStyles() {
-    if (el('dtcIconStyles') || typeof _tsdIconData === 'undefined') return;
-    var css = '';
+  // ── TSD icons: the ident's textures (tsd_icon_data.js) as images, tinted on a canvas to the colour the aircraft
+  // draws them in once loaded, white as they are until then ──
+  var iconImages = {}, iconTinted = {};
+  function loadIcons() {
+    if (typeof _tsdIconData === 'undefined') return;
     Object.keys(_tsdIconData).forEach(function (key) {
-      css += '.dtc-ic-' + key + '{-webkit-mask-image:url(' + _tsdIconData[key] + ');mask-image:url(' + _tsdIconData[key] + ')}\n';
+      if (iconImages[key]) return;
+      var img = new Image();
+      img.src = _tsdIconData[key];
+      iconImages[key] = img;
     });
-    var style = document.createElement('style');
-    style.id = 'dtcIconStyles';
-    style.textContent = css;
-    document.head.appendChild(style);
+  }
+
+  function tintedIcon(key, colour) {
+    var id = key + '|' + colour;
+    if (iconTinted[id]) return iconTinted[id];
+    var img = iconImages[key];
+    if (!img || !img.complete || !img.naturalWidth) return _tsdIconData[key];
+    try {
+      var c = document.createElement('canvas');
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      var ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      ctx.globalCompositeOperation = 'source-in';
+      ctx.fillStyle = colour;
+      ctx.fillRect(0, 0, c.width, c.height);
+      iconTinted[id] = c.toDataURL();
+    } catch (e) {
+      iconTinted[id] = _tsdIconData[key];
+    }
+    return iconTinted[id];
   }
 
   function iconHtml(ident) {
@@ -107,7 +177,7 @@
     var colour = 'rgba(' + Math.round(c[0] * 255) + ',' + Math.round(c[1] * 255) + ',' + Math.round(c[2] * 255) + ',' + (c.length > 3 ? c[3] : 1) + ')';
     var layers = '';
     [ic[0], ic[1]].forEach(function (key) {
-      if (key && _tsdIconData[key]) layers += '<span class="dtc-ic-' + key + '" style="background-color:' + colour + '"></span>';
+      if (key && _tsdIconData[key]) layers += '<img src="' + tintedIcon(key, colour) + '" alt="">';
     });
     return layers ? '<span class="dtc-icon">' + layers + '</span>' : '';
   }
@@ -153,33 +223,31 @@
     sync();
   }
 
-  // What the map draws: shapes [points, closed, colour, label, label at the ends, kind:slot for its vertex handles],
-  // points [position, label, ident, free text], the chosen route, the shape being drawn
+  // What the map draws: shapes [points, closed, colour, label, label at the ends, kind:slot for its vertex handles,
+  // style 0 solid / 1 dashed / 2 alternating, handles at the segment middles to insert a vertex by, selected], points
+  // [position, label, ident, free text, selected], the current route
   function sync() {
     if (!state.mapShown) return;
     var d = state.dtc, draw = [], points = [], route = [];
-    // Lines: FLOT blue, FLET red, FSCL white, the others green; only a phase line has its ident, at both ends
-    var LINE_COLOURS = { FLOT: 6, FLET: 5, FSCL: 7 };
+    // Only a phase line has its ident, at both ends; a line short of four points takes more
     d.lines.forEach(function (e, i) {
       if (!e) return;
       var kind = dtcLineKind(e.id);
-      draw.push([e.pts, false, LINE_COLOURS[kind] || 0, kind === 'PL' ? e.id : '', true, 'lines:' + i]);
+      draw.push([e.pts, false, LINE_COLOURS[kind] || 0, kind === 'PL' ? e.id : '', true, 'lines:' + i, 0, e.pts.length < 4, isSel('lines', i)]);
     });
-    d.areas.forEach(function (e, i) { if (e) draw.push([e.pts, true, 1, e.id, false, 'areas:' + i]); });
-    d.pfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 2, 'PF' + (i + 1) + (d.activePf === i ? ' ACT' : ''), false, 'pfz:' + i]); });
-    d.nfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 3, 'NF' + (i + 1) + (d.nfActive[i] ? ' ACT' : ''), false, 'nfz:' + i]); });
+    // An area is labelled by its number, as the TSD does
+    d.areas.forEach(function (e, i) { if (e) draw.push([e.pts, true, 1, 'EA' + dtcPad2(i + 1), false, 'areas:' + i, 0, false, isSel('areas', i)]); });
+    // An active zone alternates its dashes, an inactive one is dashed
+    d.pfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 2, 'PF' + (i + 1) + (d.activePf === i ? ' ACT' : ''), false, 'pfz:' + i, d.activePf === i ? 2 : 1, false, isSel('pfz', i)]); });
+    d.nfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 3, 'NF' + (i + 1) + (d.nfActive[i] ? ' ACT' : ''), false, 'nfz:' + i, d.nfActive[i] ? 2 : 1, false, isSel('nfz', i)]); });
     DTC_POINT_KINDS.forEach(function (kind) {
-      d[kind].forEach(function (p, i) { if (p) points.push([[p.pt[0], p.pt[1]], dtcPointId(kind, i), p.ident, p.free]); });
+      d[kind].forEach(function (p, i) { if (p) points.push([[p.pt[0], p.pt[1]], dtcPointId(kind, i), p.ident, p.free, isSel(kind, i)]); });
     });
-    if (state.tab === 'routes') {
-      d.routes[state.route].forEach(function (id) {
-        var p = dtcPointAt(d, id);
-        if (p) route.push([p.pt[0], p.pt[1]]);
-      });
-    }
-    var t = state.tool;
-    var draft = t && t.verts ? { pts: t.verts, c: t.colour, closed: t.closed, box: t.box } : 0;
-    callSQF('["sync",' + sqfQuotedString(JSON.stringify({ d: draw, p: points, r: route, t: draft })) + '] call fza_mplanner_fnc_dtcMap;');
+    d.routes[state.route].forEach(function (id) {
+      var p = dtcPointAt(d, id);
+      if (p) route.push([p.pt[0], p.pt[1]]);
+    });
+    callSQF('["sync",' + sqfQuotedString(JSON.stringify({ d: draw, p: points, r: route })) + '] call fza_mplanner_fnc_dtcMap;');
   }
 
   // A map press as fractions of the active map area, or null without one
@@ -204,30 +272,16 @@
     if (tab && state.tab !== name) tab.click();
   }
 
-  // ── Drawing and placing ──────────────────────────────────────────────────
-  // The chosen empty slot, else the first empty one; a full file replaces the chosen one when allowed
-  function freeSlot(kind, mayReplace) {
-    var sel = state.sel[kind];
+  // ── Placing ──────────────────────────────────────────────────────────────
+  // The selected empty slot, else the first empty one
+  function freeSlot(kind) {
+    var sel = state.sel;
     var list = state.dtc[kind];
-    if (sel >= 0 && !list[sel]) return sel;
-    var free = list.indexOf(null);
-    if (free >= 0) return free;
-    return mayReplace && sel >= 0 ? sel : -1;
+    if (sel && sel.kind === kind && !list[sel.slot]) return sel.slot;
+    return list.indexOf(null);
   }
 
-  // A shape tool; box says two corners or clicked points, else the BOX/LINE toggle does
-  function startTool(name, box) {
-    var def = TOOLS[name];
-    if (def.shape && typeof box === 'boolean') state.box = box;
-    box = def.shape && state.box;
-    state.tool = { name: name, kind: def.kind, need: box ? 2 : def.need, min: box ? 2 : def.min, closed: def.closed,
-      colour: def.colour, box: box, verts: [] };
-    var slot = freeSlot(def.kind, true);
-    setStatus(slot < 0 ? 'No free slot: choose one to replace.' : 'Click the map: ' + (box ? 'two corners of the ' : state.tool.need + ' points of the ') + def.label +
-      (def.shape ? '.' : '; right-click or space ends it.'));
-    changed();
-  }
-
+  // The route tool: points clicked on the map join the route
   function startRouteTool() {
     state.tool = { name: 'route', kind: 'wp' };
     setStatus('Click points on the map to add them to route ' + (state.route + 1) + '.');
@@ -242,51 +296,58 @@
     return true;
   }
 
-  function undoPoint() {
-    if (!state.tool || !state.tool.verts || !state.tool.verts.length) return false;
-    state.tool.verts.pop();
-    changed();
-    return true;
+  // A new shape centred on a spot: a line of fixed length, else a box of fixed size
+  function fixedShape(kind, x, y, z) {
+    if (kind === 'lines') return [[x - LINE_HALF, y, z], [x + LINE_HALF, y, z]];
+    return dtcBox([x - BOX_HALF, y - BOX_HALF, z], [x + BOX_HALF, y + BOX_HALF, z]);
   }
 
-  function finishTool() {
-    var t = state.tool;
-    if (!t || !t.verts || t.verts.length < t.min) return;
-    var pts = t.box ? dtcBox(t.verts[0], t.verts[1]) : t.verts.slice();
-    if (t.closed) {
-      pts = dtcValidQuad(pts);
-      if (!pts) {
-        t.verts.pop();
-        setStatus('Its sides cross or it has no area: choose that point again.', true);
-        changed();
-        return;
-      }
-    }
-    var slot = freeSlot(t.kind, true);
-    if (slot < 0) {
-      setStatus('No free slot: choose one to replace.', true);
-      return;
-    }
-    var list = state.dtc[t.kind];
-    var old = list[slot];
-    if (t.kind === 'lines' || t.kind === 'areas') {
-      list[slot] = { id: old ? old.id : dtcDefaultIdent(t.kind, slot), pts: pts };
+  // A new line's ident by its kind: PL and BL numbered by the slot, the others their kind alone
+  function newLineId(lineKind, slot) {
+    if (lineKind === 'PL' || lineKind === 'BL') return lineKind + dtcDefaultIdent('lines', slot).slice(2);
+    return lineKind;
+  }
+
+  // A slot's shape put on the map: the one there moves whole, its centre to the spot; an empty slot gets a new shape
+  // there
+  function placeShape(kind, slot, x, y, z) {
+    var list = state.dtc[kind];
+    if (!list || slot < 0 || slot >= list.length) return;
+    var e = list[slot];
+    if (e) {
+      var cx = 0, cy = 0;
+      e.pts.forEach(function (p) { cx += p[0] / e.pts.length; cy += p[1] / e.pts.length; });
+      e.pts = e.pts.map(function (p) { return [p[0] + x - cx, p[1] + y - cy, p[2]]; });
+    } else if (kind === 'pfz' || kind === 'nfz') {
+      list[slot] = { pts: fixedShape(kind, x, y, z) };
     } else {
-      list[slot] = { pts: pts };
+      list[slot] = { id: dtcDefaultIdent(kind, slot), pts: fixedShape(kind, x, y, z) };
     }
-    state.sel[t.kind] = slot;
-    state.tool = null;
+    state.sel = { kind: kind, slot: slot };
     setStatus('');
     changed();
   }
 
-  // Right-click or space while points are being clicked ends the shape; true when one was being drawn
-  function endDrawing() {
-    var t = state.tool;
-    if (!t || !t.verts) return false;
-    if (t.verts.length >= t.min) finishTool();
-    else setStatus('It needs ' + t.min + ' points first.', true);
-    return true;
+  // A new shape in the file's chosen empty slot, else its first; a line of the kind chosen
+  function addShape(kind, x, y, z, lineKind) {
+    showTab(SHAPE_TABS[kind]);
+    var slot = freeSlot(kind);
+    if (slot < 0) { setStatus('That file is full.', true); return; }
+    placeShape(kind, slot, x, y, z);
+    if (kind === 'lines' && lineKind) {
+      state.dtc.lines[slot].id = newLineId(lineKind, slot);
+      changed();
+    }
+  }
+
+  // A vertex put into a line after the one its segment starts at, while it has fewer than four
+  function insertVertex(slot, seg, x, y, z) {
+    var e = state.dtc.lines[slot];
+    if (!e || e.pts.length >= 4 || seg < 0 || seg >= e.pts.length - 1) return;
+    e.pts.splice(seg + 1, 0, [x, y, z]);
+    state.sel = { kind: 'lines', slot: slot };
+    setStatus('');
+    changed();
   }
 
   // The nearest point a route takes: targets and threats never
@@ -303,10 +364,11 @@
     return best;
   }
 
-  function onMapClick(x, y, z, grid, reach) {
+  // A click on the map: with the route tool the point there joins the route; else the point or shape there (a point
+  // id, or kind:slot) is selected, and empty map clears the selection
+  function onMapClick(x, y, z, grid, reach, hit) {
     var t = state.tool;
-    if (!t) return;
-    if (t.name === 'route') {
+    if (t && t.name === 'route') {
       var id = nearestPoint(x, y, Math.max(reach || 0, 50));
       if (!id) { setStatus('No point there.', true); return; }
       var route = state.dtc.routes[state.route];
@@ -316,8 +378,14 @@
       changed();
       return;
     }
-    t.verts.push([x, y, z]);
-    if (t.verts.length >= t.need) finishTool(); else changed();
+    if (!hit) {
+      if (state.sel) { state.sel = null; changed(); }
+      return;
+    }
+    var at = dtcPointSlot(hit);
+    if (at) { selectItem(at.kind, at.slot); return; }
+    var parts = String(hit).split(':');
+    if (SHAPE_TABS[parts[0]]) selectItem(parts[0], parseInt(parts[1], 10));
   }
 
   // A slot's point put on the map, z the ground there: the one there moves, keeping its height above the ground; an
@@ -334,7 +402,7 @@
     } else {
       list[slot] = { ident: POINT_DEFAULT[kind], free: '', pt: [x, y, z], g: grid || '', t: z };
     }
-    state.sel[kind] = slot;
+    state.sel = { kind: kind, slot: slot };
     setStatus('');
     changed();
   }
@@ -342,10 +410,10 @@
   // A new point with that ident, in the file's chosen empty slot, else its first
   function addPoint(kind, ident, x, y, z, grid) {
     showTab(kind);
-    var slot = freeSlot(kind, false);
+    var slot = freeSlot(kind);
     if (slot < 0) { setStatus('That file is full.', true); return; }
     state.dtc[kind][slot] = { ident: ident, free: '', pt: [x, y, z], g: grid || '', t: z };
-    state.sel[kind] = slot;
+    state.sel = { kind: kind, slot: slot };
     setStatus('');
     changed();
   }
@@ -366,7 +434,7 @@
       if (!pts) { setStatus('Its sides would cross or it would have no area: that corner stays.', true); return; }
     }
     e.pts = pts;
-    state.sel[kind] = slot;
+    state.sel = { kind: kind, slot: slot };
     setStatus('');
     changed();
   }
@@ -382,7 +450,7 @@
     state.dtc.routes = state.dtc.routes.map(function (r) {
       return r.map(function (id) { return id === a ? b : id === b ? a : id; });
     });
-    state.sel[kind] = j;
+    state.sel = { kind: kind, slot: j };
     changed();
     var row = document.querySelector('.dtc-row.sel[data-kind="' + kind + '"]');
     if (row && row.scrollIntoView) row.scrollIntoView({ block: 'nearest' });
@@ -395,13 +463,19 @@
   }
 
   // ── The row being dragged ────────────────────────────────────────────────
+  // What a shape's row is called: its ident, a zone's number
+  function shapeName(kind, slot, e) {
+    if (kind === 'pfz' || kind === 'nfz') return (kind === 'pfz' ? 'PF' : 'NF') + (slot + 1);
+    return e ? e.id : dtcDefaultIdent(kind, slot);
+  }
+
   function ghost(ev) {
     var g = el('dtcDragGhost');
     if (!g) return;
     if (!ev) { g.classList.remove('on'); document.body.classList.remove('dtc-dragging'); return; }
     if (!g.classList.contains('on')) {
       var p = state.dtc[drag.kind][drag.slot];
-      g.innerHTML = (p ? iconHtml(p.ident) : '') + dtcPointId(drag.kind, drag.slot);
+      g.innerHTML = IDENT_LISTS[drag.kind] ? (p ? iconHtml(p.ident) : '') + dtcPointId(drag.kind, drag.slot) : escapeHtml(shapeName(drag.kind, drag.slot, p));
       g.classList.add('on');
       document.body.classList.add('dtc-dragging');
     }
@@ -417,8 +491,8 @@
     return { title: title, wide: true, items: names.map(function (n) { return { label: n, icon: n, ident: n, kind: kind, on: n === current }; }) };
   }
 
-  // A point's menu: its ident, and the route to add it to (a route with points is starred); targets and threats
-  // take no route
+  // A point's menu: its ident, the route to add it to (a route with points is starred; targets and threats take no
+  // route), and its deletion
   function pointLevel(id, kind, current) {
     var items = [{ label: 'IDENT', sub: identLevel('IDENT', kind, IDENT_LISTS[kind], current) }];
     if (kind !== 'tt') {
@@ -427,11 +501,28 @@
       });
       items.push({ label: 'ADD TO ROUTE', sub: { title: 'ADD TO ROUTE', items: routes } });
     }
+    items.push({ label: 'DELETE', del: true });
     return { title: id, items: items };
   }
 
-  function shapeLevel(title, tool) {
-    return { title: title, items: [{ label: 'BOX', tool: tool, box: true }, { label: 'LINE', tool: tool, box: false }] };
+  // The line kinds, each with its colour; the line's own kind marked
+  function lineKindLevel(current) {
+    return { title: 'LINE', items: DTC_LINE_KINDS.map(function (k) {
+      return { label: k, swatch: LINE_SWATCHES[k], lineKind: k, shape: 'lines', on: k === current };
+    }) };
+  }
+
+  // A shape's menu: a line's kind, and a point inserted where it was clicked while it has fewer than four; any
+  // shape's deletion
+  function shapeLevel(kind, slot) {
+    var e = state.dtc[kind][slot];
+    var items = [];
+    if (kind === 'lines') {
+      items.push({ label: 'LINE', sub: lineKindLevel(dtcLineKind(e.id)) });
+      if (e.pts.length < 4) items.push({ label: 'INSERT POINT', insert: true });
+    }
+    items.push({ label: 'DELETE', del: true });
+    return { title: shapeName(kind, slot, e), items: items };
   }
 
   // What to add at the spot right-clicked, in the aircraft's terms
@@ -442,17 +533,17 @@
       { label: 'CONTROL MEASURE', sub: identLevel('CONTROL MEASURE', 'cm', ['cm']) },
       { label: 'TARGET', sub: identLevel('TARGET', 'tt', ['tt']) },
       { label: 'THREAT', sub: identLevel('THREAT', 'tt', ['th']) },
-      { label: 'LINE', tool: 'line' },
+      { label: 'LINE', sub: lineKindLevel('') },
       { label: 'AREA', sub: { title: 'AREA', items: [
-        { label: 'AREA', sub: shapeLevel('AREA', 'area') },
-        { label: 'PFZ', sub: shapeLevel('PFZ', 'pfz') },
-        { label: 'NFZ', sub: shapeLevel('NFZ', 'nfz') }
+        { label: 'AREA', shape: 'areas' },
+        { label: 'PFZ', shape: 'pfz' },
+        { label: 'NFZ', shape: 'nfz' }
       ] } }
     ] };
   }
 
-  function openMenu(px, py, point, at, level) {
-    menu = { px: px, py: py, point: point, at: at, stack: [level] };
+  function openMenu(px, py, point, at, level, shape) {
+    menu = { px: px, py: py, point: point, shape: shape || null, at: at, stack: [level] };
     renderMenu();
   }
 
@@ -465,7 +556,8 @@
       (back ? '&#8249; ' : '') + escapeHtml(level.title) + '</div>';
     level.items.forEach(function (item, i) {
       html += '<div class="dtc-menu-item' + (item.on ? ' on' : '') + (item.sub ? ' sub' : '') + '" data-menu-item="' + i + '">' +
-        (item.icon ? iconHtml(item.icon) : '') + escapeHtml(item.label) + '</div>';
+        (item.icon ? iconHtml(item.icon) : '') + (item.swatch ? '<span class="dtc-swatch" style="background:' + item.swatch + '"></span>' : '') +
+        escapeHtml(item.label) + '</div>';
     });
     m.innerHTML = html;
     m.className = 'dtc-menu on' + (level.wide ? ' wide' : '');
@@ -489,9 +581,12 @@
     var item = level.items[i];
     if (!item) return;
     if (item.sub) { menu.stack.push(item.sub); renderMenu(); return; }
-    var point = menu.point, at = menu.at;
+    var point = menu.point, at = menu.at, shape = menu.shape;
     closeMenu();
-    if (item.ident && point) {
+    if (item.del) {
+      var target = point ? dtcPointSlot(point) : shape;
+      if (target) deleteItem(target.kind, target.slot);
+    } else if (item.ident && point) {
       var slot = dtcPointSlot(point);
       var p = slot && state.dtc[slot.kind][slot.slot];
       if (p) { p.ident = item.ident; changed(); }
@@ -503,16 +598,21 @@
       changed();
     } else if (item.ident && at) {
       addPoint(item.kind, item.ident, at[0], at[1], at[2], at[3]);
-    } else if (item.tool) {
-      showTab(TOOLS[item.tool].tab);
-      startTool(item.tool, item.box);
+    } else if (item.lineKind && shape) {
+      // The line's kind changes, its own characters kept as far as they fit
+      var e = state.dtc.lines[shape.slot];
+      if (e) { e.id = item.lineKind + dtcLineSuffix(e.id).slice(0, 5 - item.lineKind.length); changed(); }
+    } else if (item.insert && shape && at) {
+      insertVertex(shape.slot, shape.seg, at[0], at[1], at[2]);
+    } else if (item.shape && at) {
+      addShape(item.shape, at[0], at[1], at[2], item.lineKind);
     }
   }
 
   // ── Lists ────────────────────────────────────────────────────────────────
   function shapeRow(kind, i, e) {
     var d = state.dtc;
-    var cls = 'dtc-row' + (state.sel[kind] === i ? ' sel' : '') + (e ? '' : ' empty');
+    var cls = 'dtc-row' + (isSel(kind, i) ? ' sel' : '') + (e ? '' : ' empty');
     var name = '';
     if (kind === 'lines') {
       if (e) {
@@ -556,7 +656,7 @@
   }
 
   function pointRow(kind, i, p) {
-    var cls = 'dtc-row' + (state.sel[kind] === i ? ' sel' : '') + (p ? '' : ' empty');
+    var cls = 'dtc-row' + (isSel(kind, i) ? ' sel' : '') + (p ? '' : ' empty');
     var id = '<span class="dtc-pid">' + dtcPointId(kind, i) + '</span>';
     if (!p) return '<div class="' + cls + '" data-kind="' + kind + '" data-slot="' + i + '">' + id + '<span class="dtc-info">EMPTY</span></div>';
     var at = ' data-kind="' + kind + '" data-slot="' + i + '"';
@@ -585,9 +685,9 @@
       var route = state.dtc.routes[state.route];
       list.innerHTML = route.length ? route.map(function (id, i) {
         var p = dtcPointAt(state.dtc, id);
-        return '<div class="dtc-row"><span class="dtc-num">' + dtcPad2(i + 1) + '</span><span class="dtc-pid">' + id + '</span>' +
+        return '<div class="dtc-row' + (isSel('route', i) ? ' sel' : '') + '" data-kind="route" data-slot="' + i + '"><span class="dtc-num">' + dtcPad2(i + 1) + '</span><span class="dtc-pid">' + id + '</span>' +
           '<span class="dtc-info">' + (p ? escapeHtml(p.ident) : 'NOT IN DTC') + '</span>' +
-          '<button class="dtc-del" data-route-del="' + i + '">DEL</button></div>';
+          '<button class="dtc-del" data-del="route" data-slot="' + i + '">DEL</button></div>';
       }).join('') : '<div class="dtc-row empty"><span class="dtc-info">EMPTY</span></div>';
     }
   }
@@ -604,18 +704,11 @@
       if (e) e.innerHTML = pointHead() + state.dtc[kind].map(function (x, i) { return pointRow(kind, i, x); }).join('');
     });
     renderRoutes();
-    var t = state.tool;
-    eachNode('[data-dtc-tool]', function (b) {
-      var on = !!t && getData(b, 'dtc-tool') === t.name && (!getData(b, 'kind') || getData(b, 'kind') === t.kind);
-      b.classList.toggle('on', on);
-    });
-    eachNode('[data-dtc-action="finish"]', function (b) { b.disabled = !t || !t.verts || t.verts.length < t.min || t.box; });
-    eachNode('[data-dtc-action="undo"]', function (b) { b.disabled = !t || !t.verts || !t.verts.length; });
-    eachNode('[data-dtc-action="cancel"]', function (b) { b.disabled = !t; });
-    eachNode('[data-dtc-action="shape"]', function (b) { b.textContent = state.box ? 'BOX' : 'LINE'; });
+    eachNode('[data-dtc-tool]', function (b) { b.classList.toggle('on', !!state.tool && getData(b, 'dtc-tool') === state.tool.name); });
     eachNode('[data-dtc-action="single"]', function (b) { b.textContent = 'NF ACTIVE: ' + (state.dtc.nfSingle ? 'SINGLE' : 'MULTI'); });
     var name = el('dtcName');
     if (name && document.activeElement !== name) name.value = state.dtc.name;
+    markUpload();
     renderModal();
   }
 
@@ -625,17 +718,30 @@
     return !!m && m.classList.contains('visible');
   }
 
-  function openModal() {
+  // The DTC manager, or with pick the same lists only, to open one from
+  function openModal(pick) {
     var m = el('dtcModal');
     if (!m) return;
     state.modal.selected = '';
+    state.modal.pick = !!pick;
     var n = el('dtcModalName');
     if (n) n.value = state.dtc.name;
     var t = el('dtcText');
     if (t) t.value = '';
     m.classList.add('visible');
+    m.classList.toggle('pick', state.modal.pick);
     callSQF('["saves"] call fza_mplanner_fnc_dtcSeed;');
     renderModal();
+  }
+
+  // A saved DTC opened into the planner
+  function openSave(s) {
+    var parsed = null;
+    try { parsed = JSON.parse(s.json); } catch (e) { parsed = null; }
+    if (!parsed) { setStatus('That DTC could not be read.', true); return; }
+    if (!parsed.name) parsed.name = s.name;
+    openDtcObject(parsed, 'Opened ' + s.name + '. Upload to Acft puts it in the aircraft.');
+    closeModal();
   }
 
   function closeModal() {
@@ -645,6 +751,13 @@
 
   function renderModal() {
     eachNode('[data-dtc-scope]', function (b) { b.classList.toggle('active', getData(b, 'dtc-scope') === state.modal.scope); });
+    var title = el('dtcModalTitle');
+    if (title) title.textContent = state.modal.pick ? 'OPEN DTC' : 'DTC MANAGER';
+    var hint = el('dtcModalHint');
+    if (hint) {
+      hint.textContent = state.modal.pick ? 'Click a DTC to open it in the planner; Upload to Acft then puts it in the aircraft, for the crew to load with DTU MASTER LOAD.' :
+        'Push to Mission shares the named DTC with everyone in the mission; Delete removes the selected one.';
+    }
     var list = el('dtcSaveList');
     if (!list) return;
     var saves = state.saves[state.modal.scope] || [];
@@ -681,14 +794,15 @@
   }
 
   // ── Events ───────────────────────────────────────────────────────────────
-  // A left press: a point's row picked up, or a press in the map area handed to the map
+  // A left press: a point's or shape's row picked up, or a press in the map area handed to the map
   document.addEventListener('mousedown', function (ev) {
     var target = ev.target;
     var find = function (sel) { return target.closest ? target.closest(sel) : null; };
     if (ev.button !== 0 || find('#dtcMenu')) return;
     closeMenu();
     var row = find('.dtc-row');
-    if (row && DTC_POINT_KINDS.indexOf(getData(row, 'kind')) >= 0 && ['INPUT', 'SELECT', 'OPTION', 'BUTTON'].indexOf(target.tagName) < 0) {
+    var rowKind = row ? getData(row, 'kind') : '';
+    if (row && (IDENT_LISTS[rowKind] || SHAPE_TABS[rowKind]) && ['INPUT', 'SELECT', 'OPTION', 'BUTTON'].indexOf(target.tagName) < 0) {
       drag = { kind: getData(row, 'kind'), slot: parseInt(getData(row, 'slot'), 10), x: ev.pageX, y: ev.pageY, moved: false };
       ev.preventDefault();
       return;
@@ -752,21 +866,12 @@
     }
     var tool = find('[data-dtc-tool]');
     if (tool) {
-      var name = getData(tool, 'dtc-tool');
-      if (state.tool && state.tool.name === name) { cancelTool(); return; }
-      if (TOOLS[name]) startTool(name); else startRouteTool();
+      if (state.tool) cancelTool(); else startRouteTool();
       return;
     }
     var action = find('[data-dtc-action]');
     if (action) {
       switch (getData(action, 'dtc-action')) {
-        case 'finish': finishTool(); break;
-        case 'undo': undoPoint(); break;
-        case 'cancel': cancelTool(); break;
-        case 'shape':
-          state.box = !state.box;
-          if (state.tool && TOOLS[state.tool.name] && TOOLS[state.tool.name].shape) startTool(state.tool.name); else render();
-          break;
         case 'single':
           state.dtc.nfSingle = !state.dtc.nfSingle;
           if (state.dtc.nfSingle) {
@@ -792,11 +897,6 @@
       if (state.tool && state.tool.name === 'route') startRouteTool(); else changed();
       return;
     }
-    if (target.hasAttribute && target.hasAttribute('data-route-del')) {
-      state.dtc.routes[state.route].splice(parseInt(getData(target, 'route-del'), 10), 1);
-      changed();
-      return;
-    }
     var act = getData(target, 'act');
     if (act) {
       var slot = parseInt(getData(target, 'slot'), 10);
@@ -818,20 +918,17 @@
     }
     var del = getData(target, 'del');
     if (del) {
-      var s = parseInt(getData(target, 'slot'), 10);
-      if (DTC_POINT_KINDS.indexOf(del) >= 0) {
-        deletePoint(del, s);
-      } else {
-        state.dtc[del][s] = null;
-        if (del === 'pfz' && state.dtc.activePf === s) state.dtc.activePf = -1;
-        if (del === 'nfz') state.dtc.nfActive[s] = false;
-      }
-      changed();
+      deleteItem(del, parseInt(getData(target, 'slot'), 10));
       return;
     }
     var save = find('[data-dtc-save]');
     if (save) {
       state.modal.selected = getData(save, 'dtc-save');
+      if (state.modal.pick) {
+        var s = chosenSave();
+        if (s) openSave(s);
+        return;
+      }
       var n = el('dtcModalName');
       if (n) n.value = state.modal.selected;
       renderModal();
@@ -848,8 +945,9 @@
     if (row && ['INPUT', 'SELECT', 'OPTION', 'BUTTON'].indexOf(target.tagName) < 0 && getData(row, 'kind')) {
       var k = getData(row, 'kind');
       var i = parseInt(getData(row, 'slot'), 10);
-      state.sel[k] = state.sel[k] === i ? -1 : i;
+      state.sel = isSel(k, i) ? null : { kind: k, slot: i };
       render();
+      sync();
     }
   });
 
@@ -887,6 +985,7 @@
     } else if (t.id === 'dtcName') {
       state.dtc.name = String(t.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
       t.value = state.dtc.name;
+      markUpload();
     }
   });
 
@@ -895,22 +994,23 @@
     return tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
   }
 
-  // Backspace undoes the last point, space ends a shape, W A S D move the map north, south, west, east
+  // Delete removes the selected item, Backspace takes the last point off the route being built, W A S D move the map
+  // north, south, west, east
   document.addEventListener('keydown', function (ev) {
     if (typing() || !state.mapShown) return;
     var key = ev.key || '';
+    if (key === 'Delete' || ev.keyCode === 46) {
+      ev.preventDefault();
+      if (state.sel) deleteItem(state.sel.kind, state.sel.slot);
+      return;
+    }
     if (ev.keyCode === 8) {
       if (!state.tool) return;
       ev.preventDefault();
-      if (state.tool.name === 'route') {
-        state.dtc.routes[state.route].pop();
-        changed();
-      } else {
-        undoPoint();
-      }
+      state.dtc.routes[state.route].pop();
+      changed();
       return;
     }
-    if (key === ' ' || ev.keyCode === 32) { ev.preventDefault(); endDrawing(); return; }
     var step = { w: [0, 1], s: [0, -1], a: [-1, 0], d: [1, 0] }[key.toLowerCase()];
     if (step) {
       ev.preventDefault();
@@ -932,14 +1032,18 @@
       setStatus('Loading...');
       callSQF('[' + sqfQuotedString(dtcJson()) + '] call fza_mplanner_fnc_dtcStage;');
     });
-    on('btnOpenDTCs', openModal);
+    on('btnOpenDTCs', function () { openModal(false); });
+    on('btnOpenDTC', function () { openModal(true); });
+    // Saved to OWN under the box's name
+    on('btnSaveDTC', function () {
+      var name = state.dtc.name;
+      if (!name) { setStatus('Name the DTC first.', true); return; }
+      callSQF('["own",' + sqfQuotedString(name) + ',' + sqfQuotedString(dtcJson()) + '] call fza_mplanner_fnc_dtcSave;');
+      setStatus('Saved ' + name + ' (OWN).');
+    });
     on('btnReadDTC', function () {
       setStatus('Reading the aircraft...');
       callSQF('["readback"] call fza_mplanner_fnc_dtcSeed;');
-    });
-    on('btnEdenDTC', function () {
-      setStatus('Reading the mission...');
-      callSQF('["eden"] call fza_mplanner_fnc_dtcSeed;');
     });
     on('btnNewDTC', function () {
       state.dtc = dtcEmpty();
@@ -948,25 +1052,6 @@
       changed();
     });
     on('btnDtcModalClose', closeModal);
-    on('btnDtcSave', function () {
-      var name = modalName();
-      if (!name) { setStatus('Name the DTC first.', true); return; }
-      state.dtc.name = name;
-      callSQF('[' + sqfQuotedString(state.modal.scope) + ',' + sqfQuotedString(name) + ',' + sqfQuotedString(dtcJson()) + '] call fza_mplanner_fnc_dtcSave;');
-      state.modal.selected = name;
-      setStatus('Saved ' + name + ' (' + state.modal.scope.toUpperCase() + ').');
-      render();
-    });
-    on('btnDtcLoad', function () {
-      var s = chosenSave();
-      if (!s) return;
-      var parsed = null;
-      try { parsed = JSON.parse(s.json); } catch (e) { parsed = null; }
-      if (!parsed) { setStatus('That DTC could not be read.', true); return; }
-      if (!parsed.name) parsed.name = s.name;
-      openDtcObject(parsed, 'Opened ' + s.name + '. Load DTC puts it in the aircraft.');
-      closeModal();
-    });
     on('btnDtcPush', function () {
       var name = modalName();
       if (!name) { setStatus('Name the DTC first.', true); return; }
@@ -1020,28 +1105,8 @@
     }
   }
 
-  // Eden's points into the empty slots: its own number, else the first free one; ones already there are left
-  function mergeEden(o) {
-    var eden = dtcFromObject(o);
-    var added = 0, skipped = 0;
-    DTC_POINT_KINDS.forEach(function (kind) {
-      var list = state.dtc[kind];
-      eden[kind].forEach(function (p, i) {
-        if (!p) return;
-        var dupe = list.some(function (q) { return q && q.ident === p.ident && Math.abs(q.pt[0] - p.pt[0]) < 1 && Math.abs(q.pt[1] - p.pt[1]) < 1; });
-        if (dupe) return;
-        var slot = list[i] ? list.indexOf(null) : i;
-        if (slot < 0) { skipped++; return; }
-        list[slot] = p;
-        added++;
-      });
-    });
-    setStatus('Eden: ' + added + ' points added' + (skipped ? ', ' + skipped + ' with no free slot' : '') + '.', skipped > 0);
-    changed();
-  }
-
   window.fzaDtc = {
-    onMapClick: function (x, y, z, grid, reach) { onMapClick(x, y, z, grid, reach); },
+    onMapClick: function (x, y, z, grid, reach, hit) { onMapClick(x, y, z, grid, reach, hit); },
     onPointMoved: function (id, x, y, z, grid) { movePoint(id, x, y, z, grid); },
     onVertexMoved: function (kind, slot, index, x, y, z) { moveVertex(kind, slot, index, x, y, z); },
     onTerrain: function (heights) {
@@ -1052,35 +1117,43 @@
       terrain.wanted = [];
       render();
     },
-    onMapDrop: function (x, y, z, grid, kind, slot) { if (IDENT_LISTS[kind]) placePoint(kind, slot, x, y, z, grid); },
-    // A right click: a shape being drawn ends, else the menu for the point there or for that spot
+    onMapDrop: function (x, y, z, grid, kind, slot) {
+      if (IDENT_LISTS[kind]) placePoint(kind, slot, x, y, z, grid);
+      else if (SHAPE_TABS[kind]) placeShape(kind, slot, x, y, z);
+    },
+    // A segment's middle handle picked up: the new vertex it becomes, which the map goes on dragging
+    onVertexInsert: function (slot, seg, x, y, z) { insertVertex(slot, seg, x, y, z); },
+    // A right click: the menu for the point there, the shape there, or for that spot
     onPointMenu: function (id, px, py) {
-      if (endDrawing()) return;
       var at = dtcPointSlot(id);
       var p = at && state.dtc[at.kind][at.slot];
       if (p) openMenu(px, py, id, null, pointLevel(id, at.kind, p.ident));
     },
+    onShapeMenu: function (kind, slot, seg, px, py, x, y, z, grid) {
+      if (SHAPE_TABS[kind] && state.dtc[kind][slot]) openMenu(px, py, null, [x, y, z, grid], shapeLevel(kind, slot), { kind: kind, slot: slot, seg: seg });
+    },
     onMapMenu: function (px, py, x, y, z, grid) {
-      if (endDrawing()) return;
       openMenu(px, py, null, [x, y, z, grid], drawLevel());
     },
-    onStaged: function (ok, message) { setStatus(message, !ok); },
+    onStaged: function (ok, message) {
+      setStatus(message, !ok);
+      if (ok) uploaded();
+    },
     receiveSeed: function (payload) {
       if (!payload) return;
       state.world = payload.world || state.world;
       if (Array.isArray(payload.own)) state.saves = { own: payload.own, mission: payload.mission || [] };
       if (payload.idents) state.idents = payload.idents;
-      if (payload.icons) { state.icons = payload.icons; iconStyles(); }
+      if (payload.icons) { state.icons = payload.icons; loadIcons(); }
       var mode = payload.mode || 'open';
       if (mode === 'open' && !state.seeded) {
         state.seeded = true;
         state.dtc = dtcFromObject(payload.dtc);
         if (!state.dtc.name && payload.loaded) state.dtc.name = String(payload.loaded);
+        state.uploaded = dtcJson();
       } else if (mode === 'readback' && payload.dtc) {
-        openDtcObject(payload.dtc, 'Read back what the aircraft holds.');
-        return;
-      } else if (mode === 'eden' && payload.dtc) {
-        mergeEden(payload.dtc);
+        openDtcObject(payload.dtc, 'Downloaded what the aircraft holds.');
+        uploaded();
         return;
       }
       changed();

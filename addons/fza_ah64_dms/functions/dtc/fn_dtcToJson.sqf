@@ -3,12 +3,12 @@
 Function: fza_dms_fnc_dtcToJson
 
 Description:
-    The DTC JSON (fza_dms_fnc_dtcFromJson) of an aircraft or the mission: the
-    DTC in the aircraft, or what it holds now. A point file or the routes not on
-    the DTC are what the aircraft holds now.
+    The DTC JSON (fza_dms_fnc_dtcFromJson) of an aircraft: the DTC in it, or
+    what it holds now. A point file or the routes not on the DTC are what the
+    aircraft holds now.
 
 Parameters:
-    _source - The helicopter, or missionNamespace for the mission's (Eden) data
+    _source - The helicopter
     _live   - true for what it holds now, not the DTC in it
 
 Returns:

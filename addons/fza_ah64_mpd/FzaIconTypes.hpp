@@ -69,16 +69,18 @@ class FzaIconTypes {
         textAHAlign = "left";
         textAVAlign = "center";
     };
+    // The letters hug the glyph, which spans the middle 0.37-0.63 of the texture: A ends at its left edge, B starts
+    // at its right
     class IconTypeG {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.05, 0.3};
-        textAHAlign = "left";
+        textAOffset[] = {0.36, 0.3};
+        textAHAlign = "right";
         textAVAlign = "center";
 
-        textBOffset[] = {0.95, 0.3};
-        textBHAlign = "right";
+        textBOffset[] = {0.64, 0.3};
+        textBHAlign = "left";
         textBVAlign = "center";
     };
     class IconTypeH {
@@ -908,14 +910,11 @@ class FzaIconTypes {
         textA = MPD_ICON_TEXT_FREE;
         color[] = {1, 1, 1, 1};
     };
-    class TSD_ZONE_LABEL_DIM:TSD_ZONE_LABEL_WHITE {
-        color[] = {0.6, 0.6, 0.6, 1};
-    };
     class TSD_ZONE_LABEL_YELLOW:TSD_ZONE_LABEL_WHITE {
         color[] = MPD_ICON_COLOR_YELLOW;
     };
     class TSD_AREA_LABEL:TSD_ZONE_LABEL_WHITE {
-        color[] = MPD_ICON_COLOR_GREEN;
+        color[] = MPD_ICON_COLOR_RED;
     };
     // A phase line's ident at its ends: ending at the western one, starting at the eastern one
     class TSD_LINE_LABEL_WEST:IconTypeC {

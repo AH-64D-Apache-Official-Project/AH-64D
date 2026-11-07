@@ -91,8 +91,8 @@
 
   /* ── COLUMNS ── */
   .col-left {
-    width: 330px;
-    min-width: 330px;
+    width: 440px;
+    min-width: 440px;
     border-right: 1px solid var(--border);
     padding: 6px 6px;
     display: flex;
@@ -120,8 +120,8 @@
     z-index: 1;
   }
   .col-right {
-    width: 330px;
-    min-width: 330px;
+    width: 440px;
+    min-width: 440px;
     padding: 6px 6px;
     display: flex;
     flex-direction: column;
@@ -643,7 +643,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 330px;
+    width: 440px;
     z-index: 4;
     border-top: 2px solid var(--border2);
     border-right: 1px solid var(--border);
@@ -665,13 +665,6 @@
     font-weight: bold;
     border-bottom: 1px solid var(--border);
     padding-bottom: 2px;
-  }
-  .dtc-current {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    color: var(--text-dim);
-    font-size: 15px;
   }
   .dtc-wip {
     text-align: center;
@@ -832,7 +825,7 @@
     padding-top: 0;
   }
   #app.non-config-tab .tab-sidebar {
-    padding-bottom: 200px;
+    padding-bottom: var(--strip-h, 200px);
   }
   .bottom-row {
     display: flex;
@@ -1074,8 +1067,8 @@
     flex-direction: row;
   }
   .tab-sidebar {
-    width: 330px;
-    min-width: 330px;
+    width: 440px;
+    min-width: 440px;
     border-right: 1px solid var(--border);
     padding: 8px 6px;
     display: flex;
@@ -1185,7 +1178,7 @@
     cursor: pointer;
   }
   .dtc-row:hover { background: var(--btn-hover); }
-  .dtc-row.sel { border-color: var(--accent); }
+  .dtc-row.sel { border-color: var(--accent); background: var(--btn-hover); color: var(--text-bright); }
   .dtc-row.empty { color: var(--text-dim); }
   .dtc-num { width: 2ch; color: var(--text-dim); }
   .dtc-ident {
@@ -1203,7 +1196,9 @@
   .dtc-shift { font-size: 9px; padding: 1px 3px; }
   .dtc-map { flex: 1; background: transparent; }
   /* A point's row dragged onto the map */
-  .dtc-row[data-kind="wp"], .dtc-row[data-kind="cm"], .dtc-row[data-kind="tt"] { cursor: grab; }
+  .dtc-row[data-kind]:not([data-kind="route"]) { cursor: grab; }
+  /* A line kind's colour in the menu */
+  .dtc-swatch { display: inline-block; width: 18px; height: 4px; margin-right: 6px; vertical-align: middle; }
   .dtc-ghost {
     position: fixed;
     display: none;
@@ -1221,18 +1216,9 @@
   }
   .dtc-ghost.on { display: flex; }
   body.dtc-dragging, body.dtc-dragging * { cursor: grabbing; }
-  /* A TSD icon in the aircraft's colour: the texture masks the colour, a second texture over the first */
+  /* A TSD icon in the aircraft's colour, a second texture over the first */
   .dtc-icon { position: relative; display: inline-block; width: 22px; height: 22px; flex-shrink: 0; vertical-align: middle; }
-  .dtc-icon span {
-    position: absolute;
-    inset: 0;
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-  }
+  .dtc-icon img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
   /* The map's right-click menu: a point's idents, or what to add at that spot */
   .dtc-menu {
     position: fixed;
@@ -1271,10 +1257,18 @@
   .dtc-menu-item.on { border-color: var(--accent); color: var(--text-bright); }
   .dtc-menu-item.sub::after { content: ' \203A'; color: var(--text-dim); }
   #dtc-box .row2btn button { font-size: 13px; padding: 2px 2px; }
+  /* The DTC box's two columns in three rows: the name and the aircraft on the left, the manager, saves and clearing on
+     the right, each row's cells the same height */
+  .dtc-label { color: var(--text-dim); font-size: 15px; }
+  .dtc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .dtc-cols > button, .dtc-cols .row2btn button { font-size: 13px; padding: 2px 2px; }
+  /* The manager's own controls, hidden while it is only there to open a DTC from */
+  #dtcModal.pick .manage-only { display: none; }
+  /* Changes not yet uploaded to the aircraft */
+  #btnLoadDTC.pending { background: var(--yellow); color: #000; border-color: var(--yellow); }
   .dtc-status { min-height: 13px; font-size: 11px; color: var(--text-dim); }
   .dtc-status.bad { color: var(--red-bright); }
-  /* The point tabs: a row on one line, under its headings */
-  #panel-wp .tab-sidebar, #panel-cm .tab-sidebar, #panel-tt .tab-sidebar { width: 440px; min-width: 440px; }
+  /* The point tabs' rows on one line, under their headings */
   .dtc-head { position: sticky; top: 0; background: var(--bg); color: var(--text-dim); font-size: 12px; cursor: default; border-bottom: 1px solid var(--border); }
   .dtc-head:hover { background: transparent; }
   .dtc-pid { width: 4ch; color: var(--text-bright); }

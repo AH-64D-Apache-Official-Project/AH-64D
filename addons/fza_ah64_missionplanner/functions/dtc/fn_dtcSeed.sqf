@@ -5,11 +5,10 @@ Function: fza_mplanner_fnc_dtcSeed
 Description:
     Sends the planner page its DTC data: the saved DTCs on this map, the idents
     each point file takes, and for "open" the DTC in the aircraft (or what it
-    holds), for "readback" what the aircraft holds now, for "eden" the mission's
-    pre-placed points.
+    holds), for "readback" what the aircraft holds now.
 
 Parameters:
-    _mode - "open", "readback", "eden" or "saves"
+    _mode - "open", "readback" or "saves"
 
 Returns:
     Nothing
@@ -69,9 +68,6 @@ switch (_mode) do {
     };
     case "readback": {
         if (!isNull _heli) then {_payload set ["dtc", fromJSON ([_heli, true] call fza_dms_fnc_dtcToJson)]};
-    };
-    case "eden": {
-        _payload set ["dtc", fromJSON ([missionNamespace, true] call fza_dms_fnc_dtcToJson)];
     };
 };
 

@@ -10,18 +10,19 @@ private _toScreen = {
     [_cx + sin _theta * _r, _cy - cos _theta * _r]
 };
 private _draw = {
-    params ["_pts", "_closed", "_color", ["_marquee", false]];
+    params ["_pts", "_closed", "_color", ["_style", 0]];
     private _screen = _pts apply _toScreen;
     private _xs = _screen apply {_x # 0};
     private _ys = _screen apply {_x # 1};
     if (selectMax _xs < _left || {selectMin _xs > _right} || {selectMax _ys < _top} || {selectMin _ys > _bottom}) exitWith {};
-    private _dash = [[], [0.02, 0.012, diag_tickTime * -0.03]] select _marquee;
+    // Solid, short dashes, or the active zone's alternation between short and long dashes twice a second
+    private _dash = [[], [0.006, 0.006], [[0.006, 0.006], [0.02, 0.012]] select (floor (diag_tickTime * 2) mod 2)] select _style;
     [_canvas, _screen, _closed, _color, 0.004, TSD_MAP_CLIP, _dash] call fza_mpd_fnc_canvasDrawPolyline;
 };
 
 {
-    _x params ["_pts", "_closed", "_color", "_marquee"];
-    [_pts, _closed, _color, _marquee] call _draw;
+    _x params ["_pts", "_closed", "_color", "_style"];
+    [_pts, _closed, _color, _style] call _draw;
 } forEach (_state getOrDefault ["zoneItems", []]);
 
 // The zone being drawn on ZN, out to the MPD cursor

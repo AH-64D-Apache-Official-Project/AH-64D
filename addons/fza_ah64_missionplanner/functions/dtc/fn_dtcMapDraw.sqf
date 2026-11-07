@@ -1,27 +1,51 @@
-// The DTC map's lines, areas, zones and points (fza_mplanner_fnc_dtcMap "sync"), the point or vertex being dragged
-// at the mouse or the map panned by it, and the shape being drawn out to the mouse
+// The DTC map's lines, areas, zones and points (fza_mplanner_fnc_dtcMap "sync"), and the point or vertex being
+// dragged at the mouse or the map panned by it
 params ["_map"];
 
-// Lines green, areas olive, PF zones black, NF zones orange, routes purple, FLET red, FLOT blue, FSCL white
-private _colours = [[0, 0.5, 0, 1], [0.4, 0.4, 0, 1], [0.15, 0.15, 0.15, 1], [0.95, 0.55, 0, 1], [0.6, 0, 0.7, 1], [0.85, 0, 0, 1], [0, 0.3, 0.9, 1], [1, 1, 1, 1]];
+// The TSD's colours (fza_mpd_fnc_tsdZoneItems, fza_mpd_fnc_pageTSDDrawCanvas): lines green, areas red, PF zones white,
+// NF zones yellow, routes green, FLET red, FLOT blue, FSCL white; an inactive zone is dashed, an active one alternates
+// its dashes
+private _colours = [[0, 1, 0, 1], [1, 0, 0.2, 1], [1, 1, 1, 1], [1, 1, 0, 1], [0, 1, 0, 1], [1, 0, 0, 1], [0.4, 0.6, 1, 1], [1, 1, 1, 1]];
+// The selected item's highlight, behind the shape or point, a pale yellow apart from the NF zones' and hazards' yellow
+#define SELECTED_COLOUR [1, 0.9, 0.5, 1]
 // Everything drawn, at twice the TSD's size
 #define SCALE 2
 private _w0 = _map ctrlMapScreenToWorld [0, 0];
 private _halfWidth = (_w0 distance2D (_map ctrlMapScreenToWorld [0.004 * SCALE, 0])) / 2;
 if (_halfWidth <= 0) exitWith {};
+// The dash and gap of each style in world metres, from their screen lengths: short dashes with equal gaps (1), and the
+// active zone's alternation between those and long dashes twice a second (2)
+private _dashLong = _w0 distance2D (_map ctrlMapScreenToWorld [0.01 * SCALE, 0]);
+private _dashShort = [_dashLong / 3, _dashLong / 3];
+private _dashes = [[], _dashShort, [_dashShort, [_dashLong, _dashLong * 0.6]] select (floor (diag_tickTime * 2) mod 2)];
 
+// A line solid (style 0), dashed (1) or alternating (2), at the given half width
 private _segment = {
-    params ["_a", "_b", "_colour"];
+    params ["_a", "_b", "_colour", ["_style", 0], ["_hw", _halfWidth]];
     private _length = _a distance2D _b;
     if (_length <= 0) exitWith {};
-    private _mid = [((_a # 0) + (_b # 0)) / 2, ((_a # 1) + (_b # 1)) / 2];
-    _map drawRectangle [_mid, _halfWidth, _length / 2, _a getDir _b, _colour, format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _colour)];
+    private _dir = _a getDir _b;
+    private _tex = format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _colour);
+    if (_style == 0) exitWith {
+        _map drawRectangle [[((_a # 0) + (_b # 0)) / 2, ((_a # 1) + (_b # 1)) / 2], _hw, _length / 2, _dir, _colour, _tex];
+    };
+    (_dashes # _style) params ["_on", "_off"];
+    private _period = _on + _off;
+    private _ux = ((_b # 0) - (_a # 0)) / _length;
+    private _uy = ((_b # 1) - (_a # 1)) / _length;
+    private _at = 0;
+    while {_at < _length} do {
+        private _end = (_at + _on) min _length;
+        private _mid = (_at + _end) / 2;
+        _map drawRectangle [[(_a # 0) + _ux * _mid, (_a # 1) + _uy * _mid], _hw, (_end - _at) / 2, _dir, _colour, _tex];
+        _at = _at + _period;
+    };
 };
 private _shape = {
-    params ["_pts", "_closed", "_colour"];
+    params ["_pts", "_closed", "_colour", ["_style", 0], ["_hw", _halfWidth]];
     private _pts2 = _pts apply {[_x # 0, _x # 1]};
-    for "_i" from 1 to count _pts2 - 1 do {[_pts2 # (_i - 1), _pts2 # _i, _colour] call _segment};
-    if (_closed && {count _pts2 > 2}) then {[_pts2 # (count _pts2 - 1), _pts2 # 0, _colour] call _segment};
+    for "_i" from 1 to count _pts2 - 1 do {[_pts2 # (_i - 1), _pts2 # _i, _colour, _style, _hw] call _segment};
+    if (_closed && {count _pts2 > 2}) then {[_pts2 # (count _pts2 - 1), _pts2 # 0, _colour, _style, _hw] call _segment};
 };
 
 getMousePosition params ["_mx", "_my"];
@@ -58,18 +82,28 @@ if (_drag isNotEqualTo [] && {[_mx, _my] distance2D (_drag # 2) > 0.004}) then {
 };
 if (_mouse isEqualTo []) then {_dragged = ""};
 
-// The shapes, each vertex with a handle to drag it by
+// The shapes, each vertex with a handle to drag it by, and a line short of four points with a smaller one at the
+// middle of each segment to drag a new vertex out of; the selected shape drawn over a wide solid stroke of the
+// highlight colour, itself as always
 {
-    _x params [["_pts", []], ["_closed", false], ["_colourIndex", 0], ["_label", ""], ["_atEnds", false], ["_key", ""]];
+    _x params [["_pts", []], ["_closed", false], ["_colourIndex", 0], ["_label", ""], ["_atEnds", false], ["_key", ""], ["_style", 0], ["_middles", false], ["_selected", false]];
     if (count _pts < 2) then {continue};
     private _colour = _colours param [_colourIndex, _colours # 0];
     if (_key != "" && {_dragged select [0, count _key + 1] == _key + ":"}) then {
         _pts = +_pts;
         _pts set [parseNumber (_dragged select [count _key + 1]), _mouse];
     };
-    [_pts, _closed, _colour] call _shape;
+    if (_selected) then {[_pts, _closed, SELECTED_COLOUR, 0, _halfWidth * 3] call _shape};
+    [_pts, _closed, _colour, _style] call _shape;
+    // The handles stand out against the shape: black on a light one (white, yellow), white on the rest
+    private _handleColour = [[1, 1, 1, 1], [0, 0, 0, 1]] select ((_colour # 0) + (_colour # 1) + (_colour # 2) >= 2);
     if (_key != "") then {
-        {_map drawIcon ["\A3\ui_f\data\map\markers\military\dot_CA.paa", _colour, [_x # 0, _x # 1], 10 * SCALE, 10 * SCALE, 0]} forEach _pts;
+        {_map drawIcon ["\A3\ui_f\data\map\markers\military\dot_CA.paa", _handleColour, [_x # 0, _x # 1], 10 * SCALE, 10 * SCALE, 0]} forEach _pts;
+    };
+    if (_middles && {_dragged == ""}) then {
+        for "_i" from 0 to count _pts - 2 do {
+            _map drawIcon ["\A3\ui_f\data\map\markers\military\circle_CA.paa", _handleColour, [((_pts # _i # 0) + (_pts # (_i + 1) # 0)) / 2, ((_pts # _i # 1) + (_pts # (_i + 1) # 1)) / 2], 8 * SCALE, 8 * SCALE, 0];
+        };
     };
     if (_label == "") then {continue};
     if (_atEnds) then {
@@ -86,7 +120,7 @@ if (_mouse isEqualTo []) then {_dragged = ""};
     };
 } forEach (uiNamespace getVariable ["fza_mplanner_dtcDraw", []]);
 
-// The route chosen on the Routes tab, then the points as the TSD draws them (fza_mpd_fnc_uiDrawPoint): the ident's
+// The current route, then the points as the TSD draws them (fza_mpd_fnc_uiDrawPoint): the ident's
 // textures, and its two texts at their offsets across the icon, the number, the free text or the ident's own letters
 private _route = (uiNamespace getVariable ["fza_mplanner_dtcRoute", []]) apply {[_x # 0, _x # 1]};
 if (count _route > 1) then {[_route, false, _colours # 4] call _shape};
@@ -117,35 +151,18 @@ private _text = {
     _map drawIcon ["#(argb,8,8,3)color(0,0,0,0)", _colour, [(_at # 0) + ((_offset # 0) - 0.5) * _iconW, _ay], 0, 0, 0, _text, 2, TEXT_SIZE, "fza_BMKApacheFont", _align];
 };
 {
-    _x params [["_pos", []], ["_label", ""], ["_ident", ""], ["_free", ""]];
+    _x params [["_pos", []], ["_label", ""], ["_ident", ""], ["_free", ""], ["_selected", false]];
     if (count _pos < 2) then {continue};
     private _details = [_ident] call fza_dms_fnc_pointGetIdentDetails;
     if (isNil "_details") then {_details = []};
     _details params [["_tex", ""], ["_tex2", ""], "", ["_colour", [0, 0, 0, 1]], ["_textA", []], ["_textB", []]];
     if (_colour isEqualTo []) then {_colour = [0, 0, 0, 1]};
     private _at = [[_pos # 0, _pos # 1], _mouse] select (_label == _dragged);
+    // The selected point ringed
+    if (_selected) then {_map drawIcon ["\A3\ui_f\data\map\markers\military\circle_CA.paa", SELECTED_COLOUR, _at, ICON_PX * 0.5, ICON_PX * 0.5, 0]};
     if (_tex != "") then {_map drawIcon [_tex, _colour, _at, ICON_PX, ICON_PX, 0]};
     if (_tex2 != "") then {_map drawIcon [_tex2, _colour, _at, ICON_PX, ICON_PX, 0]};
     private _number = _label select [1];
     if (_textA isNotEqualTo []) then {[_at, _colour, _textA, _number, _free] call _text};
     if (_textB isNotEqualTo []) then {[_at, _colour, _textB, _number, _free] call _text};
 } forEach (uiNamespace getVariable ["fza_mplanner_dtcPoints", []]);
-
-// The shape being drawn: its points so far, out to the mouse; a box from its corner
-private _draft = uiNamespace getVariable ["fza_mplanner_dtcDraft", 0];
-if !(_draft isEqualType createHashMap) exitWith {};
-private _verts = (_draft getOrDefault ["pts", []]) apply {[_x # 0, _x # 1]};
-private _colour = _colours param [_draft getOrDefault ["c", 0], _colours # 0];
-private _box = _draft getOrDefault ["box", false];
-{_map drawIcon ["\A3\ui_f\data\map\markers\military\dot_CA.paa", _colour, _x, 12 * SCALE, 12 * SCALE, 0]} forEach _verts;
-if (_mouse isEqualTo []) exitWith {
-    if (count _verts > 1) then {[_verts, false, _colour] call _shape};
-};
-if (_box && {count _verts == 1}) exitWith {
-    (_verts # 0) params ["_ax", "_ay"];
-    _mouse params ["_bx", "_by"];
-    [[[_ax, _ay], [_ax, _by], [_bx, _by], [_bx, _ay]], true, _colour] call _shape;
-};
-if (_verts isNotEqualTo []) then {
-    [_verts + [_mouse], (count _verts > 1) && {_draft getOrDefault ["closed", false]}, _colour] call _shape;
-};
