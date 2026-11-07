@@ -32,7 +32,8 @@ _pending params [
     ["_wp", []],
     ["_cm", []],
     ["_tt", []],
-    ["_routes", []]
+    ["_routes", []],
+    ["_routeNames", []]
 ];
 if (_wp isEqualTo []) then {_wp = _source getVariable ["fza_dms_waypointsHazards", []]};
 if (_cm isEqualTo []) then {_cm = _source getVariable ["fza_dms_controlMeasures", []]};
@@ -40,6 +41,7 @@ if (_tt isEqualTo []) then {_tt = _source getVariable ["fza_dms_targetsThreats",
 if (_routes isEqualTo []) then {
     _routes = (_source getVariable ["fza_ah64_routeData", []]) apply {_x apply {_x call fza_dms_fnc_pointToString}};
 };
+if (_routeNames isEqualTo []) then {_routeNames = _source getVariable ["fza_ah64_routeNames", ROUTE_NAME_DEFAULTS]};
 
 private _r = {(round (_this * 10)) / 10};
 private _withId = {
@@ -86,5 +88,6 @@ toJSON createHashMapFromArray [
     ["wp", _wp call _points],
     ["cm", _cm call _points],
     ["tt", _tt call _points],
-    ["routes", _routes]
+    ["routes", _routes],
+    ["routeNames", _routeNames]
 ]

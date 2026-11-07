@@ -8,7 +8,7 @@ private _pending = _heli getVariable ["fza_dms_dtcPending", []];
 if (_pending isEqualTo [] || {(_pending # 2) != worldName}) exitWith {
     _heli setVariable ["fza_dms_dtcName", "", true];
 };
-_pending params ["", "_name", "", "_lines", "_areas", "_pf", "_nf", "_zoneState", ["_wp", []], ["_cm", []], ["_tt", []], ["_routes", []]];
+_pending params ["", "_name", "", "_lines", "_areas", "_pf", "_nf", "_zoneState", ["_wp", []], ["_cm", []], ["_tt", []], ["_routes", []], ["_routeNames", []]];
 _heli setVariable ["fza_dms_lines", +_lines, true];
 _heli setVariable ["fza_dms_areas", +_areas, true];
 _heli setVariable ["fza_dms_pfZones", +_pf, true];
@@ -33,5 +33,8 @@ if (_routes isNotEqualTo []) then {
     };
     _heli setVariable ["fza_ah64_routeData", _routeData, true];
     _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
+};
+if (_routeNames isNotEqualTo []) then {
+    _heli setVariable ["fza_ah64_routeNames", +_routeNames, true];
 };
 _heli setVariable ["fza_dms_dtcName", _name, true];

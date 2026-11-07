@@ -33,7 +33,7 @@ params ["_heli", "_side", "_posX", "_posY"];
 switch (toLower _page) do {
     case "tsd": {
         TSD_MAP_CLIP params ["_left", "_top", "_right", "_bottom"];
-        _posX > _left && {_posX < _right} && {_posY > _top} && {_posY < _bottom}
+        (_state get "subPageVarPage") isNotEqualTo TSD_RTE_RTM && {_posX > _left} && {_posX < _right} && {_posY > _top} && {_posY < _bottom}
     };
     case "fcr": {
         if ((_heli getVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_OFF]) == FCR_DISP_MODE_ATM) exitWith {
