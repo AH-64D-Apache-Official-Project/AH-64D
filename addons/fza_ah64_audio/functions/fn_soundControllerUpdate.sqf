@@ -39,6 +39,7 @@ params ["_heli", "_deltaTime"];
 private _engState = _heli getVariable "bmkhs_engState";
 if (isNil "_engState") exitWith {};
 
+private _apuRpm_pct = _heli getVariable ["bmkhs_apuRpm_pct", 0];
 private _pwrLvr    = _heli getVariable ["bmkhs_engPowerLeverState", []];
 private _state     = [_engState, _pwrLvr];
 private _prev      = _heli getVariable ["fza_audio_soundState", []];
@@ -57,7 +58,8 @@ private _fnc_trigger = {
 
 if (_state isNotEqualTo _prev) then {
     //An aircraft first seen already running adopts its state without replaying the one-shots
-    if (!_firstSeen) then {
+    //Make sure "APU_pct" is greater than 0
+    if (!_firstSeen && _apuRpm_pct > 0) then {
         _prev params ["_prevState", "_prevLvr"];
         {
             private _st     = _engState param [_x, "OFF"];
@@ -108,7 +110,7 @@ private _fnc_approach = {
 
 private _ng = _heli getVariable ["bmkhs_engPctNg", []];
 ["CustomSoundController15", (((_ng param [0, 0]) + (_ng param [1, 0])) / (2 * fza_audio_ngRef)) min 1 max 0, ENG_SMOOTH_TIME] call _fnc_approach;
-["CustomSoundController1", _heli getVariable ["bmkhs_apuRpm_pct", 0], APU_SMOOTH_TIME] call _fnc_approach;
+["CustomSoundController1", _apuRpm_pct, APU_SMOOTH_TIME] call _fnc_approach;
 
 private _designRpm = _heli getVariable ["bmkhs_engDesignRpm", 0];
 private _rtrRpm    = if (_designRpm > 0) then {(_heli getVariable ["bmkhs_xmsnOutputRpm", 0]) / _designRpm} else {0};
