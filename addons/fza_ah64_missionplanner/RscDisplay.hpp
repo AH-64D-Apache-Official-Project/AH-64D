@@ -4,7 +4,7 @@ class RscFzaMissionPlanner
     enableSimulation = 1;
     movingEnable = 0;
     onLoad = "[_this select 0] call fza_mplanner_fnc_onLoad";
-    onUnload = "uiNamespace setVariable ['fza_mplanner_display', displayNull]";
+    onUnload = "_this call fza_mplanner_fnc_onUnload";
 
     class controlsBackground
     {
@@ -40,6 +40,16 @@ class RscFzaMissionPlanner
             y = "safeZoneY + (safeZoneH * 0.14)";
             w = "safeZoneH * 1.20";
             h = "safeZoneH * 0.72";
+        };
+        // The DTC map, over the browser's map area (fza_mplanner_fnc_dtcMap)
+        class DtcMap: RscMapControl
+        {
+            idc = 101;
+            x = 0;
+            y = 0;
+            w = 0;
+            h = 0;
+            maxSatelliteAlpha = 0.6;
         };
     };
 };

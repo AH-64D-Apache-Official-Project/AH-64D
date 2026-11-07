@@ -1,5 +1,5 @@
 class vabs_show {
-    condition = C_COND(C_AND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1)), C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5))));
+    condition = C_COND(C_AND(C_AND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1)), C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5))), C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 6))));
     #include "components\vabs_top.hpp"
 };
 
@@ -148,18 +148,21 @@ class tsdCommon {
     //B1 or M
     MPD_BOX_C(TSD,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, 3)
     MPD_TEXT_C(TSD, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"))
-    //B2
-    MPD_TEXT_C(PHASE_Label, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT+0.005, MPD_TEXT_STATIC("PHASE"))
-    MPD_BOX_C(PHASE,        MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, 3)
+    //B2, CLR in its place while a zone is drawn on ZN
+    class Phase {
+        condition = C_COND(C_NOT(C_AND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 6), C_MORE(C_MPD_USER(MFD_IND_TSD_ZN_EDIT), 0.5))));
+        MPD_TEXT_C(PHASE_Label, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT+0.005, MPD_TEXT_STATIC("PHASE"))
+        MPD_BOX_C(PHASE,        MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, 3)
 
-    class AtkOnly {
-        condition = C_COND(C_MPD_USER(MFD_IND_TSD_PHASE));
-        MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ATK"))
-    };
+        class AtkOnly {
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_PHASE));
+            MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ATK"))
+        };
 
-    class NavOnly {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_PHASE)));
-        MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("NAV"))
+        class NavOnly {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_PHASE)));
+            MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("NAV"))
+        };
     };
 
     // Hdg info

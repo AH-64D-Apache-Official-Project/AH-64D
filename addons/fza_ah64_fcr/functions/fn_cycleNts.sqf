@@ -21,7 +21,8 @@ params["_heli"];
 // Up to date with the target file, which may have changed this frame
 _heli setVariable ["fza_ah64_fcrDisplayFrame", -1];
 _heli call fza_fcr_fnc_resolveDisplay;
-private _shown = (_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS];
+// Not one in an active NF zone
+private _shown = ((_heli getVariable ["fza_ah64_fcrDisplayTargets", []]) select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]) select {(_x param [7, 0]) != 2};
 if (_shown isEqualTo []) exitWith {
     [_heli, "fza_ah64_fcrNts", [objNull, [0, 0, 0], []]] call fza_fnc_updateNetworkGlobal;
 };

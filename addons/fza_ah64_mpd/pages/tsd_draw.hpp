@@ -13,6 +13,35 @@ class Pan {
     #include "tsd\pan.hpp"
 };
 
+class Zn {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 6));
+    #include "tsd\zn\common.hpp"
+
+    class ZnRoot {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_VARIANT), 0));
+        class Pf {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_TYPE), 0));
+            #include "tsd\zn\pfRoot.hpp"
+        };
+        class Nf {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_TYPE), 1));
+            #include "tsd\zn\nfRoot.hpp"
+        };
+    };
+    class ZnNfSel {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_VARIANT), 1));
+        #include "tsd\zn\nfSel.hpp"
+    };
+    class ZnDel {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_VARIANT), 2));
+        #include "tsd\zn\del.hpp"
+    };
+    class ZnAsn {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ZN_VARIANT), 3));
+        #include "tsd\zn\asn.hpp"
+    };
+};
+
 class Wpt {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 2));
     #include "tsd\wpt\common.hpp"

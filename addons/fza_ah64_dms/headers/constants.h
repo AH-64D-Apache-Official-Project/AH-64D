@@ -21,6 +21,31 @@
 #define POINT_TYPE_FCR 6
 #define POINT_TYPE_ASE 7
 #define POINT_TYPE_SYSTEM 8
+#define POINT_TYPE_ZONE 9
+#define POINT_TYPE_LINE 10
+#define POINT_TYPE_AREA 11
+
+#define ZONE_COUNT_PF 8
+#define ZONE_COUNT_NF 8
+#define LINE_COUNT 15
+#define AREA_COUNT 12
+#define LINE_POINTS_MAX 4
+#define ZONE_MIN_AREA 100
+
+#define ZONE_KIND_PF 0
+#define ZONE_KIND_NF 1
+
+#define ZONE_CLASS_NONE 0
+#define ZONE_CLASS_PF 1
+#define ZONE_CLASS_NF 2
+
+#define ZONE_STATE_ACTIVE_PF 0
+#define ZONE_STATE_NF_ACTIVE 1
+#define ZONE_STATE_NF_SINGLE 2
+#define ZONE_STATE_OWN_PF 3
+#define ZONE_STATE_DEFAULT [-1, [false,false,false,false,false,false,false,false], false, -1]
+
+#define DTC_VERSION 1
 
 #define POINT_COUNT_WP_HZ 50
 #define POINT_COUNT_CM 49

@@ -43,6 +43,12 @@
 // The PAN page
 #define TSD_PAN                 [5, 0]
 
+// The ZN page: the root, NF zone choice, delete, PF zone assignment
+#define TSD_ZN                  [6, 0]
+#define TSD_ZN_NF_SEL           [6, 1]
+#define TSD_ZN_DEL              [6, 2]
+#define TSD_ZN_ASN              [6, 3]
+
 // The map inside its border, [left, top, right, bottom] in MPD units: symbols and lines are clipped to it and the cursor works
 // on it
 #define TSD_MAP_CLIP            [0.095, 0.095, 0.905, 0.905]

@@ -22,6 +22,7 @@
     <div class="tab"          data-tab="tt">Target/Threats</div>
     <div class="tab"          data-tab="az">Areas/Zones</div>
     <div class="tab"          data-tab="lines">Lines</div>
+    <div class="tab"          data-tab="routes">Routes</div>
   </div>
 
   <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -528,39 +529,69 @@
     <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-wp">
-    <div class="tab-sidebar">
-      <div class="tab-sidebar-title">Waypoint / Hazards</div>
-      <div>[ TAB INFO PLACEHOLDER ]</div>
+    <div class="tab-sidebar dtc-sidebar">
+      <div class="tab-sidebar-title">Waypoints / Hazards</div>
+      <div class="dtc-lists">
+        <div class="dtc-list" id="dtcListWp"></div>
+      </div>
     </div>
-    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+    <div class="dtc-map" data-dtc-map></div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-cm">
-    <div class="tab-sidebar">
+    <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Control Measures</div>
-      <div>[ TAB INFO PLACEHOLDER ]</div>
+      <div class="dtc-lists">
+        <div class="dtc-list" id="dtcListCm"></div>
+      </div>
     </div>
-    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+    <div class="dtc-map" data-dtc-map></div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-tt">
-    <div class="tab-sidebar">
-      <div class="tab-sidebar-title">Target / Threats</div>
-      <div>[ TAB INFO PLACEHOLDER ]</div>
+    <div class="tab-sidebar dtc-sidebar">
+      <div class="tab-sidebar-title">Targets / Threats</div>
+      <div class="dtc-lists">
+        <div class="dtc-list" id="dtcListTt"></div>
+      </div>
     </div>
-    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+    <div class="dtc-map" data-dtc-map></div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-az">
-    <div class="tab-sidebar">
+    <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Areas / Zones</div>
-      <div>[ TAB INFO PLACEHOLDER ]</div>
+      <div class="dtc-lists">
+        <div class="dtc-list-title">Engagement Areas</div>
+        <div class="dtc-list" id="dtcListAreas"></div>
+        <div class="dtc-list-title">Priority Fire Zones</div>
+        <div class="dtc-list" id="dtcListPf"></div>
+        <div class="dtc-list-title">No Fire Zones <button type="button" class="dtc-inline" data-dtc-action="single">NF ACTIVE: MULTI</button></div>
+        <div class="dtc-list" id="dtcListNf"></div>
+      </div>
     </div>
-    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+    <div class="dtc-map" data-dtc-map></div>
   </div>
   <div class="tab-panel placeholder-panel" id="panel-lines">
-    <div class="tab-sidebar">
-      <div class="tab-sidebar-title">Lines</div>
-      <div>[ TAB INFO PLACEHOLDER ]</div>
+    <div class="tab-sidebar dtc-sidebar">
+      <div class="tab-sidebar-title">Boundary and Phase Lines</div>
+      <div class="dtc-lists">
+        <div class="dtc-list" id="dtcListLines"></div>
+      </div>
     </div>
-    <div class="tab-map-placeholder">[ ARMA INTERACTIVE MAP PLACEHOLDER ]</div>
+    <div class="dtc-map" data-dtc-map></div>
+  </div>
+  <div class="tab-panel placeholder-panel" id="panel-routes">
+    <div class="tab-sidebar dtc-sidebar">
+      <div class="tab-sidebar-title">Routes</div>
+      <div class="dtc-route-picker" id="dtcRoutePicker"></div>
+      <div class="dtc-tools">
+        <button type="button" data-dtc-tool="route">Add Points</button>
+        <button type="button" data-dtc-action="route-undo">Remove Last</button>
+        <button type="button" data-dtc-action="route-clear">Clear</button>
+      </div>
+      <div class="dtc-lists">
+        <div class="dtc-list" id="dtcRouteList"></div>
+      </div>
+    </div>
+    <div class="dtc-map" data-dtc-map></div>
   </div>
 
   <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -569,19 +600,29 @@
   <div id="bottom-strip">
     <div id="dtc-box">
       <div class="dtc-title">DTC</div>
-      <button id="btnLoadDTC" disabled>Load DTC</button>
-      <button id="btnSaveDTC" disabled>Save DTC</button>
-      <label class="dtc-current">
-        <span>Current Loaded</span>
-        <input type="text" id="dtcName" value="MYMSNV01" maxlength="12" readonly
-          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright);cursor:default;">
-      </label>
-      <div class="dtc-wip">&#9888; WORK IN PROGRESS</div>
+      <label class="dtc-label" for="dtcName">Name</label>
+      <div class="dtc-cols">
+        <input type="text" id="dtcName" value="" maxlength="8" placeholder="8 LETTERS OR NUMBERS" autocomplete="off" spellcheck="false"
+          style="width:100%;font-weight:bold;font-size:16.5px;letter-spacing:1px;color:var(--text-bright);">
+        <div class="row2btn">
+          <button type="button" id="btnOpenDTC">OPEN DTC</button>
+          <button type="button" id="btnSaveDTC">SAVE DTC</button>
+        </div>
+        <button type="button" id="btnLoadDTC">Upload to Acft</button>
+        <button type="button" id="btnOpenDTCs">DTC MANAGER</button>
+        <button type="button" id="btnReadDTC">Download from Acft</button>
+        <button type="button" id="btnNewDTC">Clear DTC</button>
+      </div>
+      <div class="dtc-status" id="dtcStatus"></div>
     </div>
 
   </div><!-- /bottom-strip -->
 
 </div><!-- /app -->
+
+<!-- A point being dragged from its list, and the map's right-click menu (dtc_ui.js) -->
+<div id="dtcDragGhost" class="dtc-ghost"></div>
+<div id="dtcMenu" class="dtc-menu"></div>
 
 <div id="saveLoadModal" class="modal-backdrop" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="saveLoadTitle">
@@ -650,15 +691,52 @@
   </div>
 </div>
 
+<div id="dtcModal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="dtcModalTitle">
+    <div class="modal-head">
+      <div id="dtcModalTitle" class="modal-title">DTCs</div>
+      <button id="btnDtcModalClose" type="button" class="modal-close">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="dtc-scopes">
+        <div class="dtc-scope active" data-dtc-scope="own">OWN</div>
+        <div class="dtc-scope" data-dtc-scope="mission">MISSION</div>
+      </div>
+      <div class="modal-form-row manage-only">
+        <span class="label">DTC Name</span>
+        <input type="text" id="dtcModalName" maxlength="8" autocomplete="off" spellcheck="false" placeholder="8 LETTERS OR NUMBERS">
+      </div>
+      <div class="save-list" id="dtcSaveList"></div>
+      <div class="modal-actions manage-only">
+        <div class="left">
+          <button id="btnDtcPush" type="button">Push to Mission</button>
+          <button id="btnDtcDelete" type="button">Delete</button>
+        </div>
+      </div>
+      <div class="modal-form-row manage-only">
+        <span class="label">DTC as Text</span>
+        <button id="btnDtcExport" type="button">Export</button>
+        <button id="btnDtcImport" type="button">Import</button>
+      </div>
+      <textarea id="dtcText" class="dtc-text manage-only" spellcheck="false" placeholder="Export puts the DTC here and on the clipboard. Paste one here and Import it."></textarea>
+      <div class="modal-hint" id="dtcModalHint"></div>
+    </div>
+  </div>
+</div>
+
 <script src="dom_utils.js"></script>
 <script src="sil_data.js"></script>
+<script src="tsd_icon_data.js"></script>
 <script src="helisim_perf.js"></script>
 <script src="save_load.js"></script>
 <script src="state.js"></script>
 <script src="weapons.js"></script>
 <script src="weights_perf.js"></script>
+<script src="dtc_model.js"></script>
+<script src="dtc_ui.js"></script>
 <script>
 // â”€â”€ TAB SWITCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// The sidebar is padded by the bottom strip's measured height so its list runs down to the DTC box
 function setActiveTabState(tabName) {
   var app = document.getElementById('app');
   if (!app) return;
@@ -667,7 +745,13 @@ function setActiveTabState(tabName) {
   } else {
     app.classList.add('non-config-tab');
   }
+  var strip = document.getElementById('bottom-strip');
+  if (strip) app.style.setProperty('--strip-h', strip.offsetHeight + 'px');
 }
+window.addEventListener('resize', function () {
+  var app = document.getElementById('app'), strip = document.getElementById('bottom-strip');
+  if (app && strip) app.style.setProperty('--strip-h', strip.offsetHeight + 'px');
+});
 
 eachNode('.tab', function(tab) {
   tab.addEventListener('click', function() {
@@ -693,6 +777,7 @@ document.getElementById('fcrBadge').addEventListener('click', function() {
 // Called by the display-level KeyDown event handler (via ExecJS) when ESC is pressed.
 // Closes the innermost visible modal; if none open, closes the whole dialog via SQF.
 window.fza_mplanner_handleEscape = function() {
+  if (window.fzaDtc && window.fzaDtc.escape()) return;
   var deleteModal = document.getElementById('deleteConfirmModal');
   if (deleteModal && deleteModal.classList.contains('visible')) {
     closeDeleteConfirmDialog();

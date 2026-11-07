@@ -281,10 +281,7 @@ if (_dispClear) then { _ctrl setVariable ["fza_fcrClearEpoch", _clearEpoch]; };
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _nts       = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = if (!isNull _nts) then { _displayTargets findIf {_x # 3 == _nts} } else { -1 };
-private _antsIndex = -1;
-if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
-};
+private _antsIndex = [_displayTargets, _ntsIndex] call fza_fcr_fnc_antsIndex;
 
 // "a" normalised to -1..1 over the fixed +-45 B-scope x axis
 ([_heli, _displayTargets, _scanPos, _ntsIndex, _antsIndex, _heli getVariable "fza_ah64_was",

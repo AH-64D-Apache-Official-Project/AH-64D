@@ -1,0 +1,28 @@
+#include "..\common.hpp"
+
+class znCommon {
+    class vabs {
+        //T3, but on ASN
+        class Pan {
+            condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_TSD_ZN_VARIANT), 1.5));
+            MPD_ARROW_C(PAN, MPD_POS_BUTTON_TB_3_X-0.025, MPD_POS_BUTTON_T_Y, 3)
+            MPD_TEXT_C(PAN,  MPD_POS_BUTTON_TB_3_X-0.025, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("PAN"))
+        };
+        //R6
+        MPD_TEXT_L(SEND, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("SEND"))
+        MPD_BOX_BAR_L(SEND, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
+        //B2, CLR in place of PHASE while a zone is drawn
+        class Clr {
+            condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_TSD_ZN_EDIT), 0.5));
+            MPD_TEXT_C(CLR, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("CLR"))
+        };
+        //B3
+        MPD_ARROW_C(ZN, MPD_POS_BUTTON_TB_3_X-0.015, MPD_POS_BUTTON_B_Y, 2)
+        MPD_TEXT_C(ZN,  MPD_POS_BUTTON_TB_3_X-0.015, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ZN"))
+        MPD_BOX_TALL_C(ZN, MPD_POS_BUTTON_TB_3_X-0.015, MPD_POS_BUTTON_B_Y, 2)
+        //B5
+        MPD_TEXT_C(XMIT, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT + 0.005, MPD_TEXT_STATIC("XMIT"))
+        MPD_TEXT_C(BOTH, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("BOTH"))
+        MPD_BOX_BAR_B(XMIT, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y)
+    };
+};

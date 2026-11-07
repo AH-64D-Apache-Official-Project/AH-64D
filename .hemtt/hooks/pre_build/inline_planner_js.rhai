@@ -21,11 +21,14 @@ let ui = HEMTT_VFS
 let js_files = [
     "dom_utils.js",
     "sil_data.js",
+    "tsd_icon_data.js",
     "helisim_perf.js",
     "save_load.js",
     "state.js",
     "weapons.js",
-    "weights_perf.js"
+    "weights_perf.js",
+    "dtc_model.js",
+    "dtc_ui.js"
 ];
 
 let html = ui.join("planner.html").open_file().read();
@@ -40,6 +43,9 @@ html.replace(css_tag, css_inline);
 for js_name in js_files {
     let js_content = ui.join(js_name).open_file().read();
     let tag = "<script src=\"" + js_name + "\"></script>";
+    if !html.contains(tag) {
+        fatal("inline_planner_js: planner.html has no tag " + tag);
+    }
     let inline_block = "<script>\n" + js_content + "\n</script>";
     html.replace(tag, inline_block);
 }

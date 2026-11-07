@@ -12,6 +12,8 @@ private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
 // The map's frame, live or frozen (fza_mpd_fnc_tsdFrame)
 ([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading"];
 
+[_heli, _canvas, _mpdIndex, _state, _persistState, _framePos, _frameHeading, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_tsdZoneDrawCanvas;
+
 //Route Draw
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";

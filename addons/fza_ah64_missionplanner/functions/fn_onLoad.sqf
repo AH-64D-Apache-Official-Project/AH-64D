@@ -5,6 +5,19 @@ uiNamespace setVariable ["fza_mplanner_display", _display];
 
 private _browser = _display displayCtrl 100;
 if (isNull _browser) exitWith {};
+(_display displayCtrl 101) ctrlShow false;
+
+// Hatchet's interaction and cursor stop while the planner is open, as they do for the splendid camera
+if (isNil {uiNamespace getVariable "BIS_fnc_camera_display"}) then {
+    uiNamespace setVariable ["BIS_fnc_camera_display", _display];
+    uiNamespace setVariable ["fza_mplanner_hidHatchet", true];
+};
+with uiNamespace do {
+    if (!isNil "hct_cursor_ctrl") then {
+        ctrlDelete hct_cursor_ctrl;
+        hct_cursor_ctrl = nil;
+    };
+};
 
 private _eventName = ["JS", "Dialog"] joinString "";
 
@@ -52,4 +65,5 @@ uiNamespace setVariable ["fza_mplanner_ready", false];
     [] call fza_mplanner_fnc_seedSaves;
     [] call fza_mplanner_fnc_seedHelisimData;
     [] call fza_mplanner_fnc_seedCurrentConfig;
+    [] call fza_mplanner_fnc_dtcSeed;
 };

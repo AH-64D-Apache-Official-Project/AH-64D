@@ -93,6 +93,9 @@ switch (_state get "subPageVarPage" select 0) do {
     case 5: {   //PAN
         _this call fza_mpd_fnc_tsdPanDraw;
     };
+    case 6: {   //ZN
+        _this call fza_mpd_fnc_tsdZNDraw;
+    };
 };
 
 _this call fza_mpd_fnc_tsdScaleDraw;
@@ -130,6 +133,9 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 // The points the MPD cursor can choose (fza_mpd_fnc_cursorPoint): where each is, and its point ID
 _state set ["cursorPoints", _pointsArray apply {[_x # 1, _x # 4]}];
 
+// Zone, area and line labels; their lines are drawn on the canvas (fza_mpd_fnc_tsdZoneDrawCanvas)
+_pointsArray append ([[_heli, _state, _persistState, _phase] call fza_mpd_fnc_tsdZoneItems] call fza_mpd_fnc_tsdZoneLabels);
+
 //Shot At UnderLay
 private _shotATList = _heli getVariable "fza_dms_shotAt";
 {
@@ -149,10 +155,7 @@ private _systemWas      = _heli getVariable "fza_ah64_was";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
-private _antsIndex = -1;
-if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
-};
+private _antsIndex = [_displayTargets, _ntsIndex] call fza_fcr_fnc_antsIndex;
 
 // The FCR targets drawn, for CAQ (fza_mpd_fnc_cursorPoint): where each is, an ID, and the target
 private _cursorFcr = [];

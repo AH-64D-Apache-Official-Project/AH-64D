@@ -35,10 +35,19 @@ if (_control == "r5" && {_subPage in [0, 2, 4, 5]} && {_state get "showScale" ==
 };
 
 // PAN, from the pages that draw it: the PAN page, the map frozen to pan it with the cursor
-if (_control == "t3" && {_subPage in [0, 2, 3, 4]}) exitWith {
+if (_control == "t3" && {_subPage in [0, 2, 3, 4] || {_subPage == 6 && {(_state get "subPageVarPage") # 1 < 2}}}) exitWith {
     call _freeze;
     _state set ["caq", 0];
+    _state set ["znDraft", []];
     _state set ["subPageVarPage", TSD_PAN];
+};
+
+// ZN, from the pages that draw it: the zones drawn with the cursor on the frozen map
+if (_control == "b3" && {_subPage in [0, 2, 3, 4, 5]}) exitWith {
+    call _freeze;
+    _state set ["caq", 0];
+    _state set ["znDraft", []];
+    _state set ["subPageVarPage", TSD_ZN];
 };
 
 // CAQ ends when the top level is left, for a subpage or another page
@@ -46,7 +55,10 @@ if (_subPage == 0 && {_control in ["l6", "b1", "b4", "b5", "b6", "t2", "t5"]}) t
     _state set ["caq", 0];
 };
 
-switch (_control) do {
+// ZN's own buttons, where the other pages have ASE, PHASE (while a zone is drawn) and COORD
+private _znOwns = _subPage == 6 && {_control in ["t2", "t5"] || {_control == "b2" && {(_state getOrDefault ["znDraft", []]) isNotEqualTo []}}};
+
+if (!_znOwns) then {switch (_control) do {
     case "t2": {
         // LAST PAN on the PAN page
         if (_subPage != 5) then {
@@ -65,7 +77,7 @@ switch (_control) do {
             [_heli, _mpdIndex, "coord", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
         };
     };
-};
+}};
 
 switch _subPage do {
     case 0: { // Root
@@ -102,6 +114,9 @@ switch _subPage do {
     };
     case 4: { // THRT
         _this call fza_mpd_fnc_tsdThrtHandleControl;
+    };
+    case 6: { // ZN
+        _this call fza_mpd_fnc_tsdZNHandleControl;
     };
     case 5: { // PAN
         switch (_control) do {

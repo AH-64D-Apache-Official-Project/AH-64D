@@ -41,6 +41,27 @@ class CfgFunctions
             class pointToString{R;};
             class pointValidIndex{R;};
         };
+        class dtc {
+            file = "\fza_ah64_dms\functions\dtc";
+            class dtcFromJson{R;};
+            class dtcLoad{R;};
+            class dtcToJson{R;};
+        };
+        class zone {
+            file = "\fza_ah64_dms\functions\zone";
+            class zoneActivate{R;};
+            class zoneActive{R;};
+            class zoneBox{R;};
+            class zoneCentroid{R;};
+            class zoneClassOf{R;};
+            class zoneClear{R;};
+            class zoneSet{R;};
+            class zoneSetAll{R;};
+            class zoneSetState{R;};
+            class zoneSplit{R;};
+            class zoneTrp{R;};
+            class zoneValidate{R;};
+        };
         class route {
             file = "\fza_ah64_dms\functions\route";
             class routeAddPoint {R;};
