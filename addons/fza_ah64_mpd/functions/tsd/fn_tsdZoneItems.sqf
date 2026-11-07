@@ -29,12 +29,14 @@ if (_showLines) then {
     {
         if (_x isEqualTo -1) then {continue};
         _x params ["_ident", "_pts"];
-        // By the ident: FLOT blue, FLET red, phase and boundary lines green; a phase line's ident at both its ends
-        private _kind = ["", "FLOT", "FLET"] find (_ident select [0, 4]);
-        private _colour = [[0, 1, 0, 1], [0.4, 0.6, 1, 1], [1, 0, 0, 1]] select (_kind max 0);
-        private _labelClass = ["TSD_LINE_LABEL", "TSD_LINE_LABEL_BLUE", "TSD_LINE_LABEL_RED"] select (_kind max 0);
-        private _ends = [[], [_pts # 0]] select (_ident select [0, 2] == "PL");
-        _items pushBack [_pts, false, _colour, false, _ident, _pts # (count _pts - 1), _labelClass, [POINT_TYPE_LINE, _forEachIndex], _ends];
+        // By the ident: FLOT blue, FLET red, FSCL white, phase and boundary lines green. Only a phase line has its ident,
+        // at both ends: ending at the western one and running west, starting at the eastern one and running east
+        private _kind = ["", "FLOT", "FLET", "FSCL"] find (_ident select [0, 4]);
+        private _colour = [[0, 1, 0, 1], [0.4, 0.6, 1, 1], [1, 0, 0, 1], [1, 1, 1, 1]] select (_kind max 0);
+        private _ends = [_pts # 0, _pts # (count _pts - 1)];
+        if (_ends # 0 # 0 > _ends # 1 # 0) then {reverse _ends};
+        private _label = ["", _ident] select (_ident select [0, 2] == "PL");
+        _items pushBack [_pts, false, _colour, false, _label, _ends # 1, "TSD_LINE_LABEL_EAST", [POINT_TYPE_LINE, _forEachIndex], [[_ends # 0, "TSD_LINE_LABEL_WEST"]]];
     } forEach _lines;
 };
 if (_showAreas) then {

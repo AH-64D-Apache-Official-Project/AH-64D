@@ -531,11 +531,6 @@
   <div class="tab-panel placeholder-panel" id="panel-wp">
     <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Waypoints / Hazards</div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-tool="point" data-kind="wp">Add Point</button>
-        <button type="button" data-dtc-tool="move" data-kind="wp">Move</button>
-        <button type="button" data-dtc-action="cancel">Cancel</button>
-      </div>
       <div class="dtc-lists">
         <div class="dtc-list" id="dtcListWp"></div>
       </div>
@@ -545,11 +540,6 @@
   <div class="tab-panel placeholder-panel" id="panel-cm">
     <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Control Measures</div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-tool="point" data-kind="cm">Add Point</button>
-        <button type="button" data-dtc-tool="move" data-kind="cm">Move</button>
-        <button type="button" data-dtc-action="cancel">Cancel</button>
-      </div>
       <div class="dtc-lists">
         <div class="dtc-list" id="dtcListCm"></div>
       </div>
@@ -559,11 +549,6 @@
   <div class="tab-panel placeholder-panel" id="panel-tt">
     <div class="tab-sidebar dtc-sidebar">
       <div class="tab-sidebar-title">Targets / Threats</div>
-      <div class="dtc-tools">
-        <button type="button" data-dtc-tool="point" data-kind="tt">Add Point</button>
-        <button type="button" data-dtc-tool="move" data-kind="tt">Move</button>
-        <button type="button" data-dtc-action="cancel">Cancel</button>
-      </div>
       <div class="dtc-lists">
         <div class="dtc-list" id="dtcListTt"></div>
       </div>
@@ -579,7 +564,7 @@
         <button type="button" data-dtc-tool="nfz">NF Zone</button>
       </div>
       <div class="dtc-tools">
-        <button type="button" data-dtc-action="shape">SHAPE BOX</button>
+        <button type="button" data-dtc-action="shape">BOX</button>
         <button type="button" data-dtc-action="undo">Undo</button>
         <button type="button" data-dtc-action="cancel">Cancel</button>
       </div>
@@ -651,6 +636,10 @@
   </div><!-- /bottom-strip -->
 
 </div><!-- /app -->
+
+<!-- A point being dragged from its list, and the map's right-click menu (dtc_ui.js) -->
+<div id="dtcDragGhost" class="dtc-ghost"></div>
+<div id="dtcMenu" class="dtc-menu"></div>
 
 <div id="saveLoadModal" class="modal-backdrop" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="saveLoadTitle">
@@ -756,6 +745,7 @@
 
 <script src="dom_utils.js"></script>
 <script src="sil_data.js"></script>
+<script src="tsd_icon_data.js"></script>
 <script src="helisim_perf.js"></script>
 <script src="save_load.js"></script>
 <script src="state.js"></script>

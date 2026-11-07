@@ -1,16 +1,19 @@
 // The DTC tabs (points, routes, areas/zones, lines): lists, drawing on the Arma map laid over the page
-// (fza_mplanner_fnc_dtcMap), and the DTC box and its dialog: load into the aircraft, saves, read back, Eden, text
+// (fza_mplanner_fnc_dtcMap), points dragged from their lists onto the map and about it, the map's right-click menu,
+// and the DTC box and its dialog: load into the aircraft, saves, read back, Eden, text
 (function () {
   'use strict';
 
   var TOOLS = {
-    line: { kind: 'lines', need: 4, min: 2, closed: false, colour: 0, shape: false, label: 'line' },
-    area: { kind: 'areas', need: 4, min: 4, closed: true, colour: 1, shape: true, label: 'area' },
-    pfz:  { kind: 'pfz',   need: 4, min: 4, closed: true, colour: 2, shape: true, label: 'PF zone' },
-    nfz:  { kind: 'nfz',   need: 4, min: 4, closed: true, colour: 3, shape: true, label: 'NF zone' }
+    line: { kind: 'lines', need: 4, min: 2, closed: false, colour: 0, shape: false, label: 'line', tab: 'lines' },
+    area: { kind: 'areas', need: 4, min: 4, closed: true, colour: 1, shape: true, label: 'area', tab: 'az' },
+    pfz:  { kind: 'pfz',   need: 4, min: 4, closed: true, colour: 2, shape: true, label: 'PFZ', tab: 'az' },
+    nfz:  { kind: 'nfz',   need: 4, min: 4, closed: true, colour: 3, shape: true, label: 'NFZ', tab: 'az' }
   };
-  var POINT_DEFAULT = { wp: 'WP', cm: 'CP', tt: 'TG' };
   var MAP_TABS = { lines: true, az: true, wp: true, cm: true, tt: true, routes: true };
+  // The seed's ident lists each point file takes, and a new point's ident
+  var IDENT_LISTS = { wp: ['wp', 'hz'], cm: ['cm'], tt: ['tt', 'th'] };
+  var POINT_DEFAULT = { wp: 'WP', cm: 'CP', tt: 'TG' };
 
   var state = {
     dtc: dtcEmpty(),
@@ -22,11 +25,18 @@
     sel: { lines: -1, areas: -1, pfz: -1, nfz: -1, wp: -1, cm: -1, tt: -1 },
     route: 0,
     idents: null,
+    icons: null,
     saves: { own: [], mission: [] },
     modal: { scope: 'own', selected: '' },
     mapShown: false,
     mapRect: ''
   };
+  // A point's row being dragged {kind, slot, x, y, moved}, or a press in the map area {map: true}
+  var drag = null;
+  // The click a drag ends with is not a click on the row
+  var dragged = false;
+  // The right-click menu: {px, py, point: id or null, at: [x, y, z, grid] or null, stack: [level, ...]}
+  var menu = null;
 
   function el(id) { return document.getElementById(id); }
 
@@ -44,8 +54,62 @@
   }
 
   function changed() {
+    fetchTerrain();
     render();
     sync();
+  }
+
+  // The ground height under points that arrived with an MSL height but no ground (the aircraft, a save, Eden, text),
+  // asked of the map, which answers with onTerrain in the same order
+  var terrain = { wanted: [], askedAt: 0 };
+  function fetchTerrain() {
+    if (terrain.wanted.length && Date.now() - terrain.askedAt < 1000) return;
+    var wanted = [], at = [];
+    DTC_POINT_KINDS.forEach(function (kind) {
+      state.dtc[kind].forEach(function (p, i) {
+        if (p && p.t === undefined) { wanted.push([kind, i]); at.push([p.pt[0], p.pt[1]]); }
+      });
+    });
+    terrain.wanted = wanted;
+    terrain.askedAt = Date.now();
+    if (at.length) callSQF('["terrain",' + sqfQuotedString(JSON.stringify(at)) + '] call fza_mplanner_fnc_dtcMap;');
+  }
+
+  function identList(key) {
+    return (state.idents || {})[key] || [];
+  }
+
+  // The idents a point file takes, with the one it has first when it isn't among them
+  function identNames(kind, current) {
+    var names = [];
+    IDENT_LISTS[kind].forEach(function (key) { names = names.concat(identList(key)); });
+    if (current && names.indexOf(current) < 0) names = [current].concat(names);
+    return names;
+  }
+
+  // ── TSD icons: the ident's textures (tsd_icon_data.js) masking the colour the aircraft draws it in ──
+  function iconStyles() {
+    if (el('dtcIconStyles') || typeof _tsdIconData === 'undefined') return;
+    var css = '';
+    Object.keys(_tsdIconData).forEach(function (key) {
+      css += '.dtc-ic-' + key + '{-webkit-mask-image:url(' + _tsdIconData[key] + ');mask-image:url(' + _tsdIconData[key] + ')}\n';
+    });
+    var style = document.createElement('style');
+    style.id = 'dtcIconStyles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  function iconHtml(ident) {
+    var ic = (state.icons || {})[ident];
+    if (!ic || typeof _tsdIconData === 'undefined') return '';
+    var c = ic[2] && ic[2].length >= 3 ? ic[2] : [0, 1, 0, 1];
+    var colour = 'rgba(' + Math.round(c[0] * 255) + ',' + Math.round(c[1] * 255) + ',' + Math.round(c[2] * 255) + ',' + (c.length > 3 ? c[3] : 1) + ')';
+    var layers = '';
+    [ic[0], ic[1]].forEach(function (key) {
+      if (key && _tsdIconData[key]) layers += '<span class="dtc-ic-' + key + '" style="background-color:' + colour + '"></span>';
+    });
+    return layers ? '<span class="dtc-icon">' + layers + '</span>' : '';
   }
 
   // ── The Arma map over the page ───────────────────────────────────────────
@@ -89,22 +153,23 @@
     sync();
   }
 
-  // What the map draws: shapes [points, closed, colour, label], points [position, label, ident], the chosen route, the
-  // shape being drawn
+  // What the map draws: shapes [points, closed, colour, label, label at the ends, kind:slot for its vertex handles],
+  // points [position, label, ident, free text], the chosen route, the shape being drawn
   function sync() {
     if (!state.mapShown) return;
     var d = state.dtc, draw = [], points = [], route = [];
-    // Lines: FLOT blue, FLET red, the others green; a phase line labelled at both ends
-    d.lines.forEach(function (e) {
+    // Lines: FLOT blue, FLET red, FSCL white, the others green; only a phase line has its ident, at both ends
+    var LINE_COLOURS = { FLOT: 6, FLET: 5, FSCL: 7 };
+    d.lines.forEach(function (e, i) {
       if (!e) return;
       var kind = dtcLineKind(e.id);
-      draw.push([e.pts, false, kind === 'FLOT' ? 6 : kind === 'FLET' ? 5 : 0, e.id, kind === 'PL']);
+      draw.push([e.pts, false, LINE_COLOURS[kind] || 0, kind === 'PL' ? e.id : '', true, 'lines:' + i]);
     });
-    d.areas.forEach(function (e) { if (e) draw.push([e.pts, true, 1, e.id]); });
-    d.pfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 2, 'PF' + (i + 1) + (d.activePf === i ? ' ACT' : '')]); });
-    d.nfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 3, 'NF' + (i + 1) + (d.nfActive[i] ? ' ACT' : '')]); });
+    d.areas.forEach(function (e, i) { if (e) draw.push([e.pts, true, 1, e.id, false, 'areas:' + i]); });
+    d.pfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 2, 'PF' + (i + 1) + (d.activePf === i ? ' ACT' : ''), false, 'pfz:' + i]); });
+    d.nfz.forEach(function (e, i) { if (e) draw.push([e.pts, true, 3, 'NF' + (i + 1) + (d.nfActive[i] ? ' ACT' : ''), false, 'nfz:' + i]); });
     DTC_POINT_KINDS.forEach(function (kind) {
-      d[kind].forEach(function (p, i) { if (p) points.push([[p.pt[0], p.pt[1]], dtcPointId(kind, i), p.ident]); });
+      d[kind].forEach(function (p, i) { if (p) points.push([[p.pt[0], p.pt[1]], dtcPointId(kind, i), p.ident, p.free]); });
     });
     if (state.tab === 'routes') {
       d.routes[state.route].forEach(function (id) {
@@ -117,32 +182,55 @@
     callSQF('["sync",' + sqfQuotedString(JSON.stringify({ d: draw, p: points, r: route, t: draft })) + '] call fza_mplanner_fnc_dtcMap;');
   }
 
+  // A map press as fractions of the active map area, or null without one
+  function mapFraction(ev) {
+    var area = activeMapArea();
+    if (!area) return null;
+    var r = rectOf(area);
+    if (!(r[2] > 0 && r[3] > 0)) return null;
+    return { x: (ev.pageX - r[0]) / r[2], y: (ev.pageY - r[1]) / r[3] };
+  }
+
+  function overMap(f) {
+    return !!f && f.x >= 0 && f.x <= 1 && f.y >= 0 && f.y <= 1;
+  }
+
+  function mapCall(mode, f, extra) {
+    callSQF('["' + mode + '",' + f.x.toFixed(4) + ',' + f.y.toFixed(4) + (extra || '') + '] call fza_mplanner_fnc_dtcMap;');
+  }
+
+  function showTab(name) {
+    var tab = document.querySelector('.tab[data-tab="' + name + '"]');
+    if (tab && state.tab !== name) tab.click();
+  }
+
   // ── Drawing and placing ──────────────────────────────────────────────────
+  // The chosen empty slot, else the first empty one; a full file replaces the chosen one when allowed
   function freeSlot(kind, mayReplace) {
     var sel = state.sel[kind];
     var list = state.dtc[kind];
-    if (sel >= 0 && (mayReplace || !list[sel])) return sel;
-    return list.indexOf(null);
+    if (sel >= 0 && !list[sel]) return sel;
+    var free = list.indexOf(null);
+    if (free >= 0) return free;
+    return mayReplace && sel >= 0 ? sel : -1;
   }
 
-  function startTool(name) {
+  // A shape tool; box says two corners or clicked points, else the BOX/LINE toggle does
+  function startTool(name, box) {
     var def = TOOLS[name];
-    var box = def.shape && state.box;
+    if (def.shape && typeof box === 'boolean') state.box = box;
+    box = def.shape && state.box;
     state.tool = { name: name, kind: def.kind, need: box ? 2 : def.need, min: box ? 2 : def.min, closed: def.closed,
       colour: def.colour, box: box, verts: [] };
     var slot = freeSlot(def.kind, true);
-    setStatus(slot < 0 ? 'No free slot: choose one to replace.' : 'Click the map: ' + (box ? 'two corners of the ' : state.tool.need + ' points of the ') + def.label + '.');
+    setStatus(slot < 0 ? 'No free slot: choose one to replace.' : 'Click the map: ' + (box ? 'two corners of the ' : state.tool.need + ' points of the ') + def.label +
+      (def.shape ? '.' : '; right-click or space ends it.'));
     changed();
   }
 
-  function startPointTool(name, kind) {
-    if (name === 'move' && (state.sel[kind] < 0 || !state.dtc[kind][state.sel[kind]])) {
-      setStatus('Choose a point to move first.', true);
-      return;
-    }
-    state.tool = { name: name, kind: kind };
-    setStatus(name === 'move' ? 'Click the map where ' + dtcPointId(kind, state.sel[kind]) + ' goes.' :
-      name === 'route' ? 'Click points on the map to add them to route ' + (state.route + 1) + '.' : 'Click the map to place a point.');
+  function startRouteTool() {
+    state.tool = { name: 'route', kind: 'wp' };
+    setStatus('Click points on the map to add them to route ' + (state.route + 1) + '.');
     changed();
   }
 
@@ -192,9 +280,20 @@
     changed();
   }
 
+  // Right-click or space while points are being clicked ends the shape; true when one was being drawn
+  function endDrawing() {
+    var t = state.tool;
+    if (!t || !t.verts) return false;
+    if (t.verts.length >= t.min) finishTool();
+    else setStatus('It needs ' + t.min + ' points first.', true);
+    return true;
+  }
+
+  // The nearest point a route takes: targets and threats never
   function nearestPoint(x, y, reach) {
     var best = null, bestD = reach;
     DTC_POINT_KINDS.forEach(function (kind) {
+      if (kind === 'tt') return;
       state.dtc[kind].forEach(function (p, i) {
         if (!p) return;
         var dd = Math.sqrt(Math.pow(p.pt[0] - x, 2) + Math.pow(p.pt[1] - y, 2));
@@ -207,17 +306,6 @@
   function onMapClick(x, y, z, grid, reach) {
     var t = state.tool;
     if (!t) return;
-    if (t.name === 'point' || t.name === 'move') {
-      var list = state.dtc[t.kind];
-      var slot = t.name === 'move' ? state.sel[t.kind] : freeSlot(t.kind, false);
-      if (slot < 0) { setStatus('That file is full.', true); return; }
-      var old = list[slot];
-      list[slot] = { ident: old ? old.ident : POINT_DEFAULT[t.kind], free: old ? old.free : '', pt: [x, y, z], g: grid || '' };
-      state.sel[t.kind] = slot;
-      if (t.name === 'move') { state.tool = null; setStatus(''); }
-      changed();
-      return;
-    }
     if (t.name === 'route') {
       var id = nearestPoint(x, y, Math.max(reach || 0, 50));
       if (!id) { setStatus('No point there.', true); return; }
@@ -232,10 +320,193 @@
     if (t.verts.length >= t.need) finishTool(); else changed();
   }
 
+  // A slot's point put on the map, z the ground there: the one there moves, keeping its height above the ground; an
+  // empty slot gets a new point on the ground
+  function placePoint(kind, slot, x, y, z, grid) {
+    var list = state.dtc[kind];
+    if (!list || slot < 0 || slot >= list.length) return;
+    var p = list[slot];
+    if (p) {
+      var agl = p.t === undefined ? 0 : Math.max(0, p.pt[2] - p.t);
+      p.pt = [x, y, z + agl];
+      p.g = grid || '';
+      p.t = z;
+    } else {
+      list[slot] = { ident: POINT_DEFAULT[kind], free: '', pt: [x, y, z], g: grid || '', t: z };
+    }
+    state.sel[kind] = slot;
+    setStatus('');
+    changed();
+  }
+
+  // A new point with that ident, in the file's chosen empty slot, else its first
+  function addPoint(kind, ident, x, y, z, grid) {
+    showTab(kind);
+    var slot = freeSlot(kind, false);
+    if (slot < 0) { setStatus('That file is full.', true); return; }
+    state.dtc[kind][slot] = { ident: ident, free: '', pt: [x, y, z], g: grid || '', t: z };
+    state.sel[kind] = slot;
+    setStatus('');
+    changed();
+  }
+
+  function movePoint(id, x, y, z, grid) {
+    var at = dtcPointSlot(id);
+    if (at && state.dtc[at.kind][at.slot]) placePoint(at.kind, at.slot, x, y, z, grid);
+  }
+
+  // A line's, area's or zone's vertex dragged; a four-cornered shape must still have uncrossed sides
+  function moveVertex(kind, slot, index, x, y, z) {
+    var e = state.dtc[kind] && state.dtc[kind][slot];
+    if (!e || !e.pts[index]) return;
+    var pts = e.pts.slice();
+    pts[index] = [x, y, z];
+    if (kind !== 'lines' && pts.length === 4) {
+      pts = dtcValidQuad(pts);
+      if (!pts) { setStatus('Its sides would cross or it would have no area: that corner stays.', true); return; }
+    }
+    e.pts = pts;
+    state.sel[kind] = slot;
+    setStatus('');
+    changed();
+  }
+
+  // A point swaps slots with its neighbour; routes follow it
+  function shiftPoint(kind, slot, dir) {
+    var list = state.dtc[kind], j = slot + dir;
+    if (!list[slot] || j < 0 || j >= list.length) return;
+    var a = dtcPointId(kind, slot), b = dtcPointId(kind, j);
+    var t = list[slot];
+    list[slot] = list[j];
+    list[j] = t;
+    state.dtc.routes = state.dtc.routes.map(function (r) {
+      return r.map(function (id) { return id === a ? b : id === b ? a : id; });
+    });
+    state.sel[kind] = j;
+    changed();
+    var row = document.querySelector('.dtc-row.sel[data-kind="' + kind + '"]');
+    if (row && row.scrollIntoView) row.scrollIntoView({ block: 'nearest' });
+  }
+
   function deletePoint(kind, slot) {
     var id = dtcPointId(kind, slot);
     state.dtc[kind][slot] = null;
     state.dtc.routes = state.dtc.routes.map(function (r) { return r.filter(function (x) { return x !== id; }); });
+  }
+
+  // ── The row being dragged ────────────────────────────────────────────────
+  function ghost(ev) {
+    var g = el('dtcDragGhost');
+    if (!g) return;
+    if (!ev) { g.classList.remove('on'); document.body.classList.remove('dtc-dragging'); return; }
+    if (!g.classList.contains('on')) {
+      var p = state.dtc[drag.kind][drag.slot];
+      g.innerHTML = (p ? iconHtml(p.ident) : '') + dtcPointId(drag.kind, drag.slot);
+      g.classList.add('on');
+      document.body.classList.add('dtc-dragging');
+    }
+    g.style.left = ev.pageX + 'px';
+    g.style.top = ev.pageY + 'px';
+  }
+
+  // ── The map's right-click menu ───────────────────────────────────────────
+  function identLevel(title, kind, keys, current) {
+    var names = [];
+    keys.forEach(function (key) { names = names.concat(identList(key)); });
+    if (current && names.indexOf(current) < 0) names = [current].concat(names);
+    return { title: title, wide: true, items: names.map(function (n) { return { label: n, icon: n, ident: n, kind: kind, on: n === current }; }) };
+  }
+
+  // A point's menu: its ident, and the route to add it to (a route with points is starred); targets and threats
+  // take no route
+  function pointLevel(id, kind, current) {
+    var items = [{ label: 'IDENT', sub: identLevel('IDENT', kind, IDENT_LISTS[kind], current) }];
+    if (kind !== 'tt') {
+      var routes = state.dtc.routes.map(function (r, i) {
+        return { label: 'ROUTE ' + (i + 1) + (r.length ? '*' : ''), route: i, on: r.indexOf(id) >= 0 };
+      });
+      items.push({ label: 'ADD TO ROUTE', sub: { title: 'ADD TO ROUTE', items: routes } });
+    }
+    return { title: id, items: items };
+  }
+
+  function shapeLevel(title, tool) {
+    return { title: title, items: [{ label: 'BOX', tool: tool, box: true }, { label: 'LINE', tool: tool, box: false }] };
+  }
+
+  // What to add at the spot right-clicked, in the aircraft's terms
+  function drawLevel() {
+    return { title: 'ADD', items: [
+      { label: 'WAYPOINT', sub: identLevel('WAYPOINT', 'wp', ['wp']) },
+      { label: 'HAZARD', sub: identLevel('HAZARD', 'wp', ['hz']) },
+      { label: 'CONTROL MEASURE', sub: identLevel('CONTROL MEASURE', 'cm', ['cm']) },
+      { label: 'TARGET', sub: identLevel('TARGET', 'tt', ['tt']) },
+      { label: 'THREAT', sub: identLevel('THREAT', 'tt', ['th']) },
+      { label: 'LINE', tool: 'line' },
+      { label: 'AREA', sub: { title: 'AREA', items: [
+        { label: 'AREA', sub: shapeLevel('AREA', 'area') },
+        { label: 'PFZ', sub: shapeLevel('PFZ', 'pfz') },
+        { label: 'NFZ', sub: shapeLevel('NFZ', 'nfz') }
+      ] } }
+    ] };
+  }
+
+  function openMenu(px, py, point, at, level) {
+    menu = { px: px, py: py, point: point, at: at, stack: [level] };
+    renderMenu();
+  }
+
+  function renderMenu() {
+    var m = el('dtcMenu');
+    if (!m || !menu) return;
+    var level = menu.stack[menu.stack.length - 1];
+    var back = menu.stack.length > 1;
+    var html = '<div class="dtc-menu-title' + (back ? ' back' : '') + '" data-menu-back="' + (back ? '1' : '') + '">' +
+      (back ? '&#8249; ' : '') + escapeHtml(level.title) + '</div>';
+    level.items.forEach(function (item, i) {
+      html += '<div class="dtc-menu-item' + (item.on ? ' on' : '') + (item.sub ? ' sub' : '') + '" data-menu-item="' + i + '">' +
+        (item.icon ? iconHtml(item.icon) : '') + escapeHtml(item.label) + '</div>';
+    });
+    m.innerHTML = html;
+    m.className = 'dtc-menu on' + (level.wide ? ' wide' : '');
+    var x = Math.round(menu.px * window.innerWidth), y = Math.round(menu.py * window.innerHeight);
+    x = Math.max(0, Math.min(x, window.innerWidth - m.offsetWidth - 4));
+    y = Math.max(0, Math.min(y, window.innerHeight - m.offsetHeight - 4));
+    m.style.left = x + 'px';
+    m.style.top = y + 'px';
+  }
+
+  function closeMenu() {
+    if (!menu) return false;
+    menu = null;
+    var m = el('dtcMenu');
+    if (m) m.className = 'dtc-menu';
+    return true;
+  }
+
+  function chooseMenuItem(i) {
+    var level = menu.stack[menu.stack.length - 1];
+    var item = level.items[i];
+    if (!item) return;
+    if (item.sub) { menu.stack.push(item.sub); renderMenu(); return; }
+    var point = menu.point, at = menu.at;
+    closeMenu();
+    if (item.ident && point) {
+      var slot = dtcPointSlot(point);
+      var p = slot && state.dtc[slot.kind][slot.slot];
+      if (p) { p.ident = item.ident; changed(); }
+    } else if (typeof item.route === 'number' && point) {
+      var route = state.dtc.routes[item.route];
+      if (route.length >= 50) { setStatus('Route ' + (item.route + 1) + ' is full.', true); return; }
+      route.push(point);
+      setStatus('Added ' + point + ' to route ' + (item.route + 1) + '.');
+      changed();
+    } else if (item.ident && at) {
+      addPoint(item.kind, item.ident, at[0], at[1], at[2], at[3]);
+    } else if (item.tool) {
+      showTab(TOOLS[item.tool].tab);
+      startTool(item.tool, item.box);
+    }
   }
 
   // ── Lists ────────────────────────────────────────────────────────────────
@@ -267,22 +538,35 @@
   }
 
   function identOptions(kind, current) {
-    var lists = state.idents || {};
-    var names = kind === 'wp' ? (lists.wp || []).concat(lists.hz || []) : (lists[kind] || []);
-    if (names.indexOf(current) < 0) names = [current].concat(names);
-    return names.map(function (n) {
+    return identNames(kind, current).map(function (n) {
       return '<option value="' + escapeHtml(n) + '"' + (n === current ? ' selected' : '') + '>' + escapeHtml(n) + '</option>';
     }).join('');
+  }
+
+  var FEET = 3.28084;
+
+  // A point's height above the ground in feet, once the ground under it is known
+  function pointAgl(p) {
+    return p.t === undefined ? '' : String(Math.max(0, Math.round((p.pt[2] - p.t) * FEET)));
+  }
+
+  function pointHead() {
+    return '<div class="dtc-row dtc-head"><span class="dtc-pid">#</span><span class="dtc-w-ident">IDENT</span>' +
+      '<span class="dtc-w-free">FREE</span><span class="dtc-grid">GRID</span><span class="dtc-w-alt">ALT</span></div>';
   }
 
   function pointRow(kind, i, p) {
     var cls = 'dtc-row' + (state.sel[kind] === i ? ' sel' : '') + (p ? '' : ' empty');
     var id = '<span class="dtc-pid">' + dtcPointId(kind, i) + '</span>';
     if (!p) return '<div class="' + cls + '" data-kind="' + kind + '" data-slot="' + i + '">' + id + '<span class="dtc-info">EMPTY</span></div>';
-    return '<div class="' + cls + '" data-kind="' + kind + '" data-slot="' + i + '">' + id +
-      '<select class="dtc-pident" data-kind="' + kind + '" data-slot="' + i + '">' + identOptions(kind, p.ident) + '</select>' +
-      '<input class="dtc-free" data-kind="' + kind + '" data-slot="' + i + '" maxlength="3" value="' + escapeHtml(p.free) + '">' +
-      '<span class="dtc-info">' + escapeHtml(p.g ? p.g.slice(0, 4) + ' ' + p.g.slice(4, 8) : '') + '</span>' +
+    var at = ' data-kind="' + kind + '" data-slot="' + i + '"';
+    return '<div class="' + cls + '"' + at + '>' + id +
+      '<select class="dtc-pident"' + at + '>' + identOptions(kind, p.ident) + '</select>' +
+      '<input class="dtc-free"' + at + ' maxlength="3" value="' + escapeHtml(p.free) + '">' +
+      '<span class="dtc-grid">' + escapeHtml(p.g ? p.g.slice(0, 4) + ' ' + p.g.slice(4, 8) : '') + '</span>' +
+      '<span class="dtc-w-alt"><input class="dtc-alt"' + at + ' maxlength="5" value="' + pointAgl(p) + '"><span class="dtc-unit">A</span></span>' +
+      '<button class="dtc-shift" data-shift="-1"' + at + ' title="Up">&#9650;</button>' +
+      '<button class="dtc-shift" data-shift="1"' + at + ' title="Down">&#9660;</button>' +
       '<button class="dtc-del" data-del="' + kind + '" data-slot="' + i + '">DEL</button></div>';
   }
 
@@ -317,7 +601,7 @@
     var pointLists = { dtcListWp: 'wp', dtcListCm: 'cm', dtcListTt: 'tt' };
     Object.keys(pointLists).forEach(function (id) {
       var e = el(id), kind = pointLists[id];
-      if (e) e.innerHTML = state.dtc[kind].map(function (x, i) { return pointRow(kind, i, x); }).join('');
+      if (e) e.innerHTML = pointHead() + state.dtc[kind].map(function (x, i) { return pointRow(kind, i, x); }).join('');
     });
     renderRoutes();
     var t = state.tool;
@@ -328,7 +612,7 @@
     eachNode('[data-dtc-action="finish"]', function (b) { b.disabled = !t || !t.verts || t.verts.length < t.min || t.box; });
     eachNode('[data-dtc-action="undo"]', function (b) { b.disabled = !t || !t.verts || !t.verts.length; });
     eachNode('[data-dtc-action="cancel"]', function (b) { b.disabled = !t; });
-    eachNode('[data-dtc-action="shape"]', function (b) { b.textContent = 'SHAPE ' + (state.box ? 'BOX' : 'QUAD'); });
+    eachNode('[data-dtc-action="shape"]', function (b) { b.textContent = state.box ? 'BOX' : 'LINE'; });
     eachNode('[data-dtc-action="single"]', function (b) { b.textContent = 'NF ACTIVE: ' + (state.dtc.nfSingle ? 'SINGLE' : 'MULTI'); });
     var name = el('dtcName');
     if (name && document.activeElement !== name) name.value = state.dtc.name;
@@ -397,14 +681,80 @@
   }
 
   // ── Events ───────────────────────────────────────────────────────────────
+  // A left press: a point's row picked up, or a press in the map area handed to the map
+  document.addEventListener('mousedown', function (ev) {
+    var target = ev.target;
+    var find = function (sel) { return target.closest ? target.closest(sel) : null; };
+    if (ev.button !== 0 || find('#dtcMenu')) return;
+    closeMenu();
+    var row = find('.dtc-row');
+    if (row && DTC_POINT_KINDS.indexOf(getData(row, 'kind')) >= 0 && ['INPUT', 'SELECT', 'OPTION', 'BUTTON'].indexOf(target.tagName) < 0) {
+      drag = { kind: getData(row, 'kind'), slot: parseInt(getData(row, 'slot'), 10), x: ev.pageX, y: ev.pageY, moved: false };
+      ev.preventDefault();
+      return;
+    }
+    if (find('[data-dtc-map]')) {
+      var f = mapFraction(ev);
+      if (f) { drag = { map: true }; mapCall('down', f); }
+    }
+  });
+
+  document.addEventListener('mousemove', function (ev) {
+    if (!drag || drag.map) return;
+    if (!drag.moved && Math.abs(ev.pageX - drag.x) + Math.abs(ev.pageY - drag.y) < 4) return;
+    drag.moved = true;
+    ghost(ev);
+  });
+
+  document.addEventListener('mouseup', function (ev) {
+    if (!drag || ev.button !== 0) return;
+    var d = drag;
+    drag = null;
+    var f = mapFraction(ev);
+    if (d.map) { if (f) mapCall('up', f); return; }
+    ghost(null);
+    // The click this release raises, if any, comes before the timeout
+    dragged = d.moved;
+    setTimeout(function () { dragged = false; }, 0);
+    if (d.moved && overMap(f)) mapCall('drop', f, ',' + sqfQuotedString(d.kind) + ',' + d.slot);
+  });
+
+  // A right click in the map area: the map's menu; the browser's own menu nowhere
+  document.addEventListener('contextmenu', function (ev) {
+    var tag = (ev.target && ev.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    ev.preventDefault();
+    closeMenu();
+    if (ev.target.closest && ev.target.closest('[data-dtc-map]')) {
+      var f = mapFraction(ev);
+      if (f) mapCall('menu', f);
+    }
+  });
+
+  // The wheel over the map area zooms it about the mouse
+  document.addEventListener('wheel', function (ev) {
+    if (!(ev.target.closest && ev.target.closest('[data-dtc-map]'))) return;
+    ev.preventDefault();
+    var f = mapFraction(ev);
+    if (f && ev.deltaY) mapCall('zoom', f, ',' + (ev.deltaY < 0));
+  }, { passive: false });
+
   document.addEventListener('click', function (ev) {
     var target = ev.target;
     var find = function (sel) { return target.closest ? target.closest(sel) : null; };
+    if (dragged) { dragged = false; return; }
+    var item = find('[data-menu-item]');
+    if (item && menu) { chooseMenuItem(parseInt(getData(item, 'menu-item'), 10)); return; }
+    var back = find('[data-menu-back]');
+    if (back && menu) {
+      if (getData(back, 'menu-back')) { menu.stack.pop(); renderMenu(); }
+      return;
+    }
     var tool = find('[data-dtc-tool]');
     if (tool) {
-      var name = getData(tool, 'dtc-tool'), kind = getData(tool, 'kind');
-      if (state.tool && state.tool.name === name && (!kind || state.tool.kind === kind)) { cancelTool(); return; }
-      if (TOOLS[name]) startTool(name); else startPointTool(name, kind || 'wp');
+      var name = getData(tool, 'dtc-tool');
+      if (state.tool && state.tool.name === name) { cancelTool(); return; }
+      if (TOOLS[name]) startTool(name); else startRouteTool();
       return;
     }
     var action = find('[data-dtc-action]');
@@ -439,7 +789,7 @@
     var routeBtn = find('[data-route]');
     if (routeBtn) {
       state.route = parseInt(getData(routeBtn, 'route'), 10) || 0;
-      if (state.tool && state.tool.name === 'route') startPointTool('route', 'wp'); else changed();
+      if (state.tool && state.tool.name === 'route') startRouteTool(); else changed();
       return;
     }
     if (target.hasAttribute && target.hasAttribute('data-route-del')) {
@@ -459,6 +809,11 @@
         d.nfActive[slot] = on;
       }
       changed();
+      return;
+    }
+    var shift = getData(target, 'shift');
+    if (shift) {
+      shiftPoint(getData(target, 'kind'), parseInt(getData(target, 'slot'), 10), parseInt(shift, 10));
       return;
     }
     var del = getData(target, 'del');
@@ -522,23 +877,44 @@
     } else if (t.classList && t.classList.contains('dtc-free')) {
       var q = state.dtc[kind][slot];
       if (q) q.free = String(t.value || '').toUpperCase().replace(/[^A-Z0-9 ]/g, '').slice(0, 3);
-      render();
+      changed();
+    } else if (t.classList && t.classList.contains('dtc-alt')) {
+      // Feet above the ground, kept as the MSL height the aircraft takes
+      var a = state.dtc[kind][slot];
+      var ft = parseInt(String(t.value || '').replace(/[^0-9]/g, ''), 10);
+      if (a && a.t !== undefined && !isNaN(ft)) a.pt[2] = Math.round((a.t + ft / FEET) * 10) / 10;
+      changed();
     } else if (t.id === 'dtcName') {
       state.dtc.name = String(t.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
       t.value = state.dtc.name;
     }
   });
 
-  document.addEventListener('keydown', function (ev) {
-    if (!state.tool || ev.keyCode !== 8) return;
+  function typing() {
     var tag = (document.activeElement && document.activeElement.tagName) || '';
-    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-    ev.preventDefault();
-    if (state.tool.name === 'route') {
-      state.dtc.routes[state.route].pop();
-      changed();
-    } else {
-      undoPoint();
+    return tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
+  }
+
+  // Backspace undoes the last point, space ends a shape, W A S D move the map north, south, west, east
+  document.addEventListener('keydown', function (ev) {
+    if (typing() || !state.mapShown) return;
+    var key = ev.key || '';
+    if (ev.keyCode === 8) {
+      if (!state.tool) return;
+      ev.preventDefault();
+      if (state.tool.name === 'route') {
+        state.dtc.routes[state.route].pop();
+        changed();
+      } else {
+        undoPoint();
+      }
+      return;
+    }
+    if (key === ' ' || ev.keyCode === 32) { ev.preventDefault(); endDrawing(); return; }
+    var step = { w: [0, 1], s: [0, -1], a: [-1, 0], d: [1, 0] }[key.toLowerCase()];
+    if (step) {
+      ev.preventDefault();
+      callSQF('["nudge",' + step[0] * 0.1 + ',' + step[1] * 0.1 + '] call fza_mplanner_fnc_dtcMap;');
     }
   });
 
@@ -552,13 +928,6 @@
   }
 
   function bindButtons() {
-    eachNode('[data-dtc-map]', function (area) {
-      area.addEventListener('click', function (ev) {
-        var r = rectOf(area);
-        if (!(r[2] > 0 && r[3] > 0)) return;
-        callSQF('["click",' + ((ev.pageX - r[0]) / r[2]) + ',' + ((ev.pageY - r[1]) / r[3]) + '] call fza_mplanner_fnc_dtcMap;');
-      });
-    });
     on('btnLoadDTC', function () {
       setStatus('Loading...');
       callSQF('[' + sqfQuotedString(dtcJson()) + '] call fza_mplanner_fnc_dtcStage;');
@@ -638,6 +1007,7 @@
       tab.addEventListener('click', function () {
         state.tab = getData(tab, 'tab');
         cancelTool();
+        closeMenu();
         // After the page's own handler has shown the tab's panel
         setTimeout(function () { placeMap(0); sync(); }, 0);
       });
@@ -672,12 +1042,35 @@
 
   window.fzaDtc = {
     onMapClick: function (x, y, z, grid, reach) { onMapClick(x, y, z, grid, reach); },
+    onPointMoved: function (id, x, y, z, grid) { movePoint(id, x, y, z, grid); },
+    onVertexMoved: function (kind, slot, index, x, y, z) { moveVertex(kind, slot, index, x, y, z); },
+    onTerrain: function (heights) {
+      terrain.wanted.forEach(function (w, i) {
+        var p = state.dtc[w[0]][w[1]];
+        if (p && typeof heights[i] === 'number') p.t = heights[i];
+      });
+      terrain.wanted = [];
+      render();
+    },
+    onMapDrop: function (x, y, z, grid, kind, slot) { if (IDENT_LISTS[kind]) placePoint(kind, slot, x, y, z, grid); },
+    // A right click: a shape being drawn ends, else the menu for the point there or for that spot
+    onPointMenu: function (id, px, py) {
+      if (endDrawing()) return;
+      var at = dtcPointSlot(id);
+      var p = at && state.dtc[at.kind][at.slot];
+      if (p) openMenu(px, py, id, null, pointLevel(id, at.kind, p.ident));
+    },
+    onMapMenu: function (px, py, x, y, z, grid) {
+      if (endDrawing()) return;
+      openMenu(px, py, null, [x, y, z, grid], drawLevel());
+    },
     onStaged: function (ok, message) { setStatus(message, !ok); },
     receiveSeed: function (payload) {
       if (!payload) return;
       state.world = payload.world || state.world;
       if (Array.isArray(payload.own)) state.saves = { own: payload.own, mission: payload.mission || [] };
       if (payload.idents) state.idents = payload.idents;
+      if (payload.icons) { state.icons = payload.icons; iconStyles(); }
       var mode = payload.mode || 'open';
       if (mode === 'open' && !state.seeded) {
         state.seeded = true;
@@ -692,9 +1085,11 @@
       }
       changed();
     },
-    // ESC: the DTC dialog, then a drawing in progress, go before anything else
+    // ESC: the DTC dialog, then the map's menu, a row being dragged, a drawing in progress, go before anything else
     escape: function () {
       if (modalOpen()) { closeModal(); return true; }
+      if (closeMenu()) return true;
+      if (drag && !drag.map) { drag = null; ghost(null); return true; }
       return cancelTool();
     }
   };

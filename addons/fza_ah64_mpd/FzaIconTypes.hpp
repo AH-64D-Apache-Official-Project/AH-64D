@@ -917,16 +917,17 @@ class FzaIconTypes {
     class TSD_AREA_LABEL:TSD_ZONE_LABEL_WHITE {
         color[] = MPD_ICON_COLOR_GREEN;
     };
-    class TSD_LINE_LABEL:IconTypeC {
+    // A phase line's ident at its ends: ending at the western one, starting at the eastern one
+    class TSD_LINE_LABEL_WEST:IconTypeC {
         tex   = "";
         type  = POINT_TYPE_SYSTEM;
         textA = MPD_ICON_TEXT_FREE;
         color[] = MPD_ICON_COLOR_GREEN;
+        textAOffset[] = {0.5, 0.5};
+        textAHAlign = "right";
+        textAVAlign = "center";
     };
-    class TSD_LINE_LABEL_BLUE:TSD_LINE_LABEL {
-        color[] = MPD_ICON_COLOR_BLUE;
-    };
-    class TSD_LINE_LABEL_RED:TSD_LINE_LABEL {
-        color[] = MPD_ICON_COLOR_RED;
+    class TSD_LINE_LABEL_EAST:TSD_LINE_LABEL_WEST {
+        textAHAlign = "left";
     };
 };

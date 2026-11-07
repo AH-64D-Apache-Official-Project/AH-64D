@@ -40,16 +40,32 @@ private _payload = createHashMapFromArray [
 switch (_mode) do {
     case "open": {
         if (!isNull _heli) then {_payload set ["dtc", fromJSON ([_heli] call fza_dms_fnc_dtcToJson)]};
-        // The idents each point file takes
-        private _idents = createHashMapFromArray [["wp", []], ["hz", []], ["cm", []], ["tt", []]];
+        // The idents each point file takes, the target file's threats (IconTypeG, the two-letter ones) apart from its
+        // targets, and each ident's icon: its textures by name (tsd_icon_data.js) and the colour they are drawn in
+        private _idents = createHashMapFromArray [["wp", []], ["hz", []], ["cm", []], ["tt", []], ["th", []]];
+        private _icons = createHashMap;
+        private _texKey = {
+            params ["_path"];
+            private _name = toLower ((_path splitString "\/") param [-1, ""]);
+            if (_name find ".paa" >= 0) then {_name = _name select [0, _name find ".paa"]};
+            if (_name select [(count _name) - 3] == "_ca") then {_name = _name select [0, (count _name) - 3]};
+            _name
+        };
         {
             private _key = ["wp", "hz", "cm", "", "tt"] param [getNumber (_x >> "type"), ""];
             if (_key == "") then {continue};
+            if (_key == "tt") then {
+                private _base = _x;
+                while {configName _base != "" && {configName _base != "IconTypeG"}} do {_base = inheritsFrom _base};
+                if (configName _base == "IconTypeG") then {_key = "th"};
+            };
             private _name = configName _x;
             if (_name select [0, 4] == "Icon") then {_name = _name select [4]};
             (_idents get _key) pushBackUnique _name;
+            _icons set [_name, [[getText (_x >> "tex")] call _texKey, [getText (_x >> "tex2")] call _texKey, getArray (_x >> "color")]];
         } forEach ("isNumber (_x >> 'type')" configClasses (configFile >> "FzaIconTypes"));
         _payload set ["idents", _idents];
+        _payload set ["icons", _icons];
     };
     case "readback": {
         if (!isNull _heli) then {_payload set ["dtc", fromJSON ([_heli, true] call fza_dms_fnc_dtcToJson)]};

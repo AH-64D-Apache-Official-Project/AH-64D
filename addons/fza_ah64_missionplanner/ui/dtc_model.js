@@ -59,12 +59,13 @@ function dtcDefaultIdent(kind, slot) {
   return kind === 'areas' ? 'EA' + dtcPad2(slot + 1) : 'PL' + (slot < 9 ? '00' : '0') + (slot + 1);
 }
 
-// A line's kind by its ident: phase line PL..., boundary BL..., FLOT, FLET; its ident's own characters follow
-var DTC_LINE_KINDS = ['PL', 'BL', 'FLOT', 'FLET'];
+// A line's kind by its ident: phase line PL..., boundary BL..., FLOT, FLET, FSCL; its ident's own characters follow
+var DTC_LINE_KINDS = ['PL', 'BL', 'FLOT', 'FLET', 'FSCL'];
 function dtcLineKind(id) {
   id = String(id || '');
   if (id.indexOf('FLOT') === 0) return 'FLOT';
   if (id.indexOf('FLET') === 0) return 'FLET';
+  if (id.indexOf('FSCL') === 0) return 'FSCL';
   if (id.indexOf('BL') === 0) return 'BL';
   return 'PL';
 }
@@ -118,9 +119,10 @@ function dtcFromObject(o) {
       };
     }
   });
+  // A route holds waypoints, hazards and control measures, never targets or threats
   var routes = o.routes || [];
   for (var r = 0; r < DTC_ROUTES; r++) {
-    d.routes[r] = (routes[r] || []).filter(function (id) { return dtcPointSlot(id) !== null; }).slice(0, 50);
+    d.routes[r] = (routes[r] || []).filter(function (id) { var at = dtcPointSlot(id); return at !== null && at.kind !== 'tt'; }).slice(0, 50);
   }
   return d;
 }
