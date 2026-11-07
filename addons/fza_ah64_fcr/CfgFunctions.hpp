@@ -14,6 +14,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_fcr\functions";
             class buildScanSnapshot {RECOMPILE_FLAG;};
+            class antsIndex {RECOMPILE_FLAG;};
             class armScanStart {RECOMPILE_FLAG;};
             class controller {RECOMPILE_FLAG;};
             class cycleNTS {RECOMPILE_FLAG;};

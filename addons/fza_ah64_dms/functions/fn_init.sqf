@@ -19,3 +19,11 @@ if (!(_heli getVariable ["fza_dms_aircraftInitialised", false])) then {
     _heli setVariable ["fza_dms_targetsThreats", [POINT_COUNT_TG_TH] call _newPointsArray, true];
     _heli setVariable ["fza_dms_shotAt", [POINT_COUNT_SHOT] call _newPointsArray, true];
 };
+
+if (isNil {_heli getVariable "fza_dms_zoneState"}) then {
+    _heli setVariable ["fza_dms_lines", [LINE_COUNT] call _newPointsArray, true];
+    _heli setVariable ["fza_dms_areas", [AREA_COUNT] call _newPointsArray, true];
+    _heli setVariable ["fza_dms_pfZones", [ZONE_COUNT_PF] call _newPointsArray, true];
+    _heli setVariable ["fza_dms_nfZones", [ZONE_COUNT_NF] call _newPointsArray, true];
+    _heli setVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT, true];
+};

@@ -43,22 +43,22 @@ switch (_control) do {
             _state set ["shotatdel", 0];
         };
     };
-    /*case "t3": {
+    case "t3": {
         if (_pageType != 3) then {
             _state set ["pageType", 3];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
             _state set ["shotatdel", 0];
         };
-    };*/
-    /*case "t4": {
+    };
+    case "t4": {
         if (_pageType != 4) then {
             _state set ["pageType", 4];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
             _state set ["shotatdel", 0];
         };
-    };*/
+    };
     case "t5": {
         if (_pageType != 5) then {
             _state set ["pageType", 5];

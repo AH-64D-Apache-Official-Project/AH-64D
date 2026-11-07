@@ -33,8 +33,8 @@ switch (_pageType) do {
             case 5: {"fza_dms_targetsThreats"};
         });
 
-        // Only the points stored in the database, six to a page; the page and the line selected are held within them
-        // as points are added and deleted
+        // Only the points stored in the file, six to a page; the page and the line selected are held within them as
+        // points are added and deleted
         private _points = _variable select {_x isNotEqualTo -1};
         _pageNumberMax = (ceil (count _points / 6)) max 1;
         _state set ["pageNumberMax", _pageNumberMax];
@@ -88,12 +88,34 @@ switch (_pageType) do {
     case 3;
     case 4: {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), _pageType];
-        _state set ["pageNumberMax", 9];
-        private _varName = switch (_pageType) do {
-            case 1: {"fza_dms_lines"};
-            case 2: {"fza_dms_area"};
+        _state set ["pagePoints", []];
+        // Every line or area in the file, three to a page, empty ones as blank data: the number and ident, then a row
+        // for each point's grid and altitude
+        private _list = _heli getVariable [["fza_dms_lines", "fza_dms_areas"] select (_pageType == 4), []];
+        _pageNumberMax = (ceil (count _list / 3)) max 1;
+        _state set ["pageNumberMax", _pageNumberMax];
+        if (_pageNumber > _pageNumberMax) then {
+            _pageNumber = _pageNumberMax;
+            _state set ["pageNumber", _pageNumber];
         };
-        private _variable = _heli getVariable _varName;
+        private _first = (_pageNumber - 1) * 3;
+        {
+            private _row = _forEachIndex * 6 + 2;
+            private _number = [_first + _forEachIndex + 1, 2] call CBA_fnc_formatNumber;
+            if (_x isEqualTo -1) then {
+                for "_k" from 0 to 3 do {
+                    private _head = [_number + " AAAAA ", "         "] select (_k > 0);
+                    _heli setUserMFDText [MFD_INDEX_OFFSET(_row + _k), _head + "AAA 00 00A AA 0000 0000 00000 FT"];
+                };
+                continue;
+            };
+            _x params ["_ident", "_pts"];
+            {
+                private _grid = [_x] call fza_dms_fnc_posToGrid;
+                private _head = [_number + " " + ([_ident, 5, true] call fza_fnc_padString) + " ", "         "] select (_forEachIndex > 0);
+                _heli setUserMFDText [MFD_INDEX_OFFSET(_row + _forEachIndex), format ["%1W84 47 13S FU %2 %3 %4 FT", _head, _grid select [0, 4], _grid select [4, 4], [((_x # 2) * SCALE_METERS_FEET + _altBase) toFixed 0, 5] call fza_fnc_padString]];
+            } forEach _pts;
+        } forEach (_list select [_first, 3]);
     };
     case 6: {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 6];

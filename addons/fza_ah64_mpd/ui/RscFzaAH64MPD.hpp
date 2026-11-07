@@ -16,6 +16,18 @@ class RscFzaAH64MPD {
         class lineWhitePreload : lineGreenPreload {
             text = "\fza_ah64_mpd\tex\canvas\line_white_ca.paa";
         };
+        class lineYellowPreload : lineGreenPreload {
+            text = "\fza_ah64_mpd\tex\canvas\line_yellow_ca.paa";
+        };
+        class lineDimPreload : lineGreenPreload {
+            text = "\fza_ah64_mpd\tex\canvas\line_dim_ca.paa";
+        };
+        class lineRedPreload : lineGreenPreload {
+            text = "\fza_ah64_mpd\tex\canvas\line_red_ca.paa";
+        };
+        class lineBluePreload : lineGreenPreload {
+            text = "\fza_ah64_mpd\tex\canvas\line_blue_ca.paa";
+        };
         // The VIDEO page's underlay, under every native page (fza_mpd_fnc_update)
         class video : fza_mpd_videoGroup {};
     };

@@ -47,6 +47,18 @@ switch (_control) do {
     case "l6": {
         _state set ["subPageVarPage", TSD_ROOT];
     };
+    case "l1": {
+        private _val = (_heli getVariable "fza_mpd_tsdShowInactiveZones") ;
+        _val set [_phase, !(_val # _phase)];
+    };
+    case "l2": {
+        private _val = (_heli getVariable "fza_mpd_tsdShowAreas") ;
+        _val set [_phase, !(_val # _phase)];
+    };
+    case "l3": {
+        private _val = (_heli getVariable "fza_mpd_tsdShowLines") ;
+        _val set [_phase, !(_val # _phase)];
+    };
     case "l5": {
         private _val = (_heli getVariable "fza_mpd_tsdShowPlanTgts") ;
         _val set [_phase, !(_val # _phase)];

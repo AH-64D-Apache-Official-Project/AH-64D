@@ -6,12 +6,13 @@ class CfgPatches
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
-        requiredAddons[] = {"fza_ah64_controls", "cba_main", "ace_interaction"};
+        requiredAddons[] = {"fza_ah64_controls", "fza_ah64_dms", "cba_main", "ace_interaction"};
         #include "version.hpp"
     };
 };
 
 #include "CfgFunctions.hpp"
+class RscMapControl;
 #include "RscDisplay.hpp"
 
 class CfgVehicles {

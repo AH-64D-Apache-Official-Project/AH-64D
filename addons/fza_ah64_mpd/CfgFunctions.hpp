@@ -34,6 +34,8 @@ class CfgFunctions
             class canvasAdjust {RECOMPILE_FLAG;};
             class canvasDraw {RECOMPILE_FLAG;};
             class canvasDrawLine {RECOMPILE_FLAG;};
+            class canvasDrawPolyline {RECOMPILE_FLAG;};
+            class canvasLineTexture {RECOMPILE_FLAG;};
         }
         class cursor {
             file = "\fza_ah64_mpd\functions\cursor";
@@ -57,6 +59,7 @@ class CfgFunctions
             class fcrTgtDraw {RECOMPILE_FLAG;};
             class fcrTgtHandleControl {RECOMPILE_FLAG;};
             class fcrTgtStore {RECOMPILE_FLAG;};
+            class fcrZonesJson {RECOMPILE_FLAG;};
             class buildFCRIdent {RECOMPILE_FLAG;};
             class buildFCRTargetsJson {RECOMPILE_FLAG;};
             class fcrATMDraw {RECOMPILE_FLAG;};
@@ -91,6 +94,16 @@ class CfgFunctions
             class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
             class tsdWaypointStatusText {RECOMPILE_FLAG;};
+            class tsdZNAccept {RECOMPILE_FLAG;};
+            class tsdZNApply {RECOMPILE_FLAG;};
+            class tsdZNCursorEnter {RECOMPILE_FLAG;};
+            class tsdZNDraw {RECOMPILE_FLAG;};
+            class tsdZNHandleControl {RECOMPILE_FLAG;};
+            class tsdZNNeed {RECOMPILE_FLAG;};
+            class tsdZNQuad {RECOMPILE_FLAG;};
+            class tsdZoneDrawCanvas {RECOMPILE_FLAG;};
+            class tsdZoneItems {RECOMPILE_FLAG;};
+            class tsdZoneLabels {RECOMPILE_FLAG;};
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";

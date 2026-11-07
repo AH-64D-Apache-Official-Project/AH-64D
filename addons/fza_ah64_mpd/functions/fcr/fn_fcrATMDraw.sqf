@@ -60,10 +60,7 @@ if (_fcrScanState != FCR_MODE_OFF && !_cueing) then {
 //FCR page draw — symbols on the scope HTML canvas (browser occludes native siblings), rest stays native MFD
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
-private _antsIndex = -1;
-if (count _displayTargets > 1 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS);
-};
+private _antsIndex = [_displayTargets, _ntsIndex] call fza_fcr_fnc_antsIndex;
 
 private _ctrl = [_heli, _mpdIndex] call fza_mpd_fnc_htmlCtrl;
 if (!isNull _ctrl) then {
@@ -84,7 +81,8 @@ if (!isNull _ctrl) then {
     _state set ["cursorTargets", _cursorTargets];
     private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
 
-    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"zoom":null,"hover":%3,"targets":[%1],"shots":[%2]}', _tgtJson, _shotJson, _hover]] call fza_mpd_fnc_htmlPush;
+    private _zonesJson = [_heli, _scanPos, [_noseDir, _dir] select (_noseDir < 0), 0.325 / 8000, [0.5, 0.5]] call fza_mpd_fnc_fcrZonesJson;
+    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"zoom":null,"hover":%3,"targets":[%1],"shots":[%2],"zones":%4}', _tgtJson, _shotJson, _hover, _zonesJson]] call fza_mpd_fnc_htmlPush;
 };
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];
