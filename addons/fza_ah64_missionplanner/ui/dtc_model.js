@@ -76,12 +76,12 @@ function dtcLineSuffix(id) {
 }
 
 function dtcPoints(raw, min, max) {
-  if (!raw || !raw.length || raw.length < min || raw.length > max) return null;
+  if (!Array.isArray(raw) || raw.length < min || raw.length > max) return null;
   var pts = [];
   for (var i = 0; i < raw.length; i++) {
     var p = raw[i];
-    if (!p || typeof p[0] !== 'number' || typeof p[1] !== 'number') return null;
-    pts.push([p[0], p[1], typeof p[2] === 'number' ? p[2] : 0]);
+    if (!Array.isArray(p) || !isFinite(p[0]) || !isFinite(p[1]) || typeof p[0] !== 'number' || typeof p[1] !== 'number') return null;
+    pts.push([p[0], p[1], typeof p[2] === 'number' && isFinite(p[2]) ? p[2] : 0]);
   }
   return pts;
 }
@@ -110,7 +110,7 @@ function dtcFromObject(o) {
     var list = o[kind] || [];
     for (var i = 0; i < DTC_COUNTS[kind]; i++) {
       var e = list[i];
-      if (!e || typeof e !== 'object' || !e.pt || typeof e.pt[0] !== 'number' || typeof e.pt[1] !== 'number') continue;
+      if (!e || typeof e !== 'object' || !Array.isArray(e.pt) || typeof e.pt[0] !== 'number' || typeof e.pt[1] !== 'number' || !isFinite(e.pt[0]) || !isFinite(e.pt[1])) continue;
       d[kind][i] = {
         ident: String(e.ident || '').toUpperCase().slice(0, 3),
         free: String(e.free || '').toUpperCase().replace(/[^A-Z0-9 ]/g, '').slice(0, 3),
@@ -120,9 +120,9 @@ function dtcFromObject(o) {
     }
   });
   // A route holds waypoints, hazards and control measures, never targets or threats
-  var routes = o.routes || [];
+  var routes = Array.isArray(o.routes) ? o.routes : [];
   for (var r = 0; r < DTC_ROUTES; r++) {
-    d.routes[r] = (routes[r] || []).filter(function (id) { var at = dtcPointSlot(id); return at !== null && at.kind !== 'tt'; }).slice(0, 50);
+    d.routes[r] = (Array.isArray(routes[r]) ? routes[r] : []).filter(function (id) { var at = dtcPointSlot(id); return at !== null && at.kind !== 'tt'; }).slice(0, 50);
   }
   return d;
 }

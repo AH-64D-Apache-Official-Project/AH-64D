@@ -7,7 +7,7 @@ private _all = [];
 for "_i" from 0 to ([ZONE_COUNT_PF, ZONE_COUNT_NF] select _kind) - 1 do {
     _all pushBack (_zones param [_i, -1]);
 };
-if ((_heli getVariable _var) isNotEqualTo _all) then {
+if ((_heli getVariable [_var, []]) isNotEqualTo _all) then {
     _heli setVariable [_var, _all, true];
 };
 

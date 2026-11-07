@@ -29,16 +29,18 @@ Returns:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli", "_json"];
+params [["_heli", objNull, [objNull]], ["_json", "", [""]]];
 
+if (isNull _heli) exitWith {[false, "No aircraft"]};
+if (_json isEqualTo "") exitWith {[false, "Not a DTC"]};
 private _data = fromJSON _json;
-if !(_data isEqualType createHashMap) exitWith {[false, "Not a DTC"]};
+if (isNil "_data" || {!(_data isEqualType createHashMap)}) exitWith {[false, "Not a DTC"]};
 if ((_data getOrDefault ["version", 0]) isNotEqualTo DTC_VERSION) exitWith {[false, "Unknown DTC version"]};
 private _world = _data getOrDefault ["world", worldName];
 if (_world isEqualTo "") then {_world = worldName};
 if !(_world isEqualType "" && {_world == worldName}) exitWith {[false, format ["The DTC is for %1", _world]]};
 private _name = _data getOrDefault ["name", ""];
-_name = [toUpper (_name select [0, 8]), ""] select !(_name isEqualType "");
+_name = if (_name isEqualType "") then {toUpper (_name select [0, 8])} else {""};
 
 private _readPts = {
     params ["_entry", "_min", "_max"];
@@ -46,7 +48,10 @@ private _readPts = {
     private _raw = _entry getOrDefault ["pts", []];
     if !(_raw isEqualType [] && {count _raw >= _min} && {count _raw <= _max}) exitWith {-1};
     private _pts = _raw apply {
-        if (_x isEqualTypeParams [0, 0] || {_x isEqualTypeParams [0, 0, 0]}) then {[_x # 0, _x # 1, _x param [2, 0]]} else {[]}
+        if (_x isEqualTypeParams [0, 0]) then {
+            private _z = _x param [2, 0];
+            [_x # 0, _x # 1, [0, _z] select (_z isEqualType 0)]
+        } else {[]}
     };
     if (_pts findIf {_x isEqualTo []} != -1) exitWith {-1};
     _pts
@@ -96,7 +101,7 @@ private _zoneState = ZONE_STATE_DEFAULT;
 private _zones = _data getOrDefault ["zones", createHashMap];
 if (_zones isEqualType createHashMap) then {
     private _activePf = _zones getOrDefault ["activePf", -1];
-    if (_activePf isEqualType 0 && {(_pf param [_activePf, -1]) isNotEqualTo -1}) then {
+    if (_activePf isEqualType 0 && {_activePf == floor _activePf} && {(_pf param [_activePf, -1]) isNotEqualTo -1}) then {
         _zoneState set [ZONE_STATE_ACTIVE_PF, _activePf];
     };
     private _nfActive = _zones getOrDefault ["nfActive", []];
@@ -127,9 +132,9 @@ private _points = {
                 private _type = _types param [_types findIf {[_x, _ident] call fza_dms_fnc_pointIsValidIdent}, -1];
                 if (_type == -1) exitWith {};
                 private _free = _entry getOrDefault ["free", ""];
-                _free = [toUpper (_free select [0, 3]), ""] select !(_free isEqualType "");
+                _free = if (_free isEqualType "") then {toUpper (_free select [0, 3])} else {""};
                 private _pos = [_pt # 0, _pt # 1, 0];
-                private _alt = _pt param [2, getTerrainHeightASL _pos];
+                private _alt = _pt param [2, ""];
                 if !(_alt isEqualType 0) then {_alt = getTerrainHeightASL _pos};
                 _record = [MPD_POSMODE_WORLD, _pos, _free, _type, [_type, _first + _i], _ident,
                     [_pos] call fza_dms_fnc_posToGrid, [_pos] call fza_dms_fnc_posToLatLong call fza_dms_fnc_latLongToString,

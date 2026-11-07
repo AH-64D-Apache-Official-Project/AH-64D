@@ -2,7 +2,9 @@
 params ["_heli", "_kind", "_slot", "_poly"];
 
 private _var = ["fza_dms_pfZones", "fza_dms_nfZones"] select _kind;
-private _zones = +(_heli getVariable _var);
+if (_slot < 0 || {_slot >= ([ZONE_COUNT_PF, ZONE_COUNT_NF] select _kind)}) exitWith {};
+private _zones = +(_heli getVariable [_var, []]);
+while {count _zones < ([ZONE_COUNT_PF, ZONE_COUNT_NF] select _kind)} do {_zones pushBack -1};
 _zones set [_slot, _poly];
 _heli setVariable [_var, _zones, true];
 

@@ -6,9 +6,9 @@ params ["_heli", "_state", "_persistState", "_phase"];
 
 private _onZn = (_state get "subPageVarPage") # 0 == 6;
 private _znType = [-1, _persistState getOrDefault ["znType", ZONE_KIND_PF]] select _onZn;
-private _inactive = _heli getVariable "fza_mpd_tsdShowInactiveZones" select _phase;
-private _showAreas = _heli getVariable "fza_mpd_tsdShowAreas" select _phase;
-private _showLines = _heli getVariable "fza_mpd_tsdShowLines" select _phase;
+private _inactive = (_heli getVariable ["fza_mpd_tsdShowInactiveZones", [false, true]]) param [_phase, false];
+private _showAreas = (_heli getVariable ["fza_mpd_tsdShowAreas", [false, true]]) param [_phase, false];
+private _showLines = (_heli getVariable ["fza_mpd_tsdShowLines", [false, false]]) param [_phase, false];
 private _pf = _heli getVariable ["fza_dms_pfZones", []];
 private _nf = _heli getVariable ["fza_dms_nfZones", []];
 private _areas = _heli getVariable ["fza_dms_areas", []];
@@ -21,7 +21,7 @@ private _same = count _cache == count _key;
 {
     if (!_same) exitWith {};
     private _c = _cache # _forEachIndex;
-    _same = [_x isEqualTo _c, _x isEqualRef _c] select (_x isEqualType [] && {_c isEqualType []});
+    _same = if (_x isEqualType [] && {_c isEqualType []}) then {_x isEqualRef _c} else {_x isEqualTo _c};
 } forEach _key;
 if (_same) exitWith {_state get "zoneItems"};
 

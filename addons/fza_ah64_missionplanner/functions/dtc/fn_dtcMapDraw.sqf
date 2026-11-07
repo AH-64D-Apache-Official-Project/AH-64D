@@ -18,38 +18,82 @@ if (_halfWidth <= 0) exitWith {};
 private _dashLong = _w0 distance2D (_map ctrlMapScreenToWorld [0.01 * SCALE, 0]);
 private _dashShort = [_dashLong / 3, _dashLong / 3];
 private _dashes = [[], _dashShort, [_dashShort, [_dashLong, _dashLong * 0.6]] select (floor (diag_tickTime * 2) mod 2)];
+// The dashes drawn this frame; past them the shapes are drawn solid
+private _budget = 1500;
 
-// A line solid (style 0), dashed (1) or alternating (2), at the given half width
-private _segment = {
-    params ["_a", "_b", "_colour", ["_style", 0], ["_hw", _halfWidth]];
-    private _length = _a distance2D _b;
-    if (_length <= 0) exitWith {};
-    private _dir = _a getDir _b;
-    private _tex = format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _colour);
-    if (_style == 0) exitWith {
-        _map drawRectangle [[((_a # 0) + (_b # 0)) / 2, ((_a # 1) + (_b # 1)) / 2], _hw, _length / 2, _dir, _colour, _tex];
-    };
-    (_dashes # _style) params ["_on", "_off"];
-    private _period = _on + _off;
-    private _ux = ((_b # 0) - (_a # 0)) / _length;
-    private _uy = ((_b # 1) - (_a # 1)) / _length;
-    private _at = 0;
-    while {_at < _length} do {
-        private _end = (_at + _on) min _length;
-        private _mid = (_at + _end) / 2;
-        _map drawRectangle [[(_a # 0) + _ux * _mid, (_a # 1) + _uy * _mid], _hw, (_end - _at) / 2, _dir, _colour, _tex];
-        _at = _at + _period;
-    };
+// The world the map shows, a little wider: only what is in it is drawn or dashed
+(ctrlPosition _map) params ["_cx", "_cy", "_cw", "_ch"];
+private _corner0 = _map ctrlMapScreenToWorld [_cx, _cy];
+private _corner1 = _map ctrlMapScreenToWorld [_cx + _cw, _cy + _ch];
+private _margin = _halfWidth * 4;
+private _view = [
+    ((_corner0 # 0) min (_corner1 # 0)) - _margin, ((_corner0 # 1) min (_corner1 # 1)) - _margin,
+    ((_corner0 # 0) max (_corner1 # 0)) + _margin, ((_corner0 # 1) max (_corner1 # 1)) + _margin
+];
+
+// A segment's part in the view, as [from, to] fractions of it, else []
+private _inView = {
+    params ["_a", "_dx", "_dy"];
+    _view params ["_x0", "_y0", "_x1", "_y1"];
+    private _t0 = 0;
+    private _t1 = 1;
+    {
+        _x params ["_p", "_q"];
+        if (_p == 0) then {
+            if (_q < 0) then {_t0 = 2};
+        } else {
+            private _k = _q / _p;
+            if (_p < 0) then {_t0 = _t0 max _k} else {_t1 = _t1 min _k};
+        };
+    } forEach [[-_dx, (_a # 0) - _x0], [_dx, _x1 - (_a # 0)], [-_dy, (_a # 1) - _y0], [_dy, _y1 - (_a # 1)]];
+    [[], [_t0, _t1]] select (_t1 > _t0)
 };
+// A shape solid (style 0), dashed (1) or alternating (2), at the given half width; the dash pattern runs on along it
 private _shape = {
     params ["_pts", "_closed", "_colour", ["_style", 0], ["_hw", _halfWidth]];
-    private _pts2 = _pts apply {[_x # 0, _x # 1]};
-    for "_i" from 1 to count _pts2 - 1 do {[_pts2 # (_i - 1), _pts2 # _i, _colour, _style, _hw] call _segment};
-    if (_closed && {count _pts2 > 2}) then {[_pts2 # (count _pts2 - 1), _pts2 # 0, _colour, _style, _hw] call _segment};
+    private _n = count _pts;
+    if (_n < 2) exitWith {};
+    private _tex = format (["#(rgb,8,8,3)color(%1,%2,%3,%4)"] + _colour);
+    (_dashes param [_style, []]) params [["_on", 0], ["_off", 0]];
+    private _period = _on + _off;
+    private _along = 0;
+    for "_i" from 1 to ([_n - 1, _n] select (_closed && {_n > 2})) do {
+        private _a = _pts # (_i - 1);
+        private _b = _pts # (_i mod _n);
+        private _dx = (_b # 0) - (_a # 0);
+        private _dy = (_b # 1) - (_a # 1);
+        private _length = sqrt (_dx * _dx + _dy * _dy);
+        if (_length <= 0) then {continue};
+        private _part = [_a, _dx, _dy] call _inView;
+        private _start = _along;
+        _along = _along + _length;
+        if (_part isEqualTo []) then {continue};
+        private _from = (_part # 0) * _length;
+        private _to = (_part # 1) * _length;
+        private _ux = _dx / _length;
+        private _uy = _dy / _length;
+        private _dir = _a getDir _b;
+        if (_period <= 0 || {_on <= 0} || {(_to - _from) / _period > _budget}) then {
+            private _mid = (_from + _to) / 2;
+            _map drawRectangle [[(_a # 0) + _ux * _mid, (_a # 1) + _uy * _mid], _hw, (_to - _from) / 2, _dir, _colour, _tex];
+            continue;
+        };
+        // The dash under the view's edge, as the pattern runs from the shape's start
+        private _at = _from - ((_start + _from) mod _period);
+        while {_at < _to} do {
+            private _s = _at max _from;
+            private _e = (_at + _on) min _to;
+            if (_e > _s) then {
+                private _mid = (_s + _e) / 2;
+                _map drawRectangle [[(_a # 0) + _ux * _mid, (_a # 1) + _uy * _mid], _hw, (_e - _s) / 2, _dir, _colour, _tex];
+                _budget = _budget - 1;
+            };
+            _at = _at + _period;
+        };
+    };
 };
 
 getMousePosition params ["_mx", "_my"];
-(ctrlPosition _map) params ["_cx", "_cy", "_cw", "_ch"];
 private _mouse = [];
 if (_mx > _cx && {_mx < _cx + _cw} && {_my > _cy} && {_my < _cy + _ch}) then {
     private _w = _map ctrlMapScreenToWorld [_mx, _my];

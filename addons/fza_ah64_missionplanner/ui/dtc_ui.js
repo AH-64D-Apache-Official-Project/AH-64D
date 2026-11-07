@@ -116,7 +116,7 @@
     var wanted = [], at = [];
     DTC_POINT_KINDS.forEach(function (kind) {
       state.dtc[kind].forEach(function (p, i) {
-        if (p && p.t === undefined) { wanted.push([kind, i]); at.push([p.pt[0], p.pt[1]]); }
+        if (p && p.t === undefined) { wanted.push([kind, i, p.pt[0], p.pt[1]]); at.push([p.pt[0], p.pt[1]]); }
       });
     });
     terrain.wanted = wanted;
@@ -1110,9 +1110,11 @@
     onPointMoved: function (id, x, y, z, grid) { movePoint(id, x, y, z, grid); },
     onVertexMoved: function (kind, slot, index, x, y, z) { moveVertex(kind, slot, index, x, y, z); },
     onTerrain: function (heights) {
+      if (!Array.isArray(heights)) heights = [];
+      // Only to a point still where it was asked about
       terrain.wanted.forEach(function (w, i) {
         var p = state.dtc[w[0]][w[1]];
-        if (p && typeof heights[i] === 'number') p.t = heights[i];
+        if (p && p.pt[0] === w[2] && p.pt[1] === w[3] && typeof heights[i] === 'number') p.t = heights[i];
       });
       terrain.wanted = [];
       render();
