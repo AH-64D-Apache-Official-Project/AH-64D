@@ -34,6 +34,41 @@
 #define LST_MODE_OFF  0
 #define LST_MODE_AUTO 1
 #define LST_MODE_MAN  2
+// A script camera's FOV goes no narrower (camSetFov): the DTV, a script camera (fza_ihadss_fnc_dtvCamera), shows its zoom
+// FOV at this, and is placed into at this
+#define DTV_CAMERA_MIN_FOV 0.01
+// The CPG's image auto tracker, fza_ah64_iat (fza_ihadss_fnc_iatUpdate), and its polarity switch
+#define IAT_OFF   0
+#define IAT_TRACK 1
+#define IAT_COAST 2
+#define IAT_STOP  3
+#define IAT_FAIL  4
+#define IAT_SIZING 5
+#define IAT_IDLE  [IAT_OFF, 0, objNull, [], [], [0, 0, 0], -1, [0, 0], -1, [], false]
+#define IAT_POL_WHITE 0
+#define IAT_POL_AUTO  1
+#define IAT_POL_BLACK 2
+// Sizes are fractions of the field of view's half width: a target is searched for within IAT_SEARCH of the reticle,
+// needs a half size from IAT_MIN_SIZE to IAT_GATE_MAX, which the gates grow to (half the field of view across)
+#define IAT_SEARCH     0.1
+#define IAT_MIN_SIZE   0.0075
+#define IAT_GATE_MAX   0.5
+#define IAT_RANGE      8000
+#define IAT_VISIBLE    0.3
+// With the polarity switch against how the target shows, how much bigger it must be and how much of it visible
+#define IAT_MISMATCH_SIZE    2
+#define IAT_MISMATCH_VISIBLE 0.6
+// Check rate, time to reacquire before stop mode, time an FOV change loses the target; IAT held this long starts sizing
+// the gates, growing over IAT_SIZE_TIME and shrinking back (s)
+#define IAT_CHECK_EVERY 0.1
+#define IAT_REACQUIRE   2
+#define IAT_FOV_SETTLE  0.5
+#define IAT_HOLD        0.6
+#define IAT_SIZE_TIME   4.5
+// On capture the gates take this long to fit the target (s)
+#define IAT_GATE_TIME   1
+// How far ahead of a moving target the TADS is commanded, in its motion relative to the aircraft (s)
+#define IAT_LEAD        0.15
 // NVS MODE FIXED: fixed forward, the aircraft centerline 4.9 deg below the airframe datum
 #define NVS_FIXED_EL -4.9
 // The TADS as an NVS sensor slews noticeably slower in azimuth than the PNVS, deg/s

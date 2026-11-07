@@ -36,6 +36,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #define DTV_TARGET "fza_ah64_tadscam_dtv"
 #define DTV_SHOWN_FOR 0.5
 params [["_heli", objNull, [objNull]]];
@@ -83,7 +84,7 @@ private _update = {
     _camera setVectorDirAndUp [_dir, _right vectorCrossProduct _dir];
 
     private _mode = _heli getVariable ["fza_ihadss_tadsOpticsMode", _heli getTurretOpticsMode [0]];
-    private _fov  = (missionNamespace getVariable ["fza_ah64_tadsFOVs", []]) param [_mode, 0.4];
+    private _fov  = ((missionNamespace getVariable ["fza_ah64_tadsFOVs", []]) param [_mode, 0.4]) max DTV_CAMERA_MIN_FOV;
     if (_fov != (_camera getVariable ["fza_ihadss_fov", -1])) then {
         _camera setVariable ["fza_ihadss_fov", _fov];
         _camera camSetFov _fov;

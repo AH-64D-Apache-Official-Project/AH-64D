@@ -15,7 +15,7 @@ private _tadsNvsMode = ([_heli] call fza_ihadss_fnc_tadsNvs) # 0;
 private _tadsNvsBlocked = [
     "fza_ah64_v30_sightSelectTADS", "fza_ah64_v30_sightSelectLink", "fza_ah64_tadsLHGLmc", "zoomIn", "zoomOut", "NightVision",
     "fza_ah64_tadsLHGFov_W", "fza_ah64_tadsLHGFov_M", "fza_ah64_tadsLHGFov_N", "fza_ah64_tadsLHGFov_Z",
-    "fza_ah64_SensorSelect_FLIR", "fza_ah64_SensorSelect_DTV", "fza_ah64_SensorSelect_DVO"
+    "fza_ah64_SensorSelect_FLIR", "fza_ah64_SensorSelect_DTV", "fza_ah64_SensorSelect_DVO", "fza_ah64_iatEngage", "fza_ah64_iatOffset"
 ];
 if (_value && {_tadsNvsMode != NVS_MODE_OFF} && {_name in _tadsNvsBlocked}) exitWith {};
 
@@ -351,6 +351,19 @@ if (_value) then {
             // Armed, it inhibits the laser: one lasing is stopped (fza_fnc_laserArm)
             if (_lstMode != LST_MODE_OFF) then {[_heli] call fza_fnc_laserDisarm};
         };
+        case "fza_ah64_iatEngage": {
+            [_heli, false] call fza_ihadss_fnc_iatSwitch;
+        };
+        case "fza_ah64_iatOffset": {
+            [_heli, true] call fza_ihadss_fnc_iatSwitch;
+        };
+        case "fza_ah64_iatPolarityWhite";
+        case "fza_ah64_iatPolarityAuto";
+        case "fza_ah64_iatPolarityBlack": {
+            if (player != gunner _heli) exitWith {};
+            private _polarity = [IAT_POL_WHITE, IAT_POL_AUTO, IAT_POL_BLACK] select (["fza_ah64_iatPolarityWhite", "fza_ah64_iatPolarityAuto", "fza_ah64_iatPolarityBlack"] find _name);
+            _heli setVariable ["fza_ah64_iatPolarity", _polarity, true];
+        };
         case "fza_ah64_radialMenu": {
             [_heli] call fza_fnc_radialToggle;
         };
@@ -395,6 +408,9 @@ if !(_value) then {
             if (_queryUntil > CBA_missionTime) then {
                 _heli setVariable ["fza_ah64_trigger_" + _seat, [_pressedAt, CBA_missionTime + 1], true];
             };
+        };
+        case "fza_ah64_iatEngage": {
+            [_heli, false, false] call fza_ihadss_fnc_iatSwitch;
         };
         case "fza_minigame_up": {
             ["up", false] call fza_mg_fnc_minigameHandleInput;

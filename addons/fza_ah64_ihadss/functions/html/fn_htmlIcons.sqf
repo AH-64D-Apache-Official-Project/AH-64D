@@ -262,6 +262,54 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
     };
 };
 
+// IAT gates in the same frame as the picture, through the sight or in the TADS picture on the HDU, projected as the
+// other world symbols are; in format units about the reticle (fza_ihadss_fnc_iatGateStrips)
+private _gate  = [];
+private _gRight = [];
+private _gUp    = [];
+if (_weaponFormat && {_headsDown || _inPicture}) then {
+    _gRight = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsRight} else {vectorNormalized _camRight};
+    _gUp    = if (_inPicture) then {_heli vectorModelToWorldVisual _tadsUp} else {vectorNormalized _camUp};
+    _gate   = [_heli, _gRight, _gUp] call fza_ihadss_fnc_iatGates;
+};
+if (_gate isNotEqualTo []) then {
+    _gate params ["_gPos", "_gHalf"];
+    private _toScr = [{worldToScreen ASLToAGL _this}, _toPicture] select _inPicture;
+    private _c = _gPos call _toScr;
+    private _r = if (_c isEqualTo []) then {[]} else {(_gPos vectorAdd (_gRight vectorMultiply (_gHalf # 0))) call _toScr};
+    private _u = if (_r isEqualTo []) then {[]} else {(_gPos vectorAdd (_gUp vectorMultiply (_gHalf # 1))) call _toScr};
+    if (_u isEqualTo []) exitWith {};
+    // Format units, about the reticle at the format's centre; heads up, a strip off the HDU lens or display field is not drawn
+    private _unitX = _rectW / 640;
+    private _unitY = _rectH / 480;
+    private _cx    = _rectX + _rectW / 2;
+    private _cy    = _rectY + _rectH / 2;
+    {
+        _x params ["_bx", "_by", "_bw", "_bh"];
+        private _fx = _bx + _bw / 2;
+        private _fy = _by + _bh / 2;
+        if (!_headsDown && {_fx < HDU_FIELD_LEFT || {_fx > HDU_FIELD_RIGHT || {_fy < HDU_FIELD_TOP || {_fy > HDU_FIELD_BOTTOM
+            || {((_fx * cos HDU_MASK_ROT + _fy * sin HDU_MASK_ROT) / HDU_CLIP_A) ^ 2 + ((_fy * cos HDU_MASK_ROT - _fx * sin HDU_MASK_ROT) / HDU_CLIP_B) ^ 2 > 1}}}}}) then {continue};
+        private _key  = "iat" + str _forEachIndex;
+        private _ctrl = _ctrls getOrDefault [_key, controlNull];
+        if (isNull _ctrl) then {
+            _ctrl = _display ctrlCreate ["RscText", -1];
+            _ctrls set [_key, _ctrl];
+        };
+        _ctrl ctrlSetBackgroundColor _colour;
+        _ctrl ctrlSetPosition [_cx + _bx * _unitX, _cy + _by * _unitY, _bw * _unitX, _bh * _unitY];
+        _ctrl ctrlCommit 0;
+        _ctrl ctrlShow true;
+        _shown pushBack _key;
+    } forEach ([
+        _heli,
+        ((_c # 0) - _cx) / _unitX,
+        ((_c # 1) - _cy) / _unitY,
+        abs ((_r # 0) - (_c # 0)) / _unitX,
+        abs ((_u # 1) - (_c # 1)) / _unitY
+    ] call fza_ihadss_fnc_iatGateStrips);
+};
+
 {
     if !(_x in _shown) then {_y ctrlShow false};
 } forEach _ctrls;
