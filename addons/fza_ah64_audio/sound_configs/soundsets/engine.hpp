@@ -134,7 +134,7 @@ class fza_ah64_Starter_Int_Left_SoundSet: fza_ah64_Trigger_Int_SoundSet_Base
 		"fza_ah64_Starter_Int_SoundShader"
 	};
 	sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
-	volumeFactor=fza_Vol_Multi_Int(0.1);
+	volumeFactor=fza_Vol_Multi_Int(0.9);
 	playTrigger="CustomSoundController5 max 0";
 
 	frequencyRandomizerMin=1;
