@@ -58,7 +58,7 @@ if (_off || {_heli getHitPointDamage "hit_msnEquip_tads_turret" >= SYS_SIGHT_DMG
     []
 };
 
-// A code without a laser code behind it (LSTCODE?) finds nothing
+// A code without a laser code behind it (LST CODE ?) finds nothing
 private _code = (_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLSTCode", ""], ""];
 private _tracking = _spot isNotEqualTo [] && {CBA_missionTime - _seenAt < LST_LOST_AFTER};
 if (_code isEqualType 0 && {CBA_missionTime - _searchedAt >= ([LST_SEARCH_EVERY, LST_TRACK_EVERY] select _tracking)}) then {

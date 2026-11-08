@@ -16,7 +16,7 @@ Description:
     Default  - 3.0 km CPG, 1.5 km pilot
 
     Manual and auto range with every sight; TADS also with laser and nav, FCR
-    with radar (R?? without a valid radar range), HMD with nav. In COOP rockets
+    with radar, HMD with nav. In COOP rockets
     the pilot uses the CPG's range (fza_fnc_wasUpdate).
 
 Parameters:
@@ -117,8 +117,8 @@ private _result  = switch (_source) do {
     default {[]};
 };
 
-// The default range; FCR shows R?? without a valid radar range
-if (_result isEqualTo []) exitWith {[_default, [_default call _km, "R??"] select (_sight == SIGHT_FCR), RANGE_SRC_DEFAULT]};
+// The default range, shown when the selected source is not valid
+if (_result isEqualTo []) exitWith {[_default, _default call _km, RANGE_SRC_DEFAULT]};
 // Under the laser's minimum range the default is used with nothing shown
 if ((_result # 1) == "") exitWith {_result + [RANGE_SRC_DEFAULT]};
 _result + [_source]
