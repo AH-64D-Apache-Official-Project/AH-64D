@@ -380,10 +380,7 @@ if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
 if (_holdsWeapon && {_was == WAS_WEAPON_GUN} && {[_heli, _seat] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
 
-// The CPG's tracker status (fza_ihadss_fnc_lstUpdate)
-private _tracker = ["", _heli getVariable ["fza_ah64_lstStatus", ""]] select !_isPilot;
-
-_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, _tracker]];
+_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit]];
 
 if (_mpd) then {
     _m set ["hd", true];
