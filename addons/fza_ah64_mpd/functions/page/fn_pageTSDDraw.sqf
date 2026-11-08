@@ -98,6 +98,14 @@ switch (_state get "subPageVarPage" select 0) do {
     };
 };
 
+// The route menu has no map
+if ((_state get "subPageVarPage") isEqualTo TSD_RTE_RTM) exitWith {
+    _state set ["cursorPoints", []];
+    _state set ["cursorFcr", []];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_POINT), 0];
+    [_heli, [], _mpdIndex, _tsdScale] call fza_mpd_fnc_drawIcons;
+};
+
 _this call fza_mpd_fnc_tsdScaleDraw;
 
 private _pointsArray = [];

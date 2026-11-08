@@ -9,7 +9,6 @@ class rteRoot {
         //L5
         MPD_TEXT_R(RVW,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("RVW"))
         //L6
-        MPD_BOX_BAR_R(RTM,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y)
         MPD_ARROW_R(RTM,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 3)
         MPD_TEXT_R(RTRM,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("RTM"))
     };

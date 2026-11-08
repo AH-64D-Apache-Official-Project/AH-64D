@@ -71,6 +71,12 @@ switch (_variant) do {
             case "l5": {     //RVW sub-page
                 _state set ["subPageVarPage", TSD_RTE_RVW];
             };
+            case "l6": {
+                _state set ["rtmPage", floor (_routeCurrent / 5)];
+                _state set ["rtmDelete", 0];
+                _state set ["rtmConfirm", -1];
+                _state set ["subPageVarPage", TSD_RTE_RTM];
+            };
             case "b4": {    //To WPT page
                 _state set ["subPageVarPage", TSD_WPT];
             };
@@ -274,9 +280,7 @@ switch (_variant) do {
             };
         };
     };
-    case 7: {   //RTM sub-page
-        switch (_control) do {
-            //Not implemented
-        };
+    case 7: {
+        _this call fza_mpd_fnc_tsdRTMHandleControl;
     };
 };

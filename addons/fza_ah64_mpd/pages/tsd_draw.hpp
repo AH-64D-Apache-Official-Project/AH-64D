@@ -87,7 +87,11 @@ class Wpt {
 
 class Rte {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 3));
-    #include "tsd\rte\common.hpp"
+    // The map and route window, on every RTE page but the route menu
+    class RteMap {
+        condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 7)));
+        #include "tsd\rte\common.hpp"
+    };
 
     class RteRoot {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 0));
@@ -125,9 +129,10 @@ class Rte {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 6));
         #include "tsd\rte\routeReview.hpp"
     };
-        //RTM sub page
+    //RTM sub page
     class RteRtm {
-
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 7));
+        #include "tsd\rte\rtm.hpp"
     };
 };
 

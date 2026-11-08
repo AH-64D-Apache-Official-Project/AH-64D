@@ -2,6 +2,7 @@
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 params ["_heli", "_canvas", "_mpdIndex", "_state", "_persistState"];
+if ((_state get "subPageVarPage") isEqualTo TSD_RTE_RTM) exitWith {};
 
 
 // Dynamic positioning
