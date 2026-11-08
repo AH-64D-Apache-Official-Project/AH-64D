@@ -1,6 +1,6 @@
-//The lit face of the pilot's TAIL WHEEL button, rendered onto plt_tw_button through a 2048 ui()
-//texture (fn_coreControlHandle). Same font and colour as the EMER HYD legend. The face samples
-//U 0.652-0.899, V 0.418-0.666 of its texture, so the legend is drawn there and nowhere else.
+//The lit face of the TAIL WHEEL buttons, rendered onto plt_tw_button and cpg_tw_button through a
+//2048 ui() texture (fn_coreControlHandle). Same font and colour as the EMER HYD legend. Both faces
+//sample U 0.652-0.899, V 0.418-0.666 of their texture, so the legend is drawn there and nowhere else.
 class RscText;
 class RscFzaAH64TwUnlocked {
     idd = -1;

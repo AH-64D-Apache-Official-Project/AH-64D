@@ -348,10 +348,10 @@ if (_value) then {
         case "fza_ah64_toggleTailWheelLock": {
             private _unlocked = _heli getVariable ["fza_ah64_tailWheelLock", true];
             _heli setVariable ["fza_ah64_tailWheelLock", !_unlocked, true];
-            //The pilot's UNLOCKED legend is drawn from a display, as the MPDs are. The CPG's face is
-            //mapped to a few pixels of the cockpit atlas, so it lights plain until it is remapped.
-            _heli setObjectTextureGlobal ["plt_tw_button", ["", "#(rgb,2048,2048,1)ui(RscFzaAH64TwUnlocked,1)"] select _unlocked];
-            _heli setObjectTextureGlobal ["cpg_tw_button", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _unlocked];
+            //The UNLOCKED legend lights on both panels: drawn from a display, as the MPDs are.
+            {
+                _heli setObjectTextureGlobal [_x, ["", "#(rgb,2048,2048,1)ui(RscFzaAH64TwUnlocked,1)"] select _unlocked];
+            } forEach ["plt_tw_button", "cpg_tw_button"];
         };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";
