@@ -34,7 +34,8 @@
 //  rollLiftCoef / pitchLiftCoef - the cyclic lift coefficient, independent of the
 //                 collective's. This is what makes the fore/aft and left/right blades carry
 //                 different lift, so the pitch and roll moments come out of real forces at
-//                 real positions rather than being applied as a torque.
+//                 real positions rather than being applied as a torque. The pack scales both
+//                 with collective: see cyclicFade below.
 //  gndEffValue  - thrust multiplier on the deck, fading to 1.0 by one rotor diameter up.
 //                 A rotor that does not sit in ground effect declares 1.0.
 //  reacTqScalar - scales the tangential blade drag that produces the yaw reaction. The same
@@ -46,6 +47,10 @@
 //  how they vary with speed - that is what the transmission feels.
 
     numSimpleRotors = 2;
+    //Cyclic lift coefficients against collective - {scale at the floor, collective at or below
+    //which the floor applies, collective at or above which they are full}. The floor is the
+    //authority left in an autorotation. 0.20 is taxi power (30% torque), 0.30 is 48% torque.
+    cyclicFade[] = {0.5, 0.20, 0.30};
     //Rotor limits, Nr - {normal low, normal high, high rotor, maximum}; below and above normal is transient.
     nrLimits[] = {0.95, 1.05, 1.06, 1.10};
     class SimpleRotors {

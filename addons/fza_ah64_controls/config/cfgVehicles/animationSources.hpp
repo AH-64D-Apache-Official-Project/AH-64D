@@ -1,5 +1,12 @@
 class AnimationSources
 {
+    //Tail wheel swivel, degrees: driven by fza_suspension_fnc_suspensionCastor
+    class tailWheelCastor
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0;
+    };
     ////////CONTROLS///////
     class plt_cyclic_pitch
     {

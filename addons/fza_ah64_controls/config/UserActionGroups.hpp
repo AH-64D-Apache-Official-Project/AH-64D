@@ -44,6 +44,7 @@ class UserActionGroups {
             "fza_ah64_tadsLHGLmc",
             "fza_ah64_collectiveEmergJett",
             "fza_ah64_toggleParkingBrake",
+            "fza_ah64_toggleTailWheelLock",
             "fza_ah64_lstAuto",
             "fza_ah64_lstOff",
             "fza_ah64_lstManual",

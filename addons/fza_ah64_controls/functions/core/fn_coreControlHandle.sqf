@@ -345,6 +345,9 @@ if (_value) then {
         case "fza_ah64_toggleParkingBrake": {
             _heli setVariable ["fza_ah64_toggleParkingBrake", !_parkingBrake, true];
         };
+        case "fza_ah64_toggleTailWheelLock": {
+            _heli setVariable ["fza_ah64_tailWheelLock", !(_heli getVariable ["fza_ah64_tailWheelLock", true]), true];
+        };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";
         case "fza_ah64_lstOff";
