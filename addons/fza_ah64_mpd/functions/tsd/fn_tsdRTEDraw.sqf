@@ -4,6 +4,7 @@ params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 private _variant      = _state get "subPageVarPage" select 1;
+if (_variant == 7) exitWith {_this call fza_mpd_fnc_tsdRTMDraw};
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
 private _rteIndex     = _heli getVariable "fza_ah64_routeCurPoint";
@@ -18,7 +19,11 @@ private _scrollV = [_routeScroll, 0, _upper] call BIS_fnc_clamp;
 _state set ["routeScroll", _scrollV];
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_VARIANT), _variant];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_TEXT_POINTS), -1];
+private _routeName = ((_heli getVariable ["fza_ah64_routeNames", ROUTE_NAME_DEFAULTS]) param [_routeCurrent, ""]) select [0, 5];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_TEXT_POINTS), [count _routeName, -1] select (_routeName == "")];
+{
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_NAME_T1 + _forEachIndex), _x];
+} forEach (_routeName splitString "");
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_END_INDEX), (count _routeInfo - _routeScroll)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_POINTEDIT), BOOLTONUM(_variant == 0)];
 if (_rvwIndex isEqualTo -1) then {_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_RVW_INDEX), -1];};

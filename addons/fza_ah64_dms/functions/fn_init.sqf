@@ -27,3 +27,7 @@ if (isNil {_heli getVariable "fza_dms_zoneState"}) then {
     _heli setVariable ["fza_dms_nfZones", [ZONE_COUNT_NF] call _newPointsArray, true];
     _heli setVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT, true];
 };
+
+if (isNil {_heli getVariable "fza_ah64_routeNames"}) then {
+    _heli setVariable ["fza_ah64_routeNames", ROUTE_NAME_DEFAULTS, true];
+};

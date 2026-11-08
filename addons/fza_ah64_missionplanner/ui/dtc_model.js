@@ -3,6 +3,13 @@ var DTC_VERSION = 1;
 var DTC_COUNTS = { lines: 15, areas: 12, pfz: 8, nfz: 8, wp: 50, cm: 49, tt: 50 };
 var DTC_POINT_KINDS = ['wp', 'cm', 'tt'];
 var DTC_ROUTES = 10;
+var DTC_ROUTE_NAMES = ['ALPHA', 'BRAVO', 'DELTA', 'ECHO', 'HOTEL', 'INDIA', 'KILO', 'LIMA', 'MIKE', 'OSCAR'];
+
+// A route name: up to 5 letters or numbers, else the slot's default
+function dtcRouteName(name, r) {
+  var n = String(name || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
+  return n || DTC_ROUTE_NAMES[r];
+}
 
 function dtcSlots(n) {
   var out = [];
@@ -23,7 +30,8 @@ function dtcEmpty() {
     wp: dtcSlots(DTC_COUNTS.wp),
     cm: dtcSlots(DTC_COUNTS.cm),
     tt: dtcSlots(DTC_COUNTS.tt),
-    routes: [[], [], [], [], [], [], [], [], [], []]
+    routes: [[], [], [], [], [], [], [], [], [], []],
+    routeNames: DTC_ROUTE_NAMES.slice()
   };
 }
 
@@ -123,6 +131,7 @@ function dtcFromObject(o) {
   var routes = Array.isArray(o.routes) ? o.routes : [];
   for (var r = 0; r < DTC_ROUTES; r++) {
     d.routes[r] = (Array.isArray(routes[r]) ? routes[r] : []).filter(function (id) { var at = dtcPointSlot(id); return at !== null && at.kind !== 'tt'; }).slice(0, 50);
+    d.routeNames[r] = dtcRouteName((Array.isArray(o.routeNames) ? o.routeNames : [])[r], r);
   }
   return d;
 }
@@ -144,7 +153,8 @@ function dtcToJson(d, world) {
     wp: d.wp.map(point),
     cm: d.cm.map(point),
     tt: d.tt.map(point),
-    routes: d.routes
+    routes: d.routes,
+    routeNames: d.routeNames
   });
 }
 

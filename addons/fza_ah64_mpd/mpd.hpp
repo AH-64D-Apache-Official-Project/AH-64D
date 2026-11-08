@@ -70,7 +70,7 @@ class MaskGate {
     // Its own class, before the TSD's: inside one of these Draw classes the MPD draws polygons before lines, so the black
     // backings behind the TSD's labels only hide lines from an earlier class
     class TsdFrame {
-        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD));
+        condition = C_COND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_NOT(C_AND(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 3), C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 7)))));
         #include "pages\tsd\frame.hpp"
     };
     class TSD {

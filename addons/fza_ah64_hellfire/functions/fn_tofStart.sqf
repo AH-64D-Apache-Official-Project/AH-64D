@@ -3,7 +3,7 @@ Function: fza_hellfire_fnc_tofStart
 
 Description:
     Records a Hellfire launch (MSL LAUNCH, and ALT LAUNCH for the rockets)
-    and starts its HFTOF countdown (the missile launched first shows first,
+    and starts its HF TOF countdown (the missile launched first shows first,
     then the others), from its time of flight estimated at launch
     (fza_hellfire_fnc_tofEstimate). Shared, so both crew stations count it
     down.

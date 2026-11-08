@@ -35,6 +35,8 @@ private _hasFcr   = _heli animationPhase "fcr_enable" == 1;
 private _sight    = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tadsNvs  = (([_heli] call fza_ihadss_fnc_tadsNvs) # 0) != NVS_MODE_OFF;
 private _fcrOwned = FCR_OWNER(_heli) == _seat;
+// Linked, the FCR and TADS menus each open the other's
+private _linked   = _isCpg && {CPG_LINK(_heli)} && {_sight in [SIGHT_TADS, SIGHT_FCR]};
 
 // Sectors across the top or bottom of the ring, left to right, over _arc degrees centred on the top or bottom; with
 // _changeOnly, only those that can be selected and are not already
@@ -66,17 +68,19 @@ private _sectors = switch (_menu) do {
         private _mode = _heli getVariable ["fza_ah64_fcrMode", FCR_DISP_MODE_GTM];
         private _size = _heli getVariable ["fza_ah64_fcrScanSize", 0];
         _hub = format ["%1 %2", ["", "GTM", "ATM", "RMAP", "TPM"] param [_mode, ""], _fovLetters param [_size, ""]];
-        ([[
+        private _modes = [
             ["GTM",  _fcrOwned, _mode == FCR_DISP_MODE_GTM,  "fza_ah64_fcrModeGTM"],
             ["RMAP", _fcrOwned, _mode == FCR_DISP_MODE_RMAP, "fza_ah64_fcrModeRMAP"],
             ["ATM",  _fcrOwned, _mode == FCR_DISP_MODE_ATM,  "fza_ah64_fcrModeATM"],
             ["TPM",  _fcrOwned, _mode == FCR_DISP_MODE_TPM,  "fza_ah64_fcrModeTPM"]
-        ], true, true] call _split) + ([[
+        ];
+        if (_linked) then {_modes = [["TADS", !_tadsNvs, false, ">tads", "menu"]] + _modes};
+        ([_modes, true, true, [180, 216] select _linked] call _split) + ([[
             ["W", _fcrOwned, _size == 0, "fza_ah64_fcrScanSize_W", "fov"],
             ["M", _fcrOwned, _size == 1, "fza_ah64_fcrScanSize_M", "fov"],
             ["N", _fcrOwned, _size == 2, "fza_ah64_fcrScanSize_N", "fov"],
             ["Z", _fcrOwned, _size == 3, "fza_ah64_fcrScanSize_Z", "fov"]
-        ], false, true] call _split)
+        ], false, true, [180, 144] select _linked] call _split)
     };
     case "lst": {
         // The LST mode switch: AUTO across the top half, MAN across the bottom, OFF in place of whichever is selected
@@ -96,13 +100,15 @@ private _sectors = switch (_menu) do {
         private _dtvOk  = _heli getHitPointDamage "hit_msnEquip_tads_dtv" < SYS_SIGHT_DMG_THRESH;
         private _flirOk = _heli getHitPointDamage "hit_msnEquip_tads_flir" < SYS_SIGHT_DMG_THRESH;
         _hub = format ["%1 %2", _sensor, _fovLetters param [_fov, ""]];
-        ([[
+        private _modes = [
             ["DVO",  _canSel && _dtvOk,  _sensor == "DVO",  "fza_ah64_SensorSelect_DVO"],
             ["DTV",  _canSel && _dtvOk,  _sensor == "DTV",  "fza_ah64_SensorSelect_DTV"],
             ["FLIR", _canSel && _flirOk, _sensor == "FLIR", "fza_ah64_SensorSelect_FLIR"],
             // The LST's own menu
             ["LST",  _isCpg,             false,             ">lst", "lst"]
-        ], true, true, 216] call _split) + ([[
+        ];
+        if (_linked) then {_modes pushBack ["FCR", _hasFcr, false, ">fcr", "menu"]};
+        ([_modes, true, true, 216] call _split) + ([[
             // The DTV has no medium field of view, the DVO only wide and medium
             ["W", _can,                                    _fov == 0, "fza_ah64_tadsLHGFov_W", "fov"],
             ["M", _can && {_sensor != "DTV"},              _fov == 1, "fza_ah64_tadsLHGFov_M", "fov"],

@@ -86,7 +86,7 @@ switch (_sight) do {
     case SIGHT_FCR:{
         _targpos = _heli modelToWorldVisual [0,1000,0];
         if (isNull _nts) then {
-            _inhibit = "NO TARGET";
+            _inhibit = "TARGET DATA?";
         } else {
             _targPos = _ntspos;
             if (isVehicleRadarOn _heli) then {
@@ -136,7 +136,7 @@ if (_was == WAS_WEAPON_RKT && !_sightFixed) then {
         ([_heli, _targPos, _targVel, _solution # 1, _rktMag] call fza_hydra_fnc_aimSolve) params ["", "_rktTof", "_correction"];
         _solution = [time, _correction];
         _heli setVariable ["fza_hydra_solution", _solution];
-        // The time of flight a volley is launched with (RTOF, fza_hydra_fnc_fired), to the tenth of a second
+        // The time of flight a volley is launched with (RKT TOF, fza_hydra_fnc_fired), to the tenth of a second
         [_heli, "fza_ah64_rocketSolutionTof", (round (_rktTof * 10)) / 10] call fza_fnc_updateNetworkGlobal;
     };
     (_heli vectorWorldToModelVisual ((_heli modelToWorldVisualWorld HYDRA_LAUNCH_POS(_heli)) vectorFromTo (_targPos vectorAdd (_solution # 1)))) params ["_solX", "_solY", "_solZ"];
@@ -176,7 +176,7 @@ if (_was == WAS_WEAPON_MSL && !_sightFixed) then {
     };
     private _handoffData = _heli getVariable ["fza_ah64_tadsRfHandoffData", []];
     if (_selectedMissile == "fza_agm114l_wep" && _sight == SIGHT_TADS && _handoffData isEqualTo []) then {
-        _safety pushBack "TGT DATA?";
+        _safety pushBack "TARGET DATA?";
     };
     // A SAL seeker not tracking the TADS designation (fza_hellfire_fnc_backscatter)
     if (_selectedMissile != "fza_agm114l_wep" && {[_heli] call fza_hellfire_fnc_backscatter}) then {_safety pushBack "BACKSCATTER"};
@@ -295,7 +295,6 @@ if (_was == WAS_WEAPON_GUN) then {
     if (_gunFixed) exitWith {
         _mainturret = 0;
         _maingun = rad GUN_FIXED_EL;
-        _inhibit = "GUN FIXED";
     };
     _mainturret = -rad ([_gunAzimuth, -86, 86] call BIS_fnc_clamp);
     _maingun = rad ([_gunElevation, -60, 11] call BIS_fnc_clamp);

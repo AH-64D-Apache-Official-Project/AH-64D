@@ -9,7 +9,6 @@ Description:
     either side, in four bars 10 deg apart from 5 deg up: from the top right,
     along each bar at a steady rate, waiting at each corner until the TADS
     is there. MAN leaves the TADS to the CPG.
-    Publishes the tracker status for the HAD.
 
 Parameters:
     _heli - The helicopter
@@ -56,11 +55,10 @@ if (_off || {_heli getHitPointDamage "hit_msnEquip_tads_turret" >= SYS_SIGHT_DMG
     || {_heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) exitWith {
     _heli setVariable ["fza_ihadss_lst", [[], -1, -1, -1, []]];
     _heli setVariable ["fza_ihadss_lstDriving", false];
-    [_heli, "fza_ah64_lstStatus", ["LST FAIL", ""] select _off] call fza_fnc_updateNetworkGlobal;
     []
 };
 
-// A code without a laser code behind it (LSTCODE?) finds nothing
+// A code without a laser code behind it (LST CODE ?) finds nothing
 private _code = (_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLSTCode", ""], ""];
 private _tracking = _spot isNotEqualTo [] && {CBA_missionTime - _seenAt < LST_LOST_AFTER};
 if (_code isEqualType 0 && {CBA_missionTime - _searchedAt >= ([LST_SEARCH_EVERY, LST_TRACK_EVERY] select _tracking)}) then {
@@ -79,15 +77,12 @@ if (_code isEqualType 0 && {CBA_missionTime - _searchedAt >= ([LST_SEARCH_EVERY,
 _tracking = _spot isNotEqualTo [] && {CBA_missionTime - _seenAt < LST_LOST_AFTER};
 
 private _target = [];
-private _status = "LST SEARCH";
 if (_tracking) then {
     _target = _spot;
-    _status = "LST TRACK";
     _scan   = [];
 } else {
     _spot = [];
     if (_mode == LST_MODE_AUTO) then {
-        _status = "LST AUTO SEARCH";
         // The corners in order: along the top bar from the right, down, back along the next, and up to the start again
         private _corners = [];
         {
@@ -127,5 +122,4 @@ if (_tracking) then {
 
 _heli setVariable ["fza_ihadss_lst", [_spot, _seenAt, _searchedAt, CBA_missionTime, _scan]];
 _heli setVariable ["fza_ihadss_lstDriving", _target isNotEqualTo []];
-[_heli, "fza_ah64_lstStatus", _status] call fza_fnc_updateNetworkGlobal;
 _target

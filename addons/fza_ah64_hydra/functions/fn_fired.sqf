@@ -18,7 +18,7 @@ params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_misso
 
 if !(["fza_275_", _weapon] call BIS_fnc_inString) exitWith {};
 
-// RTOF: the time until the last volley launched arrives, estimated from the solution at its first rocket.
+// RKT TOF: the time until the last volley launched arrives, estimated from the solution at its first rocket.
 // A volley's rockets leave 0.09 s apart. Set by the crewmember who fired (fza_fnc_eventFired), once for the whole crew.
 // The volley's start is ALT LAUNCH for the missiles (fza_fnc_weaponAim).
 if (time - (_heli getVariable ["fza_hydra_lastFired", -1]) > 0.3) then {

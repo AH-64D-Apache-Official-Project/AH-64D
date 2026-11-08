@@ -212,6 +212,5 @@
         IH.text(ctx, had[4], 100 + left, 472 + y, "left");
         IH.text(ctx, had[5], 392 + right, 472 + y, "left");
         IH.text(ctx, had[6], IH.CX, 412 + y, "center");
-        IH.text(ctx, had[7], IH.CX, 395 + y, "center");
     };
 })();

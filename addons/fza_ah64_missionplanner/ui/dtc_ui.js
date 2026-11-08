@@ -675,11 +675,13 @@
     if (picker) {
       var html = '';
       for (var r = 0; r < DTC_ROUTES; r++) {
-        html += '<button type="button" class="dtc-route' + (r === state.route ? ' on' : '') + '" data-route="' + r + '">' +
+        html += '<button type="button" class="dtc-route' + (r === state.route ? ' on' : '') + '" data-route="' + r + '" title="' + state.dtc.routeNames[r] + '">' +
           (r + 1) + (state.dtc.routes[r].length ? '*' : '') + '</button>';
       }
       picker.innerHTML = html;
     }
+    var name = el('dtcRouteName');
+    if (name && document.activeElement !== name) name.value = state.dtc.routeNames[state.route];
     var list = el('dtcRouteList');
     if (list) {
       var route = state.dtc.routes[state.route];
@@ -981,6 +983,10 @@
       var a = state.dtc[kind][slot];
       var ft = parseInt(String(t.value || '').replace(/[^0-9]/g, ''), 10);
       if (a && a.t !== undefined && !isNaN(ft)) a.pt[2] = Math.round((a.t + ft / FEET) * 10) / 10;
+      changed();
+    } else if (t.id === 'dtcRouteName') {
+      state.dtc.routeNames[state.route] = dtcRouteName(t.value, state.route);
+      t.value = state.dtc.routeNames[state.route];
       changed();
     } else if (t.id === 'dtcName') {
       state.dtc.name = String(t.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);

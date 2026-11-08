@@ -84,6 +84,8 @@ class CfgFunctions
             class tsdWorldToScreen {RECOMPILE_FLAG;};
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
+            class tsdRTMDraw {RECOMPILE_FLAG;};
+            class tsdRTMHandleControl {RECOMPILE_FLAG;};
             class tsdScaleDraw {RECOMPILE_FLAG;};
             class tsdScaleHandleControl {RECOMPILE_FLAG;};
             class tsdSHOWDraw {RECOMPILE_FLAG;};

@@ -381,6 +381,22 @@
 #define MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_2 17
 #define MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_3 18
 
+// The RTM page (RTE variant 7): five routes a page. Text 19 and 38 belong to ACQ.
+#define MFD_IND_TSD_RTM_PAGE            1
+#define MFD_IND_TSD_RTM_CURRENT         2
+#define MFD_IND_TSD_RTM_DELETE          3
+#define MFD_IND_TSD_RTM_CONFIRM         4
+
+#define MFD_TEXT_IND_TSD_RTM_COL_1      0
+#define MFD_TEXT_IND_TSD_RTM_COL_2      6
+#define MFD_TEXT_IND_TSD_RTM_COL_3      12
+#define MFD_TEXT_IND_TSD_RTM_COL_4      20
+#define MFD_TEXT_IND_TSD_RTM_COL_5      26
+#define MFD_TEXT_IND_TSD_RTM_COLS       [0, 6, 12, 20, 26]
+#define MFD_TEXT_IND_TSD_RTM_NAME_1     32
+#define MFD_TEXT_IND_TSD_RTM_PAGE       37
+#define MFD_TEXT_IND_TSD_RTM_CONFIRM    18
+
 #define MFD_TEXT_IND_TSD_WPT_CURRENT_POINT 0
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_1 1
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_2 2

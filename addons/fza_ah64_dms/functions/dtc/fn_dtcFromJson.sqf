@@ -15,7 +15,7 @@ Description:
      "pfz":[{"pts":[[x,y] x3-12]}, ...8], "nfz":[...8],
      "zones":{"activePf":-1, "nfActive":[false,...8], "nfSingle":false},
      "wp":[{"ident":"WP","free":"ABC","pt":[x,y,zMSL]}, ...50], "cm":[...49], "tt":[...50],
-     "routes":[["W01","C51","T03"], ...10]}
+     "routes":[["W01","C51","T03"], ...10], "routeNames":["ALPHA", ...10]}
 
     Anything that isn't an object is an empty slot.
 
@@ -159,5 +159,17 @@ _routes = (_routes select [0, 10]) apply {
 while {count _routes < 10} do {_routes pushBack []};
 if (_routes findIf {_x isNotEqualTo []} == -1) then {_routes = []};
 
-_heli setVariable ["fza_dms_dtcPending", [DTC_VERSION, _name, worldName, _lines, _areas, _pf, _nf, _zoneState, _wp, _cm, _tt, _routes], true];
+// Route names, up to 5 letters or numbers; [] when the DTC has none
+private _routeNames = _data getOrDefault ["routeNames", []];
+if !(_routeNames isEqualType []) then {_routeNames = []};
+if (_routeNames isNotEqualTo []) then {
+    private _given = _routeNames;
+    _routeNames = ROUTE_NAME_DEFAULTS;
+    {
+        private _routeName = _given param [_forEachIndex, ""];
+        if (_routeName isEqualType "" && {toUpper _routeName regexMatch "^[A-Z0-9]{1,5}$"}) then {_routeNames set [_forEachIndex, toUpper _routeName]};
+    } forEach ROUTE_NAME_DEFAULTS;
+};
+
+_heli setVariable ["fza_dms_dtcPending", [DTC_VERSION, _name, worldName, _lines, _areas, _pf, _nf, _zoneState, _wp, _cm, _tt, _routes, _routeNames], true];
 [true, ""]

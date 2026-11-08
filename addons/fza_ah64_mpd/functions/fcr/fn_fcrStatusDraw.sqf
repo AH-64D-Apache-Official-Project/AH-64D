@@ -60,7 +60,11 @@ switch (_wasState) do {
     };
     case WAS_WEAPON_MSL: {
         if (_pltDrives) then {
-            // The trajectory and this crew station's missile MODE
+            // The trajectory and this crew station's missile MODE. RF has no trajectory: LOBL when the constraints box
+            // shows it (fza_ihadss_fnc_htmlConstraints), otherwise defaulted to LOAL
+            if ((_heli getVariable ["fza_ah64_selectedMissile", ""]) == "fza_agm114l_wep") then {
+                _mslTraj = ["LOAL", "LOBL"] select (([_heli] call fza_ihadss_fnc_htmlConstraints) param [2, false]);
+            };
             _wpnStat = _mslTraj + " " + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         } else {
             _wpnCtrl = "CMSL";
