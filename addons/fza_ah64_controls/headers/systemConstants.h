@@ -141,7 +141,7 @@
 #define FCR_TPM_ANTENNA_EL               [-0.5, -3] //TPM antenna elevation, ELEV FAR / NEAR
 #define FCR_TPM_BEAM_HALF_EL             5.5 //Assumed: terrain further below the antenna elevation than this is not measured
 #define FCR_BURST_SCANS                  [2, 2, 3, 4] //Scans per scanburst W/M/N/Z (GTM/RMAP; ATM is 2): the looks a target gets
-#define FCR_TARGET_FILE                  256  //Targets the radar tracks, in priority order: the TSD shows all in its attack phase
+#define FCR_TARGET_FILE                  256  //Targets the radar tracks, in priority order: the TSD attack phase shows all with TOTAL TGTS/OBSTACLES
 #define FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS 16 //The top targets the FCR formats, the IHADSS and the TSD nav phase show, and the NTS cycles through
 // Added to a target's priority rank (fza_fcr_fnc_update): taken off in the active PF zone, added in an active NF zone
 #define FCR_ZONE_PRIORITY 100000

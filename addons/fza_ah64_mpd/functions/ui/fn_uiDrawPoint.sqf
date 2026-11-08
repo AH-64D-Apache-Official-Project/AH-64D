@@ -29,10 +29,9 @@ private _getOrCreateCtrl = {
     _ctrlPoint get _key
 };
 
-([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
-    params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
-
-private _textHeight = 0.00208 / _iconSize;
+private _details = [_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails;
+if (isNil "_details") then {_details = []};
+_details params [["_iconTex", ""], ["_iconTex2", ""], ["_iconSize", 0], ["_color", [1, 1, 1, 1]], "_textA", "_textB"];
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
@@ -40,6 +39,21 @@ private _uiCtr   = _armaPos;
 if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     _uiCtr = [_heliPos, _heading, _scale, _heliCtr, _armaPos] call fza_mpd_fnc_tsdWorldToScreen;
 };
+
+// An unknown ident or a position that isn't a number: not drawn, logged once per ident
+if (_details isEqualTo [] || {!(finite _iconSize && {_iconSize > 0} && {finite (_uiCtr # 0)} && {finite (_uiCtr # 1)})}) exitWith {
+    {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
+    private _logged = missionNamespace getVariable ["fza_mpd_badPointLogged", createHashMap];
+    private _ident  = _dmsPoint # POINT_GET_IDENT;
+    if !(_ident in _logged) then {
+        _logged set [_ident, true];
+        missionNamespace setVariable ["fza_mpd_badPointLogged", _logged];
+        diag_log format ["fza_mpd_fnc_uiDrawPoint: skipped point, ident %1, known %2, size %3, pos %4, screen %5, scale %6, frame %7 %8",
+            _ident, _details isNotEqualTo [], _iconSize, _armaPos, _uiCtr, _scale, _heliPos, _heading];
+    };
+};
+
+private _textHeight = 0.00208 / _iconSize;
 
 // Off the display: no controls needed (the display's margin keeps icons that straddle its edge)
 if (_uiCtr # 0 < -0.1 || _uiCtr # 0 > 1.1 || _uiCtr # 1 < -0.1 || _uiCtr # 1 > 1.1) exitWith {

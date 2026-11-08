@@ -24,16 +24,22 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-if ((_heli getVariable "fza_ah64_fcrMode") != FCR_DISP_MODE_TPM) exitWith {};
-
-_heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
-
 private _publish = {
     params ["_obsDisplay", "_obsJson"];
     _heli setVariable ["fza_ah64_fcrTPMObsDisplay", _obsDisplay];
     _heli setVariable ["fza_ah64_fcrTPMObsJson",    _obsJson];
     _heli setVariable ["fza_ah64_fcrTPMObsStamp",   (_heli getVariable ["fza_ah64_fcrTPMObsStamp", 0]) + 1];
 };
+
+// Leaving TPM drops the picture; the next TPM scan starts a fresh one
+if ((_heli getVariable "fza_ah64_fcrMode") != FCR_DISP_MODE_TPM) exitWith {
+    if ((_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]) isNotEqualTo []) then {
+        _heli setVariable ["fza_ah64_fcrTPMObsCycle", -1];
+        [[], "[]"] call _publish;
+    };
+};
+
+_heli getVariable "fza_ah64_fcrState" params ["_fcrScanState", "_fcrScanStartTime"];
 
 // Obstacles are not presented if FCR data is not valid (fault); a commanded
 // clear drops them too. A stopped healthy radar keeps its picture.

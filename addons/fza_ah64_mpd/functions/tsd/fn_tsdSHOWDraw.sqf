@@ -11,6 +11,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_CTRLM), BOOLTONUM(_heli
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_INACTIVE_ZONES), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowInactiveZones" select _phase)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_AREAS), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAreas" select _phase)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_LINES), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowLines" select _phase)];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_OBST), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowObstacles" select _phase)];
 
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_SHOT), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkShot")];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_HAZ), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkHazard")];

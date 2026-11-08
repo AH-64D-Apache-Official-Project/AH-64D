@@ -297,6 +297,8 @@
 #define MFD_IND_TSD_SHOW_INACTIVE_ZONES 11
 #define MFD_IND_TSD_SHOW_AREAS 12
 #define MFD_IND_TSD_SHOW_LINES 29
+// Shares 30 with ZN, which is a different subpage
+#define MFD_IND_TSD_SHOW_OBST 30
 
 #define MFD_IND_TSD_OPEN_POPOUT 13
 #define MFD_IND_TSD_ACQ_BOX 14
