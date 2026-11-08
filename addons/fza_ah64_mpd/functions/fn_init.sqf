@@ -21,6 +21,7 @@ _heli setVariable ["fza_mpd_tsdShowAtkHazard", true];
 _heli setVariable ["fza_mpd_tsdShowInactiveZones", [false, true]];
 _heli setVariable ["fza_mpd_tsdShowAreas", [false, true]];
 _heli setVariable ["fza_mpd_tsdShowLines", [false, false]];
+_heli setVariable ["fza_mpd_tsdShowObstacles", [true, false]];
 
 _heli setVariable ["fza_mpd_tsdWptCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdThrtCurrentSel", []];

@@ -156,9 +156,18 @@ private _shotATList = _heli getVariable "fza_dms_shotAt";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
 } forEach _shotATList;
 
-//FCR Points: all the radar tracks in the attack phase, its top ones in the nav phase
+//FCR obstacles from TPM, under the targets
+private _showObstacles = _heli getVariable "fza_mpd_tsdShowObstacles" select _phase;
+if (_showObstacles && _rangesetting < 25000) then {
+    {
+        _x params ["_ox", "_oy"];
+        _pointsArray pushBack [MPD_POSMODE_WORLD, [_ox, _oy, 0], "", POINT_TYPE_SYSTEM, _forEachIndex, "TSD_FCR_OBSTACLE"];
+    } forEach (_heli getVariable ["fza_ah64_fcrTPMObsDisplay", []]);
+};
+
+//FCR Points: the top targets, and in the attack phase with TOTAL TGTS/OBSTACLES the low priority ones as well
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
-private _displayTargets = (_heli getVariable "fza_ah64_fcrDisplayTargets") select [0, [FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, FCR_TARGET_FILE] select _phase];
+private _displayTargets = (_heli getVariable "fza_ah64_fcrDisplayTargets") select [0, [FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, FCR_TARGET_FILE] select (_phase == 1 && _showObstacles)];
 private _systemWas      = _heli getVariable "fza_ah64_was";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
@@ -171,18 +180,19 @@ private _cursorFcr = [];
     _x params ["_pos", "_type", "_moving", "_target"];
     private _ident = "";
     private _distance_m = _scanPos distance2D _pos;
+    //Selection status
+    private _selStatus = 0;
+    if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
+    if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
 
     if (_rangesetting < 25000) then {
-        //Selection status
-        private _selStatus = 0;
-        if (_forEachIndex == _ntsIndex) then { _selStatus = 1; };
-        if (_forEachIndex == _antsIndex) then { _selStatus = 2; };
-
         _ident = [_type, _distance_m, _moving, _selStatus, _systemWas == WAS_WEAPON_NONE] call fza_mpd_fnc_buildFCRIdent;
         if (_ident == "") then {continue;};
     } else {
         _ident = "FCR_TSD_SC25_50_YELLOW";
     };
+    // Low priority, unless it is the NTS or ANTS
+    if (_forEachIndex >= FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS && _selStatus == 0) then {_ident = _ident + "_LOW";};
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
     _cursorFcr pushBack [_pos, [POINT_TYPE_FCR, _forEachIndex], _target];

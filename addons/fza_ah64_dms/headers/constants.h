@@ -77,6 +77,7 @@
 #define MPD_ICON_COLOR_BLUE {0.4, 0.6, 1.0, 1}
 #define MPD_ICON_COLOR_RED {1.0, 0.0, 0.2, 1}
 #define MPD_ICON_COLOR_YELLOW {1.0, 1.0, 0.0, 1}
+#define MPD_ICON_COLOR_YELLOW_DIM {0.55, 0.55, 0.0, 1}
 
 #define MPD_POSMODE_WORLD true
 #define MPD_POSMODE_SCREEN false
