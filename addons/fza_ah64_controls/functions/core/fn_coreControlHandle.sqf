@@ -147,8 +147,8 @@ if (_value) then {
             if (player != gunner _heli) exitWith {};
             private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
             private _acq = ["GHS", "TADS", "FCR"] select (([SIGHT_HMD, SIGHT_TADS, SIGHT_FCR] find _sight) max 0);
-            ([_heli, "cpg"] call fza_fnc_targetingRange) params ["_range", "_text"];
-            if (_text in ["", "R??"]) then {_range = 0};
+            ([_heli, "cpg"] call fza_fnc_targetingRange) params ["_range", "_text", "_source"];
+            if (_text == "" || {_sight == SIGHT_FCR && {_source == RANGE_SRC_DEFAULT}}) then {_range = 0};
             private _posASL = (getPosASL _heli) vectorAdd ((vectorNormalized ([_heli, _acq] call fza_fnc_targetingAcqVec)) vectorMultiply _range);
             [_heli, _posASL] call fza_fnc_targetingStore;
         };

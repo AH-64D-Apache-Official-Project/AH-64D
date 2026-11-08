@@ -306,17 +306,22 @@ switch (_was) do {
         _wpnStat = format ["%1 NORM %2", _rktCode, _qty];
         private _total = 0;
         {if (_x isNotEqualTo []) then {_total = _total + (_x # 1)}} forEach _inventory;
-        if (_total == 0) then {_wpnStat = "NO RKTS"};
-        // RTOF=NN until the last volley launched arrives
+        if (_total == 0) then {_wpnStat = "NO ROCKETS"};
+        // RKT TOF=NN until the last volley launched arrives
         private _rtof = (_heli getVariable ["fza_ah64_rocketTofEnd", -1]) - CBA_missionTime;
         if (_rtof > 0) then {
-            _wpnStat = "RTOF=" + ([str (ceil _rtof), "00"] call fza_fnc_padString);
+            _wpnStat = "RKT TOF=" + ([str (ceil _rtof), "00"] call fza_fnc_padString);
         };
     };
     case WAS_WEAPON_MSL: {
         _wpnCtl  = _manual + "MSL";
-        // The trajectory and this crew station's missile MODE
-        _wpnStat = (_heli getVariable ["fza_ah64_hellfireTrajectory", "LO"]) + "-" + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
+        // The trajectory and this crew station's missile MODE. RF has no trajectory: LOBL when the constraints box
+        // shows it (fza_ihadss_fnc_htmlConstraints), otherwise defaulted to LOAL
+        private _traj = _heli getVariable ["fza_ah64_hellfireTrajectory", "LO"];
+        if ((_heli getVariable ["fza_ah64_selectedMissile", ""]) == "fza_agm114l_wep") then {
+            _traj = ["LOAL", "LOBL"] select ((_m getOrDefault ["msl", []]) param [2, false]);
+        };
+        _wpnStat = _traj + " " + ([_heli, "fza_ah64_mslMode"] call fza_fnc_getSeatVariable);
         // Shared by both crew stations (fza_hellfire_fnc_tofStart); each drops the missiles that have arrived from its own copy
         private _tofList = _heli getVariable ["fza_ah64_tofCountDown", []];
         private _pending = _tofList select {_x isEqualType [] && {(_x # 0) > CBA_missionTime}};
@@ -327,7 +332,7 @@ switch (_was) do {
             (_pending # 0) params ["_arrival", "_laseCue"];
             private _left = ceil (_arrival - CBA_missionTime);
             private _nn   = [str _left, "00"] call fza_fnc_padString;
-            _wpnStat = "HFTOF=" + _nn;
+            _wpnStat = "HF TOF=" + _nn;
             // Locked on after launch, the cue to lase the target for 4 s from 12 s to go (fza_hellfire_fnc_tofStart)
             if (_laseCue && {_left <= 12} && {_left > 8}) then {_wpnStat = format ["LASE %1 TRGT", _nn]};
         };
@@ -341,10 +346,6 @@ switch (_was) do {
 if (CBA_missionTime < ((_heli getVariable ["fza_ah64_trigger_" + _seat, [-1e6, -1]]) # 1)) then {_wpnStat = "WEAPON?"};
 
 private _sightStat = "";
-if (_fcrOn && {_heli getVariable ["fza_ah64_fcrcscope", false]}) then {_sightStat = "CSCOPE"};
-// The pilot has the TADS as the night vision sensor
-([_heli] call fza_ihadss_fnc_tadsNvs) params ["_tadsNvsMode", "_tadsNvsSeat"];
-if (!_isPilot && {_tadsNvsMode != NVS_MODE_OFF} && {_tadsNvsSeat == "plt"}) then {_sightStat = "PLT TADS"};
 // REMOTE, the CPG's: with missiles actioned, the priority channel on a code other than the LRFD's, so a missile would
 // guide on someone else's laser
 private _priChannel = _heli getVariable ["fza_ah64_laserMissilePrimaryCode", -1];
@@ -356,17 +357,15 @@ private _fcrState  = (_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) #
 if (_fcrOn && {_fcrState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]}) then {_sightStat = "FCR XMIT"};
 // The LRFD code selected has no laser code behind it
 if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLRFDCode", ""], ""]) isEqualType 0)}) then {
-    _sightStat = "RFDCODE?";
+    _sightStat = "LRFD CODE ?";
 };
 if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHashMap]) getOrDefault [_heli getVariable ["fza_ah64_laserLSTCode", ""], ""]) isEqualType 0)}) then {
-    _sightStat = "LSTCODE?";
+    _sightStat = "LST CODE ?";
 };
 if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};
 if (_atLimit) then {_sightStat = "LIMITS"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};
-// The day TV failed leaves the DVO and FLIR
-if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TV FAIL"};
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};
 
 // A target just stored (fza_fnc_targetingStore) shows for 3 seconds in place of the inhibit message
@@ -374,16 +373,18 @@ if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_
 private _holdsWeapon = _was != WAS_WEAPON_NONE && {_seat in (_heli getVariable ["fza_ah64_wasSeats", []])};
 private _inhibit = ["", _heli getVariable ["fza_ah64_weaponInhibited", ""]]
     select (_holdsWeapon || {(_heli getVariable ["fza_ah64_weaponInhibitedSeat", ""]) == _seat});
+// TARGET DATA? stops the launch like an inhibit (fza_fnc_weaponAim) but is a sight status message
+if (_inhibit == "TARGET DATA?") then {
+    if !(_sightStat in ["FCR FAIL", "NVS FAIL", "TADS FAIL"]) then {_sightStat = _inhibit};
+    _inhibit = "";
+};
 (_heli getVariable ["fza_ah64_targetStoreMsg", ["", 0, ""]]) params ["_storeMsg", "_storeUntil", ["_storeSeat", _seat]];
 if (_storeSeat != _seat) then {_storeUntil = 0};
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
 if (_holdsWeapon && {_was == WAS_WEAPON_GUN} && {[_heli, _seat] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
 
-// The CPG's tracker status (fza_ihadss_fnc_lstUpdate)
-private _tracker = ["", _heli getVariable ["fza_ah64_lstStatus", ""]] select !_isPilot;
-
-_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit, _tracker]];
+_m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit]];
 
 if (_mpd) then {
     _m set ["hd", true];
