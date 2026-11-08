@@ -444,6 +444,14 @@ class AnimationSources
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
     };
+    //1 = set, as modelled and as the aircraft is shut down.
+    class parkBrakeHandle
+    {
+        source = "user";
+        animPeriod = 0.3;
+        initPhase=1;
+        onPhaseChanged = "[_this # 0, ""fza_ah64_toggleParkingBrake"", ""parkBrakeHandle""] call fza_fnc_animReset";
+    };
     class plt_anticollision
     {
         source = "user";

@@ -42,5 +42,6 @@ class CBA_Extended_EventHandlers_base;
 
 // Minimal unit info panel the vehicle uses in place of the stock one
 #include "config\CfgUi.hpp"
+#include "config\RscFzaAH64TwUnlocked.hpp"
 
 #include "config\CfgSettings.hpp"

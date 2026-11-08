@@ -46,12 +46,21 @@ if (_hits isEqualTo []) exitWith {
 //Zero with the wheel at full extension, _sag with it sitting where the model draws it.
 private _compression = _sag - ((_bottom select 2) - ((_hits select 0 select 0) select 2));
 
-//-1 when it was off the ground last frame, so there is no rate to read on first contact.
+//-1 when it was off the ground last frame, so there is nothing to difference on first contact: the
+//rate is then the wheel's own descent, capped at what this frame's compression can account for,
+//since it may have touched part way through the frame. Later frames difference the compression,
+//which also sees the ground rising under a rolling wheel.
 private _prev = (_heli getVariable "fza_suspension_prevCompression") select _index;
 private _rate = 0.0;
 if (_prev >= 0.0) then {
-    _rate = (((_compression - _prev) / _deltaTime) max -SUSP_MAX_RATE) min SUSP_MAX_RATE;
+    _rate = (_compression - _prev) / _deltaTime;
+} else {
+    //Arma's angular velocity is the inverse of the right hand rule, hence the subtraction.
+    private _arm     = (_heli modelToWorldWorld _pos) vectorDiff (_heli modelToWorldWorld (getCenterOfMass _heli));
+    private _descent = -(((velocity _heli) vectorDiff ((angularVelocity _heli) vectorCrossProduct _arm)) select 2);
+    _rate = ((_descent max -(_compression / _deltaTime)) min (_compression / _deltaTime));
 };
+_rate = (_rate max -SUSP_MAX_RATE) min SUSP_MAX_RATE;
 [_heli, "fza_suspension_prevCompression", _index, _compression] call fza_fnc_setArrayVariable;
 
 //A gas strut: it carries the static load at _sag, is soft near full extension and stiffens as it

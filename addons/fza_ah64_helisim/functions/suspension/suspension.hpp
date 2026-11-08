@@ -10,19 +10,23 @@
 #define SUSP_GRAVITY            9.81
 
 //Compression at static load, m, and the strut's curve: load = static * (compression / sag) ^ exp.
-//Stiffness at static load is exp * load / sag, and frequency sqrt(exp * gravity / sag).
-#define SUSP_MAIN_SAG           0.10
-#define SUSP_TAIL_SAG           0.06
+//Stiffness at static load is exp * load / sag, and frequency sqrt(exp * gravity / sag). Soft
+//enough that a frame moves the strut a small part of a cycle: the tail wheel moves about half its
+//static load, and at 0.06 it hopped at 5 Hz.
+#define SUSP_MAIN_SAG           0.15
+#define SUSP_TAIL_SAG           0.25
 #define SUSP_SPRING_EXP         1.5
 
 //Damping ratios. Rebound is the higher so a landing does not spring back off the ground.
 #define SUSP_ZETA_COMPRESS      0.5
 #define SUSP_ZETA_REBOUND       0.7
 
-//Stability limits. Forces are applied a frame late, so at a low frame rate the spring and damper
-//are eased back rather than allowed to overshoot: stiffness * dt^2 and damping * dt per unit mass.
-#define SUSP_SPRING_DT_LIMIT    0.5
-#define SUSP_DAMP_DT_LIMIT      0.5
+//Stability limits: stiffness * dt^2 and damping * dt per unit of the wheel's static load. Forces
+//are applied a frame late, and a wheel moves about half its static load, so past the frame time
+//where these bite the loop has the same gain every frame whatever the frame rate. At these values
+//it decays at every frame time tested, 17 to 200 ms; looser and the struts pump at 40 ms.
+#define SUSP_SPRING_DT_LIMIT    0.05
+#define SUSP_DAMP_DT_LIMIT      0.2
 #define SUSP_MAX_RATE           5.0     //m/s, compression rate
 #define SUSP_MAX_LOAD           5.0     //multiples of the wheel's static load
 
@@ -60,10 +64,16 @@
 #define SUSP_LOAD_STEADY_TIME   1.0     //s
 #define SUSP_LOAD_MAX_TIME      5.0     //s
 
-//Holding an idle aircraft with nobody aboard, once it has been at rest this long.
+//Holding an aircraft at rest: idle with nobody aboard, or crewed with the brake on and the
+//collective down, once it has been at rest this long.
 #define SUSP_REST_SPEED         0.3     //m/s
 #define SUSP_REST_RATE          0.05    //rad/s
 #define SUSP_REST_TIME          0.25    //s
+//A crewed aircraft sleeps only with the collective at or below this, and wakes above it, when
+//the brake comes off, when its mass changes by this fraction, or when something moves it.
+#define SUSP_SLEEP_COLLECTIVE   0.1
+#define SUSP_WAKE_MASS_FRAC     0.01
+#define SUSP_WAKE_SPEED         0.5     //m/s
 
 //One RPT line a frame while a wheel is on the ground. Remove once it is tuned.
 #define SUSP_LOG

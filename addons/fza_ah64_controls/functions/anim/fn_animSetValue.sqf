@@ -31,6 +31,7 @@ private _animNames = createHashMapFromArray
     ,["fza_ah64_tadsStow", "tads_stow"]
     ,["fza_ah64_powerLever1", "plt_eng1_throttle"]
     ,["fza_ah64_powerLever2", "plt_eng2_throttle"]
+    ,["fza_ah64_toggleParkingBrake", "parkBrakeHandle"]
     ];
 private _animName = _animNames get _varName;
 

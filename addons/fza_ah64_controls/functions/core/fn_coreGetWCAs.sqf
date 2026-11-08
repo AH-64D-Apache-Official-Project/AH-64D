@@ -629,8 +629,13 @@ if ((_heli getVariable ["bmkhs_rotorBrakeVal", 0]) > 0
 if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
-if (_onGnd && {_heli getVariable ["fza_ah64_tailWheelLock", true]}) then {
-    _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCK SEL", "TW LOCK SEL"];
+if (_heli getVariable ["fza_ah64_tailWheelLock", true]) then {
+    if (_onGnd) then {
+        _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCK SEL", "TW LOCK SEL"];
+    };
+} else {
+    //In flight too: it is the reminder to lock before landing.
+    _wcas pushBack [WCA_ADVISORY, "TAIL WHL UNLK SEL", "TW UNLK SEL"];
 };
 
 //Auxilary Fuel tanks

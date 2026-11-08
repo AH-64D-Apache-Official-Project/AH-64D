@@ -25,6 +25,7 @@ _heli setVariable ["fza_suspension_castorAnimated",  0.0];
 _heli setVariable ["fza_suspension_placed",          false];
 _heli setVariable ["fza_suspension_loadSteady",      -1.0];
 _heli setVariable ["fza_suspension_loadUntil",       0.0];
+_heli setVariable ["fza_suspension_sleepMass",       0.0];
 _heli setVariable ["fza_suspension_gripBend",        [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]];
 
 //These publish, so only the owner sets them: a machine joining mid-flight must not reset them.

@@ -343,10 +343,15 @@ if (_value) then {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
         case "fza_ah64_toggleParkingBrake": {
-            _heli setVariable ["fza_ah64_toggleParkingBrake", !_parkingBrake, true];
+            [_heli, "fza_ah64_toggleParkingBrake", !_parkingBrake] call fza_fnc_animSetValue;
         };
         case "fza_ah64_toggleTailWheelLock": {
-            _heli setVariable ["fza_ah64_tailWheelLock", !(_heli getVariable ["fza_ah64_tailWheelLock", true]), true];
+            private _unlocked = _heli getVariable ["fza_ah64_tailWheelLock", true];
+            _heli setVariable ["fza_ah64_tailWheelLock", !_unlocked, true];
+            //The pilot's UNLOCKED legend is drawn from a display, as the MPDs are. The CPG's face is
+            //mapped to a few pixels of the cockpit atlas, so it lights plain until it is remapped.
+            _heli setObjectTextureGlobal ["plt_tw_button", ["", "#(rgb,2048,2048,1)ui(RscFzaAH64TwUnlocked,1)"] select _unlocked];
+            _heli setObjectTextureGlobal ["cpg_tw_button", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _unlocked];
         };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";
