@@ -9,15 +9,18 @@ private _toScreen = {
     private _r = (_framePos distance2D _x) * _scale;
     [_cx + sin _theta * _r, _cy - cos _theta * _r]
 };
+// The dashes drawn this frame, shared by every zone; past them the rest are drawn solid
+private _budget = 1200;
+// Solid, short dashes, or the active zone's alternation between short and long dashes twice a second
+private _dashes = [[], [0.006, 0.006], [[0.006, 0.006], [0.02, 0.012]] select (floor (diag_tickTime * 2) mod 2)];
 private _draw = {
     params ["_pts", "_closed", "_color", ["_style", 0]];
+    if (count _pts < 2) exitWith {};
     private _screen = _pts apply _toScreen;
     private _xs = _screen apply {_x # 0};
     private _ys = _screen apply {_x # 1};
     if (selectMax _xs < _left || {selectMin _xs > _right} || {selectMax _ys < _top} || {selectMin _ys > _bottom}) exitWith {};
-    // Solid, short dashes, or the active zone's alternation between short and long dashes twice a second
-    private _dash = [[], [0.006, 0.006], [[0.006, 0.006], [0.02, 0.012]] select (floor (diag_tickTime * 2) mod 2)] select _style;
-    [_canvas, _screen, _closed, _color, 0.004, TSD_MAP_CLIP, _dash] call fza_mpd_fnc_canvasDrawPolyline;
+    _budget = _budget - ([_canvas, _screen, _closed, _color, 0.004, TSD_MAP_CLIP, _dashes param [_style, []], _budget max 0] call fza_mpd_fnc_canvasDrawPolyline);
 };
 
 {

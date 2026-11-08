@@ -1,8 +1,9 @@
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli", "_kind", "_slot", "_on"];
 
-private _zones = _heli getVariable (["fza_dms_pfZones", "fza_dms_nfZones"] select _kind);
-if (_on && {(_zones # _slot) isEqualTo -1}) exitWith {false};
+private _zones = _heli getVariable [["fza_dms_pfZones", "fza_dms_nfZones"] select _kind, []];
+if (_slot < 0 || {_slot >= ([ZONE_COUNT_PF, ZONE_COUNT_NF] select _kind)}) exitWith {false};
+if (_on && {(_zones param [_slot, -1]) isEqualTo -1}) exitWith {false};
 
 private _state = +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]);
 if (_kind == ZONE_KIND_PF) then {

@@ -26,17 +26,20 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-([_heli] call fza_ihadss_fnc_tadsLos) params ["", "_losDir"];
-private _dir  = _heli vectorModelToWorldVisual _losDir;
 private _prev = _heli getVariable ["fza_ihadss_nativeGainDir", []];
-
 private _native = player == gunner _heli && {cameraView == "GUNNER"} && {_heli getVariable ["bmkhs_acBusOn", false]}
     && {([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) == SIGHT_TADS}
     && {(([_heli] call fza_ihadss_fnc_tadsNvs) # 0) == NVS_MODE_OFF}
     && {!(_heli getVariable ["fza_ah64_LmcActive", false])} && {!(_heli getVariable ["fza_ah64_cpgSlaved", false])}
     && {!(_heli getVariable ["fza_ihadss_lstDriving", false])} && {!(_heli getVariable ["fza_ihadss_iatDriving", false])};
-_heli setVariable ["fza_ihadss_nativeGainDir", [[], _dir] select _native];
-if (!_native || {_prev isEqualTo []}) exitWith {};
+if (!_native) exitWith {
+    if (_prev isNotEqualTo []) then {_heli setVariable ["fza_ihadss_nativeGainDir", []]};
+};
+
+([_heli] call fza_ihadss_fnc_tadsLos) params ["", "_losDir"];
+private _dir = _heli vectorModelToWorldVisual _losDir;
+_heli setVariable ["fza_ihadss_nativeGainDir", _dir];
+if (_prev isEqualTo []) exitWith {};
 
 private _uAz = inputAction "AimRight" - inputAction "AimLeft";
 private _uEl = inputAction "AimUp" - inputAction "AimDown";

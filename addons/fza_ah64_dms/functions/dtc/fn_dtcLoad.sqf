@@ -5,7 +5,7 @@ params ["_heli"];
 [missionNamespace, _heli] call fza_dms_fnc_copy;
 
 private _pending = _heli getVariable ["fza_dms_dtcPending", []];
-if (_pending isEqualTo [] || {(_pending # 2) != worldName}) exitWith {
+if !(_pending isEqualType [] && {count _pending >= 8} && {(_pending # 2) isEqualTo worldName}) exitWith {
     _heli setVariable ["fza_dms_dtcName", "", true];
 };
 _pending params ["", "_name", "", "_lines", "_areas", "_pf", "_nf", "_zoneState", ["_wp", []], ["_cm", []], ["_tt", []], ["_routes", []], ["_routeNames", []]];

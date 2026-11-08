@@ -179,10 +179,11 @@
                 zonesDirty   = true;
             }
             if (data.zones !== undefined) {
-                var key = JSON.stringify(data.zones || []);
+                var next = Array.isArray(data.zones) ? data.zones.filter(function (z) { return z && Array.isArray(z.p); }) : [];
+                var key = JSON.stringify(next);
                 if (key !== zonesKey) {
                     zonesKey   = key;
-                    zones      = data.zones || [];
+                    zones      = next;
                     zonesDirty = true;
                 }
             }

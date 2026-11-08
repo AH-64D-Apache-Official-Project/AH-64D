@@ -32,7 +32,7 @@ private _zones = switch (_persistState getOrDefault ["znOpt", 0]) do {
 
 if (_zones isEqualTo []) exitWith {
     _snapshot params ["_pf", "_zoneState"];
-    if ((_heli getVariable "fza_dms_pfZones") isNotEqualTo _pf) then {
+    if ((_heli getVariable ["fza_dms_pfZones", []]) isNotEqualTo _pf) then {
         _heli setVariable ["fza_dms_pfZones", +_pf, true];
     };
     private _now = +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]);

@@ -24,7 +24,8 @@ private _heli = uiNamespace getVariable ["fza_mplanner_target", objNull];
 
 private _list = {
     params ["_saves"];
-    (_saves select {(_x param [2, worldName]) == worldName}) apply {
+    if !(_saves isEqualType []) exitWith {[]};
+    (_saves select {_x isEqualType [] && {_x isEqualTypeParams ["", ""]} && {(_x param [2, worldName]) isEqualTo worldName}}) apply {
         createHashMapFromArray [["name", _x # 0], ["json", _x # 1], ["by", _x param [3, ""]]]
     }
 };

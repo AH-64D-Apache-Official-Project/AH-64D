@@ -17,7 +17,7 @@ if (_draft isNotEqualTo [] && {count (_draft # 0) >= _total}) then {
     _draft = [];
 };
 if (_draft isEqualTo []) then {
-    private _snapshot = [[], [+(_heli getVariable "fza_dms_pfZones"), +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT])]] select _pf;
+    private _snapshot = [[], [+(_heli getVariable ["fza_dms_pfZones", []]), +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT])]] select _pf;
     _draft = [[], _snapshot, _heading];
 };
 

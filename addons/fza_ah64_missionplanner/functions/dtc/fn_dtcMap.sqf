@@ -277,15 +277,19 @@ switch (_mode) do {
     };
     case "terrain": {
         params ["", ["_json", "", [""]]];
+        if (_json isEqualTo "") exitWith {};
         private _at = fromJSON _json;
-        if !(_at isEqualType []) exitWith {};
-        private _heights = _at apply {round ((getTerrainHeightASL [_x # 0, _x # 1]) * 10) / 10};
+        if (isNil "_at" || {!(_at isEqualType [])}) exitWith {};
+        private _heights = _at apply {
+            if (_x isEqualTypeParams [0, 0]) then {round ((getTerrainHeightASL [_x # 0, _x # 1]) * 10) / 10} else {0}
+        };
         [format ["window.fzaDtc && window.fzaDtc.onTerrain(%1);", toJSON _heights]] call _js;
     };
     case "sync": {
         params ["", ["_json", "", [""]]];
+        if (_json isEqualTo "") exitWith {};
         private _data = fromJSON _json;
-        if !(_data isEqualType createHashMap) exitWith {};
+        if (isNil "_data" || {!(_data isEqualType createHashMap)}) exitWith {};
         uiNamespace setVariable ["fza_mplanner_dtcDraw", _data getOrDefault ["d", []]];
         uiNamespace setVariable ["fza_mplanner_dtcPoints", _data getOrDefault ["p", []]];
         uiNamespace setVariable ["fza_mplanner_dtcRoute", _data getOrDefault ["r", []]];

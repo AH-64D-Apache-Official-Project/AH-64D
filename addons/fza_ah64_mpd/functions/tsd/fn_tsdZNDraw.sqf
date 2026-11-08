@@ -21,7 +21,7 @@ if (_fcrPower && {_zoneState # ZONE_STATE_NF_SINGLE}) then {
     [_heli, _zoneState] call fza_dms_fnc_zoneSetState;
 };
 
-private _zones = _heli getVariable (["fza_dms_pfZones", "fza_dms_nfZones"] select _type);
+private _zones = _heli getVariable [["fza_dms_pfZones", "fza_dms_nfZones"] select _type, []];
 private _activePf = _zoneState # ZONE_STATE_ACTIVE_PF;
 private _nfActive = _zoneState # ZONE_STATE_NF_ACTIVE;
 private _isActive = {
@@ -60,10 +60,10 @@ if (_variant == 2) exitWith {
 // NF SEL and ASN: the eight zones
 private _prefix = ["PF", "NF"] select (_variant == 1);
 if (_variant == 1) then {
-    _zones = _heli getVariable "fza_dms_nfZones";
+    _zones = _heli getVariable ["fza_dms_nfZones", []];
     _type = ZONE_KIND_NF;
 } else {
-    _zones = _heli getVariable "fza_dms_pfZones";
+    _zones = _heli getVariable ["fza_dms_pfZones", []];
     _type = ZONE_KIND_PF;
 };
 {

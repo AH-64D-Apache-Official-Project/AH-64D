@@ -40,20 +40,21 @@ private _halfOf = {
 private _best     = objNull;
 private _bestOff  = 1e9;
 private _bestHalf = [0, 0];
+// No farther off the LOS than one at the largest size it tracks (fza_ihadss_fnc_iatCheck) could reach
+private _maxReach = [(IAT_SEARCH + IAT_GATE_MAX) * _fov, _size * _fov] select (_size > 0);
 {
     private _pos = (getPosASLVisual _x) vectorAdd ((aimPos _x) vectorDiff (getPosASL _x));
     private _v   = _pos vectorDiff _tadsPos;
     private _f   = _v vectorDotProduct _dir;
-    if (_f > 1) then {
-        private _half = _x call _halfOf;
-        private _off  = (vectorMagnitude (_v vectorDiff (_dir vectorMultiply _f))) / _f;
-        private _reach = if (_size > 0) then {_size * _fov} else {IAT_SEARCH * _fov + ((_half # 0) max (_half # 1)) / _f};
-        if (_off <= _reach && {_off < _bestOff}
-            && {[_heli, _x, _pos, _half, _vision] call fza_ihadss_fnc_iatCheck}) then {
-            _best     = _x;
-            _bestOff  = _off;
-            _bestHalf = _half;
-        };
+    if (_f <= 1) then {continue};
+    private _off = (vectorMagnitude (_v vectorDiff (_dir vectorMultiply _f))) / _f;
+    if (_off > _maxReach || {_off >= _bestOff}) then {continue};
+    private _half  = _x call _halfOf;
+    private _reach = if (_size > 0) then {_size * _fov} else {IAT_SEARCH * _fov + ((_half # 0) max (_half # 1)) / _f};
+    if (_off <= _reach && {[_heli, _x, _pos, _half, _vision] call fza_ihadss_fnc_iatCheck}) then {
+        _best     = _x;
+        _bestOff  = _off;
+        _bestHalf = _half;
     };
 } forEach ((_heli nearEntities [["LandVehicle", "Ship", "Air", "CAManBase"], IAT_RANGE]) - [_heli]);
 

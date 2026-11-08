@@ -31,12 +31,13 @@ Author:
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
 params ["_heli", ["_lstDriving", false]];
 
-private _iat = +(_heli getVariable ["fza_ah64_iat", IAT_IDLE]);
-_iat params ["_state", "_gate0", "_obj", "_trackPoint", "_coastPos", "_vel", "_seenAt", "_half", "_startedAt", "", "_ofs"];
-if (_state == IAT_OFF || {player != gunner _heli}) exitWith {
+private _iat = _heli getVariable ["fza_ah64_iat", []];
+if (_iat isEqualTo [] || {(_iat # 0) == IAT_OFF} || {player != gunner _heli}) exitWith {
     _heli setVariable ["fza_ihadss_iatDriving", false];
     []
 };
+_iat = +_iat;
+_iat params ["_state", "_gate0", ["_obj", objNull], ["_trackPoint", []], ["_coastPos", []], ["_vel", [0, 0, 0]], ["_seenAt", -1], ["_half", [0, 0]], ["_startedAt", -1], "", ["_ofs", false]];
 
 private _vision = [_heli] call fza_ihadss_fnc_getVisionMode;
 if (!(_heli getVariable ["bmkhs_acBusOn", false]) || {_lstDriving} || {_vision == 3}

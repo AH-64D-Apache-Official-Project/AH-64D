@@ -14,7 +14,7 @@ private _slot = _persistState getOrDefault ["znNfSel", 0];
 [_heli, ZONE_KIND_NF, _slot, _quad] call fza_dms_fnc_zoneSet;
 [_heli, ZONE_KIND_NF, _slot, true] call fza_dms_fnc_zoneActivate;
 
-private _zones = _heli getVariable "fza_dms_nfZones";
+private _zones = _heli getVariable ["fza_dms_nfZones", []];
 private _next = _zones findIf {_x isEqualTo -1};
 if (_next != -1) then {_persistState set ["znNfSel", _next]};
 true

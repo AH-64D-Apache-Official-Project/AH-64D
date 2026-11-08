@@ -5,8 +5,8 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 private _variant = (_state get "subPageVarPage") # 1;
 private _type = _persistState getOrDefault ["znType", ZONE_KIND_PF];
-private _pfZones = _heli getVariable "fza_dms_pfZones";
-private _nfZones = _heli getVariable "fza_dms_nfZones";
+private _pfZones = _heli getVariable ["fza_dms_pfZones", []];
+private _nfZones = _heli getVariable ["fza_dms_nfZones", []];
 private _nfSel = _persistState getOrDefault ["znNfSel", 0];
 private _pfSel = _persistState getOrDefault ["znPfSel", 0];
 private _clearDraft = {_state set ["znDraft", []]};
@@ -35,7 +35,7 @@ switch (_variant) do {
                 call _clearDraft;
             };
             case "l4": {
-                private _any = [_pfZones findIf {_x isNotEqualTo -1} != -1, (_nfZones # _nfSel) isNotEqualTo -1] select (_type == ZONE_KIND_NF);
+                private _any = [_pfZones findIf {_x isNotEqualTo -1} != -1, (_nfZones param [_nfSel, -1]) isNotEqualTo -1] select (_type == ZONE_KIND_NF);
                 if (_any) then {
                     call _clearDraft;
                     _state set ["subPageVarPage", TSD_ZN_DEL];
@@ -58,7 +58,7 @@ switch (_variant) do {
                     private _drawn = [];
                     {if (_x isNotEqualTo -1) then {_drawn pushBack _forEachIndex}} forEach _pfZones;
                     if (_drawn isEqualTo []) exitWith {};
-                    private _active = (_heli getVariable "fza_dms_zoneState") # ZONE_STATE_ACTIVE_PF;
+                    private _active = (_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]) # ZONE_STATE_ACTIVE_PF;
                     private _next = _drawn param [(_drawn find _active) + 1, -1];
                     if (_next == -1) then {
                         [_heli, ZONE_KIND_PF, _active, false] call fza_dms_fnc_zoneActivate;
@@ -84,7 +84,7 @@ switch (_variant) do {
             switch (_control) do {
                 case "t1": {
                     if (_heli animationPhase "fcr_enable" == 1 && {((_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0) != FCR_MODE_OFF}) exitWith {};
-                    private _zoneState = +(_heli getVariable "fza_dms_zoneState");
+                    private _zoneState = +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]);
                     private _single = !(_zoneState # ZONE_STATE_NF_SINGLE);
                     _zoneState set [ZONE_STATE_NF_SINGLE, _single];
                     // SINGLE keeps one active: the chosen one, else the first
@@ -101,8 +101,8 @@ switch (_variant) do {
                     _state set ["subPageVarPage", TSD_ZN_NF_SEL];
                 };
                 case "l3": {
-                    if ((_nfZones # _nfSel) isEqualTo -1) exitWith {};
-                    private _on = !(((_heli getVariable "fza_dms_zoneState") # ZONE_STATE_NF_ACTIVE) param [_nfSel, false]);
+                    if ((_nfZones param [_nfSel, -1]) isEqualTo -1) exitWith {};
+                    private _on = !(((_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]) # ZONE_STATE_NF_ACTIVE) param [_nfSel, false]);
                     [_heli, ZONE_KIND_NF, _nfSel, _on] call fza_dms_fnc_zoneActivate;
                 };
                 case "b6": {
@@ -134,12 +134,12 @@ switch (_variant) do {
     };
     case 3: {
         if (_slot != -1) exitWith {
-            if ((_pfZones # _slot) isNotEqualTo -1) then {_persistState set ["znPfSel", _slot]};
+            if ((_pfZones param [_slot, -1]) isNotEqualTo -1) then {_persistState set ["znPfSel", _slot]};
         };
         switch (_control) do {
             case "b6": {
-                if ((_pfZones # _pfSel) isEqualTo -1) exitWith {};
-                private _zoneState = +(_heli getVariable "fza_dms_zoneState");
+                if ((_pfZones param [_pfSel, -1]) isEqualTo -1) exitWith {};
+                private _zoneState = +(_heli getVariable ["fza_dms_zoneState", ZONE_STATE_DEFAULT]);
                 _zoneState set [ZONE_STATE_ACTIVE_PF, _pfSel];
                 _zoneState set [ZONE_STATE_OWN_PF, _pfSel];
                 [_heli, _zoneState] call fza_dms_fnc_zoneSetState;
