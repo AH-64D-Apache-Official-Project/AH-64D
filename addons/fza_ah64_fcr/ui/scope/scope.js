@@ -24,12 +24,14 @@
     var targets      = [];
     var shots        = [];
     var targetsDirty = false;
-    // The active PF zone, white, and active NF zones, yellow with dashes that march, under the symbols
+    // Active PF zone white, NF zones yellow, under the symbols; drawn as the TSD's active zones (fza_mpd_fnc_tsdZoneDrawCanvas)
+    var ZONE_WIDTH   = 0.004;
+    var ZONE_DASHES  = [[0.006, 0.006], [0.02, 0.012]];
     var zcanvas, zctx;
     var zones        = [];
     var zonesKey     = "[]";
     var zonesDirty   = false;
-    var zonesDrawnAt = 0;
+    var zonesPhase   = -1;
 
     function init() {
         canvas = document.getElementById("overlay");
@@ -94,7 +96,7 @@
         return toPx(dx, dy);
     }
 
-    function drawZones(t) {
+    function drawZones(phase) {
         zctx.clearRect(0, 0, W, H);
         if (!zones.length) { return; }
         var g = GEOM[mode] || GEOM[1];
@@ -125,7 +127,9 @@
             zctx.rect(tl[0], tl[1], br[0] - tl[0], br[1] - tl[1]);
             zctx.clip();
         }
-        zctx.lineWidth = Math.max(1, 0.005 * H);
+        var px = H / 0.95;
+        zctx.lineWidth = Math.max(1, ZONE_WIDTH * px);
+        zctx.setLineDash(ZONE_DASHES[phase].map(function (d) { return d * px; }));
         zones.forEach(function (z) {
             zctx.beginPath();
             for (var k = 0; k + 1 < z.p.length; k += 2) {
@@ -134,8 +138,6 @@
             }
             zctx.closePath();
             zctx.strokeStyle = z.c ? "#ff0" : "#fff";
-            zctx.setLineDash(z.c ? [0.02 * H, 0.012 * H] : []);
-            zctx.lineDashOffset = z.c ? -(t * 0.03 * H / 1000) : 0;
             zctx.stroke();
         });
         zctx.restore();
@@ -152,11 +154,10 @@
             // Stay dirty until every sprite has finished its async decode
             targetsDirty = !drawSymbols();
         }
-        // The NF zones' dashes march at 30 frames a second
-        var marquee = zones.some(function (z) { return z.c; });
-        if (zonesDirty || (marquee && t - zonesDrawnAt > 33)) {
-            drawZones(t || 0);
-            zonesDrawnAt = t || 0;
+        var phase = Math.floor((t || 0) / 500) % 2;
+        if (zonesDirty || (zones.length && phase !== zonesPhase)) {
+            drawZones(phase);
+            zonesPhase = phase;
             zonesDirty = false;
         }
     }
