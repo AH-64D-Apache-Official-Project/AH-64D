@@ -35,7 +35,13 @@ class CfgVehicles {
                 topRight   = "PLT_BTN_MSTR_CAUT_TR";
                 bottomLeft = "PLT_BTN_MSTR_CAUT_BL";
                 #include "pushbuttons\mstrCaut.hpp"
-            }; 
+            };
+            class BTN_TW_UNLK {
+                topLeft    = "PLT_BTN_TW_UNLK_TL";
+                topRight   = "PLT_BTN_TW_UNLK_TR";
+                bottomLeft = "PLT_BTN_TW_UNLK_BL";
+                #include "pushbuttons\twUnlk.hpp"
+            };
         };
         class Turrets : Turrets {
             class MainTurret : NewTurret {
@@ -69,7 +75,13 @@ class CfgVehicles {
                         topRight   = "CPG_BTN_MSTR_CAUT_TR";
                         bottomLeft = "CPG_BTN_MSTR_CAUT_BL";
                         #include "pushbuttons\mstrCaut.hpp"
-                    }; 
+                    };
+                    class BTN_TW_UNLK {
+                        topLeft    = "CPG_BTN_TW_UNLK_TL";
+                        topRight   = "CPG_BTN_TW_UNLK_TR";
+                        bottomLeft = "CPG_BTN_TW_UNLK_BL";
+                        #include "pushbuttons\twUnlk.hpp"
+                    };
                 };
             };
         };

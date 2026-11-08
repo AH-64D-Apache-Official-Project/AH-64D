@@ -34,7 +34,5 @@ hiddenselections[]={
     "skin_tailboom",
     "skin_vtail",
     "hstab",
-    "skin_tailrotor",
-    "plt_tw_button",
-    "cpg_tw_button"
+    "skin_tailrotor"
 };

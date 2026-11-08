@@ -346,12 +346,7 @@ if (_value) then {
             [_heli, "fza_ah64_toggleParkingBrake", !_parkingBrake] call fza_fnc_animSetValue;
         };
         case "fza_ah64_toggleTailWheelLock": {
-            private _unlocked = _heli getVariable ["fza_ah64_tailWheelLock", true];
-            _heli setVariable ["fza_ah64_tailWheelLock", !_unlocked, true];
-            //The UNLOCKED legend lights on both panels: drawn from a display, as the MPDs are.
-            {
-                _heli setObjectTextureGlobal [_x, ["", "#(rgb,2048,2048,1)ui(RscFzaAH64TwUnlocked,1)"] select _unlocked];
-            } forEach ["plt_tw_button", "cpg_tw_button"];
+            _heli setVariable ["fza_ah64_tailWheelLock", !(_heli getVariable ["fza_ah64_tailWheelLock", true]), true];
         };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";

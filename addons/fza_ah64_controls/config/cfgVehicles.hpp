@@ -17,7 +17,7 @@ class CfgVehicles {
         A3TI_ThermalSelections[] = {"skin"};
 
         //MFD values
-        mfdMaxUserValues = 100;
+        mfdMaxUserValues = 101;
 
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\animationSources.hpp"

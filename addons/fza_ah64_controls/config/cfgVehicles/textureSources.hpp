@@ -104,7 +104,5 @@ hiddenSelectionsTextures[] = {
     "\fza_ah64_model\tex\Ex\b2_co.paa",     //skin_tailboom
     "\fza_ah64_model\tex\Ex\b2_co.paa",     //skin_vtail
     "\fza_ah64_model\tex\Ex\b2_co.paa",     //hstab
-    "\fza_ah64_model\tex\ex\rtrs_co.paa",   //skin_tailrotor
-    "",                                     //plt_tw_button
-    ""                                      //cpg_tw_button
+    "\fza_ah64_model\tex\ex\rtrs_co.paa"    //skin_tailrotor
 };
