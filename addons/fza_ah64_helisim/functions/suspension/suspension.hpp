@@ -75,5 +75,6 @@
 #define SUSP_WAKE_MASS_FRAC     0.01
 #define SUSP_WAKE_SPEED         0.5     //m/s
 
-//One RPT line a frame while a wheel is on the ground. Remove once it is tuned.
-#define SUSP_LOG
+//One RPT line a frame while a wheel is on the ground, and one a second while held, with Core's
+//flight log (the bmkhs_flightLog CBA setting).
+#define SUSP_LOG (!isNil "bmkhs_flightLog" && {bmkhs_flightLog})

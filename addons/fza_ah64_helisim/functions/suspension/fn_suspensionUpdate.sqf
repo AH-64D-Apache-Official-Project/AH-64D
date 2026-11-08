@@ -72,14 +72,12 @@ if (_steady >= 0.0) then {
 };
 
 if (_isHeld && {_timeAccel || _idle || _steady >= 0.0 || {_brake && _collDown && !_moved}}) exitWith {
-#ifdef SUSP_LOG
-    if (CBA_missionTime - (_heli getVariable ["fza_suspension_heldLogged", -10.0]) >= 1.0) then {
+    if (SUSP_LOG && {CBA_missionTime - (_heli getVariable ["fza_suspension_heldLogged", -10.0]) >= 1.0}) then {
         _heli setVariable ["fza_suspension_heldLogged", CBA_missionTime];
         diag_log format ["SUSP,HELD,%1,coll=%2,brake=%3,idle=%4,steady=%5,accel=%6,moved=%7",
             CBA_missionTime toFixed 2, (_heli getVariable "bmkhs_collectiveOutput") toFixed 3,
             _brake, _idle, _steady toFixed 2, _timeAccel, _moved];
     };
-#endif
     _held params ["_posHeld", "_dirHeld", "_upHeld"];
     _heli setPosASL _posHeld;
     _heli setVectorDirAndUp [_dirHeld, _upHeld];
@@ -126,8 +124,7 @@ private _left  = [_heli, 1, SUSP_WHEEL_LEFT, SUSP_MAIN_RADIUS, SUSP_MAIN_SAG, _m
 private _tail  = [_heli, 2, SUSP_WHEEL_TAIL, SUSP_TAIL_RADIUS, SUSP_TAIL_SAG, _mass * (1.0 - _mainShare),
                   [SUSP_MU_TAIL_SWIVEL, SUSP_MU_TAIL_LOCKED] select _pinned, SUSP_MU_ROLL, _castor, _deltaTime] call fza_suspension_fnc_suspensionWheel;
 
-#ifdef SUSP_LOG
-if ((_right select 0) >= 0.0 || {(_left select 0) >= 0.0} || {(_tail select 0) >= 0.0}) then {
+if (SUSP_LOG && {(_right select 0) >= 0.0 || {(_left select 0) >= 0.0} || {(_tail select 0) >= 0.0}}) then {
     diag_log format ["SUSP,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16",
         CBA_missionTime toFixed 2, _deltaTime toFixed 3,
         (_right select 0) toFixed 3, (_left select 0) toFixed 3, (_tail select 0) toFixed 3,
@@ -136,4 +133,3 @@ if ((_right select 0) >= 0.0 || {(_left select 0) >= 0.0} || {(_tail select 0) >
         (_right select 3) toFixed 3, (_left select 3) toFixed 3, _brake,
         _castor toFixed 1, _pinned];
 };
-#endif
