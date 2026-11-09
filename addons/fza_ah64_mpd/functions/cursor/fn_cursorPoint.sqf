@@ -50,7 +50,7 @@ private _types = switch (true) do {
 if (_types isEqualTo []) exitWith {[]};
 if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {[]};
 
-// Where fza_mpd_fnc_uiDrawPoint draws them
+// Where the TSD page draws them (fza_mpd_fnc_tsdHtmlDraw)
 private _tsd = _persistState get _page;
 private _scale = [_tsd] call fza_mpd_fnc_tsdScale;
 private _ctrY = 0.75 - 0.25 * (_tsd get "ctr");
@@ -63,7 +63,7 @@ TSD_MAP_CLIP params ["_left", "_top", "_right", "_bottom"];
     _x params ["_armaPos", "_id"];
     if !((_id # 0) in _types) then {continue};
     private _screen = [_heliPos, _heading, _scale, [0.5, _ctrY], _armaPos] call fza_mpd_fnc_tsdWorldToScreen;
-    // Not one outside the map border, which the TSD hides (fza_mpd_fnc_uiDrawPoint)
+    // Not one outside the map border, which the TSD hides (ui\tsd\tsd.js)
     _screen params ["_sx", "_sy"];
     if (_sx < _left || {_sx > _right} || {_sy < _top} || {_sy > _bottom}) then {continue};
     private _distance = _screen distanceSqr [_posX, _posY];

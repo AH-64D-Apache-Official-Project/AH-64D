@@ -22,21 +22,15 @@ class CfgFunctions
             class handleControl {RECOMPILE_FLAG;};
             class handleHold {RECOMPILE_FLAG;};
             class htmlCtrl {RECOMPILE_FLAG;};
+            class htmlPreload {RECOMPILE_FLAG;};
             class htmlPush {RECOMPILE_FLAG;};
+            class htmlTexture {RECOMPILE_FLAG;};
             class iconBlink {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class propagatePage {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
         };
-        class canvas {
-            file = "\fza_ah64_mpd\functions\canvas";
-            class canvasAdjust {RECOMPILE_FLAG;};
-            class canvasDraw {RECOMPILE_FLAG;};
-            class canvasDrawLine {RECOMPILE_FLAG;};
-            class canvasDrawPolyline {RECOMPILE_FLAG;};
-            class canvasLineTexture {RECOMPILE_FLAG;};
-        }
         class cursor {
             file = "\fza_ah64_mpd\functions\cursor";
             class cursorCompile {RECOMPILE_FLAG;};
@@ -103,7 +97,9 @@ class CfgFunctions
             class tsdZNHandleControl {RECOMPILE_FLAG;};
             class tsdZNNeed {RECOMPILE_FLAG;};
             class tsdZNQuad {RECOMPILE_FLAG;};
-            class tsdZoneDrawCanvas {RECOMPILE_FLAG;};
+            class tsdHtmlDraw {RECOMPILE_FLAG;};
+            class tsdSegments {RECOMPILE_FLAG;};
+            class tsdZoneDraft {RECOMPILE_FLAG;};
             class tsdZoneItems {RECOMPILE_FLAG;};
             class tsdZoneLabels {RECOMPILE_FLAG;};
         };
@@ -142,7 +138,6 @@ class CfgFunctions
             class pageMinigamesDraw {RECOMPILE_FLAG;};
             class pageMinigamesHandleControl {RECOMPILE_FLAG;};
             class pageTSDDraw {RECOMPILE_FLAG;};
-            class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};
             class pageVERDraw {RECOMPILE_FLAG;};
             class pageVERHandleControl {RECOMPILE_FLAG;};

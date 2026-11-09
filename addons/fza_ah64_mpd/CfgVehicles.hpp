@@ -146,8 +146,13 @@ class CfgVehicles {
             class TSD {
                 index = MPD_PAGE_TSD;
                 draw  = "fza_mpd_fnc_pageTSDDraw";
-                drawCanvas = "fza_mpd_fnc_pageTSDDrawCanvas";
                 handleControl = "fza_mpd_fnc_pageTSDHandleControl";
+                // The map's points and lines are drawn by a browser (fza_mpd_fnc_tsdHtmlDraw)
+                htmlUrl   = "\fza_ah64_mpd\ui\tsd\tsd.html";
+                htmlClass = "RscFzaMPDTsd";
+                // Loaded before it is first opened (fza_mpd_fnc_htmlPreload)
+                htmlPreload = 1;
+                // Keeps the MPD's text boxes over the map (fza_mpd_fnc_update)
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};

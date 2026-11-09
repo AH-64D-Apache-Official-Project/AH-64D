@@ -86,7 +86,7 @@ if (toLower _page != "tsd") exitWith {};
 if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {};
 (_state get "subPageVarPage") params ["_subPage", "_variant"];
 
-// The map position under an MPD position, the inverse of where fza_mpd_fnc_uiDrawPoint draws a point
+// The map position under an MPD position, the inverse of where the TSD page draws a point (fza_mpd_fnc_tsdWorldToScreen)
 private _mapPos = {
     params ["_px", "_py"];
     private _tsd = _persistState get _page;

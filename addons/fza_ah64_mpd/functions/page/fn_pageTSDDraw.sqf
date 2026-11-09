@@ -103,12 +103,11 @@ if ((_state get "subPageVarPage") isEqualTo TSD_RTE_RTM) exitWith {
     _state set ["cursorPoints", []];
     _state set ["cursorFcr", []];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_POINT), 0];
-    [_heli, [], _mpdIndex, _tsdScale] call fza_mpd_fnc_drawIcons;
+    [_heli, _mpdIndex, _state, _persistState] call fza_mpd_fnc_tsdHtmlDraw;
 };
 
 _this call fza_mpd_fnc_tsdScaleDraw;
 
-private _pointsArray = [];
 //TSD Points
 private _pointsArray      = [];
 private _showEnemy        = _heli getVariable "fza_mpd_tsdShowEnemy" select _phase;
@@ -118,14 +117,15 @@ private _showCtrlmeasures = _heli getVariable "fza_mpd_tsdShowCtrlMeasures" sele
 private _showAtkShot      = _heli getVariable "fza_mpd_tsdShowAtkShot";
 private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 
+// The DMS's fixed slots, the empty ones -1, skipped before anything else is done with them
 {
     {
-        _x params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong"];
         if (_x isEqualTo -1) then {continue;};
-        (_ident call fza_dms_fnc_pointGetIdentDetails)
-            params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
-        //Ctrl Measures
+        private _type = _x # POINT_GET_TYPE;
+        //Ctrl Measures, shown by their colour
         if (_type == POINT_TYPE_CM) then {
+            private _details = [_x # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails;
+            private _color = if (isNil "_details") then {[]} else {_details param [3, []]};
             if (!_showEnemy && _color isEqualTo [1.0, 0.0, 0.2, 1]) then {continue;};
             if (!_showFriendly && _color isEqualTo [0.4, 0.6, 1.0, 1]) then {continue;};
             if (!_showCtrlmeasures && _color isEqualTo [0.0, 1.0, 0.5, 1]) then {continue;};
@@ -136,25 +136,32 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
         if (_type == POINT_TYPE_TG && !_showPlanTgts) then {continue;};
 
         _pointsArray pushBack (_x select [0,7]);
-    } forEach (_heli getVariable _x);
+    } forEach (_heli getVariable [_x, []]);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 // The points the MPD cursor can choose (fza_mpd_fnc_cursorPoint): where each is, and its point ID
 _state set ["cursorPoints", _pointsArray apply {[_x # 1, _x # 4]}];
 
-// Zone, area and line labels; their lines are drawn on the canvas (fza_mpd_fnc_tsdZoneDrawCanvas)
+// Zone, area and line labels; their lines are drawn by the page (fza_mpd_fnc_tsdHtmlDraw)
 _pointsArray append ([[_heli, _state, _persistState, _phase] call fza_mpd_fnc_tsdZoneItems] call fza_mpd_fnc_tsdZoneLabels);
 
-//Shot At UnderLay
-private _shotATList = _heli getVariable "fza_dms_shotAt";
-{
-    if !_showAtkShot exitWith {};
-    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
-    if (_x isEqualTo -1) then {continue;};
-    if (_overlay != 0) then {continue;};
-    if (_rangesetting >= 25000) then {continue;};
-    if !_showAtkShot then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
-} forEach _shotATList;
+// Shot at, in one pass over the fixed slots: the ones before launch under the FCR targets, the rest over them. The
+// slot is the point's ID.
+private _shotUnder = [];
+private _shotOver  = [];
+if (_showAtkShot) then {
+    {
+        if (_x isEqualTo -1) then {continue;};
+        private _shotPos = _x # 4;
+        private _overlay = _x # 6;
+        if (_overlay == 0 && {_rangesetting < 25000}) then {
+            _shotUnder pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
+        };
+        if (_overlay == 1) then {
+            _shotOver pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, ["FCR_TSD_SHOTAT", "FCR_TSD_SC25_50_GREEN"] select (_rangesetting >= 25000)];
+        };
+    } forEach (_heli getVariable ["fza_dms_shotAt", []]);
+};
+_pointsArray append _shotUnder;
 
 //FCR obstacles from TPM, under the targets
 private _showObstacles = _heli getVariable "fza_mpd_tsdShowObstacles" select _phase;
@@ -198,44 +205,36 @@ private _cursorFcr = [];
     _cursorFcr pushBack [_pos, [POINT_TYPE_FCR, _forEachIndex], _target];
 } forEach _displayTargets;
 _state set ["cursorFcr", _cursorFcr];
-// The FCR footprint is drawn on the canvas (fza_mpd_fnc_pageTSDDrawCanvas)
+// The FCR footprint is drawn with the TSD's lines (fza_mpd_fnc_tsdSegments)
 
-//Blue force tracker points
-private _reportingUnits = listRemoteTargets playerSide select {side (_x#0) == playerSide};
-private _showFriendly   = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
-{
-    _x params ["_Object"];
-    if (_object isEqualTo _heli) then {continue;};
-    if !(_Object isKindOf "car" || _Object isKindOf "tank" || _Object isKindOf "air" || _Object isKindOf "ship") then {continue;};
-    if (!_showFriendly) then {continue;};
-    _icon = "TSD_BLUEFORCE_TRACKER";
-    if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_BLUE";};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, getPos _Object, "", POINT_TYPE_BFT, _forEachIndex, _icon];
-} forEach _reportingUnits;
+// The points from here on move with the aircraft or other units
+private _dynStart = count _pointsArray;
+
+//Blue force tracker points, only looked for while shown
+if (_showFriendly) then {
+    private _icon = ["TSD_BLUEFORCE_TRACKER", "FCR_TSD_SC25_50_BLUE"] select (_rangesetting >= 25000);
+    {
+        private _object = _x # 0;
+        if (_object isEqualTo _heli || {side _object != playerSide}) then {continue;};
+        if !(_object isKindOf "car" || {_object isKindOf "tank"} || {_object isKindOf "air"} || {_object isKindOf "ship"}) then {continue;};
+        _pointsArray pushBack [MPD_POSMODE_WORLD, getPos _object, "", POINT_TYPE_BFT, _forEachIndex, _icon];
+    } forEach (listRemoteTargets playerSide);
+};
 
 //Shot At Overlay
-private _shotATList = _heli getVariable "fza_dms_shotAt";
-{
-    if !_showAtkShot exitWith {};
-    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
-    _icon = "FCR_TSD_SHOTAT";
-    if (_x isEqualTo -1) then {continue;};
-    if (_overlay != 1) then {continue;};
-    if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_GREEN";};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, _icon];
-} forEach _shotATList;
+_pointsArray append _shotOver;
 
 //ASE Points
 private _ctrX       = 0.5;
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
-private _aseObjects = _heli getVariable "fza_ah64_ase_objects";
+private _aseObjects = _heli getVariable ["fza_ah64_ase_objects", []];
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
     if !_showRLWR exitWith {};
-    _x params ["_state", "_object","_iconClass"];
+    _x params ["_aseState", "_object","_iconClass"];
     // Relative to the map's heading, frozen or live
     private _bearing = (_heli getDir _object) - _frameHeading;
-    if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
+    if (([] call fza_mpd_fnc_iconBlink) && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
@@ -257,5 +256,5 @@ private _cursor = _heli getVariable ["fza_mpd_cursor", []];
 private _highlight = [[], _cursor param [8, []]] select (_cursor param [0, -1] == _mpdIndex);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CURSOR_POINT), BOOLTONUM(_highlight isNotEqualTo [])];
 
-// The map's symbols inside its border
-[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, _highlight, TSD_MAP_CLIP] call fza_mpd_fnc_drawIcons;
+// The map's symbols and lines, drawn by the page
+[_heli, _mpdIndex, _state, _persistState, _pointsArray, _dynStart, _highlight] call fza_mpd_fnc_tsdHtmlDraw;

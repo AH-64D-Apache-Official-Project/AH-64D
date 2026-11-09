@@ -24,7 +24,7 @@
     var targets      = [];
     var shots        = [];
     var targetsDirty = false;
-    // Active PF zone white, NF zones yellow, under the symbols; drawn as the TSD's active zones (fza_mpd_fnc_tsdZoneDrawCanvas)
+    // Active PF zone white, NF zones yellow, under the symbols; drawn as the TSD's active zones (ui\tsd\tsd.js)
     var ZONE_WIDTH   = 0.004;
     var ZONE_DASHES  = [[0.006, 0.006], [0.02, 0.012]];
     var zcanvas, zctx;
