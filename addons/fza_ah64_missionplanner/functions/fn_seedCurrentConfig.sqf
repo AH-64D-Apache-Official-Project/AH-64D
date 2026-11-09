@@ -133,7 +133,17 @@ private _buildHfRail = {
 };
 
 private _auxGal = 0;
-if ("fza_230gal_auxTank" in _mags) then { _auxGal = 230 };
+private _stations = _heli getVariable ["bmkhs_stations", []];
+{
+    private _tank = _x;
+    private _pylons = (_stations param [(_tank get "station") - 1, createHashMap]) getOrDefault ["pylons", []];
+    if (_pylons findIf {["auxTank", _mags param [_x - 1, ""]] call BIS_fnc_inString} > -1) then {
+        private _capKg = _tank get "capacity";
+        if (_capKg > 0) then {
+            _auxGal = _auxGal + (round ((_heli getVariable [(_tank get "varName") + "Mass", 0]) / _capKg * 230) min 230 max 0);
+        };
+    };
+} forEach (_heli getVariable ["bmkhs_auxTanks", []]);
 
 private _pylonJsonArr = [];
 {
