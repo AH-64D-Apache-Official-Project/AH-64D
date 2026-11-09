@@ -1265,7 +1265,7 @@
   /* The manager's own controls, hidden while it is only there to open a DTC from */
   #dtcModal.pick .manage-only { display: none; }
   /* Changes not yet uploaded to the aircraft */
-  #btnLoadDTC.pending { background: var(--yellow); color: #000; border-color: var(--yellow); }
+  #btnLoadDTC.pending, #btnApplyConfig.pending { background: var(--yellow); color: #000; border-color: var(--yellow); }
   .dtc-status { min-height: 13px; font-size: 11px; color: var(--text-dim); }
   .dtc-status.bad { color: var(--red-bright); }
   /* The point tabs' rows on one line, under their headings */

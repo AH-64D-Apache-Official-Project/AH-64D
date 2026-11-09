@@ -72,14 +72,6 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
     private _targetFuelKg = _settings getVariable ["fuel", 0];
     private _targetFuelKgClamped = _targetFuelKg max 0;
 
-    private _ctrEnabled = [0, 1] select _iafsInstalled;
-    private _tankCapacityKg =
-        (_heli getVariable "bmkhs_fwdTankMax") +
-        (_heli getVariable "bmkhs_aftTankMax") +
-        (_ctrEnabled * (_heli getVariable "bmkhs_ctrTankMax"));
-
-    private _targetFuelPct = if (_tankCapacityKg > 0) then { (_targetFuelKgClamped / _tankCapacityKg) max 0 min 1 } else { fuel _heli };
-
     private _curFuelKg = _heli getVariable ["bmkhs_totFuelMass", 0];
     private _fuelDeltaKg = abs (_targetFuelKgClamped - _curFuelKg);
     private _fuelDeltaLbs = _fuelDeltaKg * 2.20462;
@@ -816,6 +808,9 @@ _heli setVariable ["fza_mplanner_applyingBy", player, true];
 
     // ── STEP 4: FUEL ─────────────────────────────────────────────────────────
     if (_needsFuel) then {
+        // A share of the tanks fitted now, aux tanks and IAFS included
+        private _tankCapacityKg = [_heli] call fza_ah64_helisim_fnc_fuelCapacity;
+        private _targetFuelPct = if (_tankCapacityKg > 0) then { (_targetFuelKgClamped / _tankCapacityKg) max 0 min 1 } else { fuel _heli };
         private _currentFuelRatio = fuel _heli;
         private _deltaRatio = _targetFuelPct - _currentFuelRatio;
         // Liters and rate computed once; used by both loading and unloading bars

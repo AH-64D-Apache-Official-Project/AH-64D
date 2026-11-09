@@ -67,8 +67,9 @@ class CfgVehicles {
                 tooltip      = "$STR_FZA_AH64_TAIL_NUMBER_INFO";
                 property     = "fza_attribute_tailNumber";
                 control      = "Edit";
-                expression   = "[_this, _value] call fza_customise_fnc_setTailNumber;";
-                defaultValue = "None";
+                expression   = "_this setVariable ['fza_customise_tailAttribute', _value]; if (_value != '') then {[_this, _value] call fza_customise_fnc_setTailNumber; _this setVariable ['fza_ah64_tailNumber', _value, true]};";
+                defaultValue = "''";
+                typeName     = "STRING";
                 condition    = "objectVehicle";
             };
         };
