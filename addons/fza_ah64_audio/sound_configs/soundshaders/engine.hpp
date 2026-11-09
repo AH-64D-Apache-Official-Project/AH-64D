@@ -257,7 +257,7 @@ class fza_APUSoundLoop_Int_SoundShader: fza_APUSoundLoop_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\new_apu_int_loop.ogg",
+			"\fza_ah64_audio\audio\Engine\Env\share\apu_int_loop.ogg",
 			1
 		}
 	};
@@ -296,7 +296,7 @@ class fza_EngineInt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Int\new_Engine_Int.ogg",
+			"\fza_ah64_audio\audio\Engine\Int\Engine_Int.ogg",
 			1
 		}
 	};
