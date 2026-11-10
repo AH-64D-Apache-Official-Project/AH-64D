@@ -1,5 +1,10 @@
 class RscText;
 class RscStructuredText;
+class RscButton;
+
+class CfgCommands {
+    allowedHTMLLoadURIs[] += {"https://ah-64d-apache-official-project.github.io/"};
+};
 
 class RscFzaControlSetup
 {
@@ -26,6 +31,23 @@ class RscFzaControlSetup
             y = "safeZoneY + (safeZoneH * 0.06)";
             w = "(safeZoneH * 1.45) min (safeZoneW * 0.96)";
             h = "safeZoneH * 0.88";
+        };
+        // Below the page, which would draw over it; a URL only opens from a real click. Shown on the last page.
+        class DocsButton : RscButton {
+            idc = 101;
+            text = "OPEN THE DOCUMENTATION";
+            url = "https://ah-64d-apache-official-project.github.io/";
+            font = "RobotoCondensedBold";
+            sizeEx = "safeZoneH * 0.026";
+            colorText[] = {0.85, 1, 0.85, 1};
+            colorBackground[] = {0.11, 0.32, 0.11, 1};
+            colorBackgroundActive[] = {0.15, 0.44, 0.16, 1};
+            colorFocused[] = {0.11, 0.32, 0.11, 1};
+            colorBorder[] = {0.3, 0.79, 0.3, 1};
+            x = "safeZoneX + (safeZoneW - safeZoneH * 0.42) * 0.5";
+            y = "safeZoneY + (safeZoneH * 0.945)";
+            w = "safeZoneH * 0.42";
+            h = "safeZoneH * 0.045";
         };
     };
 };

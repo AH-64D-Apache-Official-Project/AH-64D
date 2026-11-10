@@ -63,6 +63,9 @@ switch (_cmd) do {
         _display closeDisplay 2;
         [{["start"] call fza_setup_fnc_test}] call CBA_fnc_execNextFrame;
     };
+    case "docsButton": {
+        (_display displayCtrl 101) ctrlShow ((_msg getOrDefault ["show", false]) isEqualTo true);
+    };
     case "finish": {
         profileNamespace setVariable ["fza_ah64_setupDone", true];
         uiNamespace setVariable ["fza_setup_dirty", true];

@@ -30,6 +30,7 @@
   var G = null;
   var applyResults = null;
   var modalAction = null;
+  var docsShown = false;
 
   // ---------- bridge ----------
 
@@ -641,7 +642,8 @@
       h += '<div><span>' + esc(a.title) + '</span><span class="mono" style="color:' + (k ? 'var(--bright)' : 'var(--bad)') + '">' + esc(k || 'not bound') + '</span></div>';
     });
     h += '</div><h2>Next</h2><p>Open this again any time: <b>ACE self-interaction</b> in the Apache, then <b>Controls Setup</b>.</p>' +
-      '<p>The documentation covers starting up, flying, the sensors and the weapons: <span class="mono">ah-64d-apache-official-project.github.io</span>.</p>' +
+      '<p>The documentation covers starting up, flying, the sensors and the weapons: <span class="mono">ah-64d-apache-official-project.github.io</span>. ' +
+      'Press <b>Open the documentation</b> just below this window to open it in the Steam overlay, or in your browser when the overlay is off.</p>' +
       '<div class="big-actions"><button class="primary" data-act="finish">Finish</button><button data-act="addons">Open Addon Options</button></div>';
     return h;
   }
@@ -692,6 +694,11 @@
     if (G) {
       var all = sectionStats(null, p);
       document.getElementById('topStatus').textContent = S.answers.device ? 'Must-have controls ready: ' + all.ready + ' of ' + all.req : '';
+    }
+    var showDocs = !!G && S.page === 'done';
+    if (showDocs !== docsShown) {
+      docsShown = showDocs;
+      send('docsButton', { show: showDocs });
     }
     var idx = pageIndex(S.page);
     document.getElementById('btnBack').disabled = idx <= 0;

@@ -5,6 +5,7 @@ uiNamespace setVariable ["fza_setup_display", _display];
 
 private _browser = _display displayCtrl 100;
 if (isNull _browser) exitWith {};
+(_display displayCtrl 101) ctrlShow false;
 
 // Hatchet's interaction and cursor stop while the setup is open, as for the mission planner
 if (isNil {uiNamespace getVariable "BIS_fnc_camera_display"}) then {
