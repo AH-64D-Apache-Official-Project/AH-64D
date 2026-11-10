@@ -1,19 +1,5 @@
 class RscText;
 class RscStructuredText;
-class RscButton;
-
-#define FZA_SETUP_DOCS_URL "https://ah-64d-apache-official-project.github.io/"
-
-class CfgCommands {
-    allowedHTMLLoadURIs[] += {FZA_SETUP_DOCS_URL};
-};
-
-// Created off screen and activated to open the documentation in the Steam overlay or the browser (fza_setup_fnc_bridge)
-class fza_setup_docsButton : RscButton {
-    idc = -1;
-    x = -10; y = -10; w = 0.01; h = 0.01;
-    url = FZA_SETUP_DOCS_URL;
-};
 
 class RscFzaControlSetup
 {

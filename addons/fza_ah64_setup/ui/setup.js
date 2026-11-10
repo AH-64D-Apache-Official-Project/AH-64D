@@ -641,9 +641,8 @@
       h += '<div><span>' + esc(a.title) + '</span><span class="mono" style="color:' + (k ? 'var(--bright)' : 'var(--bad)') + '">' + esc(k || 'not bound') + '</span></div>';
     });
     h += '</div><h2>Next</h2><p>Open this again any time: <b>ACE self-interaction</b> in the Apache, then <b>Controls Setup</b>.</p>' +
-      '<p>The documentation covers starting up, flying, the sensors and the weapons: <span class="mono">ah-64d-apache-official-project.github.io</span>. ' +
-      'It opens in the Steam overlay, or in your browser when the overlay is off.</p>' +
-      '<div class="big-actions"><button class="primary" data-act="finish">Finish</button><button data-act="docs">Open the documentation</button><button data-act="addons">Open Addon Options</button></div>';
+      '<p>The documentation covers starting up, flying, the sensors and the weapons: <span class="mono">ah-64d-apache-official-project.github.io</span>.</p>' +
+      '<div class="big-actions"><button class="primary" data-act="finish">Finish</button><button data-act="addons">Open Addon Options</button></div>';
     return h;
   }
 
@@ -794,9 +793,7 @@
         if (!modalAction) { return; }
         saveNow(); send('bind', { action: modalAction }); closeModal(); break;
       case 'controls': saveNow(); send('controls'); break;
-      case 'addons': saveNow(); send('addons'); break;
-      case 'docs': send('docs'); toast('Opening the documentation.'); break;
-      case 'refresh': send('refresh'); toast('Bindings read again.'); break;
+      case 'addons': saveNow(); send('addons'); break;      case 'refresh': send('refresh'); toast('Bindings read again.'); break;
       case 'test': saveNow(); send('test'); break;
       case 'apply': {
         var values = {};
