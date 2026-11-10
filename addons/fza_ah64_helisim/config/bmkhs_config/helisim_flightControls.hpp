@@ -46,6 +46,9 @@
     //Auto-pedal
     pidAutoAttPitch[]   = {0.0925, 0.0025, 0.0220, 0.1};
     pidAutoAttRoll[]    = {0.0400, 0.0015, 0.0250, 0.1};
-    pidAutoPedalHdg[]   = {0.1000, 0.0050, 0.0500, 0.15};
+    //Hdg and taxi work through the 1.5 s foot: gain crosses over below its bandwidth, and the
+    //derivative stays small - rate feedback arriving half a period late is anti-damping.
+    pidAutoPedalHdg[]   = {0.0100, 0.0020, 0.0100, 0.15};
     pidAutoPedalNtt[]   = {0.0300, 0.0080, 0.0100, 0.15};
     pidAutoPedalAero[]  = {0.6000, 0.5000, 0.4000, 0.1};
+    pidAutoPedalTaxi[]  = {0.0100, 0.0020, 0.0020, 0.15};
