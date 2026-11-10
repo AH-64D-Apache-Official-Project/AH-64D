@@ -23,6 +23,11 @@ params ["_heli"];
 
 private _acBusOn = _heli getVariable "bmkhs_acBusOn";
 
+// The HTML pages that load ahead of being shown (fza_mpd_fnc_htmlPreload), until both MPDs have them
+if !(_heli getVariable ["fza_mpd_htmlPreloaded", false]) then {
+    _heli setVariable ["fza_mpd_htmlPreloaded", [_heli] call fza_mpd_fnc_htmlPreload];
+};
+
 // The screen's aspect for the sensor video (fza_ihadss_fnc_r2tTexture), measured here as the MPD displays cannot
 fza_ihadss_screenAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
 [_heli] call fza_ihadss_fnc_dtvCamera;

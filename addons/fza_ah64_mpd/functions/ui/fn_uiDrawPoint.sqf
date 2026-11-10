@@ -1,5 +1,4 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#include "\fza_ah64_mpd\headers\cursor.h"
 disableSerialization;
 params
     ["_heli"
@@ -10,8 +9,6 @@ params
     , ["_heliCtr", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
-    , ["_highlight", []]
-    , ["_clip", []]
     ];
 
 private _getOrCreateCtrl = {
@@ -59,49 +56,7 @@ private _textHeight = 0.00208 / _iconSize;
 if (_uiCtr # 0 < -0.1 || _uiCtr # 0 > 1.1 || _uiCtr # 1 < -0.1 || _uiCtr # 1 > 1.1) exitWith {
     {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
 };
-// Centred outside the clip (the TSD's map): hidden, the controls kept for when it comes back in
-private _clipped = false;
-if (_clip isNotEqualTo []) then {
-    _clip params ["_left", "_top", "_right", "_bottom"];
-    _clipped = _uiCtr # 0 < _left || {_uiCtr # 0 > _right} || {_uiCtr # 1 < _top} || {_uiCtr # 1 > _bottom};
-};
-if (_clipped isNotEqualTo (_ctrlPoint getOrDefault ["hidden", false])) then {
-    {if (typeName _y == "CONTROL") then {_y ctrlShow !_clipped;};} forEach _ctrlPoint;
-    _ctrlPoint set ["hidden", _clipped];
-};
-if (_clipped) exitWith {};
-
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
-
-// The point the MPD cursor would choose is drawn over the cursor, which the MPD leaves out (pages\cursor_draw.hpp): the
-// cursor's spokes where it is, a black circle under the point, black under its text. Only the chosen point has these;
-// made before its icon and text, which are made again after them, so drawn under them. The circle fills 18 of the dot
-// texture's 64 pixels.
-// A DMS point's ID is [type, number]; the TSD's other symbols (FCR targets) have just the number
-private _pointId = _dmsPoint # POINT_GET_ID;
-if (_pointId isEqualType 0) then {_pointId = [_dmsPoint # POINT_GET_TYPE, _pointId]};
-private _chosen = _highlight isNotEqualTo [] && {_pointId isEqualTo _highlight};
-private _highlightKeys = ["cursor", "backing", "textABack", "textBBack"];
-if (!_chosen) then {
-    {if (_x in _ctrlPoint) then {ctrlDelete (_ctrlPoint deleteAt _x);};} forEach _highlightKeys;
-} else {
-    if (isNull (_ctrlPoint getOrDefault ["cursor", controlNull])) then {
-        {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
-        {_ctrlPoint set [_x, _display ctrlCreate [["RscPicture", "RscText"] select (_forEachIndex > 1), -1]];} forEach _highlightKeys;
-    };
-    private _cursorCtrl = _ctrlPoint get "cursor";
-    private _backingCtrl = _ctrlPoint get "backing";
-    (_heli getVariable ["fza_mpd_cursor", []]) params ["", ["_cursorX", _uiCtr # 0], ["_cursorY", _uiCtr # 1]];
-    _cursorCtrl ctrlSetPosition [_cursorX - 0.5 * MPD_CURSOR_SPOKES_SIZE, _cursorY - 0.5 * MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE, MPD_CURSOR_SPOKES_SIZE];
-    _cursorCtrl ctrlSetText "\fza_ah64_mpd\tex\cursor\spokes_ca.paa";
-    _cursorCtrl ctrlSetTextColor MPD_CURSOR_SPOKES_COLOR;
-    _cursorCtrl ctrlCommit 0;
-    private _backingSize = 2 * MPD_CURSOR_POINT_CIRCLE * 64 / 18;
-    _backingCtrl ctrlSetPosition [_uiCtr # 0 - 0.5 * _backingSize, _uiCtr # 1 - 0.5 * _backingSize, _backingSize, _backingSize];
-    _backingCtrl ctrlSetText "\A3\ui_f\data\map\markers\military\dot_CA.paa";
-    _backingCtrl ctrlSetTextColor [0, 0, 0, 1];
-    _backingCtrl ctrlCommit 0;
-};
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
@@ -141,20 +96,6 @@ private _drawText = {
     _textCtrl ctrlSetFontHeight _textHeight;
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;
-
-    // Black under the chosen point's text, the text's own width, so it is drawn over the cursor
-    if (_chosen) then {
-        private _width = ctrlTextWidth _textCtrl;
-        private _anchorX = _uiTop # 0 + (_textOffset # 0 * _iconSize);
-        private _left = _anchorX - _width * ([0, 1, 0.5] select ((["left", "right", "center"] find _textXAlign) max 0));
-        private _middleY = _uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset;
-        private _backCtrl = _ctrlPoint get (_textPrefix + "Back");
-        _backCtrl ctrlSetPosition [_left - 0.002, _middleY - 0.6 * _textHeight, _width + 0.004, 1.2 * _textHeight];
-        _backCtrl ctrlSetBackgroundColor [0, 0, 0, 1];
-        _backCtrl ctrlSetText "";
-        _backCtrl ctrlShow (_width > 0);
-        _backCtrl ctrlCommit 0;
-    };
 };
 
 ["textA", _textA] call _drawText;

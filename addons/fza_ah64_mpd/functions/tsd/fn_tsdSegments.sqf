@@ -1,19 +1,35 @@
+/* ----------------------------------------------------------------------------
+Function: fza_mpd_fnc_tsdSegments
+
+Description:
+    The TSD's straight lines in world positions, for the TSD page
+    (fza_mpd_fnc_tsdHtmlDraw). Sets fza_ah64_tadsTarget, the end of the TADS
+    line. The same for both MPDs, so worked out once a frame.
+
+Parameters:
+    _heli - The helicopter
+
+Returns:
+    [route lines, lines that move with the aircraft], each [[from, to, colour], ...]
+
+Examples:
+    --- Code
+    ([_heli] call fza_mpd_fnc_tsdSegments) params ["_route", "_live"];
+    ---
+
+Author:
+    Snow(Dryden)
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
-#include "\fza_ah64_mpd\headers\tsd.hpp"
-params ["_heli", "_canvas", "_mpdIndex", "_state", "_persistState"];
-if ((_state get "subPageVarPage") isEqualTo TSD_RTE_RTM) exitWith {};
+params ["_heli"];
 
+// Kept for the frame; the arrays are only read by the callers
+private _cache = _heli getVariable ["fza_mpd_tsdSegments", [-1, []]];
+if (_cache # 0 == diag_frameNo) exitWith {_cache # 1};
 
-// Dynamic positioning
-private _tsdScale = [_persistState] call fza_mpd_fnc_tsdScale;
-private _pos = getPosASL _heli;
-private _ctrX = 0.5;
-private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
-// The map's frame, live or frozen (fza_mpd_fnc_tsdFrame)
-([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading"];
-
-[_heli, _canvas, _mpdIndex, _state, _persistState, _framePos, _frameHeading, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_tsdZoneDrawCanvas;
+private _route = [];
+private _live  = [];
 
 //Route Draw
 private _routeData    = _heli getVariable "fza_ah64_routeData";
@@ -30,29 +46,28 @@ private _drawArray = [];
 } forEach _routeInfo;
 {
     if ((_forEachindex + 1) >= count _drawArray) then {continue;};
-    [_heli, _canvas, _X, _drawArray #(_forEachindex+1), [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, TSD_MAP_CLIP] call fza_mpd_fnc_canvasDrawLine;
+    _route pushBack [_x, _drawArray # (_forEachindex + 1), [0, 1, 0, 1]];
 } forEach _drawArray;
 
 //Route Dir Draw
 private _rteDir = _heli getVariable "fza_dms_routeNext";
 if (_rteDir#1 isNotEqualTo [0,0,0]) then {
-    [_heli, _canvas, _rteDir#1, [_heli, _rteDir#0, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, TSD_MAP_CLIP] call fza_mpd_fnc_canvasDrawLine;
+    _route pushBack [_rteDir#1, [_heli, _rteDir#0, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue, [0, 1, 0, 1]];
 };
 
 //TSD Sensor line
 private _posheli = getPosASL _heli;
-private _posTadsTgt = [-1,-1,-1];
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 private _targetAzimuth = (_tadsAzimuth + direction _heli) mod 360;
 private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariable;
 // The CPG's TADS line runs out to the CPG's range source range
 private _range = ([_heli, "cpg"] call fza_fnc_targetingRange) # 0;
 
-_posTadsTgt = [_posheli, _range, _targetAzimuth] call BIS_fnc_relPos;
+private _posTadsTgt = [_posheli, _range, _targetAzimuth] call BIS_fnc_relPos;
 _heli setVariable ["fza_ah64_tadsTarget", _posTadsTgt];
 
 if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
-    [_heli, _canvas, _posTadsTgt, _posheli, [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, TSD_MAP_CLIP] call fza_mpd_fnc_canvasDrawLine;
+    _live pushBack [_posTadsTgt, _posheli, [0, 1, 0, 1]];
 };
 
 //FCR footprint: the scan sector, turned with the centerline; GTM and RMAP out to 8 km at +-45/22.5/15/7.5 deg by the
@@ -75,7 +90,7 @@ if (_heli animationPhase "fcr_enable" == 1
     private _colour  = [[0, 1, 0, 1], [1, 1, 1, 1]] select (((_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0) == FCR_MODE_ON_SINGLE);
     private _radius  = [8000, 2500] select _tpm;
     private _at      = {params ["_bearing", ["_range", _radius]]; _posheli getPos [_range, _bearing]};
-    private _line    = {[_heli, _canvas, _this # 0, _this # 1, _colour, MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY], _frameHeading, _framePos, 0.004, TSD_MAP_CLIP] call fza_mpd_fnc_canvasDrawLine};
+    private _line    = {_live pushBack [_this # 0, _this # 1, _colour]};
 
     private _tpmWide = _tpm && _half > 45;
     private _side    = 1750;
@@ -99,3 +114,7 @@ if (_heli animationPhase "fcr_enable" == 1
         [[_center + _half, 130] call _at, [_center + _half] call _at] call _line;
     };
 };
+
+private _result = [_route, _live];
+_heli setVariable ["fza_mpd_tsdSegments", [diag_frameNo, _result]];
+_result

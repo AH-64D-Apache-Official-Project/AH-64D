@@ -53,10 +53,6 @@ if (isText (_config >> "draw")) then {
     _drawFunc = missionNamespace getVariable getText (_config >> "draw");
 };
 
-private _drawCanvasFunc = {};
-if (isText (_config >> "drawCanvas")) then {
-    _drawCanvasFunc = missionNamespace getVariable getText (_config >> "drawCanvas");
-};
 
 private _handleControlFunc = {};
 if (isText (_config >> "handleControl")) then {
@@ -82,12 +78,15 @@ if (isText (_config >> "htmlUrl")) then {
 };
 // If the htmlUrl has changed, update the heli's textures to either the new HTML display or back to the default MPD display.
 private _gameUniqueId = "";
+private _htmlTexture = "";
 private _htmlClass = "RscFzaMinigameBase";
 if (_htmlUrl != "") then {
     if (isText (_config >> "htmlClass")) then {
         _htmlClass = getText (_config >> "htmlClass");
     };
-    _gameUniqueId = _sideName + "Game_" + _htmlClass;
+    ([_side, _htmlClass] call fza_mpd_fnc_htmlTexture) params ["_texture", "_uniqueId"];
+    _htmlTexture = _texture;
+    _gameUniqueId = _uniqueId;
 };
 if (_oldHtmlUrl != _htmlUrl) then {
     // Leaving a minigame ends its session now rather than when the engine eventually unloads the old display,
@@ -96,7 +95,7 @@ if (_oldHtmlUrl != _htmlUrl) then {
         [_heli, _side, _oldHtmlUrl] call fza_mg_fnc_minigamePageLeft;
     };
     if (_htmlUrl != "") then {
-        {_heli setObjectTexture [_x, "#(rgb,1024,1024,1)ui(" + _htmlClass + "," + _gameUniqueId + ")"]} forEach _selections;
+        {_heli setObjectTexture [_x, _htmlTexture]} forEach _selections;
     } else {
         // Same texture string as fza_mpd_fnc_init, so the native display is reused rather than recreated
         {_heli setObjectTexture [_x, "#(rgb,2048,2048,1)ui(RscFzaAH64MPD," + _sideName + ")"]} forEach _selections;
@@ -113,7 +112,8 @@ if !(_page in _persistState) then {
 };
 _state set ["side", _side];
 _state set ["page", _page];
-private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons, _htmlUrl, _gameUniqueId];
+// The fourth entry, once the page's canvas draw, is unused
+private _newState = [_page, _mfdIndex, _drawFunc, {}, _state, _persistState, _handleControlFunc, _usesIcons, _htmlUrl, _gameUniqueId];
 
 _heli setUserMFDValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];
