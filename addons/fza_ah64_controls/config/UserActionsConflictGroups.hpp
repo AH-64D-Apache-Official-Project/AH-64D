@@ -1,7 +1,6 @@
-class UserActionsConflictGroups{
-    class CollisionGroups
-    {
-        fza_ah64_collisionGroups[] = {
+class UserActionsConflictGroups {
+    class ActionGroups {
+        fza_ah64[] = {
             "fza_ah64_v30_sightSelectHMD",
             "fza_ah64_v30_sightSelectTADS",
             "fza_ah64_v30_sightSelectFCR",
@@ -49,7 +48,38 @@ class UserActionsConflictGroups{
             "fza_ah64_radialUp",
             "fza_ah64_radialDown",
             "fza_ah64_radialLeft",
-            "fza_ah64_radialRight"
+            "fza_ah64_radialRight",
+            "fza_ah64_mpdCursorUp",
+            "fza_ah64_mpdCursorDown",
+            "fza_ah64_mpdCursorLeft",
+            "fza_ah64_mpdCursorRight",
+            "fza_ah64_mpdCursorEnter",
+            "fza_ah64_mpdCursorDisplaySelect"
         };
+        // Vanilla actions the aircraft uses (fza_fnc_coreControlHandle), ActiveSensorsToggle being the FCR scan
+        fza_ah64_vanilla[] = {
+            "defaultAction",
+            "SwitchWeaponGrp1",
+            "SwitchWeaponGrp2",
+            "SwitchWeaponGrp3",
+            "SwitchWeaponGrp4",
+            "nextWeapon",
+            "prevWeapon",
+            "launchCM",
+            "vehLockTargets",
+            "zoomIn",
+            "zoomOut",
+            "NightVision",
+            "Headlights",
+            "ActiveSensorsToggle"
+        };
+    };
+    class CollisionGroups {
+        fza_ah64[] = {"fza_ah64", "fza_ah64_vanilla"};
+    };
+    class Exceptions {
+        fza_ah64_wasGun[] = {"fza_ah64_wasGun", "SwitchWeaponGrp1"};
+        fza_ah64_wasRkt[] = {"fza_ah64_wasRkt", "SwitchWeaponGrp2"};
+        fza_ah64_wasMsl[] = {"fza_ah64_wasMsl", "SwitchWeaponGrp3"};
     };
 };
