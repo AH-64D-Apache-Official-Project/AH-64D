@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AH-64D Controls Setup</title>
+<link rel="stylesheet" href="setup.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="brand">AH-64D CONTROLS SETUP</div>
+    <div id="topStatus"></div>
+    <button id="btnClose" class="ghost" data-act="close">Close</button>
+  </header>
+  <div id="main">
+    <nav id="steps"></nav>
+    <section id="page"></section>
+  </div>
+  <footer id="foot">
+    <button id="btnBack" data-act="back">&#8592; Back</button>
+    <div id="footMsg"></div>
+    <button id="btnNext" class="primary" data-act="next">Next &#8594;</button>
+  </footer>
+  <div id="modal" class="hidden"></div>
+  <div id="toast" class="hidden"></div>
+  <div id="loading">LOADING...</div>
+</div>
+<script src="catalogue.js"></script>
+<script src="setup.js"></script>
+</body>
+</html>
