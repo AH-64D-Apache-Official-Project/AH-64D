@@ -82,6 +82,6 @@ if (!isNil "ace_interact_menu_fnc_removeActionFromClass") then {
 if (player in _heli && !is3DEN && {fza_ah64_showPopupv2_3 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
         waitUntil {cba_missiontime != 0;};
-        createDialog "RscFzaDisplayWelcome";
+        if (isNil "fza_setup_fnc_firstRun" || {!([] call fza_setup_fnc_firstRun)}) then {createDialog "RscFzaDisplayWelcome"};
     };
 };
