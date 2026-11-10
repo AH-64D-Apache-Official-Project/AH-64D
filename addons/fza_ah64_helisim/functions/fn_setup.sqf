@@ -13,10 +13,6 @@ Returns:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-//Ahead of the guard: bmkhs_initialised is published, so a machine that joins later returns
-//below, and it still needs its own copy of this state if it ever takes the aircraft.
-[_heli] call fza_suspension_fnc_suspensionVariables;
-
 //Once per aircraft. The pack's own init EH is what fires this.
 if (_heli getVariable ["bmkhs_initialised", false]) exitWith {};
 

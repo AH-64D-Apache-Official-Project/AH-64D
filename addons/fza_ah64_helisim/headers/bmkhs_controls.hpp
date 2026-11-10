@@ -37,3 +37,9 @@ BMKHS_CONTROL(eng1PwrLvr,p2,2,"Engine 1 Power Lever - Fly") BMKHS_CONTROL_SEP()
 BMKHS_CONTROL(eng2PwrLvr,p0,0,"Engine 2 Power Lever - Off") BMKHS_CONTROL_SEP()
 BMKHS_CONTROL(eng2PwrLvr,p1,1,"Engine 2 Power Lever - Idle") BMKHS_CONTROL_SEP()
 BMKHS_CONTROL(eng2PwrLvr,p2,2,"Engine 2 Power Lever - Fly") BMKHS_CONTROL_SEP()
+
+BMKHS_CONTROL(parkBrake,p0,0,"Parking Brake - Off") BMKHS_CONTROL_SEP()
+BMKHS_CONTROL(parkBrake,p1,1,"Parking Brake - On") BMKHS_CONTROL_SEP()
+
+BMKHS_CONTROL(tailWheelLock,p0,0,"Tail Wheel Lock - Unlock") BMKHS_CONTROL_SEP()
+BMKHS_CONTROL(tailWheelLock,p1,1,"Tail Wheel Lock - Lock") BMKHS_CONTROL_SEP()

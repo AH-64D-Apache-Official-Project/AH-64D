@@ -630,7 +630,7 @@ if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {
-    if (_heli getVariable ["fza_ah64_tailWheelLock", true]) then {
+    if (_heli getVariable "bmkhs_tailWheelLockOn") then {
         _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCK SEL", "TW LOCK SEL"];
     } else {
         _wcas pushBack [WCA_ADVISORY, "TAIL WHL UNLK SEL", "TW UNLK SEL"];

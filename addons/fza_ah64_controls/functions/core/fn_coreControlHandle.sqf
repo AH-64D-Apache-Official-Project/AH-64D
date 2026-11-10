@@ -9,7 +9,6 @@ private _heli = vehicle player;
 
 private _onGnd        = [_heli] call bmkhs_fnc_stateOnGround;
 private _gndOrideOn   = _heli getVariable "fza_ah64_gndOrideOn";
-private _parkingBrake = _heli getVariable ["fza_ah64_toggleParkingBrake", true];
 
 // While the TADS is an NVS sensor it is not a sight, and is the FLIR in wide
 private _tadsNvsMode = ([_heli] call fza_ihadss_fnc_tadsNvs) # 0;
@@ -342,11 +341,12 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        //HeliSim controls: Core owns the brake and the lock, and the suspension reads them.
         case "fza_ah64_toggleParkingBrake": {
-            [_heli, "fza_ah64_toggleParkingBrake", !_parkingBrake] call fza_fnc_animSetValue;
+            ["parkBrake", "+1", _heli] call bmkhs_fnc_controlSet;
         };
         case "fza_ah64_toggleTailWheelLock": {
-            _heli setVariable ["fza_ah64_tailWheelLock", !(_heli getVariable ["fza_ah64_tailWheelLock", true]), true];
+            ["tailWheelLock", "+1", _heli] call bmkhs_fnc_controlSet;
         };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";

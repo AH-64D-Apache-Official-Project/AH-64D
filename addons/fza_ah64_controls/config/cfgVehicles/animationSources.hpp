@@ -1,12 +1,21 @@
 class AnimationSources
 {
-    //Tail wheel swivel, degrees: driven by fza_suspension_fnc_suspensionCastor
+    //Tail wheel swivel, degrees: driven by HeliSim Core's suspension (Wheels animationSource)
     class tailWheelCastor
     {
         source = "user";
         initPhase = 0;
         animPeriod = 0;
     };
+    //Strut stroke, 0 extended to 1 static: driven by HeliSim Core's suspension (Wheels compressionSource)
+    class gearRight
+    {
+        source = "user";
+        initPhase = 1;
+        animPeriod = 0;
+    };
+    class gearLeft: gearRight {};
+    class gearTail: gearRight {};
     ////////CONTROLS///////
     class plt_cyclic_pitch
     {
@@ -444,13 +453,13 @@ class AnimationSources
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
     };
-    //1 = set, as modelled and as the aircraft is shut down.
+    //1 = set, as modelled and as the aircraft is shut down. Follows the HeliSim parkBrake control.
     class parkBrakeHandle
     {
         source = "user";
         animPeriod = 0.3;
         initPhase=1;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_toggleParkingBrake"", ""parkBrakeHandle""] call fza_fnc_animReset";
+        onPhaseChanged = "[_this # 0, ""bmkhs_parkBrakeVal"", ""parkBrakeHandle""] call fza_fnc_animReset";
     };
     class plt_anticollision
     {
