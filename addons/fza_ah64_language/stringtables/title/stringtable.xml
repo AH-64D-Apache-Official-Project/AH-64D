@@ -392,8 +392,8 @@
         <!-- ////ANIMATIONS//// -->
         <!-- ////TEXTURES//// -->
         <Key ID="STR_FZA_AH64_LOADOUT_INFO">
-            <Original>Loadout in JSON form to export</Original>
-            <English>Loadout in JSON form to export</English>
+            <Original>Loadout in JSON form to export, or a DTC exported from the mission planner</Original>
+            <English>Loadout in JSON form to export, or a DTC exported from the mission planner</English>
             <Czech>Zatížení ve Formě JSON k Exportu</Czech>
             <French>Charge en Forme JSON à Exporter</French>
             <Spanish>Carga en Forma JSON para Exportar</Spanish>

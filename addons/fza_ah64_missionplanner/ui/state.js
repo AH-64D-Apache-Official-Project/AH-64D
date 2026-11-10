@@ -66,6 +66,85 @@ function buildLegacyApplyPayload(state) {
   return payload;
 }
 
+// The website loadout JSON the aircraft's Loadout Config attribute reads, with what the planner adds
+function buildLoadoutExport(state) {
+  var out = buildLegacyApplyPayload(state);
+  out.cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
+  out.msnEquip = state.msnEquip || 'US';
+  out.tailNum = state.tailNum || '';
+  out.fuelGal = {
+    fwd: state.fuel.fwd || 0,
+    aft: state.fuel.aft || 0,
+    ctr: state.fuel.ctr || 0,
+    aux: state.fuel.aux || 0
+  };
+  return out;
+}
+
+// A website loadout, a planner export or a planner save, as a planner state; null if it is none of them
+function loadoutImportToPlannerState(data) {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) return null;
+  if (Array.isArray(data.pylons)) return data;
+  if (data.pylon1 === undefined && data.fcrInstalled === undefined) return null;
+
+  var rocketCodes = { M151: '6PD', M255: '6FL', M255A1: '6FL', M257: '6IL', M261: '6MP', M278: '6IR' };
+  var zoneKeys = ['zoneA', 'zoneB', 'zoneE'];
+  var zoneFull = [12, 4, 3];
+  var iafs = data.iafsInstalled !== false;
+  var state = {
+    fcrActive: !!data.fcrInstalled,
+    robbieMode: iafs ? 'iafs' : 'magazine',
+    pylons: []
+  };
+
+  for (var i = 1; i <= 4; i++) {
+    var p = data['pylon' + i];
+    var type = (p && typeof p === 'object') ? String(p.type || 'none').toLowerCase() : 'none';
+    if (type === 'hellfire') {
+      state.pylons.push({ type: 'hellfire', rails: [p.ur, p.ul, p.lr, p.ll].map(normalizeHellfireCode) });
+    } else if (type === 'rocket') {
+      state.pylons.push({ type: 'rocket', zones: zoneKeys.map(function(key, zi) {
+        var code = rocketCodes[String(p[key] || '').toUpperCase()] || '';
+        if (!code) return { count: 0, type: '' };
+        var count = Number(p[key + 'Count']);
+        count = (isFinite(count) && count >= 0) ? Math.min(Math.round(count), zoneFull[zi]) : zoneFull[zi];
+        return { count: count, type: code };
+      }) });
+    } else if (type === 'aux') {
+      state.pylons.push({ type: 'aux' });
+    } else {
+      state.pylons.push({ type: 'none' });
+    }
+  }
+
+  var auxMax = FUEL_GAL_AUX * state.pylons.filter(function(p) { return p.type === 'aux'; }).length;
+  var gal = data.fuelGal;
+  if (gal && typeof gal === 'object') {
+    state.fuel = {
+      fwd: Math.max(0, Math.min(FUEL_GAL_FWD, Number(gal.fwd) || 0)),
+      aft: Math.max(0, Math.min(FUEL_GAL_AFT, Number(gal.aft) || 0)),
+      ctr: iafs ? Math.max(0, Math.min(FUEL_GAL_CTR, Number(gal.ctr) || 0)) : 0,
+      aux: Math.max(0, Math.min(auxMax, Number(gal.aux) || 0))
+    };
+  } else if (typeof data.fuel === 'number') {
+    // Only a total: as the aircraft fills, internal tanks by share first, then the aux tanks
+    var lbs = Math.max(0, data.fuel * LBS_PER_KG);
+    var intLbs = FUEL_GAL_FWD * GAL_TO_LBS_FWD + FUEL_GAL_AFT * GAL_TO_LBS_AFT + (iafs ? FUEL_GAL_CTR * GAL_TO_LBS_CTR : 0);
+    var share = Math.min(1, lbs / intLbs);
+    state.fuel = {
+      fwd: Math.round(FUEL_GAL_FWD * share),
+      aft: Math.round(FUEL_GAL_AFT * share),
+      ctr: iafs ? Math.round(FUEL_GAL_CTR * share) : 0,
+      aux: Math.min(auxMax, Math.round(Math.max(0, lbs - intLbs) / GAL_TO_LBS_AUX))
+    };
+  }
+
+  if (typeof data.cannonRds === 'number') state.cannonRds = Math.max(0, Math.min(iafs ? 300 : 1200, Math.round(data.cannonRds)));
+  if (data.msnEquip === 'US' || data.msnEquip === 'UK') state.msnEquip = data.msnEquip;
+  if (typeof data.tailNum === 'string') state.tailNum = data.tailNum;
+  return state;
+}
+
 function getPlannerState() {
   var state = {
     version: 1,
@@ -353,9 +432,9 @@ function updateConversionWarning() {
 // ── Unsaved-changes tracking ──────────────────────────────────────────────────
 var lastAppliedOrLoadedState = null;
 
-function markConfigClean() {
+function plannerSnapshot() {
   var cur = getPlannerState();
-  lastAppliedOrLoadedState = {
+  return {
     fcrActive:  cur.fcrActive,
     robbieMode: cur.robbieMode,
     tailNum:    cur.tailNum    || '',
@@ -364,6 +443,23 @@ function markConfigClean() {
     fuel:   JSON.parse(JSON.stringify(cur.fuel   || {})),
     pylons: JSON.parse(JSON.stringify(cur.pylons || []))
   };
+}
+
+function markConfigClean() {
+  lastAppliedOrLoadedState = plannerSnapshot();
+}
+
+// What the aircraft holds: Apply to ACFT is lit while the planner differs from it
+var acftAppliedState = null;
+
+function markAircraftState() {
+  acftAppliedState = JSON.stringify(plannerSnapshot());
+  syncApplyPending();
+}
+
+function syncApplyPending() {
+  var b = document.getElementById('btnApplyConfig');
+  if (b) b.classList.toggle('pending', acftAppliedState !== null && JSON.stringify(plannerSnapshot()) !== acftAppliedState);
 }
 
 function hasPlannerChanges() {

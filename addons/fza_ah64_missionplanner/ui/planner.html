@@ -52,8 +52,8 @@
       </label>
 
       <div class="row2btn">
-        <button id="btnApplyConfig">Apply Config</button>
-        <button id="btnSaveConfig">Open Configs</button>
+        <button id="btnApplyConfig">Apply to ACFT</button>
+        <button id="btnSaveConfig">CONFIG MANAGER</button>
       </div>
 
       <div class="section-divider"></div>
@@ -658,6 +658,12 @@
           <button id="btnModalRefresh" type="button">Refresh</button>
         </div>
       </div>
+      <div class="modal-form-row">
+        <span class="label">Loadout as Text</span>
+        <button id="btnLoadoutExport" type="button">Export</button>
+        <button id="btnLoadoutImport" type="button">Import</button>
+      </div>
+      <textarea id="loadoutText" class="dtc-text" spellcheck="false" placeholder="Export puts the loadout here and on the clipboard, ready for the aircraft's Loadout Config attribute in Eden. Paste a loadout here and Import it."></textarea>
       <div class="modal-hint" id="saveLoadHint">Select a save to load it into the planner, or type a name to create/overwrite a save in the active scope.</div>
     </div>
   </div>
@@ -827,6 +833,7 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
       if (!initialAircraftState) { initialAircraftState = _snap; }
       applyPlannerState(state);
       markConfigClean();
+      markAircraftState();
       updateConversionWarning();
     }
   } catch (err) {
@@ -950,6 +957,11 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
   var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
   callSQF(code);
   markConfigClean();
+  markAircraftState();
+});
+// Any edit, by keyboard, list or click, once the page's own handler has run
+['input', 'change', 'click'].forEach(function(type) {
+  document.addEventListener(type, function() { setTimeout(syncApplyPending, 0); }, true);
 });
 document.getElementById('btnSaveConfig').addEventListener('click', function() {
   openSaveLoadDialog('load');
@@ -970,6 +982,30 @@ document.getElementById('btnModalPushMission').addEventListener('click', functio
 });
 document.getElementById('btnModalDelete').addEventListener('click', function() {
   deleteSelectedPlannerState();
+});
+document.getElementById('btnLoadoutExport').addEventListener('click', function() {
+  var t = document.getElementById('loadoutText');
+  var hint = document.getElementById('saveLoadHint');
+  t.value = JSON.stringify(buildLoadoutExport(getPlannerState()));
+  t.focus();
+  t.select();
+  var copied = false;
+  try { copied = document.execCommand('copy'); } catch (e) { copied = false; }
+  if (hint) hint.textContent = copied ? 'The loadout is on the clipboard.' : 'Select the text and copy it.';
+});
+document.getElementById('btnLoadoutImport').addEventListener('click', function() {
+  var t = document.getElementById('loadoutText');
+  var hint = document.getElementById('saveLoadHint');
+  var parsed = null;
+  try { parsed = JSON.parse(t.value || ''); } catch (e) { parsed = null; }
+  var state = loadoutImportToPlannerState(parsed);
+  if (!state) {
+    if (hint) hint.textContent = 'That text is not a loadout.';
+    return;
+  }
+  applyPlannerState(state);
+  updateConversionWarning();
+  closeSaveLoadDialog();
 });
 document.getElementById('btnCloseConfirmCancel').addEventListener('click', closeCloseConfirmDialog);
 document.getElementById('btnCloseConfirmYes').addEventListener('click', function() {
