@@ -133,6 +133,7 @@
 #define FCR_LIMIT_FORCE_LOBL_RANGE       2000
 #define FCR_DISPLAY_LOAL_LOBL_RANGE      1500 //FCR/TSD symbols: stationary targets LOBL at or inside, LOAL beyond; nothing to do with the missile
 #define ARH_LOAL_LOBL_SWITCH_RANGE       2500 //Hellfire RF: LOBL/LOAL engagement switch range; nothing to do with the FCR symbols
+#define ARH_MOVER_DATA_MAX_AGE           5    //Hellfire RF: a moving FCR target is led from its scanned position for at most this long (s)
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6

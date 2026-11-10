@@ -43,6 +43,7 @@ if (_sight == SIGHT_TADS) then {
 };
 
 private _targSpeed = [0, speed _targObj] select (!isNull _targObj);
+private _targVel   = [[0, 0, 0], velocity _targObj] select (abs _targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
 private _loblCheckLima = [_heli, [_targPos, _targSpeed, _targObj], false, _seekerAngle] call fza_hellfire_fnc_arhTargetConstraint;
 private _targetType = ["UNKNOWN", (_targObj call BIS_fnc_objectType) # 1] select (!isNull _targObj);
 
@@ -69,8 +70,16 @@ if (_targPos isNotEqualTo [0, 0, 0]) then {
     _timeToSearch = ([_hellfireTOF, (_rangeKm - (FCR_LIMIT_FORCE_LOBL_RANGE * SCALE_METERS_KM))] call fza_fnc_linearInterp) # 1;
     _timeToSearch = _timeToSearch max 0;
 
-    _calculatedSearchPos = _targPos;
-    _calculatedImpactPos = _targPos;
+    // A mover is led: searched for where it will be at seeker wake, flown at where it will be at impact
+    private _timeToImpact = ([_hellfireTOF, _rangeKm] call fza_fnc_linearInterp) # 1;
+    // An FCR position is as old as the scan that made it
+    private _dataAge = 0;
+    if (_handoffSource == "FCR") then {
+        private _scanTime = (_heli getVariable ["fza_ah64_fcrLastScan", []]) param [2, 0];
+        if (_scanTime > 0) then {_dataAge = ((CBA_missionTime - _scanTime) max 0) min ARH_MOVER_DATA_MAX_AGE};
+    };
+    _calculatedSearchPos = _targPos vectorAdd (_targVel vectorMultiply (_dataAge + _timeToSearch));
+    _calculatedImpactPos = _targPos vectorAdd (_targVel vectorMultiply (_dataAge + _timeToImpact));
 
     // DBS-style lateral bias only: keep standard attack profiles, just shape approach path.
     private _isStationary = abs _targSpeed < FCR_LIMIT_MOVING_MIN_SPEED_KMH;
@@ -121,7 +130,7 @@ _seekerStateParams set [1, CBA_missionTime + _timeToSearch];
 _seekerStateParams set [2, _calculatedImpactPos];
 _seekerStateParams set [3, _calculatedSearchPos];
 _seekerStateParams set [4, 0];
-_seekerStateParams set [5, [0, 0, 0]];
+_seekerStateParams set [5, _targVel];
 _seekerStateParams set [6, 0];
 _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
