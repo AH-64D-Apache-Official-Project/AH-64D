@@ -197,7 +197,7 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
     };\
     MPD_TEXT_C(Digit, ENG_TAPE_NR_X, ENG_TAPE_BOTTOM_Y - 0.7 * ENG_TAPE_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NR))
 
-//Colour by the range the page script works out: 0 green, 1 yellow, 2 red
+//Colour by the range the page script works out: 0 green, 1 yellow, 2 red. Ng also takes 3, red and boxed.
 #define ENG_RANGE_COLOUR(name, rangeInd, config) \
     class name##_Green {\
         condition = C_COND(C_LESS(C_MPD_USER(rangeInd), 0.5));\
@@ -271,6 +271,17 @@ MPD_TEXT_C(NP_SIDE_LABEL, ENG_SIDE_DATA_X, 0.35, MPD_TEXT_STATIC("Np %"))
 MPD_TEXT_C(NG_SIDE_LABEL, ENG_SIDE_DATA_X, 0.45, MPD_TEXT_STATIC("NG %"))
 ENG_RANGE_COLOUR(Ng_1, MFD_IND_ENG_NG_RANGE_1, MPD_TEXT_C(NP_SIDE_NG_1, ENG_SIDE_DATA_1_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_1)))
 ENG_RANGE_COLOUR(Ng_2, MFD_IND_ENG_NG_RANGE_2, MPD_TEXT_C(NG_SIDE_NG_2, ENG_SIDE_DATA_2_X, 0.45+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ENG_NG_2)))
+
+//Boxed at or below minimum Ng
+#define ENG_NG_LOW_BOX(name, rangeInd, posX) \
+    class name##_Low_Box {\
+        color[] = {1,0,0,1};\
+        condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 2.5));\
+        MPD_BOX_C(name, posX, 0.45+MPD_TEXT_HEIGHT, 5)\
+    };
+
+ENG_NG_LOW_BOX(Ng_1, MFD_IND_ENG_NG_RANGE_1, ENG_SIDE_DATA_1_X)
+ENG_NG_LOW_BOX(Ng_2, MFD_IND_ENG_NG_RANGE_2, ENG_SIDE_DATA_2_X)
 ENG_SHARED_TIMER(Ng, MFD_IND_ENG_NG_TIMER_AT, MFD_TEXT_IND_ENG_NG_TIMER, ENG_SIDE_DATA_1_X, ENG_SIDE_DATA_2_X, 0.45+2*MPD_TEXT_HEIGHT)
 
 
