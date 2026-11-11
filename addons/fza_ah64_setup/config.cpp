@@ -28,23 +28,38 @@ class CfgVehicles {
     class fza_ah64base : Helicopter_Base_F {
         class ACE_Actions : ACE_Actions {
             class ACE_MainActions : ACE_MainActions {
-                class fza_ControlSetup {
-                    displayName     = "Controls Setup";
+                // fza_ah64_docs adds the Manual here at mission start
+                class fza_misc {
+                    displayName     = "AH-64 Misc";
                     condition       = "alive _target";
-                    statement       = "[] call fza_setup_fnc_open;";
+                    statement       = "";
                     distance        = 15;
                     showDisabled    = 0;
                     icon            = "";
+                    class fza_ControlSetup {
+                        displayName     = "Controls Setup";
+                        condition       = "true";
+                        statement       = "[] call fza_setup_fnc_open;";
+                        showDisabled    = 0;
+                        icon            = "";
+                    };
                 };
             };
         };
         class ACE_SelfActions: ACE_SelfActions {
-            class fza_ControlSetupCrew {
-                displayName     = "Controls Setup";
+            class fza_misc {
+                displayName     = "AH-64 Misc";
                 condition       = "_player in crew _target";
-                statement       = "[] call fza_setup_fnc_open;";
+                statement       = "";
                 showDisabled    = 0;
                 icon            = "";
+                class fza_ControlSetupCrew {
+                    displayName     = "Controls Setup";
+                    condition       = "true";
+                    statement       = "[] call fza_setup_fnc_open;";
+                    showDisabled    = 0;
+                    icon            = "";
+                };
             };
         };
     };
