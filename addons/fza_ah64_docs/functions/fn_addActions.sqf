@@ -2,7 +2,7 @@
 Function: fza_docs_fnc_addActions
 
 Description:
-    Adds the manual to the AH-64 Misc category (fza_ah64_setup) of the AH-64D's
+    Adds the manual to the AH-64 Misc category (config.cpp) of the AH-64D's
     ACE interaction and self-interaction menus: a Manual entry, a child for
     each section and a grandchild for each page.
 
