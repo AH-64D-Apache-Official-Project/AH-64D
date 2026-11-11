@@ -157,7 +157,7 @@ if (_radAlt <= 1428) then {
 _m set ["radAltHi", _heli getVariable ["fza_ah64_radAltHi", 200]];
 _m set ["radAltLo", _heli getVariable ["fza_ah64_radAltLo", 33]];
 _m set ["baroAlt", ((round ((_heli getVariable ["bmkhs_barAlt", 0]) / 10) * 10) max 0) min 20000];
-_m set ["vsi", ((_heli getVariable ["bmkhs_velWorldSpace", [0, 0, 0]]) # 2) * MPS_TO_FPM];
+_m set ["vsi", ((_heli getVariable ["bmkhs_velWorldSpaceFiltered", [0, 0, 0]]) # 2) * MPS_TO_FPM];
 _m set ["attHold", _heli getVariable ["bmkhs_attHoldActive", false]];
 _m set ["altHold", _heli getVariable ["bmkhs_altHoldActive", false]];
 _m set ["slip", fza_ah64_sideslip];
@@ -168,7 +168,7 @@ _m set ["roll", _bank];
 // Pitch bias of the HMD horizon line and pitch ladder, for a FLT SET page to set
 _m set ["pitchBias", _heli getVariable ["fza_ah64_pitchBias", 5]];
 
-private _velModel = _heli getVariable ["bmkhs_velModelSpaceNoWind", [0, 0, 0]];
+private _velModel = _heli getVariable ["bmkhs_velModelSpaceNoWindFiltered", [0, 0, 0]];
 _m set ["vel", [(_velModel # 0) * MPS_TO_KNOTS, (_velModel # 1) * MPS_TO_KNOTS]];
 _m set ["acc", [_heli getVariable ["bmkhs_accelX", 0], _heli getVariable ["bmkhs_accelY", 0]]];
 

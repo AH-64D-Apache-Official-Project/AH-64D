@@ -2,9 +2,8 @@
 // Flight Controls //////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
     inputLagValue     = 0.95;
-    //Casual mode auto pitch target
+    //Level flight pitch attitude
     autoAttLevelPitch = -5.0;     //deg
-    autoAttRollLimit  = 30.0;     //deg, bank commanded by the roll key
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // FMC              /////////////////////////////////////////////////////////////////////////
@@ -43,11 +42,10 @@
         };
     };
 
+    //Keyboard rate command, sized to this aircraft's control authority: cyclic per deg/s of rate error
+    pidRateCommandPitch[] = {0.0300, 0.1500, 0.00030, 1.0};
+    pidRateCommandRoll[]  = {0.0150, 0.0750, 0.00015, 1.0};
     //Auto-pedal
-    pidAutoAttPitch[]   = {0.0925, 0.0025, 0.0220, 0.1};
-    pidAutoAttRoll[]    = {0.0400, 0.0015, 0.0250, 0.1};
-    //Hdg and taxi work through the 1.5 s foot: gain crosses over below its bandwidth, and the
-    //derivative stays small - rate feedback arriving half a period late is anti-damping.
     pidAutoPedalHdg[]   = {0.0100, 0.0020, 0.0100, 0.15};
     pidAutoPedalNtt[]   = {0.0300, 0.0080, 0.0100, 0.15};
     pidAutoPedalAero[]  = {0.6000, 0.5000, 0.4000, 0.1};
