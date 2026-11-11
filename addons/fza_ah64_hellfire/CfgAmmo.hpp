@@ -188,11 +188,17 @@ class CfgAmmo {
         model                       = "\fza_ah64_hellfire\fza_agm114n.p3d";
         proxyShape                  = "\fza_ah64_hellfire\fza_agm114n.p3d";
         hit                         = 300;
-        indirecthit                 = 300;
-        indirecthitrange            = 20;
+        indirecthit                 = 200;
+        indirecthitrange            = 6;
         explosionEffects            = "HeavyBombExplosion";
 
         submunitionAmmo             = "";
+
+        //Scripted overpressure against personnel, metres
+        fza_blastRadius             = 20;
+        fza_blastLethalRadius       = 8;
+        //Reach multiplier inside the building struck
+        fza_blastConfinement        = 1.6;
 
         //AI usage
         cost                        = 700;
