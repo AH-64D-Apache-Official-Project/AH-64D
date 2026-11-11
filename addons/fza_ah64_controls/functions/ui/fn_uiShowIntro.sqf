@@ -26,9 +26,6 @@ V3.0 moves the flight model and the aircraft systems to HeliSim Core, and brings
 <t align='center' size='1.5'>Documentation</t><br/>
 Our documentation continues to be maintained at <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
 <br/>
-<t align='center' size='1.5'>Controls setup</t><br/>
-The Controls Setup walks you through your flight settings and key bindings, checks what you have bound, and tests your stick, collective and pedals. Open it any time from your ACE self-interaction menu while in the Apache, or from the ACE interaction menu on the aircraft.<br/>
-<br/>
 <t align='center' size='1.5'>HeliSim Core</t><br/>
 The flight model and the aircraft systems (engines, electrics, hydraulics, fuel and rotor) now come from the separate HeliSim Core mod, which must be loaded. The flight control modes run on its flight management computer: attitude hold picks position, velocity or attitude hold by your ground speed, and heading hold blends into turn coordination. The main and tail rotors can now be destroyed.<br/>
 <br/>
