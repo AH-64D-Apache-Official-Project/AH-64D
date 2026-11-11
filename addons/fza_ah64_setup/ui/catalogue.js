@@ -220,7 +220,7 @@
       need: function () { return 'recommended'; }, want: function () { return 'any'; } },
     { id: 'fza_ah64_v30_sightSelectFCR', sec: 'weapons', title: 'Sight select FCR', does: 'Makes the fire control radar your sight. Shift+3 is the default.',
       need: function () { return 'recommended'; }, want: function () { return 'any'; } },
-    { id: 'ActiveSensorsToggle', sec: 'weapons', title: 'Radar on/off (FCR scan)', does: 'Arma\'s radar key starts and stops the FCR scanning, for whoever has the FCR as their sight. R is the default.',
+    { id: 'ActiveSensorsToggle', sec: 'weapons', title: 'Radar on/off (FCR scan)', does: 'Arma\'s radar key starts and stops the FCR scanning, for whoever has the FCR as their sight. Ctrl+R is the default.',
       need: function () { return 'recommended'; }, want: function () { return 'any'; } },
     { id: 'fza_ah64_fcrSingleScan', sec: 'weapons', title: 'FCR single scan', does: 'Scans the radar once. Shift+R is the default.',
       need: function () { return 'recommended'; }, want: function () { return 'any'; } },
