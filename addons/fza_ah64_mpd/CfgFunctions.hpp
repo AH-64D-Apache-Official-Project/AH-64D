@@ -24,6 +24,7 @@ class CfgFunctions
             class htmlCtrl {RECOMPILE_FLAG;};
             class htmlPreload {RECOMPILE_FLAG;};
             class htmlPush {RECOMPILE_FLAG;};
+            class htmlReady {RECOMPILE_FLAG;};
             class htmlTexture {RECOMPILE_FLAG;};
             class iconBlink {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
@@ -158,6 +159,7 @@ class CfgFunctions
         class video {
             file = "\fza_ah64_mpd\functions\video";
             class videoApply {RECOMPILE_FLAG;};
+            class videoFcr {RECOMPILE_FLAG;};
             class videoKnob {RECOMPILE_FLAG;};
             class videoLinesDraw {RECOMPILE_FLAG;};
             class videoSource {RECOMPILE_FLAG;};

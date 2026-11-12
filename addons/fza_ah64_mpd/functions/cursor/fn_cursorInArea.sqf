@@ -4,8 +4,8 @@ Function: fza_mpd_fnc_cursorInArea
 Description:
     Whether an MPD cursor position is over the area its page chooses symbols
     from: the TSD's map, inside its border, or the FCR's target area, the GTM
-    scan sector out to 8 km (the zoomed area while zoomed), the ATM circle or
-    the RMAP radar picture.
+    scan sector out to 8 km or the RMAP radar picture (the zoomed area while
+    zoomed), or the ATM circle.
 
 Parameters:
     _heli - The helicopter
@@ -46,8 +46,11 @@ switch (toLower _page) do {
         private _dy = 0.87 - _posY;
         _dy > abs _dx && {_dx ^ 2 + _dy ^ 2 < 0.65 ^ 2}
     };
-    // The RMAP radar picture, in the browser at 0.025 to 0.975 (rmap.js)
+    // The RMAP radar picture, in the browser at 0.025 to 0.975 (fcr_rmap_view.js)
     case "fcrrmap": {
+        if (_state getOrDefault ["zoom", 0] == 2) exitWith {
+            abs (_posX - 0.5) < MPD_CURSOR_ZOOM_VIEW_HALF && {abs (_posY - 0.5) < MPD_CURSOR_ZOOM_VIEW_HALF}
+        };
         _posX > 0.18 && {_posX < 0.82} && {_posY > 0.15} && {_posY < 0.875}
     };
     default {false};

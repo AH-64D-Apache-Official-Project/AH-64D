@@ -10,6 +10,16 @@ body {
     background: transparent;
 }
 
+/* The FCR video underlay (fcr_video_layer.js), where the FCR page draws its picture: its browser covers 0.025 to
+   0.975 of the MPD */
+#fcrvideo {
+    position: absolute;
+    left: 2.5%;
+    top: 2.5%;
+    width: 95%;
+    height: 95%;
+}
+
 #gs {
     position: absolute;
     left: 0;

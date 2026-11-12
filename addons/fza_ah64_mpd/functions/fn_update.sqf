@@ -55,8 +55,9 @@ if (!_acBusOn && _rmpdCurr != "off") then {
 [_heli,0,_lState, _lPersistState get _lpage] call _ldrawFunc;
 [_heli,1,_rState, _rPersistState get _rpage] call _rdrawFunc;
 
-// The VIDEO page's underlay under a native page. A ui() display is not redrawn by itself: with the video shown, or just
-// hidden, the display is redrawn so its video moves or clears (an HTML page's display is redrawn by fza_fcr_fnc_displayUiInit).
+// The VIDEO page's underlay under a native page. A ui() display is not redrawn by itself: with the video shown, and for a
+// moment after, so its page has cleared the FCR imagery, the display is redrawn (an HTML page's display is redrawn by
+// fza_fcr_fnc_displayUiInit).
 // The MPD's text boxes (its mask pass) are drawn only while there is video or map content under the page to hide.
 {
     ((_heli getVariable "fza_mpd_mpdState") # _forEachIndex) params ["_page", "", "", "", "", "", "", "_usesIcons", "_htmlUrl"];
@@ -64,13 +65,12 @@ if (!_acBusOn && _rmpdCurr != "off") then {
     if (_htmlUrl == "") then {
         private _display = (uiNamespace getVariable ["fza_mpd_display", createHashMap]) getOrDefault [_x, displayNull];
         if (isNull _display) exitWith {};
-        private _wasShown = ctrlShown (_display displayCtrl 380);
         _video = [_heli, _forEachIndex, _display, _page != "off"] call fza_mpd_fnc_videoApply;
-        if (_video || _wasShown) then {displayUpdate _display};
+        if (_video || {diag_tickTime - (_display getVariable ["fza_mpd_underlayTime", -1]) < 0.5}) then {displayUpdate _display};
     } else {
         // An HTML page with an underlay applies it when drawn
         private _ctrl = [_heli, _forEachIndex] call fza_mpd_fnc_htmlCtrl;
-        _video = !isNull _ctrl && {ctrlShown ((ctrlParent _ctrl) displayCtrl 380)};
+        _video = !isNull _ctrl && {(ctrlParent _ctrl) getVariable ["fza_mpd_underlayShown", false]};
     };
     _heli setUserMFDValue [[MFD_IND_MASK_L, MFD_IND_MASK_R] select _forEachIndex, BOOLTONUM (_video || _usesIcons == 1)];
 } forEach ["left", "right"];

@@ -48,6 +48,6 @@ switch _fcrMode do {
 
 [_heli, _mpdIndex] call fza_mpd_fnc_fcrStatusDraw;
 
-// The MPD's video underlay under the scope: the TADS or a PNVS, as the VIDEO page selects
+// The FCR page overrides the MPD's video underlay
 private _ctrl = [_heli, _mpdIndex] call fza_mpd_fnc_htmlCtrl;
-if (!isNull _ctrl) then {[_heli, _mpdIndex, ctrlParent _ctrl] call fza_mpd_fnc_videoApply};
+if (!isNull _ctrl) then {[_heli, _mpdIndex, ctrlParent _ctrl, false] call fza_mpd_fnc_videoApply};

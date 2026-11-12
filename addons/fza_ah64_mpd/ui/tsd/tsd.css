@@ -8,6 +8,15 @@ html, body {
     background: transparent;
 }
 
+/* The FCR video underlay (fcr_video_layer.js): the page is where the FCR page draws its picture */
+#fcrvideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 #map {
     position: absolute;
     top: 0;

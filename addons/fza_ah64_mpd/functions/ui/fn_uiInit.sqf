@@ -7,5 +7,6 @@ switch _mode do {
         uiNamespace setVariable ["fza_mpd_display", _loadedMPDs];
         _loadedMPDs set [_uniqueId, _display];
         _display setVariable ["fza_points", createHashMap];
+        [_display displayCtrl 386] call fza_mpd_fnc_htmlReady;
     };
 };
