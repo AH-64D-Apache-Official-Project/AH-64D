@@ -51,6 +51,8 @@
     //which the floor applies, collective at or above which they are full}. The floor is the
     //authority left in an autorotation. 0.20 is taxi power (30% torque), 0.30 is 48% torque.
     cyclicFade[] = {0.5, 0.20, 0.30};
+    //Gross mass the main rotor tables were fitted at - 18,000 lb. Core adjusts lift for weight from it.
+    fitGrossMass = 8165; //kg
     //Rotor limits, Nr - {normal low, normal high, high rotor, maximum}; below and above normal is transient.
     nrLimits[] = {0.95, 1.05, 1.06, 1.10};
     class SimpleRotors {

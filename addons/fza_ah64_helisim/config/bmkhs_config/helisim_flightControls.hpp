@@ -42,11 +42,14 @@
         };
     };
 
-    //Keyboard rate command, sized to this aircraft's control authority: cyclic per deg/s of rate error
+    //Keyboard rate command, sized to this aircraft's control authority: control per deg/s of rate error
     pidRateCommandPitch[] = {0.0300, 0.1500, 0.00030, 1.0};
     pidRateCommandRoll[]  = {0.0150, 0.0750, 0.00015, 1.0};
+    pidRateCommandYaw[]   = {0.0200, 0.0500, 0.00020, 1.0};
     //Auto-pedal
     pidAutoPedalHdg[]   = {0.0100, 0.0020, 0.0100, 0.15};
     pidAutoPedalNtt[]   = {0.0300, 0.0080, 0.0100, 0.15};
     pidAutoPedalAero[]  = {0.6000, 0.5000, 0.4000, 0.1};
     pidAutoPedalTaxi[]  = {0.0100, 0.0020, 0.0020, 0.15};
+    //Keyboard auto taxi: cyclic per m/s of taxi speed error
+    pidAutoTaxi[]       = {0.1000, 0.0200, 0.0000, 0.15};
