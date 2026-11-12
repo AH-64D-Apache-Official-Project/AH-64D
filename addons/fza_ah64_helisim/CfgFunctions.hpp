@@ -12,7 +12,6 @@ class CfgFunctions
         };
         class custom {
             file = "\fza_ah64_helisim\functions\custom";
-            class cyclicFade    {R;};
             class perfData      {R;};
             class perfVariables {R;};
         };

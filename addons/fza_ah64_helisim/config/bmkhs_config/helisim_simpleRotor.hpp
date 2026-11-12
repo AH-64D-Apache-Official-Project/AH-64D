@@ -34,7 +34,7 @@
 //  rollLiftCoef / pitchLiftCoef - the cyclic lift coefficient, independent of the
 //                 collective's. This is what makes the fore/aft and left/right blades carry
 //                 different lift, so the pitch and roll moments come out of real forces at
-//                 real positions rather than being applied as a torque. The pack scales both
+//                 real positions rather than being applied as a torque. Core scales both
 //                 with collective: see cyclicFade below.
 //  gndEffValue  - thrust multiplier on the deck, fading to 1.0 by one rotor diameter up.
 //                 A rotor that does not sit in ground effect declares 1.0.
@@ -50,6 +50,7 @@
     //Cyclic lift coefficients against collective - {scale at the floor, collective at or below
     //which the floor applies, collective at or above which they are full}. The floor is the
     //authority left in an autorotation. 0.20 is taxi power (30% torque), 0.30 is 48% torque.
+    //Required with wheels.
     cyclicFade[] = {0.5, 0.20, 0.30};
     //Gross mass the main rotor tables were fitted at - 18,000 lb. Core adjusts lift for weight from it.
     fitGrossMass = 8165; //kg
