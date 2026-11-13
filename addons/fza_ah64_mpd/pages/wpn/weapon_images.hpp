@@ -89,7 +89,7 @@ class Gun {
     }; 
     class failed {
         condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE),1));
-        color[] = {1,1,0,1};
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class Yellow_Box
         {
             type = "polygon";
@@ -218,7 +218,7 @@ MFD_WPN_HF_PYLON_RAIL(13, 0.565)
                 name = fza_ah64_hellfire_selected;\
             };\
             class White {\
-                color[] = {1,1,1,1};\
+                color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
                 MPD_TEXT_C(Line1, posX, posY+0.07-2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1))\
                 MPD_TEXT_C(Line2, posX, posY+0.063-MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2))\
             };\
@@ -283,7 +283,7 @@ MFD_WPN_ROCKET_PYLON(13, 0.733, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 2, 
 #define MFD_WPN_FAILED_PYLON(num, posX, posY, presentIndex, presentState1, presentState2) \
     class FailedPylon##num { \
         condition = C_COND(C_OR(C_EQ(C_MPD_USER(presentIndex),presentState1), C_EQ(C_MPD_USER(presentIndex),presentState2)));\
-        color[] = {1,1,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         class outline {\
             type = "line";\
             width = 2;\

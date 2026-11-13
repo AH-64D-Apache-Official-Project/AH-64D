@@ -4,7 +4,7 @@
 color[] = {0, 0, 0, 1};
 font="fza_BMKApacheBlock";
 #else
-color[] = {0.2, 1, 0, 1};
+color[] = {__EVAL("0.2*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
 font="fza_BMKApacheFont";
 #endif
 helmetMountedDisplay=0;

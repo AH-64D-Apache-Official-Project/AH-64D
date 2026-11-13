@@ -49,6 +49,9 @@
         fitCanvas();
 
         var m = model;
+        // SYM BRT
+        var opacity = typeof m.sb === "number" ? String(Math.max(0, Math.min(1, m.sb))) : "";
+        if (canvas.style.opacity !== opacity) { canvas.style.opacity = opacity; }
         var colour = m.white ? IH.WHITE : IH.GREEN;
         ctx.strokeStyle = colour;
         ctx.fillStyle = colour;

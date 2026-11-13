@@ -13,16 +13,27 @@
 #define MFD_IND_EMER_HYD 7
 #define MFD_IND_MSTR_CAUT 8
 #define MFD_IND_MSTR_WARN 9
+//10, 11: ACQ list open, 12, 13: mask pass (mpd_defines.hpp)
 //14 to 17: ENG page timers
 //18, 19: MPD cursor
+// BRT and DAY/NIGHT/MONO (fza_mpd_fnc_update): how much the left/right MPD's colours are dimmed, 0 full to 1 black,
+// and MONO on it, 0/1; then the same for the weapon pylon pictures, from the MPD showing the WPN page
+#define MFD_IND_DIM_L 20
+#define MFD_IND_DIM_R 21
+#define MFD_IND_MONO_L 22
+#define MFD_IND_MONO_R 23
+#define MFD_IND_PYLON_DIM 24
+#define MFD_IND_PYLON_MONO 25
+//26 to 29: free
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
 #define MFD_TEXT_IND_UFD_FUEL 10
 
 
-#define MFD_OFFSET_L 20
-#define MFD_OFFSET_R 60
+// Globals 0-29, then 40 per MPD: left 30-69, right 70-109 (mfdMaxUserValues 110)
+#define MFD_OFFSET_L 30
+#define MFD_OFFSET_R 70
 
 //Flight page
 #define MFD_TEXT_IND_FLT_TORQUE       0
@@ -684,6 +695,19 @@
 // The video and its symbology are raised by this many format units (480 to the MPD height), so the format's bottom
 // clears the screen edge; video.css raises the format the same
 #define MPD_VIDEO_RAISE 14
+
+// BRT and DAY/NIGHT/MONO knobs, per crew station and MPD (fza_mpd_fnc_viewState): [brt 0-1, mode]
+#define MPD_VIEW_BRT  0
+#define MPD_VIEW_MODE 1
+#define MPD_MODE_DAY   0
+#define MPD_MODE_NIGHT 1
+#define MPD_MODE_MONO  2
+#define MPD_BRT_STEP   0.05
+// Display level over the BRT knob's travel; NIGHT and MONO share the lower, finer range
+#define MPD_LEVEL_DAY   [0.3, 1]
+#define MPD_LEVEL_NIGHT [0.02, 0.5]
+// The dim overlay lets level ^ this through: native lines glow far past full white (emissive 20), so a linear cut barely shows
+#define MPD_LEVEL_GAMMA 3
 
 #define BOOLTONUM [0,1] select
 // Acquisition source list (fza_mpd_fnc_acqHandleControl): open on the left/right MPD, not offset, as page text

@@ -5,12 +5,12 @@
         config\
     };\
     class name##_Yellow {\
-        color[] = {1,1,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
         config\
     };\
     class name##_Red {\
-        color[] = {1,0,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
         config\
     };
@@ -30,7 +30,7 @@
         MPD_TEXT_R(name, posX, posY, MPD_TEXT_USER(textInd))\
     };\
     class name##_Over {\
-        color[] = {1,1,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_MORE(C_MPD_USER(overInd), 0.5));\
         MPD_TEXT_R(name, posX, posY, MPD_TEXT_USER(textInd))\
     };

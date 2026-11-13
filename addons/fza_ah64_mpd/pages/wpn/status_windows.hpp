@@ -45,7 +45,7 @@ class StatusWindows {
         class Arm {
             condition = C_COND(C_MPD_USER(MFD_IND_WPN_CHAFF_ARM));
             class Yellow {
-                color[] = {1,1,0,1};
+                color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
                 class Polygon {
                     type = "polygon";
                     points[] = {

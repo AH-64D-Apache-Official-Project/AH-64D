@@ -22,9 +22,30 @@ Examples:
 Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_system", "_control"];
 
 private _mpdIndex = parseNumber (_system == "rmpd");
+
+// Bezel knobs, not passed to the page
+private _knob = true;
+switch (_control) do {
+    case "brtInc";
+    case "brtDec": {
+        private _seat = [_heli] call fza_fnc_getSeat;
+        if (isNil "_seat") exitWith {};
+        private _brt = ([_heli, _seat, _mpdIndex] call fza_mpd_fnc_viewState) # MPD_VIEW_BRT;
+        [_heli, _mpdIndex, MPD_VIEW_BRT, _brt + ([-1, 1] select (_control == "brtInc")) * MPD_BRT_STEP] call fza_mpd_fnc_viewSet;
+    };
+    case "day":   {[_heli, _mpdIndex, MPD_VIEW_MODE, MPD_MODE_DAY] call fza_mpd_fnc_viewSet};
+    case "night": {[_heli, _mpdIndex, MPD_VIEW_MODE, MPD_MODE_NIGHT] call fza_mpd_fnc_viewSet};
+    case "mono":  {[_heli, _mpdIndex, MPD_VIEW_MODE, MPD_MODE_MONO] call fza_mpd_fnc_viewSet};
+    case "vidInc": {[_heli, _mpdIndex, 1] call fza_mpd_fnc_videoKnob};
+    case "vidDec": {[_heli, _mpdIndex, -1] call fza_mpd_fnc_videoKnob};
+    default {_knob = false};
+};
+if _knob exitWith {};
+
 [_heli] call fza_ku_fnc_clear;
 
 switch (_control) do {

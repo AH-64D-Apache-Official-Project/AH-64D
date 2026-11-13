@@ -165,6 +165,13 @@ class CfgFunctions
             class videoSymbols {RECOMPILE_FLAG;};
             class videoSymbolsShow {RECOMPILE_FLAG;};
         };
+        class view {
+            file = "\fza_ah64_mpd\functions\view";
+            class viewHtmlLook {RECOMPILE_FLAG;};
+            class viewSet {RECOMPILE_FLAG;};
+            class viewSettings {RECOMPILE_FLAG;};
+            class viewState {RECOMPILE_FLAG;};
+        };
         class wpn {
             file = "\fza_ah64_mpd\functions\wpn";
             class wpnGunDraw {RECOMPILE_FLAG;};

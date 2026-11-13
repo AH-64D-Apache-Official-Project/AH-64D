@@ -25,6 +25,7 @@ class CfgFunctions
             class hasHelmet {R;};
             class hduCleanContainer {R;};
             class hduInit {R;};
+            class hduPictureColour {R;};
             class hduUpdate {R;};
             class iatGates {R;};
             class iatGateStrips {R;};
@@ -52,6 +53,8 @@ class CfgFunctions
             class tadsNvsControl {R;};
             class tadsNvsReset {R;};
             class tadsSlew {R;};
+            class videoPanel {R;};
+            class videoPanelSet {R;};
         };
         class html {
             file = "\fza_ah64_ihadss\functions\html";
