@@ -48,6 +48,9 @@ fza_ah64_helisim_baseClass = getText (configFile >> "CfgPatches" >> "fza_ah64_he
                 case "rotorBrake": {
                     [_heli, "fza_ah64_rtrbrake", _value / 2] call fza_fnc_animSetValue;
                 };
+
+                //The handle: 1 is set, as modelled.
+                case "parkBrake": { _heli animate ["parkBrakeHandle", _value]; };
             };
         };
 

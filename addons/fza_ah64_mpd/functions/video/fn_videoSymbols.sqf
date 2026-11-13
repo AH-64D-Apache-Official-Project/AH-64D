@@ -127,7 +127,7 @@ private _was  = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];
 if (_flight) then {
     ["headtracker" call _ihTex, [[0, 1, 0], true] call _project, 64] call _place;
     if (_mode in ["trans", "cruise"]) then {
-        private _velWorld = _heli getVariable ["bmkhs_velWorldSpaceNoWind", [0, 0, 0]];
+        private _velWorld = _heli getVariable ["bmkhs_velWorldSpaceNoWindFiltered", [0, 0, 0]];
         if (vectorMagnitude _velWorld * MPS_TO_KNOTS > 5) then {
             ["fpv" call _ihTex, (vectorNormalized _velWorld) call _dir, 64, true] call _place;
         };

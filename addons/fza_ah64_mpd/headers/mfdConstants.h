@@ -15,6 +15,8 @@
 #define MFD_IND_MSTR_WARN 9
 //14 to 17: ENG page timers
 //18, 19: MPD cursor
+//100: past both MPDs' ranges (mfdMaxUserValues is 101)
+#define MFD_IND_TW_UNLK 100
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9

@@ -687,6 +687,74 @@
             <Original>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</Original>
             <English>CPG: stores a target point along the selected sight's LOS (TADS, HMD or FCR) at the range shown</English>
         </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_PARKING_BRAKE">
+            <Original>Toggle Parking Brake</Original>
+            <English>Toggle Parking Brake</English>
+            <Czech>Přepnout Parkovací Brzdu</Czech>
+            <French>Activer/Désactiver Frein de Parking</French>
+            <Spanish>Alternar Freno de Estacionamiento</Spanish>
+            <Italian>Attiva/Disattiva Freno di Parcheggio</Italian>
+            <Polish>Przełącz Hamulec Postojowy</Polish>
+            <Portuguese>Alternar Freio de Estacionamento</Portuguese>
+            <Russian>Переключить Стояночный Тормоз</Russian>
+            <German>Feststellbremse Umschalten</German>
+            <Korean>주차 브레이크 토글</Korean>
+            <Japanese>パーキングブレーキ切替</Japanese>
+            <Chinesesimp>切换驻车制动器</Chinesesimp>
+            <Turkish>Park Frenini Aç/Kapat</Turkish>
+            <Dutch>Parkeerrem Omschakelen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_PARKING_BRAKE_INFO">
+            <Original>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</Original>
+            <English>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</English>
+            <Czech>Přepíná parkovací brzdu. Při ZAPNUTÍ je letadlo plně zablokováno. Při VYPNUTÍ se kola volně otáčejí dopředu a dozadu pro pojíždění po zemi.</Czech>
+            <French>Active/désactive le frein de parking. Quand ACTIVÉ, l'aéronef est totalement immobilisé. Quand DÉSACTIVÉ, les roues roulent librement avant et arrière pour le roulage au sol.</French>
+            <Spanish>Activa y desactiva el freno de estacionamiento. Cuando está ACTIVADO, la aeronave queda completamente bloqueada. Cuando está DESACTIVADO, las ruedas ruedan libremente hacia adelante y atrás para el rodaje en tierra.</Spanish>
+            <Italian>Attiva e disattiva il freno di parcheggio. Quando ATTIVO, l'aeromobile è completamente bloccato. Quando DISATTIVO, le ruote rotolano liberamente avanti e indietro per il rullaggio a terra.</Italian>
+            <Polish>Włącza i wyłącza hamulec postojowy. Gdy WŁĄCZONY, statek powietrzny jest całkowicie zablokowany. Gdy WYŁĄCZONY, koła toczą się swobodnie do przodu i do tyłu dla kołowania naziemnego.</Polish>
+            <Portuguese>Liga e desliga o freio de estacionamento. Quando LIGADO, a aeronave fica totalmente travada. Quando DESLIGADO, as rodas rolam livremente para frente e para trás para o táxi no solo.</Portuguese>
+            <Russian>Включает и выключает стояночный тормоз. При ВКЛЮЧЁННОМ тормозе воздушное судно полностью зафиксировано. При ВЫКЛЮЧЁННОМ колёса свободно катятся вперёд и назад для руления по земле.</Russian>
+            <German>Schaltet die Feststellbremse ein und aus. Bei EIN ist das Luftfahrzeug vollständig fixiert. Bei AUS rollen die Räder frei vor und zurück für das Rollen am Boden.</German>
+            <Korean>주차 브레이크를 켜고 끕니다. ON 상태에서는 항공기가 완전히 고정됩니다. OFF 상태에서는 지상 주행을 위해 바퀴가 앞뒤로 자유롭게 구릅니다.</Korean>
+            <Japanese>パーキングブレーキのオン/オフを切り替えます。オン時は機体が完全に固定されます。オフ時は地上走行のためにホイールが前後に自由に転がります。</Japanese>
+            <Chinesesimp>切换驻车制动器的开关状态。开启时，飞机完全锁定。关闭时，机轮可自由前后滚动以进行地面滑行。</Chinesesimp>
+            <Turkish>Park frenini açar ve kapatır. AÇIK konumda, uçak tamamen kilitlenir. KAPALI konumda, tekerlekler yer taksi için serbestçe ileri geri döner.</Turkish>
+            <Dutch>Schakelt de parkeerrem aan en uit. Wanneer AAN is het luchtvaartuig volledig vergrendeld. Wanneer UIT rollen de wielen vrij voor en achter voor het taxiën op de grond.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_TAIL_WHEEL_LOCK">
+            <Original>Toggle Tail Wheel Lock</Original>
+            <English>Toggle Tail Wheel Lock</English>
+            <Czech>Přepnout Zámek Ocasního Kola</Czech>
+            <French>Activer/Désactiver Verrouillage Roulette de Queue</French>
+            <Spanish>Alternar Bloqueo de Rueda de Cola</Spanish>
+            <Italian>Attiva/Disattiva Blocco Ruotino di Coda</Italian>
+            <Polish>Przełącz Blokadę Koła Ogonowego</Polish>
+            <Portuguese>Alternar Trava da Bequilha</Portuguese>
+            <Russian>Переключить Блокировку Хвостового Колеса</Russian>
+            <German>Spornradverriegelung Umschalten</German>
+            <Korean>꼬리바퀴 잠금 토글</Korean>
+            <Japanese>尾輪ロック切替</Japanese>
+            <Chinesesimp>切换尾轮锁定</Chinesesimp>
+            <Turkish>Kuyruk Tekerleği Kilidini Aç/Kapat</Turkish>
+            <Dutch>Staartwielvergrendeling Omschakelen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_TAIL_WHEEL_LOCK_INFO">
+            <Original>Toggles the tail wheel lock. When locked, the wheel stays along the aircraft&apos;s long axis. When unlocked, it castors freely through 360 degrees. The lock only engages once the wheel swings back to centre.</Original>
+            <English>Toggles the tail wheel lock. When locked, the wheel stays along the aircraft&apos;s long axis. When unlocked, it castors freely through 360 degrees. The lock only engages once the wheel swings back to centre.</English>
+            <Czech>Přepíná zámek ocasního kola. Když je zamčeno, kolo zůstává v podélné ose letadla. Když je odemčeno, volně se otáčí o 360 stupňů. Zámek zapadne, až se kolo vrátí do středu.</Czech>
+            <French>Active/désactive le verrouillage de la roulette de queue. Verrouillée, la roulette reste sur l&apos;axe longitudinal de l&apos;aéronef. Déverrouillée, elle pivote librement sur 360 degrés. Le verrou ne s&apos;enclenche qu&apos;une fois la roulette revenue au centre.</French>
+            <Spanish>Activa y desactiva el bloqueo de la rueda de cola. Bloqueada, la rueda permanece en el eje longitudinal de la aeronave. Desbloqueada, gira libremente 360 grados. El bloqueo solo se engrana cuando la rueda vuelve al centro.</Spanish>
+            <Italian>Attiva e disattiva il blocco del ruotino di coda. Bloccato, il ruotino resta sull&apos;asse longitudinale dell&apos;aeromobile. Sbloccato, ruota liberamente di 360 gradi. Il blocco si inserisce solo quando il ruotino torna al centro.</Italian>
+            <Polish>Włącza i wyłącza blokadę koła ogonowego. Zablokowane koło pozostaje w osi podłużnej statku powietrznego. Odblokowane obraca się swobodnie o 360 stopni. Blokada zaskakuje dopiero, gdy koło wróci do środka.</Polish>
+            <Portuguese>Liga e desliga a trava da bequilha. Travada, a roda permanece no eixo longitudinal da aeronave. Destravada, gira livremente em 360 graus. A trava só engata quando a roda volta ao centro.</Portuguese>
+            <Russian>Включает и выключает блокировку хвостового колеса. Заблокированное колесо остаётся на продольной оси вертолёта. Разблокированное свободно вращается на 360 градусов. Блокировка срабатывает, только когда колесо вернётся в центр.</Russian>
+            <German>Schaltet die Spornradverriegelung ein und aus. Verriegelt bleibt das Rad auf der Längsachse des Luftfahrzeugs. Entriegelt dreht es sich frei um 360 Grad. Die Verriegelung rastet erst ein, wenn das Rad zur Mitte zurückkehrt.</German>
+            <Korean>꼬리바퀴 잠금을 켜고 끕니다. 잠기면 바퀴가 항공기 세로축에 고정됩니다. 풀리면 360도 자유롭게 회전합니다. 잠금은 바퀴가 중앙으로 돌아와야 걸립니다.</Korean>
+            <Japanese>尾輪ロックを切り替えます。ロック時、車輪は機体の前後軸に固定されます。解除時は360度自由に回転します。ロックは車輪が中央に戻ったときにのみ掛かります。</Japanese>
+            <Chinesesimp>切换尾轮锁定。锁定时，尾轮保持在飞机纵轴上。解锁时，可自由旋转360度。只有尾轮回到中心时才会锁定。</Chinesesimp>
+            <Turkish>Kuyruk tekerleği kilidini açar ve kapatır. Kilitliyken teker uçağın boyuna ekseninde kalır. Kilit açıkken 360 derece serbestçe döner. Kilit yalnızca teker merkeze döndüğünde devreye girer.</Turkish>
+            <Dutch>Schakelt de staartwielvergrendeling aan en uit. Vergrendeld blijft het wiel op de lengteas van het luchtvaartuig. Ontgrendeld draait het vrij over 360 graden. De vergrendeling grijpt pas aan als het wiel terug in het midden staat.</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN">
             <Original>WAS Gun</Original>
             <English>WAS Gun</English>

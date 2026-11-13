@@ -121,7 +121,7 @@ if (!_weaponFormat && !_headsDown) then {
 
     if (_mode in ["trans", "cruise"]) then {
         // Over 5 kt ground speed, judged on the same no-wind vector it points along
-        private _velWorld = _heli getVariable ["bmkhs_velWorldSpaceNoWind", [0, 0, 0]];
+        private _velWorld = _heli getVariable ["bmkhs_velWorldSpaceNoWindFiltered", [0, 0, 0]];
         if (vectorMagnitude _velWorld * MPS_TO_KNOTS > 5) then {
             ["fpv", ("fpv" call _tex), (vectorNormalized _velWorld) call _dirToScreen, 64, true] call _place;
         };

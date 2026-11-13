@@ -2,9 +2,8 @@
 // Flight Controls //////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
     inputLagValue     = 0.95;
-    //Casual mode auto pitch target
+    //Level flight pitch attitude
     autoAttLevelPitch = -5.0;     //deg
-    autoAttRollLimit  = 30.0;     //deg, bank commanded by the roll key
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // FMC              /////////////////////////////////////////////////////////////////////////
@@ -43,9 +42,18 @@
         };
     };
 
+    //Keyboard rate command, sized to this aircraft's control authority: control per deg/s of rate error
+    pidRateCommandPitch[] = {0.0300, 0.1500, 0.00030, 1.0};
+    pidRateCommandRoll[]  = {0.0150, 0.0750, 0.00015, 1.0};
+    pidRateCommandYaw[]   = {0.0200, 0.0500, 0.00020, 1.0};
     //Auto-pedal
-    pidAutoAttPitch[]   = {0.0925, 0.0025, 0.0220, 0.1};
-    pidAutoAttRoll[]    = {0.0400, 0.0015, 0.0250, 0.1};
-    pidAutoPedalHdg[]   = {0.1000, 0.0050, 0.0500, 0.15};
+    pidAutoPedalHdg[]   = {0.0100, 0.0020, 0.0100, 0.15};
     pidAutoPedalNtt[]   = {0.0300, 0.0080, 0.0100, 0.15};
     pidAutoPedalAero[]  = {0.6000, 0.5000, 0.4000, 0.1};
+    pidAutoPedalTaxi[]  = {0.0100, 0.0020, 0.0020, 0.15};
+    //Heading hold on the wheels under 10 kt: pedal per deg of heading error
+    pidAutoPedalTaxiHdg[] = {0.0500, 0.0300, 0.0100, 0.50};
+    //Keyboard auto taxi: cyclic per m/s of taxi speed error
+    pidAutoTaxi[]       = {0.1000, 0.0200, 0.0000, 0.15};
+    //Its roll, rolling on the wheels: cyclic per deg/s of roll rate, the limit the most cyclic
+    pidAutoTaxiRoll[]   = {0.0000, 0.1000, 0.0000, 0.30};

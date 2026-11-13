@@ -132,4 +132,30 @@ class Controls {
             class Armed { displayName = "APU Fire - Arm";    value = 1; };
         };
     };
+
+    //Latching. Set at rest, as the aircraft is shut down. Named by Wheels brakeControl; the
+    //value is the handle's animation phase.
+    class ParkBrake {
+        variableName = "parkBrake";
+        rest         = 1;
+        wraps        = 1;
+        networked    = 1;
+        class Positions {
+            class Off { displayName = "Parking Brake - Off"; value = 0; };
+            class On  { displayName = "Parking Brake - On";  value = 1; };
+        };
+    };
+
+    //Latching. Selected at rest; the pin drops in once the tail wheel is near centre. Named by
+    //the tail wheel's lockControl.
+    class TailWheelLock {
+        variableName = "tailWheelLock";
+        rest         = 1;
+        wraps        = 1;
+        networked    = 1;
+        class Positions {
+            class Unlock { displayName = "Tail Wheel Lock - Unlock"; value = 0; };
+            class Lock   { displayName = "Tail Wheel Lock - Lock";   value = 1; };
+        };
+    };
 };
