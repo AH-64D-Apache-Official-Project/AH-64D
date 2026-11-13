@@ -279,7 +279,7 @@ class ase_draw {
             //Draw ASE Lines
             #define ASE_AZ(name, mpdVal)\
             class aseaz_##name {\
-                color[] = {1,1,0,1};\
+                color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
                 class line##name {\
                 condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
                     class trackLine {\
@@ -317,7 +317,7 @@ class ase_draw {
 
     //Ownship Icon
     class lines_ownshipIcon {
-        color[] = {0,1,1,1};
+        color[] = {__EVAL("0.2*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
         class Lines {
             type = "line";
             width = 3;

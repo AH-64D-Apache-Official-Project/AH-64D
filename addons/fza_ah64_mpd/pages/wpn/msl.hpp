@@ -20,7 +20,7 @@ class VABs_Mode_Msl {
     class ModeSelect {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 2));
         class Box {
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             type = "line";
             width = 3;
             points[] = {
@@ -240,7 +240,7 @@ class VABs_Mode_Msl_SAL {
     class TrajectorySelect {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 1));
         class Box {
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             type = "line";
             width = 3;
             points[] = {
@@ -295,7 +295,7 @@ class VABs_Mode_Msl_SAL {
     class className {\
         class Pri {\
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_PRI_CH), channelNum));\
-            color[] = {1,1,1,1};\
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PRI"))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
             class Box {\

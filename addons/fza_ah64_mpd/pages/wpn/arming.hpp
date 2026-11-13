@@ -42,7 +42,7 @@ class ArmSafe {
     };
     class Arm {
         condition = C_COND(C_MPD_USER(MFD_IND_WPN_MASTER_ARM));
-        color[] = {1,1,0,1};
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class Polygons {
             type = "polygon";
             points[] = {

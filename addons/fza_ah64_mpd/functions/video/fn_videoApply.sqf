@@ -5,9 +5,10 @@ Description:
     Shows an MPD's video underlay in a display's video group (FZA_MPD_VIDEO_GROUP),
     as its VIDEO page settings have it. The sensor's middle 4:3 is its image:
     NORM presents the centre 75% of it, WIDE 95% with black bars above and
-    below, ZOOM 2:1 of WIDE. COLOR tints it green, SYMB
+    below, ZOOM 2:1 of WIDE. COLOR or MONO tints it green, SYMB
     BOOST darkens it, and the VID knob darkens it below its centre detent or
-    lifts its dark areas above.
+    lifts its dark areas above. BRT and DAY/NIGHT/MONO scale it
+    (fza_mpd_looks, set each frame by fza_mpd_fnc_update).
 
 Parameters:
     _heli    - The helicopter
@@ -46,10 +47,12 @@ if (_target == "") exitWith {
 private _picture = _group controlsGroupCtrl 381;
 private _lift    = _group controlsGroupCtrl 382;
 private _texture = [_target] call fza_ihadss_fnc_r2tTexture;
-private _gain = [1, 0.55] select (_symb == 1);
+((_heli getVariable ["fza_mpd_looks", []]) param [_side, [1, false]]) params [["_light", 1, [0]], ["_mono", false, [false]]];
+private _gain = ([1, 0.55] select (_symb == 1)) * _light;
 if (_knob < 0) then {_gain = _gain * (1 + 0.75 * _knob)};
+private _green = _mono || {_color == 1};
 
-private _key = [_texture, _view, _color, _gain, _knob];
+private _key = [_texture, _view, _green, _gain, _knob, _light];
 if ((_group getVariable ["fza_mpd_videoKey", []]) isNotEqualTo _key) then {
     _group setVariable ["fza_mpd_videoKey", _key];
     _picture ctrlSetText _texture;
@@ -57,12 +60,12 @@ if ((_group getVariable ["fza_mpd_videoKey", []]) isNotEqualTo _key) then {
     private _h      = [1 / (4 / 3 * 0.95), 1 / (4 / 3 * 0.75), 2 / (4 / 3 * 0.95)] select _view;
     private _w      = _h * _aspect;
     private _rect   = [(1 - _w) / 2, (1 - _h) / 2 - MPD_VIDEO_RAISE / 480, _w, _h];
-    private _tint   = [[1, 1, 1], [0.35, 1, 0.35]] select _color;
+    private _tint   = [[1, 1, 1], [0.35, 1, 0.35]] select _green;
     _picture ctrlSetPosition _rect;
     _picture ctrlSetTextColor ((_tint apply {_x * _gain}) + [1]);
     _picture ctrlCommit 0;
     _lift ctrlSetPosition _rect;
-    _lift ctrlSetTextColor [1, 1, 1, 0.3 * (_knob max 0)];
+    _lift ctrlSetTextColor [1, 1, 1, 0.3 * (_knob max 0) * _light];
     _lift ctrlCommit 0;
 };
 if !(ctrlShown _group) then {_group ctrlShow true};

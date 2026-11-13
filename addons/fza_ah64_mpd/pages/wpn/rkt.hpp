@@ -57,7 +57,7 @@ class VABs_Mode_Rkt {
     class quantityDraw {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 1));
         class static {
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             type = "line";
             width = 3;
             points[] = {

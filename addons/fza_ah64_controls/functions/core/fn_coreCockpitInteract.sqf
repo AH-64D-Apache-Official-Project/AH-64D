@@ -20,6 +20,9 @@ switch (_system) do {
     case "nvs": {
         [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };
+    case "video": {
+        [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
+    };
     case "light": {
         [_heli, _system, _control] call fza_light_fnc_handleControl;
     };

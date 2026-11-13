@@ -107,6 +107,19 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
         fza_ah64_chromAberrationEffect ppEffectCommit 0;
     };
 
+    ["colorCorrections", 404, [1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_flirLevelGainEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_flirLevelGainEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_flirLevelGainEffect ppEffectAdjust _effect;
+        fza_ah64_flirLevelGainEffect ppEffectCommit 0;
+    };
+
     ["colorCorrections", 405, [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]] call
     {
         params ["_name", "_priority", "_effect", "_handle"];

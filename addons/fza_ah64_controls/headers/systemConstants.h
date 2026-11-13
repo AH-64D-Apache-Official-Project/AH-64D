@@ -30,6 +30,17 @@
 #define NVS_MODE_OFF   0
 #define NVS_MODE_NORM  0.5
 #define NVS_MODE_FIXED 1
+// The pilot's VIDEO panel and the CPG's equivalent, per crew station (fza_ihadss_fnc_videoPanel): knobs 0-1, ACM 0/1
+#define VIDEO_PANEL_IHADSS_BRT 0
+#define VIDEO_PANEL_IHADSS_CON 1
+#define VIDEO_PANEL_SYM_BRT    2
+#define VIDEO_PANEL_FLIR_LVL   3
+#define VIDEO_PANEL_FLIR_GAIN  4
+#define VIDEO_PANEL_ACM        5
+#define VIDEO_PANEL_DEFAULT    [1, 0.78, 1, 0.5, 0.5, 1]
+#define VIDEO_PANEL_STEP       0.05
+// HDU picture opacity at full IHADSS CON
+#define HDU_PICTURE_ALPHA_MAX  0.9
 // The CPG's LST mode switch
 #define LST_MODE_OFF  0
 #define LST_MODE_AUTO 1
