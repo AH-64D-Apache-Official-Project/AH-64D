@@ -49,6 +49,26 @@ if (!_acBusOn && _rmpdCurr != "off") then {
     [_heli, 1, "off"] call fza_mpd_fnc_setCurrentPage;
 };
 
+// The MFD values and text are shared by both crew stations' MPDs. All but these are rewritten by each frame's draw;
+// these are written only when they change, so any written from elsewhere are put back from this crew station's state.
+private _mpdState  = _heli getVariable "fza_mpd_mpdState";
+private _acqMenu   = _heli getVariable ["fza_mpd_acqMenu", [false, false]];
+(_heli getVariable ["fza_ku_screen", []]) params [["_kuError", 0], ["_kuText", ""]];
+private _mfdValues = getUserMFDValue _heli;
+{
+    _x params ["_index", "_value"];
+    if ((_mfdValues param [_index, -1]) isNotEqualTo _value) then {_heli setUserMFDValue [_index, _value]};
+} forEach [
+    [MFD_IND_PAGE_LEFT,  _mpdState # 0 # 1],
+    [MFD_IND_PAGE_RIGHT, _mpdState # 1 # 1],
+    [MFD_IND_ACQ_OPEN_L, BOOLTONUM(_acqMenu # 0)],
+    [MFD_IND_ACQ_OPEN_R, BOOLTONUM(_acqMenu # 1)],
+    [MFD_IND_KU_STATE,   _kuError]
+];
+if (((getUserMFDText _heli) param [MFD_TEXT_IND_KU, ""]) isNotEqualTo _kuText) then {
+    _heli setUserMFDText [MFD_TEXT_IND_KU, _kuText];
+};
+
 (_heli getVariable "fza_mpd_mpdState") # 0 params ["_lpage", "", "_ldrawFunc", "", "_lState", "_lPersistState"];
 (_heli getVariable "fza_mpd_mpdState") # 1 params ["_rpage", "", "_rdrawFunc", "", "_rState", "_rPersistState"];
 
