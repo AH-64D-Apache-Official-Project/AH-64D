@@ -30,7 +30,7 @@ if !(_heli getVariable ["fza_mpd_htmlPreloaded", false]) then {
 
 // The screen's aspect for the sensor video (fza_ihadss_fnc_r2tTexture), measured here as the MPD displays cannot
 fza_ihadss_screenAspect = (safeZoneW / pixelW) / (safeZoneH / pixelH);
-[_heli] call fza_ihadss_fnc_dtvCamera;
+{[_heli, _x] call fza_ihadss_fnc_tadsCamera} forEach ["fza_ah64_tadscam_dtv", "fza_ah64_tadscam_flir"];
 
 private _lmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _rmpdCurr = [_heli, 1] call fza_mpd_fnc_currentPage;

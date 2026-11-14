@@ -26,10 +26,12 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_target"];
 
-// The DTV is rendered by a script camera while it is shown (fza_ihadss_fnc_dtvCamera), on mission time
-if (_target == "fza_ah64_tadscam_dtv") then {fza_ihadss_dtvShownAt = time};
-
 private _aspect = missionNamespace getVariable ["fza_ihadss_screenAspect", (safeZoneW / pixelW) / (safeZoneH / pixelH)];
 private _size   = 1024;
-if (_target in ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"]) then {_size = 1024 * 2 ^ (round (ln _aspect / ln 2) max 0)};
+if (_target in ["fza_ah64_tadscam_flir", "fza_ah64_tadscam_dtv"]) then {
+    _size = 1024 * 2 ^ (round (ln _aspect / ln 2) max 0);
+    // Rendered by a script camera while it is shown (fza_ihadss_fnc_tadsCamera), on mission time
+    if (isNil "fza_ihadss_tadsShownAt") then {fza_ihadss_tadsShownAt = createHashMap};
+    fza_ihadss_tadsShownAt set [_target, time];
+};
 format ["#(argb,%1,%1,1)r2t(%2,%3)", round _size, _target, _aspect]
