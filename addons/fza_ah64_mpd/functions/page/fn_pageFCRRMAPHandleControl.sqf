@@ -22,7 +22,8 @@ switch _control do {
         [_heli, -1] call fza_fcr_fnc_slewCenterline;
     };
     case "r1": {
-        // ZOOM — 6:1 display zoom, not implemented; scan size is the grip switch
+        // ZOOM: choose the area with the cursor (fza_mpd_fnc_cursorEnter), or back to the full display
+        _state set ["zoom", [1, 0] select (_state getOrDefault ["zoom", 0] > 0)];
     };
     case "r2": {
         [_heli, 1] call fza_fcr_fnc_slewCenterline;

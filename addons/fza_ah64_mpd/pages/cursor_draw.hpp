@@ -10,7 +10,7 @@ class Cursor {
     // choose, the TSD page draws the cursor under the point and its text (ui\tsd\tsd.js); on an FCR target, the ring
     // gives way to the target, drawn over a black circle (scope.js), and the spokes stay round it.
     class Normal {
-        condition = C_COND(C_AND(C_NOT(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_MPD_USER(MFD_IND_FCR_ZOOM), 1)), C_AND(C_MPD_USER(MFD_IND_FCR_CURSOR_AREA), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_AND(C_NOT(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5)), C_AND(C_MPD_USER(MFD_IND_TSD_CURSOR_MAP), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_NOT(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_MPD_USER(MFD_IND_TSD_CURSOR_POINT))))));
+        condition = C_COND(C_AND(C_NOT(C_AND(C_AND(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)), C_EQ(C_MPD_USER(MFD_IND_FCR_ZOOM), 1)), C_AND(C_MPD_USER(MFD_IND_FCR_CURSOR_AREA), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_AND(C_NOT(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5)), C_AND(C_MPD_USER(MFD_IND_TSD_CURSOR_MAP), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_NOT(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_MPD_USER(MFD_IND_TSD_CURSOR_POINT))))));
         class RingGate {
             condition = C_COND(C_NOT(C_OR(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_MPD_USER(MFD_IND_TSD_CURSOR_POINT)), C_AND(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)), C_MPD_USER(MFD_IND_FCR_CURSOR_TARGET)))));
             class Ring {
@@ -108,7 +108,7 @@ class Cursor {
     // The FCR zoom box over the target area: the area ZOOM will show, sized by the scan size, white, with corner to corner
     // crosshairs
     class FcrZoom {
-        condition = C_COND(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_MPD_USER(MFD_IND_FCR_ZOOM), 1)), C_AND(C_MPD_USER(MFD_IND_FCR_CURSOR_AREA), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5))));
+        condition = C_COND(C_AND(C_AND(C_OR(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCRRMAP)), C_EQ(C_MPD_USER(MFD_IND_FCR_ZOOM), 1)), C_AND(C_MPD_USER(MFD_IND_FCR_CURSOR_AREA), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5))));
         color[] = MPD_COLOUR_WHITE;
         class Wide {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));

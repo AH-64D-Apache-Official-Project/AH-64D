@@ -74,37 +74,25 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_TPM_OBS_SHOW), parseNumber (
 
 // ---- Terrain sampling (shared with the IHADSS profile lines) ----
 
-private _aziSteps   = [60, 120] select (_halfFov >= 90);
-private _rangeSteps = 150;
-private _clearEpoch = _heli getVariable ["fza_ah64_fcrTPMClearEpoch", 0];
-private _colJson    = [_heli] call fza_fcr_fnc_tpmSample;
+[_heli] call fza_fcr_fnc_tpmSample;
 
 // ---- Video columns and obstacles → HTML canvas ----
 
 private _ctrl = [_heli, _mpdIndex] call fza_mpd_fnc_htmlCtrl;
 if (isNull _ctrl) exitWith {};
 
-// Each display clears once per commanded clear, including one that loads afterwards
-private _dispClear = _clearEpoch != (_ctrl getVariable ["fza_fcrClearEpoch", -1]);
-if (_dispClear) then { _ctrl setVariable ["fza_fcrClearEpoch", _clearEpoch]; };
+private _members = [_heli, _ctrl, "fza_ah64_fcrTPMStore"] call fza_fcr_fnc_videoSync;
 
-// Obstacle picture: sent when it changes, and once a second in case the browser dropped a push
+// Obstacle picture: sent when it changes, after a clear, which drops it, and once a second in case the browser dropped
+// a push
 private _obsStamp = _heli getVariable ["fza_ah64_fcrTPMObsStamp", 0];
 (_ctrl getVariable ["fza_fcrTpmObs", [-1, -10]]) params ["_seenStamp", "_seenTick"];
 private _obsPart = "";
-if (_obsStamp != _seenStamp || { diag_tickTime - _seenTick > 1 }) then {
+if (_obsStamp != _seenStamp || { diag_tickTime - _seenTick > 1 } || { (_members find '"hardClear":true') >= 0 }) then {
     _ctrl setVariable ["fza_fcrTpmObs", [_obsStamp, diag_tickTime]];
     _obsPart = ',"obstacles":' + (_heli getVariable ["fza_ah64_fcrTPMObsJson", "[]"]);
 };
 
-private _json = format [
-    '{"halfFov":%1,"aziSteps":%2,"rangeSteps":%3,"hardClear":%4%5%6}',
-    _halfFov,
-    _aziSteps,
-    _rangeSteps,
-    ["false","true"] select _dispClear,
-    ["", ',"columns":' + _colJson] select (_colJson != ""),
-    _obsPart
-];
+private _json = format ['{%1%2}', _members, _obsPart];
 
 [_ctrl, "fzaFCRTpm.update", _json] call fza_mpd_fnc_htmlPush;

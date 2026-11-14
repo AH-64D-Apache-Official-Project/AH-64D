@@ -1,4 +1,4 @@
-// Inline the IHADSS formats, the CSS and the font into the MPD VIDEO page - the browser control cannot resolve relative
+// Inline the IHADSS formats, the FCR picture scripts, the CSS and the font into the MPD VIDEO page - the browser control cannot resolve relative
 // paths inside a PBO
 
 fn inline_tag(html, tag, replacement) {
@@ -28,6 +28,11 @@ html = inline_tag(html, "<link rel=\"stylesheet\" href=\"video.css\">", "<style>
 for name in ["ihadss_common.js", "ihadss_base.js", "ihadss_flight.js", "ihadss_weapon.js", "ihadss_main.js"] {
     let js = ihadss.join("js").join(name).open_file().read();
     html = inline_tag(html, "<script src=\"ihadss/" + name + "\"></script>", "<script>\n" + js + "\n</script>");
+}
+let fcr_shared = addons.join("fza_ah64_fcr").join("ui").join("shared");
+for name in ["fcr_rmap_view.js", "fcr_tpm_view.js", "fcr_video_layer.js"] {
+    let js = fcr_shared.join(name).open_file().read();
+    html = inline_tag(html, "<script src=\"fcr/" + name + "\"></script>", "<script>\n" + js + "\n</script>");
 }
 let js = ui.join("video.js").open_file().read();
 html = inline_tag(html, "<script src=\"video.js\"></script>", "<script>\n" + js + "\n</script>");

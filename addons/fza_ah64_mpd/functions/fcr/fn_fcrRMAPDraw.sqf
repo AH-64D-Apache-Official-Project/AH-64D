@@ -4,13 +4,14 @@ Function: fza_mpd_fnc_fcrRMAPDraw
 Description:
     Draws the FCR RMAP page: native MFD symbology plus the B-scope terrain
     video and target symbols, which are pushed to the page's HTML canvas.
-    Terrain is sampled once per frame for the columns the scan bar has crossed
-    and shared by both MPDs.
+    Terrain is sampled by fza_fcr_fnc_rmapSample, once per frame for the
+    columns the scan bar has crossed, and shared by both MPDs. ZOOM shows the
+    zoom box's area, picture and symbols, in a square about the MPD's centre.
 
 Parameters:
     _heli         - The helicopter
     _mpdIndex     - 0 left MPD, 1 right MPD
-    _state        - Page state (unused)
+    _state        - Page state: the display zoom and the cursor's targets
     _persistState - Page persistent state (unused)
 
 Returns:
@@ -23,6 +24,7 @@ Author:
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\cursor.h"
 params ["_heli", "_mpdIndex", "_state", "_persistState"];
 
 private _fcrMode = _heli getVariable "fza_ah64_fcrMode";
@@ -37,7 +39,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)]
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), FCR_DISP_MODE_RMAP];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_SIZE), _heli getVariable ["fza_ah64_fcrScanSize", 0]];
 // The MPD cursor: over the radar picture, where it chooses targets (fza_mpd_fnc_cursorInArea); on a target, below
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ZOOM), 0];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ZOOM), _state getOrDefault ["zoom", 0]];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_TARGET), 0];
 private _cursorOn = _heli getVariable ["fza_mpd_cursor", []];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CURSOR_AREA), BOOLTONUM(_cursorOn param [0, -1] == _mpdIndex && {[_heli, _mpdIndex, _cursorOn # 1, _cursorOn # 2] call fza_mpd_fnc_cursorInArea})];
@@ -71,201 +73,9 @@ if (_fcrScanState != FCR_MODE_OFF && !_cueingRmap) then {
 [_heli] call fza_fcr_fnc_resolveDisplay;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos"];
 // RMAP re-select toggles the video underlay; sampling continues while hidden so it returns current
-private _rmapVideo  = _heli getVariable ["fza_ah64_fcrRmapVideo", true];
-private _scanning   = _fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS];
-private _clearEpoch = _heli getVariable ["fza_ah64_fcrRMAPClearEpoch", 0];
-
-// Constant 0.3 deg/column at all sizes — wide 300, med 150, nrw 100, zoom 50
-private _aziSteps     = round ((_gtmHalfFov * 2) / 0.3);
-private _nearSteps    = 150;
-private _farSteps     = 150;
-private _maxRange     = 8000;
-private _nearMaxRange = 4000;
-private _nearRangeStep = _nearMaxRange / _nearSteps;
-private _farRangeStep  = (_maxRange - _nearMaxRange) / _farSteps;
-private _aziStepD     = (_gtmHalfFov * 2) / _aziSteps;
-
-// Dual-screen guard: the first call in a frame samples, the second reuses its columns
-private _frameCache = _heli getVariable ["fza_ah64_fcrRMAPFrameCache", [-1, ""]];
-private _colJson    = "";
-
-if ((_frameCache # 0) == diag_frameNo) then {
-    _colJson = _frameCache # 1;
-} else {
-    // A commanded clear (fza_fcr_fnc_videoClear) restarts the sweep bookkeeping
-    private _hardClear = _clearEpoch != (_heli getVariable ["fza_ah64_fcrRMAPSeenEpoch", -1]);
-    if (_hardClear) then {
-        _heli setVariable ["fza_ah64_fcrRMAPSeenEpoch",     _clearEpoch];
-        _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",    -1];
-        _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
-    };
-
-    if (_scanning) then {
-        private _t = (_fcrScanDeltaTime max 0) % (_barTime * 2);
-        private _isNearPhase = (_t <= _barTime);
-
-        // Near sweeps L→R (0–4000m), far sweeps R→L (4000–8000m)
-        private _scanBearingAzi = if (_isNearPhase) then {
-            -_gtmHalfFov + (_t / _barTime) * (_gtmHalfFov * 2)
-        } else {
-            _gtmHalfFov - ((_t - _barTime) / _barTime) * (_gtmHalfFov * 2)
-        };
-
-        private _colIdx = ((floor ((_scanBearingAzi + _gtmHalfFov) / _aziStepD)) min (_aziSteps - 1)) max 0;
-
-        // Lock to _dir (scan centerline world bearing, includes azimuth bias) at each
-        // phase flip — column azimuths stay in the scan-data frame mid-turn and mid-slew
-        private _prevSweepIsNear = _heli getVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", -1];
-        private _curPhaseNum     = parseNumber _isNearPhase;
-        if (_hardClear || _prevSweepIsNear != _curPhaseNum) then {
-            _heli setVariable ["fza_ah64_fcrRMAPScanHeading",     _dir];
-            _heli setVariable ["fza_ah64_fcrRMAPPrevSweepIsNear", _curPhaseNum];
-            _heli setVariable ["fza_ah64_fcrRMAPLastColIdx",      -1];
-        };
-        private _scanHeading = _heli getVariable ["fza_ah64_fcrRMAPScanHeading", _dir];
-
-        private _lastColIdx = _heli getVariable ["fza_ah64_fcrRMAPLastColIdx", -1];
-
-        private _fillFrom = _colIdx;
-        private _fillTo   = _colIdx;
-        if (_hardClear || _lastColIdx < 0) then {
-            // Fresh sweep: backfill the few columns from the sweep-start edge; a clear mid-sweep paints from the wiper on
-            if (_isNearPhase) then {
-                if (_colIdx < 24) then { _fillFrom = 0; };
-            } else {
-                if (_aziSteps - 1 - _colIdx < 24) then { _fillTo = _aziSteps - 1; };
-            };
-        } else {
-            if (_isNearPhase) then {
-                _fillFrom = ((_lastColIdx + 1) max 0) min (_aziSteps - 1);
-                _fillTo   = _colIdx;
-            } else {
-                _fillFrom = _colIdx;
-                _fillTo   = ((_lastColIdx - 1) max 0) min (_aziSteps - 1);
-            };
-            if (_fillFrom > _fillTo) then { private _tmp = _fillFrom; _fillFrom = _fillTo; _fillTo = _tmp; };
-        };
-
-        // Cap columns per frame; progress carries so stutter backfill spreads over frames
-        private _progressIdx = _colIdx;
-        if (_fillTo - _fillFrom + 1 > 24) then {
-            if (_isNearPhase) then {
-                _fillTo      = _fillFrom + 23;
-                _progressIdx = _fillTo;
-            } else {
-                _fillFrom    = _fillTo - 23;
-                _progressIdx = _fillFrom;
-            };
-        };
-        _heli setVariable ["fza_ah64_fcrRMAPLastColIdx", _progressIdx];
-
-        if (_colIdx != _lastColIdx || _hardClear) then {
-            private _heliPosASL = getPosASL _heli;
-            private _FCRpos     = _heli selectionPosition ["sensorPos", "Memory"];
-            private _FCRposZ    = if (_FCRpos isEqualTo [0,0,0]) then { (_heliPosASL#2) + 3 } else { (_heliPosASL#2) + (_FCRpos#2) };
-
-            private _startRange = [_nearMaxRange, 0] select _isNearPhase;
-            private _stepSize   = [_farRangeStep, _nearRangeStep] select _isNearPhase;
-            private _stepCount  = [_farSteps, _nearSteps] select _isNearPhase;
-            private _isNearStr  = ["false","true"] select _isNearPhase;
-            private _slope1 = 0.0175 * _stepSize;
-            private _slope2 = 0.0875 * _stepSize;
-            private _slope3 = 0.268 * _stepSize;
-            private _slope4 = 0.466 * _stepSize;
-            private _slope5 = 0.700 * _stepSize;
-
-            // Cell centre ranges for this bar, built once per bar geometry
-            private _rangeKey = [_startRange, _stepSize, _stepCount];
-            private _ranges   = _heli getVariable ["fza_ah64_fcrRMAPRanges", [[], []]];
-            if ((_ranges # 0) isNotEqualTo _rangeKey) then {
-                private _list = [];
-                for "_ri" from 0 to (_stepCount - 1) do { _list pushBack (_startRange + (_ri + 0.5) * _stepSize); };
-                _ranges = [_rangeKey, _list];
-                _heli setVariable ["fza_ah64_fcrRMAPRanges", _ranges];
-            };
-            _ranges = _ranges # 1;
-
-            // Surface memo — substring find once per unique surfaceType, hashmap lookup per cell
-            private _surfCache = uiNamespace getVariable "fza_fcr_surfModCache";
-            if (isNil "_surfCache") then {
-                _surfCache = createHashMap;
-                uiNamespace setVariable ["fza_fcr_surfModCache", _surfCache];
-            };
-
-            private _sampledCols  = [];
-            private _heliX        = _heliPosASL#0;
-            private _heliY        = _heliPosASL#1;
-            private _savedSlopes  = _heli getVariable ["fza_ah64_fcrRMAPHorizonSlopes", []];
-            private _newSlopes    = +_savedSlopes;
-
-            for "_ci" from _fillFrom to _fillTo do {
-                private _relAzi   = -_gtmHalfFov + (_ci + 0.5) * _aziStepD;
-                private _worldAzi = _scanHeading + _relAzi;
-                private _sinAzi   = sin _worldAzi;
-                private _cosAzi   = cos _worldAzi;
-
-                private _prevTerrainZ = getTerrainHeightASL [_heliX + _sinAzi * (_startRange max _stepSize), _heliY + _cosAzi * (_startRange max _stepSize)];
-                private _horizonSlope = if (_isNearPhase) then { -9999 } else { _savedSlopes param [_ci, -9999] };
-
-                private _colLevels = _ranges apply {
-                    private _cellPos    = [_heliX + _sinAzi * _x, _heliY + _cosAzi * _x];
-                    private _terrainASL = getTerrainHeightASL _cellPos;
-                    private _rise       = _terrainASL + 1 - _FCRposZ;
-                    private _level      = 0;
-
-                    if (_terrainASL > -1000 && { _rise > _horizonSlope * _x }) then {
-                        _horizonSlope = _rise / _x;
-                        // tan(1/5/15/25/35 deg) scaled by the cell length, so no divide per cell
-                        private _dz = abs (_terrainASL - _prevTerrainZ);
-                        _level = if (_dz < _slope1) then { 1 }
-                            else { if (_dz < _slope2) then { 2 }
-                            else { if (_dz < _slope3) then { 3 }
-                            else { if (_dz < _slope4) then { 4 }
-                            else { [6, 5] select (_dz < _slope5) } } } };
-                        private _surfType = surfaceType _cellPos;
-                        private _surfMod  = _surfCache getOrDefault [_surfType, -2];
-                        if (_surfMod == -2) then {
-                            private _s = toLower _surfType;
-                            _surfMod = 0;
-                            {
-                                if ((_s find _x) >= 0) exitWith { _surfMod = 1; };
-                            } forEach ["metal","steel","rock","stone","concrete","asphalt","gravel","rubble","ruin","building","road","runway","tarmac","cobble"];
-                            if (_surfMod == 0) then {
-                                {
-                                    if ((_s find _x) >= 0) exitWith { _surfMod = -1; };
-                                } forEach ["grass","forest","leaves","water","lake","sea","sand","beach","snow","ice","mud","dirt","soil","bog"];
-                            };
-                            _surfCache set [_surfType, _surfMod];
-                        };
-                        _level = (_level + _surfMod) min 6 max 1;
-                    };
-
-                    _prevTerrainZ = _terrainASL;
-                    _level
-                };
-
-                // Accumulate near-phase horizon slopes locally — flushed once after column loop
-                if (_isNearPhase) then {
-                    while {count _newSlopes <= _ci} do { _newSlopes pushBack -9999; };
-                    _newSlopes set [_ci, _horizonSlope];
-                };
-
-                // "d" is one digit (return level 0-6) per range cell
-                _sampledCols pushBack format ['{"i":%1,"near":%2,"d":"%3"}', _ci, _isNearStr, _colLevels joinString ""];
-            };
-
-            if (_isNearPhase && count _newSlopes > 0) then {
-                _heli setVariable ["fza_ah64_fcrRMAPHorizonSlopes", _newSlopes];
-            };
-
-            if (_sampledCols isNotEqualTo []) then {
-                _colJson = "[" + (_sampledCols joinString ",") + "]";
-            };
-        };
-    };
-
-    _heli setVariable ["fza_ah64_fcrRMAPFrameCache", [diag_frameNo, _colJson]];
-};
+private _rmapVideo = _heli getVariable ["fza_ah64_fcrRmapVideo", true];
+private _maxRange  = 8000;
+[_heli] call fza_fcr_fnc_rmapSample;
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];
 
@@ -273,10 +83,6 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVa
 
 private _ctrl = [_heli, _mpdIndex] call fza_mpd_fnc_htmlCtrl;
 if (isNull _ctrl) exitWith {};
-
-// Each display clears once per commanded clear, including one that loads afterwards
-private _dispClear = _clearEpoch != (_ctrl getVariable ["fza_fcrClearEpoch", -1]);
-if (_dispClear) then { _ctrl setVariable ["fza_fcrClearEpoch", _clearEpoch]; };
 
 private _displayTargets = _heli getVariable "fza_ah64_fcrDisplayTargets";
 private _nts       = (_heli getVariable "fza_ah64_fcrNts") # 0;
@@ -288,29 +94,38 @@ private _antsIndex = [_displayTargets, _ntsIndex] call fza_fcr_fnc_antsIndex;
     _gtmHalfFov, _maxRange, _dir, 45, false
 ] call fza_mpd_fnc_buildFCRTargetsJson) params ["_tgtJson", "_shotJson", "_symbols"];
 
-// Where rmap.js draws each symbol in the radar picture, for the MPD cursor (fza_mpd_fnc_cursorEnter); the browser covers
-// 0.025 to 0.975 of the MPD
+// Display zoom (ZOOM): the area about zoomCtr shown zoomRatio:1 in a square about the MPD's centre
+private _zoomed    = _state getOrDefault ["zoom", 0] == 2;
+private _zoomCtr   = _state getOrDefault ["zoomCtr", [0.5, 0.5]];
+private _zoomRatio = _state getOrDefault ["zoomRatio", 6];
+private _zoomJson  = ["null", format ["[%1,%2,%3,%4]", _zoomCtr # 0, _zoomCtr # 1, _zoomRatio, MPD_CURSOR_ZOOM_VIEW_HALF]] select _zoomed;
+
+// Where fcr_rmap_view.js draws each symbol in the radar picture, for the MPD cursor (fza_mpd_fnc_cursorEnter); the
+// browser covers 0.025 to 0.975 of the MPD
 private _cursorTargets = [];
 {
     _x params ["_a", "_r", "_target", "_pos"];
     if (_a < -1 || {_a > 1} || {_r < 0} || {_r > 1}) then {continue};
-    _cursorTargets pushBack [0.025 + 0.95 * (0.1632 + (_a * 0.5 + 0.5) * (0.8368 - 0.1632)), 0.025 + 0.95 * (0.1316 + (0.8947 - 0.1316) * (1 - _r)), _target, _pos, _forEachIndex];
+    private _sx = 0.025 + 0.95 * (0.1632 + (_a * 0.5 + 0.5) * (0.8368 - 0.1632));
+    private _sy = 0.025 + 0.95 * (0.1316 + (0.8947 - 0.1316) * (1 - _r));
+    if (_zoomed) then {
+        _sx = 0.5 + (_sx - _zoomCtr # 0) * _zoomRatio;
+        _sy = 0.5 + (_sy - _zoomCtr # 1) * _zoomRatio;
+        if (abs (_sx - 0.5) > MPD_CURSOR_ZOOM_VIEW_HALF || {abs (_sy - 0.5) > MPD_CURSOR_ZOOM_VIEW_HALF}) then {continue};
+    };
+    _cursorTargets pushBack [_sx, _sy, _target, _pos, _forEachIndex];
 } forEach _symbols;
 _state set ["cursorTargets", _cursorTargets];
 private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
 
 private _json = format [
-    '{"halfFov":%1,"aziSteps":%2,"nearSteps":%3,"farSteps":%4,"hardClear":%5,"video":%6,"hover":%10,"targets":[%7],"shots":[%8]%9}',
-    _gtmHalfFov,
-    _aziSteps,
-    _nearSteps,
-    _farSteps,
-    ["false","true"] select _dispClear,
+    '{%1,"video":%2,"hover":%3,"targets":[%4],"shots":[%5],"zoom":%6}',
+    [_heli, _ctrl, "fza_ah64_fcrRMAPStore"] call fza_fcr_fnc_videoSync,
     ["false","true"] select _rmapVideo,
+    _hover,
     _tgtJson,
     _shotJson,
-    ["", ',"columns":' + _colJson] select (_colJson != ""),
-    _hover
+    _zoomJson
 ];
 
 [_ctrl, "fzaFCRRmap.update", _json] call fza_mpd_fnc_htmlPush;

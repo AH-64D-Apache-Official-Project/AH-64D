@@ -38,6 +38,8 @@ class CfgFunctions
             class updateTPMObstacles {RECOMPILE_FLAG;};
             class videoClear {RECOMPILE_FLAG;};
             class tpmSample {RECOMPILE_FLAG;};
+            class rmapSample {RECOMPILE_FLAG;};
+            class videoSync {RECOMPILE_FLAG;};
             class revealOffset {RECOMPILE_FLAG;};
             class targetShown {RECOMPILE_FLAG;};
         };

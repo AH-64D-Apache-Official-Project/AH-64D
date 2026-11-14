@@ -63,10 +63,22 @@ for display_name in displays {
     html = inline_tag(html, "<script src=\"../shared/fcr_icon_layer.js\"></script>",
         "<script>\n" + layer_content + "\n</script>", display_name);
 
+    // Inline the shared picture renderer the page uses, if any
+    for view_name in ["fcr_rmap_view.js", "fcr_tpm_view.js"] {
+        let view_tag = "<script src=\"../shared/" + view_name + "\"></script>";
+        if html.contains(view_tag) {
+            let view_content = shared_dir.join(view_name).open_file().read();
+            html.replace(view_tag, "<script>\n" + view_content + "\n</script>");
+        }
+    }
+
     // Inline display-specific JS
     let js_content = display_dir.join(display_name + ".js").open_file().read();
     html = inline_tag(html, "<script src=\"" + display_name + ".js\"></script>",
         "<script>\n" + js_content + "\n</script>", display_name);
+    if html.contains("<script src=") {
+        fatal("inline_fcr_display_js: " + display_name + ".html has a script left to inline");
+    }
 
     // Written under a name with no loose source file, so -filePatching cannot serve the un-inlined page
     let out = display_dir.join(display_name + "_built.html").create_file();

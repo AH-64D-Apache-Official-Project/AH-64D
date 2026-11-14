@@ -9,6 +9,7 @@ class root {
 
     // 1. CUED LOS — before mask so it clips to the B-scope area
     class polys_CuedLOS {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         class Polygon {
             type = "polygon";
             points[] = {
@@ -24,7 +25,7 @@ class root {
 
     // 2. SCAN BAR — bone-driven, before mask; near L->R spans 0-4km, far R->L spans 4-8km
     class lines_show {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1), C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5)));
         class lines_continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
             class nearBar {
@@ -81,7 +82,9 @@ class root {
     // 3. BLACKOUT MASK — after the scan bar so it clips it, everything below draws on top.
     // Masks overlap ~0.005 into the B-scope box (border lines redraw over the seam) because the
     // HTML canvas can never line up pixel-perfect with the HPP footprint — same approach as TPM.
+    // Not while zoomed: the zoomed square reaches past it
     class rmapBlackoutMask {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         color[] = {0, 0, 0, 1};
         class MaskLeft {
             type = "polygon";
@@ -181,11 +184,15 @@ class root {
     };
 
     // 6. B-SCOPE GEOMETRY — border matches HTML canvas RADAR_* bounds (0.18,0.150)-(0.82,0.875)
-    class lines_bscopeOutline {
-        type = "line";
-        width = 2;
-        points[] = {
-            {{0.18, 0.150}, 1}, {{0.82, 0.150}, 1}, {{0.82, 0.875}, 1}, {{0.18, 0.875}, 1}, {{0.18, 0.150}, 1}, {},
+    // The B-scope geometry, not while zoomed; the zoomed area is drawn on the RMAP page (fcr_rmap_view.js)
+    class bscopeOutline {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
+        class lines_bscopeOutline {
+            type = "line";
+            width = 2;
+            points[] = {
+                {{0.18, 0.150}, 1}, {{0.82, 0.150}, 1}, {{0.82, 0.875}, 1}, {{0.18, 0.875}, 1}, {{0.18, 0.150}, 1}, {},
+            };
         };
     };
 
@@ -194,6 +201,7 @@ class root {
     // boundary lines; azimuth tics on the top border mark the smaller scan-size half-angles.
     // 0.090625 HPP/km, x = 0.5 +- (halfAngle/45)*0.32.
     class bscopeRangeLinesTics {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         class wideSel {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
             color[] = {0.05, 0.25, 0, 1};
@@ -342,7 +350,10 @@ class root {
             MPD_TEXT_L(ZOOM_2,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
             MPD_TEXT_L(ZOOM_3,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
             MPD_TEXT_L(ZOOM_4,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
-            MPD_BOX_BAR_L(ZOOM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
+            class ZoomBox {
+                condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_ZOOM), 0.5));
+                MPD_BOX_V(ZOOM, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, 4)
+            };
         };
         // NTS, TGT and RF HO only with FCR as this crew station's sight
         class fcrSightVabs {
@@ -395,6 +406,7 @@ class root {
     // Fixed +-45 axis — sector boundary verticals per size,
     // selected full intensity, larger sizes dim (MFD ignores color alpha, so dim RGB)
     class sectorBoundaries {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         class medFull {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
             class lines {
@@ -456,6 +468,7 @@ class root {
 
     // Single RFI tic on each outer boundary of the wide sector symbol (6.75 km)
     class rfiTics {
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FCR_ZOOM), 1.5));
         class wideFull {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
             class lines {

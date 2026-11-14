@@ -58,6 +58,25 @@ if (_hardClear) then {
 private _newScan = _hardClear || { _halfFov != (_heli getVariable ["fza_ah64_fcrTPMPrevHalfFov", -1]) };
 _heli setVariable ["fza_ah64_fcrTPMPrevHalfFov", _halfFov];
 
+// The picture so far (fza_fcr_fnc_videoSync): a clear starts a new one. Another sector keeps each column's bearing, as
+// tpm.js does with the columns it has
+private _store = _heli getVariable ["fza_ah64_fcrTPMStore", []];
+private _header = format ['"halfFov":%1,"aziSteps":%2,"rangeSteps":%3', _halfFov, _aziSteps, _rangeSteps];
+if ((_store param [0, []]) isNotEqualTo [_clearEpoch] || {(_store # 4) != _header}) then {
+    private _slots = [];
+    _slots resize _aziSteps;
+    _slots = _slots apply {""};
+    if ((_store param [0, []]) isEqualTo [_clearEpoch]) then {
+        private _shift = round ((_halfFov - (_store # 7)) / _aziStepD);
+        {
+            private _j = _forEachIndex + _shift;
+            if (_j >= 0 && {_j < _aziSteps}) then {_slots set [_j, _x]};
+        } forEach (_store # 2);
+    };
+    _store = [[_clearEpoch], (_store param [1, 0]) + 1, _slots, "", _header, _aziSteps, false, _halfFov];
+    _heli setVariable ["fza_ah64_fcrTPMStore", _store];
+};
+
 private _emptyWork = {
     [0, 1, 2, 3] apply {
         private _line = [];
@@ -220,11 +239,15 @@ if (_fcrScanState in [FCR_MODE_ON_SINGLE, FCR_MODE_ON_CONTINUOUS]) then {
             };
 
             // "d" is one digit (clearance level 0-3) per range cell
-            _sampledCols pushBack format ['{"i":%1,"d":"%2"}', _ci, _colLevels joinString ""];
+            private _digits = _colLevels joinString "";
+            (_store # 2) set [_ci, _digits];
+            _sampledCols pushBack format ['{"i":%1,"d":"%2"}', _ci, _digits];
         };
 
         if (_sampledCols isNotEqualTo []) then {
             _colJson = "[" + (_sampledCols joinString ",") + "]";
+            _store set [1, (_store # 1) + 1];
+            _store set [3, _colJson];
         };
     };
 };

@@ -28,16 +28,7 @@ switch _mode do {
         _m set [_uniqueId, _display];
         _display setVariable ["fza_mpd_htmlUniqueId", _uniqueId];
 
-        // The page's ready message, the only one these pages send
-        private _browser = _display displayCtrl 369;
-        if (!isNull _browser) then {
-            _browser ctrlAddEventHandler [["JS", "Dialog"] joinString "", {
-                params ["_control", "_isConfirmDialog", "_message"];
-                if (_isConfirmDialog || {_message isNotEqualTo "fza:ready"}) exitWith {false};
-                _control setVariable ["fza_mpd_htmlReadyAt", diag_tickTime];
-                true
-            }];
-        };
+        [_display displayCtrl 369] call fza_mpd_fnc_htmlReady;
 
         // The engine keeps the display alive after its page is left, so only redraw it while it is on screen
         private _sideIdx = parseNumber ((_uniqueId find "right") == 0);

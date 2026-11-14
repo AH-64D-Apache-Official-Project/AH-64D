@@ -55,7 +55,7 @@ if (_vsel && {_symbology in ["TADS", "C-FLT", "P-FLT"]}) then {
         default       {[_heli, false, false, false, "plt", true] call fza_ihadss_fnc_htmlModel};
     };
     // With no video, placed as that symbology's sensor or head sees them
-    _symbols = [_heli, ["", _target] select _shown, _view, _symbology] call fza_mpd_fnc_videoSymbols;
+    _symbols = [_heli, ["", _target] select _shown, [_view, MPD_VIDEO_VIEW_WIDE] select _gs, _symbology] call fza_mpd_fnc_videoSymbols;
 };
 [ctrlParent _ctrl, _symbols] call fza_mpd_fnc_videoSymbolsShow;
 [_ctrl, "fzaMpdVideo.update", format ['{"gs":%1,"video":%2,"sym":%3}', _gs, _shown, _sym]] call fza_mpd_fnc_htmlPush;
