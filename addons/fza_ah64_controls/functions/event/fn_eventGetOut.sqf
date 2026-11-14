@@ -40,7 +40,7 @@ if (_seat == "cpg") then {
 };
 // Leaving with the TADS turned as this seat's NVS sensor, it is set back to the turret now (fza_ihadss_fnc_tadsNvsControl)
 if (_heli getVariable ["fza_ihadss_tadsNvsDriving", false]) then {[_heli] call fza_ihadss_fnc_tadsNvsReset};
-// The DTV camera ends itself once the DTV is no longer shown (fza_ihadss_fnc_dtvCamera)
-fza_ihadss_dtvShownAt = -1e6;
+// The TADS cameras end themselves once their pictures are no longer shown (fza_ihadss_fnc_tadsCamera)
+fza_ihadss_tadsShownAt = createHashMap;
 [_heli] call fza_ihadss_fnc_controller;
 [_unit] call fza_ihadss_fnc_hduUpdate;

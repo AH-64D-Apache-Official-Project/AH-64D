@@ -34,9 +34,13 @@
 #define LST_MODE_OFF  0
 #define LST_MODE_AUTO 1
 #define LST_MODE_MAN  2
-// A script camera's FOV goes no narrower (camSetFov): the DTV, a script camera (fza_ihadss_fnc_dtvCamera), shows its zoom
-// FOV at this, and is placed into at this
-#define DTV_CAMERA_MIN_FOV 0.01
+// A script camera's FOV goes no narrower (camSetFov): the TADS pictures, script cameras (fza_ihadss_fnc_tadsCamera), show
+// a narrower FOV at this, and are placed into at this
+#define TADS_CAMERA_MIN_FOV 0.01
+// The TADS line of sight sent by the machine turning it (fza_ihadss_fnc_tadsLosSend): at most 30 times a second, and only
+// once it has moved this far (a unit vector, so about radians)
+#define TADS_LOS_SEND_PERIOD (1 / 30)
+#define TADS_LOS_SEND_MIN 1e-5
 // The CPG's image auto tracker, fza_ah64_iat (fza_ihadss_fnc_iatUpdate), and its polarity switch
 #define IAT_OFF   0
 #define IAT_TRACK 1

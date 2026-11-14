@@ -59,7 +59,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     ], true];
 };
 
-_heli setVariable ["fza_ah64_lastTimePropagated", 0];
 _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 _heli setVariable ["ace_rearm_scriptedLoadout", true];

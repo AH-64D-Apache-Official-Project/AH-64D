@@ -22,6 +22,10 @@ Author:
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
 params["_heli"];
 
+// The TADS's line of sight and angles, sent by whichever crew station turns it (the pilot's with it as their NVS sensor)
+// and taken by the other
+[_heli] call fza_ihadss_fnc_tadsLosSend;
+
 private _currentTurret = _heli call fza_fnc_currentTurret;
 private _gunnnerUnit = _heli turretUnit [0];
 
@@ -32,16 +36,6 @@ private _azimuth = -deg ((_heli animationPhase "tads_tur") + (_heli animationPha
 private _elevation = deg ((_heli animationPhase "tads") + (_heli animationPhase "tads_nvs"));
 _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
 _heli setVariable ["fza_ah64_tadsElevation", _elevation];
-
-if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < time) then {
-{
-    _heli setVariable [_x, _heli getVariable _x, true];
-} forEach [
-    "fza_ah64_tadsAzimuth",
-    "fza_ah64_tadsElevation"
-];
-_heli setVariable ["fza_ah64_lastTimePropagated", time, true];
-};
 
 private _sight  = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _nts    = (_heli getVariable "fza_ah64_fcrNts") # 0;
