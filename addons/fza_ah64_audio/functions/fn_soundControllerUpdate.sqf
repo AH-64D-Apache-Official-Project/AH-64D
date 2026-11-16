@@ -7,6 +7,7 @@ Description:
 
     CustomSoundController1     - APU rpm
     CustomSoundController2     - battery bus
+    CustomSoundController3     - APU Button State 1 Starting, -1 Shutting down
     CustomSoundController5/6   - engine 1/2 starter, 1 starting, -1 on
     CustomSoundController10/12 - engine 1/2 lit
     CustomSoundController11/13 - engine 1/2 flamed out
@@ -28,7 +29,7 @@ Author:
     Aaren
 ---------------------------------------------------------------------------- */
 #define ENG_SMOOTH_TIME 1.5
-#define APU_SMOOTH_TIME 0.2
+#define APU_SMOOTH_TIME 5
 #define RTR_SMOOTH_TIME 0.2
 
 //A trigger left high replays its one-shot whenever the player gets in or out
@@ -41,7 +42,8 @@ if (isNil "_engState") exitWith {};
 
 private _apuRpm_pct = _heli getVariable ["bmkhs_apuRpm_pct", 0];
 private _pwrLvr    = _heli getVariable ["bmkhs_engPowerLeverState", []];
-private _state     = [_engState, _pwrLvr];
+private _apuState = _heli getVariable ["bmkhs_apubtnon", false];
+private _state     = [_engState, _pwrLvr, _apuState];
 private _prev      = _heli getVariable ["fza_audio_soundState", []];
 private _firstSeen = _prev isEqualTo [];
 
@@ -58,27 +60,36 @@ private _fnc_trigger = {
 
 if (_state isNotEqualTo _prev) then {
     //An aircraft first seen already running adopts its state without replaying the one-shots
-    //Make sure "APU_pct" is greater than 0
-    if (!_firstSeen && _apuRpm_pct > 0) then {
-        _prev params ["_prevState", "_prevLvr"];
-        {
-            private _st     = _engState param [_x, "OFF"];
-            private _stPrev = _prevState param [_x, "OFF"];
-            if (_st != _stPrev) then {
-                switch (_st) do {
-                    case "STARTING": {[5 + _x,  1] call _fnc_trigger};
-                    case "ON":       {[5 + _x, -1] call _fnc_trigger};
-                    default          {[5 + _x,  0] call _fnc_trigger};
-                };
-            };
+    if (!_firstSeen) then {
+        _prev params ["_prevEngState", "_prevLvr", "_prevApuState"];
 
-            private _lit     = _st != "OFF" && {(_pwrLvr param [_x, "OFF"]) != "OFF"};
-            private _litPrev = _stPrev != "OFF" && {(_prevLvr param [_x, "OFF"]) != "OFF"};
-            if (_lit isNotEqualTo _litPrev) then {
-                [10 + _x * 2, [0, 1] select _lit] call _fnc_trigger;
-                [11 + _x * 2, [1, 0] select _lit] call _fnc_trigger;
-            };
-        } forEach [0, 1];
+        //- APU soundTrigger
+        if (_apuState isNotEqualTo _prevApuState) then {
+            [3, [-1, 1] select _apuState] call _fnc_trigger;
+        };
+
+        //Make sure "APU_pct" is greater than 0 for update engine soundTriggers
+        if (_apuRpm_pct > 0) then {
+            {
+                private _st     = _engState param [_x, "OFF"];
+                private _stPrev = _prevEngState param [_x, "OFF"];
+                if (_st != _stPrev) then {
+                    switch (_st) do {
+                        case "STARTING": {[5 + _x,  1] call _fnc_trigger};
+                        case "ON":       {[5 + _x, -1] call _fnc_trigger};
+                        default          {[5 + _x,  0] call _fnc_trigger};
+                    };
+                };
+
+                private _lit     = _st != "OFF" && {(_pwrLvr param [_x, "OFF"]) != "OFF"};
+                private _litPrev = _stPrev != "OFF" && {(_prevLvr param [_x, "OFF"]) != "OFF"};
+                if (_lit isNotEqualTo _litPrev) then {
+                    [10 + _x * 2, [0, 1] select _lit] call _fnc_trigger;
+                    [11 + _x * 2, [1, 0] select _lit] call _fnc_trigger;
+                };
+            } forEach [0, 1];
+        };
+        
     };
     _heli setVariable ["fza_audio_soundState", +_state];
 };

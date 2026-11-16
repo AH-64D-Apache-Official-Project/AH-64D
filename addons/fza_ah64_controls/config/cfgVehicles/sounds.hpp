@@ -1,6 +1,8 @@
 class Sounds
 {
     soundsetsint[]={
+        "fza_APUStartUp_Int_SoundSet",
+        "fza_APUShutdown_Int_SoundSet",
         "fza_ApuSoundLoop_Int_SoundSet",
         "fza_BattLoop_Int_SoundSet",
         // "fza_TurbineInt_SoundSet",
@@ -32,6 +34,8 @@ class Sounds
     };
     soundsetsext[]={
         "fza_Empty_SoundSet",
+        "fza_APUStartUp_Ext_SoundSet",
+        "fza_APUShutdown_Ext_SoundSet",
         "fza_APUSoundLoop_Ext_SoundSet",
         "fza_ScrubTree_Ext_SoundSet_Base",
 

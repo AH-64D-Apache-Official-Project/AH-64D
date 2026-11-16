@@ -31,3 +31,4 @@
 //- Common Controllers
 #define APU_CONTROLLER (CustomSoundController1)
 #define BATTERY_CONTROLLER (CustomSoundController2)
+#define APU_ON_CONTROLLER (CustomSoundController3)

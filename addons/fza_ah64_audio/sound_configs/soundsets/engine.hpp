@@ -1,4 +1,24 @@
 // -APU
+class fza_APUStartUp_Ext_SoundSet: fza_External_Base
+{
+	soundshaders[] = 
+	{
+		"fza_APUStartUp_Ext_SoundShader"
+	};
+	volumefactor=0.25;
+	playTrigger=QUOTE(APU_ON_CONTROLLER max 0);
+	loop=0;
+};
+class fza_APUShutdown_Ext_SoundSet: fza_External_Base
+{
+	soundshaders[] = 
+	{
+		"fza_APUShutdown_Ext_SoundShader"
+	};
+	volumefactor=0.25;
+	playTrigger=QUOTE(abs (APU_ON_CONTROLLER min 0));
+	loop=0;
+};
 class fza_APUSoundLoop_Ext_SoundSet: fza_Standard_External_Base
 {
 	soundshaders[] = 
@@ -198,13 +218,33 @@ class fza_ah64_Shutdown_Int_Right_SoundSet: fza_ah64_Shutdown_Int_Left_SoundSet
 
 
 // -APU
+class fza_APUStartUp_Int_SoundSet: fza_Internal_Base
+{
+	soundshaders[] = 
+	{
+		"fza_APUStartUp_Int_SoundShader"
+	};
+	volumefactor=fza_Vol_Multi_Int(0.64);
+	playTrigger=QUOTE(APU_ON_CONTROLLER max 0);
+	loop=0;
+};
+class fza_APUShutdown_Int_SoundSet: fza_Internal_Base
+{
+	soundshaders[] = 
+	{
+		"fza_APUShutdown_Int_SoundShader"
+	};
+	volumefactor=fza_Vol_Multi_Int(0.64);
+	playTrigger=QUOTE(abs (APU_ON_CONTROLLER min 0));
+	loop=0;
+};
 class fza_ApuSoundLoop_Int_SoundSet: fza_Internal_Base
 {
 	soundshaders[] = 
 	{
 		"fza_ApuSoundLoop_Int_SoundShader"
 	};
-	volumefactor=fza_Vol_Multi_Int(0.64);
+	volumefactor=fza_Vol_Multi_Int(0.5);
 };
 class fza_BattLoop_Int_SoundSet: fza_Internal_Base
 {
