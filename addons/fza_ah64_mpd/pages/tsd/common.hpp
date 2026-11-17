@@ -63,7 +63,7 @@ class tsdCommon {
     class Ownship {
         class Live {
             condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_FROZEN)));
-            color[] = {0,1,1,1};
+            color[] = {__EVAL("0.2*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             class Lines {
                 type = "line";
                 width = 3;
@@ -94,7 +94,7 @@ class tsdCommon {
         };
         class Frozen {
             condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             class Lines {
                 type = "line";
                 width = 3;
@@ -112,7 +112,7 @@ class tsdCommon {
         };
         class Moving {
             condition = C_COND(C_MPD_USER(MFD_IND_TSD_FROZEN));
-            color[] = {0,1,1,1};
+            color[] = {__EVAL("0.2*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             clipTL[] = {0, 0};
             clipBR[] = {1, 1};
             class Lines {

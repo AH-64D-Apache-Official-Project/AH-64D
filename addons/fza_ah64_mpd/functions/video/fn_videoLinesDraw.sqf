@@ -41,16 +41,19 @@ if (_unit < 1e-9 || {abs _ky < 1e-9}) exitWith {};
 private _halfWidth = 0.8 * _unit;
 private _patterns  = [[], [13, 9], [24, 4], [4, 6]] apply {_x apply {_x * _unit}};
 private _tex       = "\fza_ah64_mpd\tex\canvas\line_green_ca.paa";
+// BRT and DAY/NIGHT/MONO (fza_mpd_fnc_update)
+private _light     = ((ctrlParent _ctrl) getVariable ["fza_mpd_look", [1, false]]) # 0;
+private _colour    = [_light, _light, _light, 1];
 
 {
     _x params ["_gx", "_gy", "_gw", "_gh"];
-    _ctrl drawRectangle [[_gx + _gw / 2, _gy + _gh / 2] call _toMap, _gw / 2 * _unit, _gh / 2 * abs _ky, 0, [1, 1, 1, 1], _tex];
+    _ctrl drawRectangle [[_gx + _gw / 2, _gy + _gh / 2] call _toMap, _gw / 2 * _unit, _gh / 2 * abs _ky, 0, _colour, _tex];
 } forEach _gates;
 
 private _rect = {
     params ["_a", "_b"];
     private _d = _b vectorDiff _a;
-    _ctrl drawRectangle [(_a vectorAdd _b) vectorMultiply 0.5, (vectorMagnitude _d) / 2, _halfWidth, -((_d # 1) atan2 (_d # 0)), [1, 1, 1, 1], _tex];
+    _ctrl drawRectangle [(_a vectorAdd _b) vectorMultiply 0.5, (vectorMagnitude _d) / 2, _halfWidth, -((_d # 1) atan2 (_d # 0)), _colour, _tex];
 };
 
 {

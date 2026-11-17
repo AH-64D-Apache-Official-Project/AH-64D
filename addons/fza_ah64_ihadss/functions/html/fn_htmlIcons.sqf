@@ -51,7 +51,8 @@ if (ctrlFade _profileCtrl > 0) then {
         };
     };
 };
-private _colour = [[0.1, 1, 0, 1], [1, 1, 1, 1]] select _headsDown;
+private _colour = [[0.1, 1, 0], [1, 1, 1]] select _headsDown;
+_colour pushBack (([_heli] call fza_ihadss_fnc_videoPanel) # VIDEO_PANEL_SYM_BRT);
 private _shown  = [];
 private _mode   = _heli getVariable ["fza_ah64_hmdfsmode", "trans"];
 private _was    = _heli getVariable ["fza_ah64_was", WAS_WEAPON_NONE];

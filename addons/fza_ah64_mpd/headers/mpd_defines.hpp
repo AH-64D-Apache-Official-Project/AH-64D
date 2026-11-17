@@ -1,11 +1,11 @@
 #ifndef FZA_AH64_MPD_MPD_DEFINES_HPP
 #define FZA_AH64_MPD_MPD_DEFINES_HPP
 
-#define MPD_COLOUR_GREEN  {0.2, 1, 0, 1}
-#define MPD_COLOUR_CYAN   {0,1,1,1}
-#define MPD_COLOUR_RED    {1,0,0,1}
-#define MPD_COLOUR_YELLOW {1,1,0,1}
-#define MPD_COLOUR_WHITE {1,1,1,1}
+#define MPD_COLOUR_GREEN  {__EVAL("0.2*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1}
+#define MPD_COLOUR_CYAN   {__EVAL("0.2*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1}
+#define MPD_COLOUR_RED    {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1}
+#define MPD_COLOUR_YELLOW {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1}
+#define MPD_COLOUR_WHITE {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1}
 
 /* Constants: Text size constants
   MPD_TEXT_HEIGHT - Height of a single normal character
@@ -443,6 +443,11 @@ Parameters:
 #define MFD_IND_ACQ_OPEN (10 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
 // The mask pass on this MPD (MFD_IND_MASK_L/_R): 12 left, 13 right
 #define MFD_IND_MASK (12 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
+// BRT and DAY/NIGHT/MONO on this MPD: every colour is scaled by 1 - dim (MFD_IND_DIM_L/_R: 20 left, 21 right) and
+// fades to green with MONO (MFD_IND_MONO_L/_R: 22, 23). Each channel is its own __EVAL with no commas inside, as an
+// array's __EVAL is split at commas
+#define MFD_IND_DIM (20 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
+#define MFD_IND_MONO (22 + (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
 // The cursor's X user value at this MPD's left edge (MFD_IND_CURSOR_X): 1 left, 3 right
 #define MPD_CURSOR_X_BASE (1 + 2 * (MFD_OFFSET - MFD_OFFSET_L) / (MFD_OFFSET_R - MFD_OFFSET_L))
 
@@ -653,7 +658,7 @@ Parameters:
     startX, startY - Position of the text that this should oclcude for.
 */
 #define MPD_BOX_BAR_B(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
+    color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -668,7 +673,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_T(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
+    color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -683,7 +688,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_L(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
+    color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -698,7 +703,7 @@ Parameters:
 };
 
 #define MPD_BOX_BAR_R(name, startX, startY) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.05,0.25,0,MPD_BAR_ALPHA};\
+    color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, MPD_BAR_ALPHA};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -724,7 +729,7 @@ Parameters:
 
 */
 #define MPD_BOX_INV_C(name, startX, startY, numChars) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.2, 1, 0, 1};\
+    color[] = {__EVAL("0.2*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
     class Polygons {\
         type = "polygon";\
         points[] = {\
@@ -739,7 +744,7 @@ Parameters:
 };
 
 #define MPD_BOX_INV_R(name, startX, startY, numChars) class Mpd_Box_##name##_Barrier { \
-    color[] = {0.2, 1, 0, 1};\
+    color[] = {__EVAL("0.2*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
     class Polygons {\
         type = "polygon";\
         points[] = {\

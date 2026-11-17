@@ -34,14 +34,20 @@ _display setVariable ["fza_mpd_videoGates", _gates];
 
 // Format units to the display: 480 units to its height, centred and raised
 private _ctrls = _group getVariable ["fza_mpd_videoIcons", []];
+// BRT and DAY/NIGHT/MONO (fza_mpd_fnc_update)
+private _light  = (_display getVariable ["fza_mpd_look", [1, false]]) # 0;
+private _colour = [0.1 * _light, _light, 0, 1];
+private _recolour = (_group getVariable ["fza_mpd_videoIconColour", []]) isNotEqualTo _colour;
+_group setVariable ["fza_mpd_videoIconColour", _colour];
 {
     _x params ["_texture", "_fx", "_fy", "_units"];
     private _ctrl = _ctrls param [_forEachIndex, controlNull];
     if (isNull _ctrl) then {
         _ctrl = _display ctrlCreate ["RscPicture", -1, _group];
-        _ctrl ctrlSetTextColor [0.1, 1, 0, 1];
+        _ctrl ctrlSetTextColor _colour;
         _ctrls set [_forEachIndex, _ctrl];
     };
+    if (_recolour) then {_ctrl ctrlSetTextColor _colour};
     if (ctrlText _ctrl != _texture) then {_ctrl ctrlSetText _texture};
     private _size = _units / 480;
     _ctrl ctrlSetPosition [0.5 + (_fx - 320) / 480 - _size / 2, 0.5 + (_fy - 240 - MPD_VIDEO_RAISE) / 480 - _size / 2, _size, _size];

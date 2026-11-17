@@ -81,6 +81,8 @@ _m set ["hd", _headsDown];
 // The format is referenced to the TADS picture, as heads down
 _m set ["tv", _tadsVideo];
 _m set ["white", _headsDown];
+// The crew station's SYM BRT, on its own HDU and heads down only, not on an MPD
+if (!_mpd) then {_m set ["sb", ([_heli, _seat] call fza_ihadss_fnc_videoPanel) # VIDEO_PANEL_SYM_BRT]};
 _m set ["fmt", ["flt", "wpn"] select _weaponFormat];
 _m set ["mode", _mode];
 _m set ["hdg", _heliDir];

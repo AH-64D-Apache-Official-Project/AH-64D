@@ -89,7 +89,7 @@ class fza_ah64_hellfire_selected {
     };
     class Draw
     {
-        color[] = { 1.0, 1.0, 1.0, 1.0 };
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_PYLON_MONO) + ")*(1-user" + str (MFD_IND_PYLON_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_PYLON_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_PYLON_MONO) + ")*(1-user" + str (MFD_IND_PYLON_DIM) + ")"), 1.0};
         class Present {
             condition = "1-pylonMagazineEmpty";
             class BackgroundGroup

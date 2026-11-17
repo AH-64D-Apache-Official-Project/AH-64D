@@ -29,6 +29,15 @@ private _getOrCreateCtrl = {
 private _details = [_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails;
 if (isNil "_details") then {_details = []};
 _details params [["_iconTex", ""], ["_iconTex2", ""], ["_iconSize", 0], ["_color", [1, 1, 1, 1]], "_textA", "_textB"];
+// BRT and DAY/NIGHT/MONO on this MPD (fza_mpd_fnc_update): scaled, and with MONO green as bright as its brightest channel
+(_display getVariable ["fza_mpd_look", [1, false]]) params ["_light", "_mono"];
+if (_mono) then {
+    private _max = selectMax (_color select [0, 3]);
+    _color = [0.2 * _max, _max, 0, _color param [3, 1]];
+};
+if (_light < 1) then {
+    _color = ((_color select [0, 3]) apply {_x * _light}) + [_color param [3, 1]];
+};
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;

@@ -52,7 +52,7 @@ class root {
         };
         class lines_single {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
             class nearBar {
                 condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM),1.6)));
                 class line {
@@ -196,7 +196,7 @@ class root {
     class bscopeRangeLinesTics {
         class wideSel {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -220,7 +220,7 @@ class root {
         };
         class medSel {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -242,7 +242,7 @@ class root {
         };
         class nrwSel {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 2));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -262,7 +262,7 @@ class root {
         };
         class zoomSel {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -408,7 +408,7 @@ class root {
         };
         class medPartial {
             condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -431,7 +431,7 @@ class root {
         };
         class nrwPartial {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;
@@ -469,7 +469,7 @@ class root {
         };
         class widePartial {
             condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
-            color[] = {0.05, 0.25, 0, 1};
+            color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
             class lines {
                 type = "line";
                 width = 2;

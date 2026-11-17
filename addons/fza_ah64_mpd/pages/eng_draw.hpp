@@ -72,17 +72,17 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
 #define ENG_SHARED_TIMER(name, atInd, textInd, x1, x2, posY) \
     ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
     class name##_Timer_1 {\
-        color[] = {1,1,1,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
         condition = C_COND(C_EQ(C_USER(atInd), 1));\
         MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(textInd))\
     };\
     class name##_Timer_2 {\
-        color[] = {1,1,1,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
         condition = C_COND(C_EQ(C_USER(atInd), 2));\
         MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(textInd))\
     };\
     class name##_Timer_Both {\
-        color[] = {1,1,1,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
         condition = C_COND(C_MORE(C_USER(atInd), 2.5));\
         MPD_TEXT_C(Timer, ((x1 + x2) / 2), posY, MPD_TEXT_USER(textInd))\
     };
@@ -91,12 +91,12 @@ MPD_TEXT_C(NP_2_LABEL, 0.67, 0.07, MPD_TEXT_STATIC("NP %"))
 #define ENG_OWN_TIMERS(name, atInd, text1, text2, x1, x2, posY) \
     ENG_TIMER_LABELS(name, atInd, x1, x2, posY)\
     class name##_Timer_1 {\
-        color[] = {1,1,1,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
         condition = C_COND(C_OR(C_EQ(C_USER(atInd), 1), C_MORE(C_USER(atInd), 2.5)));\
         MPD_TEXT_C(Timer, x1, posY, MPD_TEXT_USER(text1))\
     };\
     class name##_Timer_2 {\
-        color[] = {1,1,1,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};\
         condition = C_COND(C_MORE(C_USER(atInd), 1.5));\
         MPD_TEXT_C(Timer, x2, posY, MPD_TEXT_USER(text2))\
     };
@@ -204,19 +204,19 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
         config\
     };\
     class name##_Yellow {\
-        color[] = {1,1,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_EQ(C_MPD_USER(rangeInd), 1));\
         config\
     };\
     class name##_Red {\
-        color[] = {1,0,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 1.5));\
         config\
     };
 
 #define COLOR_R_G_Y_R(name, value, del1, del2, del3, config) \
     class name##_Red {\
-        color[] = {1,0,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_LESS(C_MPD_USER(value), del1));\
         config\
     };\
@@ -225,12 +225,12 @@ ENG_OWN_TIMERS(Np, MFD_IND_ENG_NP_TIMER_AT, MFD_TEXT_IND_ENG_NP_TIMER_1, MFD_TEX
         config\
     };\
     class name##_Yellow {\
-        color[] = {1,1,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_AND(C_MORE(C_MPD_USER(value), del2-0.1), C_LESS(C_MPD_USER(value), del3+0.1)));\
         config\
     };\
     class name##_Red2 {\
-        color[] = {1,0,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_MORE(C_MPD_USER(value), del3));\
         config\
     };
@@ -257,13 +257,13 @@ class StarterBox {
 
 class StarterEng1 {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_START), 1));
-    color[] = {1,1,1,1};
+    color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
     MPD_TEXT_C(NP_SIDE_ENG_1_STARTER, ENG_SIDE_DATA_1_X, 0.45+3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ON"))
 };
 
 class StarterEng2 {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_START), 2));
-    color[] = {1,1,1,1};
+    color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
     MPD_TEXT_C(NG_SIDE_ENG_2_STARTER, ENG_SIDE_DATA_2_X, 0.45+3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ON"))
 };
 
@@ -275,7 +275,7 @@ ENG_RANGE_COLOUR(Ng_2, MFD_IND_ENG_NG_RANGE_2, MPD_TEXT_C(NG_SIDE_NG_2, ENG_SIDE
 //Boxed at or below minimum Ng
 #define ENG_NG_LOW_BOX(name, rangeInd, posX) \
     class name##_Low_Box {\
-        color[] = {1,0,0,1};\
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};\
         condition = C_COND(C_MORE(C_MPD_USER(rangeInd), 2.5));\
         MPD_BOX_C(name, posX, 0.45+MPD_TEXT_HEIGHT, 5)\
     };
@@ -299,7 +299,7 @@ ENG_SHARED_TIMER(Ng, MFD_IND_ENG_NG_TIMER_AT, MFD_TEXT_IND_ENG_NG_TIMER, ENG_SID
     }
 
 class Limits_Red {
-    color[] = {1,0,0,1};
+    color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
 
     class Lines {
         type = "line";

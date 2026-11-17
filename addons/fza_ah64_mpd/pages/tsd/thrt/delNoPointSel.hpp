@@ -4,7 +4,7 @@ class thrtDelNoPointSel {
         #include "..\components\vabs_right.hpp"
         
         class l1Button {
-            color[] = {1,1,1,1};
+            color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
 
             //L1
             MPD_TEXT_BACKING_R(POINT_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, 6)

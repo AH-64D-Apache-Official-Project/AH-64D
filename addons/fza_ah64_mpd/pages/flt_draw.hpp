@@ -89,8 +89,8 @@ class flt_draw {
         }; \
     };
 
-    #define MPD_COLOUR_GROUND {1, 0.78, 0.69, 1}
-    #define MPD_COLOUR_AIR {0, 1, 1, 1}
+    #define MPD_COLOUR_GROUND {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(0.78+0.22*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(0.69-0.69*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1}
+    #define MPD_COLOUR_AIR {__EVAL("0.2*user" + str (MFD_IND_MONO) + "*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1}
     #define MPD_FLT_HORIZON_LINE_SEC_GROUND(angle) MPD_FLT_HORIZON_LINE_SEC(angle, -1,Ground, MPD_COLOUR_GROUND)
     #define MPD_FLT_HORIZON_LINE_SEC_AIR(angle) MPD_FLT_HORIZON_LINE_SEC(angle, 1,Air, MPD_COLOUR_AIR)
     #define MPD_FLT_HORIZON_LINE_MAIN_AIR(angle) MPD_FLT_HORIZON_LINE_MAIN(angle, 1,Ground, 2, MPD_COLOUR_AIR)

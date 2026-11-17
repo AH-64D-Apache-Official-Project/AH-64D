@@ -14,7 +14,7 @@ class lines_show {
     };
     class lines_single : lines_continuous {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
-        color[] = {1,1,1,1};
+        color[] = {__EVAL("(1-0.8*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("1*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("(1-1*user" + str (MFD_IND_MONO) + ")*(1-user" + str (MFD_IND_DIM) + ")"), 1};
         class line {
             type = "line";
             width = 3;
@@ -63,7 +63,7 @@ class atmRings {
     };
     class outerRingLargerPartial {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -104,7 +104,7 @@ class atmRings {
     };
     class ringsWide {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -117,7 +117,7 @@ class atmRings {
     };
     class ringsMed {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -130,7 +130,7 @@ class atmRings {
     };
     class ringsNrw {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 2));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -143,7 +143,7 @@ class atmRings {
     };
     class ringsZoom {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -155,7 +155,7 @@ class atmRings {
         };
     };
     class azTics90 {
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -202,7 +202,7 @@ class atmSectorSides {
     };
     class medPartial {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 1));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -225,7 +225,7 @@ class atmSectorSides {
     };
     class nrwPartial {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 3));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;
@@ -249,7 +249,7 @@ class atmSectorSides {
     // ATM centerline symbol, partial-intensity line first arc to outer arc, M/N/Z only
     class centerlineSymbol {
         condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_SCAN_SIZE), 0));
-        color[] = {0.05, 0.25, 0, 1};
+        color[] = {__EVAL("0.05*(1-user" + str (MFD_IND_DIM) + ")"), __EVAL("0.25*(1-user" + str (MFD_IND_DIM) + ")"), 0, 1};
         class lines {
             type = "line";
             width = 3;

@@ -82,7 +82,7 @@ if (_pnvsShown || _tadsShown) then {
     } else {
         [_pnvsSensor, _flirDamage] select _nvsTads >= SYS_SIGHT_DMG_THRESH
     };
-    private _colour  = [[0.1, 1, 0, 0.7], [0, 0, 0, 0]] select _failed;
+    private _colour  = [[_heli, !_tadsShown || {_visionMode in [1, 2]}] call fza_ihadss_fnc_hduPictureColour, [0, 0, 0, 0]] select _failed;
     {(_x # 0) ctrlShow true} forEach (_pnvsDisplay getVariable ["fza_ihadss_strips", []]);
     [_pnvsDisplay, _rect, _texture, _colour, _pictureRect] call fza_ihadss_fnc_hduPnvsMask;
 } else {
@@ -144,6 +144,18 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         };
     };
 
+    // FLIR LVL and GAIN by hand with ACM off, nominal at mid travel
+    ([_heli] call fza_ihadss_fnc_videoPanel) params ["", "", "", "_lvl", "_gain", "_acm"];
+    private _flirManual = _acm == 0 && {_visionMode in [1, 2]};
+    if (!isNil "fza_ah64_flirLevelGainEffect") then {
+        fza_ah64_flirLevelGainEffect ppEffectEnable _flirManual;
+        if (_flirManual && {(missionNamespace getVariable ["fza_ihadss_flirLevelGain", []]) isNotEqualTo [_lvl, _gain]}) then {
+            fza_ihadss_flirLevelGain = [_lvl, _gain];
+            fza_ah64_flirLevelGainEffect ppEffectAdjust [1, 0.5 + _gain, 0.4 * (_lvl - 0.5), [0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]];
+            fza_ah64_flirLevelGainEffect ppEffectCommit 0;
+        };
+    };
+
     //TADS DTV/FLIR Fail
     if (_visionMode in [0,3] && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
@@ -160,6 +172,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     fza_ah64_dvoEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
+    if (!isNil "fza_ah64_flirLevelGainEffect") then {fza_ah64_flirLevelGainEffect ppEffectEnable false};
 };
 
 fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
