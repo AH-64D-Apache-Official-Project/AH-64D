@@ -12,8 +12,15 @@ class fza_APUStartUp_Ext_SoundShader
 	};
 	frequency=1;
 	volume=QUOTE(camext*EXT_VOL_CONTROLLER);
+	range=200;
+	rangecurve[]=
+	{
+		{0,1},
+		{100,0.6},
+		{200,0}
+	};
 };
-class fza_APUShutdown_Ext_SoundShader
+class fza_APUShutdown_Ext_SoundShader: fza_APUStartUp_Ext_SoundShader
 {
 	samples[]=
 	{
@@ -23,10 +30,8 @@ class fza_APUShutdown_Ext_SoundShader
 			1
 		}
 	};
-	frequency=1;
-	volume=QUOTE(camext*EXT_VOL_CONTROLLER);
 };
-class fza_APUSoundLoop_Ext_SoundShader
+class fza_APUSoundLoop_Ext_SoundShader: fza_APUStartUp_Ext_SoundShader
 {
 	samples[]=
 	{
@@ -39,14 +44,7 @@ class fza_APUSoundLoop_Ext_SoundShader
 	frequency=QUOTE(APU_CONTROLLER);
 
 	//- Make sure volume reduced when Power is pushed to FLY
-	volume=QUOTE(camext*EXT_VOL_CONTROLLER * FACTOR(APU_CONTROLLER,0.3,1) * FACTOR(NP_CONTROLLER,1,0)); 
-	range=200;
-	rangecurve[]=
-	{
-		{0,1},
-		{100,0.6},
-		{200,0}
-	};
+	volume=QUOTE(camext*EXT_VOL_CONTROLLER * FACTOR(APU_CONTROLLER,0.3,1) * FACTOR(NP_CONTROLLER,1,0));
 };
 class fza_Rotor_Distance_SoundShader
 {

@@ -1,5 +1,5 @@
 // -APU
-class fza_APUStartUp_Ext_SoundSet: fza_External_Base
+class fza_APUStartUp_Ext_SoundSet: fza_Standard_External_Base
 {
 	soundshaders[] = 
 	{
@@ -9,7 +9,7 @@ class fza_APUStartUp_Ext_SoundSet: fza_External_Base
 	playTrigger=QUOTE(APU_ON_CONTROLLER max 0);
 	loop=0;
 };
-class fza_APUShutdown_Ext_SoundSet: fza_External_Base
+class fza_APUShutdown_Ext_SoundSet: fza_Standard_External_Base
 {
 	soundshaders[] = 
 	{

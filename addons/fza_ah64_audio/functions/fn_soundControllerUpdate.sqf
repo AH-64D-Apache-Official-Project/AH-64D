@@ -29,7 +29,8 @@ Author:
     Aaren
 ---------------------------------------------------------------------------- */
 #define ENG_SMOOTH_TIME 1.5
-#define APU_SMOOTH_TIME 5
+#define APU_ON_SMOOTH_TIME 5
+#define APU_OFF_SMOOTH_TIME 15
 #define RTR_SMOOTH_TIME 0.2
 
 //A trigger left high replays its one-shot whenever the player gets in or out
@@ -121,7 +122,7 @@ private _fnc_approach = {
 
 private _ng = _heli getVariable ["bmkhs_engPctNg", []];
 ["CustomSoundController15", (((_ng param [0, 0]) + (_ng param [1, 0])) / (2 * fza_audio_ngRef)) min 1 max 0, ENG_SMOOTH_TIME] call _fnc_approach;
-["CustomSoundController1", _apuRpm_pct, APU_SMOOTH_TIME] call _fnc_approach;
+["CustomSoundController1", _apuRpm_pct, [APU_OFF_SMOOTH_TIME, APU_ON_SMOOTH_TIME] select _apuState] call _fnc_approach;
 
 private _designRpm = _heli getVariable ["bmkhs_engDesignRpm", 0];
 private _rtrRpm    = if (_designRpm > 0) then {(_heli getVariable ["bmkhs_xmsnOutputRpm", 0]) / _designRpm} else {0};
