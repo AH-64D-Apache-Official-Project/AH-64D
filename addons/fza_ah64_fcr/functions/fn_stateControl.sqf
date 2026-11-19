@@ -69,32 +69,12 @@ private _cycleUpdate = {
     _cycleNow
 };
 
-// The crewmember always starts a scan, never the FCR: continuous scan starts only on the radar being switched on (the
-// vanilla radar toggle), not on it simply being on, so a radar outliving any stop never restarts a scan
-private _radarSwitchedOn = _armaRadarOn && {!(_heli getVariable ["fza_fcr_radarWasOn", false])};
-_heli setVariable ["fza_fcr_radarWasOn", _armaRadarOn];
-
+// The scan state owns the radar: a scan keeps it on and nothing else does, whatever the vanilla radar toggle does. A
+// scan's state is sent before its radar is switched on (fza_fnc_coreControlHandle); a radar arriving first is switched
+// off and comes back with the state
 switch _fcrScanState do {
     case FCR_MODE_OFF: {
-        if !_armaRadarOn exitWith {};
-        if _radarSwitchedOn then {_heli setVariable ["fza_fcr_radarOnAt", CBA_missionTime]};
-        private _onAt = _heli getVariable ["fza_fcr_radarOnAt", -1];
-        // Held off: on without having just been switched on, or with no crew station owning the FCR as its sight
-        if (_onAt < 0 || {FCR_OWNER(_heli) == ""}) exitWith {
-            [_heli, false] call fza_fcr_fnc_radarSet;
-        };
-        // Only the owner's radar toggle starts the scan; its press can arrive from the other crew station a moment after
-        // the radar comes on
-        if ((_heli getVariable ["fza_fcr_ownerRadarPress", -1]) < _onAt - 0.5) exitWith {
-            if (CBA_missionTime - _onAt > 1) then {
-                _heli setVariable ["fza_fcr_radarOnAt", -1];
-                [_heli, false] call fza_fcr_fnc_radarSet;
-            };
-        };
-        _heli setVariable ["fza_fcr_radarOnAt", -1];
-        [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
-        [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
-        [_heli, true, true] call fza_fcr_fnc_videoClear;
+        if _armaRadarOn then { [_heli, false] call fza_fcr_fnc_radarSet; };
     };
     case FCR_MODE_ON_SINGLE: {
         // Scans per single scanburst W2/M2/N3/Z4 (GTM/RMAP)
@@ -107,9 +87,8 @@ switch _fcrScanState do {
         if (!_armaRadarOn) then { [_heli, true] call fza_fcr_fnc_radarSet; };
     };
     case FCR_MODE_ON_CONTINUOUS: {
-        if _armaRadarOn exitWith { call _cycleUpdate; };
-        [_heli, "fza_ah64_fcrWaitingForStart", false] call fza_fnc_updateNetworkGlobal;
-        [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+        call _cycleUpdate;
+        if (!_armaRadarOn) then { [_heli, true] call fza_fcr_fnc_radarSet; };
     };
     case FCR_MODE_FAULT: {
         if _armaRadarOn then {

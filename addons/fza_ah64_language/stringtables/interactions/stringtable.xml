@@ -69,6 +69,40 @@
             <Turkish>FCR'yi bir kez tarar</Turkish>
             <Dutch>Scant de FCR eenmaal</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_FCR_CONTINUOUS_SCAN">
+            <Original>FCR Continuous Scan</Original>
+            <English>FCR Continuous Scan</English>
+            <Czech>Nepřetržité Skenování FCR</Czech>
+            <French>Balayage Continu FCR</French>
+            <Spanish>Escaneo Continuo FCR</Spanish>
+            <Italian>Scansione Continua FCR</Italian>
+            <Polish>Ciągłe Skanowanie FCR</Polish>
+            <Portuguese>Digitalização Contínua FCR</Portuguese>
+            <Russian>Непрерывное Сканирование FCR</Russian>
+            <German>FCR Dauerscan</German>
+            <Korean>FCR 연속 스캔</Korean>
+            <Japanese>FCR連続スキャン</Japanese>
+            <Chinesesimp>FCR连续扫描</Chinesesimp>
+            <Turkish>FCR Sürekli Tarama</Turkish>
+            <Dutch>FCR Continu Scannen</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_CONTINUOUS_SCAN_INFO">
+            <Original>Starts or stops a continuous FCR scan</Original>
+            <English>Starts or stops a continuous FCR scan</English>
+            <Czech>Spustí nebo zastaví nepřetržité skenování FCR</Czech>
+            <French>Démarre ou arrête un balayage continu du FCR</French>
+            <Spanish>Inicia o detiene un escaneo continuo del FCR</Spanish>
+            <Italian>Avvia o arresta una scansione continua del FCR</Italian>
+            <Polish>Uruchamia lub zatrzymuje ciągłe skanowanie FCR</Polish>
+            <Portuguese>Inicia ou para uma digitalização contínua do FCR</Portuguese>
+            <Russian>Запускает или останавливает непрерывное сканирование FCR</Russian>
+            <German>Startet oder stoppt einen FCR-Dauerscan</German>
+            <Korean>FCR 연속 스캔을 시작하거나 중지합니다</Korean>
+            <Japanese>FCRの連続スキャンを開始または停止します</Japanese>
+            <Chinesesimp>开始或停止FCR连续扫描</Chinesesimp>
+            <Turkish>Sürekli FCR taramasını başlatır veya durdurur</Turkish>
+            <Dutch>Start of stopt een continue FCR-scan</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_FLARE">
             <Original>Deploy Flare</Original>
             <English>Deploy Flare</English>

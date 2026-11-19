@@ -22,6 +22,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_symbologySelectPress[] = {0x30}; //B
             fza_ah64_laserDesig[] = {0x22}; //G
             fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
+            fza_ah64_fcrContinuousScan[] = {0x1D130013}; //Ctrl+R
             fza_ah64_cpgStoreUpdate[] = {0x2A130022}; //Shift+G
             fza_ah64_missileAdvance[] = {}; //Unbound: only works in MAN missile MODE
             fza_ah64_wasGun[] = {0x02}; // 1
@@ -37,7 +38,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_fcrModeATM[]  = {0x2C130007}; //Z+6
             fza_ah64_fcrModeRMAP[] = {0x2C130008}; //Z+7
             fza_ah64_fcrModeTPM[]  = {0x2C130009}; //Z+8
-            fza_ah64_flare[] = {0x2D}; // X — R is vanilla lock targets (FCR NTS cycle), Ctrl+R the radar toggle (FCR continuous scan)
+            fza_ah64_flare[] = {0x2D}; // X
             fza_ah64_tadsLHGFov_W[] = {};
             fza_ah64_tadsLHGFov_M[] = {};
             fza_ah64_tadsLHGFov_N[] = {};
