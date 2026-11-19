@@ -188,10 +188,6 @@ if (_value) then {
         case "prevWeapon": {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
-        case "fza_ah64_fcrNextToShoot": {
-            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
-            [_heli] call fza_fcr_fnc_cycleNTS;
-        };
         // A new mode cancels the scan; re-selecting the active mode is ignored, except RMAP where it toggles the video
         // (see fza_fcr_fnc_setMode)
         case "fza_ah64_fcrModeGTM": {

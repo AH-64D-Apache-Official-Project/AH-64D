@@ -23,7 +23,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_laserDesig[] = {0x22}; //G
             fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
             fza_ah64_fcrContinuousScan[] = {0x1D130013}; //Ctrl+R
-            fza_ah64_fcrNextToShoot[] = {0x13}; //R
             fza_ah64_cpgStoreUpdate[] = {0x2A130022}; //Shift+G
             fza_ah64_missileAdvance[] = {}; //Unbound: only works in MAN missile MODE
             fza_ah64_wasGun[] = {0x02}; // 1

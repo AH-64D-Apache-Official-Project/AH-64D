@@ -103,40 +103,6 @@
             <Turkish>Sürekli FCR taramasını başlatır veya durdurur</Turkish>
             <Dutch>Start of stopt een continue FCR-scan</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_FCR_NEXT_TO_SHOOT">
-            <Original>FCR Next To Shoot</Original>
-            <English>FCR Next To Shoot</English>
-            <Czech>FCR Další Cíl</Czech>
-            <French>FCR Prochaine Cible</French>
-            <Spanish>FCR Siguiente Objetivo</Spanish>
-            <Italian>FCR Prossimo Bersaglio</Italian>
-            <Polish>FCR Następny Cel</Polish>
-            <Portuguese>FCR Próximo Alvo</Portuguese>
-            <Russian>FCR Следующая Цель</Russian>
-            <German>FCR Nächstes Ziel</German>
-            <Korean>FCR 다음 사격 표적</Korean>
-            <Japanese>FCR次射撃目標</Japanese>
-            <Chinesesimp>FCR下一射击目标</Chinesesimp>
-            <Turkish>FCR Sonraki Hedef</Turkish>
-            <Dutch>FCR Volgend Doel</Dutch>
-        </Key>
-        <Key ID="STR_FZA_AH64_FCR_NEXT_TO_SHOOT_INFO">
-            <Original>Steps the FCR next to shoot target to the next target</Original>
-            <English>Steps the FCR next to shoot target to the next target</English>
-            <Czech>Přepne cíl FCR k palbě na další cíl</Czech>
-            <French>Passe la prochaine cible FCR à la cible suivante</French>
-            <Spanish>Cambia el siguiente objetivo del FCR al objetivo siguiente</Spanish>
-            <Italian>Passa il prossimo bersaglio FCR al bersaglio successivo</Italian>
-            <Polish>Przełącza następny cel FCR na kolejny cel</Polish>
-            <Portuguese>Avança o próximo alvo do FCR para o alvo seguinte</Portuguese>
-            <Russian>Переключает следующую цель FCR на следующую</Russian>
-            <German>Schaltet das nächste FCR-Ziel zum folgenden Ziel weiter</German>
-            <Korean>FCR 다음 사격 표적을 다음 표적으로 전환합니다</Korean>
-            <Japanese>FCRの次射撃目標を次の目標に切り替えます</Japanese>
-            <Chinesesimp>将FCR下一射击目标切换到下一个目标</Chinesesimp>
-            <Turkish>FCR sonraki hedefini bir sonraki hedefe geçirir</Turkish>
-            <Dutch>Zet het volgende FCR-doel door naar het volgende doel</Dutch>
-        </Key>
         <Key ID="STR_FZA_AH64_FLARE">
             <Original>Deploy Flare</Original>
             <English>Deploy Flare</English>

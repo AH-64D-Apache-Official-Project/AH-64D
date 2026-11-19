@@ -21,7 +21,6 @@ class UserActionGroups {
             "fza_ah64_laserDesig",
             "fza_ah64_fcrSingleScan",
             "fza_ah64_fcrContinuousScan",
-            "fza_ah64_fcrNextToShoot",
             "fza_ah64_cpgStoreUpdate",
             "fza_ah64_missileAdvance",
             "fza_ah64_wasGun",
