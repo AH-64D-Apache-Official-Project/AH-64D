@@ -135,10 +135,25 @@ if (_value) then {
             private _onGnd = [_heli] call bmkhs_fnc_stateOnGround;
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
+            // The scan state goes out before the radar comes on, as the radar is only allowed on during a scan
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
-                [_heli, true] call fza_fcr_fnc_radarSet;
                 [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
+                [_heli, true] call fza_fcr_fnc_radarSet;
+            };
+            [_heli] call fza_fcr_fnc_stopScan;
+        };
+        case "fza_ah64_fcrContinuousScan": {
+            if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            private _onGnd = [_heli] call bmkhs_fnc_stateOnGround;
+            private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
+            if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
+            if (_fcrState#0 != FCR_MODE_ON_CONTINUOUS) exitWith {
+                [_heli, FCR_MODE_ON_CONTINUOUS] call fza_fcr_fnc_armScanStart;
+                [_heli, false, true] call fza_fcr_fnc_videoClear;
+                _heli setVariable ["fza_ah64_fcrTargets", [], true];
+                [_heli, true] call fza_fcr_fnc_radarSet;
             };
             [_heli] call fza_fcr_fnc_stopScan;
         };
@@ -173,7 +188,7 @@ if (_value) then {
         case "prevWeapon": {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
-        case "vehLockTargets": {
+        case "fza_ah64_fcrNextToShoot": {
             if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             [_heli] call fza_fcr_fnc_cycleNTS;
         };

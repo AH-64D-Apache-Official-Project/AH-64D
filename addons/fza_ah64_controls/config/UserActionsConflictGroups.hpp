@@ -13,6 +13,8 @@ class UserActionsConflictGroups {
             "fza_ah64_symbologySelectPress",
             "fza_ah64_laserDesig",
             "fza_ah64_fcrSingleScan",
+            "fza_ah64_fcrContinuousScan",
+            "fza_ah64_fcrNextToShoot",
             "fza_ah64_cpgStoreUpdate",
             "fza_ah64_missileAdvance",
             "fza_ah64_wasGun",
@@ -56,7 +58,7 @@ class UserActionsConflictGroups {
             "fza_ah64_mpdCursorEnter",
             "fza_ah64_mpdCursorDisplaySelect"
         };
-        // Vanilla actions the aircraft uses (fza_fnc_coreControlHandle), ActiveSensorsToggle being the FCR scan
+        // Vanilla actions the aircraft uses (fza_fnc_coreControlHandle)
         fza_ah64_vanilla[] = {
             "defaultAction",
             "SwitchWeaponGrp1",
@@ -66,12 +68,10 @@ class UserActionsConflictGroups {
             "nextWeapon",
             "prevWeapon",
             "launchCM",
-            "vehLockTargets",
             "zoomIn",
             "zoomOut",
             "NightVision",
-            "Headlights",
-            "ActiveSensorsToggle"
+            "Headlights"
         };
     };
     class CollisionGroups {
