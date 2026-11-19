@@ -25,7 +25,6 @@ options.ignore = [
     "str_fza_ah64_fire_panel",
     "str_fza_ah64_ihadss",
     "str_fza_ah64_keyboard_unit",
-    "str_fza_ah64_landing_gear",
     "str_fza_ah64_lighting",
     "str_fza_ah64_lmpd",
     "str_fza_ah64_master_warning_caution_panel",

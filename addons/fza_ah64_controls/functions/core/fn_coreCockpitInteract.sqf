@@ -38,7 +38,4 @@ switch (_system) do {
     case "mstrWarnBtn": {
         [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
     };
-    case "wheels": {
-        [_control, "+1", _heli] call bmkhs_fnc_controlSet;
-    };
 };

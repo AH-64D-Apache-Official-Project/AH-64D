@@ -103,23 +103,6 @@
             <Turkish>SILAH PANELİ</Turkish>
             <Dutch>BEWAPENINGSPANEEL</Dutch>
         </Key>
-        <Key ID="STR_FZA_AH64_LANDING_GEAR">
-            <Original>LANDING GEAR</Original>
-            <English>LANDING GEAR</English>
-            <Czech>PODVOZEK</Czech>
-            <French>TRAIN D'ATTERRISSAGE</French>
-            <Spanish>TREN DE ATERRIZAJE</Spanish>
-            <Italian>CARRELLO DI ATTERRAGGIO</Italian>
-            <Polish>PODWOZIE</Polish>
-            <Portuguese>TREM DE POUSO</Portuguese>
-            <Russian>ШАССИ</Russian>
-            <German>FAHRWERK</German>
-            <Korean>착륙 장치</Korean>
-            <Japanese>降着装置</Japanese>
-            <Chinesesimp>起落架</Chinesesimp>
-            <Turkish>İNİŞ TAKIMI</Turkish>
-            <Dutch>LANDINGSGESTEL</Dutch>
-        </Key>
         <Key ID="STR_FZA_AH64_DEACTIVATE_KEYBOARD_UNIT">
             <Original>DEACTIVATE KEYBOARD UNIT</Original>
             <English>DEACTIVATE KEYBOARD UNIT</English>

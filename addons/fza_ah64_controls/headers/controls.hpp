@@ -97,8 +97,5 @@ COCKPIT_CONTROL("plt_btn_gnd_oride", "cpg_btn_gnd_oride",gndOrideBtn, "STR_FZA_A
 
 COCKPIT_CONTROL("plt_btn_emer_hyd", "cpg_btn_emer_hyd",emerHydBtn, "STR_FZA_AH64_EMERGENCY_PANEL",emerHyd, 0.04, "STR_FZA_AH64_TOGGLE_EMERGENCY_HYDRAULICS", false) COCKPIT_CONTROL_SEP()
 
-COCKPIT_CONTROL("plt_btn_tw_unlk_tl", "cpg_btn_tw_unlk_tl",wheels, "STR_FZA_AH64_LANDING_GEAR",tailWheelLock, 0.04, "STR_FZA_AH64_TOGGLE_TAIL_WHEEL_LOCK", false) COCKPIT_CONTROL_SEP()
-COCKPIT_CONTROL("parkBrakeHandle", "",wheels, "STR_FZA_AH64_LANDING_GEAR",parkBrake, 0.04, "STR_FZA_AH64_TOGGLE_PARKING_BRAKE", false) COCKPIT_CONTROL_SEP()
-
 COCKPIT_CONTROL("plt_btn_mstr_caut", "cpg_btn_mstr_caut",mstrCautBtn, "STR_FZA_AH64_MASTER_WARNING_CAUTION_PANEL",mstrCaut, 0.04, "STR_FZA_AH64_ACKNOWLEDGE_MASTER_CAUTION", false) COCKPIT_CONTROL_SEP()
 COCKPIT_CONTROL("plt_btn_mstr_warn", "cpg_btn_mstr_warn",mstrWarnBtn, "STR_FZA_AH64_MASTER_WARNING_CAUTION_PANEL",mstrWarn, 0.04, "STR_FZA_AH64_ACKNOWLEDGE_MASTER_WARNING", false) COCKPIT_CONTROL_SEP()

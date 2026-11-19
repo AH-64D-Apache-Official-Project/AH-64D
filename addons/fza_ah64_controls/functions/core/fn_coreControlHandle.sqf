@@ -341,6 +341,13 @@ if (_value) then {
         case "fza_ah64_collectiveEmergJett": {
             _heli spawn fza_weapons_fnc_jettisonAll;
         };
+        //HeliSim controls: Core owns the brake and the lock, and the suspension reads them.
+        case "fza_ah64_toggleParkingBrake": {
+            ["parkBrake", "+1", _heli] call bmkhs_fnc_controlSet;
+        };
+        case "fza_ah64_toggleTailWheelLock": {
+            ["tailWheelLock", "+1", _heli] call bmkhs_fnc_controlSet;
+        };
         // The CPG's LST mode switch
         case "fza_ah64_lstAuto";
         case "fza_ah64_lstOff";
