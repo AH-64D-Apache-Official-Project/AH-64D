@@ -53,6 +53,7 @@ if (!_isActive) then {
 #define ARH_MAX_SCAN_RADIUS       500
 #define ARH_TERMINAL_RANGE        300
 #define ARH_LOCK_LOSS_GRACE_PERIOD 1
+#define ARH_TRACK_COAST_TIME       3
 #define STAGE_ATTACK_TERMINAL      4
 
 private _target = objNull;
@@ -178,21 +179,33 @@ if !(isNull _target) then {
     // Publish active missile lock to vanilla threat systems.
     _projectile setMissileTarget _target;
 
-    if (_timestep > 0) then {
-        private _acceleration = (velocity _target vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
+    // Velocity change over the time since the target was last tracked, not over this frame
+    private _trackGap = (CBA_missionTime - _lastTimeSeen) max _timestep;
+    if (_trackGap > 0) then {
+        private _acceleration = (velocity _target vectorDiff _lastKnownVelocity) vectorMultiply (1 / _trackGap);
         _targetData set [4, _acceleration];
     };
 
     // Active radar lock: skip straight to terminal guidance rather than
     // waiting on the attack profile's climb/height-above-launcher gate.
     private _attackProfileStateParams = _stateParams # 2;
-    if ((_attackProfileStateParams # 0) < STAGE_ATTACK_TERMINAL) then {
+    if ((_attackProfileStateParams param [0, 0]) < STAGE_ATTACK_TERMINAL) then {
         _stateParams set [2, [STAGE_ATTACK_TERMINAL, 0, [getPosASL _projectile select 2, 0]]];
     };
 } else {
     _projectile setMissileTarget objNull;
     _launchParams set [0, objNull];
     _seekerStateParams set [7, true];
+
+    // Track lost: carry the target on at its last velocity for a while, then hold the point
+    private _coasting = _lastTimeSeen > 0 && {_canReacquire} && {(CBA_missionTime - _lastTimeSeen) < ARH_TRACK_COAST_TIME};
+    if (_coasting) then {
+        _expectedTargetPos = _expectedTargetPos vectorAdd (_lastKnownVelocity vectorMultiply _timestep);
+        _seekerStateParams set [3, _expectedTargetPos];
+    };
+    _targetData set [2, (getPosASLVisual _projectile) distance _expectedTargetPos];
+    _targetData set [3, [[0, 0, 0], _lastKnownVelocity] select _coasting];
+    _targetData set [4, [0, 0, 0]];
 };
 
 private _returnPos = _expectedTargetPos vectorAdd _dbsOffset;

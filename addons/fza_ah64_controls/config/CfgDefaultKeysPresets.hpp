@@ -37,7 +37,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_fcrModeATM[]  = {0x2C130007}; //Z+6
             fza_ah64_fcrModeRMAP[] = {0x2C130008}; //Z+7
             fza_ah64_fcrModeTPM[]  = {0x2C130009}; //Z+8
-            fza_ah64_flare[] = {0x2D}; // X — R is the vanilla radar toggle (FCR continuous scan)
+            fza_ah64_flare[] = {0x2D}; // X — R is vanilla lock targets (FCR NTS cycle), Ctrl+R the radar toggle (FCR continuous scan)
             fza_ah64_tadsLHGFov_W[] = {};
             fza_ah64_tadsLHGFov_M[] = {};
             fza_ah64_tadsLHGFov_N[] = {};

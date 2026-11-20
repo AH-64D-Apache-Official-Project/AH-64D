@@ -146,8 +146,13 @@ class CfgVehicles {
             class TSD {
                 index = MPD_PAGE_TSD;
                 draw  = "fza_mpd_fnc_pageTSDDraw";
-                drawCanvas = "fza_mpd_fnc_pageTSDDrawCanvas";
                 handleControl = "fza_mpd_fnc_pageTSDHandleControl";
+                // The map's points and lines are drawn by a browser (fza_mpd_fnc_tsdHtmlDraw)
+                htmlUrl   = "\fza_ah64_mpd\ui\tsd\tsd.html";
+                htmlClass = "RscFzaMPDTsd";
+                // Loaded before it is first opened (fza_mpd_fnc_htmlPreload), as are the other main HTML pages
+                htmlPreload = 1;
+                // Keeps the MPD's text boxes over the map (fza_mpd_fnc_update)
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
@@ -194,6 +199,7 @@ class CfgVehicles {
                 index = MPD_PAGE_FCR;
                 htmlUrl   = "\fza_ah64_fcr\ui\scope\scope.html";
                 htmlClass = "RscFzaFCRScope";
+                htmlPreload = 1;
                 usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
@@ -205,6 +211,7 @@ class CfgVehicles {
                 index = MPD_PAGE_FCRRMAP;
                 htmlUrl   = "\fza_ah64_fcr\ui\rmap\rmap.html";
                 htmlClass = "RscFzaFCRRmap";
+                htmlPreload = 1;
                 usesIcons = 0; // targets drawn in the HTML canvas, not via drawIcons
                 draw          = "fza_mpd_fnc_fcrRMAPDraw";
                 handleControl = "fza_mpd_fnc_pageFCRRMAPHandleControl";
@@ -213,6 +220,7 @@ class CfgVehicles {
                 index = MPD_PAGE_FCRTPM;
                 htmlUrl   = "\fza_ah64_fcr\ui\tpm\tpm.html";
                 htmlClass = "RscFzaFCRTpm";
+                htmlPreload = 1;
                 usesIcons = 0; // obstacles drawn in the HTML canvas, not via drawIcons
                 draw          = "fza_mpd_fnc_fcrTPMDraw";
                 handleControl = "fza_mpd_fnc_pageFCRTPMHandleControl";
@@ -222,6 +230,7 @@ class CfgVehicles {
                 index = MPD_PAGE_VID;
                 htmlUrl   = "\fza_ah64_mpd\ui\video\video.html";
                 htmlClass = "RscFzaMPDVideo";
+                htmlPreload = 1;
                 draw          = "fza_mpd_fnc_pageVIDDraw";
                 handleControl = "fza_mpd_fnc_pageVIDHandleControl";
                 class InitState {

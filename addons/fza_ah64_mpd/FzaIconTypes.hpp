@@ -13,7 +13,6 @@
 
 #define ICON_SIZE 0.09
 #define ICON_SIZE_BLUEFORCE_TRACKER 0.12
-
 class FzaIconTypes {
     // Common templates to be used for generating icons.
     // Position text around the icons in standard locations
@@ -632,6 +631,33 @@ class FzaIconTypes {
     class FCR_FLYER_MOVE_NTS:FCR_FLYER_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_FLYER_MOVE_NTS_NOMSL:FCR_FLYER_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
 
+//--------------------FCR low priority (TSD targets 17-256): half size glyphs at full line width, partial intensity--------------------
+
+    class FCR_ADU_LOAL_LOW:FCR_ADU_LOAL     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\aduLOAL_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_HELI_LOAL_LOW:FCR_HELI_LOAL   { tex = "\fza_ah64_mpd\tex\fcrIcons\low\heliLOAL_low_ca.paa";  color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_TRACK_LOAL_LOW:FCR_TRACK_LOAL { tex = "\fza_ah64_mpd\tex\fcrIcons\low\trackLOAL_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_UNK_LOAL_LOW:FCR_UNK_LOAL     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\unkLOAL_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_WHEEL_LOAL_LOW:FCR_WHEEL_LOAL { tex = "\fza_ah64_mpd\tex\fcrIcons\low\wheelLOAL_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_ADU_LOBL_LOW:FCR_ADU_LOBL     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\aduLOBL_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_HELI_LOBL_LOW:FCR_HELI_LOBL   { tex = "\fza_ah64_mpd\tex\fcrIcons\low\heliLOBL_low_ca.paa";  color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_TRACK_LOBL_LOW:FCR_TRACK_LOBL { tex = "\fza_ah64_mpd\tex\fcrIcons\low\trackLOBL_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_UNK_LOBL_LOW:FCR_UNK_LOBL     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\unkLOBL_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_WHEEL_LOBL_LOW:FCR_WHEEL_LOBL { tex = "\fza_ah64_mpd\tex\fcrIcons\low\wheelLOBL_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_ADU_MOVE_LOW:FCR_ADU_MOVE     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\aduMOVE_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_HELI_MOVE_LOW:FCR_HELI_MOVE   { tex = "\fza_ah64_mpd\tex\fcrIcons\low\heliMOVE_low_ca.paa";  color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_TRACK_MOVE_LOW:FCR_TRACK_MOVE { tex = "\fza_ah64_mpd\tex\fcrIcons\low\trackMOVE_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_UNK_MOVE_LOW:FCR_UNK_MOVE     { tex = "\fza_ah64_mpd\tex\fcrIcons\low\unkMOVE_low_ca.paa";   color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_WHEEL_MOVE_LOW:FCR_WHEEL_MOVE { tex = "\fza_ah64_mpd\tex\fcrIcons\low\wheelMOVE_low_ca.paa"; color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+    class FCR_FLYER_MOVE_LOW:FCR_FLYER_MOVE { tex = "\fza_ah64_mpd\tex\fcrIcons\low\flyer_low_ca.paa";     color[] = MPD_ICON_COLOR_YELLOW_DIM; };
+
+//--------------------TSD FCR obstacle--------------------
+
+    class TSD_FCR_OBSTACLE:IconTypeH {
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\fcrObstacle_ca.paa";
+        type  = POINT_TYPE_SYSTEM;
+        color[] = MPD_ICON_COLOR_YELLOW;
+    };
+
 //--------------------TSD blueforce tracker
 
     class TSD_BLUEFORCE_TRACKER:IconTypeH {
@@ -886,6 +912,9 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
         type  = POINT_TYPE_FCR;
         color[] = MPD_ICON_COLOR_YELLOW;
+    };
+    class FCR_TSD_SC25_50_YELLOW_LOW:FCR_TSD_SC25_50_YELLOW {
+        color[] = MPD_ICON_COLOR_YELLOW_DIM;
     };
     class FCR_TSD_SC25_50_GREEN:IconTypeH {
         tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";

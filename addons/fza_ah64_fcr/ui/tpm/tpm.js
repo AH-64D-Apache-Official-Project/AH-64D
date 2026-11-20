@@ -71,6 +71,10 @@
         clearGrid();
         window.addEventListener("resize", resize);
         requestAnimationFrame(renderLoop);
+        // Asks for the data sent while the page was loading, which was lost (fza_fcr_fnc_displayUiInit)
+        try {
+            if (typeof A3API !== "undefined" && A3API && typeof A3API.SendAlert === "function") { A3API.SendAlert("fza:ready"); }
+        } catch (e) {}
     }
 
     function resize() {

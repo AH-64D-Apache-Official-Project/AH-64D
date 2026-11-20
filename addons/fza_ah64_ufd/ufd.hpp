@@ -43,32 +43,35 @@ class Draw
         UFD_LINE(6);
         UFD_LINE(7);
         UFD_LINE(8);
-        class Line9 : Line0
+        // user0 is 1 while the UFD boots and 2 once the bottom row has loaded
+        class Row9
         {
-            source = "static";
-            text = "        XP 1200 B NORM            L";
-            pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
-            right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
-            down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
-        };
-        class Fuel : Line0
-        {
-            type = "text";
-            scale=1;
-            align="right";
-            source = "userText";
-            sourceIndex = 10;
-            pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
-            right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
-            down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
-        };
-        class Time : Line9
-        {
-            source = "time";
-            text = "%H:%M:%S";
-            pos[] = {{25*UFD_CHAR_WIDTH, 9*UFD_CHAR_HEIGHT}, 1};
-            right[] = {{25*UFD_CHAR_WIDTH + UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
-            down[] = {{25*UFD_CHAR_WIDTH, 10*UFD_CHAR_HEIGHT}, 1};
+            condition = "user0>1";
+            class Line9
+            {
+                type = "text";
+                source = "static";
+                text = "        XP 1200 B NORM            L";
+                scale=1;
+                align="right";
+                pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
+                right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
+                down[] = {{0, 10*UFD_CHAR_HEIGHT}, 1};
+            };
+            class Fuel : Line9
+            {
+                source = "userText";
+                sourceIndex = 10;
+                sourceScale = 1;
+            };
+            class Time : Line9
+            {
+                source = "time";
+                text = "%H:%M:%S";
+                pos[] = {{25*UFD_CHAR_WIDTH, 9*UFD_CHAR_HEIGHT}, 1};
+                right[] = {{25*UFD_CHAR_WIDTH + UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
+                down[] = {{25*UFD_CHAR_WIDTH, 10*UFD_CHAR_HEIGHT}, 1};
+            };
         };
     };
 };

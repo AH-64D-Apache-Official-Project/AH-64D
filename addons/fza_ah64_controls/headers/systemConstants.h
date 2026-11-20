@@ -133,6 +133,7 @@
 #define FCR_LIMIT_FORCE_LOBL_RANGE       2000
 #define FCR_DISPLAY_LOAL_LOBL_RANGE      1500 //FCR/TSD symbols: stationary targets LOBL at or inside, LOAL beyond; nothing to do with the missile
 #define ARH_LOAL_LOBL_SWITCH_RANGE       2500 //Hellfire RF: LOBL/LOAL engagement switch range; nothing to do with the FCR symbols
+#define ARH_MOVER_DATA_MAX_AGE           5    //Hellfire RF: a moving FCR target is led from its scanned position for at most this long (s)
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6
@@ -141,7 +142,7 @@
 #define FCR_TPM_ANTENNA_EL               [-0.5, -3] //TPM antenna elevation, ELEV FAR / NEAR
 #define FCR_TPM_BEAM_HALF_EL             5.5 //Assumed: terrain further below the antenna elevation than this is not measured
 #define FCR_BURST_SCANS                  [2, 2, 3, 4] //Scans per scanburst W/M/N/Z (GTM/RMAP; ATM is 2): the looks a target gets
-#define FCR_TARGET_FILE                  256  //Targets the radar tracks, in priority order: the TSD shows all in its attack phase
+#define FCR_TARGET_FILE                  256  //Targets the radar tracks, in priority order: the TSD attack phase shows all with TOTAL TGTS/OBSTACLES
 #define FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS 16 //The top targets the FCR formats, the IHADSS and the TSD nav phase show, and the NTS cycles through
 // Added to a target's priority rank (fza_fcr_fnc_update): taken off in the active PF zone, added in an active NF zone
 #define FCR_ZONE_PRIORITY 100000

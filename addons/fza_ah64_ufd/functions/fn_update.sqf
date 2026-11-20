@@ -19,6 +19,15 @@ params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 
+#define UFD_BOOT_UNSEEN -2
+#define UFD_BOOT_OFF -1
+#define UFD_BOOT_FLASH 0.4375
+// Three flashes, then held steady
+#define UFD_BOOT_STEADY (6 * UFD_BOOT_FLASH)
+#define UFD_BOOT_HOLD (UFD_BOOT_STEADY + 2.1)
+#define UFD_BOOT_ROW_STEP 0.2625
+#define UFD_ROWS 10
+
 if (!(isNil "fza_ah64_noufd")) exitWith {};
 if (cba_missiontime <= 0) exitWith {};
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli isKindOf "fza_ah64base")) exitWith {};
@@ -36,7 +45,15 @@ private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
 ///EWCA//
 //pilot
 if (_battBusOn || _dcBusOn) then {
-    _heli setUserMFDValue [MFD_IND_BATT, 1];
+    // Power already on when first seen (hot start, joining a crew) skips the boot
+    private _bootTime = _heli getVariable ["fza_ufd_bootTime", UFD_BOOT_UNSEEN];
+    if (_bootTime == UFD_BOOT_UNSEEN || _bootTime == UFD_BOOT_OFF) then {
+        _bootTime = [cba_missiontime, -1e6] select (_bootTime == UFD_BOOT_UNSEEN);
+        _heli setVariable ["fza_ufd_bootTime", _bootTime];
+    };
+    private _bootElapsed = cba_missiontime - _bootTime;
+    private _bootRows = 0 max ceil ((_bootElapsed - UFD_BOOT_HOLD) / UFD_BOOT_ROW_STEP) min UFD_ROWS;
+    _heli setUserMFDValue [MFD_IND_BATT, [1, 2] select (_bootRows >= UFD_ROWS)];
     private _allWcas = [_heli] call fza_fnc_coreGetWCAs;
     private _wcas = _allWcas select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
     private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
@@ -138,6 +155,16 @@ if (_battBusOn || _dcBusOn) then {
         + (_heli getVariable ["bmkhs_stn4TankMass", 0])
     ) * 2.20462;
     _heli setUserMFDText [MFD_TEXT_IND_UFD_FUEL, str (round (_ufdTotalFuelLbs / 10) * 10)];
+
+    if (_bootRows < UFD_ROWS) then {
+        for "_i" from _bootRows to (UFD_ROWS - 2) do {
+            _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, ""];
+        };
+        if (_bootRows == 0 && {_bootElapsed >= UFD_BOOT_STEADY || {floor (_bootElapsed / UFD_BOOT_FLASH) mod 2 == 0}}) then {
+            _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + 5, "     NO COMMUNICATIONS WITH SP"];
+        };
+    };
 } else {
-    _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
+    _heli setUserMFDValue [MFD_IND_BATT, 0];
+    _heli setVariable ["fza_ufd_bootTime", UFD_BOOT_OFF];
 };

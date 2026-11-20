@@ -1,6 +1,9 @@
 hiddenselections[]={
     "skin",
     "skin_fcr",
+    "skin_tailboom",
+    "skin_vtail",
+    "hstab",
     "ufd_back",
     "in_lt_apu",
     "mpd_brt",
@@ -31,8 +34,5 @@ hiddenselections[]={
     "blade2",
     "blade3",
     "blade4",
-    "skin_tailboom",
-    "skin_vtail",
-    "hstab",
     "skin_tailrotor"
 };

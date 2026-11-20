@@ -33,6 +33,9 @@ class CfgFunctions
             class tofStart                {RECOMPILE_FLAG;};
             class rfPowerUpdate           {RECOMPILE_FLAG;};
             class rfState                 {RECOMPILE_FLAG;};
+            class blastFired              {RECOMPILE_FLAG;};
+            class blastDetonate           {RECOMPILE_FLAG;};
+            class blastApply              {RECOMPILE_FLAG;};
         };
     };
 };

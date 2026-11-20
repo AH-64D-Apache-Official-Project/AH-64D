@@ -10,6 +10,7 @@ Parameters:
     _ctrl   - Browser control (see fza_mpd_fnc_htmlCtrl)
     _jsFunc - JS function to call, e.g. "fzaFCRScope.update"
     _json   - JSON text passed as the single argument
+    _slot   - (optional) Name of the payload, for a page sent more than one, each compared with its own last
 
 Returns:
     Nothing
@@ -23,12 +24,15 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 disableSerialization;
-params [["_ctrl", controlNull], "_jsFunc", "_json"];
+params [["_ctrl", controlNull], "_jsFunc", "_json", ["_slot", ""]];
 if (isNull _ctrl) exitWith {};
 
-(_ctrl getVariable ["fza_mpd_htmlLast", ["", -10]]) params ["_lastJson", "_lastTick"];
-if (_lastJson isNotEqualTo _json || { diag_tickTime - _lastTick > 1 }) then {
-    _ctrl setVariable ["fza_mpd_htmlLast", [_json, diag_tickTime]];
+private _var = "fza_mpd_htmlLast" + _slot;
+(_ctrl getVariable [_var, ["", -10]]) params ["_lastJson", "_lastTick"];
+// A page that says it is ready (fza_fcr_fnc_displayUiInit) is sent everything again now, as what it was sent while
+// loading was lost
+if (_lastJson isNotEqualTo _json || { _lastTick < (_ctrl getVariable ["fza_mpd_htmlReadyAt", -1]) } || { diag_tickTime - _lastTick > 1 }) then {
+    _ctrl setVariable [_var, [_json, diag_tickTime]];
     // Guarded on the page object, which does not exist until the page script has run
     private _jsObj = (_jsFunc splitString ".") # 0;
     [_ctrl, "if(window." + _jsObj + "){" + _jsFunc + "(" + _json + ")}"] call fza_mpd_fnc_execJs;

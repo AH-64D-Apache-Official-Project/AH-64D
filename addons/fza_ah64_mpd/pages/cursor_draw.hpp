@@ -7,7 +7,7 @@ class Cursor {
     condition = C_COND(C_AND(C_MORE(C_USER(MFD_IND_CURSOR_X), MPD_CURSOR_X_BASE - 0.5), C_LESS(C_USER(MFD_IND_CURSOR_X), MPD_CURSOR_X_BASE + 1.5)));
     color[] = MPD_COLOUR_GREEN;
     // The ring and spokes, except where the FCR zoom box or the panning arrows take their place. On a TSD point it can
-    // choose, the TSD draws the cursor under the point and its text (fza_mpd_fnc_uiDrawPoint); on an FCR target, the ring
+    // choose, the TSD page draws the cursor under the point and its text (ui\tsd\tsd.js); on an FCR target, the ring
     // gives way to the target, drawn over a black circle (scope.js), and the spokes stay round it.
     class Normal {
         condition = C_COND(C_AND(C_NOT(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR), C_EQ(C_MPD_USER(MFD_IND_FCR_ZOOM), 1)), C_AND(C_MPD_USER(MFD_IND_FCR_CURSOR_AREA), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_AND(C_NOT(C_AND(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 5)), C_AND(C_MPD_USER(MFD_IND_TSD_CURSOR_MAP), C_LESS(C_MPD_USER(MFD_IND_CURSOR_VAB), 100.5)))), C_NOT(C_AND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD), C_MPD_USER(MFD_IND_TSD_CURSOR_POINT))))));

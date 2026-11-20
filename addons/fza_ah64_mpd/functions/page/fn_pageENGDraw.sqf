@@ -65,8 +65,9 @@ for "_i" from 0 to 1 do {
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NP_1 + _i), _engNp toFixed 0];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NP_RANGE_1 + _i), [_engNp / 100, _engine get "npLimits"] call _range];
 
-    // Ng is also red below its minimum while the engine runs
-    private _ngRange = [[_engNg / 100, _engine get "ngLimits"] call _range, 2] select ((_engStates # _i) == "ON" && {_engNg / 100 < (_engine get "ngMin")});
+    // Ng is red and boxed at or below its minimum, compared as displayed
+    private _ngLow   = round (_engNg * 10) <= round ((_engine get "ngMin") * 1000);
+    private _ngRange = [[_engNg / 100, _engine get "ngLimits"] call _range, 3] select _ngLow;
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_1 + _i), _engNg toFixed 1];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NG_RANGE_1 + _i), _ngRange];
 

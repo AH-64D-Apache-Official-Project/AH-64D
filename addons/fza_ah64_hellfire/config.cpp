@@ -22,3 +22,17 @@ class CfgPatches
 #include "CfgSoundShaders.hpp"
 #include "CfgMagazines.hpp"
 #include "CfgWeapons.hpp"
+
+class Extended_PreInit_EventHandlers {
+    class fza_hellfire_PreInits {
+        init = "call compile preprocessFileLineNumbers 'fza_ah64_hellfire\XEH_preInit.sqf';";
+    };
+};
+
+class Extended_FiredBIS_EventHandlers {
+    class fza_ah64base {
+        class fza_hellfire_fired_eh {
+            firedBIS = "_this call fza_hellfire_fnc_blastFired;";
+        };
+    };
+};

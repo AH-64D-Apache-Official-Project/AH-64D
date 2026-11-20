@@ -2,7 +2,7 @@
 // dragged at the mouse or the map panned by it
 params ["_map"];
 
-// The TSD's colours (fza_mpd_fnc_tsdZoneItems, fza_mpd_fnc_pageTSDDrawCanvas): lines green, areas red, PF zones white,
+// The TSD's colours (fza_mpd_fnc_tsdZoneItems, fza_mpd_fnc_tsdSegments): lines green, areas red, PF zones white,
 // NF zones yellow, routes green, FLET red, FLOT blue, FSCL white; an inactive zone is dashed, an active one alternates
 // its dashes
 private _colours = [[0, 1, 0, 1], [1, 0, 0.2, 1], [1, 1, 1, 1], [1, 1, 0, 1], [0, 1, 0, 1], [1, 0, 0, 1], [0.4, 0.6, 1, 1], [1, 1, 1, 1]];
