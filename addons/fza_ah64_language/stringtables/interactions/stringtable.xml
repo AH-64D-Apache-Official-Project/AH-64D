@@ -691,9 +691,9 @@
             <Original>Toggle Parking Brake</Original>
             <English>Toggle Parking Brake</English>
             <Czech>Přepnout Parkovací Brzdu</Czech>
-            <French>Activer/Désactiver Frein de Parking</French>
+            <French>Serrer/Desserrer Frein de Parking</French>
             <Spanish>Alternar Freno de Estacionamiento</Spanish>
-            <Italian>Attiva/Disattiva Freno di Parcheggio</Italian>
+            <Italian>Inserisci/Disinserisci Freno di Parcheggio</Italian>
             <Polish>Przełącz Hamulec Postojowy</Polish>
             <Portuguese>Alternar Freio de Estacionamento</Portuguese>
             <Russian>Переключить Стояночный Тормоз</Russian>
@@ -701,25 +701,59 @@
             <Korean>주차 브레이크 토글</Korean>
             <Japanese>パーキングブレーキ切替</Japanese>
             <Chinesesimp>切换驻车制动器</Chinesesimp>
-            <Turkish>Park Frenini Aç/Kapat</Turkish>
+            <Turkish>Park Frenini Çek/Bırak</Turkish>
             <Dutch>Parkeerrem Omschakelen</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_PARKING_BRAKE_INFO">
-            <Original>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</Original>
-            <English>Toggles the parking brake on and off. When ON, the aircraft is fully locked in place. When OFF, wheels roll freely fore and aft for ground taxi.</English>
-            <Czech>Přepíná parkovací brzdu. Při ZAPNUTÍ je letadlo plně zablokováno. Při VYPNUTÍ se kola volně otáčejí dopředu a dozadu pro pojíždění po zemi.</Czech>
-            <French>Active/désactive le frein de parking. Quand ACTIVÉ, l'aéronef est totalement immobilisé. Quand DÉSACTIVÉ, les roues roulent librement avant et arrière pour le roulage au sol.</French>
-            <Spanish>Activa y desactiva el freno de estacionamiento. Cuando está ACTIVADO, la aeronave queda completamente bloqueada. Cuando está DESACTIVADO, las ruedas ruedan libremente hacia adelante y atrás para el rodaje en tierra.</Spanish>
-            <Italian>Attiva e disattiva il freno di parcheggio. Quando ATTIVO, l'aeromobile è completamente bloccato. Quando DISATTIVO, le ruote rotolano liberamente avanti e indietro per il rullaggio a terra.</Italian>
-            <Polish>Włącza i wyłącza hamulec postojowy. Gdy WŁĄCZONY, statek powietrzny jest całkowicie zablokowany. Gdy WYŁĄCZONY, koła toczą się swobodnie do przodu i do tyłu dla kołowania naziemnego.</Polish>
-            <Portuguese>Liga e desliga o freio de estacionamento. Quando LIGADO, a aeronave fica totalmente travada. Quando DESLIGADO, as rodas rolam livremente para frente e para trás para o táxi no solo.</Portuguese>
-            <Russian>Включает и выключает стояночный тормоз. При ВКЛЮЧЁННОМ тормозе воздушное судно полностью зафиксировано. При ВЫКЛЮЧЁННОМ колёса свободно катятся вперёд и назад для руления по земле.</Russian>
-            <German>Schaltet die Feststellbremse ein und aus. Bei EIN ist das Luftfahrzeug vollständig fixiert. Bei AUS rollen die Räder frei vor und zurück für das Rollen am Boden.</German>
-            <Korean>주차 브레이크를 켜고 끕니다. ON 상태에서는 항공기가 완전히 고정됩니다. OFF 상태에서는 지상 주행을 위해 바퀴가 앞뒤로 자유롭게 구릅니다.</Korean>
-            <Japanese>パーキングブレーキのオン/オフを切り替えます。オン時は機体が完全に固定されます。オフ時は地上走行のためにホイールが前後に自由に転がります。</Japanese>
-            <Chinesesimp>切换驻车制动器的开关状态。开启时，飞机完全锁定。关闭时，机轮可自由前后滚动以进行地面滑行。</Chinesesimp>
-            <Turkish>Park frenini açar ve kapatır. AÇIK konumda, uçak tamamen kilitlenir. KAPALI konumda, tekerlekler yer taksi için serbestçe ileri geri döner.</Turkish>
-            <Dutch>Schakelt de parkeerrem aan en uit. Wanneer AAN is het luchtvaartuig volledig vergrendeld. Wanneer UIT rollen de wielen vrij voor en achter voor het taxiën op de grond.</Dutch>
+            <Original>Sets and releases the parking brake. SET locks the aircraft fully in place. RELEASE lets the wheels roll freely fore and aft for ground taxi.</Original>
+            <English>Sets and releases the parking brake. SET locks the aircraft fully in place. RELEASE lets the wheels roll freely fore and aft for ground taxi.</English>
+            <Czech>Zabrzdí a uvolní parkovací brzdu. Při ZABRZDĚNÍ je letadlo plně zablokováno. Při UVOLNĚNÍ se kola volně otáčejí dopředu a dozadu pro pojíždění po zemi.</Czech>
+            <French>Serre et desserre le frein de parking. Quand SERRÉ, l'aéronef est totalement immobilisé. Quand DESSERRÉ, les roues roulent librement avant et arrière pour le roulage au sol.</French>
+            <Spanish>Aplica y libera el freno de estacionamiento. Cuando está APLICADO, la aeronave queda completamente bloqueada. Cuando está LIBERADO, las ruedas ruedan libremente hacia adelante y atrás para el rodaje en tierra.</Spanish>
+            <Italian>Inserisce e disinserisce il freno di parcheggio. Quando INSERITO, l'aeromobile è completamente bloccato. Quando DISINSERITO, le ruote rotolano liberamente avanti e indietro per il rullaggio a terra.</Italian>
+            <Polish>Zaciąga i zwalnia hamulec postojowy. Gdy ZACIĄGNIĘTY, statek powietrzny jest całkowicie zablokowany. Gdy ZWOLNIONY, koła toczą się swobodnie do przodu i do tyłu dla kołowania naziemnego.</Polish>
+            <Portuguese>Aplica e libera o freio de estacionamento. Quando APLICADO, a aeronave fica totalmente travada. Quando LIBERADO, as rodas rolam livremente para frente e para trás para o táxi no solo.</Portuguese>
+            <Russian>Устанавливает и снимает стояночный тормоз. При УСТАНОВЛЕННОМ тормозе воздушное судно полностью зафиксировано. При СНЯТОМ колёса свободно катятся вперёд и назад для руления по земле.</Russian>
+            <German>Zieht die Feststellbremse an und löst sie. ANGEZOGEN ist das Luftfahrzeug vollständig fixiert. GELÖST rollen die Räder frei vor und zurück für das Rollen am Boden.</German>
+            <Korean>주차 브레이크를 체결하고 해제합니다. 체결 상태에서는 항공기가 완전히 고정됩니다. 해제 상태에서는 지상 주행을 위해 바퀴가 앞뒤로 자유롭게 구릅니다.</Korean>
+            <Japanese>パーキングブレーキの作動/解除を切り替えます。作動時は機体が完全に固定されます。解除時は地上走行のためにホイールが前後に自由に転がります。</Japanese>
+            <Chinesesimp>设置和松开驻车制动器。设置时，飞机完全锁定。松开时，机轮可自由前后滚动以进行地面滑行。</Chinesesimp>
+            <Turkish>Park frenini çeker ve serbest bırakır. ÇEKİLİ konumda, uçak tamamen kilitlenir. SERBEST konumda, tekerlekler yer taksi için serbestçe ileri geri döner.</Turkish>
+            <Dutch>Trekt de parkeerrem aan en lost deze. Wanneer AANGETROKKEN is het luchtvaartuig volledig vergrendeld. Wanneer GELOST rollen de wielen vrij voor en achter voor het taxiën op de grond.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_PARKING_BRAKE_OFF">
+            <Original>Parking Brake Release</Original>
+            <English>Parking Brake Release</English>
+            <Czech>Parkovací Brzda Uvolněna</Czech>
+            <French>Frein de Parking Desserré</French>
+            <Spanish>Freno de Estacionamiento Liberado</Spanish>
+            <Italian>Freno di Parcheggio Disinserito</Italian>
+            <Polish>Hamulec Postojowy Zwolniony</Polish>
+            <Portuguese>Freio de Estacionamento Liberado</Portuguese>
+            <Russian>Стояночный Тормоз Снят</Russian>
+            <German>Feststellbremse Gelöst</German>
+            <Korean>주차 브레이크 해제</Korean>
+            <Japanese>パーキングブレーキ解除</Japanese>
+            <Chinesesimp>驻车制动器已松开</Chinesesimp>
+            <Turkish>Park Freni Serbest</Turkish>
+            <Dutch>Parkeerrem Gelost</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_PARKING_BRAKE_ON">
+            <Original>Parking Brake Set</Original>
+            <English>Parking Brake Set</English>
+            <Czech>Parkovací Brzda Zabrzděna</Czech>
+            <French>Frein de Parking Serré</French>
+            <Spanish>Freno de Estacionamiento Aplicado</Spanish>
+            <Italian>Freno di Parcheggio Inserito</Italian>
+            <Polish>Hamulec Postojowy Zaciągnięty</Polish>
+            <Portuguese>Freio de Estacionamento Aplicado</Portuguese>
+            <Russian>Стояночный Тормоз Установлен</Russian>
+            <German>Feststellbremse Angezogen</German>
+            <Korean>주차 브레이크 체결</Korean>
+            <Japanese>パーキングブレーキ作動</Japanese>
+            <Chinesesimp>驻车制动器已设置</Chinesesimp>
+            <Turkish>Park Freni Çekili</Turkish>
+            <Dutch>Parkeerrem Aangetrokken</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_TAIL_WHEEL_LOCK">
             <Original>Toggle Tail Wheel Lock</Original>

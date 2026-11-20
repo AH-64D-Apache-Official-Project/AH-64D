@@ -141,8 +141,8 @@ class Controls {
         wraps        = 1;
         networked    = 1;
         class Positions {
-            class Off { displayName = "Parking Brake - Off"; value = 0; };
-            class On  { displayName = "Parking Brake - On";  value = 1; };
+            class Off { displayName = "Parking Brake - Release"; value = 0; };
+            class On  { displayName = "Parking Brake - Set";     value = 1; };
         };
     };
 
