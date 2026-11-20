@@ -30,9 +30,10 @@ if (_heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF] != ASE_RJAM_
 };
 
 private _debug    = missionNamespace getVariable ["fza_ase_rJamDebug", false];
+// Other AH-64Ds' FCRs included: a jammed one is locked out until the jam ends (fza_fcr_fnc_controller)
 private _jammable = {
     params ["_emitter"];
-    alive _emitter && {!(_emitter isKindOf "fza_ah64base")}
+    alive _emitter
 };
 
 // Triggered by a radar from any direction acquiring or tracking the aircraft

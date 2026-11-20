@@ -63,7 +63,9 @@ private _acBusOn    = _heli getVariable "bmkhs_acBusOn";
 private _dcBusOn    = _heli getVariable "bmkhs_dcBusOn";
 private _onGnd      = [_heli] call bmkhs_fnc_stateOnGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
-private _lockout    = _fcrDamage >= SYS_FCR_DMG_THRESH || !_acBusOn || !_dcBusOn || (_onGnd && !_gndOrideOn);
+// Jammed by another AH-64D's radar jammer (fza_ase_fnc_rJamEffect): off until it ends
+private _jammed     = CBA_missionTime < (_heli getVariable ["fza_ah64_rJamUntil", -1]);
+private _lockout    = _fcrDamage >= SYS_FCR_DMG_THRESH || !_acBusOn || !_dcBusOn || (_onGnd && !_gndOrideOn) || _jammed;
 
 if (!_fcrEnabled || _lockout) then {
     _heli enableVehicleSensor ["ActiveRadarSensorComponent", false];
