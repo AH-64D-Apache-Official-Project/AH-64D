@@ -48,7 +48,8 @@ private _threats = [];
 } forEach getSensorThreats _heli;
 
 // Jams from one machine: where the aircraft is local, or the CPG's with no player pilot
-if (_threats isNotEqualTo [] && {local _heli || {player == gunner _heli && {!isPlayer driver _heli}}}) then {
+private _owner = local _heli || {player == gunner _heli && {!isPlayer driver _heli}};
+if (_threats isNotEqualTo [] && {_owner}) then {
     private _hasRadar = {
         params ["_vehicle"];
         if (isNil "fza_ase_rJamHasRadar") then {fza_ase_rJamHasRadar = createHashMap;};
@@ -133,4 +134,11 @@ if (_threats isNotEqualTo [] && {local _heli || {player == gunner _heli && {!isP
     };
 };
 
-_heli setVariable ["fza_ah64_ase_rJamXmit", _threats isNotEqualTo [] || {CBA_missionTime < (_heli getVariable ["fza_ah64_ase_rJamXmitUntil", -1])}];
+private _xmit = _threats isNotEqualTo [] || {CBA_missionTime < (_heli getVariable ["fza_ah64_ase_rJamXmitUntil", -1])};
+_heli setVariable ["fza_ah64_ase_rJamXmit", _xmit];
+
+// For radios in front of it (fza_ase_fnc_rJamComms): when it last transmitted, refreshed at most once a second, so it
+// goes stale on its own if the crew goes away mid-jam
+if (_xmit && {_owner} && {CBA_missionTime - (_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) >= 1}) then {
+    _heli setVariable ["fza_ah64_ase_rJamXmitStamp", CBA_missionTime, true];
+};

@@ -28,9 +28,14 @@ class CfgFunctions
             class irJam {RECOMPILE_FLAG;};
             class restock {RECOMPILE_FLAG;};
             class rJam {RECOMPILE_FLAG;};
+            class rJamAcreSignal {RECOMPILE_FLAG;};
+            class rJamChat {RECOMPILE_FLAG;};
+            class rJamComms {RECOMPILE_FLAG;};
+            class rJamCommsInit {RECOMPILE_FLAG;};
             class rJamEffect {RECOMPILE_FLAG;};
             class rJamOverlay {RECOMPILE_FLAG;};
             class rJamSetMode {RECOMPILE_FLAG;};
+            class rJamStatic {RECOMPILE_FLAG;};
             class rJamWatch {RECOMPILE_FLAG;};
         };
         class event {

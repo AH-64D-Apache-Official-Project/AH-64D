@@ -36,6 +36,12 @@
 #define ASE_RJAM_BURN_RANGE    1500 //m
 #define ASE_RJAM_CHANCE_MAX    0.8
 #define ASE_RJAM_CHANCE_MIN    0.4
+#define ASE_RJAM_COMMS_FULL    6000 //m, radios jammed at full strength within
+#define ASE_RJAM_COMMS_RANGE   9000 //m, fading to nothing at
+#define ASE_RJAM_COMMS_GAIN    6 //static volume at full strength and full radio volume
+#define ASE_RJAM_COMMS_MASK_TIME   7.5 //sec for the jamming to fade out once terrain is in the way
+#define ASE_RJAM_COMMS_UNMASK_TIME 2 //sec for it to fade back in once it isn't
+#define ASE_RJAM_COMMS_STALE   2.5 //sec without its refresh before a jammer is taken as off
 #define ASE_RJAM_WARMING(heli) (CBA_missionTime - ((heli) getVariable ["fza_ah64_ase_rJamWarmStart", 0]) < ASE_RJAM_WARM_TIME)
 
 //Mission equipment 
