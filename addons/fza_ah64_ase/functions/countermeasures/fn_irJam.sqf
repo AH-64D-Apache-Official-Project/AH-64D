@@ -21,6 +21,14 @@ Author:
 
 params ["_heli", "_deltaTime"];
 
+// Kept full, so ACE rearm never lists it
+if (local _heli) then {
+    private _full = getNumber (configFile >> "CfgMagazines" >> "fza_IR_JAMMING" >> "count");
+    if (_heli magazineTurretAmmo ["fza_IR_JAMMING", [-1]] < _full) then {
+        _heli setMagazineTurretAmmo ["fza_IR_JAMMING", _full, [-1]];
+    };
+};
+
 private _dcBusOn    = _heli getVariable "bmkhs_dcBusOn";
 private _irJamPwr   = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 private _msnEquipUs = _heli animationPhase "msn_equip_american";
