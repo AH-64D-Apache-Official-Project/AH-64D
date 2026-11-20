@@ -48,6 +48,13 @@ class CfgFunctions
             class rJamStaticMakeUp {RECOMPILE_FLAG;};
             class rJamWatch {RECOMPILE_FLAG;};
         };
+        class radarDecoy {
+            file = "\fza_ah64_ase\functions\radarDecoy";
+            class aceDoppler {RECOMPILE_FLAG;};
+            class aceRadarChaff {RECOMPILE_FLAG;};
+            class aceRadarFilter {RECOMPILE_FLAG;};
+            class decoyFired {RECOMPILE_FLAG;};
+        };
         class event {
             file = "\fza_ah64_ase\functions\event";
             class missileWarning {RECOMPILE_FLAG;};

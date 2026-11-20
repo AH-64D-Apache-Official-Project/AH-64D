@@ -6,13 +6,14 @@ class CfgPatches
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
-        requiredAddons[] = {"fza_ah64_controls", "A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder", "A3_Sounds_F_Enoch"};
+        requiredAddons[] = {"fza_ah64_controls", "A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder", "A3_Sounds_F_Enoch", "ace_missileguidance"};
         #include "version.hpp"
     };
 };
 
 #include "\fza_ah64_controls\config\defines.hpp"
 
+#include "CfgAceMissileGuidance.hpp"
 #include "CfgAmmo.hpp"
 #include "CfgCloudlets.hpp"
 #include "CfgEventHandlers.hpp"

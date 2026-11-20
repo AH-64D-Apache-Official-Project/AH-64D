@@ -4,6 +4,15 @@ class Extended_PostInit_EventHandlers {
     };
 };
 
+// Chaff against engine-guided radar missiles
+class Extended_FiredBIS_EventHandlers {
+    class Helicopter {
+        class fza_ase_decoyFired {
+            firedBIS = "_this call fza_ase_fnc_decoyFired;";
+        };
+    };
+};
+
 class Extended_IncomingMissile_EventHandlers {
     class fza_ah64base {
         class fza_ah64base_incomingMissile_eh {
