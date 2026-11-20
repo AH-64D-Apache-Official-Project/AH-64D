@@ -74,7 +74,7 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FCR_CENTERLINE), _fcrHeading
 // Lateral drift comes from the SHARED sideslip calc (bmkhs_aero_beta_deg,
 // + = velocity to the RIGHT of the nose), so the HMD and MPD read one consistent
 // source. Vertical (flight-path angle) from world vertical velocity as before.
-private _velocity  = _heli getVariable "bmkhs_velWorldSpace";
+private _velocity  = _heli getVariable "bmkhs_velWorldSpaceFiltered";
 private _velocityX = _heli getVariable ["bmkhs_aero_beta_deg", 0.0];
 private _velocityY = (_velocity # 2) atan2 ([0,0,0] distance2D _velocity);
 
