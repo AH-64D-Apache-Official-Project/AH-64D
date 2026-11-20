@@ -237,6 +237,8 @@
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
 #define MFD_TEXT_IND_WPN_CMS_QTY 2
+//HIDAS: the flare total, over the chaff total in MFD_TEXT_IND_WPN_CMS_QTY
+#define MFD_TEXT_IND_WPN_CMS_FL 23
 #define MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT 3
 #define MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT 4
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
@@ -476,6 +478,15 @@
 #define MFD_IND_ASE_BRITISH      6
 #define MFD_IND_ASE_AMERICAN     7
 #define MFD_IND_ASE_RJAM_XMIT    8
+//--HIDAS
+#define MFD_IND_ASE_CMDS_MODE    9
+#define MFD_IND_ASE_VOICE        10
+//Cartridges left: 0 over half, 1 half or less, 2 empty
+#define MFD_IND_ASE_FLARE_L_QTY  11
+#define MFD_IND_ASE_FLARE_R_QTY  12
+#define MFD_IND_ASE_CHAFF_QTY    20
+//ASE count of 10 or more
+#define MFD_IND_ASE_COUNT_WIDE   21
 //--Azimuth
 #define MFD_IND_ASE_01_AZ 13
 #define MFD_IND_ASE_02_AZ 14
@@ -488,6 +499,19 @@
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
 #define MFD_TEXT_IND_ASE_RLWR_COUNT  1
+#define MFD_TEXT_IND_ASE_FLARE_L     3
+#define MFD_TEXT_IND_ASE_FLARE_R     4
+#define MFD_TEXT_IND_ASE_CHAFF       5
+#define MFD_TEXT_IND_ASE_FL_TOTAL    6
+#define MFD_TEXT_IND_ASE_CH_TOTAL    7
+#define MFD_TEXT_IND_ASE_COUNT       8
+
+//--HIDAS threat rings, by threat state: search, then acquisition, track, launch
+#define MPD_ASE_RING_OUTER 0.325
+#define MPD_ASE_RING_3     0.255
+#define MPD_ASE_RING_2     0.185
+#define MPD_ASE_RING_1     0.115
+#define MPD_ASE_OWNSHIP    0.05
 
 #define MFD_TEXT_IND_FREQ_A 0
 #define MFD_TEXT_IND_FREQ_B 1

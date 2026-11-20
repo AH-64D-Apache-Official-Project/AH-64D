@@ -3,13 +3,15 @@ Function: fza_ase_fnc_lwr
 
 
 Description:
-    Proccessor function for the LASER WARNING RECIEVER
+    Proccessor function for the LASER WARNING RECIEVER. A laser designating the aircraft
+    shows at its source's bearing. A beam rider, taken as an incoming command-guided
+    missile, shows at its launcher as a launch. Laser ranging can't be detected.
 
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-    Nothing
+    [_lwrObjects, _lwrAudio]
 
 Examples:
     [_heli] call fza_ase_fnc_lwr
@@ -22,15 +24,32 @@ params ["_heli"];
 
 [] params [["_lwrObjects",[]],["_LwrAudio",[]]];
 
+private _icon = "RLWR_LSR_DES";
+
 nearestObjects [_heli, ["lasertarget"], 15, false, true] apply {
     private _modelPos = vectorDir _x vectorMultiply -99999999; 
     private _Worldpos = (getPos _heli) vectorAdd _modelPos;
     private _vHeli = _heli modelToWorldVisual _modelPos;
     _vHeli call CBA_fnc_vect2Polar params ["_magnitude", "_azimuth", "_elevation"]; 
     if (abs(_elevation) < 45) then {
-        _lwrObjects pushBack [ASE_LSR, _Worldpos, "RLWR_LSR_DES"];
+        _lwrObjects pushBack [ASE_LSR, _Worldpos, _icon];
         _LwrAudio pushBack [_x, "designating", "laser", _Worldpos];
     };
+};
+
+if (isNil "fza_ase_beamRider") then {fza_ase_beamRider = createHashMap;};
+nearestObjects [_heli, ["missilebase"], ASE_MWS_RANGE] apply {
+    private _type  = typeOf _x;
+    private _rider = fza_ase_beamRider get _type;
+    if (isNil "_rider") then {
+        _rider = getNumber (configOf _x >> "manualControl") > 0;
+        fza_ase_beamRider set [_type, _rider];
+    };
+    if !_rider then {continue;};
+    private _launcher = vehicle ((getShotParents _x) # 0);
+    if (isNull _launcher || {_launcher == _heli}) then {continue;};
+    if !([_heli, _x] call fza_ase_fnc_incoming) then {continue;};
+    _lwrObjects pushBack [ASE_LNC, _launcher, _icon];
 };
 
 [_lwrObjects, _LwrAudio]

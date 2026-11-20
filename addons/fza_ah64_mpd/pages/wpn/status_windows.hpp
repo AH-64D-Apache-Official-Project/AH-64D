@@ -11,8 +11,6 @@ class StatusWindows {
             MPD_POINTS_BOX_PAD("Null", 0.27, 0.26, 0.07, 0.05, 0.02), {},
             //LRFD
             MPD_POINTS_BOX_PAD("Null", 0.66, 0.26, 0.07, 0.05, 0.02), {},
-            //Chaff
-            MPD_POINTS_BOX_PAD("Null", 0.46, 0.601, 0.08, 0.12, 0.02), {},
         };
     };
 
@@ -27,17 +25,37 @@ class StatusWindows {
     MPD_TEXT_C(LRFD, 0.695, 0.24+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_LRFD_CODE))
 
 
-    MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
     class CMTextUS {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 0));
+        class Box {
+            type = "line";
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX_PAD("Null", 0.46, 0.601, 0.08, 0.12, 0.02)
+            };
+        };
         MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CHAFF"))
+        MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
     };
+    // HIDAS: the flare total underlined, over the chaff total, as on the ASE page
     class CMTextUK {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 1));
-        MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CH/FL"))
+        class Box {
+            type = "line";
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX_PAD("Null", 0.46, 0.601, 0.08, 0.075, 0.02), {},
+                {{0.5 - 2*MPD_TEXT_WIDTH, 0.585 + MPD_TEXT_HEIGHT + 0.002}, 1},
+                {{0.5 + 2*MPD_TEXT_WIDTH, 0.585 + MPD_TEXT_HEIGHT + 0.002}, 1}
+            };
+        };
+        MPD_TEXT_C(Flare_Qty, 0.5, 0.585, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_FL))
+        MPD_TEXT_C(Chaff_Qty, 0.5, 0.589+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
     };
 
+    // US only: HIDAS arming is a UTIL page item
     class ChaffArming {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 0));
         class Safe {
             condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_WPN_CHAFF_ARM)));
             MPD_TEXT_C(Chaff_Armed, 0.5, 0.60+2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))

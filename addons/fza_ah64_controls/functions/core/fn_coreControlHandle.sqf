@@ -206,8 +206,8 @@ if (_value) then {
             [_heli] call fza_fcr_fnc_stopScan;
             _heli setVariable ["fza_ah64_fcrScanSize", _size, true];
         };
-        case "launchCM": {
-            [_heli] call fza_ase_fnc_Chaff;
+        case "fza_ah64_chaffConsent": {
+            [_heli] call fza_ase_fnc_chaff;
         };
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;

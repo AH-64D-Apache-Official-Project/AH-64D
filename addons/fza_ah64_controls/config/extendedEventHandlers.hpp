@@ -13,7 +13,7 @@ class Extended_PostInit_EventHandlers {
 class Extended_FiredBIS_EventHandlers {
     class fza_ah64base {
         class fza_ah64base_fired_eh {
-            firedBIS = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle;";
+            firedBIS = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; _this call fza_ase_fnc_cmFired;";
         };
     };
 };

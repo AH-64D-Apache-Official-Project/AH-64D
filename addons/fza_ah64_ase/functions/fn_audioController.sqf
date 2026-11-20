@@ -62,16 +62,21 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
     private _stateAudio = format ["fza_ah64_%1", _state];
 
+    //Autopage and voice settings are thresholds: the selected level or anything above it
+    private _level = ((["searching", "acquisition", "tracking", "designating"] find _state) + 1) min ASE_AUTOPAGE_TRK;
+
     //Play audio
-    [_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audio_fnc_addASEMessage;
+    // The US aircraft has no VOICE setting: everything is announced
+    private _voice = [ASE_AUTOPAGE_SRH, _heli getVariable ["fza_ah64_ase_voiceLevel", ASE_AUTOPAGE_SRH]] select ASE_HIDAS(_heli);
+    if (_voice != ASE_AUTOPAGE_OFF && _level >= _voice) then {
+        [_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audio_fnc_addASEMessage;
+    };
 
     //ASE AUTOPAGE
     Private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
     Private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
-        //Each setting is a threshold: the selected level or anything above it
         private _autopage = _heli getVariable "fza_ah64_ase_autopage";
-        private _level    = ((["searching", "acquisition", "tracking", "designating"] find _state) + 1) min ASE_AUTOPAGE_TRK;
         if (_autopage != ASE_AUTOPAGE_OFF && _level >= _autopage) then {
             [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
         };

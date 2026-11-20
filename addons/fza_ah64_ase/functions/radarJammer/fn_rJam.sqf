@@ -26,7 +26,7 @@ if (_heli animationPhase "msn_equip_american" != 1 && {_heli getVariable ["fza_a
     _heli setVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF, true];
 };
 // Jams from one machine: where the aircraft is local, or the CPG's with no player pilot
-private _owner = local _heli || {player == gunner _heli && {!isPlayer driver _heli}};
+private _owner = ASE_OWNER(_heli);
 // Radios in front of it are told at once when it stops, so they fade out from then (fza_ase_fnc_rJamComms)
 private _stopped = {
     if (_owner && {(_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) > -1}) then {

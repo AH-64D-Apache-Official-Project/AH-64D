@@ -8,7 +8,17 @@
 #define ASE_ACQ 1   //Acquisition
 #define ASE_SRH 0   //Search
 
-#define ASE_DETECT_RANGE_M 8000
+#define ASE_DETECT_RANGE_M 12000 //m, a missile fired with a lock is announced inside
+
+#define ASE_HIDAS(heli)    ((heli) animationPhase "msn_equip_british" > 0.5)
+#define ASE_HIDAS_ON(heli) (ASE_HIDAS(heli) && {(heli) getVariable ["bmkhs_dcBusOn", false]})
+// One machine decides for the aircraft: where it is local, or the CPG's with no player pilot
+#define ASE_OWNER(heli)    (local (heli) || {player == gunner (heli) && {!isPlayer driver (heli)}})
+
+//--MWS
+#define ASE_MWS_RANGE     4000 //m
+#define ASE_MWS_MISS_DIST 150  //m, predicted closest approach that makes a munition incoming
+#define ASE_MWS_MAX_TTG   15   //sec, time to closest approach that makes a munition incoming
 
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
@@ -58,5 +68,25 @@
 //--Chaff dispenser
 #define ASE_CHAFF_STATE_SAFE 0
 #define ASE_CHAFF_STATE_ARM  1
+
+//--CMDS (HIDAS)
+#define ASE_CMDS_MAN  0
+#define ASE_CMDS_SEMI 1
+#define ASE_CMDS_AUTO 2
+#define ASE_CMDS_FLARES_SIDE   32
+#define ASE_CMDS_CHAFF         64
+#define ASE_CMDS_REACT_MIN     0.5 //sec from a threat to an AUTO dispense
+#define ASE_CMDS_REACT_MAX     0.9
+#define ASE_CMDS_BOTH_DEG      30  //threats this close to the nose or tail dispense from both sides
+#define ASE_CMDS_SHOT_GAP      0.175 //sec between cartridges from one dispenser
+#define ASE_CMDS_HOLD          1.5 //sec after a program ends before AUTO dispenses again, or SEMI asks again, for anything still incoming
+// Programs: steps of [sec after the previous step, flares, chaff]. Flares come from the side given, or are split
+// between both sides. Radar threats get mostly chaff, so they don't use up the flares.
+#define ASE_CMDS_PGM_CHAFF_US  [[0, 0, 1]]
+#define ASE_CMDS_PGM_MAN_CHAFF [[0, 0, 1], [0.5, 0, 1]]
+#define ASE_CMDS_PGM_MAN_FLARE [[0, 2, 0]]
+#define ASE_CMDS_PGM_IR        [[0, 2, 0], [0.45, 2, 0], [0.45, 2, 0]]
+#define ASE_CMDS_PGM_RF        [[0, 0, 2], [0.45, 2, 1], [0.45, 0, 2]]
+#define ASE_CMDS_PGM_EMERGENCY [[0, 4, 1], [0.525, 4, 1], [0.525, 4, 1], [0.525, 4, 1]]
 
 #endif

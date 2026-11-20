@@ -101,8 +101,8 @@ class CfgVehicles {
         magazines[]              = {"fza_chaff_30_mag","fza_IR_JAMMING"};
         mainBladeRadius          = 7.3;
         maxFordingDepth          = 0.55;
-        memorypointcm[]          = {"flare_1_beg","Flare_2_beg"};
-        memorypointcmdir[]       = {"flare_1_end","flare_2_end"};
+        memorypointcm[]          = {"flare_1_beg"};
+        memorypointcmdir[]       = {"flare_1_end"};
         nameSound                = "veh_Helicopter";
         nightVision              = 1;
         obstructSoundsWhenIn     = 0.316228;

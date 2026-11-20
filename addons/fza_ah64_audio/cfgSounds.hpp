@@ -112,6 +112,12 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_rotor_rpm_low.ogg",100,1,1};
         titles[]={};
     };
+    class fza_ah64_cmds_consent
+    {
+        name = "fza_ah64_cmds_consent";
+        sound[] = {"\fza_ah64_audio\audio\Systems\bt_cmds_consent.wav",100,1,1};
+        titles[]={};
+    };
     class fza_ah64_tail_rotor_hydraulic_failure
     {
         name = "fza_ah64_tail_rotor_hydraulic_failure";

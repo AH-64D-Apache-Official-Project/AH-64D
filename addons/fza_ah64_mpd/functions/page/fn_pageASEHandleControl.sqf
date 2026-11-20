@@ -3,20 +3,40 @@
 params ["_heli", "_mpdIndex", "_control"];
 
 private _dcBusOn = _heli getVariable "bmkhs_dcBusOn";
+private _hidas   = ASE_HIDAS(_heli);
+// SRCH, ACQ, TRCK, OFF and round again, for AUTOPAGE and VOICE
+private _nextLevel = {
+    [ASE_AUTOPAGE_SRH, ASE_AUTOPAGE_ACQ, ASE_AUTOPAGE_TRK, ASE_AUTOPAGE_OFF] select _this
+};
 
 switch(_control) do {
     //Chaff
     case "t1": {
+        if (_hidas) exitWith {};
         private _newState = [ASE_CHAFF_STATE_SAFE, ASE_CHAFF_STATE_ARM] select (_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_SAFE);
         _heli setVariable ["fza_ah64_ase_chaffState", _newState, true];
     };
-    //IR Jammer
+    //HIDAS CMDS mode
+    case "l1": {
+        if !(_hidas) exitWith {};
+        _heli setVariable ["fza_ah64_ase_cmdsMode", ((_heli getVariable ["fza_ah64_ase_cmdsMode", ASE_CMDS_MAN]) + 1) % 3, true];
+    };
+    //IR Jammer, or the HIDAS autopage
     case "r1": {
+        if (_hidas) exitWith {
+            _heli setVariable ["fza_ah64_ase_autopage", (_heli getVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_OFF]) call _nextLevel];
+        };
         private _newState = [ASE_MSNEQUIP_STATE_OFF, ASE_MSNEQUIP_STATE_ON] select (_heli getVariable "fza_ah64_ase_msnEquipPwr" == ASE_MSNEQUIP_STATE_OFF);
         _heli setVariable ["fza_ah64_ase_msnEquipPwr", _newState, true];
     };
+    //HIDAS voice
+    case "r2": {
+        if !(_hidas) exitWith {};
+        _heli setVariable ["fza_ah64_ase_voiceLevel", (_heli getVariable ["fza_ah64_ase_voiceLevel", ASE_AUTOPAGE_SRH]) call _nextLevel];
+    };
     //RLWR
     case "r6": {
+        if (_hidas) exitWith {};
         private _newState = [ASE_RLWR_STATE_OFF, ASE_RLWR_STATE_ON] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
         if !(_dcBusOn) exitWith {};
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
@@ -42,15 +62,19 @@ switch(_control) do {
     };
     //Autopage
     case "l3": {
+        if (_hidas) exitWith {};
         _heli setVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_SRH];
     };
     case "l4": {
+        if (_hidas) exitWith {};
         _heli setVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_ACQ];
     };
     case "l5": {
+        if (_hidas) exitWith {};
         _heli setVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_TRK];
     };
     case "l6": {
+        if (_hidas) exitWith {};
         _heli setVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_OFF];
     };
 };

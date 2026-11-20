@@ -25,10 +25,12 @@ params ["_heli","_hostile","_missile"];
 
 if (player != driver _heli && player != gunner _heli) exitWith {};
 
-_Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
-_heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
-if (_counter % 2 == 1) exitWith {};
-waitUntil {(_heli distance _missile <= ASE_DETECT_RANGE_M);};
+// Once a missile: the incoming missile event and the MWS both report it
+private _announced = (_heli getVariable ["fza_ah64_ase_mslAnnounced", []]) select {alive _x};
+if (isNull _missile || {_missile in _announced}) exitWith {};
+_heli setVariable ["fza_ah64_ase_mslAnnounced", _announced + [_missile]];
+waitUntil {isNull _missile || {_heli distance _missile <= ASE_DETECT_RANGE_M}};
+if (isNull _missile) exitWith {};
 
 private _rlwrPwr  = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;

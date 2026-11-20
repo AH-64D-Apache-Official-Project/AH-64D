@@ -383,6 +383,8 @@ if (_storeSeat != _seat) then {_storeUntil = 0};
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
 if (_holdsWeapon && {_was == WAS_WEAPON_GUN} && {[_heli, _seat] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
+// A HIDAS SEMI dispense waiting for consent (fza_ase_fnc_cmds), to both crew stations, before anything else
+if ((_heli getVariable ["fza_ah64_ase_cmdsConsent", []]) isNotEqualTo []) then {_inhibit = "CMDS CONSENT"};
 
 _m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit]];
 

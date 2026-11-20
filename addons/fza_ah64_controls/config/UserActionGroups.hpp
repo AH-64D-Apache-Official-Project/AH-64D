@@ -34,6 +34,7 @@ class UserActionGroups {
             "fza_ah64_fcrScanSize_N",
             "fza_ah64_fcrScanSize_Z",
             "fza_ah64_flare",
+            "fza_ah64_chaffConsent",
             "fza_ah64_tadsLHGFov_W",
             "fza_ah64_tadsLHGFov_M",
             "fza_ah64_tadsLHGFov_N",

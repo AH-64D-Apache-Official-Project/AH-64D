@@ -46,6 +46,7 @@ if ((_heli getVariable ["fza_ah64_wcaFrame", -1]) == diag_frameNo) exitWith {+(_
 #define RTR_RPM_PRIORITY           2
 #define ENG_OUT_PRIORITY           3
 #define FIRE_PRIORITY              4
+#define CMDS_CONSENT_PRIORITY      5
 
 private _configVehicles = configOf _heli;
 
@@ -240,6 +241,19 @@ if (_rtrRPM >= (_nrLimits select 2)) then {
 } else {
     [_activeWarn, "HIGH ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
     if ("fza_ah64_rotor_rpm_high" in (_heli getVariable "fza_audio_warning_message")) then {
+        [_heli] call fza_audio_fnc_delwarning;
+        [_heli, "fza_ah64_mstrWarnLightOn", false] call fza_fnc_updateNetworkGlobal;
+    };
+};
+//--HIDAS SEMI dispense waiting for consent (fza_ase_fnc_cmds): beeps until given or the threat is gone
+if ((_heli getVariable ["fza_ah64_ase_cmdsConsent", []]) isNotEqualTo [] && _dcBusOn) then {
+    ([_heli, _activeWarn, "CMDS CONSENT", "CONSENT", CMDS_CONSENT_PRIORITY, "fza_ah64_cmds_consent", 0.5] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "CMDS CONSENT"] call fza_wca_fnc_wcaDelWarning;
+    if ("fza_ah64_cmds_consent" in (_heli getVariable "fza_audio_warning_message")) then {
         [_heli] call fza_audio_fnc_delwarning;
         [_heli, "fza_ah64_mstrWarnLightOn", false] call fza_fnc_updateNetworkGlobal;
     };

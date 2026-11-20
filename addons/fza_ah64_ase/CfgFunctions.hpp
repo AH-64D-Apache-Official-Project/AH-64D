@@ -24,6 +24,12 @@ class CfgFunctions
         class countermeasures {
             file = "\fza_ah64_ase\functions\countermeasures";
             class chaff {RECOMPILE_FLAG;};
+            class cmCounts {RECOMPILE_FLAG;};
+            class cmds {RECOMPILE_FLAG;};
+            class cmdsConsent {RECOMPILE_FLAG;};
+            class cmdsDispense {RECOMPILE_FLAG;};
+            class cmdsFire {RECOMPILE_FLAG;};
+            class cmFired {RECOMPILE_FLAG;};
             class flare {RECOMPILE_FLAG;};
             class irJam {RECOMPILE_FLAG;};
             class restock {RECOMPILE_FLAG;};
@@ -48,6 +54,7 @@ class CfgFunctions
         };
         class sensors {
             file = "\fza_ah64_ase\functions\sensors";
+            class incoming {RECOMPILE_FLAG;};
             class mws {RECOMPILE_FLAG;};
             class lwr {RECOMPILE_FLAG;};
             class rwr {RECOMPILE_FLAG;};
