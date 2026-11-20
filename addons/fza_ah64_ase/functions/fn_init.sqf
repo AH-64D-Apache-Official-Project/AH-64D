@@ -34,6 +34,11 @@ if (!(_heli getVariable ["fza_ah64_aseInitialised", false]) && local _heli) then
     //--IR Jammer   - Aircraft Common
     _heli setVariable ["fza_ah64_ase_msnEquipPwr",      ASE_MSNEQUIP_STATE_OFF, true];
     _heli setVariable ["fza_ah64_ase_irJamState",       [0,0,0],                true];
+    //--Radar Jammer - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rJamMode",         ASE_RJAM_STATE_OFF,     true];
+    _heli setVariable ["fza_ah64_ase_rJamWarmStart",    0,                      true];
+    _heli setVariable ["fza_ah64_ase_rJamXmitUntil",    -1,                     true];
+    _heli setVariable ["fza_ah64_ase_rJamHeld",         [],                     true];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",         ASE_AUTOPAGE_OFF,       true];
     _heli setVariable ["fza_ah64_ase_data",             [[],[],[],[]],             true];

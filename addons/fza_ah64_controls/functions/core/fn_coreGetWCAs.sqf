@@ -629,6 +629,10 @@ if ((_heli getVariable ["bmkhs_rotorBrakeVal", 0]) > 0
 if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
+//--Radar jammer
+if (_heli getVariable ["fza_ah64_ase_rJamXmit", false]) then {
+    _wcas pushBack [WCA_ADVISORY, "RADAR JAMMER ON", "RDR JAM ON"];
+};
 if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCK SEL", "TW LOCK SEL"];
 };

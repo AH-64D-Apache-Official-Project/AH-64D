@@ -77,6 +77,11 @@ switch (_state get "subPageVarPage" select 0) do {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED), _groundSpeed];
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_ENDR), _totalEnduranceNumber];
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WIND), _wind_text];
+        private _rJamState = _heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF];
+        if (_rJamState != ASE_RJAM_STATE_OFF && {ASE_RJAM_WARMING(_heli)}) then {
+            _rJamState = [ASE_RJAM_STATE_WARM_STBY, ASE_RJAM_STATE_WARM_OPER] select (_rJamState == ASE_RJAM_STATE_OPER);
+        };
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ROOT_RJAM), _rJamState];
     };
     case 1: {   //SHOW
         _this call fza_mpd_fnc_tsdShowDraw;

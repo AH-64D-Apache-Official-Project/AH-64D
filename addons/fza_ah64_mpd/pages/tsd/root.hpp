@@ -18,6 +18,24 @@ class tsdRoot {
         MPD_TEXT_R(ADF,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("ADF"))
         //L4 <-- when a digital message is recieved, this will display in white, future us!
         //MPD_TEXT_L(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("SHOW"))
+        //L5, while the radar jammer is on: boxed in OPER, inverse video while warming up
+        class Jam {
+            condition = C_COND(C_AND(C_MORE(C_MPD_USER(MFD_IND_TSD_ROOT_RJAM), ASE_RJAM_STATE_OFF), C_LESS(C_MPD_USER(MFD_IND_TSD_ROOT_RJAM), ASE_RJAM_STATE_WARM_STBY)));
+            MPD_TEXT_BACKING_R(JAM, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
+            MPD_TEXT_R(JAM, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("JAM"))
+            class JamOper {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_ROOT_RJAM), ASE_RJAM_STATE_OPER));
+                MPD_BOX_R(JAM, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
+            };
+        };
+        class JamWarm {
+            condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_TSD_ROOT_RJAM), ASE_RJAM_STATE_OPER));
+            MPD_BOX_INV_R(JAM_INV, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
+            color[] = {0,0,0,1};
+            class text_color {
+                MPD_TEXT_R(JAM_INV, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("JAM"))
+            };
+        };
         //L6
         MPD_ARROW_R(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
         MPD_TEXT_BACKING_R(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)

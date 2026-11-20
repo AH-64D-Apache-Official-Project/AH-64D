@@ -273,6 +273,7 @@
 
 //TSD Root page indices
 #define MFD_IND_TSD_ROOT_SHOW_WPT_DATA_CURRTE 0
+#define MFD_IND_TSD_ROOT_RJAM 1
 
 #define MFD_TEXT_IND_TSD_ROOT_ENDR 0
 #define MFD_TEXT_IND_TSD_ROOT_WPDEST 1
@@ -470,9 +471,11 @@
 #define MFD_IND_ASE_RLWR_PWR     1
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
+#define MFD_IND_ASE_RJAM_STATE   4
 #define MFD_IND_ASE_AUTOPAGE     5
 #define MFD_IND_ASE_BRITISH      6
 #define MFD_IND_ASE_AMERICAN     7
+#define MFD_IND_ASE_RJAM_XMIT    8
 //--Azimuth
 #define MFD_IND_ASE_01_AZ 13
 #define MFD_IND_ASE_02_AZ 14

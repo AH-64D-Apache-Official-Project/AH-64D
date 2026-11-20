@@ -30,6 +30,16 @@ switch(_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
+    //Radar Jammer
+    case "b4": {
+        [_heli, ASE_RJAM_STATE_OFF] call fza_ase_fnc_rJamSetMode;
+    };
+    case "b5": {
+        [_heli, ASE_RJAM_STATE_STBY] call fza_ase_fnc_rJamSetMode;
+    };
+    case "b6": {
+        [_heli, ASE_RJAM_STATE_OPER] call fza_ase_fnc_rJamSetMode;
+    };
     //Autopage
     case "l3": {
         _heli setVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_SRH];

@@ -20,6 +20,24 @@
 #define ASE_IRJAM_STATE_OPER  2
 #define ASE_IRJAM_PWR_ON_TIME 2 //sec
 
+//--Radar Jammer
+#define ASE_RJAM_STATE_OFF  0
+#define ASE_RJAM_STATE_STBY 1
+#define ASE_RJAM_STATE_OPER 2
+#define ASE_RJAM_STATE_WARM_STBY 3 //MPD only: STBY or OPER during the warm-up
+#define ASE_RJAM_STATE_WARM_OPER 4
+#define ASE_RJAM_WARM_TIME     180 //sec
+#define ASE_RJAM_CONE_DEG      45
+#define ASE_RJAM_ROLL_INTERVAL 4 //sec
+#define ASE_RJAM_BAND          1000 //m, from a band's nearest radar, rolled as one
+#define ASE_RJAM_JAM_TIME      (ASE_RJAM_ROLL_INTERVAL + 1) //sec, past the next roll so back-to-back jams don't gap
+#define ASE_RJAM_HOLD_TIME     10 //sec after a jam that the RLWR holds the radar for
+#define ASE_RJAM_FULL_RANGE    6000 //m
+#define ASE_RJAM_BURN_RANGE    1500 //m
+#define ASE_RJAM_CHANCE_MAX    0.8
+#define ASE_RJAM_CHANCE_MIN    0.4
+#define ASE_RJAM_WARMING(heli) (CBA_missionTime - ((heli) getVariable ["fza_ah64_ase_rJamWarmStart", 0]) < ASE_RJAM_WARM_TIME)
+
 //Mission equipment 
 #define ASE_MSNEQUIP_STATE_OFF 0
 #define ASE_MSNEQUIP_STATE_ON  1

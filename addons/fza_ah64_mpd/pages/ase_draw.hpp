@@ -210,6 +210,66 @@ class ase_draw {
         };
     };
 
+    //Radar Jammer, B4-B6: the selected mode boxed, or in inverse video while warming up
+    #define RJamL 0.548
+    #define RJamR 0.887
+    #define RJamY (MPD_POS_BUTTON_B_Y - 0.02)
+    #define RJamX (0.5*(RJamL + RJamR))
+    class ShowRJam {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AMERICAN), 1));
+        //Bracket over B4-B6, broken round the RJAM label
+        class lines_RJam {
+            type = "line";
+            width = 2;
+            points[] = {
+                {{RJamL, MPD_POS_BUTTON_B_Y + 0.04}, 1},
+                {{RJamL, RJamY}, 1},
+                {{RJamX - 2*MPD_TEXT_WIDTH - 0.005, RJamY}, 1}, {},
+                {{RJamX + 2*MPD_TEXT_WIDTH + 0.005, RJamY}, 1},
+                {{RJamR, RJamY}, 1},
+                {{RJamR, MPD_POS_BUTTON_B_Y + 0.04}, 1}
+            };
+        };
+        MPD_TEXT_BONE_C(RJAM, "Null", RJamX, RJamY - 0.035, MPD_TEXT_STATIC("RJAM"))
+        MPD_TEXT_C(RJAM_OFF, MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OFF"))
+        class RJam_Stby {
+            condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_WARM_STBY)));
+            MPD_TEXT_C(RJAM_STBY, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("STBY"))
+        };
+        class RJam_Oper {
+            condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_WARM_OPER)));
+            MPD_TEXT_C(RJAM_OPER, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OPER"))
+        };
+        class RJam_OffBox {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_OFF));
+            MPD_BOX_C(RJAM_OFF, MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, 3)
+        };
+        class RJam_StbyBox {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_STBY));
+            MPD_BOX_C(RJAM_STBY, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+        };
+        class RJam_OperBox {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_OPER));
+            MPD_BOX_C(RJAM_OPER, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+        };
+        class RJam_WarmStby {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_WARM_STBY));
+            MPD_BOX_INV_C(RJAM_STBY_INV, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+            color[] = {0,0,0,1};
+            class text_color {
+                MPD_TEXT_C(RJAM_STBY_INV, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("STBY"))
+            };
+        };
+        class RJam_WarmOper {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RJAM_STATE), ASE_RJAM_STATE_WARM_OPER));
+            MPD_BOX_INV_C(RJAM_OPER_INV, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+            color[] = {0,0,0,1};
+            class text_color {
+                MPD_TEXT_C(RJAM_OPER_INV, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OPER"))
+            };
+        };
+    };
+
     #define RLWRX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define RLWRY MPD_POS_BUTTON_LR_6_Y - 0.05*MPD_TEXT_HEIGHT
     
@@ -348,6 +408,34 @@ class ase_draw {
                 //Ownship center dot
                 {"ase_ownship", { 0.000,  0.0025}, 1},
                 {"ase_ownship", { 0.000, -0.0025}, 1},
+            };
+        };
+    };
+
+    //Radar jammer transmitting: a filled bolt, in convex pieces
+    class polys_rJamBolt {
+        condition = C_COND(C_MPD_USER(MFD_IND_ASE_RJAM_XMIT));
+        color[] = {0,1,1,1};
+        class Polygons {
+            type = "polygon";
+            points[] = {
+                { //Upper bar
+                    {"ase_ownship", {-0.0055, -0.0105}, 1},
+                    {"ase_ownship", { 0.0075, -0.0105}, 1},
+                    {"ase_ownship", { 0.0025, -0.0015}, 1},
+                    {"ase_ownship", {-0.0075, -0.0015}, 1}
+                },
+                { //Step
+                    {"ase_ownship", {-0.0075, -0.0015}, 1},
+                    {"ase_ownship", { 0.0070, -0.0015}, 1},
+                    {"ase_ownship", { 0.0031,  0.0030}, 1},
+                    {"ase_ownship", {-0.0085,  0.0030}, 1}
+                },
+                { //Spike
+                    {"ase_ownship", {-0.0030,  0.0030}, 1},
+                    {"ase_ownship", { 0.0031,  0.0030}, 1},
+                    {"ase_ownship", {-0.0085,  0.0165}, 1}
+                }
             };
         };
     };

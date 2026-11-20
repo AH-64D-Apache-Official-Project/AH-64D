@@ -42,10 +42,15 @@ if (_dcBusOn) then {
         _heli setVariable ["fza_ah64_ase_objects", (_rwrObjects + _lwrObjects + _mwsObjects)];
         _heli setVariable ["fza_ah64_ase_rlwrcount", count(_rwrObjects + _lwrObjects)];
         [_heli, (_rwrAudio + _lwrAudio)] call fza_ase_fnc_audioController;
+        [_heli] call fza_ase_fnc_rJam;
     };
 };
 
 if !_dcBusOn then {
     _heli setVariable ["fza_ah64_ase_chaffState", ASE_CHAFF_STATE_SAFE];
     _heli setVariable ["fza_ah64_ase_rlwrPwr", ASE_IRJAM_STATE_OFF];
+    if (_heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF] != ASE_RJAM_STATE_OFF) then {
+        _heli setVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF, true];
+    };
+    _heli setVariable ["fza_ah64_ase_rJamXmit", false];
 };

@@ -32,6 +32,15 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
 _heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
 
+//Radar Jammer
+private _rJamState = _heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF];
+if (_rJamState != ASE_RJAM_STATE_OFF && {ASE_RJAM_WARMING(_heli)}) then {
+    _rJamState = [ASE_RJAM_STATE_WARM_STBY, ASE_RJAM_STATE_WARM_OPER] select (_rJamState == ASE_RJAM_STATE_OPER);
+};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RJAM_STATE), _rJamState];
+private _rJamBolt = (_heli getVariable ["fza_ah64_ase_rJamXmit", false]) && {!([] call fza_mpd_fnc_iconBlink)};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RJAM_XMIT), BOOLTONUM(_rJamBolt)];
+
 //Autopage
 private _autopage = _heli getVariable "fza_ah64_ase_autopage";
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
