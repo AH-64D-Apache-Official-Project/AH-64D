@@ -31,6 +31,7 @@ class CfgFunctions
             class rJamEffect {RECOMPILE_FLAG;};
             class rJamOverlay {RECOMPILE_FLAG;};
             class rJamSetMode {RECOMPILE_FLAG;};
+            class rJamWatch {RECOMPILE_FLAG;};
         };
         class event {
             file = "\fza_ah64_ase\functions\event";

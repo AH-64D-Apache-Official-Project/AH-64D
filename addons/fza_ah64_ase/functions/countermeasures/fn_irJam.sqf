@@ -21,11 +21,14 @@ Author:
 
 params ["_heli", "_deltaTime"];
 
-// Kept full, so ACE rearm never lists it
+// Kept full, so ACE rearm never lists it. 0 when a loadout has no IR jammer magazine.
 if (local _heli) then {
-    private _full = getNumber (configFile >> "CfgMagazines" >> "fza_IR_JAMMING" >> "count");
-    if (_heli magazineTurretAmmo ["fza_IR_JAMMING", [-1]] < _full) then {
-        _heli setMagazineTurretAmmo ["fza_IR_JAMMING", _full, [-1]];
+    if (isNil "fza_ase_irJamMagCount") then {
+        fza_ase_irJamMagCount = getNumber (configFile >> "CfgMagazines" >> "fza_IR_JAMMING" >> "count");
+    };
+    private _ammo = _heli magazineTurretAmmo ["fza_IR_JAMMING", [-1]];
+    if (_ammo > 0 && {_ammo < fza_ase_irJamMagCount}) then {
+        _heli setMagazineTurretAmmo ["fza_IR_JAMMING", fza_ase_irJamMagCount, [-1]];
     };
 };
 

@@ -58,15 +58,19 @@ fza_ase_rJamOverlayHandle = [{
     (_display displayCtrl 15110) ctrlSetTextColor [0.7, 0, 0, 0.8];
     (_display displayCtrl 15112) ctrlSetBackgroundColor [0.7, 0, 0, 0.8];
 
+    // Only on the vanilla panel's radar area; a modded panel without it is only tinted
     private _group = _display displayCtrl 15111;
-    (ctrlPosition _group) params ["", "", "_width", "_height"];
-    private _label  = localize "STR_FZA_AH64_RJAM_JAMMED";
-    private _size   = (0.2 * _height) min (1.5 * _width / (count _label max 1));
-    private _text   = _display ctrlCreate ["RscStructuredText", -1, _group];
-    _text ctrlSetPosition [0, 0.5 * (_height - 1.25 * _size), _width, 1.25 * _size];
-    _text ctrlSetFontHeight _size;
-    _text ctrlSetStructuredText parseText format ["<t align='center' color='#ff0000' font='PuristaBold'>%1</t>", _label];
-    _text ctrlCommit 0;
+    private _text  = controlNull;
+    if (!isNull _group) then {
+        (ctrlPosition _group) params ["", "", "_width", "_height"];
+        private _label = localize "STR_FZA_AH64_RJAM_JAMMED";
+        private _size  = (0.2 * _height) min (1.5 * _width / (count _label max 1));
+        _text = _display ctrlCreate ["RscStructuredText", -1, _group];
+        _text ctrlSetPosition [0, 0.5 * (_height - 1.25 * _size), _width, 1.25 * _size];
+        _text ctrlSetFontHeight _size;
+        _text ctrlSetStructuredText parseText format ["<t align='center' color='#ff0000' font='PuristaBold'>%1</t>", _label];
+        _text ctrlCommit 0;
+    };
 
     uiNamespace setVariable ["fza_ase_rJamOverlayDisplay", _display];
     uiNamespace setVariable ["fza_ase_rJamOverlayText", _text];

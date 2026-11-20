@@ -19,8 +19,9 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ase\headers\ase.h"
-params ["_heli", "_mode"];
+params [["_heli", objNull, [objNull]], ["_mode", -1, [0]]];
 
+if !(_mode in [ASE_RJAM_STATE_OFF, ASE_RJAM_STATE_STBY, ASE_RJAM_STATE_OPER]) exitWith {};
 if (_heli animationPhase "msn_equip_american" != 1 || {!(_heli getVariable ["bmkhs_dcBusOn", false])}) exitWith {};
 
 private _current = _heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF];

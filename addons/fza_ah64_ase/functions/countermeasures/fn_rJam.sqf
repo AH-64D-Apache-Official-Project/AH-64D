@@ -34,21 +34,6 @@ private _jammable = {
     params ["_emitter"];
     alive _emitter && {!(_emitter isKindOf "fza_ah64base")}
 };
-private _inCone = {
-    params ["_heli", "_emitter"];
-    abs ([_heli getRelDir _emitter] call CBA_fnc_simplifyAngle180) <= ASE_RJAM_CONE_DEG
-};
-private _hasRadar = {
-    params ["_vehicle"];
-    if (isNil "fza_ase_rJamHasRadar") then {fza_ase_rJamHasRadar = createHashMap;};
-    private _type = typeOf _vehicle;
-    private _has  = fza_ase_rJamHasRadar get _type;
-    if (isNil "_has") then {
-        _has = ("getText (_x >> 'componentType') == 'ActiveRadarSensorComponent'" configClasses (configOf _vehicle >> "Components" >> "SensorsManagerComponent" >> "Components")) isNotEqualTo [];
-        fza_ase_rJamHasRadar set [_type, _has];
-    };
-    _has
-};
 
 // Triggered by a radar from any direction acquiring or tracking the aircraft
 private _threats = [];
@@ -62,11 +47,23 @@ private _threats = [];
     _threats pushBack _emitter;
 } forEach getSensorThreats _heli;
 
-// The barrage covers the cone off the nose: the radars there acquiring or tracking the aircraft, and every other radar,
-// friendly or not, the aircraft detects emitting there
-private _detected = [];
-private _emitters = [];
-if (_threats isNotEqualTo []) then {
+// Jams from one machine: where the aircraft is local, or the CPG's with no player pilot
+if (_threats isNotEqualTo [] && {local _heli || {player == gunner _heli && {!isPlayer driver _heli}}}) then {
+    private _hasRadar = {
+        params ["_vehicle"];
+        if (isNil "fza_ase_rJamHasRadar") then {fza_ase_rJamHasRadar = createHashMap;};
+        private _type = typeOf _vehicle;
+        private _has  = fza_ase_rJamHasRadar get _type;
+        if (isNil "_has") then {
+            _has = ("getText (_x >> 'componentType') == 'ActiveRadarSensorComponent'" configClasses (configOf _vehicle >> "Components" >> "SensorsManagerComponent" >> "Components")) isNotEqualTo [];
+            fza_ase_rJamHasRadar set [_type, _has];
+        };
+        _has
+    };
+
+    // The barrage covers the cone off the nose: the radars there acquiring or tracking the aircraft, and every other
+    // radar, friendly or not, the aircraft detects emitting there
+    private _detected = [];
     {
         _x params ["_object", "", "_relationship", ["_sensors", []]];
         if !("passiveradar" in _sensors) then {continue;};
@@ -75,11 +72,9 @@ if (_threats isNotEqualTo []) then {
         if (_debug) then {diag_log format ["fza_ase_rJam detected: %1 %2 %3", typeOf _emitter, _relationship, round (_heli getRelDir _emitter)];};
         _detected pushBack _emitter;
     } forEach getSensorTargets _heli;
-    _emitters = ((_threats + _detected) arrayIntersect (_threats + _detected)) select {[_heli, _x] call _inCone};
-};
+    private _emitters = _threats + _detected;
+    _emitters = (_emitters arrayIntersect _emitters) select {abs ([_heli getRelDir _x] call CBA_fnc_simplifyAngle180) <= ASE_RJAM_CONE_DEG};
 
-// Rolls on one machine: where the aircraft is local, or the CPG's with no player pilot
-if (local _heli || {player == gunner _heli && {!isPlayer driver _heli}}) then {
     // One roll for each range band, at the burn-through chance of its nearest radar: it jams the whole band, or none of
     // it. A band starts at the nearest radar not yet in one, so a site isn't split by a band edge.
     private _jammed = [];
