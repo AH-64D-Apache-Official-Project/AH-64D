@@ -46,9 +46,6 @@ if (_restore isEqualTo []) then {
         _allRadars select {(_emitter isVehicleSensorEnabled _x) findIf {(_x param [1, false]) isEqualTo true} >= 0},
         vehicleReceiveRemoteTargets _emitter
     ];
-    if (missionNamespace getVariable ["fza_ase_rJamDebug", false]) then {
-        diag_log format ["fza_ase_rJam effect: %1 radars %2 states %3 datalink %4", typeOf _emitter, _allRadars, _allRadars apply {_emitter isVehicleSensorEnabled _x}, _restore # 1];
-    };
 };
 _restore params [["_radars", [], [[]]], ["_datalink", false, [false]]];
 _radars = _radars select {_x isEqualType ""};
@@ -65,7 +62,7 @@ _emitter setVariable ["fza_ah64_rJamRunning", true];
 if (_duration > 0) then {
     private _viewers = ((crew _emitter) + (UAVControl _emitter)) select {_x isEqualType objNull && {!isNull _x}};
     if (_viewers isNotEqualTo []) then {
-        [_emitter] remoteExecCall ["fza_ase_fnc_rJamOverlay", _viewers];
+        remoteExecCall ["fza_ase_fnc_rJamOverlay", _viewers];
     };
 };
 

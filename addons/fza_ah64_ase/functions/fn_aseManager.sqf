@@ -53,4 +53,6 @@ if !_dcBusOn then {
         _heli setVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF, true];
     };
     _heli setVariable ["fza_ah64_ase_rJamXmit", false];
+    // Tells radios in front of it it has stopped, if it was transmitting when the power went
+    if ((_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) > -1) then {[_heli] call fza_ase_fnc_rJam;};
 };

@@ -27,6 +27,9 @@ class CfgFunctions
             class flare {RECOMPILE_FLAG;};
             class irJam {RECOMPILE_FLAG;};
             class restock {RECOMPILE_FLAG;};
+        };
+        class radarJammer {
+            file = "\fza_ah64_ase\functions\radarJammer";
             class rJam {RECOMPILE_FLAG;};
             class rJamAcreSignal {RECOMPILE_FLAG;};
             class rJamChat {RECOMPILE_FLAG;};
@@ -36,6 +39,7 @@ class CfgFunctions
             class rJamOverlay {RECOMPILE_FLAG;};
             class rJamSetMode {RECOMPILE_FLAG;};
             class rJamStatic {RECOMPILE_FLAG;};
+            class rJamStaticMakeUp {RECOMPILE_FLAG;};
             class rJamWatch {RECOMPILE_FLAG;};
         };
         class event {

@@ -24,17 +24,17 @@ Author:
 
 private _unit = call CBA_fnc_currentUnit;
 
-// The AH-64Ds, looked for once a second; transmitting while their refresh is fresh (fza_ase_fnc_rJam)
+// The AH-64Ds, looked for once a second; transmitting while their refresh is fresh (fza_ase_fnc_rJam), and still
+// heard while they fade out
 if (diag_tickTime >= fza_ase_commsListAt) then {
     fza_ase_commsListAt  = diag_tickTime + 1;
     fza_ase_commsJammers = entities "fza_ah64base";
 };
+private _transmitting = {CBA_missionTime - (_this getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) < ASE_RJAM_COMMS_STALE};
 private _jammers = fza_ase_commsJammers select {
-    CBA_missionTime - (_x getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) < ASE_RJAM_COMMS_STALE
+    (_x call _transmitting) || {((_x getVariable ["fza_ase_commsLos", [0]]) select 0) > 0}
 };
 
-private _debug    = missionNamespace getVariable ["fza_ase_rJamDebug", false]
-    && {diag_tickTime >= (missionNamespace getVariable ["fza_ase_commsDebugAt", 0])};
 private _strength = 0;
 if (_jammers isNotEqualTo [] && {alive _unit}) then {
     private _eye = eyePos _unit;
@@ -45,23 +45,18 @@ if (_jammers isNotEqualTo [] && {alive _unit}) then {
         if (_distance >= ASE_RJAM_COMMS_RANGE || {abs _bearing > ASE_RJAM_CONE_DEG}) then {continue;};
 
         // From above its model centre: getPosASL is the ground contact, below the terrain's surface when landed
-        private _blocked = terrainIntersectASL [(_x modelToWorldVisualWorld [0, 0, 0]) vectorAdd [0, 0, 1], _eye];
-        // Behind terrain it fades out over ASE_RJAM_COMMS_MASK_TIME, and back in over ASE_RJAM_COMMS_UNMASK_TIME. Older
-        // than a second, as when it starts transmitting again, it counts up from nothing.
+        private _blocked = !(_x call _transmitting) || {terrainIntersectASL [(_x modelToWorldVisualWorld [0, 0, 0]) vectorAdd [0, 0, 1], _eye]};
+        // Fades in and out over ASE_RJAM_COMMS_FADE. Older than a second, as when it starts transmitting again, it counts
+        // up from nothing.
         (_x getVariable ["fza_ase_commsLos", [0, -1e9]]) params ["_los", "_at"];
         if (diag_tickTime - _at > 1) then {_los = 0; _at = diag_tickTime;};
         private _step = (diag_tickTime - _at) max 0;
-        _los = [(_los + _step / ASE_RJAM_COMMS_UNMASK_TIME) min 1, (_los - _step / ASE_RJAM_COMMS_MASK_TIME) max 0] select _blocked;
+        _los = [(_los + _step / ASE_RJAM_COMMS_FADE) min 1, (_los - _step / ASE_RJAM_COMMS_FADE) max 0] select _blocked;
         _x setVariable ["fza_ase_commsLos", [_los, diag_tickTime]];
-        if (_debug) then {diag_log format ["fza_ase_rJam comms: %1 at %2 m, bearing %3, terrain blocks %4, in sight %5", typeOf _x, round _distance, round _bearing, _blocked, _los];};
 
         _strength = _strength max (_los * linearConversion [ASE_RJAM_COMMS_FULL, ASE_RJAM_COMMS_RANGE, _distance, 1, 0, true]);
     } forEach _jammers;
     _strength = round (_strength * 20) / 20;
-};
-if (_debug) then {
-    fza_ase_commsDebugAt = diag_tickTime + 1;
-    diag_log format ["fza_ase_rJam comms: %1 AH-64D, %2 transmitting, strength %3", count fza_ase_commsJammers, count _jammers, _strength];
 };
 
 // Theirs for everyone's chat, in quarters so a fade sends only a few, and only when it changes
@@ -71,7 +66,38 @@ private _published   = round (_strength * 4) / 4;
 if ((player getVariable ["fza_ah64_commsJam", 0]) != _published) then {
     player setVariable ["fza_ah64_commsJam", _published, true];
 };
-if (_strength == 0) then {fza_ase_commsStaticTarget = 0;};
+// The static is told what to play at every check and fades out on its own if they stop (fza_ase_fnc_rJamStatic); one
+// that stopped being played is cleared, so it can't be left on or never start again
+if (_strength == 0) then {fza_ase_commsStaticTarget = [0, 0, CBA_missionTime];};
+if (!isNil "fza_ase_commsStaticHandle" && {CBA_missionTime - fza_ase_commsStaticBeat > 1}) then {
+    [fza_ase_commsStaticHandle] call CBA_fnc_removePerFrameHandler;
+    deleteVehicle (fza_ase_commsStatic param [0, objNull, [objNull]]);
+    fza_ase_commsStatic       = [];
+    fza_ase_commsStaticHandle = nil;
+};
+
+// ACRE: a weaker received signal while jammed, from our signal function wrapped round whatever function was there
+// before, another mod's included (fza_ase_fnc_rJamAcreSignal). Wrapped again if one is put over it, and taken off
+// once the jamming ends if it is still on top.
+if (!isNil "acre_api_fnc_setCustomSignalFunc" && {!isNil "acre_sys_signal_fnc_getSignalCore"}) then {
+    private _ours = {(missionNamespace getVariable ["acre_sys_signal_customSignalFunc", {}]) isEqualTo fza_ase_commsAcreWrapper};
+    if (_strength > 0) then {
+        if (!call _ours) then {
+            fza_ase_commsAcreBase = missionNamespace getVariable "acre_sys_signal_customSignalFunc";
+            [fza_ase_commsAcreWrapper] call acre_api_fnc_setCustomSignalFunc;
+        };
+        fza_ase_commsAcreOn = true;
+    } else {
+        if (fza_ase_commsAcreOn) then {
+            fza_ase_commsAcreOn = false;
+            if (call _ours) then {
+                [missionNamespace getVariable ["fza_ase_commsAcreBase", {}]] call acre_api_fnc_setCustomSignalFunc;
+                fza_ase_commsAcreBase = nil;
+            };
+        };
+    };
+};
+
 if (_strength == 0 && {count fza_ase_commsWritten == 0}) exitWith {};
 
 // A value another mod or the mission set is kept as the base: ours only ever makes it worse, and the base is put back
@@ -109,51 +135,41 @@ if (!isNil "TFAR_fnc_activeSwRadio") then {
     };
 };
 
-// ACRE: a weaker received signal, from our signal function wrapped round whatever function was there before, another
-// mod's included (fza_ase_fnc_rJamAcreSignal); wrapped again if one is put over it
-if (_strength > 0
-    && {!isNil "acre_api_fnc_setCustomSignalFunc"}
-    && {!isNil "acre_sys_signal_fnc_getSignalCore"}
-    && {(missionNamespace getVariable ["acre_sys_signal_customSignalFunc", {}]) isNotEqualTo fza_ase_commsAcreWrapper}) then {
-    fza_ase_commsAcreBase = missionNamespace getVariable "acre_sys_signal_customSignalFunc";
-    [fza_ase_commsAcreWrapper] call acre_api_fnc_setCustomSignalFunc;
-};
-
-// Static over the squelch while a radio is on, as loud as the strength and the loudest radio that is on
-private _volume = 0;
+// Static over the squelch while a radio is on, as loud as the strength and the loudest radio that is on. What the
+// radio mods return goes through param, so a nil can't stop these checks (and leave the static as it was).
+private _radio = 0;
 if (_strength > 0) then {
-    private _radio = 0;
     switch (true) do {
         case (!isNil "TFAR_fnc_activeSwRadio"): {
-            private _sw = call TFAR_fnc_activeSwRadio;
-            if (!isNil "_sw" && {[_sw] call TFAR_fnc_RadioOn}) then {
-                private _level = _sw call TFAR_fnc_getSwVolume;
-                if (_level isEqualType 0) then {_radio = _radio max (_level / 10);};
+            private _sw = [call TFAR_fnc_activeSwRadio] param [0, "", [""]];
+            if (_sw != "" && {([[_sw] call TFAR_fnc_RadioOn] param [0, false]) isEqualTo true}) then {
+                _radio = _radio max (([_sw call TFAR_fnc_getSwVolume] param [0, 0, [0]]) / 10);
             };
-            private _lr = call TFAR_fnc_activeLrRadio;
-            if (!isNil "_lr" && {[_lr] call TFAR_fnc_RadioOn}) then {
-                private _level = _lr call TFAR_fnc_getLrVolume;
-                if (_level isEqualType 0) then {_radio = _radio max (_level / 10);};
+            private _lr = [call TFAR_fnc_activeLrRadio] param [0, [], [[]]];
+            if (_lr isNotEqualTo [] && {([[_lr] call TFAR_fnc_RadioOn] param [0, false]) isEqualTo true}) then {
+                _radio = _radio max (([_lr call TFAR_fnc_getLrVolume] param [0, 0, [0]]) / 10);
             };
         };
         case (!isNil "acre_api_fnc_getCurrentRadioList"): {
             {
-                if (([_x] call acre_api_fnc_getRadioOnOffState) in [1, true]) then {
-                    private _level = if (isNil "acre_api_fnc_getRadioVolume") then {1} else {[_x] call acre_api_fnc_getRadioVolume};
-                    if (_level isEqualType 0) then {_radio = _radio max _level;};
+                if (([[_x] call acre_api_fnc_getRadioOnOffState] param [0, 0]) in [1, true]) then {
+                    private _level = if (isNil "acre_api_fnc_getRadioVolume") then {1} else {[[_x] call acre_api_fnc_getRadioVolume] param [0, 0, [0]]};
+                    _radio = _radio max _level;
                 };
-            } forEach ([] call acre_api_fnc_getCurrentRadioList);
+            } forEach ([[] call acre_api_fnc_getCurrentRadioList] param [0, [], [[]]]);
+            // A lowered headset plays its radios at ACRE's 0.15
+            if ((missionNamespace getVariable ["acre_sys_core_lowered", false]) isEqualTo true) then {_radio = _radio * 0.15;};
         };
         default {
             if ((assignedItems _unit) findIf {_x isKindOf ["ItemRadio", configFile >> "CfgWeapons"]} >= 0) then {_radio = 1;};
         };
     };
-    _volume = _strength * (_radio min 1);
-    if (_debug) then {diag_log format ["fza_ase_rJam comms: radio %1, static volume %2, playing %3", _radio, _volume, fza_ase_commsStatic];};
+    _radio = _radio min 1;
 };
 
-// Played every frame while it's on, eased between these steps (fza_ase_fnc_rJamStatic)
-fza_ase_commsStaticTarget = _volume;
-if (_volume > 0 && {isNil "fza_ase_commsStaticHandle"}) then {
+// Played every frame while it's on (fza_ase_fnc_rJamStatic)
+fza_ase_commsStaticTarget = [_strength, _radio, CBA_missionTime];
+if (_strength > 0 && {_radio > 0} && {isNil "fza_ase_commsStaticHandle"}) then {
+    fza_ase_commsStaticBeat   = CBA_missionTime;
     fza_ase_commsStaticHandle = [{_this call fza_ase_fnc_rJamStatic}, 0] call CBA_fnc_addPerFrameHandler;
 };

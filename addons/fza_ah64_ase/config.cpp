@@ -2,11 +2,11 @@ class CfgPatches
 {
     class fza_ah64_ase
     {
-        units[] = {};
+        units[] = {"fza_ah64_rJamStatic"};
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
-        requiredAddons[] = {"fza_ah64_controls", "A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder"};
+        requiredAddons[] = {"fza_ah64_controls", "A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder", "A3_Sounds_F_Enoch"};
         #include "version.hpp"
     };
 };
@@ -18,6 +18,7 @@ class CfgPatches
 #include "CfgEventHandlers.hpp"
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
-#include "CfgSounds.hpp"
+#include "CfgSoundSets.hpp"
+#include "CfgSoundShaders.hpp"
 #include "CfgVehicles.hpp"
 #include "CfgWeapons.hpp"

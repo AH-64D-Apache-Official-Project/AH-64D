@@ -25,11 +25,19 @@ params ["_heli"];
 if (_heli animationPhase "msn_equip_american" != 1 && {_heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF] != ASE_RJAM_STATE_OFF}) then {
     _heli setVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF, true];
 };
+// Jams from one machine: where the aircraft is local, or the CPG's with no player pilot
+private _owner = local _heli || {player == gunner _heli && {!isPlayer driver _heli}};
+// Radios in front of it are told at once when it stops, so they fade out from then (fza_ase_fnc_rJamComms)
+private _stopped = {
+    if (_owner && {(_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) > -1}) then {
+        _heli setVariable ["fza_ah64_ase_rJamXmitStamp", -1e9, true];
+    };
+};
 if (_heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF] != ASE_RJAM_STATE_OPER || {ASE_RJAM_WARMING(_heli)}) exitWith {
     _heli setVariable ["fza_ah64_ase_rJamXmit", false];
+    call _stopped;
 };
 
-private _debug    = missionNamespace getVariable ["fza_ase_rJamDebug", false];
 // Other AH-64Ds' FCRs included: a jammed one is locked out until the jam ends (fza_fcr_fnc_controller)
 private _jammable = {
     params ["_emitter"];
@@ -40,7 +48,6 @@ private _jammable = {
 private _threats = [];
 {
     _x params ["_object", "_type", ["_sensors", []]];
-    if (_debug) then {diag_log format ["fza_ase_rJam threat: %1 %2 %3 %4", typeOf vehicle _object, _type, _sensors, round (_heli getRelDir vehicle _object)];};
     if !(_type in ["marked", "locked"]) then {continue;};
     if (_sensors findIf {private _sensor = toLower _x; _sensor find "radar" >= 0 && {_sensor find "passive" < 0}} < 0) then {continue;};
     private _emitter = vehicle _object;
@@ -48,8 +55,6 @@ private _threats = [];
     _threats pushBack _emitter;
 } forEach getSensorThreats _heli;
 
-// Jams from one machine: where the aircraft is local, or the CPG's with no player pilot
-private _owner = local _heli || {player == gunner _heli && {!isPlayer driver _heli}};
 if (_threats isNotEqualTo [] && {_owner}) then {
     private _hasRadar = {
         params ["_vehicle"];
@@ -67,11 +72,10 @@ if (_threats isNotEqualTo [] && {_owner}) then {
     // radar, friendly or not, the aircraft detects emitting there
     private _detected = [];
     {
-        _x params ["_object", "", "_relationship", ["_sensors", []]];
+        _x params ["_object", "", "", ["_sensors", []]];
         if !("passiveradar" in _sensors) then {continue;};
         private _emitter = vehicle _object;
         if (_emitter in _detected || {!([_emitter] call _jammable)}) then {continue;};
-        if (_debug) then {diag_log format ["fza_ase_rJam detected: %1 %2 %3", typeOf _emitter, _relationship, round (_heli getRelDir _emitter)];};
         _detected pushBack _emitter;
     } forEach getSensorTargets _heli;
     private _emitters = _threats + _detected;
@@ -94,10 +98,8 @@ if (_threats isNotEqualTo [] && {_owner}) then {
 
         {
             _x params ["_nearest", "_band"];
-            private _chance  = linearConversion [ASE_RJAM_BURN_RANGE, ASE_RJAM_FULL_RANGE, _nearest, ASE_RJAM_CHANCE_MIN, ASE_RJAM_CHANCE_MAX, true];
-            private _success = random 1 < _chance;
-            if (_debug) then {diag_log format ["fza_ase_rJam roll: %1 from %2 m, chance %3, jammed %4", _band apply {typeOf _x}, round _nearest, _chance, _success];};
-            if (!_success) then {continue;};
+            private _chance = linearConversion [ASE_RJAM_BURN_RANGE, ASE_RJAM_FULL_RANGE, _nearest, ASE_RJAM_CHANCE_MIN, ASE_RJAM_CHANCE_MAX, true];
+            if (random 1 >= _chance) then {continue;};
             {
                 [_x, ASE_RJAM_JAM_TIME] remoteExecCall ["fza_ase_fnc_rJamEffect", _x];
                 _jammed pushBack [_x, CBA_missionTime + ASE_RJAM_JAM_TIME];
@@ -121,7 +123,6 @@ if (_threats isNotEqualTo [] && {_owner}) then {
         if (_feeds isEqualTo []) then {continue;};
         private _until = selectMin (_feeds apply {_x getVariable ["fza_ah64_rJamUntil", -1]});
         if (_until <= CBA_missionTime || {(_launcher getVariable ["fza_ah64_rJamUntil", -1]) >= _until - 0.5}) then {continue;};
-        if (_debug) then {diag_log format ["fza_ase_rJam datalink: %1 from %2 for %3 s", typeOf _launcher, _feeds apply {typeOf _x}, _until - CBA_missionTime];};
         [_launcher, _until - CBA_missionTime] remoteExecCall ["fza_ase_fnc_rJamEffect", _launcher];
         _jammed pushBack [_launcher, _until];
     } forEach _threats;
@@ -140,6 +141,7 @@ _heli setVariable ["fza_ah64_ase_rJamXmit", _xmit];
 
 // For radios in front of it (fza_ase_fnc_rJamComms): when it last transmitted, refreshed at most once a second, so it
 // goes stale on its own if the crew goes away mid-jam
-if (_xmit && {_owner} && {CBA_missionTime - (_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) >= 1}) then {
+if (!_xmit) exitWith {call _stopped;};
+if (_owner && {CBA_missionTime - (_heli getVariable ["fza_ah64_ase_rJamXmitStamp", -1e9]) >= 1}) then {
     _heli setVariable ["fza_ah64_ase_rJamXmitStamp", CBA_missionTime, true];
 };

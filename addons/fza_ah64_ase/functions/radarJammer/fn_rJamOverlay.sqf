@@ -5,25 +5,20 @@ Description:
     On a player's machine, while the vehicle they're viewing (in it, remote controlling it,
     or through a UAV terminal) is jammed by the radar jammer: the vanilla SENS panel is
     tinted red with JAMMED across it. The panel's own colours are put back afterwards. Sent
-    when a jam starts; the vehicle is only for the debug log.
+    when a jam starts.
 
 Parameters:
-    _vehicle: Object - The jammed vehicle
+    None
 
 Returns:
     Nothing
 
 Examples:
-    [_emitter] remoteExec ["fza_ase_fnc_rJamOverlay", _viewers]
+    remoteExecCall ["fza_ase_fnc_rJamOverlay", _viewers]
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params [["_vehicle", objNull]];
-
-if (missionNamespace getVariable ["fza_ase_rJamDebug", false]) then {
-    diag_log format ["fza_ase_rJam overlay: %1, camera on %2, panel %3", typeOf _vehicle, typeOf vehicle cameraOn, uiNamespace getVariable ["RscCustomInfoSensors", displayNull]];
-};
 if (!hasInterface || {!isNil "fza_ase_rJamOverlayHandle"}) exitWith {};
 
 fza_ase_rJamOverlayHandle = [{

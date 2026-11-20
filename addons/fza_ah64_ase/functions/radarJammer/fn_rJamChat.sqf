@@ -18,9 +18,10 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params ["", "", "", ["_text", "", [""]], ["_person", objNull, [objNull]], "", "", "", "", "", ["_chatMessageType", 0, [0]]];
+params ["", "", "", ["_text", "", [""]], ["_person", objNull, [objNull]], "", "", "", ["_isPlayerMessage", false, [false]], "", ["_chatMessageType", 0, [0]]];
 
-if (isNull _person || {_chatMessageType != 0} || {_text isEqualTo ""}) exitWith {nil};
+// Only what players type, not scripted messages
+if (!_isPlayerMessage || {isNull _person} || {_chatMessageType != 0} || {_text isEqualTo ""}) exitWith {nil};
 
 private _strength = (_person getVariable ["fza_ah64_commsJam", 0]) max (missionNamespace getVariable ["fza_ase_commsJam", 0]);
 if (_strength <= 0) exitWith {nil};
