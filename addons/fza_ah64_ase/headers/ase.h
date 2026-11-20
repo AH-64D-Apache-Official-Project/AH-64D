@@ -39,6 +39,7 @@
 #define ASE_RJAM_COMMS_FULL    6000 //m, radios jammed at full strength within
 #define ASE_RJAM_COMMS_RANGE   9000 //m, fading to nothing at
 #define ASE_RJAM_COMMS_GAIN    6 //static volume at full strength and full radio volume
+#define ASE_RJAM_COMMS_STATICS 8 //static variants, fza_ah64_rJamStatic1-8 (CfgSounds.hpp)
 #define ASE_RJAM_COMMS_MASK_TIME   7.5 //sec for the jamming to fade out once terrain is in the way
 #define ASE_RJAM_COMMS_UNMASK_TIME 2 //sec for it to fade back in once it isn't
 #define ASE_RJAM_COMMS_STALE   2.5 //sec without its refresh before a jammer is taken as off
