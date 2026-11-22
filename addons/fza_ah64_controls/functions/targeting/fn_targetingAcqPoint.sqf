@@ -9,6 +9,7 @@ Description:
 Parameters:
     _heli - The helicopter
     _acq  - Acquisition source name
+    _seat - (optional) "plt" or "cpg" whose acquisition it is, for RFI; the local player's crew station by default
 
 Returns:
     PositionASL, or [] when the source gives no LOS to slave to (FCR without an NTS, ?01, a point no longer stored)
@@ -21,11 +22,19 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
-params ["_heli", "_acq"];
+params ["_heli", "_acq", ["_seat", nil, [""]]];
 
 if (_acq == "FCR") exitWith {
     (_heli getVariable ["fza_ah64_fcrNts", [objNull, [0, 0, 0]]]) params [["_nts", objNull], ["_ntsPos", [0, 0, 0]]];
     [_ntsPos, []] select (isNull _nts || {_ntsPos isEqualTo [0, 0, 0]})
+};
+
+// RFI: none without an emitter
+if (_acq == "RFI") exitWith {
+    if (isNil "_seat") then {_seat = [_heli] call fza_fnc_getSeat};
+    if (isNil "_seat") then {_seat = "plt"};
+    if (([_heli, _seat] call fza_ase_fnc_rfiAcqRecord) isEqualTo []) exitWith {[]};
+    (_heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd")) vectorAdd (([_heli, _acq, _seat] call fza_fnc_targetingAcqVec) vectorMultiply 2000)
 };
 
 // A coordinate point, at its stored position and altitude; ?01 is no point

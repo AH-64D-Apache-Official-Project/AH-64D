@@ -47,6 +47,22 @@ switch(_control) do {
     case "t2": {
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
     };
+    //RFI, on the FCR mast
+    case "l2": {
+        if (_heli animationPhase "fcr_enable" != 1) exitWith {};
+        private _on = (_heli getVariable ["fza_ah64_ase_rfiPwr", ASE_RFI_STATE_ON]) == ASE_RFI_STATE_ON;
+        _heli setVariable ["fza_ah64_ase_rfiPwr", [ASE_RFI_STATE_ON, ASE_RFI_STATE_OFF] select _on, true];
+    };
+    //CAQ: the cursor chooses an RFI emitter as the acquisition source
+    case "r4": {
+        private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
+        if ((_heli getVariable ["fza_ah64_ase_rfiPwr", ASE_RFI_STATE_ON]) != ASE_RFI_STATE_ON
+            || {_heli animationPhase "fcr_enable" != 1}
+            || {([_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable) == SIGHT_FCR}) exitWith {};
+        private _caq = +(_heli getVariable ["fza_mpd_aseCaq", [false, false]]);
+        _caq set [_mpdIndex, !(_caq # _mpdIndex)];
+        _heli setVariable ["fza_mpd_aseCaq", _caq];
+    };
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };

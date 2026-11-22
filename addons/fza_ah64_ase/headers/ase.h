@@ -23,6 +23,9 @@
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
 #define ASE_RLWR_STATE_ON  1
+#define ASE_RLWR_ELEV_LIMIT 45 //deg above or below the aircraft past which a radar threat has no bearing (uncorrelated)
+#define ASE_RLWR_DROP_TIME  10 //sec a radar threat no longer detected stays ghosted
+#define ASE_RLWR_MAX        7  //threats shown
 
 //--IR Jammer
 #define ASE_IRJAM_STATE_OFF   0
@@ -55,7 +58,36 @@
 #define ASE_RJAM_COMMS_STALE   2.5 //sec without its refresh before a jammer is taken as off
 #define ASE_RJAM_WARMING(heli) (CBA_missionTime - ((heli) getVariable ["fza_ah64_ase_rJamWarmStart", 0]) < ASE_RJAM_WARM_TIME)
 
-//Mission equipment 
+//--RFI
+#define ASE_RFI_STATE_OFF    0
+#define ASE_RFI_STATE_ON     1
+#define ASE_RFI_MAX          10
+#define ASE_RFI_TICK         0.5   //sec
+#define ASE_RFI_REFRESH      5     //sec between rebuilds of the list of radar-carrying vehicles
+#define ASE_RFI_WALK_PER_FRAME 50  //vehicles a frame that rebuild looks at
+#define ASE_RFI_LOS_PER_FRAME  2   //radars a frame whose line of sight from the mast is checked
+#define ASE_RFI_RANGE        20000 //m, the most an emitter is heard at
+#define ASE_RFI_RANGE_COEF   2     //an emitter is heard out to this many times its own radar range
+#define ASE_RFI_REACH        8000  //m, air defence closer than this is engageable by the team
+#define ASE_RFI_FINE_DEG     135   //fine bearings within this of the FCR antenna's azimuth (forward, left and right channels), coarse behind
+#define ASE_RFI_FINE_DRIFT   3     //deg the emitter's bearing may move from its last fine fix and keep the fine bearing
+#define ASE_RFI_FINE_HOLD    30    //sec at most a fine bearing is kept without a new fix
+#define ASE_RFI_FINE_ERR     1     //deg, most a fine bearing is out by
+#define ASE_RFI_COARSE_ERR   10    //deg, most a coarse bearing is out by
+#define ASE_RFI_STALE_TIME   30    //sec silent before an emitter is shown at partial intensity
+#define ASE_RFI_DROP_TIME    90    //sec silent before it is dropped
+// fza_ah64_ase_rfiEmitters records, highest priority first
+#define ASE_RFI_OBJ    0
+#define ASE_RFI_CODE   1 //fza_aseIcon
+#define ASE_RFI_FINE   2
+#define ASE_RFI_ERR    3 //deg added to the true bearing
+#define ASE_RFI_MODE   4 //ASE_SRH to ASE_LNC
+#define ASE_RFI_AIR    5
+#define ASE_RFI_STALE  6
+#define ASE_RFI_POS    7 //posASL last heard at while silent, else []
+#define ASE_RFI_TIER   8
+
+//Mission equipment
 #define ASE_MSNEQUIP_STATE_OFF 0
 #define ASE_MSNEQUIP_STATE_ON  1
 

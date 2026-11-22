@@ -23,6 +23,7 @@ Author:
     BradMick, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_cycle"];
 
 private _fcrMode   = _heli getVariable "fza_ah64_fcrMode";
@@ -36,6 +37,7 @@ private _lastScan = [(direction _heli + _fcrAzBias + 360) mod 360, getPosASL _he
 if (_fcrMode == FCR_DISP_MODE_TPM) exitWith {
     [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_fcrTargets", []] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_fcrRfiMerged", []] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_fcrNts", [objNull, [0,0,0], []]] call fza_fnc_updateNetworkGlobal;
     [_heli] call fza_dms_fnc_ageShot;
 };
@@ -50,18 +52,30 @@ if (_fcrMode in [FCR_DISP_MODE_GTM, FCR_DISP_MODE_ATM, FCR_DISP_MODE_RMAP]) then
 private _zones = [_heli] call fza_dms_fnc_zoneActive;
 {_x set [17, [_x # 0, _zones] call fza_dms_fnc_zoneClassOf]} forEach _fcrTargets;
 
+// A target the RFI hears radiating is merged with its emitter: an ADU, ahead of every target outside the active PF zone
+private _emitters = ((_heli getVariable ["fza_ah64_ase_rfiEmitters", []]) select {!(_x # ASE_RFI_STALE)}) apply {_x # ASE_RFI_OBJ};
+private _merged = [];
+{
+    private _obj = _x # 3;
+    if (!isNull _obj && {_obj in _emitters}) then {
+        _x set [1, FCR_TYPE_ADU];
+        _merged pushBackUnique _obj;
+    };
+} forEach _fcrTargets;
+[_heli, "fza_ah64_fcrRfiMerged", _merged] call fza_fnc_updateNetworkGlobal;
+
 // Priority rank by FCR_TYPE value: ADU(5)→0, WHEELED(4)→1, TRACKED(3)→2, HELI(2)→3, FLYER(1)→4, UNKNOWN(0)→5; dim last
 private _eval = {
-    ([0, -FCR_ZONE_PRIORITY, FCR_ZONE_PRIORITY] select (_x # 17)) + ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + (if (_x#6 < 4000) then { _x#4 } else { _x#4 * -1 + 90 })
+    ([0, -FCR_ZONE_PRIORITY, FCR_ZONE_PRIORITY] select (_x # 17)) + ([0, -FCR_ZONE_PRIORITY / 2] select ((_x # 3) in _input0)) + ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + (if (_x#6 < 4000) then { _x#4 } else { _x#4 * -1 + 90 })
 };
 if (_fcrMode == FCR_DISP_MODE_ATM) then {
     _eval = {
-        ([0, -FCR_ZONE_PRIORITY, FCR_ZONE_PRIORITY] select (_x # 17)) + ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
+        ([0, -FCR_ZONE_PRIORITY, FCR_ZONE_PRIORITY] select (_x # 17)) + ([0, -FCR_ZONE_PRIORITY / 2] select ((_x # 3) in _input0)) + ([10000, 0] select (_x # 14)) + ([5, 4, 3, 2, 1, 0] select (_x # 1)) * 1000 + abs (_x#4)
     };
 };
 // The radar tracks FCR_TARGET_FILE targets in priority order: the FCR formats and the TSD nav phase show the top
 // FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS, the TSD attack phase all of them with TOTAL TGTS/OBSTACLES
-_fcrTargets = ([_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy) select [0, FCR_TARGET_FILE];
+_fcrTargets = ([_fcrTargets, [_merged], _eval, "ASCEND"] call BIS_fnc_sortBy) select [0, FCR_TARGET_FILE];
 
 [_heli, "fza_ah64_fcrLastScan", _lastScan] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;

@@ -41,6 +41,7 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_fcrScanSize_M,"$STR_FZA_AH64_FCR_SCAN_SIZE_M","$STR_FZA_AH64_FCR_SCAN_SIZE_M_INFO");
     CfgUserActionDef(fza_ah64_fcrScanSize_N,"$STR_FZA_AH64_FCR_SCAN_SIZE_N","$STR_FZA_AH64_FCR_SCAN_SIZE_N_INFO");
     CfgUserActionDef(fza_ah64_fcrScanSize_Z,"$STR_FZA_AH64_FCR_SCAN_SIZE_Z","$STR_FZA_AH64_FCR_SCAN_SIZE_Z_INFO");
+    CfgUserActionDef(fza_ah64_fcrCued,"$STR_FZA_AH64_FCR_CUED","$STR_FZA_AH64_FCR_CUED_INFO");
     CfgUserActionDef(fza_ah64_flare,"$STR_FZA_AH64_FLARE","$STR_FZA_AH64_FLARE_INFO");
     CfgUserActionDef(fza_ah64_chaffConsent,"$STR_FZA_AH64_CHAFF_CONSENT","$STR_FZA_AH64_CHAFF_CONSENT_INFO");
     CfgUserActionDef(fza_ah64_tadsLHGFov_W,"$STR_FZA_AH64_TADS_LHG_FOV_W","$STR_FZA_AH64_TADS_LHG_FOV_W_INFO");

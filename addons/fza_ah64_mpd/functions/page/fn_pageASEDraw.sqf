@@ -31,7 +31,7 @@ if (_hidas) then {
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_CHAFF),    ["CHAFF ", _chaff] call _qtyText];
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_FL_TOTAL), "FL" + str (_flareL + _flareR)];
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_CH_TOTAL), "CH" + str _chaff];
-    private _aseCount = count (_heli getVariable ["fza_ah64_ase_objects", []]);
+    private _aseCount = {!(_x param [3, false])} count (_heli getVariable ["fza_ah64_ase_objects", []]);
     _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_COUNT),    "ASE " + str _aseCount];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_COUNT_WIDE),    BOOLTONUM(_aseCount > 9)];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CMDS_MODE), _heli getVariable ["fza_ah64_ase_cmdsMode", ASE_CMDS_MAN]];
@@ -63,7 +63,23 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
 private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrcount";
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
 
-//Mission equipment 
+//The heading behind, in the box at the foot of the footprint
+private _recip = round ((getDir _heli + 180) % 360);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_HDG_RECIP), str ([_recip, 360] select (_recip == 0))];
+
+//RFI
+private _seat     = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
+private _rfiOn    = (_heli getVariable ["fza_ah64_ase_rfiPwr", ASE_RFI_STATE_ON]) == ASE_RFI_STATE_ON;
+private _emitters = _heli getVariable ["fza_ah64_ase_rfiEmitters", []];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RFI_PWR), [0, [1, 2] select _rfiOn] select (_heli animationPhase "fcr_enable" == 1)];
+_heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RFI_COUNT), str count _emitters];
+private _caq = 0;
+if (_rfiOn && {_heli animationPhase "fcr_enable" == 1} && {([_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable) != SIGHT_FCR}) then {
+    _caq = [1, 2] select ((_heli getVariable ["fza_mpd_aseCaq", [false, false]]) # _mpdIndex);
+};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CAQ), _caq];
+
+//Mission equipment
 _msn_equip_British = _heli animationPhase "msn_equip_british";
 _heli setUserMFDValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_BRITISH), _msn_equip_British];
 
@@ -81,27 +97,39 @@ private _bandAcq = (MPD_ASE_RING_3 + MPD_ASE_RING_2) / 2;
 private _bandTrk = (MPD_ASE_RING_2 + MPD_ASE_RING_1) / 2;
 private _bandLnc = (MPD_ASE_RING_1 + MPD_ASE_OWNSHIP) / 2;
 private _rings  = [_bandSrh, _bandAcq, _bandTrk, _bandLnc, _bandLnc, _bandTrk];
-private _placed = [];
+private _bearings = _aseObjects apply {_heli getRelDir (_x # 1)};
+private _radii    = _aseObjects apply {[0.27, _rings # (_x # 0)] select _hidas};
+// Radar threats too far above or below for a bearing: uncorrelated, in a row just in front of the ownship. Only the
+// RWR's carry a source (fza_ase_fnc_rwr); the LWR's laser launches keep their bearing.
+private _uncorrelated = _aseObjects apply {(_x # 0) <= ASE_LNC && {count _x > 4} && {[_heli, _x # 1] call fza_ase_fnc_rlwrUncorrelated}};
+private _uncorrelatedCount = {_x} count _uncorrelated;
+// The rest are spread apart on each ring, in bearing order
+private _drawAt = +_bearings;
 {
-    _x params ["_state", "_object","_iconClass"];
-    private _index   = _forEachIndex;
-    private _bearing = _heli getRelDir _object;
-    private _radius  = 0.27;
-    private _iconBearing = _bearing;
-    if (_hidas) then {
-        _radius = _rings # _state;
-        // Icons on one ring are spread apart
-        {
-            _x params ["_placedRadius", "_placedBearing"];
-            if (_placedRadius == _radius && {abs ((_iconBearing - _placedBearing + 540) % 360 - 180) < 10}) then {_iconBearing = _placedBearing + 10;};
-        } forEach _placed;
-        _placed pushBack [_radius, _iconBearing];
+    private _radius = _x;
+    private _onRing = [];
+    {if (_x == _radius && {!(_uncorrelated # _forEachIndex)}) then {_onRing pushBack _forEachIndex;};} forEach _radii;
+    private _spread = [_onRing apply {_bearings # _x}, deg (MPD_ASE_ICON_GAP / _radius)] call fza_mpd_fnc_spreadBearings;
+    {_drawAt set [_x, _spread # _forEachIndex];} forEach _onRing;
+} forEach (_radii arrayIntersect _radii);
+private _uncorrelatedAt = 0;
+{
+    _x params ["_state", "_object", "_iconClass", ["_ghost", false]];
+    if (_ghost) then {_iconClass = [_iconClass] call fza_mpd_fnc_ghostIdent;};
+    private _radius      = _radii # _forEachIndex;
+    private _iconBearing = _drawAt # _forEachIndex;
+    private _iconPos     = [_radius * sin _iconBearing + 0.5, -_radius * cos _iconBearing + 0.5, 0.0];
+    private _isUncorrelated = _uncorrelated # _forEachIndex;
+    if (_isUncorrelated) then {
+        _iconPos = [0.5 + (_uncorrelatedAt - (_uncorrelatedCount - 1) / 2) * MPD_ASE_ICON_GAP, 0.5 - MPD_ASE_UNCORRELATED, 0.0];
+        _uncorrelatedAt = _uncorrelatedAt + 1;
     };
     if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _iconBearing + 0.5, -_radius * cos _iconBearing + 0.5, 0.0], "", POINT_TYPE_ASE, _index, _iconClass];
-    // HIDAS shows the threat level by ring, without the track lines
-    if (_hidas || {_state <= ASE_ACQ}) then {continue;};
-    _linesArray pushBack [_bearing];
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, _iconPos, "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
+    // HIDAS shows the threat level by ring, without the track lines; a line runs to its icon, none with no bearing or
+    // once it has dimmed, no longer detected
+    if (_hidas || {_state <= ASE_ACQ} || {_isUncorrelated} || {_ghost}) then {continue;};
+    _linesArray pushBack [(_iconBearing + 360) % 360];
 } forEach _aseObjects;
 
 for "_i" from 0 to 6 do {
@@ -111,6 +139,20 @@ for "_i" from 0 to 6 do {
         (_linesArray select _i) params ["_azimuth"];
         _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), _azimuth];
     };
+};
+
+// RFI threats outside the footprint, after the RLWR's so they draw over the ring, at the tuned radius
+// (fza_mpd_fnc_threatSymbolTune)
+private _rfiRadius = (fza_mpd_threatTune getOrDefault ["ase", MPD_THREAT_TUNE_ASE]) # 3;
+[_heli, _seat, {
+    params ["_bearing"];
+    [0.5 + _rfiRadius * sin _bearing, 0.5 - _rfiRadius * cos _bearing]
+}, getDir _heli, deg (MPD_ASE_ICON_GAP / _rfiRadius)] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_rfiPicks", "_rfiTracks"];
+_pointsArray append _rfiPoints;
+_heli setVariable ["fza_mpd_aseRfiPicks_" + str _mpdIndex, _rfiPicks];
+// One for each emitter shown, US and HIDAS
+for "_i" from 0 to (ASE_RFI_MAX - 1) do {
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RFI_01_AZ + _i), _rfiTracks param [_i, -1]];
 };
 
 [_heli, _pointsArray, _mpdIndex, 1, [0.5, 0.5]] call fza_mpd_fnc_drawIcons;

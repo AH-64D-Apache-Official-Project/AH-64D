@@ -31,6 +31,7 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_dms\headers\constants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_mpd\headers\cursor.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 params ["_heli", "_side", "_posX", "_posY"];
@@ -72,5 +73,12 @@ TSD_MAP_CLIP params ["_left", "_top", "_right", "_bottom"];
         _best = _id;
     };
 } forEach ((_state getOrDefault ["cursorPoints", []]) + ([[], (_state getOrDefault ["cursorFcr", []]) apply {[_x # 0, _x # 1]}] select _caq));
+
+// RFI threats, at their MPD positions (fza_mpd_fnc_pageTSDDraw): under CAQ, with the TADS or the HMD as the sight
+private _seat = [_heli] call fza_fnc_getSeat;
+if (_caq && {!isNil "_seat"} && {([_heli, "fza_ah64_sight", _seat] call fza_fnc_getSeatVariable) in [SIGHT_TADS, SIGHT_HMD]}) then {
+    ([_state getOrDefault ["cursorRfi", []], _posX, _posY, _bestDistance] call fza_mpd_fnc_cursorNearest) params ["_rfi"];
+    if (_rfi >= 0) then {_best = [POINT_TYPE_RFI, _rfi]};
+};
 
 _best

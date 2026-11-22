@@ -643,6 +643,12 @@ if ((_heli getVariable ["bmkhs_rotorBrakeVal", 0]) > 0
 if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
+//--RFI
+if (_heli animationPhase "fcr_enable" == 1
+    && {(_heli getVariable ["fza_ah64_ase_rfiPwr", ASE_RFI_STATE_ON]) == ASE_RFI_STATE_ON}
+    && {_heli getHitPointDamage "hit_msnEquip_fcr" >= SYS_FCR_DMG_THRESH}) then {
+    _wcas pushBack [WCA_ADVISORY, "RFI FAULT", "RFI FAULT"];
+};
 //--Radar jammer
 if (_heli getVariable ["fza_ah64_ase_rJamXmit", false]) then {
     _wcas pushBack [WCA_ADVISORY, "RADAR JAMMER ON", "RDR JAM ON"];

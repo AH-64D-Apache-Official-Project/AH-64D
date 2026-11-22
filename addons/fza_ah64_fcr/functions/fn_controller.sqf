@@ -46,6 +46,8 @@ private _tadsL   = player == gunner _heli && {CPG_LINK(_heli) && {_sight == SIGH
 if (_heli animationPhase "fcr_enable" == 1
     && {FCR_OWNER(_heli) == (["none", "cpg", "plt"] select ([player == gunner _heli, 2] select _isPilot))}
     && {_isPilot || _tadsL || {_sight == SIGHT_FCR && {_heli getVariable ["fza_ah64_cpgSlaved", false]}}}
+    // Cued search holds the centerline on the emitter
+    && {!((_heli getVariable ["fza_ah64_fcrCued", [false]]) # 0)}
     && {time - (_heli getVariable ["fza_fcr_slaveFollowTime", -1]) >= 0.25}) then {
     _heli setVariable ["fza_fcr_slaveFollowTime", time];
     private _acq = if (_tadsL) then {"TADS"} else {[_heli, [[0], [-1]] select _isPilot] call fza_fnc_targetingCurAcq};

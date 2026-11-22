@@ -32,6 +32,7 @@ if (ACQ_IS_POINT(_acq)) then {_heli setVariable ["fza_ah64_acqPoint_" + _seat, _
 if !(_acq in ([_heli, _seat] call fza_fnc_targetingAcqOptions)) exitWith {};
 
 _heli setVariable ["fza_ah64_acq_" + _seat, _acq, true];
+if (FCR_OWNER(_heli) == _seat) then {[_heli] call fza_fcr_fnc_rfiCuedExit};
 
 if (_seat == "cpg") then {
     _heli setVariable ["fza_ah64_cpgSlaved", false, true];

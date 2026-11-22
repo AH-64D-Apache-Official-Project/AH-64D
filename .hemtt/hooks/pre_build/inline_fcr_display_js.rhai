@@ -46,12 +46,19 @@ print("FCR icon atlas: " + icon_names.len() + " icons");
 
 let layer_content = shared_dir.join("fcr_icon_layer.js").open_file().read();
 
+let mpd_font = HEMTT_VFS.join("addons").join("fza_ah64_ihadss").join("ui").join("font").join("BMKApacheFont.b64").open_file().read();
+mpd_font.trim();
+
 for display_name in displays {
     let display_dir = fcr_ui_root.join(display_name);
     let html = display_dir.join(display_name + ".html").open_file().read();
 
-    // Inline display-specific CSS
+    // Inline display-specific CSS, with the MPD font where the page asks for it
     let css_content = display_dir.join(display_name + ".css").open_file().read();
+    let font_tag = "/*@FCR_FONT@*/";
+    if css_content.contains(font_tag) {
+        css_content.replace(font_tag, "@font-face { font-family: BMKApacheFont; src: url(data:font/ttf;base64," + mpd_font + ") format(\"truetype\"); }");
+    }
     html = inline_tag(html, "<link rel=\"stylesheet\" href=\"" + display_name + ".css\">",
         "<style>\n" + css_content + "\n</style>", display_name);
 

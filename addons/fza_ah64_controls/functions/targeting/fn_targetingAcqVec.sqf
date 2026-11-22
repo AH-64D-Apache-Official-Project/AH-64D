@@ -9,11 +9,13 @@ Description:
     GHS  - the CPG's head
     FCR  - the NTS, or the FCR centerline without one
     FXD  - fixed forward, 4.9 deg below the airframe datum
+    RFI  - the crew station's selected or the No. 1 RFI emitter on the local horizontal; as FXD with none
     W01, C51, T01 - the coordinate point; as FXD for ?01 or a point no longer stored
 
 Parameters:
     _heli - The helicopter to act on
     _acq - The acquisition source to read
+    _seat - (optional) "plt" or "cpg" whose acquisition it is, for RFI; the local player's crew station by default
 
 Returns:
     A world-space vector (of undetermined magnitude) pointing towards the acquisition source
@@ -25,7 +27,7 @@ Author:
     mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_acq"];
+params ["_heli", "_acq", ["_seat", nil, [""]]];
 
 // A crew member's head LOS; the local player's from the camera, as eyeDirection does not follow the head in a vehicle
 private _headDir = {
@@ -53,6 +55,18 @@ switch _acq do {
             _heli vectorModelToWorldVisual [sin _bias, cos _bias, 0]
         } else {
             (getPosASLVisual _heli) vectorFromTo _ntsPos
+        };
+    };
+    // The crew station's selected or the No. 1 RFI emitter, at its bearing on the local horizontal; as FXD with none
+    case "RFI" : {
+        if (isNil "_seat") then {_seat = [_heli] call fza_fnc_getSeat};
+        if (isNil "_seat") then {_seat = "plt"};
+        private _record  = [_heli, _seat] call fza_ase_fnc_rfiAcqRecord;
+        private _bearing = if (_record isEqualTo []) then {[]} else {[_heli, _record] call fza_ase_fnc_rfiBearing};
+        if (_bearing isEqualTo []) then {
+            _heli vectorModelToWorldVisual [0, cos 4.9, -sin 4.9]
+        } else {
+            [sin (_bearing # 0), cos (_bearing # 0), 0]
         };
     };
     default {

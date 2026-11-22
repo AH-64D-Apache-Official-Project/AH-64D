@@ -26,6 +26,7 @@ class UserActionsConflictGroups {
             "fza_ah64_fcrScanSize_M",
             "fza_ah64_fcrScanSize_N",
             "fza_ah64_fcrScanSize_Z",
+            "fza_ah64_fcrCued",
             "fza_ah64_flare",
             "fza_ah64_chaffConsent",
             "fza_ah64_tadsLHGFov_W",

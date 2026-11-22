@@ -302,6 +302,8 @@
 #define MFD_IND_TSD_SHOW_LINES 29
 // Shares 30 with ZN, which is a different subpage
 #define MFD_IND_TSD_SHOW_OBST 30
+// The ACQ list's first slot: it is only drawn on the top level (fza_mpd_fnc_pageTSDDraw)
+#define MFD_IND_TSD_SHOW_RFI 31
 
 #define MFD_IND_TSD_OPEN_POPOUT 13
 #define MFD_IND_TSD_ACQ_BOX 14
@@ -495,6 +497,22 @@
 #define MFD_IND_ASE_05_AZ 17
 #define MFD_IND_ASE_06_AZ 18
 #define MFD_IND_ASE_07_AZ 19
+//--RFI
+//0 no FCR mast, 1 off, 2 on
+#define MFD_IND_ASE_RFI_PWR      22
+//0 barriered, 1 available, 2 choosing
+#define MFD_IND_ASE_CAQ          23
+//Tracking emitters' bearing lines, one for each emitter shown; 31-33 are free here, the ASE page has no ACQ list
+#define MFD_IND_ASE_RFI_01_AZ    24
+#define MFD_IND_ASE_RFI_02_AZ    25
+#define MFD_IND_ASE_RFI_03_AZ    26
+#define MFD_IND_ASE_RFI_04_AZ    27
+#define MFD_IND_ASE_RFI_05_AZ    28
+#define MFD_IND_ASE_RFI_06_AZ    29
+#define MFD_IND_ASE_RFI_07_AZ    30
+#define MFD_IND_ASE_RFI_08_AZ    31
+#define MFD_IND_ASE_RFI_09_AZ    32
+#define MFD_IND_ASE_RFI_10_AZ    33
 
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
@@ -505,6 +523,8 @@
 #define MFD_TEXT_IND_ASE_FL_TOTAL    6
 #define MFD_TEXT_IND_ASE_CH_TOTAL    7
 #define MFD_TEXT_IND_ASE_COUNT       8
+#define MFD_TEXT_IND_ASE_RFI_COUNT   9
+#define MFD_TEXT_IND_ASE_HDG_RECIP   10
 
 //--HIDAS threat rings, by threat state: search, then acquisition, track, launch
 #define MPD_ASE_RING_OUTER 0.325
@@ -512,6 +532,16 @@
 #define MPD_ASE_RING_2     0.185
 #define MPD_ASE_RING_1     0.115
 #define MPD_ASE_OWNSHIP    0.05
+//RLWR and RFI threat symbols on each format, tuned live with fza_mpd_fnc_threatSymbolTune:
+//[size, text height (both multipliers), characters moved in (of the symbol), RFI symbols' place: ASE ring radius, TSD
+//square's distance from the page edge, FCR extra distance out from the scan sector]
+#define MPD_THREAT_TUNE_ASE [1, 1, 0, 0.36]
+#define MPD_THREAT_TUNE_TSD [1, 1, 0.08, 0.147]
+#define MPD_THREAT_TUNE_FCR [1, 1.1, 0.06, 0]
+//Least distance round a ring between two threat icons' centres (fza_mpd_fnc_spreadBearings)
+#define MPD_ASE_ICON_GAP   0.07
+//Uncorrelated RLWR detects: how far in front of the ownship, in a row a gap apart
+#define MPD_ASE_UNCORRELATED 0.065
 
 #define MFD_TEXT_IND_FREQ_A 0
 #define MFD_TEXT_IND_FREQ_B 1

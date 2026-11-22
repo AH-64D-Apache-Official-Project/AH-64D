@@ -174,7 +174,8 @@
     function textLayout(text, place, left, top, size, measure) {
         if (!Array.isArray(place) || (typeof text !== "string" && typeof text !== "number") || text === "") { return null; }
         text = String(text);
-        var h = TEXT_SCALE / size;
+        // A threat symbol's place carries its text's tuned height (fza_mpd_fnc_threatSymbolTune)
+        var h = TEXT_SCALE / size * ((+place[4] > 0) ? +place[4] : 1);
         var yOffset = place[3] === "top" ? h * 0.5 : place[3] === "bottom" ? -h * 0.5 : 0;
         var x = left + (+place[0] || 0) * size;
         var mid = top + (+place[1] || 0) * size + yOffset;

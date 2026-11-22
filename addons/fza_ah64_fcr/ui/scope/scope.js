@@ -23,6 +23,9 @@
     var HOVER_RADIUS = 0.022;
     var targets      = [];
     var shots        = [];
+    // RFI threat symbols round the format: [{x, y} in display units, ...] (fza_mpd_fnc_fcrRfiJson)
+    var rfi          = [];
+    var rfiTune      = [1, 1, 0];
     var targetsDirty = false;
     // Active PF zone white, NF zones yellow, under the symbols; drawn as the TSD's active zones (ui\tsd\tsd.js)
     var ZONE_WIDTH   = 0.004;
@@ -41,6 +44,10 @@
         resize();
         window.addEventListener("resize", resize);
         requestAnimationFrame(renderLoop);
+        // The RFI characters' font is the page's own data, which may load after the first picture
+        if (document.fonts && document.fonts.load) {
+            document.fonts.load("20px BMKApacheFont").then(function () { targetsDirty = true; }, function () { targetsDirty = true; });
+        }
         // Asks for the data sent while the page was loading, which was lost (fza_fcr_fnc_displayUiInit)
         try {
             if (typeof A3API !== "undefined" && A3API && typeof A3API.SendAlert === "function") { A3API.SendAlert("fza:ready"); }
@@ -87,7 +94,12 @@
             ctx.arc(hovered[0], hovered[1], HOVER_RADIUS / 0.95 * H, 0, 2 * Math.PI);
             ctx.fill();
         }
-        return window.fzaFCRIconLayer.drawSymbols(ctx, targets, shots, ICON_FRAC * H, toXY);
+        var drawn = window.fzaFCRIconLayer.drawSymbols(ctx, targets, shots, ICON_FRAC * H, toXY);
+        window.fzaFCRIconLayer.drawRfi(ctx, rfi.map(function (it) {
+            var p = toPx(it.x, it.y);
+            return { x: p[0], y: p[1], l: it.l, r: it.r, g: it.g, fm: it.fm, c: it.c };
+        }), ICON_FRAC * H, rfiTune);
+        return drawn;
     }
 
     function toPx(dx, dy) { return [ (dx - 0.025) / 0.95 * W, (dy - 0.025) / 0.95 * H ]; }
@@ -191,6 +203,14 @@
                     zones      = next;
                     zonesDirty = true;
                 }
+            }
+            if (data.rfi !== undefined) {
+                rfi = Array.isArray(data.rfi) ? data.rfi : [];
+                targetsDirty = true;
+            }
+            if (Array.isArray(data.rfiTune)) {
+                rfiTune = data.rfiTune;
+                targetsDirty = true;
             }
             if (data.targets !== undefined) {
                 targets      = data.targets || [];

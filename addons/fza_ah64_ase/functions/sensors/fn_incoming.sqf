@@ -20,10 +20,10 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_munition"];
 
-if (missileTarget _munition == _heli) exitWith {true};
-
 private _relPos = (getPosASL _munition) vectorDiff (getPosASL _heli);
 private _relVel = (velocity _munition) vectorDiff (velocity _heli);
+// Once past, it is no longer incoming, guided at the aircraft or not
+if (missileTarget _munition == _heli) exitWith {(_relPos vectorDotProduct _relVel) < 0};
 private _speed2 = _relVel vectorDotProduct _relVel;
 if (_speed2 < 1) exitWith {false};
 private _ttg = -(_relPos vectorDotProduct _relVel) / _speed2;

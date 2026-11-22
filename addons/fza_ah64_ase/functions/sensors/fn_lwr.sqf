@@ -9,18 +9,19 @@ Description:
 
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
+    munitions: Array - missiles and rockets within ASE_MWS_RANGE (fza_ase_fnc_aseManager)
 
 Returns:
     [_lwrObjects, _lwrAudio]
 
 Examples:
-    [_heli] call fza_ase_fnc_lwr
+    [_heli, _munitions] call fza_ase_fnc_lwr
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ase\headers\ase.h"
-params ["_heli"];
+params ["_heli", ["_munitions", []]];
 
 [] params [["_lwrObjects",[]],["_LwrAudio",[]]];
 
@@ -38,7 +39,7 @@ nearestObjects [_heli, ["lasertarget"], 15, false, true] apply {
 };
 
 if (isNil "fza_ase_beamRider") then {fza_ase_beamRider = createHashMap;};
-nearestObjects [_heli, ["missilebase"], ASE_MWS_RANGE] apply {
+_munitions apply {
     private _type  = typeOf _x;
     private _rider = fza_ase_beamRider get _type;
     if (isNil "_rider") then {

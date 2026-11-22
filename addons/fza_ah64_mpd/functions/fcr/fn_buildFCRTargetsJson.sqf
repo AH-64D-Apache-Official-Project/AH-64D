@@ -64,6 +64,7 @@ private _texToKey = {
     toLower (_base select [0, (count _base) - 7])
 };
 
+
 private _tgtParts = [];
 // Each symbol drawn, for the MPD cursor: azimuth and range as sent, the target and its position
 private _tgtSymbols = [];
@@ -86,15 +87,20 @@ private _tgtSymbols = [];
         _iconKeys set [_ident, _keys];
     };
 
+    // Merged with an RFI emitter: its type characters (fza_fcr_fnc_update)
+    private _rfiChars = [_heli, _target] call fza_ase_fnc_rfiMergedChars;
+
     // ATM's PPI wedge rotates to the slewed bearing, so symbols sit at nose-relative
     // azimuth (centerline-relative angle + bias); GTM/RMAP pass 0 and stay centerline-referenced
-    _tgtParts pushBack format ['{"a":%1,"r":%2,"icon":"%3","ov":"%4","stale":%5}',
+    _tgtParts pushBack format ['{"a":%1,"r":%2,"icon":"%3","ov":"%4","stale":%5,"ml":%6,"mr":%7}',
         ((_aziAngle + _aziOffset) / _aziDivisor) toFixed 3,
         (_range / _maxRange) toFixed 4,
         _keys # 0,
         _keys # 1,
         // Dim below the scan-to-scan correlation for a bright symbol (fza_fcr_fnc_mergeTargets)
-        [0, 1] select _dim
+        [0, 1] select _dim,
+        str (_rfiChars param [0, ""]),
+        str (_rfiChars param [1, ""])
     ];
     _tgtSymbols pushBack [(_aziAngle + _aziOffset) / _aziDivisor, _range / _maxRange, _target, _tgtPos];
 } forEach (_displayTargets select [0, FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS]);

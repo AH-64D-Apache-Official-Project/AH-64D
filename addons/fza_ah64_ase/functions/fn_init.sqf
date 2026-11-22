@@ -39,6 +39,9 @@ if (!(_heli getVariable ["fza_ah64_aseInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_ase_rJamWarmStart",    0,                      true];
     _heli setVariable ["fza_ah64_ase_rJamXmitUntil",    -1,                     true];
     _heli setVariable ["fza_ah64_ase_rJamHeld",         [],                     true];
+    //--RFI - Aircraft common
+    _heli setVariable ["fza_ah64_ase_rfiPwr",           ASE_RFI_STATE_ON,       true];
+    _heli setVariable ["fza_ah64_ase_rfiEmitters",      [],                     true];
     //--CMDS (HIDAS) - Aircraft common
     _heli setVariable ["fza_ah64_ase_cmdsMode",         ASE_CMDS_MAN,           true];
     _heli setVariable ["fza_ah64_ase_cmdsConsent",      [],                     true];

@@ -43,6 +43,7 @@ private _options = [];
 if (!isNull driver _heli && {!_isPilot || {_sight == SIGHT_FCR}}) then {_options pushBack "PHS"};
 if (!isNull gunner _heli && {_isPilot || {_sight != SIGHT_HMD}}) then {_options pushBack "GHS"};
 if (_fcr && {[_sight != SIGHT_FCR, _sight in [SIGHT_TADS, SIGHT_HMD]] select !_isPilot}) then {_options pushBack "FCR"};
+if (_sight in [SIGHT_TADS, SIGHT_HMD] && {[_heli] call fza_ase_fnc_rfiWorking}) then {_options pushBack "RFI"};
 _options pushBack "FXD";
 if (_tads && {_isPilot || {_sight != SIGHT_TADS}}) then {_options pushBack "TADS"};
 _options pushBack (_heli getVariable ["fza_ah64_acqPoint_" + _seat, ACQ_POINT_NONE]);

@@ -8,7 +8,7 @@ Parameters:
     heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-    _rwrObjects - [state, objectPos, "_iconClass"]
+    _rwrObjects - [state, objectPos, "_iconClass", ghosted, source]
     _rwrAudio   - [object, "state", "_soundclass"];
 
 Examples:
@@ -38,19 +38,19 @@ params ["_heli"];
                 _launcherIndex = _rwrAudio findIf {(_x # 0) isEqualTo _launcher};
                 if (_launcherIndex >= 0) then {_rwrAudio deleteAt _launcherIndex;};
                 [_heli, _launcher, ASE_LNC] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
-                _rwrObjects pushBack [ASE_LNC, _object, _iconClass];
+                _rwrObjects pushBack [ASE_LNC, _object, _iconClass, false, _launcher];
                 continue;
             };
         };
         case "locked": {
-            [_heli, _object] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
-            _rwrObjects pushBack [ASE_TRK, _object, _iconClass];
+            [_heli, _object, ASE_TRK] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
+            _rwrObjects pushBack [ASE_TRK, _object, _iconClass, false, _object];
             _rwrAudio pushBack [_object, "tracking", _soundclass];
             continue;
         };
         case "marked": {
-            [_heli, _object] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
-            _rwrObjects pushBack [ASE_ACQ, _object, _iconClass];
+            [_heli, _object, ASE_ACQ] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
+            _rwrObjects pushBack [ASE_ACQ, _object, _iconClass, false, _object];
             _rwrAudio pushBack [_object, "acquisition", _soundclass];
         };
     };
@@ -64,7 +64,7 @@ private _threatObjects = getSensorThreats _heli apply {vehicle (_x # 0)};
     if (_object in _threatObjects) then {continue;};
     if ("passiveradar" in _sensor) then {
         [_heli, _object] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
-        _rwrObjects pushBack [ASE_SRH, getPos _object, _iconClass];
+        _rwrObjects pushBack [ASE_SRH, getPos _object, _iconClass, false, _object];
         _rwrAudio pushBack [_object, "searching", _soundclass];
     };
 } forEach getSensorTargets _heli;
@@ -90,12 +90,36 @@ if (_held isNotEqualTo []) then {
         private _pos = getPos _object;
         _rwrObjects = _rwrObjects select {!((_x # 1) isEqualTo _object || {(_x # 1) isEqualTo _pos})};
         _rwrAudio   = _rwrAudio select {(_x # 0) isNotEqualTo _object};
-        [_heli, _object] call fza_ase_fnc_classification params ["_soundclass", "_iconClass"];
-        _rwrObjects pushBack [_prev, [_object, _pos] select (_prev == ASE_SRH), _iconClass];
+        [_heli, _object, _prev] call fza_ase_fnc_classification params ["_soundclass", "_iconClass"];
+        _rwrObjects pushBack [_prev, [_object, _pos] select (_prev == ASE_SRH), _iconClass, false, _object];
         _rwrAudio pushBack [_object, _states # _prev, _soundclass];
     } forEach _held;
 };
 
-_rwrObjects = [_rwrObjects, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
+// No longer detected: ghosted where it was last seen, at the last state it was shown at, until ASE_RLWR_DROP_TIME. Its
+// audio entry is kept so that coming back meanwhile isn't announced as a new threat; a higher mode still is. A missile
+// is shown only while it is detected: its launcher isn't ghosted while it is in flight or after.
+private _now   = CBA_missionTime;
+private _audio = createHashMap;
+{_audio set [hashValue (_x # 0), _x];} forEach _rwrAudio;
+private _last = createHashMap;
+{
+    _x params ["_state", "", "_iconClass", "", "_source"];
+    if (isNull _source || {_state >= ASE_LNC}) then {continue;};
+    private _key  = hashValue _source;
+    private _prev = _last get _key;
+    if (!isNil "_prev" && {_state <= _prev # 1}) then {continue;};
+    _last set [_key, [_source, _state, _iconClass, getPos _source, _now, +(_audio getOrDefault [_key, []])]];
+} forEach _rwrObjects;
+{
+    _x params ["_source", "_state", "_iconClass", "_pos", "_seenAt", ["_audioEntry", []]];
+    if (isNull _source || {_now - _seenAt > ASE_RLWR_DROP_TIME} || {_source in _launching}) then {continue;};
+    private _key = hashValue _source;
+    if (_key in _last) then {continue;};
+    _rwrObjects pushBack [_state, _pos, _iconClass, true, _source];
+    if (_audioEntry isNotEqualTo []) then {_rwrAudio pushBack _audioEntry;};
+    _last set [_key, _x];
+} forEach (_heli getVariable ["fza_ah64_ase_rlwrLast", []]);
+_heli setVariable ["fza_ah64_ase_rlwrLast", values _last];
 
 [_rwrObjects, _rwrAudio]

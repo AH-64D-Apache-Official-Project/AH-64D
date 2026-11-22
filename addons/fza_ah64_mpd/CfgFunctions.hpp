@@ -38,6 +38,7 @@ class CfgFunctions
             class cursorEnter {RECOMPILE_FLAG;};
             class cursorInArea {RECOMPILE_FLAG;};
             class cursorLabels {RECOMPILE_FLAG;};
+            class cursorNearest {RECOMPILE_FLAG;};
             class cursorPick {RECOMPILE_FLAG;};
             class cursorPoint {RECOMPILE_FLAG;};
             class cursorToNts {RECOMPILE_FLAG;};
@@ -150,10 +151,21 @@ class CfgFunctions
             class pagePERFDraw {RECOMPILE_FLAG;};
             class pagePERFHandleControl {RECOMPILE_FLAG;};
         };
+        class rfi {
+            file = "\fza_ah64_mpd\functions\rfi";
+            class rfiIdent {RECOMPILE_FLAG;};
+            class rfiMergedIdent {RECOMPILE_FLAG;};
+            class rfiPoints {RECOMPILE_FLAG;};
+            class rfiSymbol {RECOMPILE_FLAG;};
+            class fcrRfiJson {RECOMPILE_FLAG;};
+        };
         class ui {
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
+            class spreadBearings {RECOMPILE_FLAG;};
+            class threatSymbolTune {RECOMPILE_FLAG;};
+            class ghostIdent {RECOMPILE_FLAG;};
         };
         class video {
             file = "\fza_ah64_mpd\functions\video";

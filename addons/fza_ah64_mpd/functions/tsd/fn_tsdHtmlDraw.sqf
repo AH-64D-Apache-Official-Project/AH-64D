@@ -32,6 +32,8 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_mpd\headers\tsd.hpp"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
 disableSerialization;
 params ["_heli", "_mpdIndex", "_state", "_persistState", ["_points", []], ["_dynStart", 0], ["_highlight", []]];
 
@@ -53,12 +55,17 @@ private _ctr      = [0.5, 0.75 - 0.25 * (_persistState get "ctr")];
 
 // Ident definitions, kept on the control: [texture key, texture 2 key, size, colour, text A place, text B place,
 // text A, text B]; a place is [x offset, y offset, horizontal, vertical], 0 without text; [] for an unknown ident
+private _defsGrew = false;
 private _defs = _ctrl getVariable "fza_mpd_tsdDefs";
-if (isNil "_defs") then {
+// Built again when the threat symbols are tuned (fza_mpd_fnc_threatSymbolTune)
+private _tuneVersion = missionNamespace getVariable ["fza_mpd_threatTuneVersion", 0];
+if (isNil "_defs" || {(_ctrl getVariable ["fza_mpd_tsdDefsTune", -1]) != _tuneVersion}) then {
     _defs = createHashMap;
     _ctrl setVariable ["fza_mpd_tsdDefs", _defs];
+    _ctrl setVariable ["fza_mpd_tsdDefsTune", _tuneVersion];
+    _defsGrew = true;
 };
-private _defsGrew = false;
+(fza_mpd_threatTune getOrDefault ["tsd", MPD_THREAT_TUNE_TSD]) params ["_tuneSize", "_tuneText", "_tuneIn"];
 
 // A texture's key in the page's icon atlas: its file name without _ca, lower case
 private _texKey = {
@@ -89,10 +96,25 @@ private _defOf = {
     private _details = [_ident] call fza_dms_fnc_pointGetIdentDetails;
     _def = [];
     if (!isNil "_details" && {_details isEqualType []} && {count _details >= 6}) then {
-        _details params [["_tex", ""], ["_tex2", ""], ["_size", 0], ["_color", [1, 1, 1, 1]], ["_textA", []], ["_textB", []]];
+        _details params [["_tex", ""], ["_tex2", ""], ["_size", 0], ["_color", [1, 1, 1, 1]], ["_textA", []], ["_textB", []], ["_type", -1]];
         // An icon of no size or a colour that isn't four numbers is not drawn, as fza_mpd_fnc_uiDrawPoint
         if (_size isEqualType 0 && {finite _size} && {_size > 0} && {_color isEqualTypeArray [0, 0, 0, 0]}) then {
-            _def = [_tex call _texKey, _tex2 call _texKey, _size, _color, [_textA] call _place, [_textB] call _place, _textA param [0, ""], _textB param [0, ""]];
+            private _placeA = [_textA] call _place;
+            private _placeB = [_textB] call _place;
+            // RLWR and RFI threat symbols as tuned: sized, the characters at their edges moved in, and the text's height,
+            // which the page takes over the icon's size, by the size and text multipliers (ui\tsd\tsd.js)
+            if (_type in [POINT_TYPE_ASE, POINT_TYPE_RFI]) then {
+                _size = _size * _tuneSize;
+                private _tuned = {
+                    if !(_this isEqualType []) exitWith {_this};
+                    _this params ["_px", "_py", "_hAlign", "_vAlign"];
+                    private _dx = [0, [-_tuneIn, _tuneIn] select (_px < 0.5)] select (abs (_px - 0.5) > 0.25);
+                    [_px + _dx, _py, _hAlign, _vAlign, _tuneSize * _tuneSize * _tuneText]
+                };
+                _placeA = _placeA call _tuned;
+                _placeB = _placeB call _tuned;
+            };
+            _def = [_tex call _texKey, _tex2 call _texKey, _size, _color, _placeA, _placeB, _textA param [0, ""], _textB param [0, ""]];
         };
     };
     _defs set [_ident, _def];

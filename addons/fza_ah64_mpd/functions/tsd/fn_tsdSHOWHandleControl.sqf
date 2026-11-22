@@ -20,6 +20,10 @@ switch (_control) do {
         private _val = (_heli getVariable "fza_mpd_tsdShowFriendly") ;
         _val set [_phase, !(_val # _phase)];
     };
+    case "r4": {
+        private _val = (_heli getVariable "fza_mpd_tsdShowRfi") ;
+        _val set [_phase, !(_val # _phase)];
+    };
     case "r5": {
         private _val = (_heli getVariable "fza_mpd_tsdShowRlwr") ;
         _val set [_phase, !(_val # _phase)];

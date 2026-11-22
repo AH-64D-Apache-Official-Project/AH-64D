@@ -19,6 +19,7 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mode"];
+[_heli] call fza_fcr_fnc_rfiCuedExit;
 
 if ((_heli getVariable "fza_ah64_fcrMode") == _mode) exitWith {
     if (_mode == FCR_DISP_MODE_RMAP) then {

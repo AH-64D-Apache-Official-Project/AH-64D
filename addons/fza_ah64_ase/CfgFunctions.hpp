@@ -48,6 +48,16 @@ class CfgFunctions
             class rJamStaticMakeUp {RECOMPILE_FLAG;};
             class rJamWatch {RECOMPILE_FLAG;};
         };
+        class rfi {
+            file = "\fza_ah64_ase\functions\rfi";
+            class rfi {RECOMPILE_FLAG;};
+            class rfiAcqRecord {RECOMPILE_FLAG;};
+            class rfiBearing {RECOMPILE_FLAG;};
+            class rfiCandidates {RECOMPILE_FLAG;};
+            class rfiChars {RECOMPILE_FLAG;};
+            class rfiMergedChars {RECOMPILE_FLAG;};
+            class rfiWorking {RECOMPILE_FLAG;};
+        };
         class radarDecoy {
             file = "\fza_ah64_ase\functions\radarDecoy";
             class aceDoppler {RECOMPILE_FLAG;};
@@ -64,6 +74,7 @@ class CfgFunctions
             class incoming {RECOMPILE_FLAG;};
             class mws {RECOMPILE_FLAG;};
             class lwr {RECOMPILE_FLAG;};
+            class rlwrUncorrelated {RECOMPILE_FLAG;};
             class rwr {RECOMPILE_FLAG;};
         };
     };

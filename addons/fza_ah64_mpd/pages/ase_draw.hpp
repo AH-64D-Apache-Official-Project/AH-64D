@@ -1,3 +1,7 @@
+// US autopage group, half a character in from the buttons' labels: the labels and boxes, the bracket and its text
+#define ASE_AP_X      (MPD_POS_BUTTON_L_X - 0.5*MPD_TEXT_WIDTH)
+#define ASE_AP_LINE_X (0.080 - 0.5*MPD_TEXT_WIDTH)
+#define ASE_AP_TEXT_X (0.08 - 0.5*MPD_TEXT_WIDTH)
 class ase_draw {
     class lines {
         type = "line";
@@ -67,16 +71,16 @@ class ase_draw {
             type = "line";
             width = 3;
             points[] = {
-                //Autopage top
-                {{0.002, 0.380}, 1}, 
-                {{0.080, 0.380}, 1}, {},
+                //Autopage top, clear of the RFI count above it
+                {{0.002, 0.385}, 1},
+                {{ASE_AP_LINE_X, 0.385}, 1}, {},
                 //Autopage right, broken round the AUTOPAGE text down it
-                {{0.080, 0.380}, 1}, 
-                {{0.080, 0.600-3.5*MPD_TEXT_HEIGHT-0.005}, 1}, {},
-                {{0.080, 0.600+4.5*MPD_TEXT_HEIGHT+0.005}, 1}, 
-                {{0.080, 0.870}, 1}, {},
+                {{ASE_AP_LINE_X, 0.385}, 1},
+                {{ASE_AP_LINE_X, 0.600-3.5*MPD_TEXT_HEIGHT-0.005}, 1}, {},
+                {{ASE_AP_LINE_X, 0.600+4.5*MPD_TEXT_HEIGHT+0.005}, 1}, 
+                {{ASE_AP_LINE_X, 0.870}, 1}, {},
                 //Autopage bottom
-                {{0.080, 0.870}, 1}, 
+                {{ASE_AP_LINE_X, 0.870}, 1}, 
                 {{0.002, 0.870}, 1}, {},
                 //Chaff box
                 MPD_POINTS_BOX("Null", MPD_POS_BUTTON_TB_1_X-(2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y-(3*MPD_TEXT_HEIGHT), 5*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT*2), {},
@@ -586,6 +590,117 @@ class ase_draw {
 
     };
 
+    //RFI: tracking emitters' bearing lines, out to the symbols outside the footprint
+    #define ASE_RFI_AZ(name, mpdVal)\
+    class aseRfiAz_##name {\
+        color[] = {1,1,0,1};\
+        class line##name {\
+            condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
+            class trackLine {\
+                type     = "line";\
+                width    = 3;\
+                points[] = {\
+                    {ase_rfi_az_##name, { 0.000, 0.018}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.036}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.054}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.071}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.089}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.107}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.125}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.143}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.161}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.179}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.196}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.214}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.232}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.250}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.268}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.286}, 1}, {},\
+                    {ase_rfi_az_##name, { 0.000, 0.304}, 1},\
+                    {ase_rfi_az_##name, { 0.000, 0.321}, 1}, {},\
+                };\
+            };\
+        };\
+    };
+    ASE_RFI_AZ(01, MFD_IND_ASE_RFI_01_AZ)
+    ASE_RFI_AZ(02, MFD_IND_ASE_RFI_02_AZ)
+    ASE_RFI_AZ(03, MFD_IND_ASE_RFI_03_AZ)
+    ASE_RFI_AZ(04, MFD_IND_ASE_RFI_04_AZ)
+    ASE_RFI_AZ(05, MFD_IND_ASE_RFI_05_AZ)
+    ASE_RFI_AZ(06, MFD_IND_ASE_RFI_06_AZ)
+    ASE_RFI_AZ(07, MFD_IND_ASE_RFI_07_AZ)
+    ASE_RFI_AZ(08, MFD_IND_ASE_RFI_08_AZ)
+    ASE_RFI_AZ(09, MFD_IND_ASE_RFI_09_AZ)
+    ASE_RFI_AZ(10, MFD_IND_ASE_RFI_10_AZ)
+
+    //L2: RFI power and emitter count, with the FCR mast fitted; raised a little so the count clears the autopage bracket
+    #define RFIX MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
+    #define RFIY MPD_POS_BUTTON_LR_2_Y - 0.25*MPD_TEXT_HEIGHT
+    class RFI {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_ASE_RFI_PWR), 0));
+        MPD_TEXT_R(RFI_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y - 0.7*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(" RFI"))
+        class RFI_Off {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFI_PWR), 1));
+            class lines_RFIOff {
+                type = "line";
+                width = 3;
+                points[] = {
+                    {{RFIX - 0.010, RFIY + 0.000}, 1},
+                    {{RFIX - 0.007, RFIY - 0.007}, 1},
+                    {{RFIX - 0.000, RFIY - 0.010}, 1},
+                    {{RFIX + 0.007, RFIY - 0.007}, 1},
+                    {{RFIX + 0.010, RFIY + 0.000}, 1},
+                    {{RFIX + 0.007, RFIY + 0.007}, 1},
+                    {{RFIX + 0.000, RFIY + 0.010}, 1},
+                    {{RFIX - 0.007, RFIY + 0.007}, 1},
+                    {{RFIX - 0.010, RFIY + 0.000}, 1},
+                };
+            };
+        };
+        class RFI_On {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFI_PWR), 2));
+            class polys_RFIOn {
+                class Polygons {
+                    type = "polygon";
+                    points[] = {
+                        {
+                            {{RFIX - 0.010, RFIY + 0.000}, 1},
+                            {{RFIX - 0.007, RFIY - 0.007}, 1},
+                            {{RFIX - 0.000, RFIY - 0.010}, 1},
+                            {{RFIX, RFIY}, 1}
+                        },
+                        {
+                            {{RFIX - 0.000, RFIY - 0.010}, 1},
+                            {{RFIX + 0.007, RFIY - 0.007}, 1},
+                            {{RFIX + 0.010, RFIY + 0.000}, 1},
+                            {{RFIX, RFIY}, 1}
+                        },
+                        {
+                            {{RFIX + 0.010, RFIY + 0.000}, 1},
+                            {{RFIX + 0.007, RFIY + 0.007}, 1},
+                            {{RFIX + 0.000, RFIY + 0.010}, 1},
+                            {{RFIX, RFIY}, 1}
+                        },
+                        {
+                            {{RFIX + 0.000, RFIY + 0.010}, 1},
+                            {{RFIX - 0.007, RFIY + 0.007}, 1},
+                            {{RFIX - 0.010, RFIY + 0.000}, 1},
+                            {{RFIX, RFIY}, 1}
+                        }
+                    };
+                };
+            };
+            class lines_RFICount {
+                type = "line";
+                width = 3;
+                points[] = {
+                    MPD_POINTS_BOX("Null", MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y + 0.4*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                };
+            };
+            MPD_TEXT_R(RFI_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y + 0.3*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RFI_COUNT))
+        };
+    };
+
     class vabs {
         //T2
         MPD_BOX_TALL_C(ASE, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 3)
@@ -595,9 +710,16 @@ class ase_draw {
         MPD_BOX_BAR_T(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
         //MPD_ARROW_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
         MPD_TEXT_C(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
-        
-        //R4
-        MPD_BOX_BAR_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+
+        //R4: CAQ chooses an RFI emitter, with the RFI on and a sight other than the FCR
+        class caqBarrier {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_CAQ), 0));
+            MPD_BOX_BAR_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+        };
+        class caqChoosing {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_CAQ), 2));
+            MPD_BOX_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, 3)
+        };
         MPD_TEXT_L(CTR,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))
         //MPD_BOX_L(PGM,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 2)
 
@@ -606,6 +728,8 @@ class ase_draw {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AMERICAN), 1));
         //T1
         MPD_BOX_C(CHAFF_2,    MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, 4)
+        //B1 or M, under the chaff count (HIDAS has its countermeasures window there)
+        MPD_TEXT_C(TSD, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"))
         //R6
         MPD_TEXT_L(RLWR_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RLWR "))
         //L1
@@ -614,25 +738,25 @@ class ase_draw {
         MPD_TEXT_R(PGM,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANUAL"))
         MPD_BOX_BAR_R(MODE, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y)
         //L3
-        MPD_MASK_V_R(SRH, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT)
-        MPD_TEXT_R(SRH_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
-        MPD_TEXT_R(SRH_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y,                        MPD_TEXT_STATIC("R"))
-        MPD_TEXT_R(SRH_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("H"))
+        MPD_MASK_V_R(SRH, ASE_AP_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT)
+        MPD_TEXT_R(SRH_1, ASE_AP_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
+        MPD_TEXT_R(SRH_2, ASE_AP_X, MPD_POS_BUTTON_LR_3_Y,                        MPD_TEXT_STATIC("R"))
+        MPD_TEXT_R(SRH_3, ASE_AP_X, MPD_POS_BUTTON_LR_3_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("H"))
         //L4
-        MPD_MASK_V_R(ACQ, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT)
-        MPD_TEXT_R(ACQ_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
-        MPD_TEXT_R(ACQ_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("C"))
-        MPD_TEXT_R(ACQ_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Q"))
+        MPD_MASK_V_R(ACQ, ASE_AP_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT)
+        MPD_TEXT_R(ACQ_1, ASE_AP_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
+        MPD_TEXT_R(ACQ_2, ASE_AP_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("C"))
+        MPD_TEXT_R(ACQ_3, ASE_AP_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Q"))
         //L5
-        MPD_MASK_V_R(TRK, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT)
-        MPD_TEXT_R(TRK_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-        MPD_TEXT_R(TRK_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y,                        MPD_TEXT_STATIC("R"))
-        MPD_TEXT_R(TRK_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("K"))
+        MPD_MASK_V_R(TRK, ASE_AP_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT)
+        MPD_TEXT_R(TRK_1, ASE_AP_X, MPD_POS_BUTTON_LR_5_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+        MPD_TEXT_R(TRK_2, ASE_AP_X, MPD_POS_BUTTON_LR_5_Y,                        MPD_TEXT_STATIC("R"))
+        MPD_TEXT_R(TRK_3, ASE_AP_X, MPD_POS_BUTTON_LR_5_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("K"))
         //L6
-        MPD_MASK_V_R(OFF, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT)
-        MPD_TEXT_R(OFF_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
-        MPD_TEXT_R(OFF_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y,                        MPD_TEXT_STATIC("F"))
-        MPD_TEXT_R(OFF_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("F"))
+        MPD_MASK_V_R(OFF, ASE_AP_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT)
+        MPD_TEXT_R(OFF_1, ASE_AP_X, MPD_POS_BUTTON_LR_6_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
+        MPD_TEXT_R(OFF_2, ASE_AP_X, MPD_POS_BUTTON_LR_6_Y,                        MPD_TEXT_STATIC("F"))
+        MPD_TEXT_R(OFF_3, ASE_AP_X, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("F"))
     };
 
     //Chaff, US only: HIDAS arming is a UTIL page item
@@ -653,34 +777,34 @@ class ase_draw {
         //ASE Autopage
         class textBox_AutopageSrh {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_SRH));
-            MPD_BOX_V(SRH, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
+            MPD_BOX_V(SRH, ASE_AP_X, MPD_POS_BUTTON_LR_3_Y, 3)
         };
         class textBox_AutopageAcq {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_ACQ));
-            MPD_BOX_V(ACQ,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 3)
+            MPD_BOX_V(ACQ,  ASE_AP_X, MPD_POS_BUTTON_LR_4_Y, 3)
         };
         class textBox_AutopageTrk {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_TRK));
-            MPD_BOX_V(TRK,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
+            MPD_BOX_V(TRK,  ASE_AP_X, MPD_POS_BUTTON_LR_5_Y, 3)
         };
         class textBox_AutopageOff {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_OFF));
-            MPD_BOX_V(OFF,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 3)
+            MPD_BOX_V(OFF,  ASE_AP_X, MPD_POS_BUTTON_LR_6_Y, 3)
         };
     };
 
     class text_US {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AMERICAN), 1));
         //Autopage text
-        MPD_MASK_V_R(AUTOPAGE, 0.08, 0.600-3.5*MPD_TEXT_HEIGHT, 0.600+3.5*MPD_TEXT_HEIGHT)
-        MPD_TEXT_R(AUTOPAGE_01, 0.08, 0.600-3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
-        MPD_TEXT_R(AUTOPAGE_02, 0.08, 0.600-2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("U"))
-        MPD_TEXT_R(AUTOPAGE_03, 0.08, 0.600-1.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-        MPD_TEXT_R(AUTOPAGE_04, 0.08, 0.600-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O")) //Mid
-        MPD_TEXT_R(AUTOPAGE_05, 0.08, 0.600+0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("P")) //Mid
-        MPD_TEXT_R(AUTOPAGE_06, 0.08, 0.600+1.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
-        MPD_TEXT_R(AUTOPAGE_07, 0.08, 0.600+2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("G"))
-        MPD_TEXT_R(AUTOPAGE_08, 0.08, 0.600+3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
+        MPD_MASK_V_R(AUTOPAGE, ASE_AP_TEXT_X, 0.600-3.5*MPD_TEXT_HEIGHT, 0.600+3.5*MPD_TEXT_HEIGHT)
+        MPD_TEXT_R(AUTOPAGE_01, ASE_AP_TEXT_X, 0.600-3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
+        MPD_TEXT_R(AUTOPAGE_02, ASE_AP_TEXT_X, 0.600-2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("U"))
+        MPD_TEXT_R(AUTOPAGE_03, ASE_AP_TEXT_X, 0.600-1.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+        MPD_TEXT_R(AUTOPAGE_04, ASE_AP_TEXT_X, 0.600-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O")) //Mid
+        MPD_TEXT_R(AUTOPAGE_05, ASE_AP_TEXT_X, 0.600+0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("P")) //Mid
+        MPD_TEXT_R(AUTOPAGE_06, ASE_AP_TEXT_X, 0.600+1.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
+        MPD_TEXT_R(AUTOPAGE_07, ASE_AP_TEXT_X, 0.600+2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("G"))
+        MPD_TEXT_R(AUTOPAGE_08, ASE_AP_TEXT_X, 0.600+3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
 
         //CMS count box
         MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
@@ -688,6 +812,6 @@ class ase_draw {
     class text {
         // Hdg info
         MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = "heading"; sourceScale = 1;)
-        MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
+        MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_IND_ASE_HDG_RECIP))
     };
 };

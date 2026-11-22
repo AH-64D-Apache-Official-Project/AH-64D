@@ -8,25 +8,26 @@ Description:
 
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
+    munitions: Array - missiles and rockets within ASE_MWS_RANGE (fza_ase_fnc_aseManager)
 
 Returns:
     [_mwsObjects, munitions declared for the first time, every munition declared]
 
 Examples:
-    [_heli] call fza_ase_fnc_mws
+    [_heli, _munitions] call fza_ase_fnc_mws
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ase\headers\ase.h"
-params ["_heli"];
+params ["_heli", ["_munitions", []]];
 
 private _mwsObjects = [];
 private _new        = [];
 private _declared   = [];
 private _log        = (_heli getVariable ["fza_ah64_missilelog", []]) select {alive _x};
 
-nearestObjects [_heli, ["missilebase", "rocketbase"], ASE_MWS_RANGE] apply {
+_munitions apply {
     if ((vehicle ((getShotParents _x)#0)) == _heli) then {continue;};
     private _vectorModel = _heli vectorWorldToModelVisual ((getPosASL _heli) vectorFromTo getPosASL _x);
     if (abs((_vectorModel call CBA_fnc_vect2Polar)#2) > 45) then {continue;};

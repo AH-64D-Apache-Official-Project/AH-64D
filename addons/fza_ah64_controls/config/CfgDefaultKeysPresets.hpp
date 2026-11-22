@@ -33,6 +33,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_fcrScanSize_M[] = {};
             fza_ah64_fcrScanSize_N[] = {};
             fza_ah64_fcrScanSize_Z[] = {};
+            fza_ah64_fcrCued[] = {};
             fza_ah64_fcrModeGTM[]  = {0x2C130006}; //Z+5
             fza_ah64_fcrModeATM[]  = {0x2C130007}; //Z+6
             fza_ah64_fcrModeRMAP[] = {0x2C130008}; //Z+7
