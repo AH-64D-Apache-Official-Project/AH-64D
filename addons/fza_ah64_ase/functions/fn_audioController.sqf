@@ -20,10 +20,10 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_audioList"];
 
-private _dcBusOn   = _heli getVariable "bmkhs_dcBusOn";
-private _rlwrPower = _heli getVariable "fza_ah64_ase_rlwrPwr";
+private _dcBusOn   = _heli getVariable ["bmkhs_dcBusOn", false];
+private _rlwrPower = _heli getVariable ["fza_ah64_ase_rlwrPwr", ASE_RLWR_STATE_OFF];
 [] params [["_searching", []], ["_acquisition", []], ["_tracking", []], ["_designating", []],["_priority",0]];
-_heli getVariable "fza_ah64_ase_data" params ["_Searchlist","_acquireList","_tracklist","_designatinglist"];
+_heli getVariable ["fza_ah64_ase_data", [[], [], [], []]] params ["_Searchlist","_acquireList","_tracklist","_designatinglist"];
 
 if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     _heli setVariable ["fza_ah64_ase_data", [[],[],[],[]]];
@@ -76,7 +76,7 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     Private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
     Private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
-        private _autopage = _heli getVariable "fza_ah64_ase_autopage";
+        private _autopage = _heli getVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_OFF];
         if (_autopage != ASE_AUTOPAGE_OFF && _level >= _autopage) then {
             [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
         };

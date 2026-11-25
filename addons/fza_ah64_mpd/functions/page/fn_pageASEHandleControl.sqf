@@ -2,7 +2,7 @@
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_mpdIndex", "_control"];
 
-private _dcBusOn = _heli getVariable "bmkhs_dcBusOn";
+private _dcBusOn = _heli getVariable ["bmkhs_dcBusOn", false];
 private _hidas   = ASE_HIDAS(_heli);
 // SRCH, ACQ, TRCK, OFF and round again, for AUTOPAGE and VOICE
 private _nextLevel = {
@@ -13,7 +13,7 @@ switch(_control) do {
     //Chaff
     case "t1": {
         if (_hidas) exitWith {};
-        private _newState = [ASE_CHAFF_STATE_SAFE, ASE_CHAFF_STATE_ARM] select (_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_SAFE);
+        private _newState = [ASE_CHAFF_STATE_SAFE, ASE_CHAFF_STATE_ARM] select (_heli getVariable ["fza_ah64_ase_chaffState", ASE_CHAFF_STATE_SAFE] == ASE_CHAFF_STATE_SAFE);
         _heli setVariable ["fza_ah64_ase_chaffState", _newState, true];
     };
     //HIDAS CMDS mode
@@ -26,7 +26,7 @@ switch(_control) do {
         if (_hidas) exitWith {
             _heli setVariable ["fza_ah64_ase_autopage", (_heli getVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_OFF]) call _nextLevel];
         };
-        private _newState = [ASE_MSNEQUIP_STATE_OFF, ASE_MSNEQUIP_STATE_ON] select (_heli getVariable "fza_ah64_ase_msnEquipPwr" == ASE_MSNEQUIP_STATE_OFF);
+        private _newState = [ASE_MSNEQUIP_STATE_OFF, ASE_MSNEQUIP_STATE_ON] select (_heli getVariable ["fza_ah64_ase_msnEquipPwr", ASE_MSNEQUIP_STATE_OFF] == ASE_MSNEQUIP_STATE_OFF);
         _heli setVariable ["fza_ah64_ase_msnEquipPwr", _newState, true];
     };
     //HIDAS voice
@@ -37,7 +37,7 @@ switch(_control) do {
     //RLWR
     case "r6": {
         if (_hidas) exitWith {};
-        private _newState = [ASE_RLWR_STATE_OFF, ASE_RLWR_STATE_ON] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
+        private _newState = [ASE_RLWR_STATE_OFF, ASE_RLWR_STATE_ON] select (_heli getVariable ["fza_ah64_ase_rlwrPwr", ASE_RLWR_STATE_OFF] == ASE_RLWR_STATE_OFF);
         if !(_dcBusOn) exitWith {};
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
         if (_newstate == ASE_RLWR_STATE_ON) then {

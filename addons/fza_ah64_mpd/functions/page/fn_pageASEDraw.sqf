@@ -8,7 +8,7 @@ params ["_heli", "_mpdIndex"];
 private _hidas = ASE_HIDAS(_heli);
 
 //Chaff + Flares
-private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_ARM);
+private _chaffState = BOOLTONUM(_heli getVariable ["fza_ah64_ase_chaffState", ASE_CHAFF_STATE_SAFE] == ASE_CHAFF_STATE_ARM);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState];
 [_heli] call fza_ase_fnc_cmCounts params ["_flareL", "_flareR", "_chaff"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), str _chaff];
@@ -39,9 +39,9 @@ if (_hidas) then {
 };
 
 //IR Jammer
-private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_msnEquipPwr" == ASE_MSNEQUIP_STATE_OFF);
+private _irJamPwr   = BOOLTONUM(_heli getVariable ["fza_ah64_ase_msnEquipPwr", ASE_MSNEQUIP_STATE_OFF] == ASE_MSNEQUIP_STATE_OFF);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
-_heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
+_heli getVariable ["fza_ah64_ase_irJamState", [ASE_IRJAM_STATE_OFF, 0, 0]] params ["_irJamState"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
 
 //Radar Jammer
@@ -54,13 +54,13 @@ private _rJamBolt = (_heli getVariable ["fza_ah64_ase_rJamXmit", false]) && {!([
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RJAM_XMIT), BOOLTONUM(_rJamBolt)];
 
 //Autopage
-private _autopage = _heli getVariable "fza_ah64_ase_autopage";
+private _autopage = _heli getVariable ["fza_ah64_ase_autopage", ASE_AUTOPAGE_OFF];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
 
 //RLWR
-private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
+private _rlwrPwr = BOOLTONUM(_heli getVariable ["fza_ah64_ase_rlwrPwr", ASE_RLWR_STATE_OFF] == ASE_RLWR_STATE_OFF);
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
-private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrcount";
+private _rlwrCount = _heli getVariable ["fza_ah64_ase_rlwrcount", 0];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
 
 //The heading behind, in the box at the foot of the footprint
@@ -89,7 +89,7 @@ _heli setUserMFDValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_AMERICAN), _msn_equip_ameri
 //ASE Points
 private _pointsArray = [];
 private _linesArray  = [];
-private _aseObjects  = _heli getVariable "fza_ah64_ase_objects";
+private _aseObjects  = _heli getVariable ["fza_ah64_ase_objects", []];
 // HIDAS: each state inside its ring, between it and the next ring in (outside the outer ring is for RFI threats).
 // Launches and missiles share the track ring, told apart by flashing. By state: search, acquisition, track, launch,
 // missile, laser designating

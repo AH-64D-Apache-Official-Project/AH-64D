@@ -44,7 +44,7 @@ private _programFor = {
     params ["_heli", "_threats"];
     private _tracking = (_heli getVariable ["fza_ah64_ase_data", []]) param [2, []];
     private _radar = _threats findIf {
-        (vehicle ((getShotParents _x) # 0) in _tracking)
+        (vehicle ((getShotParents _x) param [0, objNull]) in _tracking)
         || {([getNumber (configOf _x >> "weaponLockSystem"), 8] call BIS_fnc_bitwiseAND) != 0}
     } >= 0;
     private _sides = _threats apply {

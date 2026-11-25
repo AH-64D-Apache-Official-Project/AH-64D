@@ -21,6 +21,7 @@ Author:
 params ["_heli"];
 
 [] params [["_rwrObjects",[]],["_rwrCount",0],["_rwrAudio",[]],["_launching",[]]];
+private _threats = getSensorThreats _heli;
 
 {
     _x params ["_object", "_type", "_sensor"];
@@ -29,9 +30,9 @@ params ["_heli"];
     if (_object in _launching) then {continue;};
     switch (_type) do {
         case "missile": {
-            private _launcher = (getShotParents _object)#0;
+            private _launcher = (getShotParents _object) param [0, objNull];
             private _seekerhead = getNumber (configOf _object >> "weaponLockSystem");
-            if ([_seekerhead, 8] call BIS_fnc_bitwiseAND == 8) then {
+            if (!isNull _launcher && {[_seekerhead, 8] call BIS_fnc_bitwiseAND == 8}) then {
                 _launching pushBack _launcher;
                 private _launcherIndex = _rwrObjects findIf {(_x # 1) isEqualTo _launcher};
                 if (_launcherIndex >= 0) then {_rwrObjects deleteAt _launcherIndex;};
@@ -54,9 +55,9 @@ params ["_heli"];
             _rwrAudio pushBack [_object, "acquisition", _soundclass];
         };
     };
-} forEach getSensorThreats _heli;
+} forEach _threats;
 
-private _threatObjects = getSensorThreats _heli apply {vehicle (_x # 0)};
+private _threatObjects = _threats apply {vehicle (_x # 0)};
 {
     _x params ["_object", "_type", "_relationship", "_sensor"];
     private _object = vehicle _object;

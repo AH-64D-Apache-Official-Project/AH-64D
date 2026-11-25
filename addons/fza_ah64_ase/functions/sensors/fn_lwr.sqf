@@ -29,10 +29,10 @@ params ["_heli", ["_munitions", []], ["_mwsShown", []]];
 private _icon = "RLWR_LSR_DES";
 
 nearestObjects [_heli, ["lasertarget"], 15, false, true] apply {
-    private _modelPos = vectorDir _x vectorMultiply -99999999; 
+    private _modelPos = vectorDir _x vectorMultiply -99999999;
     private _Worldpos = (getPos _heli) vectorAdd _modelPos;
-    private _vHeli = _heli modelToWorldVisual _modelPos;
-    _vHeli call CBA_fnc_vect2Polar params ["_magnitude", "_azimuth", "_elevation"]; 
+    // The laser's elevation in the aircraft's frame, so it holds when the aircraft is pitched or banked
+    (_heli vectorWorldToModelVisual _modelPos) call CBA_fnc_vect2Polar params ["_magnitude", "_azimuth", "_elevation"];
     if (abs(_elevation) < 45) then {
         _lwrObjects pushBack [ASE_LSR, _Worldpos, _icon];
         _LwrAudio pushBack [_x, "designating", "laser", _Worldpos];
@@ -48,7 +48,7 @@ _munitions apply {
         fza_ase_beamRider set [_type, _rider];
     };
     if (!_rider || {_x in _mwsShown}) then {continue;};
-    private _launcher = vehicle ((getShotParents _x) # 0);
+    private _launcher = vehicle ((getShotParents _x) param [0, objNull]);
     if (isNull _launcher || {_launcher == _heli}) then {continue;};
     if !([_heli, _x] call fza_ase_fnc_incoming) then {continue;};
     _lwrObjects pushBack [ASE_LNC, _launcher, _icon];

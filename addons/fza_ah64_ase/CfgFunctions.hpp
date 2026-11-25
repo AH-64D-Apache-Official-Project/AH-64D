@@ -19,7 +19,6 @@ class CfgFunctions
             class classification {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class swapFlares {RECOMPILE_FLAG;};
-            class targetIsADA {RECOMPILE_FLAG;};
         };
         class countermeasures {
             file = "\fza_ah64_ase\functions\countermeasures";

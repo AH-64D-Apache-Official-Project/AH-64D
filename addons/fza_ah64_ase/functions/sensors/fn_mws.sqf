@@ -28,7 +28,7 @@ private _declared   = [];
 private _log        = (_heli getVariable ["fza_ah64_missilelog", []]) select {alive _x};
 
 _munitions apply {
-    if ((vehicle ((getShotParents _x)#0)) == _heli) then {continue;};
+    if (vehicle ((getShotParents _x) param [0, objNull]) == _heli) then {continue;};
     private _vectorModel = _heli vectorWorldToModelVisual ((getPosASL _heli) vectorFromTo getPosASL _x);
     if (abs((_vectorModel call CBA_fnc_vect2Polar)#2) > 45) then {continue;};
     if !([_heli, _x] call fza_ase_fnc_incoming) then {continue;};
