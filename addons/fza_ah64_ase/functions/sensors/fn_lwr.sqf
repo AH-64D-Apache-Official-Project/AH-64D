@@ -10,18 +10,19 @@ Description:
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
     munitions: Array - missiles and rockets within ASE_MWS_RANGE (fza_ase_fnc_aseManager)
+    mwsShown: Array - missiles the MWS shows, which aren't shown again as launches
 
 Returns:
     [_lwrObjects, _lwrAudio]
 
 Examples:
-    [_heli, _munitions] call fza_ase_fnc_lwr
+    [_heli, _munitions, _mwsShown] call fza_ase_fnc_lwr
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_ase\headers\ase.h"
-params ["_heli", ["_munitions", []]];
+params ["_heli", ["_munitions", []], ["_mwsShown", []]];
 
 [] params [["_lwrObjects",[]],["_LwrAudio",[]]];
 
@@ -46,7 +47,7 @@ _munitions apply {
         _rider = getNumber (configOf _x >> "manualControl") > 0;
         fza_ase_beamRider set [_type, _rider];
     };
-    if !_rider then {continue;};
+    if (!_rider || {_x in _mwsShown}) then {continue;};
     private _launcher = vehicle ((getShotParents _x) # 0);
     if (isNull _launcher || {_launcher == _heli}) then {continue;};
     if !([_heli, _x] call fza_ase_fnc_incoming) then {continue;};

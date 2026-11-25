@@ -1,6 +1,6 @@
 class Extended_PostInit_EventHandlers {
     class fza_ah64_ase_postInit {
-        clientInit = "call fza_ase_fnc_rJamCommsInit;";
+        clientInit = "call fza_ase_fnc_rJamCommsInit; call fza_ase_fnc_munitionInit;";
     };
 };
 

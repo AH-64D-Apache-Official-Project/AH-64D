@@ -46,6 +46,11 @@ print("FCR icon atlas: " + icon_names.len() + " icons");
 
 let layer_content = shared_dir.join("fcr_icon_layer.js").open_file().read();
 
+// The scope draws its RFI threat symbols as the TSD and ASE page do, with the MPD pages' point layer and icon atlas
+let mpd_ui = HEMTT_VFS.join("addons").join("fza_ah64_mpd").join("ui");
+let mpd_atlas = mpd_ui.join("tsd").join("tsd_icon_data.js").open_file().read();
+let mpd_points = mpd_ui.join("shared").join("mpd_points.js").open_file().read();
+
 let mpd_font = HEMTT_VFS.join("addons").join("fza_ah64_ihadss").join("ui").join("font").join("BMKApacheFont.b64").open_file().read();
 mpd_font.trim();
 
@@ -69,6 +74,13 @@ for display_name in displays {
     // Inline the shared icon sprite layer
     html = inline_tag(html, "<script src=\"../shared/fcr_icon_layer.js\"></script>",
         "<script>\n" + layer_content + "\n</script>", display_name);
+
+    if display_name == "scope" {
+        html = inline_tag(html, "<script src=\"../../../fza_ah64_mpd/ui/tsd/tsd_icon_data.js\"></script>",
+            "<script>\n" + mpd_atlas + "\n</script>", display_name);
+        html = inline_tag(html, "<script src=\"../../../fza_ah64_mpd/ui/shared/mpd_points.js\"></script>",
+            "<script>\n" + mpd_points + "\n</script>", display_name);
+    }
 
     // Inline display-specific JS
     let js_content = display_dir.join(display_name + ".js").open_file().read();

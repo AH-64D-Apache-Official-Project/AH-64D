@@ -10,15 +10,17 @@ Parameters:
     _values - (optional) [size, text height, characters in, RFI place], any left out or nil keep their value now:
               size and text height are multipliers; characters in moves the characters at the symbol's edges in, as a
               share of the symbol; RFI place is the ASE ring radius, the TSD square's distance from the page edge, or
-              the FCR's extra distance out from the scan sector. [] puts back the defaults.
+              the FCR's extra distance out from the scan sector. [] puts back the defaults. The ASE page and FCR draw
+              their symbols as the TSD does: "tsd" sets their size, text height and characters in on all three, "ase"
+              and "fcr" only their RFI place.
 
 Returns:
     The format's values now
 
 Examples:
-    ["ase", [1.1, 0.9, 0.03, 0.355]] call fza_mpd_fnc_threatSymbolTune
+    ["ase", [nil, nil, nil, 0.355]] call fza_mpd_fnc_threatSymbolTune
     ["tsd", [nil, nil, 0.1]] call fza_mpd_fnc_threatSymbolTune
-    ["fcr", []] call fza_mpd_fnc_threatSymbolTune
+    ["fcr", [nil, nil, nil, 0.01]] call fza_mpd_fnc_threatSymbolTune
 
 Author:
     Snow(Dryden)

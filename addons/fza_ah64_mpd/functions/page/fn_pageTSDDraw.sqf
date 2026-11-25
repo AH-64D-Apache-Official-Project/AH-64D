@@ -16,6 +16,9 @@ private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 ([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading", "_frozen"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_FROZEN), BOOLTONUM(_frozen)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI_HDG), _frameHeading];
+// The heading behind, in the box at the foot of the map, as the ASE page's
+private _recip = round ((getDir _heli + 180) % 360);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_HDG_RECIP), str ([_recip, 360] select (_recip == 0))];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CAQ), _state getOrDefault ["caq", 0]];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ZOOM), _persistState getOrDefault ["zoom", 0]];
 // Whether the MPD cursor is over the map, where it chooses points and pans
@@ -249,7 +252,7 @@ if (_showRLWR) then {
     private _rlwrBearings = [_correlated apply {(_heli getDir ((_aseObjects # _x) # 1)) - _frameHeading}, 12] call fza_mpd_fnc_spreadBearings;
     private _uncorrelatedAt = 0;
     {
-        _x params ["_aseState", "_object", "_iconClass", ["_ghost", false]];
+        _x params ["_aseState", "_object", "_iconClass", ["_ghost", false], "", ["_bold", false]];
         if (_ghost) then {_iconClass = [_iconClass] call fza_mpd_fnc_ghostIdent;};
         private _screen = [];
         if (_uncorrelated # _forEachIndex) then {
@@ -259,7 +262,7 @@ if (_showRLWR) then {
             _screen = [_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _rlwrBearings # (_correlated find _forEachIndex)] call fza_mpd_fnc_bearingToScreen;
         };
         if (([] call fza_mpd_fnc_iconBlink) && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
-        _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screen # 0, _screen # 1, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
+        _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screen # 0, _screen # 1, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass, _bold];
     } forEach _aseObjects;
 };
 

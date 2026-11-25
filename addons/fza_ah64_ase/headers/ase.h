@@ -19,6 +19,7 @@
 #define ASE_MWS_RANGE     4000 //m
 #define ASE_MWS_MISS_DIST 150  //m, predicted closest approach that makes a munition incoming
 #define ASE_MWS_MAX_TTG   15   //sec, time to closest approach that makes a munition incoming
+#define ASE_MUNITION_TRACK_HOLD 1 //sec missiles and rockets keep being listed after the ASE last ran here (fza_ase_fnc_munitionInit)
 
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
@@ -26,6 +27,7 @@
 #define ASE_RLWR_ELEV_LIMIT 45 //deg above or below the aircraft past which a radar threat has no bearing (uncorrelated)
 #define ASE_RLWR_DROP_TIME  10 //sec a radar threat no longer detected stays ghosted
 #define ASE_RLWR_MAX        7  //threats shown
+#define ASE_RLWR_BOLD_TIME  3  //sec a new threat is shown bold
 
 //--IR Jammer
 #define ASE_IRJAM_STATE_OFF   0
@@ -68,6 +70,7 @@
 #define ASE_RFI_LOS_PER_FRAME  2   //radars a frame whose line of sight from the mast is checked
 #define ASE_RFI_RANGE        20000 //m, the most an emitter is heard at
 #define ASE_RFI_RANGE_COEF   2     //an emitter is heard out to this many times its own radar range
+#define ASE_RFI_ELEV_LIMIT   40    //deg above or below the aircraft past which an emitter isn't heard
 #define ASE_RFI_REACH        8000  //m, air defence closer than this is engageable by the team
 #define ASE_RFI_FINE_DEG     135   //fine bearings within this of the FCR antenna's azimuth (forward, left and right channels), coarse behind
 #define ASE_RFI_FINE_DRIFT   3     //deg the emitter's bearing may move from its last fine fix and keep the fine bearing

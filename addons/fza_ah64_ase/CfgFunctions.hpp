@@ -72,6 +72,7 @@ class CfgFunctions
         class sensors {
             file = "\fza_ah64_ase\functions\sensors";
             class incoming {RECOMPILE_FLAG;};
+            class munitionInit {RECOMPILE_FLAG;};
             class mws {RECOMPILE_FLAG;};
             class lwr {RECOMPILE_FLAG;};
             class rlwrUncorrelated {RECOMPILE_FLAG;};

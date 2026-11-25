@@ -66,9 +66,10 @@ if (!isNull _ctrl) then {
     private _zonesJson = [_heli, _scanPos, _dir, 0.65 / 8000, [0.5, 0.87]] call fza_mpd_fnc_fcrZonesJson;
     // RFI threats round the wide sector, not while zoomed
     private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
-    (if (_zoomed) then {["[]", []]} else {[_heli, 1, _seat] call fza_mpd_fnc_fcrRfiJson}) params ["_rfiJson", "_rfiPicks"];
+    (if (_zoomed) then {["[]", []]} else {[_heli, 1, _seat, _ctrl] call fza_mpd_fnc_fcrRfiJson}) params ["_rfiJson", "_rfiPicks"];
     _state set ["cursorRfi", _rfiPicks];
-    [_ctrl, "fzaFCRScope.update", format ['{"mode":1,"zoom":%3,"hover":%4,"targets":[%1],"shots":[%2],"zones":%5,"rfi":%6,"rfiTune":%7}', _tgtJson, _shotJson, _zoomJson, _hover, _zonesJson, _rfiJson, (fza_mpd_threatTune getOrDefault ["fcr", MPD_THREAT_TUNE_FCR]) select [0, 3]]] call fza_mpd_fnc_htmlPush;
+    [_ctrl, "fzaFCRScope.defs", [_ctrl] call fza_mpd_fnc_htmlDefsJson, "d"] call fza_mpd_fnc_htmlPush;
+    [_ctrl, "fzaFCRScope.update", format ['{"mode":1,"zoom":%3,"hover":%4,"targets":[%1],"shots":[%2],"zones":%5,"rfi":%6}', _tgtJson, _shotJson, _zoomJson, _hover, _zonesJson, _rfiJson]] call fza_mpd_fnc_htmlPush;
 };
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];

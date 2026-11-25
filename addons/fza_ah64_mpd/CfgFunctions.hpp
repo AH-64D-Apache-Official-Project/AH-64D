@@ -22,6 +22,8 @@ class CfgFunctions
             class handleControl {RECOMPILE_FLAG;};
             class handleHold {RECOMPILE_FLAG;};
             class htmlCtrl {RECOMPILE_FLAG;};
+            class htmlDefsJson {RECOMPILE_FLAG;};
+            class htmlPoints {RECOMPILE_FLAG;};
             class htmlPreload {RECOMPILE_FLAG;};
             class htmlPush {RECOMPILE_FLAG;};
             class htmlTexture {RECOMPILE_FLAG;};
@@ -112,6 +114,7 @@ class CfgFunctions
             class pageACUtilHandleControl {RECOMPILE_FLAG;};
             class pageASEDraw {RECOMPILE_FLAG;};
             class pageASEHandleControl {RECOMPILE_FLAG;};
+            class pageASEHtmlDraw {RECOMPILE_FLAG;};
             class pageCHANDraw {RECOMPILE_FLAG;};
             class pageCHANHandleControl {RECOMPILE_FLAG;};
             class pageCODEDraw {RECOMPILE_FLAG;};
@@ -157,6 +160,7 @@ class CfgFunctions
             class rfiMergedIdent {RECOMPILE_FLAG;};
             class rfiPoints {RECOMPILE_FLAG;};
             class rfiSymbol {RECOMPILE_FLAG;};
+            class rfiSymbolPoints {RECOMPILE_FLAG;};
             class fcrRfiJson {RECOMPILE_FLAG;};
         };
         class ui {

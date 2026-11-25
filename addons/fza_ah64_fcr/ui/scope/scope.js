@@ -1,4 +1,4 @@
-// FCR GTM/ATM scope symbols — SQF pushes fzaFCRScope.update({mode, zoom, hover, targets, shots, zones}); zones [{c: 0 PF or 1 NF, p: [x, y, ...] in display units}]; a = degrees, r = range/8000, mode 1 = GTM wedge / 2 = ATM circle; zoom [x, y, ratio, half] or null; hover a target index or -1
+// FCR GTM/ATM scope symbols — SQF pushes fzaFCRScope.update({mode, zoom, hover, targets, shots, zones, rfi}) and fzaFCRScope.defs(rfi idents); zones [{c: 0 PF or 1 NF, p: [x, y, ...] in display units}]; a = degrees, r = range/8000, mode 1 = GTM wedge / 2 = ATM circle; zoom [x, y, ratio, half] or null; hover a target index or -1
 (function () {
     "use strict";
 
@@ -23,9 +23,11 @@
     var HOVER_RADIUS = 0.022;
     var targets      = [];
     var shots        = [];
-    // RFI threat symbols round the format: [{x, y} in display units, ...] (fza_mpd_fnc_fcrRfiJson)
+    // RFI threat symbols round the format, as the TSD and ASE page draw them: points and their idents' definitions for
+    // the MPD pages' point layer (fza_mpd_fnc_fcrRfiJson, fza_ah64_mpd\ui\shared\mpd_points.js)
     var rfi          = [];
-    var rfiTune      = [1, 1, 0];
+    var rfiDefs      = {};
+    var rfiLayer;
     var targetsDirty = false;
     // Active PF zone white, NF zones yellow, under the symbols; drawn as the TSD's active zones (ui\tsd\tsd.js)
     var ZONE_WIDTH   = 0.004;
@@ -41,6 +43,15 @@
         ctx    = canvas.getContext("2d");
         zcanvas = document.getElementById("zones");
         zctx    = zcanvas.getContext("2d");
+        rfiLayer = window.fzaMpdPoints.create({
+            ctx: ctx,
+            X: function (d) { return (d - 0.025) / 0.95 * W; },
+            Y: function (d) { return (d - 0.025) / 0.95 * H; },
+            L: function (d) { return d / 0.95 * H; },
+            pxPerUnit: function () { return W / 0.95; },
+            atlas: typeof _tsdIconData !== "undefined" ? _tsdIconData : null,
+            onLoad: function () { targetsDirty = true; }
+        });
         resize();
         window.addEventListener("resize", resize);
         requestAnimationFrame(renderLoop);
@@ -59,6 +70,8 @@
         H = canvas.height = canvas.offsetHeight || 512;
         zcanvas.width  = W;
         zcanvas.height = H;
+        // Resizing resets the context, its font with it
+        rfiLayer.resetFont();
         targetsDirty = true;
         zonesDirty   = true;
     }
@@ -95,10 +108,12 @@
             ctx.fill();
         }
         var drawn = window.fzaFCRIconLayer.drawSymbols(ctx, targets, shots, ICON_FRAC * H, toXY);
-        window.fzaFCRIconLayer.drawRfi(ctx, rfi.map(function (it) {
-            var p = toPx(it.x, it.y);
-            return { x: p[0], y: p[1], l: it.l, r: it.r, g: it.g, fm: it.fm, c: it.c };
-        }), ICON_FRAC * H, rfiTune);
+        // In order, so the selected emitter's fill is under its symbol
+        rfi.forEach(function (p) {
+            if (!Array.isArray(p)) { return; }
+            var pos = [+p[2], +p[3]];
+            drawn = rfiLayer.draw(p, rfiDefs[p[0]], isFinite(pos[0]) && isFinite(pos[1]) ? pos : null, false, []) && drawn;
+        });
         return drawn;
     }
 
@@ -179,6 +194,12 @@
     }
 
     window.fzaFCRScope = {
+        // The RFI symbols' idents: {ident: [texture, texture 2, size, colour, place A, place B]} (fza_mpd_fnc_htmlDefsJson)
+        defs: function (d) {
+            if (!d || typeof d !== "object") { return; }
+            rfiDefs = d;
+            targetsDirty = true;
+        },
         update: function (data) {
             if (!data) { return; }
             if (data.mode !== undefined && data.mode !== mode) {
@@ -206,10 +227,6 @@
             }
             if (data.rfi !== undefined) {
                 rfi = Array.isArray(data.rfi) ? data.rfi : [];
-                targetsDirty = true;
-            }
-            if (Array.isArray(data.rfiTune)) {
-                rfiTune = data.rfiTune;
                 targetsDirty = true;
             }
             if (data.targets !== undefined) {

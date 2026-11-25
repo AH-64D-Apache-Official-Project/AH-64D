@@ -8,7 +8,7 @@ Parameters:
     heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-    _rwrObjects - [state, objectPos, "_iconClass", ghosted, source]
+    _rwrObjects - [state, objectPos, "_iconClass", ghosted, source, bold]
     _rwrAudio   - [object, "state", "_soundclass"];
 
 Examples:
@@ -98,10 +98,14 @@ if (_held isNotEqualTo []) then {
 
 // No longer detected: ghosted where it was last seen, at the last state it was shown at, until ASE_RLWR_DROP_TIME. Its
 // audio entry is kept so that coming back meanwhile isn't announced as a new threat; a higher mode still is. A missile
-// is shown only while it is detected: its launcher isn't ghosted while it is in flight or after.
+// is shown only while it is detected: its launcher isn't ghosted while it is in flight or after. A threat is new, and
+// bold for ASE_RLWR_BOLD_TIME, when first detected, not when it comes back while ghosted.
+// Last seen, by hashValue: [source, state, iconClass, pos, seen at, audio entry, first seen]
 private _now   = CBA_missionTime;
 private _audio = createHashMap;
 {_audio set [hashValue (_x # 0), _x];} forEach _rwrAudio;
+private _prevLast = _heli getVariable ["fza_ah64_ase_rlwrLast", createHashMap];
+if !(_prevLast isEqualType createHashMap) then {_prevLast = createHashMap;};
 private _last = createHashMap;
 {
     _x params ["_state", "", "_iconClass", "", "_source"];
@@ -109,17 +113,28 @@ private _last = createHashMap;
     private _key  = hashValue _source;
     private _prev = _last get _key;
     if (!isNil "_prev" && {_state <= _prev # 1}) then {continue;};
-    _last set [_key, [_source, _state, _iconClass, getPos _source, _now, +(_audio getOrDefault [_key, []])]];
+    private _firstSeen = (_prevLast getOrDefault [_key, []]) param [6, _now];
+    _last set [_key, [_source, _state, _iconClass, getPos _source, _now, +(_audio getOrDefault [_key, []]), _firstSeen]];
 } forEach _rwrObjects;
 {
-    _x params ["_source", "_state", "_iconClass", "_pos", "_seenAt", ["_audioEntry", []]];
-    if (isNull _source || {_now - _seenAt > ASE_RLWR_DROP_TIME} || {_source in _launching}) then {continue;};
-    private _key = hashValue _source;
-    if (_key in _last) then {continue;};
-    _rwrObjects pushBack [_state, _pos, _iconClass, true, _source];
+    _x params ["_state", "", "", "", "_source"];
+    if (isNull _source || {_state >= ASE_LNC}) then {continue;};
+    _x set [5, _now - ((_last getOrDefault [hashValue _source, []]) param [6, _now]) < ASE_RLWR_BOLD_TIME];
+} forEach _rwrObjects;
+{
+    _y params ["_source", "_state", "_iconClass", "_pos", "_seenAt", ["_audioEntry", []]];
+    if (isNull _source || {_x in _last}) then {continue;};
+    // A launcher with a missile in flight is kept for its first seen time, but never ghosted
+    if (_source in _launching) then {
+        _y set [4, -1e9];
+        _last set [_x, _y];
+        continue;
+    };
+    if (_now - _seenAt > ASE_RLWR_DROP_TIME) then {continue;};
+    _rwrObjects pushBack [_state, _pos, _iconClass, true, _source, false];
     if (_audioEntry isNotEqualTo []) then {_rwrAudio pushBack _audioEntry;};
-    _last set [_key, _x];
-} forEach (_heli getVariable ["fza_ah64_ase_rlwrLast", []]);
-_heli setVariable ["fza_ah64_ase_rlwrLast", values _last];
+    _last set [_x, _y];
+} forEach _prevLast;
+_heli setVariable ["fza_ah64_ase_rlwrLast", _last];
 
 [_rwrObjects, _rwrAudio]

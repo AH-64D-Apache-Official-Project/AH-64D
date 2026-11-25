@@ -328,6 +328,8 @@
 #define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
+//The heading behind, on every subpage: RTM's text runs to 37 and the ACQ list's is 38
+#define MFD_TEXT_IND_TSD_HDG_RECIP 39
 
 // ZN, local to subpage 6
 #define MFD_IND_TSD_ZN_VARIANT    0
@@ -489,30 +491,13 @@
 #define MFD_IND_ASE_CHAFF_QTY    20
 //ASE count of 10 or more
 #define MFD_IND_ASE_COUNT_WIDE   21
-//--Azimuth
-#define MFD_IND_ASE_01_AZ 13
-#define MFD_IND_ASE_02_AZ 14
-#define MFD_IND_ASE_03_AZ 15
-#define MFD_IND_ASE_04_AZ 16
-#define MFD_IND_ASE_05_AZ 17
-#define MFD_IND_ASE_06_AZ 18
-#define MFD_IND_ASE_07_AZ 19
 //--RFI
 //0 no FCR mast, 1 off, 2 on
 #define MFD_IND_ASE_RFI_PWR      22
 //0 barriered, 1 available, 2 choosing
 #define MFD_IND_ASE_CAQ          23
-//Tracking emitters' bearing lines, one for each emitter shown; 31-33 are free here, the ASE page has no ACQ list
-#define MFD_IND_ASE_RFI_01_AZ    24
-#define MFD_IND_ASE_RFI_02_AZ    25
-#define MFD_IND_ASE_RFI_03_AZ    26
-#define MFD_IND_ASE_RFI_04_AZ    27
-#define MFD_IND_ASE_RFI_05_AZ    28
-#define MFD_IND_ASE_RFI_06_AZ    29
-#define MFD_IND_ASE_RFI_07_AZ    30
-#define MFD_IND_ASE_RFI_08_AZ    31
-#define MFD_IND_ASE_RFI_09_AZ    32
-#define MFD_IND_ASE_RFI_10_AZ    33
+//13-19 and 24-38 are free: the tracking lines are drawn by the page's browser (fza_mpd_fnc_pageASEHtmlDraw), and the
+//ASE page has no ACQ list
 
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
@@ -531,10 +516,13 @@
 #define MPD_ASE_RING_3     0.255
 #define MPD_ASE_RING_2     0.185
 #define MPD_ASE_RING_1     0.115
-#define MPD_ASE_OWNSHIP    0.05
+// Tracking lines' outer ends: just inside the RLWR symbols, and out to the RFI symbols outside the footprint
+#define MPD_ASE_LINE_RLWR  0.25
+#define MPD_ASE_LINE_RFI   0.321
 //RLWR and RFI threat symbols on each format, tuned live with fza_mpd_fnc_threatSymbolTune:
 //[size, text height (both multipliers), characters moved in (of the symbol), RFI symbols' place: ASE ring radius, TSD
-//square's distance from the page edge, FCR extra distance out from the scan sector]
+//square's distance from the page edge, FCR extra distance out from the scan sector]. The ASE page and FCR draw their
+//symbols as the TSD does, with the TSD's first three; only their RFI symbols' place is their own.
 #define MPD_THREAT_TUNE_ASE [1, 1, 0, 0.36]
 #define MPD_THREAT_TUNE_TSD [1, 1, 0.08, 0.147]
 #define MPD_THREAT_TUNE_FCR [1, 1.1, 0.06, 0]

@@ -126,9 +126,13 @@ if (isNil "fza_ase_rfiRadarRange") then {fza_ase_rfiRadarRange = createHashMap;}
     _heard set [_key, [_x, fza_ase_rfiRadarRange getOrDefault [typeOf _x, 0], aimPos _x, _heli distance _x]];
 } forEach (((values _threatModes) apply {_x # 0}) + (((getSensorTargets _heli) select {"passiveradar" in (_x param [3, []])}) apply {vehicle (_x # 0)}));
 
+private _heliPos  = getPosASL _heli;
+private _elevSine = sin ASE_RFI_ELEV_LIMIT;
 {
     private _key = _x;
     _y params ["_veh", "_radarRange", "_pos", "_dist"];
+    // The arrays hear nothing more than ASE_RFI_ELEV_LIMIT above or below the aircraft
+    if (abs ((_heli vectorWorldToModel (_heliPos vectorFromTo _pos)) # 2) > _elevSine) then {continue;};
     private _record = _track get _key;
     if (isNil "_record") then {
         private _cfg = configOf _veh >> "fza_aseIcon";

@@ -52,18 +52,8 @@ _drawnOf resize count _emitters;
     // A tracking emitter's line runs to its symbol
     if ((_x # ASE_RFI_MODE) >= ASE_TRK && {!(_x # ASE_RFI_STALE)}) then {_tracks pushBack ((_drawRel + 360) % 360);};
     ([_drawRel] call _place) params ["_sx", "_sy"];
-    private _pos = [_sx, _sy, 0];
-
-    private _obj   = _x # ASE_RFI_OBJ;
-    private _isSel = !isNull _selected && {_obj isEqualTo _selected};
-    ([_x, _forEachIndex == 0, _isSel, _blink] call fza_mpd_fnc_rfiSymbol) params ["_chars", "_glyph", "_frame", "_colorKey"];
-    if (_isSel) then {
-        // Inverse video: a filled homeplate, the symbol in black over it
-        _points pushBack [MPD_POSMODE_SCREEN, _pos, "", POINT_TYPE_RFI, [POINT_TYPE_RFI, _forEachIndex], [_chars, _glyph, "fill", _colorKey, true] call fza_mpd_fnc_rfiIdent];
-        _points pushBack [MPD_POSMODE_SCREEN, _pos, "", POINT_TYPE_RFI, [POINT_TYPE_RFI, _forEachIndex], [_chars, _glyph, "", "K"] call fza_mpd_fnc_rfiIdent];
-    } else {
-        _points pushBack [MPD_POSMODE_SCREEN, _pos, "", POINT_TYPE_RFI, [POINT_TYPE_RFI, _forEachIndex], [_chars, _glyph, _frame, _colorKey] call fza_mpd_fnc_rfiIdent];
-    };
+    private _obj = _x # ASE_RFI_OBJ;
+    _points append ([_x, _forEachIndex, !isNull _selected && {_obj isEqualTo _selected}, _blink, [_sx, _sy]] call fza_mpd_fnc_rfiSymbolPoints);
     _picks pushBack [_sx, _sy, _forEachIndex];
 } forEach _emitters;
 

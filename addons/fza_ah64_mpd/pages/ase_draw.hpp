@@ -480,46 +480,9 @@ class ase_draw {
                     };
                 };
                 MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
-
-                //Draw ASE Lines
-                #define ASE_AZ(name, mpdVal)\
-                class aseaz_##name {\
-                    color[] = {1,1,0,1};\
-                    class line##name {\
-                    condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
-                        class trackLine {\
-                            type     = "line";\
-                            width    = 3;\
-                            points[] = {\
-                                {ase_az_##name, { 0.000, 0.018}, 1},\
-                                {ase_az_##name, { 0.000, 0.036}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.054}, 1},\
-                                {ase_az_##name, { 0.000, 0.071}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.089}, 1},\
-                                {ase_az_##name, { 0.000, 0.107}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.125}, 1},\
-                                {ase_az_##name, { 0.000, 0.143}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.161}, 1},\
-                                {ase_az_##name, { 0.000, 0.179}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.196}, 1},\
-                                {ase_az_##name, { 0.000, 0.214}, 1}, {},\
-                                {ase_az_##name, { 0.000, 0.232}, 1},\
-                                {ase_az_##name, { 0.000, 0.250}, 1}, {},\
-                            };\
-                        };\
-                    };\
-                };
             };
         };
     };
-
-    ASE_AZ(01, MFD_IND_ASE_01_AZ)
-    ASE_AZ(02, MFD_IND_ASE_02_AZ)
-    ASE_AZ(03, MFD_IND_ASE_03_AZ)
-    ASE_AZ(04, MFD_IND_ASE_04_AZ)
-    ASE_AZ(05, MFD_IND_ASE_05_AZ)
-    ASE_AZ(06, MFD_IND_ASE_06_AZ)
-    ASE_AZ(07, MFD_IND_ASE_07_AZ)
 
     //Ownship Icon
     class lines_ownshipIcon {
@@ -589,49 +552,6 @@ class ase_draw {
     class polys {
 
     };
-
-    //RFI: tracking emitters' bearing lines, out to the symbols outside the footprint
-    #define ASE_RFI_AZ(name, mpdVal)\
-    class aseRfiAz_##name {\
-        color[] = {1,1,0,1};\
-        class line##name {\
-            condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
-            class trackLine {\
-                type     = "line";\
-                width    = 3;\
-                points[] = {\
-                    {ase_rfi_az_##name, { 0.000, 0.018}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.036}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.054}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.071}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.089}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.107}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.125}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.143}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.161}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.179}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.196}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.214}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.232}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.250}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.268}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.286}, 1}, {},\
-                    {ase_rfi_az_##name, { 0.000, 0.304}, 1},\
-                    {ase_rfi_az_##name, { 0.000, 0.321}, 1}, {},\
-                };\
-            };\
-        };\
-    };
-    ASE_RFI_AZ(01, MFD_IND_ASE_RFI_01_AZ)
-    ASE_RFI_AZ(02, MFD_IND_ASE_RFI_02_AZ)
-    ASE_RFI_AZ(03, MFD_IND_ASE_RFI_03_AZ)
-    ASE_RFI_AZ(04, MFD_IND_ASE_RFI_04_AZ)
-    ASE_RFI_AZ(05, MFD_IND_ASE_RFI_05_AZ)
-    ASE_RFI_AZ(06, MFD_IND_ASE_RFI_06_AZ)
-    ASE_RFI_AZ(07, MFD_IND_ASE_RFI_07_AZ)
-    ASE_RFI_AZ(08, MFD_IND_ASE_RFI_08_AZ)
-    ASE_RFI_AZ(09, MFD_IND_ASE_RFI_09_AZ)
-    ASE_RFI_AZ(10, MFD_IND_ASE_RFI_10_AZ)
 
     //L2: RFI power and emitter count, with the FCR mast fitted; raised a little so the count clears the autopage bracket
     #define RFIX MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
