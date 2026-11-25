@@ -167,6 +167,7 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
+            class rectSpread {RECOMPILE_FLAG;};
             class spreadBearings {RECOMPILE_FLAG;};
             class threatSymbolTune {RECOMPILE_FLAG;};
             class ghostIdent {RECOMPILE_FLAG;};

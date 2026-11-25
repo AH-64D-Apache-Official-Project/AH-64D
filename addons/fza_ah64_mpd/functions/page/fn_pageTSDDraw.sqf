@@ -246,10 +246,10 @@ if (_showRLWR) then {
     // Radar threats too far above or below for a bearing: uncorrelated, in a row just in front of the ownship
     private _uncorrelated = _aseObjects apply {(_x # 0) <= ASE_LNC && {count _x > 4} && {[_heli, _x # 1] call fza_ase_fnc_rlwrUncorrelated}};
     private _uncorrelatedCount = {_x} count _uncorrelated;
-    // The rest relative to the map's heading, frozen or live, spread apart in bearing order
+    // The rest relative to the map's heading, frozen or live, on the footprint square spread apart in bearing order
     private _correlated = [];
     {if !(_uncorrelated # _forEachIndex) then {_correlated pushBack _forEachIndex;};} forEach _aseObjects;
-    private _rlwrBearings = [_correlated apply {(_heli getDir ((_aseObjects # _x) # 1)) - _frameHeading}, 12] call fza_mpd_fnc_spreadBearings;
+    private _rlwrAt = [_correlated apply {(_heli getDir ((_aseObjects # _x) # 1)) - _frameHeading}, [_ctrX, _ctrY], [0.23, 0.77, 0.23, 0.77], MPD_ASE_ICON_GAP] call fza_mpd_fnc_rectSpread;
     private _uncorrelatedAt = 0;
     {
         _x params ["_aseState", "_object", "_iconClass", ["_ghost", false], "", ["_bold", false]];
@@ -259,7 +259,7 @@ if (_showRLWR) then {
             _screen = [_ctrX + (_uncorrelatedAt - (_uncorrelatedCount - 1) / 2) * MPD_ASE_ICON_GAP, _ctrY - MPD_ASE_UNCORRELATED];
             _uncorrelatedAt = _uncorrelatedAt + 1;
         } else {
-            _screen = [_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _rlwrBearings # (_correlated find _forEachIndex)] call fza_mpd_fnc_bearingToScreen;
+            _screen = _rlwrAt # (_correlated find _forEachIndex);
         };
         if (([] call fza_mpd_fnc_iconBlink) && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
         _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screen # 0, _screen # 1, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass, _bold];
@@ -270,12 +270,12 @@ if (_showRLWR) then {
 private _rfiPicks = [];
 if (_heli getVariable ["fza_mpd_tsdShowRfi", [true, true]] select _phase) then {
     private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
-    [_heli, _seat, {
-        params ["_bearing"];
-        // Between the map border (TSD_MAP_CLIP) and the ASE footprint (0.18-0.82), as tuned (fza_mpd_fnc_threatSymbolTune)
-        private _edge = (fza_mpd_threatTune getOrDefault ["tsd", MPD_THREAT_TUNE_TSD]) # 3;
-        [_ctrX, _ctrY, _edge, 1 - _edge, _edge, 1 - _edge, _bearing] call fza_mpd_fnc_bearingToScreen
-    }, _frameHeading] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_picks"];
+    // Between the map border (TSD_MAP_CLIP) and the ASE footprint (0.18-0.82), as tuned (fza_mpd_fnc_threatSymbolTune), on
+    // a square spread apart in bearing order
+    private _edge = (fza_mpd_threatTune getOrDefault ["tsd", MPD_THREAT_TUNE_TSD]) # 3;
+    [_heli, _seat, {}, _frameHeading, 0, {
+        [_this, [_ctrX, _ctrY], [_edge, 1 - _edge, _edge, 1 - _edge], MPD_ASE_ICON_GAP] call fza_mpd_fnc_rectSpread
+    }] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_picks"];
     _pointsArray append _rfiPoints;
     _rfiPicks = _picks;
 };

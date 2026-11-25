@@ -16,6 +16,8 @@
 #define ASE_OWNER(heli)    (local (heli) || {player == gunner (heli) && {!isPlayer driver (heli)}})
 
 //--MWS
+// The RLWR hears a radar launch from further out (ASE_DETECT_RANGE_M) than the MWS sees the missile, so its launch
+// symbol shows first and the MWS symbol replaces it only once the missile is inside this
 #define ASE_MWS_RANGE     4000 //m
 #define ASE_MWS_MISS_DIST 150  //m, predicted closest approach that makes a munition incoming
 #define ASE_MWS_MAX_TTG   15   //sec, time to closest approach that makes a munition incoming
