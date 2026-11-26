@@ -127,7 +127,7 @@ if (_threats isNotEqualTo [] && {_owner}) then {
         _jammed pushBack [_launcher, _until];
     } forEach _threats;
 
-    // The RLWR holds what's jammed until it's back (fza_ase_fnc_rwr)
+    // What it has jammed, for the launchers fed by those radars over datalink; the RLWR doesn't hold them
     if (_jammed isNotEqualTo []) then {
         private _new = _jammed apply {_x # 0};
         _held = _held select {_x # 1 > CBA_missionTime && {!((_x # 0) in _new)}};

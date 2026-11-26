@@ -16,9 +16,8 @@ private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 ([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading", "_frozen"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_FROZEN), BOOLTONUM(_frozen)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI_HDG), _frameHeading];
-// The heading behind, in the box at the foot of the map, as the ASE page's
-private _recip = round ((getDir _heli + 180) % 360);
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_HDG_RECIP), str ([_recip, 360] select (_recip == 0))];
+// The bearing to the active waypoint, in the box at the foot of the map, as the ASE page's
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_HDG), [_heli] call fza_mpd_fnc_wptBearingText];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CAQ), _state getOrDefault ["caq", 0]];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ZOOM), _persistState getOrDefault ["zoom", 0]];
 // Whether the MPD cursor is over the map, where it chooses points and pans
@@ -243,25 +242,13 @@ private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable ["fza_ah64_ase_objects", []];
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 if (_showRLWR) then {
-    // Radar threats too far above or below for a bearing: uncorrelated, in a row just in front of the ownship
-    private _uncorrelated = _aseObjects apply {(_x # 0) <= ASE_LNC && {count _x > 4} && {[_heli, _x # 1] call fza_ase_fnc_rlwrUncorrelated}};
-    private _uncorrelatedCount = {_x} count _uncorrelated;
-    // The rest relative to the map's heading, frozen or live, on the footprint square spread apart in bearing order
-    private _correlated = [];
-    {if !(_uncorrelated # _forEachIndex) then {_correlated pushBack _forEachIndex;};} forEach _aseObjects;
-    private _rlwrAt = [_correlated apply {(_heli getDir ((_aseObjects # _x) # 1)) - _frameHeading}, [_ctrX, _ctrY], [0.23, 0.77, 0.23, 0.77], MPD_ASE_ICON_GAP] call fza_mpd_fnc_rectSpread;
-    private _uncorrelatedAt = 0;
+    // On the footprint square at each one's bearing from the map's heading, frozen or live, overlapping any others there
+    private _blink = [] call fza_mpd_fnc_iconBlink;
     {
         _x params ["_aseState", "_object", "_iconClass", ["_ghost", false], "", ["_bold", false]];
         if (_ghost) then {_iconClass = [_iconClass] call fza_mpd_fnc_ghostIdent;};
-        private _screen = [];
-        if (_uncorrelated # _forEachIndex) then {
-            _screen = [_ctrX + (_uncorrelatedAt - (_uncorrelatedCount - 1) / 2) * MPD_ASE_ICON_GAP, _ctrY - MPD_ASE_UNCORRELATED];
-            _uncorrelatedAt = _uncorrelatedAt + 1;
-        } else {
-            _screen = _rlwrAt # (_correlated find _forEachIndex);
-        };
-        if (([] call fza_mpd_fnc_iconBlink) && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
+        if (_blink && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
+        private _screen = [_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, (_heli getDir _object) - _frameHeading] call fza_mpd_fnc_bearingToScreen;
         _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screen # 0, _screen # 1, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass, _bold];
     } forEach _aseObjects;
 };
@@ -270,12 +257,12 @@ if (_showRLWR) then {
 private _rfiPicks = [];
 if (_heli getVariable ["fza_mpd_tsdShowRfi", [true, true]] select _phase) then {
     private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
-    // Between the map border (TSD_MAP_CLIP) and the ASE footprint (0.18-0.82), as tuned (fza_mpd_fnc_threatSymbolTune), on
-    // a square spread apart in bearing order
+    // Between the map border (TSD_MAP_CLIP) and the ASE footprint (0.18-0.82), as tuned (fza_mpd_fnc_threatSymbolTune)
     private _edge = (fza_mpd_threatTune getOrDefault ["tsd", MPD_THREAT_TUNE_TSD]) # 3;
-    [_heli, _seat, {}, _frameHeading, 0, {
-        [_this, [_ctrX, _ctrY], [_edge, 1 - _edge, _edge, 1 - _edge], MPD_ASE_ICON_GAP] call fza_mpd_fnc_rectSpread
-    }] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_picks"];
+    [_heli, _seat, {
+        params ["_bearing"];
+        [_ctrX, _ctrY, _edge, 1 - _edge, _edge, 1 - _edge, _bearing] call fza_mpd_fnc_bearingToScreen
+    }, _frameHeading] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_picks"];
     _pointsArray append _rfiPoints;
     _rfiPicks = _picks;
 };

@@ -26,10 +26,10 @@
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
 #define ASE_RLWR_STATE_ON  1
-#define ASE_RLWR_ELEV_LIMIT 45 //deg above or below the aircraft past which a radar threat has no bearing (uncorrelated)
 #define ASE_RLWR_DROP_TIME  10 //sec a radar threat no longer detected stays ghosted
 #define ASE_RLWR_MAX        7  //threats shown
 #define ASE_RLWR_BOLD_TIME  3  //sec a new threat is shown bold
+#define ASE_RLWR_BEARING_ERR 25 //deg, most a threat's bearing is out by, most within about a third of it
 
 //--IR Jammer
 #define ASE_IRJAM_STATE_OFF   0
@@ -48,7 +48,7 @@
 #define ASE_RJAM_ROLL_INTERVAL 4 //sec
 #define ASE_RJAM_BAND          1000 //m, from a band's nearest radar, rolled as one
 #define ASE_RJAM_JAM_TIME      (ASE_RJAM_ROLL_INTERVAL + 1) //sec, past the next roll so back-to-back jams don't gap
-#define ASE_RJAM_HOLD_TIME     10 //sec after a jam that the RLWR holds the radar for
+#define ASE_RJAM_HOLD_TIME     10 //sec after a jam it is remembered for, for the launchers its radars feed over datalink
 #define ASE_RJAM_FULL_RANGE    6000 //m
 #define ASE_RJAM_BURN_RANGE    1500 //m
 #define ASE_RJAM_CHANCE_MAX    0.8
@@ -67,13 +67,6 @@
 #define ASE_RFI_STATE_ON     1
 #define ASE_RFI_MAX          10
 #define ASE_RFI_TICK         0.5   //sec
-#define ASE_RFI_REFRESH      5     //sec between rebuilds of the list of radar-carrying vehicles
-#define ASE_RFI_WALK_PER_FRAME 50  //vehicles a frame that rebuild looks at
-#define ASE_RFI_LOS_PER_FRAME  2   //radars a frame whose line of sight from the mast is checked
-#define ASE_RFI_RANGE        20000 //m, the most an emitter is heard at
-#define ASE_RFI_RANGE_COEF   2     //an emitter is heard out to this many times its own radar range
-#define ASE_RFI_ELEV_LIMIT   40    //deg above or below the aircraft past which an emitter isn't heard
-#define ASE_RFI_REACH        8000  //m, air defence closer than this is engageable by the team
 #define ASE_RFI_FINE_DEG     135   //fine bearings within this of the FCR antenna's azimuth (forward, left and right channels), coarse behind
 #define ASE_RFI_FINE_DRIFT   3     //deg the emitter's bearing may move from its last fine fix and keep the fine bearing
 #define ASE_RFI_FINE_HOLD    30    //sec at most a fine bearing is kept without a new fix

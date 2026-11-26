@@ -167,7 +167,7 @@ class tsdCommon {
 
     // Hdg info
     MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = "heading"; sourceScale = 1;)
-    MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_IND_TSD_HDG_RECIP))
+    MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_IND_TSD_WPT_HDG))
 
 #define HSI_OUTER_RADIUS 0.263
 #define HSI_INNER_RADIUS_5_INC 0.240

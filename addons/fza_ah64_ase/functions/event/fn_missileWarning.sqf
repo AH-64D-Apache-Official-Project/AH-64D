@@ -52,7 +52,12 @@ if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_Briti
 private _identity = format ["fza_ah64_bt_%1", _soundclass];
 private _seekerhead = getNumber (configOf _missile >> "weaponLockSystem");
 if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == ASE_RLWR_STATE_ON) exitWith {
-    [_heli, ASE_LNC, _hostile, _identity, 1, _dirAud, 0.7, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
+    // As rough as the RLWR's symbol: the launcher's own bearing error (fza_ase_fnc_aseManager)
+    private _err = if (isNull _hostile) then {0} else {
+        ((_heli getVariable ["fza_ah64_ase_rlwrErr", createHashMap]) getOrDefault [hashValue _hostile, [0]]) # 0
+    };
+    private _rlwrAud = format ["fza_ah64_bt_%1oclock", [((_theta + _err) % 360 + 360) % 360] call fza_ase_fnc_bearingClock];
+    [_heli, ASE_LNC, _hostile, _identity, 1, _rlwrAud, 0.7, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };

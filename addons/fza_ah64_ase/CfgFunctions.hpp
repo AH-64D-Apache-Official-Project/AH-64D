@@ -52,7 +52,6 @@ class CfgFunctions
             class rfi {RECOMPILE_FLAG;};
             class rfiAcqRecord {RECOMPILE_FLAG;};
             class rfiBearing {RECOMPILE_FLAG;};
-            class rfiCandidates {RECOMPILE_FLAG;};
             class rfiChars {RECOMPILE_FLAG;};
             class rfiMergedChars {RECOMPILE_FLAG;};
             class rfiWorking {RECOMPILE_FLAG;};
@@ -74,7 +73,6 @@ class CfgFunctions
             class munitionInit {RECOMPILE_FLAG;};
             class mws {RECOMPILE_FLAG;};
             class lwr {RECOMPILE_FLAG;};
-            class rlwrUncorrelated {RECOMPILE_FLAG;};
             class rwr {RECOMPILE_FLAG;};
         };
     };

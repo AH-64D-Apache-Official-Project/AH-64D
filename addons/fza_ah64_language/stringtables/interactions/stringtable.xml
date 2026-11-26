@@ -87,21 +87,21 @@
             <Dutch>FCR Gerichte Zoekactie</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_CUED_INFO">
-            <Original>Points the FCR at the highest priority RFI emitter, or the next one, and scans it</Original>
-            <English>Points the FCR at the highest priority RFI emitter, or the next one, and scans it</English>
-            <Czech>Natočí FCR na emitor RFI s nejvyšší prioritou nebo na další a prohledá jej</Czech>
-            <French>Oriente le FCR vers l'émetteur RFI le plus prioritaire, ou le suivant, et le balaye</French>
-            <Spanish>Orienta el FCR hacia el emisor RFI de mayor prioridad, o el siguiente, y lo explora</Spanish>
-            <Italian>Orienta l'FCR verso l'emettitore RFI a priorità più alta, o il successivo, e lo scansiona</Italian>
-            <Polish>Kieruje FCR na emiter RFI o najwyższym priorytecie, lub następny, i go skanuje</Polish>
-            <Portuguese>Aponta o FCR para o emissor RFI de maior prioridade, ou o seguinte, e o varre</Portuguese>
-            <Russian>Направляет FCR на излучатель RFI с наивысшим приоритетом или на следующий и сканирует его</Russian>
-            <German>Richtet das FCR auf den RFI-Emitter mit der höchsten Priorität oder den nächsten aus und scannt ihn</German>
-            <Korean>FCR을 최우선 또는 다음 RFI 방사원으로 돌려 스캔합니다</Korean>
-            <Japanese>FCRを最優先または次のRFI放射源に向けてスキャンします</Japanese>
-            <Chinesesimp>将FCR指向最高优先级或下一个RFI辐射源并进行扫描</Chinesesimp>
-            <Turkish>FCR'yi en yüksek öncelikli veya sonraki RFI yayıcısına çevirir ve tarar</Turkish>
-            <Dutch>Richt de FCR op de RFI-zender met de hoogste prioriteit, of de volgende, en scant deze</Dutch>
+            <Original>Points the FCR at the highest priority RFI emitter and scans it</Original>
+            <English>Points the FCR at the highest priority RFI emitter and scans it</English>
+            <Czech>Natočí FCR na emitor RFI s nejvyšší prioritou a prohledá jej</Czech>
+            <French>Oriente le FCR vers l'émetteur RFI le plus prioritaire et le balaye</French>
+            <Spanish>Orienta el FCR hacia el emisor RFI de mayor prioridad y lo explora</Spanish>
+            <Italian>Orienta l'FCR verso l'emettitore RFI a priorità più alta e lo scansiona</Italian>
+            <Polish>Kieruje FCR na emiter RFI o najwyższym priorytecie i go skanuje</Polish>
+            <Portuguese>Aponta o FCR para o emissor RFI de maior prioridade e o varre</Portuguese>
+            <Russian>Направляет FCR на излучатель RFI с наивысшим приоритетом и сканирует его</Russian>
+            <German>Richtet das FCR auf den RFI-Emitter mit der höchsten Priorität aus und scannt ihn</German>
+            <Korean>FCR을 최우선 RFI 방사원으로 돌려 스캔합니다</Korean>
+            <Japanese>FCRを最優先のRFI放射源に向けてスキャンします</Japanese>
+            <Chinesesimp>将FCR指向最高优先级的RFI辐射源并进行扫描</Chinesesimp>
+            <Turkish>FCR'yi en yüksek öncelikli RFI yayıcısına çevirir ve tarar</Turkish>
+            <Dutch>Richt de FCR op de RFI-zender met de hoogste prioriteit en scant deze</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_FLARE">
             <Original>Flare / Emergency Dispense</Original>

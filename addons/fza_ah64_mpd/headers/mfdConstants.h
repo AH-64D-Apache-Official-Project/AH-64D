@@ -328,8 +328,8 @@
 #define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
-//The heading behind, on every subpage: RTM's text runs to 37 and the ACQ list's is 38
-#define MFD_TEXT_IND_TSD_HDG_RECIP 39
+//The bearing to the active waypoint, on every subpage: RTM's text runs to 37 and the ACQ list's is 38
+#define MFD_TEXT_IND_TSD_WPT_HDG 39
 
 // ZN, local to subpage 6
 #define MFD_IND_TSD_ZN_VARIANT    0
@@ -509,7 +509,7 @@
 #define MFD_TEXT_IND_ASE_CH_TOTAL    7
 #define MFD_TEXT_IND_ASE_COUNT       8
 #define MFD_TEXT_IND_ASE_RFI_COUNT   9
-#define MFD_TEXT_IND_ASE_HDG_RECIP   10
+#define MFD_TEXT_IND_ASE_WPT_HDG     10
 
 //--HIDAS threat rings, by threat state: search, then acquisition, track, launch
 #define MPD_ASE_RING_OUTER 0.325
@@ -526,10 +526,6 @@
 #define MPD_THREAT_TUNE_ASE [1, 1, 0, 0.36]
 #define MPD_THREAT_TUNE_TSD [1, 1, 0.08, 0.147]
 #define MPD_THREAT_TUNE_FCR [1, 1.1, 0.06, 0]
-//Least distance round a ring between two threat icons' centres (fza_mpd_fnc_spreadBearings)
-#define MPD_ASE_ICON_GAP   0.07
-//Uncorrelated RLWR detects: how far in front of the ownship, in a row a gap apart
-#define MPD_ASE_UNCORRELATED 0.065
 
 #define MFD_TEXT_IND_FREQ_A 0
 #define MFD_TEXT_IND_FREQ_B 1

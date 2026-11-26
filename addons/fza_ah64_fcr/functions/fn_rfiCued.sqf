@@ -4,8 +4,8 @@ Function: fza_fcr_fnc_rfiCued
 Description:
     FCR cued search, for the crew station owning the FCR with it as the sight. Turns the centerline to an RFI
     emitter's bearing, in GTM (RMAP stays RMAP) for one on the ground or ATM for one in the air, at the cued scan
-    size, and does one scanburst. The CUED switch cues the selected or No. 1 emitter, then each press the next. A
-    symbol chosen with the cursor only sets the centerline and size, the scan switch then scans.
+    size, and does one scanburst. The CUED switch always cues the No. 1 emitter. A symbol chosen with the cursor
+    only sets the centerline and size, the scan switch then scans.
 
 Parameters:
     _heli  - the helicopter
@@ -22,8 +22,8 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_ase\headers\ase.h"
-// Cued scan sizes: medium for a coarse bearing, narrow for a fine one
-#define RFI_CUED_SIZE_COARSE 1
+// Cued scan sizes: wide for a coarse bearing, narrow for a fine one
+#define RFI_CUED_SIZE_COARSE 0
 #define RFI_CUED_SIZE_FINE   2
 params ["_heli", ["_index", -1]];
 private _picked = _index >= 0;
@@ -37,21 +37,12 @@ if (_emitters isEqualTo [] || {!([_heli] call fza_ase_fnc_rfiWorking)}) exitWith
     _heli setVariable ["fza_ah64_rfiDataUntil_" + _seat, CBA_missionTime + 3];
 };
 
-if (_index < 0) then {
-    (_heli getVariable ["fza_ah64_fcrCued", [false, objNull]]) params ["_active", "_last"];
-    if (_active) then {
-        _index = ((_emitters findIf {(_x # ASE_RFI_OBJ) isEqualTo _last}) + 1) % count _emitters;
-    } else {
-        private _selected = _heli getVariable ["fza_ah64_ase_rfiSel_" + _seat, objNull];
-        _index = 0 max (_emitters findIf {!isNull _selected && {(_x # ASE_RFI_OBJ) isEqualTo _selected}});
-    };
-};
-private _record = _emitters param [_index, []];
+private _record = _emitters param [_index max 0, []];
 if (_record isEqualTo []) exitWith {};
 ([_heli, _record] call fza_ase_fnc_rfiBearing) params [["_world", -1], ["_rel", 0]];
 if (_world < 0) exitWith {};
 
-// Kept for the next press, though a ground emitter past the GTM's limits is not searched
+// In cued search until another FCR control leaves it, though a ground emitter past the GTM's limits is not searched
 _heli setVariable ["fza_ah64_fcrCued", [true, _record # ASE_RFI_OBJ], true];
 private _air = _record # ASE_RFI_AIR;
 if (!_air && {abs _rel > 90}) exitWith {

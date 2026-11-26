@@ -85,6 +85,42 @@ if (_dcBusOn) then {
         private _sources = _rlwrObjects apply {_x param [4, objNull]};
         _rwrAudio = _rwrAudio select {(_x # 0) in _sources};
 
+        // The RLWR's bearings are rough: each threat is off by its own error, kept while it is shown or dimmed. Its
+        // symbol and its voice are put where that error says, by its source.
+        private _errs = _heli getVariable "fza_ah64_ase_rlwrErr";
+        if (isNil "_errs") then {
+            _errs = createHashMap;
+            _heli setVariable ["fza_ah64_ase_rlwrErr", _errs];
+        };
+        private _errOf = {
+            params ["_source"];
+            if !(_source isEqualType objNull && {!isNull _source}) exitWith {0};
+            private _entry = _errs getOrDefaultCall [hashValue _source, {[random [-ASE_RLWR_BEARING_ERR, 0, ASE_RLWR_BEARING_ERR], 0]}, true];
+            _entry set [1, CBA_missionTime];
+            _entry # 0
+        };
+        private _offBy = {
+            params ["_target", "_err"];
+            _heli getPos [_heli distance2D _target, (_heli getDir _target) + _err]
+        };
+        _rlwrObjects = _rlwrObjects apply {
+            private _record = +_x;
+            _record set [1, [_x # 1, [_x param [4, objNull]] call _errOf] call _offBy];
+            _record
+        };
+        // New entries: a dimmed threat's is the RLWR's own copy (fza_ase_fnc_rwr)
+        private _voiced = {
+            _this apply {
+                _x params ["_object", "_state", "_soundclass", ["_at", _x # 0]];
+                [_object, _state, _soundclass, [_at, [_object] call _errOf] call _offBy]
+            }
+        };
+        _rwrAudio = _rwrAudio call _voiced;
+        _lwrAudio = _lwrAudio call _voiced;
+        private _stale = [];
+        {if (CBA_missionTime - (_y # 1) > ASE_RLWR_DROP_TIME) then {_stale pushBack _x;};} forEach _errs;
+        {_errs deleteAt _x;} forEach _stale;
+
         _heli setVariable ["fza_ah64_ase_objects", _rlwrObjects + _mwsObjects];
         _heli setVariable ["fza_ah64_ase_rlwrcount", {!(_x param [3, false])} count _rlwrObjects];
         [_heli, _rwrAudio + _lwrAudio] call fza_ase_fnc_audioController;

@@ -34,7 +34,7 @@ nearestObjects [_heli, ["lasertarget"], 15, false, true] apply {
     // The laser's elevation in the aircraft's frame, so it holds when the aircraft is pitched or banked
     (_heli vectorWorldToModelVisual _modelPos) call CBA_fnc_vect2Polar params ["_magnitude", "_azimuth", "_elevation"];
     if (abs(_elevation) < 45) then {
-        _lwrObjects pushBack [ASE_LSR, _Worldpos, _icon];
+        _lwrObjects pushBack [ASE_LSR, _Worldpos, _icon, false, _x];
         _LwrAudio pushBack [_x, "designating", "laser", _Worldpos];
     };
 };
@@ -51,7 +51,7 @@ _munitions apply {
     private _launcher = vehicle ((getShotParents _x) param [0, objNull]);
     if (isNull _launcher || {_launcher == _heli}) then {continue;};
     if !([_heli, _x] call fza_ase_fnc_incoming) then {continue;};
-    _lwrObjects pushBack [ASE_LNC, _launcher, _icon];
+    _lwrObjects pushBack [ASE_LNC, _launcher, _icon, false, _launcher];
 };
 
 [_lwrObjects, _LwrAudio]

@@ -93,6 +93,7 @@ class CfgFunctions
             class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
             class tsdWaypointStatusText {RECOMPILE_FLAG;};
+            class wptBearingText {RECOMPILE_FLAG;};
             class tsdZNAccept {RECOMPILE_FLAG;};
             class tsdZNApply {RECOMPILE_FLAG;};
             class tsdZNCursorEnter {RECOMPILE_FLAG;};
@@ -167,8 +168,6 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
-            class rectSpread {RECOMPILE_FLAG;};
-            class spreadBearings {RECOMPILE_FLAG;};
             class threatSymbolTune {RECOMPILE_FLAG;};
             class ghostIdent {RECOMPILE_FLAG;};
         };

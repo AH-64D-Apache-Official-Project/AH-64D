@@ -70,33 +70,6 @@ private _threatObjects = _threats apply {vehicle (_x # 0)};
     };
 } forEach getSensorTargets _heli;
 
-// Radars the radar jammer knocked off the air are held at the highest state they were shown at until the hold runs
-// out, so their return isn't announced as a new threat
-private _held = (_heli getVariable ["fza_ah64_ase_rJamHeld", []]) select {_x # 1 > CBA_missionTime && {alive (_x # 0)}};
-if (_held isNotEqualTo []) then {
-    _heli getVariable ["fza_ah64_ase_data", []] params [["_srhList", []], ["_acqList", []], ["_trkList", []]];
-    private _states = ["searching", "acquisition", "tracking"];
-    {
-        private _object = _x # 0;
-        if (_object in _launching) then {continue;};
-        private _prev = [_trkList, _acqList, _srhList] findIf {_object in _x};
-        if (_prev < 0) then {continue;};
-        _prev = ASE_TRK - _prev;
-        private _cur = -1;
-        {
-            if (_x # 0 isEqualTo _object) then {_cur = _cur max (_states find (_x # 1));};
-        } forEach _rwrAudio;
-        if (_cur >= _prev) then {continue;};
-
-        private _pos = getPos _object;
-        _rwrObjects = _rwrObjects select {!((_x # 1) isEqualTo _object || {(_x # 1) isEqualTo _pos})};
-        _rwrAudio   = _rwrAudio select {(_x # 0) isNotEqualTo _object};
-        [_heli, _object, _prev] call fza_ase_fnc_classification params ["_soundclass", "_iconClass"];
-        _rwrObjects pushBack [_prev, [_object, _pos] select (_prev == ASE_SRH), _iconClass, false, _object];
-        _rwrAudio pushBack [_object, _states # _prev, _soundclass];
-    } forEach _held;
-};
-
 // No longer detected: ghosted where it was last seen, at the last state it was shown at, until ASE_RLWR_DROP_TIME. Its
 // audio entry is kept so that coming back meanwhile isn't announced as a new threat; a higher mode still is. A missile
 // is shown only while it is detected: its launcher isn't ghosted while it is in flight or after. A threat is new, and
