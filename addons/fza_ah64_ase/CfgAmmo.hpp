@@ -20,6 +20,9 @@ class CfgAmmo {
     {
         effectsSmoke                = "fza_AC130_Flares";
         weaponLockSystem            = 2;
+        // 1.5x the chaff's life, and half its drag at the same ejection speed
+        timeToLive                  = 21;
+        airFriction                 = -0.005;
 
     };
     class fza_IR_JAMMING_shot: FlareCore 
@@ -55,7 +58,7 @@ class fza_AC130_Flares
         position[]={0,0,0};
         intensity=1;
         interval=1;
-        lifeTime=4.5;
+        lifeTime=6.75;
         qualityLevel=0;
         enabled=1;
     };
@@ -66,7 +69,7 @@ class fza_AC130_Flares
         position[]={0,0,0};
         intensity=1;
         interval=1;
-        lifeTime=3.5;
+        lifeTime=5.25;
         qualityLevel=1;
         enabled=1;
     };
@@ -77,7 +80,7 @@ class fza_AC130_Flares
         position[]={0,0,0};
         intensity=1;
         interval=1;
-        lifeTime=3.5;
+        lifeTime=5.25;
         qualityLevel=0;
         enabled=1;
     };
@@ -88,7 +91,7 @@ class fza_AC130_Flares
         position[]={0,0,0};
         intensity=1;
         interval=1;
-        lifeTime=4;
+        lifeTime=6;
         enabled=1;
     };
     class fza_Flare_DayTime
@@ -98,7 +101,7 @@ class fza_AC130_Flares
         position[] = {0,0,0};
         intensity = 4;
         interval = 1;
-        lifeTime = 3.2;
+        lifeTime = 4.8;
     };
 };
 

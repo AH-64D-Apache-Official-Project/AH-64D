@@ -30,11 +30,23 @@ if (!(_heli getVariable ["fza_ah64_aseInitialised", false]) && local _heli) then
     //--RLWR        - Aircraft Common
     _heli setVariable ["fza_ah64_ase_rlwrPwr",          ASE_RLWR_STATE_OFF,     true];
     _heli setVariable ["fza_ah64_ase_objects",          [],                     true];
-    _heli setVariable ["fza_ah64_ase_rlwrcount",        [],                     true];
+    _heli setVariable ["fza_ah64_ase_rlwrcount",        0,                      true];
     //--IR Jammer   - Aircraft Common
     _heli setVariable ["fza_ah64_ase_msnEquipPwr",      ASE_MSNEQUIP_STATE_OFF, true];
     _heli setVariable ["fza_ah64_ase_irJamState",       [0,0,0],                true];
+    //--Radar Jammer - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rJamMode",         ASE_RJAM_STATE_OFF,     true];
+    _heli setVariable ["fza_ah64_ase_rJamWarmStart",    0,                      true];
+    _heli setVariable ["fza_ah64_ase_rJamXmitUntil",    -1,                     true];
+    _heli setVariable ["fza_ah64_ase_rJamHeld",         [],                     true];
+    //--RFI - Aircraft common
+    _heli setVariable ["fza_ah64_ase_rfiPwr",           ASE_RFI_STATE_ON,       true];
+    _heli setVariable ["fza_ah64_ase_rfiEmitters",      [],                     true];
+    //--CMDS (HIDAS) - Aircraft common
+    _heli setVariable ["fza_ah64_ase_cmdsMode",         ASE_CMDS_MAN,           true];
+    _heli setVariable ["fza_ah64_ase_cmdsConsent",      [],                     true];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",         ASE_AUTOPAGE_OFF,       true];
+    _heli setVariable ["fza_ah64_ase_voiceLevel",       ASE_AUTOPAGE_SRH,       true];
     _heli setVariable ["fza_ah64_ase_data",             [[],[],[],[]],             true];
 };

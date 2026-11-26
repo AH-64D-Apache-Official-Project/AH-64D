@@ -19,6 +19,7 @@ class CfgPatches
 #include "ui\RscFzaAH64MPD.hpp"
 #include "ui\RscFzaMPDVideo.hpp"
 #include "ui\RscFzaMPDTsd.hpp"
+#include "ui\RscFzaMPDAse.hpp"
 
 
 #include "headers\tsd.hpp"

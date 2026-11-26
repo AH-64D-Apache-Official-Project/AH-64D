@@ -27,5 +27,6 @@ private _acq = [_heli, _turret] call fza_fnc_targetingCurAcq;
 if (_turret isEqualTo [0]
     && {!(_heli getVariable ["fza_ah64_cpgSlaved", false])}
     && {!(ACQ_IS_POINT(_acq) && {([_heli, "fza_ah64_sight", "cpg"] call fza_fnc_getSeatVariable) == SIGHT_TADS})}) exitWith {nil};
-if ((_acq == "FCR" || {ACQ_IS_POINT(_acq)}) && {([_heli, _acq] call fza_fnc_targetingAcqPoint) isEqualTo []}) exitWith {nil};
-[_heli, _acq] call fza_fnc_targetingAcqVec
+private _seat = ["plt", "cpg"] select (_turret isEqualTo [0]);
+if ((_acq in ["FCR", "RFI"] || {ACQ_IS_POINT(_acq)}) && {([_heli, _acq, _seat] call fza_fnc_targetingAcqPoint) isEqualTo []}) exitWith {nil};
+[_heli, _acq, _seat] call fza_fnc_targetingAcqVec

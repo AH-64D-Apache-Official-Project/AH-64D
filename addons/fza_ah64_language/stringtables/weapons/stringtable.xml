@@ -650,6 +650,23 @@
             <Turkish>IR Jammer (YENİDEN SILAHLANMAYIN)</Turkish>
             <Dutch>IR Jammer (NIET HERBELADING)</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_RJAM_JAMMED">
+            <Original>JAMMED</Original>
+            <English>JAMMED</English>
+            <Czech>RUŠENO</Czech>
+            <French>BROUILLÉ</French>
+            <Spanish>INTERFERIDO</Spanish>
+            <Italian>DISTURBATO</Italian>
+            <Polish>ZAGŁUSZONY</Polish>
+            <Portuguese>INTERFERIDO</Portuguese>
+            <Russian>ПОДАВЛЕН</Russian>
+            <German>GESTÖRT</German>
+            <Korean>재밍됨</Korean>
+            <Japanese>妨害中</Japanese>
+            <Chinesesimp>受干扰</Chinesesimp>
+            <Turkish>KARIŞTIRILDI</Turkish>
+            <Dutch>GESTOORD</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_M230_E1">
             <Original>M230-E1</Original>
             <English>M230-E1</English>

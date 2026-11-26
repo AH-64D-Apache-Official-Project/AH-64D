@@ -55,10 +55,51 @@ class CfgWeapons {
             };
         };
     };
-    class fza_CMChaffLauncher: fza_CMFlareLauncher 
+    class fza_CMChaffLauncher: fza_CMFlareLauncher
     {
         displayName = "$STR_FZA_AH64_CHAFF";
         magazines[] = {"fza_chaff_30_mag"};
+    };
+    // HIDAS dispensers: one cartridge a shot, moved to their side by fza_ase_fnc_cmFired
+    class fza_CMFlareLauncherL: fza_CMFlareLauncher
+    {
+        magazines[] = {"fza_flare_32L_mag"};
+        class Single: Mode_SemiAuto
+        {
+            displayName = "$STR_A3_CMFlareLauncher_weapon_mode_Single_name";
+            reloadTime = 0.05;
+            useAction = 0;
+            useActionTitle = "";
+            artilleryDispersion = 0;
+            artilleryCharge = 0;
+            burst = 1;
+            sounds[] = {"StandardSound"};
+            class StandardSound {
+                begin1[] = {"\fza_ah64_ase\data\audio\Flares.ogg", 1.000000, 1, 300};
+                soundBegin[] = {"begin1", 1};
+            };
+            showToPlayer = 0;
+            multiplier = 1;
+            soundBurst = 0;
+            dispersion = 0.6; //rad, spread by fza_ase_fnc_cmFired
+            aiRateOfFire = 1;
+            aiRateOfFireDistance = 10;
+            minRange = 0;
+            minRangeProbab = 0.01;
+            midRange = 1;
+            midRangeProbab = 0.01;
+            maxRange = 2;
+            maxRangeProbab = 0.01;
+        };
+    };
+    class fza_CMFlareLauncherR: fza_CMFlareLauncherL
+    {
+        magazines[] = {"fza_flare_32R_mag"};
+    };
+    class fza_CMChaffLauncherL: fza_CMFlareLauncherL
+    {
+        displayName = "$STR_FZA_AH64_CHAFF";
+        magazines[] = {"fza_chaff_64_mag"};
     };
     class fza_AseIRjammer: SmokeLauncher 
     {

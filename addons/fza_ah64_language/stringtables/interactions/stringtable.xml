@@ -69,39 +69,107 @@
             <Turkish>FCR'yi bir kez tarar</Turkish>
             <Dutch>Scant de FCR eenmaal</Dutch>
         </Key>
+        <Key ID="STR_FZA_AH64_FCR_CUED">
+            <Original>FCR Cued Search</Original>
+            <English>FCR Cued Search</English>
+            <Czech>Řízené Vyhledávání FCR</Czech>
+            <French>Recherche Guidée FCR</French>
+            <Spanish>Búsqueda Guiada FCR</Spanish>
+            <Italian>Ricerca Guidata FCR</Italian>
+            <Polish>Wyszukiwanie Naprowadzane FCR</Polish>
+            <Portuguese>Busca Guiada FCR</Portuguese>
+            <Russian>Наведённый Поиск FCR</Russian>
+            <German>FCR Gezielte Suche</German>
+            <Korean>FCR 큐 탐색</Korean>
+            <Japanese>FCRキュー捜索</Japanese>
+            <Chinesesimp>FCR引导搜索</Chinesesimp>
+            <Turkish>FCR Yönlendirmeli Arama</Turkish>
+            <Dutch>FCR Gerichte Zoekactie</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_FCR_CUED_INFO">
+            <Original>Points the FCR at the highest priority RFI emitter and scans it</Original>
+            <English>Points the FCR at the highest priority RFI emitter and scans it</English>
+            <Czech>Natočí FCR na emitor RFI s nejvyšší prioritou a prohledá jej</Czech>
+            <French>Oriente le FCR vers l'émetteur RFI le plus prioritaire et le balaye</French>
+            <Spanish>Orienta el FCR hacia el emisor RFI de mayor prioridad y lo explora</Spanish>
+            <Italian>Orienta l'FCR verso l'emettitore RFI a priorità più alta e lo scansiona</Italian>
+            <Polish>Kieruje FCR na emiter RFI o najwyższym priorytecie i go skanuje</Polish>
+            <Portuguese>Aponta o FCR para o emissor RFI de maior prioridade e o varre</Portuguese>
+            <Russian>Направляет FCR на излучатель RFI с наивысшим приоритетом и сканирует его</Russian>
+            <German>Richtet das FCR auf den RFI-Emitter mit der höchsten Priorität aus und scannt ihn</German>
+            <Korean>FCR을 최우선 RFI 방사원으로 돌려 스캔합니다</Korean>
+            <Japanese>FCRを最優先のRFI放射源に向けてスキャンします</Japanese>
+            <Chinesesimp>将FCR指向最高优先级的RFI辐射源并进行扫描</Chinesesimp>
+            <Turkish>FCR'yi en yüksek öncelikli RFI yayıcısına çevirir ve tarar</Turkish>
+            <Dutch>Richt de FCR op de RFI-zender met de hoogste prioriteit en scant deze</Dutch>
+        </Key>
         <Key ID="STR_FZA_AH64_FLARE">
-            <Original>Deploy Flare</Original>
-            <English>Deploy Flare</English>
-            <Czech>Vypustit Záblesk</Czech>
-            <French>Déployer Leurre</French>
-            <Spanish>Lanzar Bengala</Spanish>
-            <Italian>Dispensa Bengala</Italian>
-            <Polish>Wystrzel Flary</Polish>
-            <Portuguese>Disparar Flare</Portuguese>
-            <Russian>Развернуть Ловушку</Russian>
-            <German>Täuschkörper Werfen</German>
-            <Korean>플레어 발사</Korean>
-            <Japanese>フレアを展開</Japanese>
-            <Chinesesimp>发射照明弹</Chinesesimp>
-            <Turkish>Işık Saçan Yalın Ata</Turkish>
-            <Dutch>Flare Inzetten</Dutch>
+            <Original>Flare / Emergency Dispense</Original>
+            <English>Flare / Emergency Dispense</English>
+            <Czech>Světlice / Nouzové vypuštění</Czech>
+            <French>Leurre / Largage d'urgence</French>
+            <Spanish>Bengala / Lanzamiento de emergencia</Spanish>
+            <Italian>Flare / Rilascio di emergenza</Italian>
+            <Polish>Flary / Awaryjne wystrzelenie</Polish>
+            <Portuguese>Flare / Disparo de emergência</Portuguese>
+            <Russian>Ловушки / Аварийный отстрел</Russian>
+            <German>Täuschkörper / Notausstoß</German>
+            <Korean>플레어 / 비상 살포</Korean>
+            <Japanese>フレア / 緊急散布</Japanese>
+            <Chinesesimp>红外诱饵弹 / 紧急投放</Chinesesimp>
+            <Turkish>Işık Fişeği / Acil Atım</Turkish>
+            <Dutch>Flare / Noodafgifte</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_FLARE_INFO">
-            <Original>Deploy a single Flare countermeasure</Original>
-            <English>Deploy a single Flare countermeasure</English>
-            <Czech>Vypustí jednu záblesk-protimu</Czech>
-            <French>Déploie une seule mesure de contre-leurre</French>
-            <Spanish>Despliega una única medida de contramedida</Spanish>
-            <Italian>Dispensa una singola misura di contromisura</Italian>
-            <Polish>Wystrzeluje jedną flara jako protiśrodek</Polish>
-            <Portuguese>Dispara uma única medida de contramedida</Portuguese>
-            <Russian>Развернуть одну ловушку в качестве контрмеры</Russian>
-            <German>Setzt eine einzelne Täuschkörper-Gegenmaßnahme ein</German>
-            <Korean>단일 플레어 대응책 발사</Korean>
-            <Japanese>単一のフレア対策を展開</Japanese>
-            <Chinesesimp>部署单个照明弹对抗措施</Chinesesimp>
-            <Turkish>Tek bir karşı önlem olarak ışık saçan yalın ata</Turkish>
-            <Dutch>Zet een enkele flare tegen-maatregel in</Dutch>
+            <Original>Dispenses flares in MAN, or the emergency program in SEMI and AUTO (UK HIDAS)</Original>
+            <English>Dispenses flares in MAN, or the emergency program in SEMI and AUTO (UK HIDAS)</English>
+            <Czech>Vypustí světlice v režimu MAN, nebo nouzový program v režimech SEMI a AUTO (UK HIDAS)</Czech>
+            <French>Largue des leurres en MAN, ou le programme d'urgence en SEMI et AUTO (UK HIDAS)</French>
+            <Spanish>Lanza bengalas en MAN, o el programa de emergencia en SEMI y AUTO (UK HIDAS)</Spanish>
+            <Italian>Rilascia flare in MAN, o il programma di emergenza in SEMI e AUTO (UK HIDAS)</Italian>
+            <Polish>Wystrzeliwuje flary w trybie MAN lub program awaryjny w trybach SEMI i AUTO (UK HIDAS)</Polish>
+            <Portuguese>Dispara flares em MAN, ou o programa de emergência em SEMI e AUTO (UK HIDAS)</Portuguese>
+            <Russian>Отстреливает ловушки в режиме MAN или аварийную программу в режимах SEMI и AUTO (UK HIDAS)</Russian>
+            <German>Stößt Täuschkörper in MAN aus, oder das Notprogramm in SEMI und AUTO (UK HIDAS)</German>
+            <Korean>MAN에서는 플레어를, SEMI와 AUTO에서는 비상 프로그램을 살포 (UK HIDAS)</Korean>
+            <Japanese>MANではフレアを、SEMIとAUTOでは緊急プログラムを散布 (UK HIDAS)</Japanese>
+            <Chinesesimp>MAN 模式下投放红外诱饵弹，SEMI 和 AUTO 模式下执行紧急程序 (UK HIDAS)</Chinesesimp>
+            <Turkish>MAN modunda ışık fişeği, SEMI ve AUTO modlarında acil durum programını atar (UK HIDAS)</Turkish>
+            <Dutch>Werpt flares af in MAN, of het noodprogramma in SEMI en AUTO (UK HIDAS)</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CHAFF_CONSENT">
+            <Original>Chaff / Consent</Original>
+            <English>Chaff / Consent</English>
+            <Czech>Klamné pásky / Souhlas</Czech>
+            <French>Paillettes / Consentement</French>
+            <Spanish>Chaff / Consentimiento</Spanish>
+            <Italian>Chaff / Consenso</Italian>
+            <Polish>Dipole / Zgoda</Polish>
+            <Portuguese>Chaff / Consentimento</Portuguese>
+            <Russian>Дипольные отражатели / Согласие</Russian>
+            <German>Düppel / Freigabe</German>
+            <Korean>채프 / 승인</Korean>
+            <Japanese>チャフ / 承認</Japanese>
+            <Chinesesimp>箔条 / 确认</Chinesesimp>
+            <Turkish>Chaff / Onay</Turkish>
+            <Dutch>Chaff / Toestemming</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_CHAFF_CONSENT_INFO">
+            <Original>Dispenses chaff. UK HIDAS: chaff in MAN, consent to a dispense in SEMI</Original>
+            <English>Dispenses chaff. UK HIDAS: chaff in MAN, consent to a dispense in SEMI</English>
+            <Czech>Vypustí klamné pásky. UK HIDAS: pásky v režimu MAN, souhlas s vypuštěním v režimu SEMI</Czech>
+            <French>Largue des paillettes. UK HIDAS : paillettes en MAN, consentement au largage en SEMI</French>
+            <Spanish>Lanza chaff. UK HIDAS: chaff en MAN, consentimiento de lanzamiento en SEMI</Spanish>
+            <Italian>Rilascia chaff. UK HIDAS: chaff in MAN, consenso al rilascio in SEMI</Italian>
+            <Polish>Wystrzeliwuje dipole. UK HIDAS: dipole w trybie MAN, zgoda na wystrzelenie w trybie SEMI</Polish>
+            <Portuguese>Dispara chaff. UK HIDAS: chaff em MAN, consentimento de disparo em SEMI</Portuguese>
+            <Russian>Отстреливает дипольные отражатели. UK HIDAS: отражатели в режиме MAN, согласие на отстрел в режиме SEMI</Russian>
+            <German>Stößt Düppel aus. UK HIDAS: Düppel in MAN, Freigabe des Ausstoßes in SEMI</German>
+            <Korean>채프 살포. UK HIDAS: MAN에서는 채프, SEMI에서는 살포 승인</Korean>
+            <Japanese>チャフを散布。UK HIDAS: MANではチャフ、SEMIでは散布の承認</Japanese>
+            <Chinesesimp>投放箔条。UK HIDAS：MAN 模式下投放箔条，SEMI 模式下确认投放</Chinesesimp>
+            <Turkish>Chaff atar. UK HIDAS: MAN modunda chaff, SEMI modunda atım onayı</Turkish>
+            <Dutch>Werpt chaff af. UK HIDAS: chaff in MAN, toestemming tot afgifte in SEMI</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_LASER_DESIG">
             <Original>LRFD Second Detent (Lase)</Original>

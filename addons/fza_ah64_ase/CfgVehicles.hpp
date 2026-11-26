@@ -7,6 +7,21 @@ class CfgVehicles {
     class LT_01_AA_base_F;
     class StaticMGWeapon;
     class AllVehicles;
+    class SoundSetSource_01_base_F;
+
+    // Radio jamming static: created locally and attached to the player, its volume set with CustomSoundController1
+    class fza_ah64_rJamStatic: SoundSetSource_01_base_F {
+        scope = 1;
+        displayName = "";
+        class Sounds {
+            soundSets[]    = {"fza_ah64_rJamStatic_SoundSet"};
+            soundSetsInt[] = {};
+            soundSetsExt[] = {};
+        };
+        // Nothing to interact with on it
+        class ACE_Actions {};
+        class ACE_SelfActions {};
+    };
 
     class B_SAM_System_01_F: SAM_System_01_base_F {
         fza_aseClass = "RADAR";

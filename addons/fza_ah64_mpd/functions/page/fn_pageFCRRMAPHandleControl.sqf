@@ -2,6 +2,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_control", "_state"];
 
+// Any FCR page control leaves cued search
+[_heli] call fza_fcr_fnc_rfiCuedExit;
 if ([_heli, _mpdIndex, _control] call fza_mpd_fnc_acqHandleControl) exitWith {};
 if ([_heli, _mpdIndex, _control, _state] call fza_mpd_fnc_fcrTgtHandleControl) exitWith {};
 

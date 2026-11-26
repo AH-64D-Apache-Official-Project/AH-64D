@@ -131,16 +131,9 @@ if (_value) then {
         case "fza_ah64_fcrSingleScan": {
             // The scan switch only works for the crew station that owns the FCR, by selecting it as its sight
             if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
-            private _fcrState = _heli getVariable "fza_ah64_fcrState";
-            private _onGnd = [_heli] call bmkhs_fnc_stateOnGround;
-            private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
-            if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitWith {};
-            if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitWith {
-                [_heli, true] call fza_fcr_fnc_radarSet;
-                [_heli, FCR_MODE_ON_SINGLE] call fza_fcr_fnc_armScanStart;
-                _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            };
-            [_heli] call fza_fcr_fnc_stopScan;
+            // Pressed again during the scanburst, it stops
+            if (((_heli getVariable ["fza_ah64_fcrState", [FCR_MODE_OFF]]) # 0) == FCR_MODE_ON_SINGLE) exitWith {[_heli] call fza_fcr_fnc_stopScan};
+            [_heli] call fza_fcr_fnc_singleScan;
         };
         case "fza_ah64_cpgStoreUpdate": {
             // The CPG's: a target stored along the sight LOS at the range shown, 0 without one
@@ -203,11 +196,16 @@ if (_value) then {
             if (FCR_OWNER(_heli) != ([_heli] call fza_fnc_getSeat)) exitWith {};
             private _size = ["fza_ah64_fcrScanSize_W", "fza_ah64_fcrScanSize_M", "fza_ah64_fcrScanSize_N", "fza_ah64_fcrScanSize_Z"] find _name;
             if (_size == (_heli getVariable ["fza_ah64_fcrScanSize", 0])) exitWith {};
+            [_heli] call fza_fcr_fnc_rfiCuedExit;
             [_heli] call fza_fcr_fnc_stopScan;
             _heli setVariable ["fza_ah64_fcrScanSize", _size, true];
         };
-        case "launchCM": {
-            [_heli] call fza_ase_fnc_Chaff;
+        // CUED: the FCR's cued search on the RFI emitters, by the crew station owning the FCR
+        case "fza_ah64_fcrCued": {
+            [_heli] call fza_fcr_fnc_rfiCued;
+        };
+        case "fza_ah64_chaffConsent": {
+            [_heli] call fza_ase_fnc_chaff;
         };
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;

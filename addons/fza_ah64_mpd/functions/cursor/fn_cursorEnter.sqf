@@ -30,6 +30,7 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\cursor.h"
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli"];
 
 if !(player in [driver _heli, gunner _heli]) exitWith {};
@@ -63,7 +64,30 @@ private _setNts = {
     [_heli, "fza_ah64_fcrNts", [_target, _pos, _rec]] call fza_fnc_updateNetworkGlobal;
 };
 
+// An RFI emitter as the crew station's selected emitter, and RFI its acquisition source (fza_fnc_targetingAcqVec)
+private _selectRfi = {
+    params ["_heli", "_seat", "_index"];
+    private _record = (_heli getVariable ["fza_ah64_ase_rfiEmitters", []]) param [_index, []];
+    if (_record isEqualTo [] || {isNil "_seat"}) exitWith {};
+    _heli setVariable ["fza_ah64_ase_rfiSel_" + _seat, _record # ASE_RFI_OBJ, true];
+    [_heli, "RFI"] call fza_fnc_targetingAcqSet;
+};
+
+// ASE CAQ: the RFI threat symbol nearest the cursor (fza_mpd_fnc_pageASEDraw)
+if (toLower _page == "ase") exitWith {
+    private _caq = +(_heli getVariable ["fza_mpd_aseCaq", [false, false]]);
+    if !(_caq # _side) exitWith {};
+    ([_heli getVariable ["fza_mpd_aseRfiPicks_" + str _side, []], _posX, _posY] call fza_mpd_fnc_cursorNearest) params ["_best"];
+    if (_best < 0) exitWith {};
+    _caq set [_side, false];
+    _heli setVariable ["fza_mpd_aseCaq", _caq];
+    [_heli, [_heli] call fza_fnc_getSeat, _best] call _selectRfi;
+};
+
 if (toLower _page in ["fcr", "fcrrmap"]) exitWith {
+    // An RFI threat symbol round the format (fza_mpd_fnc_fcrRfiJson): the centerline and scan size cued on it
+    ([_state getOrDefault ["cursorRfi", []], _posX, _posY, MPD_CURSOR_TARGET_REACH ^ 2] call fza_mpd_fnc_cursorNearest) params ["_rfi"];
+    if (_rfi >= 0 && {_state getOrDefault ["zoom", 0] != 1}) exitWith {[_heli, _rfi] call fza_fcr_fnc_rfiCued};
     if !([_heli, _side, _posX, _posY] call fza_mpd_fnc_cursorInArea) exitWith {};
     // ZOOM: the zoom box's area, sized by the scan size, shown in the zoomed square
     if (_state getOrDefault ["zoom", 0] == 1) exitWith {
@@ -118,6 +142,9 @@ if (_subPage == 0 && {_state getOrDefault ["caq", 0] == 1}) exitWith {
     if (_point isEqualTo []) exitWith {};
     _state set ["caq", 0];
     private _seat = [_heli] call fza_fnc_getSeat;
+    if (_point # 0 == POINT_TYPE_RFI) exitWith {
+        [_heli, _seat, _point # 1] call _selectRfi;
+    };
     if (_point # 0 == POINT_TYPE_FCR) exitWith {
         private _entry = (_state getOrDefault ["cursorFcr", []]) select {(_x # 1) isEqualTo _point};
         if (_entry isNotEqualTo []) then {

@@ -241,6 +241,11 @@ class CfgVehicles {
                 index = MPD_PAGE_ASE;
                 draw  = "fza_mpd_fnc_pageASEDraw";
                 handleControl = "fza_mpd_fnc_pageASEHandleControl";
+                // The threat symbols and tracking lines are drawn by a browser (fza_mpd_fnc_pageASEHtmlDraw)
+                htmlUrl   = "\fza_ah64_mpd\ui\ase\ase.html";
+                htmlClass = "RscFzaMPDAse";
+                htmlPreload = 1;
+                // Keeps the MPD's text boxes over the video underlay (fza_mpd_fnc_update)
                 usesIcons = 1;
             };
             class CHAN {

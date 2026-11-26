@@ -21,10 +21,21 @@ Author:
 
 params ["_heli", "_deltaTime"];
 
-private _dcBusOn    = _heli getVariable "bmkhs_dcBusOn";
-private _irJamPwr   = _heli getVariable "fza_ah64_ase_msnEquipPwr";
+// Kept full, so ACE rearm never lists it. 0 when a loadout has no IR jammer magazine.
+if (local _heli) then {
+    if (isNil "fza_ase_irJamMagCount") then {
+        fza_ase_irJamMagCount = getNumber (configFile >> "CfgMagazines" >> "fza_IR_JAMMING" >> "count");
+    };
+    private _ammo = _heli magazineTurretAmmo ["fza_IR_JAMMING", [-1]];
+    if (_ammo > 0 && {_ammo < fza_ase_irJamMagCount}) then {
+        _heli setMagazineTurretAmmo ["fza_IR_JAMMING", fza_ase_irJamMagCount, [-1]];
+    };
+};
+
+private _dcBusOn    = _heli getVariable ["bmkhs_dcBusOn", false];
+private _irJamPwr   = _heli getVariable ["fza_ah64_ase_msnEquipPwr", ASE_MSNEQUIP_STATE_OFF];
 private _msnEquipUs = _heli animationPhase "msn_equip_american";
-private _irJamData  = _heli getVariable "fza_ah64_ase_irJamState";
+private _irJamData  = _heli getVariable ["fza_ah64_ase_irJamState", [ASE_IRJAM_STATE_OFF, 0, 0]];
 
 if (!_dcBusOn || (_heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH && _msnEquipUs == 1)) exitWith {
     _irJamData set [0, ASE_IRJAM_STATE_WARM];
@@ -42,7 +53,7 @@ switch (_irJamData#0) do {
         };
     };
     case ASE_IRJAM_STATE_WARM: {
-        _irJamTimer = [_irJamData#1, 1.0, (1.0 / ASE_IRJAM_PWR_ON_TIME) * _deltaTime] call BIS_fnc_lerp;
+        private _irJamTimer = [_irJamData#1, 1.0, (1.0 / ASE_IRJAM_PWR_ON_TIME) * _deltaTime] call BIS_fnc_lerp;
 
         if (_irJamTimer > 0.99) then {
             _irJamData set [0, ASE_IRJAM_STATE_OPER];

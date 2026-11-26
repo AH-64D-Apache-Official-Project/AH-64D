@@ -28,6 +28,7 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\bmkhs_helisim\functions\core\core.hpp"
 #include "\bmkhs_helisim\functions\systems\systems.hpp"
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_headsDown", "_weaponFormat", ["_tadsVideo", false], ["_seat", ""], ["_mpd", false]];
 
 if (_seat == "") then {_seat = ["cpg", "plt"] select (player == driver _heli)};
@@ -363,7 +364,10 @@ if (!_isPilot && {!(((_heli getVariable ["fza_ah64_laserChannelIndex", createHas
     _sightStat = "LST CODE ?";
 };
 if (_nvsMode == NVS_MODE_FIXED) then {_sightStat = "NVS FIXED"};
-if (_atLimit) then {_sightStat = "LIMITS"};
+if (_atLimit || {CBA_missionTime < (_heli getVariable ["fza_ah64_rfiLimitsUntil_" + _seat, -1])}) then {_sightStat = "LIMITS"};
+if (CBA_missionTime < (_heli getVariable ["fza_ah64_rfiDataUntil_" + _seat, -1])) then {_sightStat = "RFI DATA?"};
+if (_fcrOn && {_sight == SIGHT_FCR || {_curAcq == "RFI"}} && {(_heli getVariable ["fza_ah64_ase_rfiPwr", ASE_RFI_STATE_ON]) == ASE_RFI_STATE_ON}
+    && {_heli getHitPointDamage "hit_msnEquip_fcr" >= SYS_FCR_DMG_THRESH}) then {_sightStat = "RFI FAIL"};
 if (_fcrOn && {_fcrState == FCR_MODE_FAULT}) then {_sightStat = "FCR FAIL"};
 if (_isPilot && {_heli getHitPointDamage "hit_msnEquip_pnvs_flir" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "NVS FAIL"};
 if (!_isPilot && {_heli getHitPointDamage "hit_msnEquip_tads_flir" >= SYS_SIGHT_DMG_THRESH && _heli getHitPointDamage "hit_msnEquip_tads_dtv" >= SYS_SIGHT_DMG_THRESH}) then {_sightStat = "TADS FAIL"};
@@ -383,6 +387,8 @@ if (_storeSeat != _seat) then {_storeUntil = 0};
 if (CBA_missionTime < _storeUntil) then {_inhibit = _storeMsg};
 // This crew station's own trigger pressed with the gun straight after a rocket or missile launch
 if (_holdsWeapon && {_was == WAS_WEAPON_GUN} && {[_heli, _seat] call fza_fnc_weaponAltLaunch}) then {_inhibit = "ALT LAUNCH"};
+// A HIDAS SEMI dispense waiting for consent (fza_ase_fnc_cmds), to both crew stations, before anything else
+if ((_heli getVariable ["fza_ah64_ase_cmdsConsent", []]) isNotEqualTo []) then {_inhibit = "CMDS CONSENT"};
 
 _m set ["had", [_sightSel, _range, _wpnCtl, _curAcq, _sightStat, _wpnStat, _inhibit]];
 

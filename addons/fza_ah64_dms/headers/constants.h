@@ -24,6 +24,7 @@
 #define POINT_TYPE_ZONE 9
 #define POINT_TYPE_LINE 10
 #define POINT_TYPE_AREA 11
+#define POINT_TYPE_RFI 12
 
 #define ZONE_COUNT_PF 8
 #define ZONE_COUNT_NF 8

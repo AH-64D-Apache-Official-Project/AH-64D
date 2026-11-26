@@ -46,5 +46,6 @@ private _newBias = [_azBias + _dirSign * ([90, 22.5, 15, 7.5] select _size)] cal
 if (_newBias == _azBias) exitWith {};
 
 // Moving the scan sector stops a running scan; the antenna then turns to the new centerline (fza_fcr_fnc_animateFCR)
+[_heli] call fza_fcr_fnc_rfiCuedExit;
 [_heli] call fza_fcr_fnc_stopScan;
 [_heli, _newBias] call fza_fcr_fnc_setCenterline;

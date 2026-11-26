@@ -21,17 +21,15 @@ Author:
 #include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_object",["_state", 0]];
 
-private _class = "radar";
-private _unitType = "SR";
-
-private _cfg = configOf _object;
-if (isText (_cfg >> "fza_aseClass")) then {
-    _class = getText (_cfg >> "fza_aseClass");
-};
-
-if (isText (_cfg >> "fza_aseIcon")) then {
-    _unitType = getText (_cfg >> "fza_aseIcon"); 
-};
+// Called for every RLWR threat at every update: the type's class and icon type are read once
+if (isNil "fza_ase_classCache") then {fza_ase_classCache = createHashMap;};
+(fza_ase_classCache getOrDefaultCall [typeOf _object, {
+    private _cfg = configOf _object;
+    [
+        ["radar", getText (_cfg >> "fza_aseClass")] select isText (_cfg >> "fza_aseClass"),
+        ["SR", getText (_cfg >> "fza_aseIcon")] select isText (_cfg >> "fza_aseIcon")
+    ]
+}, true]) params ["_class", "_unitType"];
 
 private _unitStatus = "";
 

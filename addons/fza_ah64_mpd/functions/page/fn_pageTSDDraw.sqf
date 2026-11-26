@@ -16,6 +16,8 @@ private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 ([_heli, _persistState] call fza_mpd_fnc_tsdFrame) params ["_framePos", "_frameHeading", "_frozen"];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_FROZEN), BOOLTONUM(_frozen)];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI_HDG), _frameHeading];
+// The bearing to the active waypoint, in the box at the foot of the map, as the ASE page's
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_HDG), [_heli] call fza_mpd_fnc_wptBearingText];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CAQ), _state getOrDefault ["caq", 0]];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ZOOM), _persistState getOrDefault ["zoom", 0]];
 // Whether the MPD cursor is over the map, where it chooses points and pans
@@ -77,6 +79,11 @@ switch (_state get "subPageVarPage" select 0) do {
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED), _groundSpeed];
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_ENDR), _totalEnduranceNumber];
         _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WIND), _wind_text];
+        private _rJamState = _heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF];
+        if (_rJamState != ASE_RJAM_STATE_OFF && {ASE_RJAM_WARMING(_heli)}) then {
+            _rJamState = [ASE_RJAM_STATE_WARM_STBY, ASE_RJAM_STATE_WARM_OPER] select (_rJamState == ASE_RJAM_STATE_OPER);
+        };
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ROOT_RJAM), _rJamState];
     };
     case 1: {   //SHOW
         _this call fza_mpd_fnc_tsdShowDraw;
@@ -200,6 +207,11 @@ private _cursorFcr = [];
     };
     // Low priority, unless it is the NTS or ANTS
     if (_forEachIndex >= FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS && _selStatus == 0) then {_ident = _ident + "_LOW";};
+    // Merged with an RFI emitter (fza_fcr_fnc_update): its type characters over the symbol
+    if (_rangesetting < 25000) then {
+        private _chars = [_heli, _target] call fza_ase_fnc_rfiMergedChars;
+        if (_chars isNotEqualTo []) then {_ident = [_ident, _chars] call fza_mpd_fnc_rfiMergedIdent};
+    };
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
     _cursorFcr pushBack [_pos, [POINT_TYPE_FCR, _forEachIndex], _target];
@@ -229,16 +241,32 @@ private _ctrX       = 0.5;
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable ["fza_ah64_ase_objects", []];
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
-{
-    if !_showRLWR exitWith {};
-    _x params ["_aseState", "_object","_iconClass"];
-    // Relative to the map's heading, frozen or live
-    private _bearing = (_heli getDir _object) - _frameHeading;
-    if (([] call fza_mpd_fnc_iconBlink) && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
-    ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
-        params ["_screenX", "_screenY"];
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
-} forEach _aseObjects;
+if (_showRLWR) then {
+    // On the footprint square at each one's bearing from the map's heading, frozen or live, overlapping any others there
+    private _blink = [] call fza_mpd_fnc_iconBlink;
+    {
+        _x params ["_aseState", "_object", "_iconClass", ["_ghost", false], "", ["_bold", false]];
+        if (_ghost) then {_iconClass = [_iconClass] call fza_mpd_fnc_ghostIdent;};
+        if (_blink && (_aseState >= ASE_LNC && _aseState != ASE_LSR)) then {continue;};
+        private _screen = [_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, (_heli getDir _object) - _frameHeading] call fza_mpd_fnc_bearingToScreen;
+        _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screen # 0, _screen # 1, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass, _bold];
+    } forEach _aseObjects;
+};
+
+//RFI threats, outside the ASE footprint
+private _rfiPicks = [];
+if (_heli getVariable ["fza_mpd_tsdShowRfi", [true, true]] select _phase) then {
+    private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
+    // Between the map border (TSD_MAP_CLIP) and the ASE footprint (0.18-0.82), as tuned (fza_mpd_fnc_threatSymbolTune)
+    private _edge = (fza_mpd_threatTune getOrDefault ["tsd", MPD_THREAT_TUNE_TSD]) # 3;
+    [_heli, _seat, {
+        params ["_bearing"];
+        [_ctrX, _ctrY, _edge, 1 - _edge, _edge, 1 - _edge, _bearing] call fza_mpd_fnc_bearingToScreen
+    }, _frameHeading] call fza_mpd_fnc_rfiPoints params ["_rfiPoints", "_picks"];
+    _pointsArray append _rfiPoints;
+    _rfiPicks = _picks;
+};
+_state set ["cursorRfi", _rfiPicks];
 
 //TSD Sensor line
 private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariable;
@@ -249,7 +277,10 @@ if (_posTadsTgt isNotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then 
 };
 
 
-[_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
+// Only the top level has the ACQ button: SHOW uses the ACQ list's slots
+if ((_state get "subPageVarPage" select 0) == 0) then {
+    [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
+};
 
 // The point the MPD cursor is on, if on this MPD
 private _cursor = _heli getVariable ["fza_mpd_cursor", []];

@@ -76,6 +76,18 @@
             if (t.ov) {
                 if (!draw(ctx, t.ov, p[0], p[1], sizePx, brightness)) { allDrawn = false; }
             }
+            // Merged with an RFI emitter: its type characters over the ADU symbol's apex
+            if (t.ml || t.mr) {
+                ctx.save();
+                ctx.font = (sizePx * 0.26).toFixed(1) + "px BMKApacheFont, monospace";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = brightness < 1 ? "#808000" : DEFAULT_TINT;
+                ctx.textAlign = "right";
+                if (t.ml) { ctx.fillText(t.ml, p[0] + (0.45 - 0.5) * sizePx, p[1] + (0.28 - 0.5) * sizePx); }
+                ctx.textAlign = "left";
+                if (t.mr) { ctx.fillText(t.mr, p[0] + (0.55 - 0.5) * sizePx, p[1] + (0.28 - 0.5) * sizePx); }
+                ctx.restore();
+            }
         }
         drawShots(true);
         return allDrawn;

@@ -22,6 +22,7 @@ params ["_heli", "_function", "_value"];
 
 private _functionValue = _heli getVariable _function;
 
-if (_functionValue isNotEqualTo _value) then {
+// Never set yet: set now, as comparing with nothing fails
+if (isNil "_functionValue" || {_functionValue isNotEqualTo _value}) then {
     _heli setVariable [_function, _value, true];
 };

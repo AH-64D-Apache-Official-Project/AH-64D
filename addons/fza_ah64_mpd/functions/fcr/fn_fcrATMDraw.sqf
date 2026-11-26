@@ -82,7 +82,11 @@ if (!isNull _ctrl) then {
     private _hover = [_heli, _mpdIndex, _state, _cursorTargets] call fza_mpd_fnc_fcrCursorHover;
 
     private _zonesJson = [_heli, _scanPos, [_noseDir, _dir] select (_noseDir < 0), 0.325 / 8000, [0.5, 0.5]] call fza_mpd_fnc_fcrZonesJson;
-    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"zoom":null,"hover":%3,"targets":[%1],"shots":[%2],"zones":%4}', _tgtJson, _shotJson, _hover, _zonesJson]] call fza_mpd_fnc_htmlPush;
+    private _seat = ["plt", "cpg"] select (([_heli] call fza_fnc_currentTurret) isEqualTo [0]);
+    ([_heli, 2, _seat, _ctrl] call fza_mpd_fnc_fcrRfiJson) params ["_rfiJson", "_rfiPicks"];
+    _state set ["cursorRfi", _rfiPicks];
+    [_ctrl, "fzaFCRScope.defs", [_ctrl] call fza_mpd_fnc_htmlDefsJson, "d"] call fza_mpd_fnc_htmlPush;
+    [_ctrl, "fzaFCRScope.update", format ['{"mode":2,"zoom":null,"hover":%3,"targets":[%1],"shots":[%2],"zones":%4,"rfi":%5}', _tgtJson, _shotJson, _hover, _zonesJson, _rfiJson]] call fza_mpd_fnc_htmlPush;
 };
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str (_heli getVariable "fza_ah64_fcrDisplayCount")];

@@ -35,6 +35,9 @@ class CfgFunctions
             class radarSet {RECOMPILE_FLAG;};
             class displayUiInit {RECOMPILE_FLAG;};
             class setMode {RECOMPILE_FLAG;};
+            class singleScan {RECOMPILE_FLAG;};
+            class rfiCued {RECOMPILE_FLAG;};
+            class rfiCuedExit {RECOMPILE_FLAG;};
             class updateTPMObstacles {RECOMPILE_FLAG;};
             class videoClear {RECOMPILE_FLAG;};
             class tpmSample {RECOMPILE_FLAG;};

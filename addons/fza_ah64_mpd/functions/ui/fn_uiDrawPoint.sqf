@@ -1,4 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 disableSerialization;
 params
     ["_heli"
@@ -30,6 +31,25 @@ private _details = [_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentD
 if (isNil "_details") then {_details = []};
 _details params [["_iconTex", ""], ["_iconTex2", ""], ["_iconSize", 0], ["_color", [1, 1, 1, 1]], "_textA", "_textB"];
 
+// RLWR and RFI threat symbols are sized, and the characters at their edges moved in, as tuned
+// (fza_mpd_fnc_threatSymbolTune); their text keeps to the untuned symbol's height times the size and text multipliers
+private _baseSize  = _iconSize;
+private _textScale = 1;
+if ((_dmsPoint # POINT_GET_TYPE) in [POINT_TYPE_ASE, POINT_TYPE_RFI] && {_iconSize isEqualType 0} && {finite _iconSize} && {_iconSize > 0}) then {
+    (fza_mpd_threatTune getOrDefault ["ase", MPD_THREAT_TUNE_ASE]) params ["_tuneSize", "_tuneText", "_tuneIn"];
+    _iconSize  = _iconSize * _tuneSize;
+    _textScale = _tuneSize * _tuneText;
+    private _inset = {
+        params ["_text"];
+        _text params [["_tpl", ""], ["_offset", [0, 0]], ["_hAlign", "center"], ["_vAlign", "center"]];
+        private _ox = _offset param [0, 0];
+        private _dx = [0, [-_tuneIn, _tuneIn] select (_ox < 0.5)] select (abs (_ox - 0.5) > 0.25);
+        [_tpl, [_ox + _dx, _offset param [1, 0]], _hAlign, _vAlign]
+    };
+    if (!isNil "_textA" && {_textA isEqualType []}) then {_textA = [_textA] call _inset};
+    if (!isNil "_textB" && {_textB isEqualType []}) then {_textB = [_textB] call _inset};
+};
+
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
 private _uiCtr   = _armaPos;
@@ -50,7 +70,7 @@ if (_details isEqualTo [] || {!(finite _iconSize && {_iconSize > 0} && {finite (
     };
 };
 
-private _textHeight = 0.00208 / _iconSize;
+private _textHeight = 0.00208 / _baseSize * _textScale;
 
 // Off the display: no controls needed (the display's margin keeps icons that straddle its edge)
 if (_uiCtr # 0 < -0.1 || _uiCtr # 0 > 1.1 || _uiCtr # 1 < -0.1 || _uiCtr # 1 > 1.1) exitWith {

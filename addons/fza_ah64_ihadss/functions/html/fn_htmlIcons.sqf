@@ -173,7 +173,7 @@ private _turret = [_heli] call fza_fnc_currentTurret;
 private _acqVec = [_heli, _turret] call fza_fnc_targetingAcqCue;
 if (!isNil "_acqVec" && {vectorMagnitude _acqVec > 0}) then {
     private _cuedPos = if (_inPicture) then {
-        ([_heli, [_heli, _turret] call fza_fnc_targetingCurAcq] call fza_fnc_targetingAcqPoint) call _toPicture
+        ([_heli, [_heli, _turret] call fza_fnc_targetingCurAcq, ["plt", "cpg"] select (_turret isEqualTo [0])] call fza_fnc_targetingAcqPoint) call _toPicture
     } else {
         (vectorNormalized _acqVec) call _dirToScreen
     };
@@ -240,14 +240,41 @@ if (!_tpm && {_heli animationPhase "fcr_enable" == 1} && {_heli getVariable ["fz
 
     private _fcrTargets = _heli getVariable ["fza_ah64_fcrDisplayTargets", []];
     _heli getVariable "fza_ah64_fcrLastScan" params ["", "_scanPos"];
+    private _symH     = 30 / 480 * _rectH;
+    private _symW     = _symH / pixelH * pixelW;
     {
         if (_forEachIndex >= FCR_PAGE_NAV_PHASE_DISPLAY_TARGETS) exitWith {};
-        _x params ["_pos", "_type", "_moving"];
+        _x params ["_pos", "_type", "_moving", "_target"];
         private _ident = [_type, _scanPos distance2D _pos, _moving] call fza_mpd_fnc_buildFCRIdent;
         if (_ident != "") then {
             private _parts = _ident splitString "_";
             private _tgtTex = (toLower (_parts # 1) + (["", _parts # 2] select (_parts # 1 != "FLYER"))) call _fcrTex;
-            ["tgt" + str _forEachIndex, _tgtTex, _pos call _toScreen, 30] call _place;
+            private _key    = "tgt" + str _forEachIndex;
+            private _scr    = _pos call _toScreen;
+            [_key, _tgtTex, _scr, 30] call _place;
+
+            // Merged with an RFI emitter: its type characters over the apex, as on the FCR page
+            private _chars = if (_key in _shown) then {[_heli, _target] call fza_ase_fnc_rfiMergedChars} else {[]};
+            if (_chars isNotEqualTo []) then {
+                _scr params ["_sx", "_sy"];
+                {
+                    _x params ["_char", "_class", "_share", "_alignX"];
+                    if (_char == "") then {continue};
+                    private _charKey = _key + (["L", "R"] select _forEachIndex);
+                    private _ctrl = _ctrls getOrDefault [_charKey, controlNull];
+                    if (isNull _ctrl) then {
+                        _ctrl = _display ctrlCreate [_class, -1];
+                        _ctrls set [_charKey, _ctrl];
+                    };
+                    _ctrl ctrlSetText _char;
+                    _ctrl ctrlSetTextColor _colour;
+                    _ctrl ctrlSetFontHeight (0.26 * _symH);
+                    _ctrl ctrlSetPosition [_sx + (_share - 0.5) * _symW + _alignX, _sy + (0.28 - 0.5) * _symH - 0.5, 1, 1];
+                    _ctrl ctrlCommit 0;
+                    _ctrl ctrlShow true;
+                    _shown pushBack _charKey;
+                } forEach [[_chars # 0, "FzaMpdRscTextRight", 0.45, -1], [_chars # 1, "FzaMpdRscTextLeft", 0.55, 0]];
+            };
         };
     } forEach _fcrTargets;
 

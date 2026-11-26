@@ -18,22 +18,12 @@ _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), 0];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), 0];
 
 //Chaff + Flares
-private _chaffCount = 0;
-private _flareCount= 0;
-{
-    _x params ["_className", "_turretPath", "_ammoCount"];
-    if (_className == "fza_chaff_30_mag" && _turretPath isEqualTo [-1]) then {
-        _chaffCount = _chaffCount + _ammoCount;
-    };
-    if (_className == "fza_flare_30_mag" && _turretPath isEqualTo [-1]) then {
-        _flareCount= _flareCount+ _ammoCount;
-    };
-} forEach magazinesAllTurrets _heli;
-
-if (_heli animationPhase "msn_equip_british" == 1) then {
-    _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount];
+[_heli] call fza_ase_fnc_cmCounts params ["_flareL", "_flareR", "_chaffCount"];
+if (ASE_HIDAS(_heli)) then {
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_FL), "FL" + str (_flareL + _flareR)];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), "CH" + str _chaffCount];
 } else {
-    _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), str _chaffCount];
 };
 
 //Mission equipment

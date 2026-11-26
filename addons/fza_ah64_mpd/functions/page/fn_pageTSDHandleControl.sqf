@@ -1,6 +1,7 @@
 params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
+#include "\fza_ah64_ase\headers\ase.h"
 
 private _subPage = _state get "subPageVarPage" select 0;
 // The ACQ list opens from the root page
@@ -83,6 +84,12 @@ if (!_znOwns) then {switch (_control) do {
 switch _subPage do {
     case 0: { // Root
         switch (_control) do {
+            case "l5": {
+                // JAM, while the radar jammer is on: between STBY and OPER
+                private _rJamMode = _heli getVariable ["fza_ah64_ase_rJamMode", ASE_RJAM_STATE_OFF];
+                if (_rJamMode == ASE_RJAM_STATE_OFF) exitWith {};
+                [_heli, [ASE_RJAM_STATE_OPER, ASE_RJAM_STATE_STBY] select (_rJamMode == ASE_RJAM_STATE_OPER)] call fza_ase_fnc_rJamSetMode;
+            };
             case "l6": {
                 _state set ["subPageVarPage", TSD_SHOW]; //SHOW subpage
             };

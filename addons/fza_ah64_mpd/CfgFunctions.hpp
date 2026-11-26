@@ -22,6 +22,8 @@ class CfgFunctions
             class handleControl {RECOMPILE_FLAG;};
             class handleHold {RECOMPILE_FLAG;};
             class htmlCtrl {RECOMPILE_FLAG;};
+            class htmlDefsJson {RECOMPILE_FLAG;};
+            class htmlPoints {RECOMPILE_FLAG;};
             class htmlPreload {RECOMPILE_FLAG;};
             class htmlPush {RECOMPILE_FLAG;};
             class htmlTexture {RECOMPILE_FLAG;};
@@ -38,6 +40,7 @@ class CfgFunctions
             class cursorEnter {RECOMPILE_FLAG;};
             class cursorInArea {RECOMPILE_FLAG;};
             class cursorLabels {RECOMPILE_FLAG;};
+            class cursorNearest {RECOMPILE_FLAG;};
             class cursorPick {RECOMPILE_FLAG;};
             class cursorPoint {RECOMPILE_FLAG;};
             class cursorToNts {RECOMPILE_FLAG;};
@@ -90,6 +93,7 @@ class CfgFunctions
             class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
             class tsdWaypointStatusText {RECOMPILE_FLAG;};
+            class wptBearingText {RECOMPILE_FLAG;};
             class tsdZNAccept {RECOMPILE_FLAG;};
             class tsdZNApply {RECOMPILE_FLAG;};
             class tsdZNCursorEnter {RECOMPILE_FLAG;};
@@ -111,6 +115,7 @@ class CfgFunctions
             class pageACUtilHandleControl {RECOMPILE_FLAG;};
             class pageASEDraw {RECOMPILE_FLAG;};
             class pageASEHandleControl {RECOMPILE_FLAG;};
+            class pageASEHtmlDraw {RECOMPILE_FLAG;};
             class pageCHANDraw {RECOMPILE_FLAG;};
             class pageCHANHandleControl {RECOMPILE_FLAG;};
             class pageCODEDraw {RECOMPILE_FLAG;};
@@ -150,10 +155,21 @@ class CfgFunctions
             class pagePERFDraw {RECOMPILE_FLAG;};
             class pagePERFHandleControl {RECOMPILE_FLAG;};
         };
+        class rfi {
+            file = "\fza_ah64_mpd\functions\rfi";
+            class rfiIdent {RECOMPILE_FLAG;};
+            class rfiMergedIdent {RECOMPILE_FLAG;};
+            class rfiPoints {RECOMPILE_FLAG;};
+            class rfiSymbol {RECOMPILE_FLAG;};
+            class rfiSymbolPoints {RECOMPILE_FLAG;};
+            class fcrRfiJson {RECOMPILE_FLAG;};
+        };
         class ui {
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
+            class threatSymbolTune {RECOMPILE_FLAG;};
+            class ghostIdent {RECOMPILE_FLAG;};
         };
         class video {
             file = "\fza_ah64_mpd\functions\video";

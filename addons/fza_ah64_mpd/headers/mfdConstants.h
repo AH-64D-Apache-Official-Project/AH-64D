@@ -237,6 +237,8 @@
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
 #define MFD_TEXT_IND_WPN_CMS_QTY 2
+//HIDAS: the flare total, over the chaff total in MFD_TEXT_IND_WPN_CMS_QTY
+#define MFD_TEXT_IND_WPN_CMS_FL 23
 #define MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT 3
 #define MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT 4
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
@@ -273,6 +275,7 @@
 
 //TSD Root page indices
 #define MFD_IND_TSD_ROOT_SHOW_WPT_DATA_CURRTE 0
+#define MFD_IND_TSD_ROOT_RJAM 1
 
 #define MFD_TEXT_IND_TSD_ROOT_ENDR 0
 #define MFD_TEXT_IND_TSD_ROOT_WPDEST 1
@@ -299,6 +302,8 @@
 #define MFD_IND_TSD_SHOW_LINES 29
 // Shares 30 with ZN, which is a different subpage
 #define MFD_IND_TSD_SHOW_OBST 30
+// The ACQ list's first slot: it is only drawn on the top level (fza_mpd_fnc_pageTSDDraw)
+#define MFD_IND_TSD_SHOW_RFI 31
 
 #define MFD_IND_TSD_OPEN_POPOUT 13
 #define MFD_IND_TSD_ACQ_BOX 14
@@ -323,6 +328,8 @@
 #define MFD_IND_TSD_CURSOR_MAP   28
 
 #define MFD_TEXT_IND_TSD_ACQ_SRC 19
+//The bearing to the active waypoint, on every subpage: RTM's text runs to 37 and the ACQ list's is 38
+#define MFD_TEXT_IND_TSD_WPT_HDG 39
 
 // ZN, local to subpage 6
 #define MFD_IND_TSD_ZN_VARIANT    0
@@ -470,21 +477,55 @@
 #define MFD_IND_ASE_RLWR_PWR     1
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
+#define MFD_IND_ASE_RJAM_STATE   4
 #define MFD_IND_ASE_AUTOPAGE     5
 #define MFD_IND_ASE_BRITISH      6
 #define MFD_IND_ASE_AMERICAN     7
-//--Azimuth
-#define MFD_IND_ASE_01_AZ 13
-#define MFD_IND_ASE_02_AZ 14
-#define MFD_IND_ASE_03_AZ 15
-#define MFD_IND_ASE_04_AZ 16
-#define MFD_IND_ASE_05_AZ 17
-#define MFD_IND_ASE_06_AZ 18
-#define MFD_IND_ASE_07_AZ 19
+#define MFD_IND_ASE_RJAM_XMIT    8
+//--HIDAS
+#define MFD_IND_ASE_CMDS_MODE    9
+#define MFD_IND_ASE_VOICE        10
+//Cartridges left: 0 over half, 1 half or less, 2 empty
+#define MFD_IND_ASE_FLARE_L_QTY  11
+#define MFD_IND_ASE_FLARE_R_QTY  12
+#define MFD_IND_ASE_CHAFF_QTY    20
+//ASE count of 10 or more
+#define MFD_IND_ASE_COUNT_WIDE   21
+//--RFI
+//0 no FCR mast, 1 off, 2 on
+#define MFD_IND_ASE_RFI_PWR      22
+//0 barriered, 1 available, 2 choosing
+#define MFD_IND_ASE_CAQ          23
+//13-19 and 24-38 are free: the tracking lines are drawn by the page's browser (fza_mpd_fnc_pageASEHtmlDraw), and the
+//ASE page has no ACQ list
 
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
 #define MFD_TEXT_IND_ASE_RLWR_COUNT  1
+#define MFD_TEXT_IND_ASE_FLARE_L     3
+#define MFD_TEXT_IND_ASE_FLARE_R     4
+#define MFD_TEXT_IND_ASE_CHAFF       5
+#define MFD_TEXT_IND_ASE_FL_TOTAL    6
+#define MFD_TEXT_IND_ASE_CH_TOTAL    7
+#define MFD_TEXT_IND_ASE_COUNT       8
+#define MFD_TEXT_IND_ASE_RFI_COUNT   9
+#define MFD_TEXT_IND_ASE_WPT_HDG     10
+
+//--HIDAS threat rings, by threat state: search, then acquisition, track, launch
+#define MPD_ASE_RING_OUTER 0.325
+#define MPD_ASE_RING_3     0.255
+#define MPD_ASE_RING_2     0.185
+#define MPD_ASE_RING_1     0.115
+// Tracking lines' outer ends: just inside the RLWR symbols, and out to the RFI symbols outside the footprint
+#define MPD_ASE_LINE_RLWR  0.25
+#define MPD_ASE_LINE_RFI   0.321
+//RLWR and RFI threat symbols on each format, tuned live with fza_mpd_fnc_threatSymbolTune:
+//[size, text height (both multipliers), characters moved in (of the symbol), RFI symbols' place: ASE ring radius, TSD
+//square's distance from the page edge, FCR extra distance out from the scan sector]. The ASE page and FCR draw their
+//symbols as the TSD does, with the TSD's first three; only their RFI symbols' place is their own.
+#define MPD_THREAT_TUNE_ASE [1, 1, 0, 0.36]
+#define MPD_THREAT_TUNE_TSD [1, 1, 0.08, 0.147]
+#define MPD_THREAT_TUNE_FCR [1, 1.1, 0.06, 0]
 
 #define MFD_TEXT_IND_FREQ_A 0
 #define MFD_TEXT_IND_FREQ_B 1

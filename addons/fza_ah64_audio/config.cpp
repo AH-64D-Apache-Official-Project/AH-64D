@@ -12,5 +12,7 @@ class CfgPatches
 };
 
 #include "cfgFunctions.hpp"
+#include "cfgSoundSets.hpp"
+#include "cfgSoundShaders.hpp"
 #include "cfgSounds.hpp"
 #include "extendedEventHandlers.hpp"

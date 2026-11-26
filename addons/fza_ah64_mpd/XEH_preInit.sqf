@@ -1,3 +1,6 @@
+// RLWR and RFI threat symbol tuning, by format (fza_mpd_fnc_threatSymbolTune)
+fza_mpd_threatTune = createHashMap;
+
 ["fza_dms_pointDeleted", {
     params ["_heli", "_id"];
     if (_heli getVariable "fza_mpd_tsdWptCurrentSel" isEqualTo _id) then {
