@@ -50,15 +50,16 @@
         class FuselagePanel03 {
             name          = "fuselageFront";
             facing        = "forward";
-            //Solved with the main rotor tables for 10 deg nose low at 130 kt, sea level; flat
-            //across altitude until altitude is fitted.
+            //0 ft: solved with the main rotor tables for 10 deg nose low at 130 kt, sea level.
+            //2,000 ft and up: solved against TASTable's max range points at 18,000 lb, the mean of
+            //the five FATs at each altitude. The 0 ft row is the sea level fit and is not moved.
             dragCoefTable[] =
             {
-             {   0, 1.012}
-            ,{2000, 1.012}
-            ,{4000, 1.012}
-            ,{6000, 1.012}
-            ,{8000, 1.012}
+             {   0, 1.247}
+            ,{2000, 1.502}
+            ,{4000, 1.589}
+            ,{6000, 1.715}
+            ,{8000, 1.912}
             };
             panels[] =
             {

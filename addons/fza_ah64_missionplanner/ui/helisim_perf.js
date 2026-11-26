@@ -26,14 +26,18 @@ var EMPTY_MASS_NON_FCR_LBS = 6314 * LBS_PER_KG;
 // Fallback values used when environment setting cannot be resolved.
 var PERF_DEFAULT_PA_FT = 0;
 var PERF_DEFAULT_FAT_C = 20;
+// By HeliSim Core's environment setting: its base altitude and mean FAT. The daily swing,
+// cloud, wind and moisture Core adds in flight are not planned for here.
 var ENV_PROFILE_PA_FAT = {
-  0: { pa: 0, fat: 15 },
-  1: { pa: 800, fat: 20 },
-  2: { pa: 800, fat: 0 },
-  3: { pa: 1800, fat: 30 },
-  4: { pa: 5000, fat: 30 },
-  5: { pa: 5000, fat: -5 },
-  6: { pa: 3100, fat: 25 }
+  0: { pa: 0, fat: 15 },      // Standard Day
+  1: { pa: 800, fat: 18 },    // Europe - Summer
+  2: { pa: 800, fat: -3 },    // Europe - Winter
+  3: { pa: 1800, fat: 31 },   // Middle East - Summer
+  4: { pa: 1800, fat: 14 },   // Middle East - Winter
+  5: { pa: 5000, fat: 22 },   // Central Asia - Summer
+  6: { pa: 5000, fat: -4 },   // Central Asia - Winter
+  7: { pa: 3100, fat: 21 },   // Asia - Summer
+  8: { pa: 3100, fat: -2 }    // Asia - Winter
 };
 
 var PERF_FAT_BINS = [-40, -20, 0, 20, 40];
