@@ -27,10 +27,10 @@ private _deleted = false;
         } else {
             private _entryName = _entry param [0, "", [""]];
             if ((toLower _entryName) isEqualTo (toLower _trimmedName) && !_deleted) then {
-                private _ownerUid = if ((count _entry) > 3) then {str (_entry # 3)} else {""};
-                private _ownerName = if ((count _entry) > 4) then {str (_entry # 4)} else {"the owner"};
+                private _ownerUid = _entry param [3, "", [""]];
+                private _ownerName = _entry param [4, "the owner", [""]];
                 if (_isMissionScope && {_ownerUid != ""} && {_ownerUid != _playerUid}) then {
-                    systemChat format ["Mission Planner: only %1 can delete that mission save.", _ownerName];
+                    [createHashMapFromArray [["type", "notice"], ["level", "warn"], ["text", format ["Only %1 can delete that mission save.", _ownerName]]]] call fza_mplanner_fnc_pageEvent;
                     _nextEntries pushBack _entry;
                 } else {
                     _deleted = true;

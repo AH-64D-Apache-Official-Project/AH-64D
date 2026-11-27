@@ -64,13 +64,11 @@ function updateAmmoWarnings() {
     return;
   }
 
-  // Info: pylon changes will be skipped at apply time if no ammo truck is nearby
-  if (g_rearmData && g_rearmData.pylonsNeedTruck) {
-    var hasTruckNearby = !!(g_rearmData.trucks && g_rearmData.trucks.length);
-    if (!hasTruckNearby && supplyEl) {
-      supplyEl.textContent = 'Note: pylon changes require an ammo truck at apply time';
-      supplyEl.className = 'supply-tally supply-info';
-    }
+  // Pylon and gun changes are skipped at apply time without an ammunition source
+  var hasAmmoSource = !!(g_rearmData && g_rearmData.trucks && g_rearmData.trucks.length);
+  if (!hasAmmoSource && supplyEl) {
+    supplyEl.textContent = 'Pylon and gun changes need an ammo source within ' + g_sourceDistance + ' m';
+    supplyEl.className = 'supply-tally supply-info';
   }
 
   // Only enforce in mode 1 (caliber pool)
@@ -84,10 +82,6 @@ function updateAmmoWarnings() {
   }
   if (g_rearmData.mode === 2) {
     // Magazine inventory: no caliber-point enforcement; just surface the supply mode
-    updateAmmoTypes(null);
-    return;
-  }
-  if (!g_rearmData.rearmNewPylons) {
     updateAmmoTypes(null);
     return;
   }
@@ -225,7 +219,7 @@ function updateAmmoWarnings() {
   var newCost = spent;
   if (supplyEl) {
     if (baseSupply <= 0 && recyclableCredit <= 0) {
-      supplyEl.textContent = 'Supply: no sources nearby' + (newCost > 0 ? ' (' + newCost + ' pts needed for new items)' : '');
+      supplyEl.textContent = 'Supply: no source within ' + g_sourceDistance + ' m' + (newCost > 0 ? ' (' + newCost + ' pts needed for new items)' : '');
       supplyEl.className = 'supply-tally' + (newCost > 0 ? ' supply-over' : '');
     } else {
       var tallyStr = 'Supply: ' + newCost + ' / ' + baseSupply;
@@ -240,7 +234,7 @@ function updateAmmoWarnings() {
 function updateAmmoTypes(remaining) {
   var el = document.getElementById('ammoTypesSection');
   if (!el) return;
-  if (!g_rearmData || !g_rearmData.costs) { el.innerHTML = ''; return; }
+  if (g_noAmmoSourceRequired || !g_rearmData || !g_rearmData.costs) { el.innerHTML = ''; return; }
   var rc = g_rearmData.costs;
   var isUnlim = g_rearmData.unlimited || g_rearmData.mode === 0;
   var hasTrucks = !!(g_rearmData.trucks && g_rearmData.trucks.length);

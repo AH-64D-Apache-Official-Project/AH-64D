@@ -6,7 +6,7 @@ class CfgPatches
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
-        requiredAddons[] = {"fza_ah64_controls", "fza_ah64_dms", "cba_main", "ace_interaction"};
+        requiredAddons[] = {"fza_ah64_controls", "fza_ah64_dms", "fza_ah64_mpd", "cba_main", "ace_interaction"};
         #include "version.hpp"
     };
 };
@@ -54,5 +54,11 @@ class CfgVehicles {
 class Extended_PreInit_EventHandlers {
     class fza_ah64_mplanner_PreInits {
         init = "call compile preprocessFileLineNumbers 'fza_ah64_missionplanner\XEH_preInit.sqf';";
+    };
+};
+
+class Extended_PostInit_EventHandlers {
+    class fza_ah64_mplanner_PostInits {
+        init = "call compile preprocessFileLineNumbers 'fza_ah64_missionplanner\XEH_postInit.sqf';";
     };
 };

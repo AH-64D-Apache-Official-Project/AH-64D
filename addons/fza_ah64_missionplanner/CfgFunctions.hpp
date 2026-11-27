@@ -15,6 +15,10 @@ class CfgFunctions
             class seedHelisimData {};
             class seedCurrentConfig {};
             class applyConfig {};
+            class applyRun {};
+            class pageEvent {};
+            class sources {};
+            class supply {};
         };
         class dtc
         {

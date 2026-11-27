@@ -7,7 +7,8 @@ Description:
     the aircraft's actual current configuration.
 
 Parameters:
-    None
+    _keepPlan - true keeps the planner's own plan on the page, and only takes the
+                aircraft's state as what Apply compares against (default false)
 
 Returns:
     true / false
@@ -16,6 +17,7 @@ Author:
     FZA Missionplanner
 ---------------------------------------------------------------------------- */
 disableSerialization;
+params [["_keepPlan", false, [false]]];
 
 private _display = uiNamespace getVariable ["fza_mplanner_display", displayNull];
 if (isNull _display) exitWith { false };
@@ -61,6 +63,8 @@ private _cannonRds = _heli ammo "fza_m230";
 // ── Fuel (per-tank kg → gallons) ─────────────────────────────────────────────
 // Max kg values come from vehicle variables set by bmkhs_fnc_coreConfig.
 // Fallback to typical Apache values if not yet set.
+// HeliSim only keeps the tank masses up to date where the aircraft is local; elsewhere they're rebuilt from its fuel
+if (!local _heli) then {[_heli] call bmkhs_fnc_fuelSet};
 private _maxFwdKg = _heli getVariable ["bmkhs_fwdTankMax", 473.1];
 private _maxAftKg = _heli getVariable ["bmkhs_aftTankMax", 668.5];
 private _maxCtrKg = _heli getVariable ["bmkhs_ctrTankMax", 300.7];
@@ -224,9 +228,10 @@ private _stateJson = format [
 ];
 
 private _jsCode = format [
-    "window.fza_mplanner_receiveCurrentConfig && window.fza_mplanner_receiveCurrentConfig('%1');",
-    _stateJson call _jsEscape
+    "window.fza_mplanner_receiveCurrentConfig && window.fza_mplanner_receiveCurrentConfig('%1', %2);",
+    _stateJson call _jsEscape,
+    ["false", "true"] select _keepPlan
 ];
-[_browser, _jsCode] call compile "params ['_b','_c']; _b ctrlWebBrowserAction ['ExecJS', _c];";
+[_browser, _jsCode] call fza_mpd_fnc_execJs;
 
 true

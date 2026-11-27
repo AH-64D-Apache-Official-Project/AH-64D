@@ -272,6 +272,119 @@ function applyPlannerState(state) {
   updateWeightsAndPerformance();
 }
 
+// Fuel is left as the aircraft has it unless a tank was changed, as gallons don't round-trip exactly
+function fuelPlanChanged(plan, acft) {
+  if (!plan || !acft) return true;
+  return ['fwd', 'aft', 'ctr', 'aux'].some(function(k) { return (plan[k] || 0) !== (acft[k] || 0); });
+}
+
+function fuelPlanKg(f) {
+  f = f || {};
+  return ((f.fwd || 0) * GAL_TO_LBS_FWD + (f.aft || 0) * GAL_TO_LBS_AFT + (f.ctr || 0) * GAL_TO_LBS_CTR + (f.aux || 0) * GAL_TO_LBS_AUX) / LBS_PER_KG;
+}
+
+// A pylon's four stations as fza_mplanner_fnc_applyRun orders them (UL or zone A, UR or zone B, LL or zone E, LR),
+// each [kind, type, rounds]. An empty launcher keeps an empty pod or rail on its first station.
+function pylonStations(p, fromAircraft) {
+  var none = ['', '', 0];
+  p = p || { type: 'none' };
+  if (p.type === 'aux') return [['aux', '', 1], none, none, none];
+  if (p.type === 'rocket') {
+    var zones = p.zones || [];
+    var out = [0, 1, 2].map(function(i) {
+      var z = zones[i] || {};
+      var type = String(z.type || '').trim().toUpperCase();
+      if (!type) return i === 0 ? ['pod', '', 0] : none;
+      return ['rocket', type, Math.max(0, parseInt(z.count, 10) || 0)];
+    });
+    out.push(none);
+    return out;
+  }
+  if (p.type === 'hellfire') {
+    var rails = p.rails || [];  // UR, UL, LR, LL
+    var ammos = p.ammos || [];
+    return [1, 0, 3, 2].map(function(ri, s) {
+      var code = String(rails[ri] || '').toUpperCase();
+      if (!code) return s === 0 ? ['rail', '', 0] : none;
+      return ['hellfire', code, (fromAircraft && typeof ammos[ri] === 'number') ? ammos[ri] : 1];
+    });
+  }
+  return [none, none, none, none];
+}
+
+// The steps fza_mplanner_fnc_applyRun will take, with its Per Item seconds, so the page's time is the game's.
+// fuelShort: a refuel that the nearest fuel source, when one is required, can't fully make.
+function planApplySteps() {
+  var result = { steps: [], ammoDropped: false, fuelShort: false };
+  var acft = lastSeededAircraftState || initialAircraftState;
+  if (!acft) return result;
+  var plan = getPlannerState();
+  var ammoOk = g_noAmmoSourceRequired || !!(g_rearmData && g_rearmData.trucks && g_rearmData.trucks.length);
+  function add(label, seconds, needsAmmo) {
+    if (needsAmmo && !ammoOk) { result.ammoDropped = true; return; }
+    result.steps.push({ label: label, seconds: seconds });
+  }
+
+  var fcrHave = !!acft.fcrActive;
+  var fcrWant = !!plan.fcrActive;
+  var iafsHave = (acft.robbieMode || 'iafs') === 'iafs';
+  var iafsWant = (plan.robbieMode || 'iafs') === 'iafs';
+  var gunHave = Math.max(0, acft.cannonRds || 0);
+  var gunWant = Math.max(0, Math.min(iafsWant ? 300 : 1200, Math.round(plan.cannonRds || 0)));
+  var gunFrom = iafsHave !== iafsWant ? 0 : gunHave;
+
+  if (fcrHave && !fcrWant) add('Removing the FCR', 300);
+  if (iafsHave !== iafsWant) {
+    if (iafsWant && gunHave > 0) add('Unloading the gun', gunHave / 10, true);
+    add(iafsWant ? 'Fitting the IAFS' : 'Removing the IAFS', 300, true);
+  }
+  if (gunWant !== gunFrom) add('Gun to ' + gunWant + ' rounds', Math.abs(gunWant - gunFrom) / 10, true);
+
+  var loaded = function(st) { return st[0] !== '' && st[0] !== 'pod' && st[0] !== 'rail'; };
+  var rocket = function(st) { return st[0] === 'rocket' || st[0] === 'pod'; };
+  for (var p = 0; p < 4; p++) {
+    var have = pylonStations(acft.pylons && acft.pylons[p], true);
+    var want = pylonStations(plan.pylons && plan.pylons[p], false);
+    for (var s = 0; s < 4; s++) {
+      var h = have[s];
+      var w = want[s];
+      var same = h[0] === w[0] && h[1] === w[1];
+      if (same && !(loaded(w) && h[2] === 0 && w[2] > 0) && !(w[0] === 'rocket' && h[2] !== w[2])) continue;
+      var seconds = 5;
+      if (rocket(h) || rocket(w)) seconds = Math.max(1, same ? Math.abs(w[2] - h[2]) : h[2] + w[2]);
+      add('Pylon ' + (p + 1), seconds, true);
+    }
+  }
+
+  if (fuelPlanChanged(plan.fuel, acft.fuel)) {
+    var kgWant = fuelPlanKg(plan.fuel);
+    var kgHave = fuelPlanKg(acft.fuel);
+    var litres = Math.abs(kgWant - kgHave) / 0.8;
+    var refuel = kgWant > kgHave;
+    if (refuel && !g_noFuelSourceRequired) {
+      var src = (g_farpFuelSources || [])[0];
+      if (!src) {
+        result.fuelShort = true;
+        litres = 0;
+      } else if (src.liters >= 0 && src.liters < litres) {
+        result.fuelShort = true;
+        litres = src.liters;
+      }
+    }
+    if (litres > 1.25) add(refuel ? 'Refuelling' : 'Defuelling', litres / (fzaMplanner_fuelRateLS || 8));
+  }
+  if (!fcrHave && fcrWant) add('Fitting the FCR', 300);
+  if ((plan.msnEquip || 'US') !== (acft.msnEquip || 'US')) add('Fitting mission equipment', 30);
+  if (plan.tailNum && plan.tailNum !== (acft.tailNum || '')) add('Painting the tail number', 10);
+  return result;
+}
+
+function formatRearmTime(secs) {
+  if (secs < 60) return secs + 's';
+  var s = secs % 60;
+  return Math.floor(secs / 60) + 'm ' + (s < 10 ? '0' : '') + s + 's';
+}
+
 function updateConversionWarning() {
   var warningEl = document.getElementById('conversionWarning');
   if (!warningEl || !initialAircraftState) return;
@@ -279,86 +392,14 @@ function updateConversionWarning() {
   var iafsAlertEl = document.getElementById('iafsChangeAlert');
 
   var curState = getPlannerState();
-  var fcrChanged = curState.fcrActive !== initialAircraftState.fcrActive;
-  var iafsChanged = curState.robbieMode !== initialAircraftState.robbieMode;
-  var tailChanged = curState.tailNum !== initialAircraftState.tailNum;
-  var msnEquipChanged = curState.msnEquip !== initialAircraftState.msnEquip;
+  var acft = lastSeededAircraftState || initialAircraftState;
+  var fcrChanged = !!curState.fcrActive !== !!acft.fcrActive;
+  var iafsChanged = (curState.robbieMode || 'iafs') !== (acft.robbieMode || 'iafs');
+  var applyPlan = planApplySteps();
+  var steps = applyPlan.steps;
+  var rearmMode = (typeof g_rearmMode !== 'undefined') ? g_rearmMode : 1;
 
-  // Track rocket and non-rocket pylon seconds separately so mode-1 can show accurate estimates.
-  // Rockets: 1s per rocket loaded or unloaded per zone.
-  // Non-rocket: flat 5s per hellfire rail change, 20s per type swap.
-  var rocketChangedSecs = 0;
-  var nonRocketChangedSecs = 0;
-  var hasNonRocketPylonChanges = false;
-
-  if (initialAircraftState.pylons && curState.pylons) {
-    for (var pi = 0; pi < 4; pi++) {
-      var initP = initialAircraftState.pylons[pi] || { type: 'none' };
-      var curP = curState.pylons[pi] || { type: 'none' };
-      if (JSON.stringify(initP) === JSON.stringify(curP)) continue;
-      if (initP.type !== curP.type) {
-        nonRocketChangedSecs += 20;
-        hasNonRocketPylonChanges = true;
-      } else if (initP.type === 'hellfire') {
-        var initRails = initP.rails || ['', '', '', ''];
-        var curRails = curP.rails || ['', '', '', ''];
-        for (var ri = 0; ri < 4; ri++) {
-          if ((initRails[ri] || '') !== (curRails[ri] || '')) {
-            nonRocketChangedSecs += 5;
-            hasNonRocketPylonChanges = true;
-          }
-        }
-      } else if (initP.type === 'rocket') {
-        var initZones = initP.zones || [];
-        var curZones  = curP.zones  || [];
-        var numZones  = Math.max(initZones.length, curZones.length, 3);
-        for (var zi = 0; zi < numZones; zi++) {
-          var iz = initZones[zi] || { count: 0, type: '' };
-          var cz = curZones[zi]  || { count: 0, type: '' };
-          var initCount = iz.count || 0;
-          var planCount = cz.count || 0;
-          var initType = (iz.type || '').trim().toUpperCase();
-          var planType = (cz.type || '').trim().toUpperCase();
-          var delta = (initType === planType)
-            ? Math.abs(planCount - initCount)
-            : (initCount + planCount);
-          rocketChangedSecs += delta;
-        }
-      } else {
-        nonRocketChangedSecs += 20;
-        hasNonRocketPylonChanges = true;
-      }
-    }
-  }
-
-  // Fuel change detection (for anyChange and mode-1 op count)
-  var hasFuelChange = false;
-  var fuelTimeSecs = 0;
-  var noFuelReq = (typeof g_noFuelSourceRequired !== 'undefined') ? g_noFuelSourceRequired : true;
-  if (initialAircraftState && initialAircraftState.fuel && curState.fuel) {
-    var initFuelGal = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
-    var curFuelGal = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
-    var fuelDeltaGal = Math.abs(curFuelGal - initFuelGal);
-    if (fuelDeltaGal > 5) {
-      hasFuelChange = true;
-      if (!noFuelReq) {
-        fuelTimeSecs = Math.round(fuelDeltaGal * 3.785 / fzaMplanner_fuelRateLS);
-      }
-    }
-  }
-
-  // Cannon time: ~1s per 50 rounds delta
-  var cannonTimeSecs = 0;
-  if (typeof initialAircraftState.cannonRds === 'number') {
-    var cannonDelta = Math.abs((curState.cannonRds || 0) - initialAircraftState.cannonRds);
-    if (cannonDelta > 0) { cannonTimeSecs = Math.round(cannonDelta / 10); }
-  }
-
-  var pylonChangedSecs = nonRocketChangedSecs + rocketChangedSecs;
-  var anyChange = fcrChanged || iafsChanged || tailChanged || msnEquipChanged || pylonChangedSecs > 0 || hasFuelChange || cannonTimeSecs > 0;
-  var rearmMode = (typeof g_rearmMode !== 'undefined') ? g_rearmMode : 2;
-
-  if (anyChange) {
+  if (steps.length) {
     var warnText, warnTitle, urgent;
 
     if (rearmMode === 0) {
@@ -367,17 +408,12 @@ function updateConversionWarning() {
       urgent    = false;
     } else if (rearmMode === 1) {
       warnText  = '\u26A0 ~30s REARM';
-      warnTitle = 'Each change takes 30s \u00F7 total operations (~' + Math.max(1, Math.round(30 / Math.max(1, (fcrChanged ? 1 : 0) + (iafsChanged ? 1 : 0) + (tailChanged ? 1 : 0) + (msnEquipChanged ? 1 : 0) + (cannonTimeSecs > 0 ? 1 : 0) + (hasFuelChange ? 1 : 0) + Math.ceil(nonRocketChangedSecs / 5) + Math.ceil(rocketChangedSecs)))) + 's each)';
+      warnTitle = steps.length + ' steps of ~' + Math.max(1, Math.round(30 / steps.length)) + 's each';
       urgent    = false;
     } else {
-      var totalSecs = 0;
-      if (fcrChanged)      totalSecs += 300;
-      if (iafsChanged)     totalSecs += 300;
-      if (msnEquipChanged) totalSecs += 30;
-      if (tailChanged)     totalSecs += 10;
-      totalSecs += pylonChangedSecs + fuelTimeSecs + cannonTimeSecs;
-      warnText  = '\u26A0 ~' + totalSecs + 's REARM';
-      warnTitle = 'Estimated total time for this config change';
+      var totalSecs = Math.round(steps.reduce(function(t, st) { return t + st.seconds; }, 0));
+      warnText  = '\u26A0 ~' + formatRearmTime(totalSecs) + ' REARM';
+      warnTitle = 'Estimated total time for ' + steps.length + ' steps';
       urgent    = totalSecs > 120;
     }
 
@@ -391,7 +427,7 @@ function updateConversionWarning() {
     warningEl.classList.remove('rearm-urgent');
   }
 
-  // 300s FCR/IAFS alerts only apply in ACE Settings mode; suppressed in Instant and 30 Seconds
+  // 300s FCR/IAFS alerts only apply in Per Item mode; suppressed in Instant and 30 Seconds
   var showStructuralAlerts = rearmMode === 2;
   if (fcrAlertEl) {
     if (fcrChanged && showStructuralAlerts) fcrAlertEl.classList.remove('hidden');
@@ -402,24 +438,8 @@ function updateConversionWarning() {
     else iafsAlertEl.classList.add('hidden');
   }
 
-  // Fuel source availability warning — red on fuel inputs when a refuel is planned
-  // but no sources are available and one is required
-  var fuelWarnActive = false;
-  var noFuelReqNow = (typeof g_noFuelSourceRequired !== 'undefined') ? g_noFuelSourceRequired : true;
-  if (!noFuelReqNow && initialAircraftState && initialAircraftState.fuel && curState.fuel) {
-    var initFuelGalW = (initialAircraftState.fuel.fwd||0) + (initialAircraftState.fuel.aft||0) + (initialAircraftState.fuel.ctr||0);
-    var curFuelGalW  = (curState.fuel.fwd||0) + (curState.fuel.aft||0) + (curState.fuel.ctr||0);
-    if (curFuelGalW > initFuelGalW + 1) {
-      var farpSources = (typeof g_farpFuelSources !== 'undefined') ? g_farpFuelSources : [];
-      var availL = 0; var unlimFuel = false;
-      for (var fsi = 0; fsi < farpSources.length; fsi++) {
-        if ((farpSources[fsi].liters || 0) < 0) { unlimFuel = true; break; }
-        availL += (farpSources[fsi].liters || 0);
-      }
-      var neededL = (curFuelGalW - initFuelGalW) * 3.785;
-      fuelWarnActive = !unlimFuel && (farpSources.length === 0 || availL < neededL);
-    }
-  }
+  // Red fuel inputs: a refuel the nearest required fuel source can't fully make
+  var fuelWarnActive = applyPlan.fuelShort;
   var fuelWarnClass = 'fuel-src-warn';
   ['fuelFwd','fuelAft','fuelCtr','fuelAux','fuelPct'].forEach(function(fid) {
     var fel = document.getElementById(fid);

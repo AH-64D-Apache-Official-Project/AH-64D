@@ -28,7 +28,8 @@ let js_files = [
     "weapons.js",
     "weights_perf.js",
     "dtc_model.js",
-    "dtc_ui.js"
+    "dtc_ui.js",
+    "apply.js"
 ];
 
 let html = ui.join("planner.html").open_file().read();

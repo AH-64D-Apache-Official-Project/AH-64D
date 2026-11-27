@@ -1061,6 +1061,31 @@
     justify-content: flex-end;
     gap: 8px;
   }
+  .modal-notice { color: var(--text); }
+  .modal-notice:empty { display: none; }
+  .modal-notice.notice-warn { color: var(--yellow); }
+
+  /* ── APPLY PANEL ── */
+  .apply-modal { z-index: 30; }
+  .apply-modal .modal-card { width: min(640px, calc(100vw - 32px)); }
+  .apply-current { color: var(--text-bright); font-size: 15px; min-height: 19px; }
+  .apply-bar { height: 10px; border: 1px solid var(--border2); background: var(--input-bg); }
+  .apply-bar-fill { height: 100%; width: 0; background: var(--accent); }
+  .apply-log {
+    height: 230px;
+    overflow-y: auto;
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.35);
+    font-size: 13px;
+    line-height: 1.4;
+    user-select: text;
+  }
+  .apply-log-row { white-space: pre-wrap; }
+  .apply-step { color: var(--text-dim); }
+  .apply-ok { color: #88ee88; }
+  .apply-warn { color: var(--yellow); }
+  .apply-error { color: var(--red-bright); }
 
   /* ── PLACEHOLDER TABS ── */
   .placeholder-panel {

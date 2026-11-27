@@ -664,6 +664,7 @@
         <button id="btnLoadoutImport" type="button">Import</button>
       </div>
       <textarea id="loadoutText" class="dtc-text" spellcheck="false" placeholder="Export puts the loadout here and on the clipboard, ready for the aircraft's Loadout Config attribute in Eden. Paste a loadout here and Import it."></textarea>
+      <div class="modal-hint modal-notice" id="saveLoadNotice"></div>
       <div class="modal-hint" id="saveLoadHint">Select a save to load it into the planner, or type a name to create/overwrite a save in the active scope.</div>
     </div>
   </div>
@@ -732,6 +733,23 @@
   </div>
 </div>
 
+<div id="applyModal" class="modal-backdrop confirm-modal apply-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="applyTitle">
+    <div class="modal-head">
+      <div id="applyTitle" class="modal-title">Applying to Aircraft</div>
+    </div>
+    <div class="modal-body">
+      <div id="applyStep" class="apply-current"></div>
+      <div class="apply-bar"><div id="applyBarFill" class="apply-bar-fill"></div></div>
+      <div id="applyLog" class="apply-log"></div>
+      <div class="confirm-actions">
+        <button id="btnApplyCancel" type="button">Cancel</button>
+        <button id="btnApplyClose" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="dom_utils.js"></script>
 <script src="sil_data.js"></script>
 <script src="tsd_icon_data.js"></script>
@@ -742,6 +760,7 @@
 <script src="weights_perf.js"></script>
 <script src="dtc_model.js"></script>
 <script src="dtc_ui.js"></script>
+<script src="apply.js"></script>
 <script>
 // â”€â”€ TAB SWITCHING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // The sidebar is padded by the bottom strip's measured height so its list runs down to the DTC box
@@ -785,6 +804,7 @@ document.getElementById('fcrBadge').addEventListener('click', function() {
 // Called by the display-level KeyDown event handler (via ExecJS) when ESC is pressed.
 // Closes the innermost visible modal; if none open, closes the whole dialog via SQF.
 window.fza_mplanner_handleEscape = function() {
+  if (applyPanelEscape()) return;
   if (window.fzaDtc && window.fzaDtc.escape()) return;
   var deleteModal = document.getElementById('deleteConfirmModal');
   if (deleteModal && deleteModal.classList.contains('visible')) {
@@ -815,7 +835,8 @@ var g_pylonChangeSeq = 0;
 var g_pylonOrder = {};
 var g_itemOrder = {};
 
-window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
+// After an apply that stopped or skipped items, keepPlan leaves the plan on the page and Apply lit
+window.fza_mplanner_receiveCurrentConfig = function(stateJson, keepPlan) {
   dismissLoadingOverlay();
   try {
     var state = JSON.parse(String(stateJson || '{}'));
@@ -827,13 +848,18 @@ window.fza_mplanner_receiveCurrentConfig = function(stateJson) {
         msnEquip: String(state.msnEquip || 'US'),
         cannonRds: typeof state.cannonRds === 'number' ? state.cannonRds : 0,
         pylons: state.pylons ? JSON.parse(JSON.stringify(state.pylons)) : [],
-        fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0 } : { fwd:0, aft:0, ctr:0 }
+        fuel: state.fuel ? { fwd: state.fuel.fwd||0, aft: state.fuel.aft||0, ctr: state.fuel.ctr||0, aux: state.fuel.aux||0 } : { fwd:0, aft:0, ctr:0, aux:0 }
       };
       lastSeededAircraftState = _snap;
-      if (!initialAircraftState) { initialAircraftState = _snap; }
+      initialAircraftState = _snap;
+      var plan = keepPlan ? getPlannerState() : null;
       applyPlannerState(state);
       markConfigClean();
       markAircraftState();
+      if (plan) {
+        applyPlannerState(plan);
+        syncApplyPending();
+      }
       updateConversionWarning();
     }
   } catch (err) {
@@ -951,14 +977,16 @@ document.getElementById('btnApplyConfig').addEventListener('click', function() {
   updateAmmoWarnings(); // ensure ammo-warn classes are current before reading them
   var state = getAffordableApplyState();
   var legacy = buildLegacyApplyPayload(state);
+  if (!fuelPlanChanged(state.fuel, lastSeededAircraftState && lastSeededAircraftState.fuel)) legacy.fuel = -1;
   var tailNum = state.tailNum !== undefined ? state.tailNum : '';
   var msnEquip = state.msnEquip !== undefined ? state.msnEquip : 'US';
   var cannonRds = parseInt(state.cannonRds || 0, 10) || 0;
   var code = '[' + sqfQuotedString(JSON.stringify(legacy)) + ',' + String(cannonRds) + ',' + (state.fcrActive ? '1' : '0') + ',' + sqfQuotedString(tailNum) + ',' + sqfQuotedString(msnEquip) + '] call fza_mplanner_fnc_applyConfig';
-  callSQF(code);
-  markConfigClean();
-  markAircraftState();
+  // The page takes the aircraft's state once the apply reports back (fza_mplanner_fnc_seedCurrentConfig)
+  startApplyToAircraft(code);
 });
+document.getElementById('btnApplyCancel').addEventListener('click', cancelApply);
+document.getElementById('btnApplyClose').addEventListener('click', closeApplyPanel);
 // Any edit, by keyboard, list or click, once the page's own handler has run
 ['input', 'change', 'click'].forEach(function(type) {
   document.addEventListener(type, function() { setTimeout(syncApplyPending, 0); }, true);

@@ -1,11 +1,12 @@
 // save_load.js -- save/load persistence, save-seed handling, and save/load dialog
 
-var fzaMplanner_fuelRateLS = 1; // ACE ace_refuel_rate default; updated from SQF seed
+var fzaMplanner_fuelRateLS = 8;    // fza_mplanner_fuelRate; updated from SQF seed
 var g_rearmData = null;
-var g_rearmMode = 1;               // 0=Instant, 1=30 Seconds, 2=ACE Settings (CBA default=1)
+var g_rearmMode = 1;               // 0=Instant, 1=30 Seconds, 2=Per Item (CBA default=1)
 var g_noAmmoSourceRequired = true; // updated from SQF seed; default true matches CBA default
 var g_noFuelSourceRequired = true;
-var g_farpFuelSources = [];        // [{name,liters},...] from SQF seed; liters=-1 means unlimited
+var g_farpFuelSources = [];        // [{name,liters,distance},...] from SQF seed; liters=-1 means unlimited
+var g_sourceDistance = 25;         // fza_mplanner_sourceDistance, metres
 
 var saveLoadState = {
   open: false,
@@ -347,6 +348,14 @@ function scheduleSaveSeedRefresh() {
   tick();
 }
 
+// A source's name and distance for the FARP list
+function farpSourceName(src, fallback) {
+  var name = String((src && src.name) || fallback).replace(/[&<>"]/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+  });
+  return (src && typeof src.distance === 'number') ? name + ' (' + src.distance + ' m)' : name;
+}
+
 function receiveSqfSaveSeed(payloadText) {
   if (!payloadText) return;
 
@@ -376,6 +385,9 @@ function receiveSqfSaveSeed(payloadText) {
     }
     if (Array.isArray(parsed.farpFuel)) {
       g_farpFuelSources = parsed.farpFuel;
+    }
+    if (typeof parsed.sourceDistance === 'number' && parsed.sourceDistance > 0) {
+      g_sourceDistance = parsed.sourceDistance;
     }
 
     if (parsed.currentConfig !== undefined) {
@@ -408,7 +420,10 @@ function receiveSqfSaveSeed(payloadText) {
 
       // â”€â”€ FUEL section â”€â”€
       farpHtml += '<div class="farp-section">';
-      if (parsed.farpFuel && parsed.farpFuel.length) {
+      if (g_noFuelSourceRequired) {
+        farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
+        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
+      } else if (parsed.farpFuel && parsed.farpFuel.length) {
         var totalLiters = 0;
         var hasInfFuel = false;
         for (var fi = 0; fi < parsed.farpFuel.length; fi++) {
@@ -420,14 +435,11 @@ function receiveSqfSaveSeed(payloadText) {
         for (var fi2 = 0; fi2 < parsed.farpFuel.length; fi2++) {
           var fs = parsed.farpFuel[fi2];
           var fsVal = fs.liters < 0 ? 'Unlimited' : '~' + Math.round(fs.liters * 0.264172) + ' gal';
-          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(fs.name || 'Fuel Source') + '</span><span class="farp-src-val">' + fsVal + '</span></div>';
+          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + farpSourceName(fs, 'Fuel Source') + '</span><span class="farp-src-val">' + fsVal + '</span></div>';
         }
-      } else if (g_noFuelSourceRequired) {
-        farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
-        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
       } else {
         farpHtml += '<div class="farp-sec-hdr">FUEL</div>';
-        farpHtml += '<div class="farp-none">No sources nearby</div>';
+        farpHtml += '<div class="farp-none">None within ' + g_sourceDistance + ' m</div>';
       }
       farpHtml += '</div>';
 
@@ -435,22 +447,22 @@ function receiveSqfSaveSeed(payloadText) {
       var _rearm = parsed.farpRearm;
       g_rearmData = (_rearm && typeof _rearm === 'object' && !Array.isArray(_rearm)) ? _rearm : null;
       farpHtml += '<div class="farp-section">';
-      if (g_rearmData && g_rearmData.trucks && g_rearmData.trucks.length) {
+      if (g_noAmmoSourceRequired) {
+        farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
+        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
+      } else if (g_rearmData && g_rearmData.trucks && g_rearmData.trucks.length) {
         var modeLabels = {0: 'Unlimited', 1: 'Caliber Pool', 2: 'Magazine'};
         var modeLabel = modeLabels[g_rearmData.mode] || 'Unknown';
         var ammoTotalStr = g_rearmData.unlimited ? 'Unlimited' : (g_rearmData.totalSupply + ' pts');
         farpHtml += '<div class="farp-sec-hdr">AMMO <span class="farp-sec-total">' + ammoTotalStr + ' \xB7 ' + modeLabel + '</span></div>';
         for (var ri = 0; ri < g_rearmData.trucks.length; ri++) {
           var rs = g_rearmData.trucks[ri];
-          var rsVal = rs.unlimited ? 'Unlimited' : (rs.supply + ' pts');
-          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + String(rs.name || 'Rearm Source') + '</span><span class="farp-src-val">' + rsVal + '</span></div>';
+          var rsVal = rs.unlimited ? 'Unlimited' : (rs.supply >= 0 ? rs.supply + ' pts' : 'Available');
+          farpHtml += '<div class="farp-src-row"><span class="farp-src-name">' + farpSourceName(rs, 'Rearm Source') + '</span><span class="farp-src-val">' + rsVal + '</span></div>';
         }
-      } else if (g_noAmmoSourceRequired) {
-        farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
-        farpHtml += '<div class="farp-none farp-not-req">Not Required</div>';
       } else {
         farpHtml += '<div class="farp-sec-hdr">AMMO</div>';
-        farpHtml += '<div class="farp-none">No sources nearby</div>';
+        farpHtml += '<div class="farp-none">None within ' + g_sourceDistance + ' m</div>';
       }
       farpHtml += '</div>';
 
@@ -614,6 +626,7 @@ function setSaveLoadScope(scope) {
 
 function openSaveLoadDialog(mode) {
   setSaveLoadMode(mode);
+  showPlannerNotice('');
   saveLoadState.open = true;
   saveLoadState.selectedName = '';
   document.getElementById('saveLoadName').value = '';
@@ -632,7 +645,7 @@ function closeSaveLoadDialog() {
 function saveCurrentPlannerState() {
   var name = trimSaveName(document.getElementById('saveLoadName').value);
   if (!name) {
-    showAlert('Enter a save name first.');
+    showPlannerNotice('Enter a save name first.', 'warn');
     return;
   }
 
@@ -640,13 +653,20 @@ function saveCurrentPlannerState() {
   var entries = readSaveStore(scope);
   var idx = findSaveIndex(entries, name);
   if (idx !== -1 && entries[idx].locked) {
-    showAlert('Cannot overwrite a built-in preset. Choose a different name.');
+    showPlannerNotice('Cannot overwrite a built-in preset. Choose a different name.', 'warn');
     return;
   }
-  if (idx !== -1 && !showConfirm('Overwrite existing save "' + entries[idx].name + '"?')) {
+  if (idx !== -1) {
+    showDeleteConfirm('Overwrite existing save "' + entries[idx].name + '"?', function() {
+      writePlannerSave(name, scope);
+    }, { title: 'Confirm Overwrite', yes: 'Overwrite' });
     return;
   }
+  writePlannerSave(name, scope);
+}
 
+function writePlannerSave(name, scope) {
+  var entries = readSaveStore(scope);
   var state = getPlannerState();
   var entry = normalizeSaveEntry({
     name: name,
@@ -669,14 +689,14 @@ function saveCurrentPlannerState() {
 function loadSelectedPlannerState() {
   var name = trimSaveName(document.getElementById('saveLoadName').value || saveLoadState.selectedName);
   if (!name) {
-    showAlert('Select a save to load.');
+    showPlannerNotice('Select a save to load.', 'warn');
     return;
   }
 
   var entries = readSaveStore(saveLoadState.scope);
   var idx = findSaveIndex(entries, name);
   if (idx === -1) {
-    showAlert('That save no longer exists. Refreshing the list.');
+    showPlannerNotice('That save no longer exists. Refreshing the list.', 'warn');
     renderSaveLoadList();
     return;
   }
@@ -699,8 +719,12 @@ function closeDeleteConfirmDialog() {
   document.getElementById('deleteConfirmModal').setAttribute('aria-hidden', 'true');
 }
 
-function showDeleteConfirm(message, onConfirm) {
+// The page's own confirm; opts.title and opts.yes relabel it for other questions than a delete
+function showDeleteConfirm(message, onConfirm, opts) {
+  opts = opts || {};
   deleteConfirmState.onConfirm = typeof onConfirm === 'function' ? onConfirm : null;
+  document.getElementById('deleteConfirmTitle').textContent = opts.title || 'Confirm Delete';
+  document.getElementById('btnDeleteConfirmYes').textContent = opts.yes || 'Delete';
   document.getElementById('deleteConfirmMessage').textContent = String(message || 'Are you sure?');
   document.getElementById('deleteConfirmModal').classList.add('visible');
   document.getElementById('deleteConfirmModal').setAttribute('aria-hidden', 'false');
@@ -713,13 +737,13 @@ function performDeleteSelectedPlannerState(name) {
   var entries = readSaveStore(saveLoadState.scope);
   var idx = findSaveIndex(entries, targetName);
   if (idx === -1) {
-    showAlert('That save no longer exists. Refreshing the list.');
+    showPlannerNotice('That save no longer exists. Refreshing the list.', 'warn');
     renderSaveLoadList();
     return;
   }
 
   if (!canDeleteEntry(saveLoadState.scope, entries[idx])) {
-    showAlert('Only the owner can delete that mission save.');
+    showPlannerNotice('Only the owner can delete that mission save.', 'warn');
     updateSaveLoadControls();
     return;
   }
@@ -736,20 +760,20 @@ function performDeleteSelectedPlannerState(name) {
 function deleteSelectedPlannerState() {
   var name = trimSaveName(document.getElementById('saveLoadName').value || saveLoadState.selectedName);
   if (!name) {
-    showAlert('Select a save to delete.');
+    showPlannerNotice('Select a save to delete.', 'warn');
     return;
   }
 
   var entries = readSaveStore(saveLoadState.scope);
   var idx = findSaveIndex(entries, name);
   if (idx === -1) {
-    showAlert('That save no longer exists. Refreshing the list.');
+    showPlannerNotice('That save no longer exists. Refreshing the list.', 'warn');
     renderSaveLoadList();
     return;
   }
 
   if (!canDeleteEntry(saveLoadState.scope, entries[idx])) {
-    showAlert('Only the owner can delete that mission save.');
+    showPlannerNotice('Only the owner can delete that mission save.', 'warn');
     updateSaveLoadControls();
     return;
   }
@@ -761,22 +785,30 @@ function deleteSelectedPlannerState() {
 
 function pushSelectedPlannerStateToMission() {
   if (saveLoadState.scope !== 'own') {
-    showAlert('Push to Mission works from the OWN save list.');
+    showPlannerNotice('Push to Mission works from the OWN save list.', 'warn');
     return;
   }
 
   var entry = getSelectedSaveEntry('own');
   if (!entry) {
-    showAlert('Select an OWN save to push into missionNamespace.');
+    showPlannerNotice('Select an OWN save to push into missionNamespace.', 'warn');
     return;
   }
 
   var missionEntries = readSaveStore('mission');
   var idx = findSaveIndex(missionEntries, entry.name);
-  if (idx !== -1 && !showConfirm('Overwrite mission save "' + missionEntries[idx].name + '"?')) {
+  if (idx !== -1) {
+    showDeleteConfirm('Overwrite mission save "' + missionEntries[idx].name + '"?', function() {
+      writeMissionPush(entry);
+    }, { title: 'Confirm Overwrite', yes: 'Overwrite' });
     return;
   }
+  writeMissionPush(entry);
+}
 
+function writeMissionPush(entry) {
+  var missionEntries = readSaveStore('mission');
+  var idx = findSaveIndex(missionEntries, entry.name);
   var pushedEntry = normalizeSaveEntry({
     name: entry.name,
     state: entry.state,
@@ -790,8 +822,8 @@ function pushSelectedPlannerStateToMission() {
 
   writeSaveStore('mission', missionEntries.filter(function(e) { return !e.locked; }));
   syncPushMissionToSqf(pushedEntry.name, pushedEntry.state);
-  showAlert('Mission save pushed. Owner: ' + (pushedEntry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
   setSaveLoadScope('mission');
+  showPlannerNotice('Mission save pushed. Owner: ' + (pushedEntry.ownerName || saveLoadState.currentPlayerName || 'Unknown'));
   saveLoadState.selectedName = pushedEntry.name;
   document.getElementById('saveLoadName').value = pushedEntry.name;
   renderSaveLoadList();
