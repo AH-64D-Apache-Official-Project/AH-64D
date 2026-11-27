@@ -4,26 +4,172 @@
         <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED">
             <Original>No Ammo Source Required</Original>
             <English>No Ammo Source Required</English>
+            <Czech>Není vyžadován zdroj munice</Czech>
+            <French>Aucune source de munitions requise</French>
+            <Spanish>No se requiere fuente de munición</Spanish>
+            <Italian>Nessuna fonte di munizioni richiesta</Italian>
+            <Polish>Źródło amunicji nie jest wymagane</Polish>
+            <Portuguese>Fonte de munição não necessária</Portuguese>
+            <Russian>Источник боеприпасов не требуется</Russian>
+            <German>Keine Munitionsquelle erforderlich</German>
+            <Korean>탄약 보급원 불필요</Korean>
+            <Japanese>弾薬補給源不要</Japanese>
+            <Chinesesimp>无需弹药来源</Chinesesimp>
+            <Turkish>Mühimmat Kaynağı Gerekmez</Turkish>
+            <Dutch>Geen munitiebron vereist</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_MPLANNER_NO_AMMO_SOURCE_REQUIRED_DESC">
-            <Original>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</Original>
-            <English>When enabled, Mission Planner can apply pylon and cannon changes without requiring a nearby ammo truck.</English>
+            <Original>When enabled, the Mission Planner can change pylons and the gun without an ammunition source within the source distance.</Original>
+            <English>When enabled, the Mission Planner can change pylons and the gun without an ammunition source within the source distance.</English>
+            <Czech>Je-li zapnuto, může plánovač mise měnit pylony a kanón bez zdroje munice ve vzdálenosti zdroje.</Czech>
+            <French>Si activé, le planificateur de mission peut modifier les pylônes et le canon sans source de munitions dans la distance de source.</French>
+            <Spanish>Si está activado, el planificador de misión puede cambiar los pilones y el cañón sin una fuente de munición dentro de la distancia de fuente.</Spanish>
+            <Italian>Se attivo, il pianificatore di missione può modificare i piloni e il cannone senza una fonte di munizioni entro la distanza della fonte.</Italian>
+            <Polish>Gdy włączone, planer misji może zmieniać pylony i działko bez źródła amunicji w odległości źródła.</Polish>
+            <Portuguese>Quando ativado, o planejador de missão pode alterar os pilones e o canhão sem uma fonte de munição dentro da distância da fonte.</Portuguese>
+            <Russian>Если включено, планировщик миссии может менять пилоны и пушку без источника боеприпасов в пределах дистанции источника.</Russian>
+            <German>Wenn aktiviert, kann der Missionsplaner Pylonen und Bordkanone ohne Munitionsquelle innerhalb der Quellentfernung ändern.</German>
+            <Korean>활성화하면 임무 계획기가 보급원 거리 안에 탄약 보급원이 없어도 파일런과 기관포를 변경할 수 있습니다.</Korean>
+            <Japanese>有効にすると、ミッションプランナーは補給源距離内に弾薬補給源がなくてもパイロンと機関砲を変更できます。</Japanese>
+            <Chinesesimp>启用后，任务规划器无需在来源距离内有弹药来源即可更改挂架和机炮。</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, Görev Planlayıcı kaynak mesafesi içinde bir mühimmat kaynağı olmadan pilonları ve topu değiştirebilir.</Turkish>
+            <Dutch>Indien ingeschakeld, kan de missieplanner pylonen en het boordkanon wijzigen zonder munitiebron binnen de bronafstand.</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED">
             <Original>No Fuel Source Required</Original>
             <English>No Fuel Source Required</English>
+            <Czech>Není vyžadován zdroj paliva</Czech>
+            <French>Aucune source de carburant requise</French>
+            <Spanish>No se requiere fuente de combustible</Spanish>
+            <Italian>Nessuna fonte di carburante richiesta</Italian>
+            <Polish>Źródło paliwa nie jest wymagane</Polish>
+            <Portuguese>Fonte de combustível não necessária</Portuguese>
+            <Russian>Источник топлива не требуется</Russian>
+            <German>Keine Treibstoffquelle erforderlich</German>
+            <Korean>연료 보급원 불필요</Korean>
+            <Japanese>燃料補給源不要</Japanese>
+            <Chinesesimp>无需燃料来源</Chinesesimp>
+            <Turkish>Yakıt Kaynağı Gerekmez</Turkish>
+            <Dutch>Geen brandstofbron vereist</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_MPLANNER_NO_FUEL_SOURCE_REQUIRED_DESC">
-            <Original>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</Original>
-            <English>When enabled, Mission Planner can apply fuel changes without requiring a nearby fuel source.</English>
+            <Original>When enabled, the Mission Planner can refuel without a fuel source within the source distance.</Original>
+            <English>When enabled, the Mission Planner can refuel without a fuel source within the source distance.</English>
+            <Czech>Je-li zapnuto, může plánovač mise tankovat bez zdroje paliva ve vzdálenosti zdroje.</Czech>
+            <French>Si activé, le planificateur de mission peut ravitailler sans source de carburant dans la distance de source.</French>
+            <Spanish>Si está activado, el planificador de misión puede repostar sin una fuente de combustible dentro de la distancia de fuente.</Spanish>
+            <Italian>Se attivo, il pianificatore di missione può rifornire senza una fonte di carburante entro la distanza della fonte.</Italian>
+            <Polish>Gdy włączone, planer misji może tankować bez źródła paliwa w odległości źródła.</Polish>
+            <Portuguese>Quando ativado, o planejador de missão pode reabastecer sem uma fonte de combustível dentro da distância da fonte.</Portuguese>
+            <Russian>Если включено, планировщик миссии может заправлять без источника топлива в пределах дистанции источника.</Russian>
+            <German>Wenn aktiviert, kann der Missionsplaner ohne Treibstoffquelle innerhalb der Quellentfernung betanken.</German>
+            <Korean>활성화하면 임무 계획기가 보급원 거리 안에 연료 보급원이 없어도 급유할 수 있습니다.</Korean>
+            <Japanese>有効にすると、ミッションプランナーは補給源距離内に燃料補給源がなくても給油できます。</Japanese>
+            <Chinesesimp>启用后，任务规划器无需在来源距离内有燃料来源即可加油。</Chinesesimp>
+            <Turkish>Etkinleştirildiğinde, Görev Planlayıcı kaynak mesafesi içinde bir yakıt kaynağı olmadan yakıt ikmali yapabilir.</Turkish>
+            <Dutch>Indien ingeschakeld, kan de missieplanner tanken zonder brandstofbron binnen de bronafstand.</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE">
             <Original>Rearm Mode</Original>
             <English>Rearm Mode</English>
+            <Czech>Režim přezbrojení</Czech>
+            <French>Mode de réarmement</French>
+            <Spanish>Modo de rearme</Spanish>
+            <Italian>Modalità di riarmo</Italian>
+            <Polish>Tryb przezbrajania</Polish>
+            <Portuguese>Modo de rearmamento</Portuguese>
+            <Russian>Режим перевооружения</Russian>
+            <German>Aufmunitionierungsmodus</German>
+            <Korean>재무장 모드</Korean>
+            <Japanese>再武装モード</Japanese>
+            <Chinesesimp>重新装弹模式</Chinesesimp>
+            <Turkish>Yeniden Silahlanma Modu</Turkish>
+            <Dutch>Herbewapeningsmodus</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_MPLANNER_REARM_MODE_DESC">
-            <Original>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</Original>
-            <English>Controls how long Mission Planner rearm operations take. Instant: no delay. 30 Seconds: fixed 30s per operation. ACE Settings: uses ACE-configured timers.</English>
+            <Original>How long the Mission Planner takes to apply a loadout. Instant: no delay. 30 Seconds: 30 seconds for the whole change. Per Item: a time for each store and the gun, fuel at the fuel rate, and 300 seconds for the FCR or the IAFS.</Original>
+            <English>How long the Mission Planner takes to apply a loadout. Instant: no delay. 30 Seconds: 30 seconds for the whole change. Per Item: a time for each store and the gun, fuel at the fuel rate, and 300 seconds for the FCR or the IAFS.</English>
+            <Czech>Jak dlouho plánovači mise trvá použití výzbroje. Instant: bez prodlení. 30 Seconds: 30 sekund na celou změnu. Per Item: čas pro každou zbraň a kanón, palivo podle rychlosti tankování a 300 sekund pro FCR nebo IAFS.</Czech>
+            <French>Durée nécessaire au planificateur de mission pour appliquer un chargement. Instant : sans délai. 30 Seconds : 30 secondes pour tout le changement. Per Item : un temps par emport et pour le canon, le carburant au débit de ravitaillement, et 300 secondes pour le FCR ou l'IAFS.</French>
+            <Spanish>Cuánto tarda el planificador de misión en aplicar una carga. Instant: sin demora. 30 Seconds: 30 segundos para todo el cambio. Per Item: un tiempo por cada carga y el cañón, el combustible al ritmo de repostaje y 300 segundos para el FCR o el IAFS.</Spanish>
+            <Italian>Quanto tempo impiega il pianificatore di missione ad applicare un carico. Instant: nessun ritardo. 30 Seconds: 30 secondi per l'intera modifica. Per Item: un tempo per ogni carico e per il cannone, il carburante alla velocità di rifornimento e 300 secondi per l'FCR o l'IAFS.</Italian>
+            <Polish>Ile czasu planer misji potrzebuje na zastosowanie uzbrojenia. Instant: bez opóźnienia. 30 Seconds: 30 sekund na całą zmianę. Per Item: osobny czas dla każdego podwieszenia i działka, paliwo według szybkości tankowania oraz 300 sekund dla FCR lub IAFS.</Polish>
+            <Portuguese>Quanto tempo o planejador de missão leva para aplicar uma carga. Instant: sem atraso. 30 Seconds: 30 segundos para toda a alteração. Per Item: um tempo para cada carga e para o canhão, o combustível na taxa de reabastecimento e 300 segundos para o FCR ou o IAFS.</Portuguese>
+            <Russian>Сколько времени планировщику миссии нужно на применение загрузки. Instant: без задержки. 30 Seconds: 30 секунд на всё изменение. Per Item: своё время для каждого подвеса и пушки, топливо со скоростью заправки и 300 секунд для FCR или IAFS.</Russian>
+            <German>Wie lange der Missionsplaner zum Übernehmen einer Beladung braucht. Instant: ohne Verzögerung. 30 Seconds: 30 Sekunden für die ganze Änderung. Per Item: eine Zeit für jede Außenlast und die Bordkanone, Treibstoff mit der Betankungsrate und 300 Sekunden für das FCR oder das IAFS.</German>
+            <Korean>임무 계획기가 탑재 구성을 적용하는 데 걸리는 시간입니다. Instant: 지연 없음. 30 Seconds: 전체 변경에 30초. Per Item: 각 무장과 기관포마다 시간, 연료는 급유 속도에 따라, FCR 또는 IAFS는 300초.</Korean>
+            <Japanese>ミッションプランナーが搭載構成を適用するのにかかる時間。Instant: 遅延なし。30 Seconds: 変更全体で30秒。Per Item: 搭載物と機関砲ごとの時間、燃料は給油速度で、FCRまたはIAFSは300秒。</Japanese>
+            <Chinesesimp>任务规划器应用挂载方案所需的时间。Instant：无延迟。30 Seconds：整个更改共30秒。Per Item：每个挂载物和机炮各有时间，燃料按加油速率，FCR或IAFS为300秒。</Chinesesimp>
+            <Turkish>Görev Planlayıcının bir yükleme düzenini uygulama süresi. Instant: gecikme yok. 30 Seconds: tüm değişiklik için 30 saniye. Per Item: her mühimmat ve top için ayrı süre, yakıt ikmal hızında yakıt ve FCR veya IAFS için 300 saniye.</Turkish>
+            <Dutch>Hoe lang de missieplanner nodig heeft om een bewapening toe te passen. Instant: geen vertraging. 30 Seconds: 30 seconden voor de hele wijziging. Per Item: een tijd per wapenlast en voor het boordkanon, brandstof met de tanksnelheid en 300 seconden voor de FCR of de IAFS.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_SOURCE_DISTANCE">
+            <Original>Source Distance</Original>
+            <English>Source Distance</English>
+            <Czech>Vzdálenost zdroje</Czech>
+            <French>Distance de source</French>
+            <Spanish>Distancia de fuente</Spanish>
+            <Italian>Distanza della fonte</Italian>
+            <Polish>Odległość źródła</Polish>
+            <Portuguese>Distância da fonte</Portuguese>
+            <Russian>Дистанция источника</Russian>
+            <German>Quellentfernung</German>
+            <Korean>보급원 거리</Korean>
+            <Japanese>補給源距離</Japanese>
+            <Chinesesimp>来源距离</Chinesesimp>
+            <Turkish>Kaynak Mesafesi</Turkish>
+            <Dutch>Bronafstand</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_SOURCE_DISTANCE_DESC">
+            <Original>How far, in metres, an ammunition or fuel source can be from the aircraft for the Mission Planner to use it.</Original>
+            <English>How far, in metres, an ammunition or fuel source can be from the aircraft for the Mission Planner to use it.</English>
+            <Czech>Jak daleko v metrech smí být zdroj munice nebo paliva od letounu, aby ho plánovač mise použil.</Czech>
+            <French>Distance maximale, en mètres, entre l'appareil et une source de munitions ou de carburant pour que le planificateur de mission l'utilise.</French>
+            <Spanish>A qué distancia, en metros, puede estar una fuente de munición o combustible de la aeronave para que el planificador de misión la use.</Spanish>
+            <Italian>A quale distanza, in metri, può trovarsi una fonte di munizioni o carburante dal velivolo perché il pianificatore di missione la usi.</Italian>
+            <Polish>Jak daleko, w metrach, źródło amunicji lub paliwa może być od statku powietrznego, aby planer misji mógł z niego skorzystać.</Polish>
+            <Portuguese>A que distância, em metros, uma fonte de munição ou combustível pode estar da aeronave para o planejador de missão a usar.</Portuguese>
+            <Russian>На каком расстоянии в метрах от вертолёта может находиться источник боеприпасов или топлива, чтобы планировщик миссии его использовал.</Russian>
+            <German>Wie weit eine Munitions- oder Treibstoffquelle in Metern vom Luftfahrzeug entfernt sein darf, damit der Missionsplaner sie nutzt.</German>
+            <Korean>임무 계획기가 사용할 수 있는 탄약 또는 연료 보급원과 항공기 사이의 최대 거리(미터)입니다.</Korean>
+            <Japanese>ミッションプランナーが使用できる、機体から弾薬または燃料補給源までの距離（メートル）。</Japanese>
+            <Chinesesimp>弹药或燃料来源与飞机之间的距离（米）在此范围内时，任务规划器才会使用它。</Chinesesimp>
+            <Turkish>Görev Planlayıcının kullanabilmesi için bir mühimmat veya yakıt kaynağının hava aracından en fazla kaç metre uzakta olabileceği.</Turkish>
+            <Dutch>Hoe ver, in meters, een munitie- of brandstofbron van het toestel mag staan om door de missieplanner te worden gebruikt.</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_FUEL_RATE">
+            <Original>Fuel Rate</Original>
+            <English>Fuel Rate</English>
+            <Czech>Rychlost tankování</Czech>
+            <French>Débit de carburant</French>
+            <Spanish>Ritmo de repostaje</Spanish>
+            <Italian>Velocità di rifornimento</Italian>
+            <Polish>Szybkość tankowania</Polish>
+            <Portuguese>Taxa de reabastecimento</Portuguese>
+            <Russian>Скорость заправки</Russian>
+            <German>Betankungsrate</German>
+            <Korean>급유 속도</Korean>
+            <Japanese>給油速度</Japanese>
+            <Chinesesimp>加油速率</Chinesesimp>
+            <Turkish>Yakıt İkmal Hızı</Turkish>
+            <Dutch>Tanksnelheid</Dutch>
+        </Key>
+        <Key ID="STR_FZA_AH64_MPLANNER_FUEL_RATE_DESC">
+            <Original>Litres per second the Mission Planner refuels and defuels at in Per Item mode.</Original>
+            <English>Litres per second the Mission Planner refuels and defuels at in Per Item mode.</English>
+            <Czech>Kolik litrů za sekundu plánovač mise natankuje nebo odčerpá v režimu Per Item.</Czech>
+            <French>Litres par seconde auxquels le planificateur de mission ravitaille ou vidange en mode Per Item.</French>
+            <Spanish>Litros por segundo a los que el planificador de misión reposta o vacía combustible en el modo Per Item.</Spanish>
+            <Italian>Litri al secondo con cui il pianificatore di missione rifornisce o svuota il carburante in modalità Per Item.</Italian>
+            <Polish>Liczba litrów na sekundę, z jaką planer misji tankuje lub zlewa paliwo w trybie Per Item.</Polish>
+            <Portuguese>Litros por segundo com que o planejador de missão reabastece ou drena combustível no modo Per Item.</Portuguese>
+            <Russian>Скорость в литрах в секунду, с которой планировщик миссии заправляет или сливает топливо в режиме Per Item.</Russian>
+            <German>Liter pro Sekunde, mit denen der Missionsplaner im Modus Per Item betankt oder enttankt.</German>
+            <Korean>Per Item 모드에서 임무 계획기가 급유 또는 배유하는 초당 리터 수입니다.</Korean>
+            <Japanese>Per Itemモードでミッションプランナーが給油または抜油する毎秒リットル数。</Japanese>
+            <Chinesesimp>Per Item模式下任务规划器加油或抽油的速率（升/秒）。</Chinesesimp>
+            <Turkish>Per Item modunda Görev Planlayıcının saniyede kaç litre yakıt ikmali veya boşaltması yaptığı.</Turkish>
+            <Dutch>Liter per seconde waarmee de missieplanner in de modus Per Item tankt of brandstof aftapt.</Dutch>
         </Key>
         <Key ID="STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY">
             <Original>LMC Sensitivity</Original>

@@ -38,11 +38,12 @@ if (_idx >= 0) then {
 };
 
 _namespace setVariable [_key, _entries, _isMissionScope];
-if (!_isMissionScope) then {
-    saveProfileNamespace;
-    systemChat format ["Mission Planner: saved '%1' to profile (%2 total saves).", _trimmedName, count _entries];
+private _notice = if (_isMissionScope) then {
+    format ["Saved '%1' to the mission.", _trimmedName]
 } else {
-    systemChat format ["Mission Planner: saved '%1' to mission namespace.", _trimmedName];
+    saveProfileNamespace;
+    format ["Saved '%1' to your profile (%2 saves).", _trimmedName, count _entries]
 };
+[createHashMapFromArray [["type", "notice"], ["text", _notice]]] call fza_mplanner_fnc_pageEvent;
 
 true;

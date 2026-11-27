@@ -76,24 +76,6 @@ function trimSaveName(rawName) {
   return String(rawName || '').replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
 }
 
-function showAlert(message) {
-  if (typeof A3API !== 'undefined' && A3API && typeof A3API.SendAlert === 'function') {
-    A3API.SendAlert(String(message || ''));
-    return;
-  }
-
-  alert(String(message || ''));
-}
-
-function showConfirm(message) {
-  if (typeof A3API !== 'undefined' && A3API && typeof A3API.SendConfirm === 'function') {
-    return !!A3API.SendConfirm(String(message || ''));
-  }
-
-  return confirm(String(message || ''));
-}
-
-
 function sqfQuotedString(value) {
   return '"' + String(value || '')
     .replace(/"/g, '""') + '"';
